@@ -1,0 +1,35 @@
+# VitePress 相关
+.vitepress/dist
+.vitepress/cache
+
+# Node modules
+node_modules/
+
+# OS generated files
+.DS_Store
+
+# Temporary files
+*.local
+
+# Build directories
+dist
+dist-ssr
+
+# Cache directories
+cache
+.cache
+.temp
+
+# Log files
+*.log
+
+# IDE files
+.idea
+*.iws
+*.iml
+*.ipr
+out
+gen
+
+# Other
+*.xml.versionsBackup
