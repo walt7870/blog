@@ -1,6 +1,7 @@
 # VitePress 相关
 .vitepress/dist
 .vitepress/cache
+.vitepress/dist.zip
 
 # Node modules
 node_modules/
