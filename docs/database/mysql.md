@@ -45,3 +45,5 @@ OWNER      COLUMN_NAME     NUM_ROWS CARDINALITY SELECTIVITY NOTICE
 ---------- ------------- ---------- ----------- ----------- ----------
 SCOTT      OBJECT_ID          72462       72462         100 Need index
 ```
+
+![alt text](image.png)
