@@ -50,12 +50,12 @@ export default {
           //     { text: 'Java', link: '/' }
           //   ]
           // },
-          // {
-          //   text: '垃圾回收', items: [
-          //     { text: '概述', link: '/docs/devlanauge/java/gc/gc' },
-          //     { text: 'G1', link: '/docs/devlanauge/java/gc/g1' }
-          //   ]
-          // },
+          {
+            text: '垃圾回收', items: [
+              { text: '概述', link: '/docs/devlanguage/java/gc/gc' },
+              // { text: 'G1', link: '/docs/devlanauge/java/gc/g1' }
+            ]
+          },
           // {
           //   text: 'JVM', items: [
           //     { text: '类加载', link: '/docs/devlanauge/java/gc/gc' },
