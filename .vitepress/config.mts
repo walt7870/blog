@@ -10,6 +10,9 @@
 
 // https://vitepress.dev/reference/site-config
 export default {
+  title: '稻草人的文档',
+  logo: 'logo.png',
+
   // base: '/docs/',
   themeConfig: {
     search: {
