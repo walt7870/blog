@@ -48,36 +48,47 @@ export default {
       },
       {
         text: '后端', items: [
-          // {
-          //   text: '开发语言', items: [
-          //     { text: 'Java', link: '/' }
-          //   ]
-          // },
           {
-            text: '垃圾回收', items: [
-              { text: '概述', link: '/docs/devlanguage/java/gc/gc' },
-              // { text: 'G1', link: '/docs/devlanauge/java/gc/g1' }
+            text: 'java', items: [
+              // { text: 'JVM', link: '/docs/devlanguage/java/jvm' },
+              { text: '垃圾回收', link: 'docs/devlanguage/java/gc/gc' },
             ]
           },
-          // {
-          //   text: 'JVM', items: [
-          //     { text: '类加载', link: '/docs/devlanauge/java/gc/gc' },
-          //     { text: '内存模型', link: '/docs/devlanauge/java/gc/g1' },
-          //     { text: '执行引擎', link: '/docs/devlanauge/java/gc/g1' }
-          //   ]
-          // },
-          // { text: '数据库', link: '...' }
+
         ]
       },
+
+      // {
+      //   text: '垃圾回收', items: [
+      //     { text: '概述', link: '/docs/devlanguage/java/gc/gc' },
+      //     // { text: 'G1', link: '/docs/devlanauge/java/gc/g1' }
+      //   ]
+      // },
+      // {
+      //   text: 'JVM', items: [
+      //     { text: '类加载', link: '/docs/devlanauge/java/gc/gc' },
+      //     { text: '内存模型', link: '/docs/devlanauge/java/gc/g1' },
+      //     { text: '执行引擎', link: '/docs/devlanauge/java/gc/g1' }
+      //   ]
+      // },
+      // { text: '数据库', link: '...' }
+
 
 
       {
         text: '工具', items: [
-          { text: 'linux', items: [
+          {
+            text: '构建工具', items: [
+              { text: "gradle", link: "/docs/devlanguage/java/manager/gradle" }
+            ]
+          },
+          {
+            text: 'linux', items: [
               { text: "常用命令", link: "/docs/linux/commond" }
             ]
           },
-          { text: '编辑器', items: [
+          {
+            text: '编辑器', items: [
               { text: 'vim', link: '/docs/linux/vim' },
               // { text: 'vscode', link: '...' }
             ]

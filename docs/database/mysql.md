@@ -5,12 +5,14 @@ title:
 LastEditTime: 2022-12-05 19:25:41
 LastEditors: Walt
 ---
-```
+
+``` sql
 select column,count(1) from `test` group by column order by 2 desc
 ```
+
 查看列数据分布比例，来判断查询是否可以走索引，通常扫描返回列超过5%进行全表扫描，不走索引
 
-```
+``` sql
 SQL> select owner,
   2         column_name,
   3         num_rows,
