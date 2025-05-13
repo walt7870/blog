@@ -78,6 +78,11 @@ export default {
       {
         text: '工具', items: [
           {
+            text: 'web服务', items: [
+              { text: "nginx", link: "/docs/linux/nginx" }
+            ]
+          },
+          {
             text: '构建工具', items: [
               { text: "gradle", link: "/docs/devlanguage/java/manager/gradle" }
             ]
