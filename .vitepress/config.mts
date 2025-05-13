@@ -79,7 +79,8 @@ export default {
         text: '工具', items: [
           {
             text: 'web服务', items: [
-              { text: "nginx", link: "/docs/linux/nginx" }
+              { text: "nginx概览", link: "/docs/linux/nginx/nginx" },
+              { text: "locaiton详解", link: "/docs/linux/nginx/location" }
             ]
           },
           {
