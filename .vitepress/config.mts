@@ -13,12 +13,12 @@ import { nav } from './navbar.ts';
 
 // https://vitepress.dev/reference/site-config
 export default  defineConfig({
+  base: '/blog/',
   title: '稻草人的文档',
   // logo: 'logo.png',)
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
-  // base: '/docs/',
   themeConfig: {
     logo: {
       light: '/logo.png',
