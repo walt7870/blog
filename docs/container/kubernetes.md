@@ -168,7 +168,7 @@ spec:
 
 **ConfigMap**用于存储非机密的配置信息（如配置文件、环境变量、命令行参数），并将其注入到 Pod 中，解耦配置与镜像。
 
-+ **使用****方式**
++ **使用方式**
   + 作为环境变量：`envFrom`或单个 `env`。
   + 作为命令行参数：通过 `args`引用。
   + 作为卷挂载：以文件形式提供给容器。 [Kubernetes](https://kubernetes.io/docs/concepts/configuration/configmap/)
@@ -204,7 +204,7 @@ Pod 启动时会将 `LOG_LEVEL`和 `KEY_FILE`注入为环境变量。详细参�
 
 **Secret**与 ConfigMap 类似，但用于存储敏感数据（如密码、Token、TLS 证书），在 API Server 和 etcd 中可选加密存储，并在传输时自动 Base64 编码。
 
-+ **注意****事项**
++ **注意事项**
   + 默认明文存储在 etcd，应启用加密插件。
   + 访问控制依赖于命名空间与 RBAC，需谨慎分配权限。 详细参考：[Kubernetes](https://kubernetes.io/docs/concepts/configuration/secret/)
 + **示例**

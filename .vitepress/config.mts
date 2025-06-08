@@ -8,8 +8,8 @@
  */
 import { defineConfig } from 'vitepress';
 
-import { sidebar } from './sidebar.ts';
 import { nav } from './navbar.ts';
+import { sidebar } from './sidebar.ts';
 
 // https://vitepress.dev/reference/site-config
 export default  defineConfig({
@@ -17,7 +17,7 @@ export default  defineConfig({
   title: '稻草人的文档',
   // logo: 'logo.png',)
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/blog/favicon.ico' }]
   ],
   themeConfig: {
     logo: {

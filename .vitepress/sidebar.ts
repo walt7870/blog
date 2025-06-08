@@ -27,6 +27,16 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
+    // 领域驱动
+    '/docs/component/': [
+      {
+        text: '消息中间件',
+        items: [
+          { text: 'kafka', link: '/docs/component/kafka' },
+        ]
+      }
+    ],
+
   // 后端-java-jvm
   '/docs/devlanguage/java/jvm/': [
     {
