@@ -7,7 +7,8 @@ export const nav: DefaultTheme.NavItem[] = [
       text: '架构', items: [
         { text: '领域驱动', link: '/docs/DDD/' },
         { text: '容器相关', link: '/docs/container/' },
-        { text: '消息中间件', link: '/docs/component/' }
+        { text: '消息中间件', link: '/docs/component/' },
+        { text: '设计模式', link: '/docs/design/design-pattern/' },
       ]
     },
     {
