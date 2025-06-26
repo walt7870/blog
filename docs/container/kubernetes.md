@@ -7,6 +7,8 @@ Razorops
 
 2015 年 7 月 21 日发布 1.0 版本，随后 Google 与 Linux 基金会合作，成立了云原生计算基金会（CNCF），并将 Kubernetes 作为其首个“种子”项目，为其后续生态建设奠定基础 Kubernetes。截至 2024 年底，Kubernetes 已成长为全球第二大开源项目，贡献者超 88,000 人，生态涵盖容器运行时、网络插件、存储接口、监控、服务网格等多个领域，并在超过 71% 的《财富》100 强企业中部署运行。
 
+核心宗旨：一切皆是资源，资源是可以被定义描述的，被定义描述的资源是可以被系统监控执行到目标状态的，可以使用yaml配置来管理集群，k8s工程师有时候也被成为yaml工程师😂
+
 ## 2. 核心组价
 
 ### 2.1 控制平面
@@ -82,6 +84,7 @@ spec:
 ### 3.2 Service
 
 **Service**为一组 Pod 提供稳定的网络访问入口，支持多种类型（ClusterIP、NodePort、LoadBalancer、ExternalName 等），并内置简单的负载均衡能力。
+Service 通过标签选择器（Label Selector）动态关联后端 Pod，并为其分配持久的虚拟 IP（ClusterIP）和 DNS 名称，同时提供四层（L4）负载均衡能力
 
 + **核心属性**
   + **selector**：定义后端 Pod 的标签。
@@ -102,7 +105,7 @@ spec:
       targetPort: 80
 ```
 
-创建后，集群内部任何 Pod 均可通过 `my-clusterip-svc.default.svc.cluster.local:80`访问后端 nginx Pod。 [Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/service)
+创建后，集群内部**Pod**可通过 `my-clusterip-svc.default.svc.cluster.local:80`访问后端 nginx Pod。 [Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/service)
 
 + **NodePort 示例**
 
