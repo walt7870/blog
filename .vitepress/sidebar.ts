@@ -26,8 +26,8 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: '概述', link: '/docs/container/index' },
         { text: '容器', link: '/docs/container/docker-component' },
-        { text: '相关标准', link: 'docs/container/standard' },
-        { text: '容器编排', link: 'docs/container/kubernetes' },
+        { text: '相关标准', link: '/docs/container/standard' },
+        { text: '容器编排', link: '/docs/container/kubernetes' },
         { 
           text: 'kubernetes相关资源', 
           collapsed: false,  
@@ -260,8 +260,8 @@ export const sidebar: DefaultTheme.Sidebar = {
     {
       text: 'nginx',
       items: [
-        { text: '概述', link: 'docs/linux/nginx/nginx' },
-        { text: 'location详解', link: 'docs/linux/nginx/location' },
+        { text: '概述', link: '/docs/linux/nginx/nginx' },
+        { text: 'location详解', link: '/docs/linux/nginx/location' },
       ]
     }
   ],

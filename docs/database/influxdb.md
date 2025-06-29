@@ -457,7 +457,7 @@ sensor,device=sensor01 temperature=23.5,humidity=65i,active=true,location="room1
 
 ### 基本语法
 
-```flux
+```txt
 // 基本查询结构
 from(bucket: "mybucket")
   |> range(start: -1h)
@@ -475,7 +475,7 @@ from(bucket: "mybucket")
 
 ### 过滤和转换
 
-```flux
+```txt
 // 过滤条件
 from(bucket: "mybucket")
   |> range(start: -1h)
@@ -504,7 +504,7 @@ from(bucket: "mybucket")
 
 ### 聚合函数
 
-```flux
+```txt
 // 基本聚合
 from(bucket: "mybucket")
   |> range(start: -1h)
@@ -542,7 +542,7 @@ from(bucket: "mybucket")
 
 ### 高级查询
 
-```flux
+```txt
 // 连接查询
 temp = from(bucket: "mybucket")
   |> range(start: -1h)
@@ -738,7 +738,7 @@ wait
 
 ### 查询优化
 
-```flux
+```txt
 // 使用时间范围过滤
 from(bucket: "mybucket")
   |> range(start: -1h)  // 总是指定时间范围
@@ -787,7 +787,7 @@ from(bucket: "mybucket")
 
 ### 系统监控
 
-```flux
+```txt
 // 查看系统指标
 from(bucket: "_monitoring")
   |> range(start: -1h)
@@ -1345,7 +1345,7 @@ func main() {
 
 ### 3. 金融数据分析
 
-```flux
+```txt
 // 股票价格分析
 stock_data = from(bucket: "financial_data")
   |> range(start: -30d)

@@ -556,7 +556,7 @@ Spring 框架作为 Java 企业级开发的事实标准，提供了全面的解�
 ### 相关文档
 
 - [Spring Boot 详细指南](./springboot.md)
-- [Spring 核心特性详解](./spring-core.md)
+- Spring 核心特性详解
 - [Spring 官方文档](https://spring.io/projects/spring-framework)
 
 Spring 框架的强大之处在于其灵活性和可扩展性，无论是传统的单体应用还是现代的微服务架构，Spring 都能提供合适的解决方案。通过持续学习和实践，开发者可以充分利用 Spring 的优势，构建出色的企业级应用。

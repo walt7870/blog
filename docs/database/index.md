@@ -27,9 +27,9 @@ LastEditors: Walt
 **主流产品**：
 - [MySQL](./mysql.md) - 开源、高性能、易用
 - [PostgreSQL](./postgresql.md) - 功能丰富、标准兼容
-- [Oracle Database](./oracle.md) - 企业级、功能强大
-- [SQL Server](./sqlserver.md) - 微软生态、集成度高
-- [SQLite](./sqlite.md) - 轻量级、嵌入式
+- Oracle Database - 企业级、功能强大
+- SQL Server - 微软生态、集成度高
+- SQLite - 轻量级、嵌入式
 
 #### 2. 非关系型数据库 (NoSQL)
 
@@ -46,7 +46,7 @@ LastEditors: Walt
 
 **主流产品**：
 - [MongoDB](./mongodb.md) - 最流行的文档数据库
-- [CouchDB](./couchdb.md) - 分布式、容错性强
+- CouchDB - 分布式、容错性强
 
 ##### 2.2 键值数据库
 
@@ -59,8 +59,8 @@ LastEditors: Walt
 
 **主流产品**：
 - [Redis](./redis.md) - 内存数据库、丰富数据类型
-- [Amazon DynamoDB](./dynamodb.md) - 云原生、无服务器
-- [Riak](./riak.md) - 分布式、高可用
+- Amazon DynamoDB - 云原生、无服务器
+- Riak - 分布式、高可用
 
 ##### 2.3 列族数据库
 
@@ -72,9 +72,9 @@ LastEditors: Walt
 - 水平扩展性强
 
 **主流产品**：
-- [Cassandra](./cassandra.md) - 分布式、高可用
-- [HBase](./hbase.md) - Hadoop 生态、大数据处理
-- [ClickHouse](./clickhouse.md) - 分析型、高性能
+- Cassandra - 分布式、高可用
+- HBase - Hadoop 生态、大数据处理
+- ClickHouse - 分析型、高性能
 
 ##### 2.4 图数据库
 
@@ -86,9 +86,9 @@ LastEditors: Walt
 - 适合社交网络、推荐系统
 
 **主流产品**：
-- [Neo4j](./neo4j.md) - 最流行的图数据库
-- [Amazon Neptune](./neptune.md) - 云原生图数据库
-- [ArangoDB](./arangodb.md) - 多模型数据库
+- Neo4j - 最流行的图数据库
+- Amazon Neptune - 云原生图数据库
+- ArangoDB - 多模型数据库
 
 详细介绍请参考：[图数据库](./graph-database.md)
 
@@ -97,9 +97,9 @@ LastEditors: Walt
 支持多种数据模型的数据库系统。
 
 **主流产品**：
-- [ArangoDB](./arangodb.md) - 文档、图、键值
-- [OrientDB](./orientdb.md) - 文档、图、对象
-- [CosmosDB](./cosmosdb.md) - 微软云多模型数据库
+- ArangoDB - 文档、图、键值
+- OrientDB - 文档、图、对象
+- CosmosDB - 微软云多模型数据库
 
 ### 按部署方式分类
 
