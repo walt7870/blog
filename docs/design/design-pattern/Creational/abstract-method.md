@@ -1,4 +1,4 @@
-# 抽象工厂方法
+# 抽象工厂方法 (Abstract Factory Pattern)
 
 ## 概括
 

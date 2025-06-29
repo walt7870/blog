@@ -1,4 +1,4 @@
-# 工厂方法
+# 建造者模式 (Builder Pattern)
 
 ## 概括
 

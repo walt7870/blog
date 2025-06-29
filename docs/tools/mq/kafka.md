@@ -76,11 +76,13 @@ Kafka 是一个“多租户”的平台，不同系统/模块间不能互相干�
 Kafka 支持一对一（一组消费者只消费一份数据）或一对多（多组消费者各自消费）模式。多个消费者组可以重复消费同一个 Topic 的消息，互不干扰。
 
 ##### Topic 的使用场景（典型业务实践）
+
 ✅ 场景 1：日志收集系统
 >不同服务将日志发送到不同的 Topic，例如：access-log,error-log,debug-log等
 >Kafka可以与 ELK、Flink 等工具协同做实时处理。
 
 ✅ 场景 2：电商平台的订单系统
+>
 >1. 用户下单后，消息发送到 Topic：order-created
 >2. 支付成功后，写入 Topic：order-paid
 >3. 发货通知写入 Topic：order-shipped
@@ -111,16 +113,19 @@ bin/kafka-topics.sh --create \
 ```
 
 **查看topic**
+
 ``` bash
 bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
 **查看topic详情**
+
 ``` bash
 bin/kafka-topics.sh --describe --topic test-topic --bootstrap-server localhost:9092
 ```
 
 输出类似：
+
 ``` yaml
 Topic: test-topic  PartitionCount:3  ReplicationFactor:1  Configs:segment.bytes=1073741824
     Partition: 0  Leader: 0  Replicas: 0  Isr: 0
@@ -145,12 +150,14 @@ bin/kafka-topics.sh --delete --topic test-topic --bootstrap-server localhost:909
 >⚠️ 注意：需要在 server.properties 中配置 delete.topic.enable=true,删除不是立即生效，Kafka 会异步清理
 
 **增加 Topic 的 Partition（⚠️ 注意顺序性问题）**
+
 ```bash
 bin/kafka-topics.sh --alter \
     --topic test-topic \
     --bootstrap-server localhost:9092 \
     --partitions 6
 ```
+
 >增加分区会打破原有 key 的 hash 到分区的规律，可能导致乱序（生产者有指定 key 的情况下）
 
 ##### 2. Partition（分区）
@@ -176,6 +183,7 @@ Kafka 不保证 Topic 级别的全局顺序，但每个 Partition 内的消息�
 ##### Partition 的常用命令
 
 1. **创建 Topic 时指定分区数**
+
 ```bash
 bin/kafka-topics.sh --create \
   --topic user-log \
@@ -187,6 +195,7 @@ bin/kafka-topics.sh --create \
 ```
 
 2. **修改分区数量（增加）**
+
 ```bash
 bin/kafka-topics.sh --alter \
   --topic user-log \
@@ -205,7 +214,9 @@ bin/kafka-console-consumer.sh \
   --partition 0 \
   --from-beginning
 ```
+
 4. **指定 key 发送到特定 Partition（生产者发送）**
+
 ```bash
 
 bin/kafka-console-producer.sh \
@@ -214,6 +225,7 @@ bin/kafka-console-producer.sh \
   --property "parse.key=true" \
   --property "key.separator=:" 
   ```
+
 >Kafka 会根据 key 的 hash 决定 Partition。
 
 ##### 分区数如何设计？（关键实践建议）
@@ -225,10 +237,11 @@ bin/kafka-console-producer.sh \
 | 每秒几万条消息的系统        | 10-30      |
 | 实时大数据处理           | 50+，但需测压验证 |
 
+##### 实践建议
 
-#####  实践建议
 分区数量 ≈ 预期消费者数量 × 每消费者处理能力 × 并发系数
 不能一味多，过多分区会带来副作用：
+
 1. 控制器压力变大
 
 2. 文件句柄数量多

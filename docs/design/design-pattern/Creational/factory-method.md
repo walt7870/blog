@@ -1,4 +1,4 @@
-# 工厂方法
+# 工厂方法 (Factory Method Pattern)
 
 ## 概括
 

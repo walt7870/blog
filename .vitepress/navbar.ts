@@ -2,56 +2,58 @@
 import type { DefaultTheme } from 'vitepress';
 
 export const nav: DefaultTheme.NavItem[] = [
-    { text: '概览', link: '/index' },
+    // { text: '概览', link: 'index' },
+    { text: '人工智能', link: '/docs/ai/' },
     {
       text: '架构', items: [
-        { text: '领域驱动', link: '/docs/DDD/' },
+        { text: '架构设计', link: '/docs/design/architecture/' },
         { text: '容器相关', link: '/docs/container/' },
-        { text: '消息中间件', link: '/docs/component/' },
         { text: '设计模式', link: '/docs/design/design-pattern/' },
       ]
     },
     {
-      text: '后端', items: [
+      text: '数据', items: [
+        { text: '数据库技术', link: '/docs/database/' },
+        { text: '大数据技术', link: '/docs/database/bigdata/' },
+      ]
+    },
+    {
+      text: '开发语言', items: [
         {
-          text: 'java', items: [
-            { text: 'JVM', link: '/docs/devlanguage/java/jvm/jvm' },
-            // { text: '垃圾回收', link: 'docs/devlanguage/java/gc/gc' },
+          text:'JAVA',
+          items: [
+            {text: 'java基础', link: '/docs/devlanguage/java/basic/'},
+            {text: 'java框架', link: '/docs/devlanguage/java/framework/'},
+            {text: 'JVM', link: '/docs/devlanguage/java/jvm/'},
+            {text: 'jdk', link: '/docs/devlanguage/java/jdk/'},
+            {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
           ]
-        },
+        }
+
 
       ]
     },
 
-    // {
-    //   text: '垃圾回收', items: [
-    //     { text: '概述', link: '/docs/devlanguage/java/gc/gc' },
-    //     // { text: 'G1', link: '/docs/devlanauge/java/gc/g1' }
-    //   ]
-    // },
-    // {
-    //   text: 'JVM', items: [
-    //     { text: '类加载', link: '/docs/devlanauge/java/gc/gc' },
-    //     { text: '内存模型', link: '/docs/devlanauge/java/gc/g1' },
-    //     { text: '执行引擎', link: '/docs/devlanauge/java/gc/g1' }
-    //   ]
-    // },
-    // { text: '数据库', link: '...' }
+
 
 
 
     {
       text: '工具', items: [
         {
+          text: '消息中间件', link:"/docs/tools/mq",
+        },
+        {
           text: 'web服务', items: [
             { text: "nginx概览", link: "/docs/linux/nginx/nginx" },
           ]
         },
-        {
-          text: '构建工具', items: [
-            { text: "gradle", link: "/docs/devlanguage/java/manager/gradle" }
-          ]
-        },
+        // {
+        //   text: '依赖管理工具', items: [
+        //     { text: "gradle", link: "/docs/devlanguage/java/manager/gradle" },
+        //     { text: "maven", link: "/docs/devlanguage/java/manager/maven" }
+        //   ]
+        // },
         {
           text: 'linux', items: [
             { text: "常用命令", link: "/docs/linux/commond" }
@@ -59,7 +61,7 @@ export const nav: DefaultTheme.NavItem[] = [
         },
         {
           text: '编辑器', items: [
-            { text: 'vim', link: '/docs/linux/vim' },
+            { text: 'vim', link: '/docs/tools/vim/' },
             // { text: 'vscode', link: '...' }
           ]
         }
