@@ -26,10 +26,8 @@ export const nav: DefaultTheme.NavItem[] = [
             {text: 'java框架', link: '/docs/devlanguage/java/framework/'},
             {text: 'JVM', link: '/docs/devlanguage/java/jvm/'},
             {text: 'jdk', link: '/docs/devlanguage/java/jdk/'},
-            {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
           ]
         }
-
 
       ]
     },
@@ -39,32 +37,18 @@ export const nav: DefaultTheme.NavItem[] = [
 
 
     {
+      text: 'Linux系统', items: [
+        { text: '系统概述', link: '/docs/linux/index' },
+        { text: '常用命令', link: '/docs/linux/command/index' },
+        { text: '进程管理', link: '/docs/linux/process/index' },
+        { text: 'Nginx', link: '/docs/linux/nginx/nginx' },
+      ]
+    },
+    {
       text: '工具', items: [
-        {
-          text: '消息中间件', link:"/docs/tools/mq",
-        },
-        {
-          text: 'web服务', items: [
-            { text: "nginx概览", link: "/docs/linux/nginx/nginx" },
-          ]
-        },
-        // {
-        //   text: '依赖管理工具', items: [
-        //     { text: "gradle", link: "/docs/devlanguage/java/manager/gradle" },
-        //     { text: "maven", link: "/docs/devlanguage/java/manager/maven" }
-        //   ]
-        // },
-        {
-          text: 'linux', items: [
-            { text: "常用命令", link: "/docs/linux/commond" }
-          ]
-        },
-        {
-          text: '编辑器', items: [
-            { text: 'vim', link: '/docs/tools/vim/' },
-            // { text: 'vscode', link: '...' }
-          ]
-        }
+        {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
+        {text: '消息中间件', link:"/docs/tools/mq"},
+        { text: 'vim', link: '/docs/tools/vim/' },
       ]
     }
   ]

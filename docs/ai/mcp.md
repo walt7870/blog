@@ -1,996 +1,952 @@
-# MCP (Model Context Protocol) 详解
+# MCP (Model Context Protocol) 完全指南
 
-Model Context Protocol (MCP) 是一个开放标准，旨在为AI应用程序提供安全、标准化的方式来连接外部数据源和工具。MCP使AI助手能够安全地访问本地和远程资源，同时保持用户控制和隐私。
+Model Context Protocol (MCP) 是由 Anthropic 开发的开放标准协议，旨在为 AI 应用程序提供安全、标准化的方式来连接外部数据源和工具。简单来说，MCP 就像是 AI 助手的"插件系统"，让 AI 能够安全地访问你的文件、数据库、API 等各种资源。
 
-## 概述
+## 🤔 MCP 是什么？
 
-### 什么是MCP
+### 核心概念
 
-MCP是由Anthropic开发的一个协议标准，它解决了AI应用程序与外部系统集成时面临的复杂性和安全性问题。通过MCP，开发者可以：
+想象一下，你的 AI 助手就像一个非常聪明的助理，但它被困在一个房间里，无法直接访问你的文件、数据库或其他工具。MCP 就是为这个助理提供的"安全通道"，让它能够：
 
-- **统一接口**: 使用标准化的协议连接各种数据源和工具
-- **安全访问**: 确保数据传输和访问的安全性
-- **简化集成**: 降低AI应用与外部系统的集成复杂度
-- **增强能力**: 扩展AI模型的功能边界
+- 📁 **读取你的文件** - 分析代码、文档、数据
+- 🗄️ **查询数据库** - 获取业务数据进行分析
+- 🔧 **使用工具** - 执行计算、搜索、API 调用
+- 🌐 **访问网络资源** - 获取实时信息
 
-### 核心价值
+### 为什么需要 MCP？
 
-1. **标准化**: 提供统一的接口规范，避免重复开发
-2. **安全性**: 内置安全机制，保护敏感数据
-3. **可扩展性**: 支持多种类型的资源和工具
-4. **互操作性**: 不同系统间的无缝协作
-5. **用户控制**: 用户对数据访问有完全控制权
+在 MCP 出现之前，每个 AI 应用都需要自己实现与外部系统的集成，这导致：
 
-## 架构设计
+❌ **重复开发** - 每个应用都要重新造轮子  
+❌ **安全风险** - 缺乏统一的安全标准  
+❌ **兼容性差** - 不同系统间难以互操作  
+❌ **维护困难** - 每个集成都需要单独维护  
 
-### 核心组件
+MCP 解决了这些问题：
+
+✅ **标准化接口** - 统一的协议规范  
+✅ **内置安全** - 权限控制和数据保护  
+✅ **即插即用** - 一次开发，到处使用  
+✅ **生态丰富** - 社区贡献的大量工具  
+
+## 🏗️ MCP 架构原理
+
+### 三层架构
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   AI Client     │    │   MCP Server    │    │   Resources     │
+│   AI 应用       │    │   MCP 服务器    │    │   外部资源      │
 │                 │    │                 │    │                 │
 │ ┌─────────────┐ │    │ ┌─────────────┐ │    │ ┌─────────────┐ │
-│ │   Model     │ │    │ │  Protocol   │ │    │ │ File System │ │
-│ │             │ │◄──►│ │  Handler    │ │◄──►│ │             │ │
+│ │ Claude/GPT  │ │    │ │ 协议处理器  │ │    │ │ 文件系统    │ │
+│ │             │ │◄──►│ │             │ │◄──►│ │             │ │
 │ └─────────────┘ │    │ └─────────────┘ │    │ └─────────────┘ │
 │                 │    │                 │    │                 │
 │ ┌─────────────┐ │    │ ┌─────────────┐ │    │ ┌─────────────┐ │
-│ │ MCP Client  │ │    │ │ Resource    │ │    │ │  Database   │ │
-│ │             │ │    │ │ Manager     │ │    │ │             │ │
+│ │ MCP 客户端  │ │    │ │ 安全管理器  │ │    │ │ 数据库      │ │
+│ │             │ │    │ │             │ │    │ │             │ │
 │ └─────────────┘ │    │ └─────────────┘ │    │ └─────────────┘ │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-#### 1. MCP Client (客户端)
+### 工作流程
 
-- **职责**: 发起请求，处理响应
-- **功能**: 协议通信、请求管理、错误处理
-- **实现**: 通常集成在AI应用程序中
+1. **AI 应用发起请求** - "我需要读取这个文件"
+2. **MCP 客户端转换请求** - 将请求转换为标准 MCP 协议
+3. **MCP 服务器验证权限** - 检查是否有访问权限
+4. **执行操作** - 安全地访问目标资源
+5. **返回结果** - 将结果返回给 AI 应用
 
-#### 2. MCP Server (服务端)
+## 🚀 如何使用 MCP？
 
-- **职责**: 处理客户端请求，管理资源访问
-- **功能**: 协议解析、权限验证、资源调度
-- **实现**: 独立服务或嵌入式组件
+### 1. 快速开始 - Claude Desktop
 
-#### 3. Resources (资源)
+最简单的方式是通过 Claude Desktop 使用 MCP：
 
-- **类型**: 文件系统、数据库、API、工具等
-- **访问**: 通过MCP Server统一管理
-- **安全**: 权限控制和访问审计
+#### 安装 Claude Desktop
 
-### 通信模型
+```bash
+# macOS
+brew install --cask claude
 
-```txt
-Client                    Server                    Resource
-  │                         │                         │
-  │ ──── Request ────────► │                         │
-  │                         │ ──── Access ─────────► │
-  │                         │ ◄─── Data ──────────── │
-  │ ◄─── Response ──────── │                         │
-  │                         │                         │
+# 或从官网下载
+# https://claude.ai/download
 ```
 
-## 协议规范
+#### 配置 MCP 服务器
 
-### 消息格式
+编辑 Claude Desktop 配置文件：
 
-MCP使用JSON-RPC 2.0作为基础通信协议：
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
-  "jsonrpc": "2.0",
-  "method": "resources/read",
-  "params": {
-    "uri": "file:///path/to/file.txt"
-  },
-  "id": 1
-}
-```
-
-### 核心方法
-
-#### 1. 资源管理
-
-**列出资源**:
-
-```json
-{
-  "method": "resources/list",
-  "params": {
-    "cursor": null
-  }
-}
-```
-
-**读取资源**:
-
-```json
-{
-  "method": "resources/read",
-  "params": {
-    "uri": "file:///example.txt"
-  }
-}
-```
-
-**订阅资源变更**:
-
-```json
-{
-  "method": "resources/subscribe",
-  "params": {
-    "uri": "file:///watched/directory"
-  }
-}
-```
-
-#### 2. 工具调用
-
-**列出工具**:
-
-```json
-{
-  "method": "tools/list",
-  "params": {}
-}
-```
-
-**调用工具**:
-
-```json
-{
-  "method": "tools/call",
-  "params": {
-    "name": "calculator",
-    "arguments": {
-      "expression": "2 + 2"
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/directory"]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "your-api-key-here"
+      }
     }
   }
 }
 ```
 
-#### 3. 提示管理
+重启 Claude Desktop，你就可以让 Claude 访问指定目录的文件了！
 
-**获取提示**:
+### 2. 主流编辑器接入 MCP
+
+除了 Claude Desktop，现在越来越多的主流编辑器和 AI 工具开始支持 MCP 协议。以下是各个编辑器的具体接入方法：
+
+#### 2.1 Cursor
+
+**Cursor** 是基于 VSCode 的 AI 代码编辑器，原生支持 MCP 协议。
+
+##### 安装和配置
+
+1. **下载 Cursor**
+```bash
+# 从官网下载
+# https://cursor.sh
+```
+
+2. **配置 MCP 服务器**
+
+打开 Cursor 设置，找到 "MCP Servers" 选项，或者直接编辑配置文件：
+
+**macOS**: `~/Library/Application Support/Cursor/User/settings.json`  
+**Windows**: `%APPDATA%\Cursor\User\settings.json`  
+**Linux**: `~/.config/Cursor/User/settings.json`
 
 ```json
 {
-  "method": "prompts/get",
-  "params": {
-    "name": "code_review",
-    "arguments": {
-      "language": "python"
+  "mcp.servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/project"],
+      "env": {}
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "/path/to/repo"],
+      "env": {}
     }
   }
 }
 ```
 
-**列出提示**:
+3. **使用方式**
+
+配置完成后，在 Cursor 的 AI 聊天界面中，你可以直接询问：
+- "分析当前项目的代码结构"
+- "查看最近的 Git 提交记录"
+- "帮我重构这个函数"
+
+#### 2.2 Trae AI
+
+**Trae AI** 是新一代的 AI 开发环境，内置了强大的 MCP 支持。
+
+##### 配置方法
+
+1. **安装 Trae AI**
+```bash
+# 从官网下载
+# https://trae.ai
+```
+
+2. **MCP 配置**
+
+Trae AI 提供了图形化的 MCP 配置界面：
+
+- 打开 Trae AI
+- 进入 "Settings" → "MCP Servers"
+- 点击 "Add Server" 添加新的 MCP 服务器
+
+或者编辑配置文件 `~/.trae/mcp-config.json`：
 
 ```json
 {
-  "method": "prompts/list",
-  "params": {}
-}
-```
-
-### 错误处理
-
-```json
-{
-  "jsonrpc": "2.0",
-  "error": {
-    "code": -32602,
-    "message": "Invalid params",
-    "data": {
-      "details": "URI format is invalid"
-    }
-  },
-  "id": 1
-}
-```
-
-## 实现指南
-
-### 服务端实现
-
-#### Python示例
-
-```python
-import asyncio
-import json
-from typing import Any, Dict, List
-from mcp import McpServer, types
-
-class FileSystemMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("filesystem-server")
-        self.setup_handlers()
-    
-    def setup_handlers(self):
-        @self.list_resources()
-        async def list_resources() -> List[types.Resource]:
-            """列出可用资源"""
-            return [
-                types.Resource(
-                    uri="file:///documents",
-                    name="Documents",
-                    description="User documents directory",
-                    mimeType="inode/directory"
-                )
-            ]
-        
-        @self.read_resource()
-        async def read_resource(uri: str) -> str:
-            """读取资源内容"""
-            if uri.startswith("file://"):
-                file_path = uri[7:]  # 移除 file:// 前缀
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        return f.read()
-                except FileNotFoundError:
-                    raise ValueError(f"File not found: {file_path}")
-            else:
-                raise ValueError(f"Unsupported URI scheme: {uri}")
-        
-        @self.list_tools()
-        async def list_tools() -> List[types.Tool]:
-            """列出可用工具"""
-            return [
-                types.Tool(
-                    name="file_search",
-                    description="Search for files by name",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "pattern": {
-                                "type": "string",
-                                "description": "Search pattern"
-                            }
-                        },
-                        "required": ["pattern"]
-                    }
-                )
-            ]
-        
-        @self.call_tool()
-        async def call_tool(name: str, arguments: Dict[str, Any]) -> List[types.TextContent]:
-            """执行工具调用"""
-            if name == "file_search":
-                pattern = arguments.get("pattern", "")
-                # 实现文件搜索逻辑
-                results = self.search_files(pattern)
-                return [
-                    types.TextContent(
-                        type="text",
-                        text=f"Found {len(results)} files matching '{pattern}'"
-                    )
-                ]
-            else:
-                raise ValueError(f"Unknown tool: {name}")
-    
-    def search_files(self, pattern: str) -> List[str]:
-        """搜索文件的实现"""
-        import glob
-        return glob.glob(f"**/*{pattern}*", recursive=True)
-
-# 启动服务器
-async def main():
-    server = FileSystemMcpServer()
-    await server.run()
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
-
-#### TypeScript示例
-
-```typescript
-import { McpServer } from '@modelcontextprotocol/sdk/server';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
-import { ListResourcesRequestSchema, ReadResourceRequestSchema } from '@modelcontextprotocol/sdk/types';
-import * as fs from 'fs/promises';
-import * as path from 'path';
-
-class FileSystemServer {
-  private server: McpServer;
-
-  constructor() {
-    this.server = new McpServer(
-      {
-        name: 'filesystem-server',
-        version: '1.0.0'
+  "servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"],
+      "description": "文件系统访问"
+    },
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${env:DATABASE_URL}"
       },
-      {
-        capabilities: {
-          resources: {},
-          tools: {}
-        }
-      }
-    );
-
-    this.setupHandlers();
-  }
-
-  private setupHandlers() {
-    // 资源列表处理
-    this.server.setRequestHandler(
-      ListResourcesRequestSchema,
-      async () => {
-        return {
-          resources: [
-            {
-              uri: 'file:///documents',
-              name: 'Documents',
-              description: 'User documents directory',
-              mimeType: 'inode/directory'
-            }
-          ]
-        };
-      }
-    );
-
-    // 资源读取处理
-    this.server.setRequestHandler(
-      ReadResourceRequestSchema,
-      async (request) => {
-        const { uri } = request.params;
-        
-        if (uri.startsWith('file://')) {
-          const filePath = uri.slice(7);
-          try {
-            const content = await fs.readFile(filePath, 'utf-8');
-            return {
-              contents: [
-                {
-                  uri,
-                  mimeType: 'text/plain',
-                  text: content
-                }
-              ]
-            };
-          } catch (error) {
-            throw new Error(`Failed to read file: ${error.message}`);
-          }
-        }
-        
-        throw new Error(`Unsupported URI scheme: ${uri}`);
-      }
-    );
-  }
-
-  async run() {
-    const transport = new StdioServerTransport();
-    await this.server.connect(transport);
+      "description": "数据库查询"
+    }
   }
 }
-
-// 启动服务器
-const server = new FileSystemServer();
-server.run().catch(console.error);
 ```
 
-### 客户端实现
+3. **高级功能**
 
-#### Python客户端
+Trae AI 支持：
+- **动态服务器发现** - 自动检测项目中可用的 MCP 服务器
+- **权限管理** - 细粒度的访问控制
+- **服务器监控** - 实时查看 MCP 服务器状态
+
+#### 2.3 Visual Studio Code
+
+**VSCode** 通过扩展支持 MCP 协议。
+
+##### 安装 MCP 扩展
+
+1. **安装扩展**
+```bash
+# 在 VSCode 扩展市场搜索并安装
+# "MCP Client" 或 "Model Context Protocol"
+```
+
+2. **配置扩展**
+
+在 VSCode 设置中添加 MCP 配置：
+
+```json
+{
+  "mcp.servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"],
+      "cwd": "${workspaceFolder}"
+    },
+    "python-tools": {
+      "command": "python",
+      "args": ["-m", "mcp_server_python"],
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  },
+  "mcp.autoStart": true,
+  "mcp.logLevel": "info"
+}
+```
+
+3. **与 GitHub Copilot 集成**
+
+```json
+{
+  "github.copilot.advanced": {
+    "mcp.enabled": true,
+    "mcp.servers": ["filesystem", "git"]
+  }
+}
+```
+
+#### 2.4 CherryStudio
+
+**CherryStudio** 是一个现代化的 AI 聊天客户端，支持多种 AI 模型和 MCP 协议。
+
+##### 配置步骤
+
+1. **下载 CherryStudio**
+```bash
+# 从 GitHub 下载最新版本
+# https://github.com/kangfenmao/cherry-studio
+```
+
+2. **MCP 配置**
+
+在 CherryStudio 中配置 MCP：
+
+- 打开 "设置" → "MCP 服务器"
+- 添加新的服务器配置
+
+```json
+{
+  "name": "本地文件系统",
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/yourname/Projects"],
+  "env": {},
+  "autoStart": true
+}
+```
+
+3. **多模型支持**
+
+CherryStudio 支持将 MCP 与不同的 AI 模型结合使用：
+- Claude 3.5 Sonnet + MCP
+- GPT-4 + MCP
+- 本地模型 + MCP
+
+#### 2.5 Zed Editor
+
+**Zed** 是一个高性能的代码编辑器，通过插件支持 MCP。
+
+##### 配置方法
+
+1. **安装 MCP 插件**
+```bash
+# 在 Zed 中安装 MCP 插件
+# Cmd+Shift+P → "Install Extension" → 搜索 "MCP"
+```
+
+2. **配置文件**
+
+编辑 `~/.config/zed/settings.json`：
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceRoot}"]
+      }
+    },
+    "enabled": true
+  }
+}
+```
+
+#### 2.6 JetBrains IDEs (IntelliJ IDEA, PyCharm, WebStorm)
+
+**JetBrains** 系列 IDE 通过官方插件支持 MCP。
+
+##### 安装和配置
+
+1. **安装插件**
+- 打开 IDE
+- 进入 "Settings" → "Plugins"
+- 搜索并安装 "MCP Support"
+
+2. **配置 MCP 服务器**
+
+在 "Settings" → "Tools" → "MCP" 中配置：
+
+```xml
+<mcp-servers>
+  <server name="filesystem" command="npx" auto-start="true">
+    <args>
+      <arg>-y</arg>
+      <arg>@modelcontextprotocol/server-filesystem</arg>
+      <arg>${PROJECT_DIR}</arg>
+    </args>
+  </server>
+  <server name="database" command="python" auto-start="false">
+    <args>
+      <arg>-m</arg>
+      <arg>mcp_server_database</arg>
+    </args>
+    <env>
+      <var name="DB_URL" value="${DB_CONNECTION_STRING}" />
+    </env>
+  </server>
+</mcp-servers>
+```
+
+#### 2.7 Neovim
+
+**Neovim** 通过 Lua 插件支持 MCP 协议。
+
+##### 配置示例
+
+1. **安装插件**
+
+使用 `lazy.nvim` 或其他插件管理器：
+
+```lua
+-- ~/.config/nvim/lua/plugins/mcp.lua
+return {
+  "mcp-nvim/mcp.nvim",
+  config = function()
+    require("mcp").setup({
+      servers = {
+        filesystem = {
+          command = "npx",
+          args = {"-y", "@modelcontextprotocol/server-filesystem", vim.fn.getcwd()},
+          auto_start = true
+        },
+        git = {
+          command = "npx",
+          args = {"-y", "@modelcontextprotocol/server-git", vim.fn.getcwd()},
+          auto_start = true
+        }
+      }
+    })
+  end
+}
+```
+
+2. **使用方式**
+
+```lua
+-- 在 Neovim 中使用 MCP
+vim.keymap.set('n', '<leader>mf', ':MCPReadFile<CR>', { desc = 'MCP Read File' })
+vim.keymap.set('n', '<leader>mg', ':MCPGitStatus<CR>', { desc = 'MCP Git Status' })
+```
+
+#### 2.8 通用配置技巧
+
+##### 环境变量管理
+
+为了在不同编辑器间共享 MCP 配置，可以使用环境变量：
+
+```bash
+# ~/.bashrc 或 ~/.zshrc
+export MCP_FILESYSTEM_PATH="/Users/yourname/Projects"
+export MCP_DATABASE_URL="postgresql://localhost:5432/mydb"
+export MCP_API_KEYS_PATH="/Users/yourname/.config/mcp/api-keys.json"
+```
+
+##### 配置模板
+
+创建通用的 MCP 配置模板：
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${MCP_FILESYSTEM_PATH:-/tmp}"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "${MCP_FILESYSTEM_PATH:-/tmp}"]
+    },
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${MCP_DATABASE_URL}"
+      }
+    }
+  }
+}
+```
+
+##### 故障排除
+
+**常见问题和解决方案**：
+
+1. **服务器启动失败**
+```bash
+# 检查 Node.js 版本
+node --version  # 需要 >= 18
+
+# 清理 npm 缓存
+npm cache clean --force
+
+# 重新安装 MCP 服务器
+npm install -g @modelcontextprotocol/server-filesystem
+```
+
+2. **权限问题**
+```bash
+# 确保目录有正确的权限
+chmod 755 /path/to/directory
+
+# 检查文件所有权
+ls -la /path/to/directory
+```
+
+3. **网络连接问题**
+```bash
+# 测试网络连接
+curl -I https://registry.npmjs.org
+
+# 使用代理（如果需要）
+npm config set proxy http://proxy.company.com:8080
+```
+
+### 3. 编程集成
+
+#### Python 示例
 
 ```python
 import asyncio
 from mcp import ClientSession, StdioServerParameters
 
-class McpClient:
-    def __init__(self, server_path: str):
-        self.server_path = server_path
+class MCPClient:
+    def __init__(self):
         self.session = None
     
-    async def connect(self):
-        """连接到MCP服务器"""
+    async def connect_to_filesystem(self, allowed_path):
+        """连接到文件系统 MCP 服务器"""
         server_params = StdioServerParameters(
-            command=self.server_path,
-            args=[]
+            command="npx",
+            args=["-y", "@modelcontextprotocol/server-filesystem", allowed_path]
         )
-        
         self.session = await ClientSession.create(server_params)
     
-    async def list_resources(self):
-        """获取资源列表"""
-        if not self.session:
-            raise RuntimeError("Not connected to server")
-        
-        response = await self.session.list_resources()
-        return response.resources
+    async def read_file(self, file_path):
+        """读取文件内容"""
+        response = await self.session.read_resource(f"file://{file_path}")
+        return response.contents[0].text
     
-    async def read_resource(self, uri: str):
-        """读取资源内容"""
-        if not self.session:
-            raise RuntimeError("Not connected to server")
-        
-        response = await self.session.read_resource(uri)
-        return response.contents[0].text if response.contents else None
-    
-    async def call_tool(self, name: str, arguments: dict):
-        """调用工具"""
-        if not self.session:
-            raise RuntimeError("Not connected to server")
-        
-        response = await self.session.call_tool(name, arguments)
-        return response.content
-    
-    async def disconnect(self):
-        """断开连接"""
-        if self.session:
-            await self.session.close()
+    async def list_files(self, directory):
+        """列出目录中的文件"""
+        response = await self.session.call_tool("list_directory", {
+            "path": directory
+        })
+        return response.content[0].text
 
 # 使用示例
 async def main():
-    client = McpClient("python filesystem_server.py")
+    client = MCPClient()
+    await client.connect_to_filesystem("/Users/yourname/Documents")
     
-    try:
-        await client.connect()
-        
-        # 列出资源
-        resources = await client.list_resources()
-        print(f"Available resources: {len(resources)}")
-        
-        # 读取文件
-        content = await client.read_resource("file:///example.txt")
-        print(f"File content: {content}")
-        
-        # 调用工具
-        result = await client.call_tool("file_search", {"pattern": "*.py"})
-        print(f"Search result: {result}")
-        
-    finally:
-        await client.disconnect()
+    # 读取文件
+    content = await client.read_file("/Users/yourname/Documents/example.txt")
+    print(f"文件内容: {content}")
+    
+    # 列出文件
+    files = await client.list_files("/Users/yourname/Documents")
+    print(f"目录内容: {files}")
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 安全机制
+#### TypeScript 示例
 
-### 权限控制
+```typescript
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-```python
-class SecurityManager:
-    def __init__(self):
-        self.permissions = {
-            "file_read": ["file:///safe/directory/**"],
-            "file_write": ["file:///temp/**"],
-            "tool_execute": ["calculator", "text_processor"]
-        }
+class MCPClient {
+  private client: Client;
+  private transport: StdioClientTransport;
+
+  async connect(serverCommand: string, args: string[]) {
+    this.transport = new StdioClientTransport({
+      command: serverCommand,
+      args: args
+    });
     
-    def check_resource_permission(self, uri: str, action: str) -> bool:
-        """检查资源访问权限"""
-        allowed_patterns = self.permissions.get(f"file_{action}", [])
-        
-        for pattern in allowed_patterns:
-            if self.match_pattern(uri, pattern):
-                return True
-        
-        return False
+    this.client = new Client({
+      name: "my-client",
+      version: "1.0.0"
+    }, {
+      capabilities: {}
+    });
     
-    def check_tool_permission(self, tool_name: str) -> bool:
-        """检查工具执行权限"""
-        allowed_tools = self.permissions.get("tool_execute", [])
-        return tool_name in allowed_tools
-    
-    def match_pattern(self, uri: str, pattern: str) -> bool:
-        """模式匹配实现"""
-        import fnmatch
-        return fnmatch.fnmatch(uri, pattern)
-```
+    await this.client.connect(this.transport);
+  }
 
-### 数据加密
-
-```python
-import cryptography.fernet
-
-class EncryptionManager:
-    def __init__(self, key: bytes):
-        self.cipher = cryptography.fernet.Fernet(key)
-    
-    def encrypt_data(self, data: str) -> str:
-        """加密数据"""
-        encrypted = self.cipher.encrypt(data.encode())
-        return encrypted.decode()
-    
-    def decrypt_data(self, encrypted_data: str) -> str:
-        """解密数据"""
-        decrypted = self.cipher.decrypt(encrypted_data.encode())
-        return decrypted.decode()
-```
-
-### 审计日志
-
-```python
-import logging
-from datetime import datetime
-
-class AuditLogger:
-    def __init__(self):
-        self.logger = logging.getLogger('mcp_audit')
-        self.logger.setLevel(logging.INFO)
-        
-        handler = logging.FileHandler('mcp_audit.log')
-        formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
-        )
-        handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
-    
-    def log_resource_access(self, uri: str, action: str, user: str, success: bool):
-        """记录资源访问"""
-        self.logger.info(
-            f"Resource access: {action} {uri} by {user} - {'SUCCESS' if success else 'FAILED'}"
-        )
-    
-    def log_tool_execution(self, tool_name: str, user: str, success: bool):
-        """记录工具执行"""
-        self.logger.info(
-            f"Tool execution: {tool_name} by {user} - {'SUCCESS' if success else 'FAILED'}"
-        )
-```
-
-## 实际应用场景
-
-### 1. 文件系统集成
-
-**场景**: AI助手需要访问本地文件进行分析
-
-```python
-# MCP服务器配置
-file_server_config = {
-    "name": "filesystem",
-    "command": "python",
-    "args": ["file_server.py"],
-    "env": {
-        "ALLOWED_PATHS": "/home/user/documents,/home/user/projects"
-    }
+  async readFile(filePath: string): Promise<string> {
+    const response = await this.client.request(
+      { method: "resources/read", params: { uri: `file://${filePath}` } },
+      { method: "resources/read" }
+    );
+    return response.contents[0].text;
+  }
 }
 
-# 使用示例
-async def analyze_project():
-    client = McpClient("filesystem")
-    await client.connect()
-    
-    # 读取项目文件
-    files = await client.call_tool("list_files", {
-        "directory": "/home/user/projects/myapp",
-        "pattern": "*.py"
-    })
-    
-    # 分析代码质量
-    for file_path in files:
-        content = await client.read_resource(f"file://{file_path}")
-        analysis = await analyze_code(content)
-        print(f"Analysis for {file_path}: {analysis}")
+// 使用示例
+async function main() {
+  const client = new MCPClient();
+  await client.connect("npx", ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/directory"]);
+  
+  const content = await client.readFile("/path/to/file.txt");
+  console.log("文件内容:", content);
+}
+
+main().catch(console.error);
 ```
 
-### 2. 数据库集成
+## 🛠️ 热门 MCP 服务器推荐
 
-**场景**: AI助手查询数据库获取业务数据
+### 官方服务器
 
-```python
-# 数据库MCP服务器
-class DatabaseMcpServer(McpServer):
-    def __init__(self, db_config):
-        super().__init__("database-server")
-        self.db = self.connect_database(db_config)
-    
-    @self.call_tool()
-    async def execute_query(self, name: str, arguments: dict):
-        if name == "sql_query":
-            query = arguments.get("query")
-            # 安全检查：只允许SELECT语句
-            if not query.strip().upper().startswith("SELECT"):
-                raise ValueError("Only SELECT queries are allowed")
-            
-            results = await self.db.execute(query)
-            return [types.TextContent(
-                type="text",
-                text=json.dumps(results, indent=2)
-            )]
-
-# 使用示例
-async def get_sales_data():
-    client = McpClient("database")
-    await client.connect()
-    
-    result = await client.call_tool("sql_query", {
-        "query": "SELECT * FROM sales WHERE date >= '2024-01-01'"
-    })
-    
-    return json.loads(result[0].text)
+#### 1. 文件系统服务器
+```bash
+npx @modelcontextprotocol/server-filesystem /path/to/directory
 ```
+**功能**: 安全地访问本地文件和目录  
+**适用场景**: 代码分析、文档处理、数据读取
 
-### 3. API集成
-
-**场景**: AI助手调用外部API获取实时数据
-
-```python
-# API MCP服务器
-class ApiMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("api-server")
-        self.http_client = httpx.AsyncClient()
-    
-    @self.call_tool()
-    async def call_api(self, name: str, arguments: dict):
-        if name == "weather_api":
-            city = arguments.get("city")
-            api_key = os.getenv("WEATHER_API_KEY")
-            
-            url = f"https://api.weather.com/v1/current?city={city}&key={api_key}"
-            response = await self.http_client.get(url)
-            
-            return [types.TextContent(
-                type="text",
-                text=response.text
-            )]
-
-# 使用示例
-async def get_weather_info():
-    client = McpClient("api")
-    await client.connect()
-    
-    weather = await client.call_tool("weather_api", {
-        "city": "Beijing"
-    })
-    
-    return json.loads(weather[0].text)
+#### 2. Git 服务器
+```bash
+npx @modelcontextprotocol/server-git /path/to/repo
 ```
+**功能**: 访问 Git 仓库信息、提交历史、分支状态  
+**适用场景**: 代码审查、项目分析、版本管理
 
-### 4. 开发工具集成
+#### 3. 数据库服务器
+```bash
+npx @modelcontextprotocol/server-sqlite /path/to/database.db
+```
+**功能**: 查询 SQLite 数据库  
+**适用场景**: 数据分析、报表生成、业务查询
 
-**场景**: AI助手协助代码开发和调试
+#### 4. 网络搜索服务器
+```bash
+# Brave Search
+npx @modelcontextprotocol/server-brave-search
 
-```python
-# 开发工具MCP服务器
-class DevToolsMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("devtools-server")
-    
-    @self.call_tool()
-    async def dev_tools(self, name: str, arguments: dict):
-        if name == "run_tests":
-            test_path = arguments.get("path", ".")
-            result = subprocess.run(
-                ["python", "-m", "pytest", test_path],
-                capture_output=True,
-                text=True
-            )
-            
-            return [types.TextContent(
-                type="text",
-                text=f"Exit code: {result.returncode}\n\nSTDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}"
-            )]
-        
-        elif name == "lint_code":
-            file_path = arguments.get("file")
-            result = subprocess.run(
-                ["flake8", file_path],
-                capture_output=True,
-                text=True
-            )
-            
-            return [types.TextContent(
-                type="text",
-                text=result.stdout or "No linting issues found"
-            )]
+# Google Search
+npx @modelcontextprotocol/server-google-maps
+```
+**功能**: 实时网络搜索、地图查询  
+**适用场景**: 信息检索、位置服务、实时数据
 
-# 使用示例
-async def code_review_assistant():
-    client = McpClient("devtools")
-    await client.connect()
-    
-    # 运行测试
-    test_result = await client.call_tool("run_tests", {
-        "path": "tests/"
-    })
-    
-    # 代码检查
-    lint_result = await client.call_tool("lint_code", {
-        "file": "src/main.py"
-    })
-    
-    return {
-        "tests": test_result[0].text,
-        "linting": lint_result[0].text
+### 社区热门服务器
+
+#### 1. Postgres 数据库
+```bash
+npm install @modelcontextprotocol/server-postgres
+```
+**功能**: 连接 PostgreSQL 数据库  
+**配置示例**:
+```json
+{
+  "postgres": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-postgres"],
+    "env": {
+      "POSTGRES_CONNECTION_STRING": "postgresql://user:password@localhost:5432/dbname"
     }
+  }
+}
 ```
 
-## 最佳实践
+#### 2. Slack 集成
+```bash
+npm install @modelcontextprotocol/server-slack
+```
+**功能**: 发送消息、读取频道、管理工作区  
+**适用场景**: 团队协作、通知发送、信息同步
 
-### 1. 服务器设计
+#### 3. GitHub 集成
+```bash
+npm install @modelcontextprotocol/server-github
+```
+**功能**: 管理仓库、创建 Issue、审查 PR  
+**适用场景**: 代码管理、项目协作、自动化工作流
 
-**模块化设计**:
+#### 4. Docker 管理
+```bash
+npm install @modelcontextprotocol/server-docker
+```
+**功能**: 管理容器、镜像、网络  
+**适用场景**: 容器编排、环境管理、部署自动化
+
+#### 5. AWS 服务
+```bash
+npm install @modelcontextprotocol/server-aws
+```
+**功能**: 管理 EC2、S3、Lambda 等 AWS 服务  
+**适用场景**: 云资源管理、成本优化、自动化运维
+
+## 📦 从哪里获取 MCP 服务器？
+
+### 1. 官方仓库
+
+**GitHub**: https://github.com/modelcontextprotocol  
+**NPM**: https://www.npmjs.com/org/modelcontextprotocol
+
+```bash
+# 查看所有官方服务器
+npm search @modelcontextprotocol/server
+
+# 安装特定服务器
+npm install -g @modelcontextprotocol/server-filesystem
+```
+
+### 2. 社区资源
+
+#### Awesome MCP
+**GitHub**: https://github.com/punkpeye/awesome-mcp  
+精选的 MCP 服务器、工具和资源列表
+
+#### MCP Hub
+**网站**: https://mcp-hub.com  
+社区维护的 MCP 服务器目录
+
+### 3. 自建服务器
+
+#### Python 模板
+```bash
+git clone https://github.com/modelcontextprotocol/python-sdk
+cd python-sdk/examples
+```
+
+#### TypeScript 模板
+```bash
+git clone https://github.com/modelcontextprotocol/typescript-sdk
+cd typescript-sdk/examples
+```
+
+### 4. 企业级解决方案
+
+#### Anthropic 官方支持
+- **文档**: https://docs.anthropic.com/mcp
+- **支持**: enterprise@anthropic.com
+
+#### 第三方服务商
+- **MCP Cloud**: 托管式 MCP 服务
+- **Enterprise MCP**: 企业级安全和管理
+
+## 🔧 实战案例
+
+### 案例 1: 代码审查助手
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/project"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "/path/to/project"]
+    }
+  }
+}
+```
+
+**使用方式**: "请帮我审查最近的提交，检查代码质量和潜在问题"
+
+### 案例 2: 数据分析助手
+
+```json
+{
+  "mcpServers": {
+    "database": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "postgresql://localhost:5432/analytics"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/data/reports"]
+    }
+  }
+}
+```
+
+**使用方式**: "分析销售数据库中的趋势，并生成可视化报告"
+
+### 案例 3: DevOps 助手
+
+```json
+{
+  "mcpServers": {
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-docker"]
+    },
+    "aws": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-aws"],
+      "env": {
+        "AWS_ACCESS_KEY_ID": "your-key",
+        "AWS_SECRET_ACCESS_KEY": "your-secret",
+        "AWS_REGION": "us-west-2"
+      }
+    }
+  }
+}
+```
+
+**使用方式**: "检查生产环境的容器状态，如有问题请自动重启"
+
+## 🔒 安全最佳实践
+
+### 1. 权限最小化
+
+```json
+{
+  "filesystem": {
+    "command": "npx",
+    "args": [
+      "-y", 
+      "@modelcontextprotocol/server-filesystem", 
+      "/home/user/safe-directory"  // 只允许访问特定目录
+    ]
+  }
+}
+```
+
+### 2. 环境变量管理
+
+```bash
+# 使用 .env 文件
+echo "DATABASE_URL=postgresql://localhost:5432/mydb" > .env
+echo "API_KEY=your-secret-key" >> .env
+
+# 在配置中引用
+{
+  "env": {
+    "DATABASE_URL": "${DATABASE_URL}",
+    "API_KEY": "${API_KEY}"
+  }
+}
+```
+
+### 3. 网络隔离
+
+```json
+{
+  "mcpServers": {
+    "internal-db": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "postgresql://internal-host:5432/db"
+      }
+    }
+  }
+}
+```
+
+## 🚀 进阶技巧
+
+### 1. 自定义 MCP 服务器
 
 ```python
-class ModularMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("modular-server")
-        self.modules = {
-            "filesystem": FileSystemModule(),
-            "database": DatabaseModule(),
-            "api": ApiModule()
-        }
-        self.setup_handlers()
+# my_custom_server.py
+from mcp.server import Server
+from mcp.types import Resource, Tool
+
+app = Server("my-custom-server")
+
+@app.list_resources()
+async def list_resources():
+    return [
+        Resource(
+            uri="custom://data/users",
+            name="用户数据",
+            description="系统用户信息"
+        )
+    ]
+
+@app.read_resource()
+async def read_resource(uri: str):
+    if uri == "custom://data/users":
+        # 返回用户数据
+        return "用户数据内容..."
     
-    def setup_handlers(self):
-        for module_name, module in self.modules.items():
-            module.register_handlers(self)
-```
-
-**错误处理**:
-
-```python
-class RobustMcpServer(McpServer):
-    async def safe_call_tool(self, name: str, arguments: dict):
-        try:
-            return await self.call_tool(name, arguments)
-        except Exception as e:
-            self.logger.error(f"Tool call failed: {name} - {str(e)}")
-            return [types.TextContent(
-                type="text",
-                text=f"Error: {str(e)}"
-            )]
-```
-
-**性能优化**:
-
-```python
-class OptimizedMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("optimized-server")
-        self.cache = {}
-        self.connection_pool = ConnectionPool()
-    
-    async def cached_resource_read(self, uri: str):
-        if uri in self.cache:
-            return self.cache[uri]
-        
-        content = await self.read_resource(uri)
-        self.cache[uri] = content
-        return content
-```
-
-### 2. 客户端设计
-
-**连接管理**:
-
-```python
-class ManagedMcpClient:
-    def __init__(self, server_configs):
-        self.servers = {}
-        self.server_configs = server_configs
-    
-    async def get_server(self, server_name: str):
-        if server_name not in self.servers:
-            config = self.server_configs[server_name]
-            client = McpClient(config)
-            await client.connect()
-            self.servers[server_name] = client
-        
-        return self.servers[server_name]
-    
-    async def cleanup(self):
-        for client in self.servers.values():
-            await client.disconnect()
-```
-
-**重试机制**:
-
-```python
-import asyncio
-from tenacity import retry, stop_after_attempt, wait_exponential
-
-class ReliableMcpClient(McpClient):
-    @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=1, min=4, max=10)
-    )
-    async def reliable_call_tool(self, name: str, arguments: dict):
-        return await self.call_tool(name, arguments)
-```
-
-### 3. 安全实践
-
-**输入验证**:
-
-```python
-from jsonschema import validate, ValidationError
-
-class SecureMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("secure-server")
-        self.schemas = {
-            "file_read": {
+@app.list_tools()
+async def list_tools():
+    return [
+        Tool(
+            name="send_email",
+            description="发送邮件",
+            inputSchema={
                 "type": "object",
                 "properties": {
-                    "path": {"type": "string", "pattern": "^/safe/.*"}
-                },
-                "required": ["path"]
+                    "to": {"type": "string"},
+                    "subject": {"type": "string"},
+                    "body": {"type": "string"}
+                }
             }
-        }
-    
-    def validate_input(self, tool_name: str, arguments: dict):
-        if tool_name in self.schemas:
-            try:
-                validate(arguments, self.schemas[tool_name])
-            except ValidationError as e:
-                raise ValueError(f"Invalid input: {e.message}")
+        )
+    ]
+
+@app.call_tool()
+async def call_tool(name: str, arguments: dict):
+    if name == "send_email":
+        # 发送邮件逻辑
+        return f"邮件已发送到 {arguments['to']}"
+
+if __name__ == "__main__":
+    app.run()
 ```
 
-**资源限制**:
+### 2. 批量操作
+
+```python
+async def batch_file_analysis(client, file_paths):
+    """批量分析多个文件"""
+    results = []
+    for path in file_paths:
+        content = await client.read_resource(f"file://{path}")
+        # 分析文件内容
+        analysis = analyze_code(content.contents[0].text)
+        results.append({
+            "file": path,
+            "analysis": analysis
+        })
+    return results
+```
+
+### 3. 错误处理和重试
 
 ```python
 import asyncio
-from asyncio import Semaphore
+from typing import Optional
 
-class RateLimitedMcpServer(McpServer):
-    def __init__(self):
-        super().__init__("rate-limited-server")
-        self.semaphore = Semaphore(10)  # 最多10个并发请求
-        self.request_counts = {}
+class RobustMCPClient:
+    def __init__(self, max_retries: int = 3):
+        self.max_retries = max_retries
+        self.session: Optional[ClientSession] = None
     
-    async def handle_request(self, request):
-        async with self.semaphore:
-            client_id = self.get_client_id(request)
-            
-            # 检查请求频率
-            if self.is_rate_limited(client_id):
-                raise ValueError("Rate limit exceeded")
-            
-            return await super().handle_request(request)
+    async def safe_read_resource(self, uri: str) -> Optional[str]:
+        """安全读取资源，带重试机制"""
+        for attempt in range(self.max_retries):
+            try:
+                response = await self.session.read_resource(uri)
+                return response.contents[0].text
+            except Exception as e:
+                if attempt == self.max_retries - 1:
+                    print(f"读取资源失败: {uri}, 错误: {e}")
+                    return None
+                await asyncio.sleep(2 ** attempt)  # 指数退避
+        return None
 ```
 
-## 故障排除
+## 🔮 未来发展
 
-### 常见问题
+### 即将到来的功能
 
-#### 1. 连接问题
+1. **多模态支持** - 图像、音频、视频处理
+2. **流式传输** - 大文件和实时数据处理
+3. **分布式架构** - 跨网络的 MCP 服务器集群
+4. **AI 代理编排** - 多个 AI 代理协同工作
+5. **企业级管理** - 权限管理、审计日志、合规性
 
-**问题**: 客户端无法连接到服务器
+### 生态系统发展
 
-**解决方案**:
+- **更多官方服务器** - 覆盖更多主流服务和工具
+- **企业级解决方案** - 安全、可扩展的企业部署
+- **可视化工具** - 图形化配置和管理界面
+- **性能优化** - 更快的响应速度和更低的资源消耗
 
-```python
-# 检查服务器状态
-async def diagnose_connection():
-    try:
-        client = McpClient("server_path")
-        await asyncio.wait_for(client.connect(), timeout=10)
-        print("Connection successful")
-    except asyncio.TimeoutError:
-        print("Connection timeout - check server startup")
-    except Exception as e:
-        print(f"Connection failed: {e}")
-```
+## 📚 学习资源
 
-#### 2. 权限错误
+### 官方文档
+- **MCP 规范**: https://spec.modelcontextprotocol.io
+- **Python SDK**: https://github.com/modelcontextprotocol/python-sdk
+- **TypeScript SDK**: https://github.com/modelcontextprotocol/typescript-sdk
 
-**问题**: 资源访问被拒绝
+### 社区资源
+- **Discord 社区**: https://discord.gg/mcp
+- **Reddit**: r/ModelContextProtocol
+- **Stack Overflow**: 标签 `model-context-protocol`
 
-**解决方案**:
+### 教程和示例
+- **官方示例**: https://github.com/modelcontextprotocol/examples
+- **社区教程**: https://mcp-tutorials.com
+- **视频教程**: YouTube 搜索 "MCP tutorial"
 
-```python
-# 权限诊断
-def diagnose_permissions(uri: str):
-    security_manager = SecurityManager()
-    
-    for action in ["read", "write"]:
-        has_permission = security_manager.check_resource_permission(uri, action)
-        print(f"{action.upper()} permission for {uri}: {has_permission}")
-```
+## 🎯 总结
 
-#### 3. 性能问题
+MCP 正在重新定义 AI 应用与外部世界的交互方式。通过提供标准化、安全的接口，MCP 让 AI 助手能够：
 
-**问题**: 响应时间过长
+🔹 **安全访问** 你的文件、数据库和工具  
+🔹 **标准化集成** 避免重复开发和维护成本  
+🔹 **生态共享** 利用社区贡献的丰富资源  
+🔹 **企业就绪** 满足安全性和合规性要求  
 
-**解决方案**:
-
-```python
-import time
-
-class PerformanceMonitor:
-    def __init__(self):
-        self.metrics = {}
-    
-    async def monitor_call(self, func, *args, **kwargs):
-        start_time = time.time()
-        try:
-            result = await func(*args, **kwargs)
-            duration = time.time() - start_time
-            self.metrics[func.__name__] = duration
-            
-            if duration > 5.0:  # 超过5秒警告
-                print(f"Slow operation detected: {func.__name__} took {duration:.2f}s")
-            
-            return result
-        except Exception as e:
-            duration = time.time() - start_time
-            print(f"Operation failed after {duration:.2f}s: {e}")
-            raise
-```
-
-### 调试工具
-
-```python
-class McpDebugger:
-    def __init__(self):
-        self.message_log = []
-        self.performance_log = []
-    
-    def log_message(self, direction: str, message: dict):
-        """记录消息"""
-        timestamp = time.time()
-        self.message_log.append({
-            "timestamp": timestamp,
-            "direction": direction,  # "sent" or "received"
-            "message": message
-        })
-    
-    def analyze_performance(self):
-        """分析性能"""
-        if len(self.performance_log) < 2:
-            return
-        
-        durations = [entry["duration"] for entry in self.performance_log]
-        avg_duration = sum(durations) / len(durations)
-        max_duration = max(durations)
-        
-        print(f"Average response time: {avg_duration:.2f}s")
-        print(f"Maximum response time: {max_duration:.2f}s")
-    
-    def export_logs(self, filename: str):
-        """导出日志"""
-        with open(filename, 'w') as f:
-            json.dump({
-                "messages": self.message_log,
-                "performance": self.performance_log
-            }, f, indent=2)
-```
-
-## 生态系统
-
-### 官方工具
-
-1. **MCP SDK**: 官方开发工具包
-2. **MCP Inspector**: 协议调试工具
-3. **MCP Registry**: 服务器注册中心
-
-### 社区项目
-
-1. **文件系统服务器**: 本地文件访问
-2. **数据库连接器**: 多种数据库支持
-3. **API网关**: RESTful API集成
-4. **开发工具集**: 代码分析和构建
-
-### 集成平台
-
-1. **Claude Desktop**: 原生MCP支持
-2. **VS Code扩展**: 开发环境集成
-3. **Jupyter插件**: 数据科学工作流
-4. **企业平台**: 定制化解决方案
-
-## 未来发展
-
-### 技术路线图
-
-1. **协议增强**: 支持更多数据类型和操作
-2. **性能优化**: 流式传输和批量操作
-3. **安全加强**: 端到端加密和零信任架构
-4. **标准化**: 与其他AI协议的互操作性
-
-### 应用前景
-
-1. **企业集成**: 大规模企业系统连接
-2. **边缘计算**: 本地AI助手部署
-3. **物联网**: 设备数据实时访问
-4. **多模态**: 支持更多数据模态
+无论你是开发者、数据分析师还是企业用户，MCP 都能帮你构建更强大、更安全的 AI 应用。现在就开始你的 MCP 之旅吧！
 
 ---
 
-MCP作为AI应用程序的标准化连接协议，正在成为构建智能系统的重要基础设施。通过提供安全、标准化的接口，MCP使AI助手能够安全地访问各种外部资源，同时保持用户的控制权和隐私保护。随着生态系统的不断发展，MCP将在AI应用的普及和标准化方面发挥越来越重要的作用。
+*MCP 作为 AI 应用程序的标准化连接协议，正在成为构建智能系统的重要基础设施。通过提供安全、标准化的接口，MCP 使 AI 助手能够安全地访问各种外部资源，同时保持用户的控制权和隐私保护。随着生态系统的不断发展，MCP 将在 AI 应用的普及和标准化方面发挥越来越重要的作用。*

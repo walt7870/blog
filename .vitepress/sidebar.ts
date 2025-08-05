@@ -255,24 +255,29 @@ export const sidebar: DefaultTheme.Sidebar = {
       ]
     }
   ],
-  //nginx
-  '/docs/linux/nginx/': [
-    {
-      text: 'nginx',
-      items: [
-        { text: '概述', link: '/docs/linux/nginx/nginx' },
-        { text: 'location详解', link: '/docs/linux/nginx/location' },
-      ]
-    }
-  ],
 
-  // 数据库
+
+  // 数据库技术
   '/docs/database/': [
     {
       text: '数据库技术',
       items: [
         { text: '概述', link: '/docs/database/index' },
-        { text: 'MySQL', link: '/docs/database/mysql' },
+        { text: 'MySQL', items: [
+          { text: '概述', link: '/docs/database/mysql/index' },
+          { text: '基础语法', link: '/docs/database/mysql/basic-syntax' },
+          { text: '数据类型设计', link: '/docs/database/mysql/data-types-design' },
+          { text: '存储引擎', link: '/docs/database/mysql/storage-engines' },
+          { text: '索引系统', link: '/docs/database/mysql/index-system' },
+          { text: '事务系统', link: '/docs/database/mysql/transaction-system' },
+          { text: '查询优化', link: '/docs/database/mysql/query-optimization' },
+          { text: '分区表', link: '/docs/database/mysql/partitioning' },
+          { text: '高可用', link: '/docs/database/mysql/high-availability' },
+          { text: '备份恢复', link: '/docs/database/mysql/backup-recovery' },
+          { text: '安全权限', link: '/docs/database/mysql/security-permissions' },
+          { text: '监控运维', link: '/docs/database/mysql/monitoring-operations' },
+          { text: '服务模块', link: '/docs/database/mysql/service-modules' },
+        ]},
         { text: 'PostgreSQL', link: '/docs/database/postgresql' },
         { text: 'MongoDB', link: '/docs/database/mongodb' },
         { text: 'Redis', link: '/docs/database/redis' },
@@ -289,6 +294,65 @@ export const sidebar: DefaultTheme.Sidebar = {
       text: '大数据技术',
       items: [
         { text: '概述', link: '/docs/database/bigdata/index' },
+        { text: 'Apache Spark', link: '/docs/database/bigdata/apache-spark' },
+        { text: 'Apache Flink', link: '/docs/database/bigdata/apache-flink' },
+        { text: 'Apache Kafka', link: '/docs/database/bigdata/apache-kafka' },
+        { text: 'HDFS', link: '/docs/database/bigdata/hdfs' },
+        { text: 'NoSQL数据库', link: '/docs/database/bigdata/nosql-databases' },
+        { text: '数据分层架构', link: '/docs/database/bigdata/data-layering' },
+        { text: '数据仓库与数据湖', link: '/docs/database/bigdata/data-warehouse-lake' },
+        { text: 'DolphinScheduler', link: '/docs/database/bigdata/dolphinscheduler' },
+      ]
+    }
+  ],
+
+  // Linux系统
+  '/docs/linux/': [
+    {
+      text: 'Linux系统',
+      items: [
+        { text: '系统概述', link: '/docs/linux/index' },
+        { text: '常用命令', link: '/docs/linux/command/index' },
+        { text: '进程管理', items: [
+          { text: '进程管理概述', link: '/docs/linux/process/index' },
+          { text: 'systemd 详解', link: '/docs/linux/process/systemd' },
+          { text: '内核线程', link: '/docs/linux/process/kernel-threads' },
+          { text: 'Init 进程', link: '/docs/linux/process/init-process' },
+          { text: '用户进程管理', link: '/docs/linux/process/user-processes' }
+        ]},
+        { text: 'Nginx', items: [
+          { text: '概述', link: '/docs/linux/nginx/nginx' },
+          { text: 'location详解', link: '/docs/linux/nginx/location' },
+        ]},
+      ]
+    }
+  ],
+
+  // Linux命令详解
+  '/docs/linux/command/': [
+    {
+      text: 'Linux命令详解',
+      items: [
+        { text: '概述', link: '/docs/linux/command/index' },
+        { text: '文件基础操作', link: '/docs/linux/command/file-basic' },
+        { text: '文本处理', link: '/docs/linux/command/text-processing' },
+        { text: '系统信息', link: '/docs/linux/command/system-info' },
+        { text: '权限管理', link: '/docs/linux/command/permissions' },
+        { text: '网络命令', link: '/docs/linux/command/network' },
+        { text: '进程管理', link: '/docs/linux/command/process' },
+        { text: '压缩归档', link: '/docs/linux/command/archive' },
+        { text: '软件包管理', link: '/docs/linux/command/package' },
+      ]
+    }
+  ],
+
+  // Nginx配置
+  '/docs/linux/nginx/': [
+    {
+      text: 'Nginx',
+      items: [
+        { text: '概述', link: '/docs/linux/nginx/nginx' },
+        { text: 'location详解', link: '/docs/linux/nginx/location' },
       ]
     }
   ]

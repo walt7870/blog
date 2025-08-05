@@ -41,3 +41,10 @@ Search items: [http://vimdoc.net/search?q=/\\][s]
 escape(@u,getcmdtype().'\')
 
 ```
+
+
+### 特殊使用
+
+- H:将光标移动到当前可见页面的顶部（High）
+- M:将光标移动到当前可见页面的中间（Middle）
+- L:将光标移动到当前可见页面的底部（Low）
