@@ -249,3 +249,161 @@ bin/kafka-console-producer.sh \
 3. Topic 管理复杂
 
 4. Broker 重启慢
+
+### 版本升级
+
+Kafka 3.9.1 与 4.0.0 的主要差异
+
+1. 元数据管理方式  
+   • 3.9.1：仍可选择 ZooKeeper 或 KRaft 模式；3.9 系列被官方定位成“废除 ZooKeeper 前的最后一个桥接版本”。  
+   • 4.0.0：**完全移除 ZooKeeper**，只支持 KRaft 模式（Kafka Raft Metadata 模式）。
+
+2. 升级路径  
+   • 3.9.1 → 4.0.0 必须先完成 ZooKeeper → KRaft 迁移，然后才能滚动升级到 4.0.0；在 3.9 里可利用动态 KRaft Quorum 工具减少停机时间。  
+   • 若已运行在 3.9 的 KRaft 模式，可直接升级到 4.0.0。
+
+3. 新功能（仅 4.0.0 提供）  
+   • 新一代消费者重平衡协议（KIP-848），增量、协同重平衡，减少全局暂停。  
+   • 共享组/队列语义（KIP-932，实验性），支持同分区多消费者。  
+   • 事务服务端防御（KIP-890）、合格首领副本（KIP-966）等增强的复制与事务协议。
+
+4. 运行环境要求  
+   • Java：3.9.1 仍支持 Java 8/11；4.0.0 **最低要求 Java 17（服务端）/Java 11（客户端）**。  
+   • 移除对 2018 年以前老协议版本的支持，客户端最低需 2.1.0。
+
+5. 运维与生态变化  
+   • 官方 Docker 镜像：4.0.0 首次提供基于 Java 21 的官方镜像（KIP-975）。  
+   • 日志框架：3.9.1 仍可用 Log4j 1.x；4.0.0 升级到 Log4j2（KIP-653）。  
+   • MirrorMaker 1 在 4.0.0 中被彻底移除，仅保留 MirrorMaker 2。
+
+#### 4.0.0 升级
+
+Kafka 4.0.0 的 6 大**重量级特性**
+
+1. **彻底移除 ZooKeeper，默认 KRaft**  
+   4.0.0 是第一个 **完全不依赖 ZooKeeper** 的正式大版本；集群元数据、控制器选举全部由内置的 KRaft（Kafka-Raft）协议接管，部署和运维大幅简化。
+
+2. **全新消费者组协议（KIP-848）**  
+   重平衡逻辑从客户端移到 Broker，实现 **增量、协同式 Rebalance**，秒级完成，极大降低大规模消费组扩缩容时的停顿与重复消费。
+
+3. **Queues for Kafka（KIP-932，早期访问）**  
+   引入 **共享组（Share Group）** 概念，让同一分区可被多个消费者 **公平共享、顺序确认**，原生支持“队列/点对点”语义，弥补过去只能 Pub/Sub 的不足。
+
+4. **Java 版本与依赖大升级**  
+   • Broker / Connect / Tools **最低 Java 17**  
+   • Clients / Streams **最低 Java 11**  
+   • 移除对 Scala 2.12、Log4j 1.x 及大量已弃用 API 的支持。
+
+5. **Kafka Streams 能力增强**  
+   • KIP-1104：KTable 外键连接支持从 key/value 提取外键  
+   • KIP-1112：允许自定义处理器包装器  
+   • KIP-1065：ProductionExceptionHandler 支持 retry 策略。
+
+6. **运维与可观测性改进**  
+   • 支持客户端注册 **自定义指标**（KIP-714 扩展）  
+   • 官方 Docker 镜像默认基于 **Java 21**  
+   • 预投票机制、合格领导者副本（ELR 预览）等进一步提升高可用与可观测性。
+
+Kafka 4.0.0 是一次“去 ZooKeeper”的架构级换代，同时带来了 **秒级 Rebalance、原生队列语义、强制 Java 17** 等重磅特性，让部署更简单、性能更高、场景更丰富。
+
+
+### 启动
+docker 启动
+
+```bash
+docker run --name kafka-native -d \
+  -e KAFKA_NODE_ID=1 \
+  -e KAFKA_PROCESS_ROLES=broker,controller \
+  -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093 \
+  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+  -e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
+  -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+  -p 9092:9092 \
+  apache/kafka-native:4.0.0
+  ```
+
+  | 变量名                                                 | 默认值                                      | 说明                        |
+| --------------------------------------------------- | ---------------------------------------- | ------------------------- |
+| KAFKA\_NODE\_ID                                     | 1                                        | 节点唯一 ID（KRaft 必填）         |
+| KAFKA\_PROCESS\_ROLES                               | broker,controller                        | 该节点承担的角色组合                |
+| KAFKA\_LISTENERS                                    | PLAINTEXT://0.0.0.0:9092                 | 监听协议与端口                   |
+| KAFKA\_ADVERTISED\_LISTENERS                        | 与 LISTENERS 相同                           | 客户端或内部发现的地址               |
+| KAFKA\_CONTROLLER\_QUORUM\_VOTERS                   | 1\@localhost:9093                        | 整个控制集群的 voter 列表          |
+| KAFKA\_CONTROLLER\_LISTENER\_NAMES                  | CONTROLLER                               | 控制器监听器名字                  |
+| KAFKA\_LISTENER\_SECURITY\_PROTOCOL\_MAP            | PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT | 监听器→协议映射                  |
+| KAFKA\_LOG\_DIRS                                    | /tmp/kraft-combined-logs                 | 日志目录                      |
+| KAFKA\_NUM\_PARTITIONS                              | 1                                        | 默认主题分区数                   |
+| KAFKA\_DEFAULT\_REPLICATION\_FACTOR                 | 1                                        | 默认副本因子                    |
+| KAFKA\_OFFSETS\_TOPIC\_REPLICATION\_FACTOR          | 3                                        | \_\_consumer\_offsets 副本数 |
+| KAFKA\_TRANSACTION\_STATE\_LOG\_REPLICATION\_FACTOR | 3                                        | 事务日志副本数                   |
+| KAFKA\_TRANSACTION\_STATE\_LOG\_MIN\_ISR            | 2                                        | 事务日志最小 ISR                |
+| KAFKA\_LOG\_RETENTION\_HOURS                        | 168                                      | 日志保留时长                    |
+| KAFKA\_LOG\_RETENTION\_BYTES                        | -1（无限制）                                  | 日志保留大小                    |
+| KAFKA\_LOG\_SEGMENT\_BYTES                          | 1073741824                               | 日志段大小                     |
+| KAFKA\_COMPRESSION\_TYPE                            | producer                                 | 全局压缩类型                    |
+| KAFKA\_SOCKET\_REQUEST\_MAX\_BYTES                  | 104857600                                | 单次请求最大字节                  |
+| KAFKA\_NUM\_NETWORK\_THREADS                        | 3                                        | 网络线程数                     |
+| KAFKA\_NUM\_IO\_THREADS                             | 8                                        | IO 线程数                    |
+| KAFKA\_HEAP\_OPTS                                   | -Xmx1G -Xms1G                            | JVM 堆大小（对 native 镜像依然生效）  |
+| KAFKA\_JMX\_OPTS                                    | 未设置                                      | 开启 JMX 监控                 |
+| KAFKA\_OPTS                                         | 未设置                                      | 其他 JVM 参数                 |
+
+#### 三节点高可用 docker-compose.yml（本地开发）
+```yaml
+version: "3.8"
+services:
+  kafka1:
+    image: apache/kafka-native:4.0.0
+    ports: ["9092:9092"]
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+    volumes: [kafka1-data:/tmp/kraft-combined-logs]
+    networks: [kafka-net]
+
+  kafka2:
+    image: apache/kafka-native:4.0.0
+    ports: ["9093:9092"]
+    environment:
+      KAFKA_NODE_ID: 2
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      # 其余同上
+    volumes: [kafka2-data:/tmp/kraft-combined-logs]
+    networks: [kafka-net]
+
+  kafka3:
+    image: apache/kafka-native:4.0.0
+    ports: ["9094:9092"]
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9092
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka1:9093,2@kafka2:9093,3@kafka3:9093
+      # 其余同上
+    volumes: [kafka3-data:/tmp/kraft-combined-logs]
+    networks: [kafka-net]
+
+volumes:
+  kafka1-data:
+  kafka2-data:
+  kafka3-data:
+
+networks:
+  kafka-net:
+```
+
+启动步骤：
+```bash
+docker compose up -d
+docker exec -it kafka1 kafka-topics.sh --create --topic demo --bootstrap-server kafka1:9092 --partitions 3 --replication-factor 3
+```

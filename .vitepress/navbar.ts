@@ -7,6 +7,7 @@ export const nav: DefaultTheme.NavItem[] = [
     {
       text: '架构', items: [
         { text: '架构设计', link: '/docs/design/architecture/' },
+        { text: '开发模式', link: '/docs/design/develop-pattern/' },
         { text: '容器相关', link: '/docs/container/' },
         { text: '设计模式', link: '/docs/design/design-pattern/' },
       ]
@@ -49,6 +50,8 @@ export const nav: DefaultTheme.NavItem[] = [
         {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
         {text: '消息中间件', link:"/docs/tools/mq"},
         { text: 'vim', link: '/docs/tools/vim/' },
+        { text: 'vfox', link: '/docs/tools/vfox/' },
+        { text: 'sdkman', link: '/docs/tools/sdkman/' },
       ]
     }
   ]

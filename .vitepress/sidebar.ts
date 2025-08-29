@@ -98,6 +98,19 @@ export const sidebar: DefaultTheme.Sidebar = {
               ]
             }
           ]
+        },
+        {
+          text: 'TOGAF架构框架',
+          collapsed: true,
+          items: [
+            { text: 'TOGAF概述', link: '/docs/design/architecture/togaf/index' },
+            { text: '业务架构', link: '/docs/design/architecture/togaf/business-architecture' },
+            { text: '数据架构', link: '/docs/design/architecture/togaf/data-architecture' },
+            { text: '应用架构', link: '/docs/design/architecture/togaf/application-architecture' },
+            { text: '技术架构', link: '/docs/design/architecture/togaf/technology-architecture' },
+            { text: 'ADM方法', link: '/docs/design/architecture/togaf/adm-method' },
+            { text: '架构治理', link: '/docs/design/architecture/togaf/architecture-governance' }
+          ]
         }
       ]
     }
@@ -353,6 +366,22 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: '概述', link: '/docs/linux/nginx/nginx' },
         { text: 'location详解', link: '/docs/linux/nginx/location' },
+      ]
+    }
+  ],
+
+  // 开发模式
+  '/docs/design/develop-pattern/': [
+    {
+      text: '开发模式',
+      items: [
+        { text: '概述', link: '/docs/design/develop-pattern/index' },
+        { text: '瀑布模型', link: '/docs/design/develop-pattern/waterfall' },
+        { text: '敏捷开发', link: '/docs/design/develop-pattern/agile' },
+        { text: '迭代模型', link: '/docs/design/develop-pattern/iterative' },
+        { text: '螺旋模型', link: '/docs/design/develop-pattern/spiral' },
+        { text: 'DevOps模式', link: '/docs/design/develop-pattern/devops' },
+        { text: '精益开发', link: '/docs/design/develop-pattern/lean' }
       ]
     }
   ]

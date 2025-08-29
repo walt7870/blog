@@ -27,3 +27,4 @@
 
 - **[Vim](docs/tools/vim/index.md)**：超级好用的终端编辑器
 - **[vfox](docs/tools/vfox/index.md)**：常用工具的版本管理神器
+- **[sdkman](docs/tools/sdkman/index.md)**：JVM 生态与构建工具的版本管理器

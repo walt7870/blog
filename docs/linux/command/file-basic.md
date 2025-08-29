@@ -313,6 +313,95 @@ mv -n file1.txt /backup/
 mv -b file1.txt /backup/
 ```
 
+### ln - 创建链接
+
+**功能**：创建文件或目录的链接，包括硬链接和符号链接。
+
+**语法**：
+```bash
+ln [选项] 源文件 目标文件
+ln [选项] 源文件... 目标目录
+```
+
+**常用选项**：
+- `-s`：创建符号链接（软链接）
+- `-f`：强制创建，覆盖已存在的链接
+- `-i`：交互模式，覆盖前询问
+- `-v`：显示创建过程
+- `-n`：如果目标是符号链接，则覆盖符号链接本身
+- `-T`：总是将目标视为普通文件
+- `-t`：指定目标目录
+
+**链接类型**：
+
+1. **硬链接**（默认）：
+   - 与源文件共享相同的 inode
+   - 删除源文件不影响硬链接
+   - 不能跨文件系统
+   - 不能链接目录
+
+2. **符号链接**（软链接，使用 -s 选项）：
+   - 指向源文件的路径
+   - 删除源文件后链接失效
+   - 可以跨文件系统
+   - 可以链接目录
+
+**示例**：
+```bash
+# 创建硬链接
+ln file1.txt file1_hardlink.txt
+
+# 创建符号链接
+ln -s file1.txt file1_symlink.txt
+
+# 创建指向目录的符号链接
+ln -s /path/to/directory link_to_directory
+
+# 强制创建链接（覆盖已存在的）
+ln -f file1.txt existing_link.txt
+
+# 交互式创建链接
+ln -i file1.txt existing_link.txt
+
+# 显示创建过程
+ln -v file1.txt file1_link.txt
+# 输出：'file1.txt' -> 'file1_link.txt'
+
+# 创建链接到指定目录
+ln -s file1.txt /home/user/links/
+
+# 创建绝对路径的符号链接
+ln -s /absolute/path/to/file.txt link.txt
+
+# 创建相对路径的符号链接
+ln -s ../path/to/file.txt link.txt
+```
+
+**链接管理**：
+```bash
+# 查看链接信息
+ls -la link_name
+
+# 查看链接指向
+readlink link_name
+
+# 查看链接的真实路径
+realpath link_name
+
+# 删除链接（不影响原文件）
+rm link_name
+
+# 修改链接指向
+ln -sf new_target existing_link
+```
+
+**注意事项**：
+- 硬链接不能跨文件系统创建
+- 硬链接不能链接目录
+- 符号链接可以指向不存在的文件
+- 删除原文件后，硬链接仍然有效，符号链接失效
+- 使用相对路径创建符号链接时，路径是相对于链接文件的位置
+
 ### rm - 删除文件和目录
 
 **功能**：删除文件和目录。
@@ -443,8 +532,23 @@ cp -v largefile.iso /backup/
 # 使用rsync进行高效复制
 rsync -av source/ destination/
 
-# 并行操作（使用xargs）
+# 并行操作（使用xargs）当前目录及其子目录下所有 *.txt 文件”用 并行方式 复制到 /backup/ 目录 -P 4 表示使用 4 个进程
+#-I {}：把 {} 当作占位符，后面出现 {} 的地方会被实际文件名替换。
 find . -name "*.txt" | xargs -P 4 -I {} cp {} /backup/
+
+#这样每个 cp 可能一次复制若干文件，减少 cp 进程数量。
+find . -type f -name "*.txt" -print0 | xargs -0 -P 4 cp -t /backup/
+
+
+#{} + 让 find 一次性把尽可能多的文件追加到命令行末尾。
+find src/ -type f -name "*.c" -exec cp -t dest/ {} +
+
+
+# 把 src/ 下所有 .c 文件复制到 dest/
+#-print0 + -0 解决空格/特殊字符。
+#cp -t dest/ 把目录位置固定，后面可以接任意数量文件。
+find src/ -type f -name "*.c" -print0 \
+  | xargs -0 cp -t dest/
 ```
 
 ## 常见错误和解决方案
@@ -524,7 +628,8 @@ rm -rf /tmp/*
 3. **创建命令**：`mkdir` - 创建目录结构
 4. **复制命令**：`cp` - 备份和复制文件
 5. **移动命令**：`mv` - 移动和重命名文件
-6. **删除命令**：`rm`、`rmdir` - 清理不需要的文件和目录
+6. **链接命令**：`ln` - 创建文件链接
+7. **删除命令**：`rm`、`rmdir` - 清理不需要的文件和目录
 
 **学习建议**：
 - 从简单的单文件操作开始练习

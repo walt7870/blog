@@ -3,6 +3,11 @@
 ## RocketMQ 是什么
 
 RocketMQ 是阿里巴巴开源的分布式消息中间件，是一个高性能、高可靠、高实时、分布式的消息中间件，专为大规模分布式系统设计。最初由阿里巴巴开发并在内部大规模使用，后捐献给 Apache 基金会，现已成为 Apache 顶级项目。
+Apache RocketMQ 是一款典型的分布式架构下的中间件产品，使用异步通信方式和发布订阅的消息传输模型。
+
+RocketMQ 是一个分布式消息中间件，由 Name Server、Broker、Producer、Consumer 组成。
+
+![图片描述](./rocketmq.png)
 
 ### 主要应用场景包括
 

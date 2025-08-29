@@ -119,7 +119,7 @@
 - 二分搜索
 - 大整数乘法
 
-[详细了解分治算法 →](./divide-conquer.md)
+[详细了解分治算法 →](./divide-and-conquer.md)
 
 ## 回溯算法
 
