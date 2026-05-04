@@ -49,6 +49,14 @@ export default  defineConfig({
       }
     },
     nav: nav,
-    sidebar: sidebar
+    sidebar: sidebar,
+    outline: {
+      label: '本页目录',
+    },
+    footer: {
+      message:
+        '专题：<a href="/blog/docs/ai/skill/">Agent Skill</a> · <a href="/blog/docs/ai/skill/recommendations">推荐与选型</a>',
+      copyright: '稻草人的文档',
+    },
   }
 })

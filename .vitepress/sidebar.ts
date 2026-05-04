@@ -7,6 +7,14 @@ export const sidebar: DefaultTheme.Sidebar = {
       text: '人工智能',
       items: [
         { text: '概述', link: '/docs/ai/index' },
+        {
+          text: 'Agent Skill',
+          collapsed: false,
+          items: [
+            { text: 'Skill 概述', link: '/docs/ai/skill/' },
+            { text: '推荐与选型', link: '/docs/ai/skill/recommendations' },
+          ],
+        },
         { text: '机器学习', link: '/docs/ai/ml' },
         { text: 'mcp', link: '/docs/ai/mcp' },
         { text: '智能体', link: '/docs/ai/agent' },
@@ -119,12 +127,13 @@ export const sidebar: DefaultTheme.Sidebar = {
   //消息中间件 
   '/docs/tools/mq/': [
     {
-      text: '概览',
+      text: '消息中间件',
       items: [
         { text: '概览', link: '/docs/tools/mq/' },
-        { text: 'kafka', link: '/docs/tools/mq/kafka' },
-        { text: 'rocketmq', link: '/docs/tools/mq/rocketmq' },
-        { text: 'rabbitmq', link: '/docs/tools/mq/rabbitmq' },
+        { text: 'Kafka', link: '/docs/tools/mq/kafka' },
+        { text: 'RabbitMQ', link: '/docs/tools/mq/rabbitmq' },
+        { text: 'RocketMQ', link: '/docs/tools/mq/rocketmq' },
+        { text: 'Pulsar', link: '/docs/tools/mq/pulsar/' },
       ]
     }
   ],
@@ -336,6 +345,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: 'Nginx', items: [
           { text: '概述', link: '/docs/linux/nginx/nginx' },
           { text: 'location详解', link: '/docs/linux/nginx/location' },
+          { text: '自动证书续期', link: '/docs/linux/nginx/auto-renew-cert' },
         ]},
       ]
     }
@@ -366,6 +376,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: '概述', link: '/docs/linux/nginx/nginx' },
         { text: 'location详解', link: '/docs/linux/nginx/location' },
+        { text: '自动证书续期', link: '/docs/linux/nginx/auto-renew-cert' },
       ]
     }
   ],

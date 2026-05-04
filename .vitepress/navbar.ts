@@ -3,7 +3,18 @@ import type { DefaultTheme } from 'vitepress';
 
 export const nav: DefaultTheme.NavItem[] = [
     // { text: '概览', link: 'index' },
-    { text: '人工智能', link: '/docs/ai/' },
+    {
+      text: '人工智能',
+      items: [
+        { text: '概述', link: '/docs/ai/' },
+        { text: 'Agent Skill', link: '/docs/ai/skill/' },
+        { text: 'Skill 推荐与选型', link: '/docs/ai/skill/recommendations' },
+        { text: '机器学习', link: '/docs/ai/ml' },
+        { text: 'MCP', link: '/docs/ai/mcp' },
+        { text: '智能体', link: '/docs/ai/agent' },
+        { text: '大模型', link: '/docs/ai/llm/' },
+      ],
+    },
     {
       text: '架构', items: [
         { text: '架构设计', link: '/docs/design/architecture/' },
@@ -48,7 +59,7 @@ export const nav: DefaultTheme.NavItem[] = [
     {
       text: '工具', items: [
         {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
-        {text: '消息中间件', link:"/docs/tools/mq"},
+        {text: '消息中间件', link:"/docs/tools/mq/"},
         { text: 'vim', link: '/docs/tools/vim/' },
         { text: 'vfox', link: '/docs/tools/vfox/' },
         { text: 'sdkman', link: '/docs/tools/sdkman/' },

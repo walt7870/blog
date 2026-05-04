@@ -1251,4 +1251,140 @@ class ExecutionContext {
 - **谨慎使用**：需要频繁修改算法流程的场景
 - **最佳实践**：合理设计抽象方法和钩子方法，提供完善的错误处理和监控机制
 
-模板方法模式是面向对象设计中的经典模式，掌握它不仅能帮助我们更好地设计可扩展的系统，还能加深对继承、多态等面向对象概念的理解。在实际应用中，结合具体需求选择合适的变种和优化策略，能够构建出既灵活又高效的软件系统。
+---
+
+## 补充示例：饮品制作流程与模板方法模式实践
+
+下面以“饮品制作”为例，演示如何从传统实现重构为模板方法模式，场景步骤包括：准备原料、煮沸水/牛奶、冲泡（咖啡粉/茶叶）、添加配料（糖、奶泡、柠檬等）、装杯，属于“整体流程稳定而步骤细节不同”的典型场景。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>
+
+### 传统实现的问题（示意）
+
+- 每种饮品（如美式、拿铁、绿茶）都实现完整流程，导致大量重复代码（如加热、倒杯等）。
+- 相似步骤实现分散在多个类中，维护成本高，易出现不一致行为。
+- 流程顺序难以统一约束，扩展新饮品需要复制粘贴并重新组织流程。
+
+以上问题与参考文章中的分析结论一致，适合采用模板方法进行重构。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>
+
+### 模板方法重构
+
+定义抽象基类，固定流程（煮水 → 冲泡 → 倒杯 → 可选加配料），把“可变步骤”延迟到子类实现：
+
+```java
+// 抽象饮品
+abstract class HotBeverage {
+    // 模板方法：固定整体流程
+    public final void prepareRecipe() {
+        boilWater();
+        brew();
+        pourInCup();
+        if (wantCondiments()) {
+            addCondiments();
+        }
+    }
+
+    // 变化点：由子类实现
+    protected abstract void brew();
+    protected abstract void addCondiments();
+
+    // 不变点：基类给出默认实现
+    protected void boilWater() {
+        System.out.println("将水加热至合适温度");
+    }
+
+    protected void pourInCup() {
+        System.out.println("倒入杯中");
+    }
+
+    // 钩子：子类可选择性覆盖
+    protected boolean wantCondiments() { return true; }
+}
+
+// 具体饮品：美式咖啡
+class Americano extends HotBeverage {
+    @Override
+    protected void brew() {
+        System.out.println("冲泡咖啡粉");
+    }
+
+    @Override
+    protected void addCondiments() {
+        System.out.println("按需添加糖或牛奶");
+    }
+}
+
+// 具体饮品：拿铁
+class Latte extends HotBeverage {
+    @Override
+    protected void brew() {
+        System.out.println("萃取浓缩咖啡");
+    }
+
+    @Override
+    protected void addCondiments() {
+        System.out.println("加入蒸煮牛奶与奶泡");
+    }
+}
+
+// 具体饮品：绿茶
+class GreenTea extends HotBeverage {
+    @Override
+    protected void brew() {
+        System.out.println("浸泡绿茶茶叶");
+    }
+
+    @Override
+    protected void addCondiments() {
+        System.out.println("按需添加柠檬");
+    }
+
+    // 示例：不加配料
+    @Override
+    protected boolean wantCondiments() { return false; }
+}
+
+// 演示
+class BeverageDemo {
+    public static void main(String[] args) {
+        HotBeverage a = new Americano();
+        HotBeverage l = new Latte();
+        HotBeverage t = new GreenTea();
+
+        System.out.println("=== 美式 ===");
+        a.prepareRecipe();
+        System.out.println("\n=== 拿铁 ===");
+        l.prepareRecipe();
+        System.out.println("\n=== 绿茶 ===");
+        t.prepareRecipe();
+    }
+}
+```
+
+输出（示意）：
+
+```
+=== 美式 ===
+将水加热至合适温度
+冲泡咖啡粉
+倒入杯中
+按需添加糖或牛奶
+
+=== 拿铁 ===
+将水加热至合适温度
+萃取浓缩咖啡
+倒入杯中
+加入蒸煮牛奶与奶泡
+
+=== 绿茶 ===
+将水加热至合适温度
+浸泡绿茶茶叶
+倒入杯中
+```
+
+### 要点提炼与实践建议
+
+- 用“模板方法 + 钩子”平衡“统一流程与个性化步骤”，避免子类必须实现所有步骤。
+- 把可复用的“不变逻辑”（如加热、倒杯、流程顺序）放在父类，减少重复。
+- 子类只关注“变化点”，新增饮品只需最小化改动，符合开闭原则。
+- 如果未来流程有分支或可配置步骤，可结合策略/职责链将“步骤实现”外置化，以增强灵活性。
+
+附：本文饮品示例的设计动机与步骤划分参考了这篇文章，内容有所改写与扩展以适配本项目风格。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>

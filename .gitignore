@@ -34,3 +34,5 @@ gen
 
 # Other
 *.xml.versionsBackup
+
+.trae/
