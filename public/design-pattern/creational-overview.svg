@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">创建型模式总览</title>
+  <desc id="desc">展示创建型模式如何封装对象创建过程。</desc>
+  <defs>
+    <style>.bg{fill:#ecfeff}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#083344}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#155e75}.box{fill:#fff;stroke:#0891b2;stroke-width:2}.name{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.txt{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#0891b2;stroke-width:2;fill:none}.arrow{fill:#0891b2}</style>
+  </defs>
+  <rect class="bg" width="1120" height="620" rx="24"/>
+  <text class="title" x="56" y="58">创建型模式：把“怎么创建”从“怎么使用”里拆出来</text>
+  <text class="sub" x="56" y="88">当对象创建牵涉配置、产品族、构建步骤或复制成本时，创建型模式可以让客户端少知道细节。</text>
+  <rect class="box" x="70" y="160" width="190" height="110" rx="16"/><text class="name" x="106" y="198">客户端</text><text class="txt" x="98" y="228">只表达需要什么</text>
+  <path class="line" d="M260 215H390"/><polygon class="arrow" points="390,215 378,208 378,222"/>
+  <rect class="box" x="390" y="130" width="250" height="170" rx="18"/><text class="name" x="458" y="174">创建逻辑</text><text class="txt" x="426" y="206">封装 new、配置、校验、</text><text class="txt" x="426" y="230">缓存、装配和默认值。</text><text class="txt" x="426" y="254">变化集中在创建层。</text>
+  <path class="line" d="M640 215H780"/><polygon class="arrow" points="780,215 768,208 768,222"/>
+  <rect class="box" x="780" y="160" width="250" height="110" rx="16"/><text class="name" x="842" y="198">可用对象</text><text class="txt" x="824" y="228">客户端面向抽象使用</text>
+  <rect class="box" x="70" y="380" width="184" height="112" rx="16"/><text class="name" x="106" y="418">单例</text><text class="txt" x="98" y="448">保证唯一实例，</text><text class="txt" x="98" y="470">谨慎处理全局状态。</text>
+  <rect class="box" x="278" y="380" width="184" height="112" rx="16"/><text class="name" x="314" y="418">工厂方法</text><text class="txt" x="306" y="448">把创建延迟给</text><text class="txt" x="306" y="470">具体工厂。</text>
+  <rect class="box" x="486" y="380" width="184" height="112" rx="16"/><text class="name" x="522" y="418">抽象工厂</text><text class="txt" x="514" y="448">一次创建一组</text><text class="txt" x="514" y="470">相关产品。</text>
+  <rect class="box" x="694" y="380" width="184" height="112" rx="16"/><text class="name" x="730" y="418">建造者</text><text class="txt" x="722" y="448">复杂对象分步</text><text class="txt" x="722" y="470">组装。</text>
+  <rect class="box" x="902" y="380" width="184" height="112" rx="16"/><text class="name" x="938" y="418">原型</text><text class="txt" x="930" y="448">复制已有对象，</text><text class="txt" x="930" y="470">降低创建成本。</text>
+</svg>

@@ -1,355 +1,333 @@
-# Vim 编辑器使用指南
+# Vim 编辑器整体指南
 
-Vim 是一个功能强大的模式化文本编辑器，以其高效的编辑能力和丰富的功能而闻名。本指南按常规操作和高阶操作分类介绍 Vim 的核心功能。
+Vim 不是一个只靠记快捷键取胜的编辑器。它真正高效的地方在于：把编辑拆成“动作”和“对象”，再用少量命令组合出大量操作。学 Vim 的目标不是背完整命令表，而是形成一种稳定的编辑语言。
 
-## 常规操作
+这一组文档分成四部分：
 
-### 模式系统
+- 本文：建立 Vim 的整体认知、常用工作流和学习路线。
+- [寄存器](./register.md)：解释复制、删除、粘贴、系统剪贴板和宏。
+- [搜索、替换与特殊用法](./special.md)：解释搜索、替换、Vim 正则、文本对象和一些高频特殊命令。
+- [插件生态](./plugin.md)：解释 Vim/Neovim 插件体系、常见插件选择和配置维护。
 
-Vim 的核心特性是模式化编辑，主要包含四种模式：
+## Vim 的核心思维
 
-#### Normal 模式（默认模式）
-用于导航、删除、复制等操作，是 Vim 的默认模式。
+### 模式化编辑
 
-```
-Esc            # 从任何模式返回 Normal 模式
-h, j, k, l     # 左、下、上、右移动
-w, b, e        # 单词间移动（下一个词首、上一个词首、词尾）
-0, ^, $        # 行首、行首非空字符、行尾
-gg, G          # 文件开头、文件结尾
-Ctrl+f/b       # 向下/向上翻页
-```
+Vim 把“输入文字”和“操作文本”分开。大多数时间应该停留在 Normal 模式，需要写字时再短暂进入 Insert 模式。
 
-#### Insert 模式
-用于插入和编辑文本内容。
-
-```
-i              # 光标前插入
-I              # 行首插入
-a              # 光标后插入
-A              # 行尾插入
-o              # 下方新建行并插入
-O              # 上方新建行并插入
-```
-
-#### Visual 模式
-用于选择文本进行批量操作。
-
-```
-v              # 字符选择模式
-V              # 行选择模式
-Ctrl+v         # 块选择模式
-gv             # 重新选择上次的选择区域
-```
-
-#### Command 模式
-用于执行复杂命令和配置。
-
-```
-:              # 进入命令模式
-:w             # 保存文件
-:q             # 退出
-:wq, :x, ZZ    # 保存并退出
-:q!            # 强制退出不保存
-```
-
-### 基本编辑操作
-
-#### 删除操作
-```
-x              # 删除光标下字符
-X              # 删除光标前字符
-dd             # 删除整行
-dw             # 删除单词
-d$, D          # 删除到行尾
-d0             # 删除到行首
-```
-
-#### 复制粘贴操作
-```
-yy             # 复制整行
-yw             # 复制单词
-y$             # 复制到行尾
-p              # 在光标后粘贴
-P              # 在光标前粘贴
-```
-
-#### 撤销重做
-```
-u              # 撤销
-Ctrl+r         # 重做
-.              # 重复上一个操作
-```
-
-### 搜索和替换
-
-#### 搜索
-```
-/pattern       # 向下搜索
-?pattern       # 向上搜索
-n              # 下一个匹配
-N              # 上一个匹配
-*              # 搜索光标下的单词（向下）
-#              # 搜索光标下的单词（向上）
-```
-
-#### 替换
-```
-:s/old/new/        # 替换当前行第一个匹配
-:s/old/new/g       # 替换当前行所有匹配
-:%s/old/new/g      # 替换全文所有匹配
-:%s/old/new/gc     # 替换全文所有匹配（逐个确认）
-```
-
-### 文件和缓冲区管理
-
-#### 文件操作
-```
-:e filename    # 打开文件
-:w filename    # 另存为
-:r filename    # 读取文件内容到当前位置
-```
-
-#### 缓冲区操作
-```
-:ls            # 列出所有缓冲区
-:bn            # 下一个缓冲区
-:bp            # 上一个缓冲区
-:b number      # 切换到指定缓冲区
-:bd            # 关闭当前缓冲区
-```
-
-### 视图管理
-
-#### 窗口分割
-```
-:split, :sp    # 水平分割窗口
-:vsplit, :vs   # 垂直分割窗口
-Ctrl+w h/j/k/l # 在窗口间移动
-Ctrl+w +/-     # 调整窗口大小
-Ctrl+w =       # 均分窗口大小
-Ctrl+w c       # 关闭当前窗口
-```
-
-#### 标签页
-```
-:tabnew        # 新建标签页
-:tabedit file  # 在新标签页中打开文件
-gt, :tabnext   # 下一个标签页
-gT, :tabprev   # 上一个标签页
-:tabclose      # 关闭当前标签页
-```
-
-## 高阶操作
-
-### 寄存器系统
-
-Vim 提供了强大的寄存器系统用于存储文本。
-
-#### 寄存器类型
-```
-""             # 默认寄存器
-"0-"9          # 数字寄存器（自动存储删除和复制的内容）
-"a-"z          # 命名寄存器（用户自定义）
-"A-"Z          # 大写命名寄存器（追加模式）
-"+             # 系统剪贴板寄存器
-"*             # 选择缓冲区寄存器
-"/             # 搜索寄存器
-":             # 命令寄存器
-```
-
-#### 寄存器操作
-```
-"ayy           # 复制当前行到寄存器 a
-"ap            # 粘贴寄存器 a 的内容
-"+y            # 复制到系统剪贴板
-"+p            # 从系统剪贴板粘贴
-:reg           # 查看所有寄存器内容
-:reg a         # 查看寄存器 a 的内容
-```
-
-### 宏录制和执行
-
-宏是 Vim 中自动化重复操作的强大工具。
-
-```
-qa             # 开始录制宏到寄存器 a
-q              # 停止录制
-@a             # 执行宏 a
-@@             # 重复执行上一个宏
-10@a           # 执行宏 a 十次
-:reg a         # 查看宏 a 的内容
-```
-
-### 文本对象
-
-文本对象是 Vim 中用于精确选择和操作文本的概念。
-
-#### 文本对象操作符
-```
-c              # 改变（删除并进入插入模式）
-d              # 删除
-y              # 复制
-v              # 选择
-```
-
-#### 文本对象范围
-```
-iw             # 单词内部
-aw             # 整个单词（包括空格）
-i", a"         # 引号内部/整个引号区域
-i(, a(         # 括号内部/整个括号区域
-i[, a[         # 方括号内部/整个方括号区域
-i{, a{         # 花括号内部/整个花括号区域
-it, at         # 标签内部/整个标签区域
-ip, ap         # 段落内部/整个段落
-is, as         # 句子内部/整个句子
-```
-
-#### 使用示例
-```
-ciw            # 改变单词内容
-ca"            # 改变包括引号的内容
-di(            # 删除括号内内容
-yap            # 复制整个段落
-```
-
-### 正则表达式和高级搜索
-
-#### 正则表达式元字符
-```
-.              # 匹配任意字符
-*              # 前一个字符零次或多次
-+              # 前一个字符一次或多次
-?              # 前一个字符零次或一次
-^              # 行首
-$              # 行尾
-\<, \>         # 单词边界
-\d             # 数字
-\w             # 单词字符
-\s             # 空白字符
-\D, \W, \S     # 对应的反向匹配
-```
-
-#### 高级搜索技巧
-```
-/\v            # 开启 very magic 模式
-/\c            # 忽略大小写搜索
-/\C            # 区分大小写搜索
-/pattern\zs    # 匹配开始位置
-/pattern\ze    # 匹配结束位置
-```
-
-### 书签和跳转
-
-#### 书签操作
-```
-ma             # 设置书签 a（局部书签）
-mA             # 设置书签 A（全局书签）
-'a             # 跳转到书签 a 的行首
-`a             # 跳转到书签 a 的精确位置
-:marks         # 查看所有书签
-:delmarks a    # 删除书签 a
-```
-
-#### 跳转列表
-```
-Ctrl+o         # 跳转到上一个位置
-Ctrl+i         # 跳转到下一个位置
-:jumps         # 查看跳转列表
-```
-
-### 代码折叠
-
-#### 折叠操作
-```
-zf             # 创建折叠
-zo             # 打开折叠
-zc             # 关闭折叠
-za             # 切换折叠状态
-zR             # 打开所有折叠
-zM             # 关闭所有折叠
-zd             # 删除折叠
-```
-
-#### 折叠方法
-```
-:set foldmethod=manual    # 手动折叠
-:set foldmethod=indent    # 基于缩进折叠
-:set foldmethod=syntax    # 基于语法折叠
-:set foldmethod=marker    # 基于标记折叠
-```
-
-### 插件系统
-
-#### 插件管理器
-现代 Vim 使用插件管理器来安装和管理插件：
-
-- **vim-plug**：轻量级插件管理器
-- **Vundle**：经典插件管理器
-- **Pathogen**：简单的插件管理
-
-#### 常用插件类别
-
-**文件管理**
-- NERDTree：文件树浏览器
-- CtrlP/fzf：模糊文件查找
-
-**代码编辑**
-- YouCompleteMe/coc.nvim：代码补全
-- Syntastic/ALE：语法检查
-- vim-surround：快速编辑包围字符
-
-**界面美化**
-- vim-airline：状态栏美化
-- vim-colorschemes：颜色主题集合
-
-**Git 集成**
-- vim-fugitive：Git 操作集成
-- vim-gitgutter：显示 Git 差异
-
-### 配置和定制
-
-#### 基本配置 (~/.vimrc)
 ```vim
-" 基础设置
-set number relativenumber    " 显示行号和相对行号
-set tabstop=4 shiftwidth=4   " 设置缩进
-set expandtab                " 用空格替代 Tab
-set autoindent smartindent   " 智能缩进
-set hlsearch incsearch       " 搜索高亮和增量搜索
-set ignorecase smartcase     " 智能大小写匹配
-set wildmenu                 " 命令行补全
-set laststatus=2             " 显示状态栏
-syntax on                    " 语法高亮
-
-" 键映射
-let mapleader = ","          " 设置 Leader 键
-nnoremap <leader>w :w<CR>    " 快速保存
-inoremap jj <Esc>            " 快速退出插入模式
+Esc        " 回到 Normal 模式
+i          " 在光标前插入
+a          " 在光标后插入
+I          " 到行首插入
+A          " 到行尾插入
+o          " 在下一行新开一行并插入
+O          " 在上一行新开一行并插入
+v          " 字符可视模式
+V          " 行可视模式
+Ctrl-v     " 块可视模式
+:          " 命令行模式
 ```
 
-#### 高级配置技巧
+一个实用习惯：不要在 Insert 模式里用方向键反复移动。输入结束后按 `Esc` 回 Normal 模式，用移动命令定位，再继续编辑。
+
+### 操作符 + 移动
+
+Vim 的命令常常由两段组成：
+
+```text
+操作符 + 范围
+```
+
+常见操作符：
+
 ```vim
-" 自动命令
-autocmd BufWritePre * :%s/\s\+$//e  " 保存时删除行尾空格
-autocmd FileType python setlocal ts=4 sw=4 et  " Python 文件特定设置
-
-" 函数定义
-function! ToggleNumber()
-    if &number
-        set nonumber norelativenumber
-    else
-        set number relativenumber
-    endif
-endfunction
-
-" 条件配置
-if has('gui_running')
-    set guifont=Monaco:h14
-endif
+d    " delete，删除
+c    " change，删除后进入 Insert 模式
+y    " yank，复制
+g~   " 切换大小写
+>    " 增加缩进
+<    " 减少缩进
+=    " 自动缩进
 ```
 
----
+常见范围：
 
-掌握这些常规和高阶操作，将让你能够充分发挥 Vim 的强大功能，大幅提升文本编辑效率。
+```vim
+w    " 到下一个单词开头
+e    " 到当前或下一个单词结尾
+b    " 到前一个单词开头
+0    " 到行首
+^    " 到行首第一个非空字符
+$    " 到行尾
+}    " 到下一段
+%    " 到匹配的括号、引号或标签附近的匹配项
+```
+
+组合以后就变成可读的编辑语言：
+
+```vim
+dw      " 删除到下一个单词开头
+ciw     " 修改当前单词
+y$      " 复制到行尾
+d}      " 删除到下一段
+>ip     " 缩进当前段落
+=G      " 从当前位置格式化到文件末尾
+```
+
+### 可重复操作
+
+Vim 鼓励把一次编辑做成“可重复的动作”。
+
+```vim
+.       " 重复上一次修改
+u       " 撤销
+Ctrl-r  " 重做
+;       " 重复上一次 f/t/F/T 查找
+,       " 反向重复上一次 f/t/F/T 查找
+@@      " 重复上一次宏
+```
+
+例如，把一个单词改成另一个词时，优先使用 `ciw新词<Esc>`，这样下一个位置按 `.` 就能重复同样的修改。
+
+## 学习路线
+
+### 入门阶段：活下来
+
+先掌握能稳定打开、编辑、保存、退出的命令。
+
+```vim
+:w          " 保存
+:q          " 退出
+:wq         " 保存并退出
+:x          " 有修改时保存并退出
+:q!         " 放弃修改并退出
+:e file     " 打开文件
+:w file     " 另存为
+```
+
+移动只需要先记一组：
+
+```vim
+h j k l     " 左、下、上、右
+w b e       " 单词移动
+0 ^ $       " 行内移动
+gg G        " 文件开头、文件末尾
+Ctrl-f      " 向下翻页
+Ctrl-b      " 向上翻页
+```
+
+### 熟练阶段：少按键
+
+开始使用组合命令、文本对象、搜索跳转和寄存器。
+
+```vim
+dd          " 删除当前行
+yy          " 复制当前行
+p           " 在后面粘贴
+P           " 在前面粘贴
+ciw         " 修改当前单词
+ci"         " 修改引号内内容
+dap         " 删除当前段落
+/word       " 向后搜索 word
+n           " 下一个匹配
+*           " 搜索光标下单词
+```
+
+### 进阶阶段：让编辑可组合
+
+这个阶段关注工作流：
+
+- 用 `:bnext`、`:bprevious`、`:ls` 管理 buffer。
+- 用窗口分屏同时查看多个位置。
+- 用 mark、jump list、change list 在编辑历史里跳转。
+- 用宏处理重复编辑。
+- 用插件补足文件查找、Git、LSP、格式化等能力。
+
+## 常用工作流
+
+### 移动与定位
+
+```vim
+f,       " 当前行向后找逗号
+F,       " 当前行向前找逗号
+t)       " 移动到右括号前
+H        " 移动到屏幕顶部
+M        " 移动到屏幕中间
+L        " 移动到屏幕底部
+zz       " 当前行居中
+zt       " 当前行置顶
+zb       " 当前行置底
+```
+
+查找比肉眼移动更稳定。已知目标字符时用 `f`/`t`，已知词或模式时用 `/`。
+
+### 编辑文本
+
+```vim
+x        " 删除光标下字符
+X        " 删除光标前字符
+s        " 删除光标下字符并插入
+C        " 修改到行尾
+D        " 删除到行尾
+J        " 合并下一行
+rX       " 把光标下字符替换成 X
+```
+
+高频修改建议优先用 `c` 开头的命令，因为它会进入 Insert 模式并形成可被 `.` 重复的修改。
+
+```vim
+cw       " 修改到下一个单词开头
+ciw      " 修改当前单词
+c$       " 修改到行尾
+cc       " 修改整行
+```
+
+### 复制、删除与粘贴
+
+Vim 的复制粘贴由寄存器支撑。简单使用时只需要：
+
+```vim
+yy       " 复制当前行
+yap      " 复制当前段落
+dd       " 删除当前行
+p        " 粘贴到后面
+P        " 粘贴到前面
+```
+
+如果删除覆盖了刚复制的内容，可以用 `"0p` 粘贴最近一次 yank 的内容。更多细节见 [寄存器](./register.md)。
+
+### 搜索与替换
+
+```vim
+/foo             " 向后搜索 foo
+?foo             " 向前搜索 foo
+n                " 下一个匹配
+N                " 上一个匹配
+:%s/foo/bar/g    " 全文替换
+:%s/foo/bar/gc   " 全文替换并逐个确认
+```
+
+搜索、替换和 Vim 正则的细节见 [搜索、替换与特殊用法](./special.md)。
+
+### Buffer、Window、Tab
+
+Vim 里这三个概念容易混淆：
+
+- buffer：已打开的文件内容。
+- window：展示某个 buffer 的视图。
+- tab：一组 window 的布局。
+
+常用命令：
+
+```vim
+:ls             " 查看 buffer 列表
+:bnext          " 下一个 buffer
+:bprevious      " 上一个 buffer
+:buffer 3       " 切到编号为 3 的 buffer
+:bdelete        " 关闭当前 buffer
+
+:split          " 水平分屏
+:vsplit         " 垂直分屏
+Ctrl-w h        " 切到左侧窗口
+Ctrl-w j        " 切到下方窗口
+Ctrl-w k        " 切到上方窗口
+Ctrl-w l        " 切到右侧窗口
+Ctrl-w =        " 平均窗口大小
+
+:tabnew         " 新建 tab
+:tabedit file   " 在新 tab 打开文件
+gt              " 下一个 tab
+gT              " 上一个 tab
+```
+
+一般建议：用 buffer 管文件，用 window 做临时对照，用 tab 保存不同任务的窗口布局。
+
+### Mark、Jump List 与 Change List
+
+Vim 会记录很多跳转历史，不需要每次都重新找位置。
+
+```vim
+ma        " 在当前位置设置局部 mark a
+'a        " 跳到 mark a 所在行
+`a        " 跳到 mark a 精确位置
+:marks    " 查看 marks
+
+Ctrl-o    " 跳回上一个位置
+Ctrl-i    " 跳到下一个位置
+:jumps    " 查看 jump list
+
+g;        " 跳到上一次修改位置
+g,        " 跳到下一次修改位置
+```
+
+### 折叠
+
+折叠适合阅读长文件，不适合替代结构化导航。
+
+```vim
+zf        " 创建折叠
+zo        " 打开折叠
+zc        " 关闭折叠
+za        " 切换折叠
+zR        " 打开所有折叠
+zM        " 关闭所有折叠
+```
+
+常见折叠方式：
+
+```vim
+:set foldmethod=manual
+:set foldmethod=indent
+:set foldmethod=syntax
+:set foldmethod=marker
+```
+
+## 推荐基础配置
+
+下面是一份偏保守的 `.vimrc` 起点，适合作为学习 Vim 的基础配置。
+
+```vim
+set nocompatible
+filetype plugin indent on
+syntax enable
+
+set number
+set relativenumber
+set cursorline
+set showcmd
+set wildmenu
+set hidden
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+set scrolloff=5
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+
+let mapleader = ","
+nnoremap <leader>w :write<CR>
+nnoremap <leader>q :quit<CR>
+nnoremap <leader><space> :nohlsearch<CR>
+```
+
+注意：`set clipboard=unnamedplus` 需要 Vim 编译时支持 `+clipboard`。如果无效，可以在 Vim 中执行 `:version` 检查。
+
+## 使用习惯
+
+- Normal 模式是工作台，Insert 模式只是输入文字的瞬间。
+- 优先学习组合规则，而不是孤立背命令。
+- 修改尽量做成能被 `.` 重复的动作。
+- 搜索比长距离移动更可靠。
+- 学会 `:help`，例如 `:help registers`、`:help pattern`、`:help text-objects`。
+- 插件是补足工作流，不是学习 Vim 本体的前提。
+
+Vim 的学习曲线确实陡，但一旦理解了“操作符 + 范围 + 可重复”的语言感，它会从一堆难记命令变成一套很稳定的编辑工具。

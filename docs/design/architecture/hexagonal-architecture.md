@@ -1,5 +1,62 @@
 # 六边形架构（Hexagonal Architecture）
 
+## 核心概念
+
+六边形架构也叫端口与适配器架构。它的核心不是图形有六条边，而是让业务核心不依赖数据库、消息队列、HTTP 框架、第三方 SDK 等外部技术。业务核心只依赖端口，外部技术通过适配器接入。
+
+![六边形架构结构图](/architecture/hexagonal.svg)
+
+## 适用场景
+
+- 业务规则复杂，需要保护领域模型。
+- 希望核心逻辑可以脱离数据库和 Web 框架测试。
+- 外部依赖容易变化，例如支付、短信、存储、消息。
+- 想从传统分层架构演进到更清晰的领域边界。
+
+## 不适用场景
+
+- 系统非常简单，普通分层已经足够。
+- 团队还不能清楚区分业务核心和技术适配。
+- 只是 CRUD 后台，抽象端口会大于收益。
+
+## 落地结构
+
+```text
+payment/
+├── application/
+│   └── PayOrderUseCase.java
+├── domain/
+│   ├── Payment.java
+│   └── PaymentPolicy.java
+├── port/
+│   ├── in/
+│   │   └── PayOrderCommand.java
+│   └── out/
+│       ├── PaymentRepository.java
+│       └── PaymentGateway.java
+└── adapter/
+    ├── in/
+    │   └── PaymentController.java
+    └── out/
+        ├── JpaPaymentRepository.java
+        └── AlipayGatewayAdapter.java
+```
+
+## 实施步骤
+
+1. 找出核心用例，例如支付订单、取消订单、创建报价。
+2. 定义输入端口，表达系统能被外部触发的用例。
+3. 定义输出端口，表达业务核心需要的外部能力。
+4. 把数据库、消息、第三方接口放到输出适配器。
+5. 用单元测试直接测试应用层和领域层。
+
+## 检查清单
+
+- 领域层是否没有 Spring、JPA、HTTP、MQ SDK 注解。
+- 外部 SDK 是否只出现在 adapter 层。
+- 端口命名是否表达业务意图，而不是技术实现。
+- 是否可以用内存适配器替换数据库做测试。
+
 ## 概述
 
 六边形架构，也称为端口和适配器架构（Ports and Adapters Architecture），是由Alistair Cockburn在2005年提出的一种架构模式。该架构的核心思想是将应用程序的业务逻辑与外部关注点（如用户界面、数据库、外部服务等）完全分离，通过端口和适配器的方式进行交互。

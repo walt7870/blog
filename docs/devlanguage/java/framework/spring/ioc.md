@@ -1,1234 +1,179 @@
-# Spring IoC 容器详解
+# Spring IoC 容器
 
-## 概述
+IoC 容器负责管理应用里的长期组件。它记录哪些类可以成为 Bean，决定这些 Bean 如何创建，负责把 Bean 之间的依赖连接起来，并在初始化和销毁阶段提供扩展点。
 
-IoC（Inversion of Control，控制反转）是 Spring 框架的核心特性之一。它是一种设计原则，用于减少代码之间的耦合度。在传统的程序设计中，对象的创建和依赖关系的管理都是由程序代码直接控制的。而在 IoC 模式下，这种控制权被反转了，对象的创建和依赖关系的管理交给了容器来处理。
+如果把业务应用看成一座工厂，IoC 容器不是生产线上的某个工人，而是设备台账和装配系统：哪些设备需要登记，设备之间怎么连接，启动前要做什么检查，关闭时要按什么顺序收尾，都由它统一管理。
 
-## 目录
+![Spring Bean 生命周期](/spring/ioc-bean-lifecycle.svg)
 
-1. [IoC 基本概念](#ioc-基本概念)
-2. [依赖注入（DI）](#依赖注入di)
-3. [Spring IoC 容器](#spring-ioc-容器)
-4. [Bean 的定义与配置](#bean-的定义与配置)
-5. [Bean 的生命周期](#bean-的生命周期)
-6. [Bean 的作用域](#bean-的作用域)
-7. [依赖注入的方式](#依赖注入的方式)
-8. [自动装配](#自动装配)
-9. [注解驱动开发](#注解驱动开发)
-10. [Java 配置](#java-配置)
-11. [高级特性](#高级特性)
-12. [最佳实践](#最佳实践)
+## 详细位置
 
----
+- 本页说明 IoC 的概念边界、Bean 来源、依赖注入、生命周期和排错方式。
+- Spring 各模块关系见 [Spring 总览](./index.md)。
+- 事务和代理问题见 [AOP](./aop.md)。
+- Web 请求中的 Controller、Service 装配见 [Spring MVC](./mvc.md)。
 
-## IoC 基本概念
+## 概念边界
 
-### 什么是控制反转
+| 概念 | 准确含义 | 直观理解 |
+| --- | --- | --- |
+| IoC | 对象创建和依赖组装的控制权从业务代码转移到容器 | 对象不再自己找零件，而是由装配系统配齐 |
+| DI | 容器把一个对象需要的依赖传给它 | 组件声明插口，容器插上线 |
+| Bean | 被 Spring 容器管理的对象 | 登记在容器台账里的组件 |
+| ApplicationContext | 常用 Spring 容器 | 应用启动后的组件仓库和运行上下文 |
+| BeanDefinition | Bean 的元信息 | 容器创建 Bean 前看的说明书 |
 
-控制反转（IoC）是一种设计原则，它将对象的创建、配置和生命周期管理的控制权从应用程序代码转移到外部容器。
+IoC 的重点不是让代码变短，而是让依赖关系显式、可替换、可检查。一个对象需要什么依赖，应能从构造器或配置中直接看出来，而不是藏在方法内部的 `new` 里。
 
-#### 传统方式 vs IoC 方式
+## 哪些对象适合成为 Bean
 
-**传统方式**：
+适合注册为 Bean 的对象：
 
-```java
-public class UserService {
-    private UserRepository userRepository;
-    
-    public UserService() {
-        // 直接创建依赖对象
-        this.userRepository = new UserRepositoryImpl();
-    }
-    
-    public User findById(Long id) {
-        return userRepository.findById(id);
-    }
-}
-```
+- 应用服务：例如订单服务、支付服务、导出服务。
+- 数据访问对象：例如 Repository、Mapper、DAO。
+- 外部系统客户端：例如支付网关客户端、短信客户端、对象存储客户端。
+- 框架扩展点：例如拦截器、监听器、定时任务、消息消费者。
+- 配置对象：例如线程池、序列化器、业务配置绑定对象。
 
-**IoC 方式**：
+不适合注册为 Bean 的对象：
 
-```java
-public class UserService {
-    private UserRepository userRepository;
-    
-    // 通过构造函数注入依赖
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-    
-    public User findById(Long id) {
-        return userRepository.findById(id);
-    }
-}
-```
+- Entity、DTO、VO、Command、Request、Response。
+- 一次循环、一次请求、一次计算中临时创建的数据对象。
+- 持有用户临时状态或请求中间状态的对象。
 
-### IoC 的优势
+判断标准是生命周期。Bean 通常像“设备”，在应用启动后长期存在；DTO 和 Entity 更像“单据”，在一次流程中流转，用完就结束。
 
-1. **降低耦合度**：对象之间的依赖关系由容器管理，减少了直接依赖
-2. **提高可测试性**：可以轻松地注入模拟对象进行单元测试
-3. **增强灵活性**：可以在运行时动态改变对象的依赖关系
-4. **简化配置**：集中管理对象的创建和配置
-5. **支持 AOP**：为面向切面编程提供基础
+## Bean 的来源
 
----
+Bean 主要来自两类入口。
 
-## 依赖注入（DI）
+### 组件扫描
 
-### 什么是依赖注入
+应用内部自己写的组件，通常通过 `@Service`、`@Repository`、`@Controller`、`@Component` 注册。它表达的是“这个类由容器管理”。
 
-依赖注入（Dependency Injection，DI）是实现 IoC 的一种方式。它是一种设计模式，用于实现对象之间的松耦合。
+使用时应让注解表达分层语义：
 
-### DI 的类型
-
-#### 1. 构造函数注入
-
-```java
-@Component
-public class UserService {
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    
-    // 构造函数注入
-    public UserService(UserRepository userRepository, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.emailService = emailService;
-    }
-    
-    public User createUser(User user) {
-        User savedUser = userRepository.save(user);
-        emailService.sendWelcomeEmail(savedUser.getEmail());
-        return savedUser;
-    }
-}
-```
-
-#### 2. Setter 注入
-
-```java
-@Component
-public class UserService {
-    private UserRepository userRepository;
-    private EmailService emailService;
-    
-    // Setter 注入
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-    
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
-}
-```
-
-#### 3. 字段注入
-
-```java
-@Component
-public class UserService {
-    
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private EmailService emailService;
-    
-    public User createUser(User user) {
-        User savedUser = userRepository.save(user);
-        emailService.sendWelcomeEmail(savedUser.getEmail());
-        return savedUser;
-    }
-}
-```
-
-### 推荐的注入方式
-
-**构造函数注入是推荐的方式**，原因如下：
-
-1. **不可变性**：可以将字段声明为 final
-2. **必需依赖**：确保所有必需的依赖都被提供
-3. **测试友好**：便于编写单元测试
-4. **循环依赖检测**：在应用启动时就能发现循环依赖
-
----
-
-## Spring IoC 容器
-
-### 容器类型
-
-Spring 提供了两种主要的容器类型：
-
-#### 1. BeanFactory
-
-```java
-// 基本的 IoC 容器
-BeanFactory factory = new XmlBeanFactory(new ClassPathResource("beans.xml"));
-UserService userService = (UserService) factory.getBean("userService");
-```
-
-#### 2. ApplicationContext
-
-```java
-// 高级的 IoC 容器
-ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-UserService userService = context.getBean("userService", UserService.class);
-```
-
-### ApplicationContext 的实现
-
-#### 1. ClassPathXmlApplicationContext
-
-```java
-// 从类路径加载 XML 配置文件
-ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-```
-
-#### 2. FileSystemXmlApplicationContext
-
-```java
-// 从文件系统加载 XML 配置文件
-ApplicationContext context = new FileSystemXmlApplicationContext("/path/to/applicationContext.xml");
-```
-
-#### 3. AnnotationConfigApplicationContext
-
-```java
-// 基于注解的配置
-ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-```
-
-#### 4. WebApplicationContext
-
-```java
-// Web 应用上下文
-@Configuration
-@EnableWebMvc
-public class WebConfig implements WebMvcConfigurer {
-    // Web 相关配置
-}
-```
-
----
-
-## Bean 的定义与配置
-
-### XML 配置方式
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd">
-    
-    <!-- 简单 Bean 定义 -->
-    <bean id="userRepository" class="com.example.repository.UserRepositoryImpl"/>
-    
-    <!-- 带构造函数参数的 Bean -->
-    <bean id="userService" class="com.example.service.UserService">
-        <constructor-arg ref="userRepository"/>
-        <constructor-arg ref="emailService"/>
-    </bean>
-    
-    <!-- 带属性注入的 Bean -->
-    <bean id="emailService" class="com.example.service.EmailService">
-        <property name="smtpHost" value="smtp.example.com"/>
-        <property name="smtpPort" value="587"/>
-    </bean>
-    
-    <!-- 集合类型注入 -->
-    <bean id="notificationService" class="com.example.service.NotificationService">
-        <property name="handlers">
-            <list>
-                <ref bean="emailHandler"/>
-                <ref bean="smsHandler"/>
-            </list>
-        </property>
-        <property name="config">
-            <map>
-                <entry key="timeout" value="30"/>
-                <entry key="retries" value="3"/>
-            </map>
-        </property>
-    </bean>
-    
-</beans>
-```
-
-### 注解配置方式
-
-#### 1. 组件扫描
-
-```java
-@Configuration
-@ComponentScan(basePackages = "com.example")
-public class AppConfig {
-    // 配置类
-}
-```
-
-#### 2. 组件注解
-
-```java
-// 通用组件
-@Component
-public class UserValidator {
-    public boolean validate(User user) {
-        return user != null && user.getEmail() != null;
-    }
-}
-
-// 服务层组件
-@Service
-public class UserService {
-    // 服务逻辑
-}
-
-// 数据访问层组件
-@Repository
-public class UserRepositoryImpl implements UserRepository {
-    // 数据访问逻辑
-}
-
-// 控制层组件
-@Controller
-public class UserController {
-    // 控制器逻辑
-}
-```
-
-#### 3. Bean 定义注解
-
-```java
-@Configuration
-public class DatabaseConfig {
-    
-    @Bean
-    @Primary
-    public DataSource primaryDataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/primary");
-        dataSource.setUsername("user");
-        dataSource.setPassword("password");
-        return dataSource;
-    }
-    
-    @Bean
-    @Qualifier("secondary")
-    public DataSource secondaryDataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/secondary");
-        dataSource.setUsername("user");
-        dataSource.setPassword("password");
-        return dataSource;
-    }
-    
-    @Bean
-    @ConditionalOnProperty(name = "cache.enabled", havingValue = "true")
-    public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("users", "products");
-    }
-}
-```
-
----
-
-## Bean 的生命周期
-
-### 生命周期阶段
-
-1. **实例化**：创建 Bean 实例
-2. **属性填充**：设置 Bean 的属性值
-3. **初始化**：调用初始化方法
-4. **使用**：Bean 可以被应用程序使用
-5. **销毁**：容器关闭时销毁 Bean
-
-### 生命周期回调
-
-#### 1. 初始化回调
-
-```java
-// 方式1：实现 InitializingBean 接口
-@Component
-public class UserService implements InitializingBean {
-    
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        // 初始化逻辑
-        System.out.println("UserService 初始化完成");
-    }
-}
-
-// 方式2：使用 @PostConstruct 注解
-@Component
-public class EmailService {
-    
-    @PostConstruct
-    public void init() {
-        // 初始化逻辑
-        System.out.println("EmailService 初始化完成");
-    }
-}
-
-// 方式3：在 @Bean 注解中指定
-@Configuration
-public class AppConfig {
-    
-    @Bean(initMethod = "init")
-    public SomeService someService() {
-        return new SomeService();
-    }
-}
-
-public class SomeService {
-    public void init() {
-        System.out.println("SomeService 初始化完成");
-    }
-}
-```
-
-#### 2. 销毁回调
-
-```java
-// 方式1：实现 DisposableBean 接口
-@Component
-public class UserService implements DisposableBean {
-    
-    @Override
-    public void destroy() throws Exception {
-        // 清理逻辑
-        System.out.println("UserService 销毁");
-    }
-}
-
-// 方式2：使用 @PreDestroy 注解
-@Component
-public class EmailService {
-    
-    @PreDestroy
-    public void cleanup() {
-        // 清理逻辑
-        System.out.println("EmailService 销毁");
-    }
-}
-
-// 方式3：在 @Bean 注解中指定
-@Configuration
-public class AppConfig {
-    
-    @Bean(destroyMethod = "cleanup")
-    public SomeService someService() {
-        return new SomeService();
-    }
-}
-```
-
-### BeanPostProcessor
-
-```java
-@Component
-public class CustomBeanPostProcessor implements BeanPostProcessor {
-    
-    @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("Before initialization: " + beanName);
-        return bean;
-    }
-    
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("After initialization: " + beanName);
-        return bean;
-    }
-}
-```
-
----
-
-## Bean 的作用域
-
-### 作用域类型
-
-#### 1. Singleton（单例）
-
-```java
-@Component
-@Scope("singleton") // 默认作用域
-public class UserService {
-    // 整个应用中只有一个实例
-}
-```
-
-#### 2. Prototype（原型）
-
-```java
-@Component
-@Scope("prototype")
-public class UserCommand {
-    // 每次请求都创建新实例
-}
-```
-
-#### 3. Request（请求）
-
-```java
-@Component
-@Scope("request")
-public class RequestScopedBean {
-    // 每个 HTTP 请求一个实例
-}
-```
-
-#### 4. Session（会话）
-
-```java
-@Component
-@Scope("session")
-public class SessionScopedBean {
-    // 每个 HTTP 会话一个实例
-}
-```
-
-#### 5. Application（应用）
-
-```java
-@Component
-@Scope("application")
-public class ApplicationScopedBean {
-    // 整个 Web 应用一个实例
-}
-```
-
-### 自定义作用域
-
-```java
-@Component
-public class ThreadLocalScope implements Scope {
-    
-    private final ThreadLocal<Map<String, Object>> threadLocal = new ThreadLocal<Map<String, Object>>() {
-        @Override
-        protected Map<String, Object> initialValue() {
-            return new HashMap<>();
-        }
-    };
-    
-    @Override
-    public Object get(String name, ObjectFactory<?> objectFactory) {
-        Map<String, Object> scope = threadLocal.get();
-        Object object = scope.get(name);
-        if (object == null) {
-            object = objectFactory.getObject();
-            scope.put(name, object);
-        }
-        return object;
-    }
-    
-    @Override
-    public Object remove(String name) {
-        Map<String, Object> scope = threadLocal.get();
-        return scope.remove(name);
-    }
-    
-    @Override
-    public void registerDestructionCallback(String name, Runnable callback) {
-        // 注册销毁回调
-    }
-    
-    @Override
-    public Object resolveContextualObject(String key) {
-        return null;
-    }
-    
-    @Override
-    public String getConversationId() {
-        return Thread.currentThread().getName();
-    }
-}
-
-// 注册自定义作用域
-@Configuration
-public class ScopeConfig {
-    
-    @Bean
-    public static CustomScopeConfigurer customScopeConfigurer() {
-        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
-        configurer.addScope("thread", new ThreadLocalScope());
-        return configurer;
-    }
-}
-
-// 使用自定义作用域
-@Component
-@Scope("thread")
-public class ThreadScopedBean {
-    // 每个线程一个实例
-}
-```
-
----
-
-## 依赖注入的方式
-
-### @Autowired 注解
-
-#### 1. 按类型自动装配
-
-```java
-@Service
-public class UserService {
-    
-    @Autowired
-    private UserRepository userRepository; // 按类型注入
-    
-    @Autowired
-    private List<UserValidator> validators; // 注入所有 UserValidator 类型的 Bean
-    
-    @Autowired
-    private Map<String, NotificationHandler> handlers; // 注入所有 NotificationHandler，key 为 Bean 名称
-}
-```
-
-#### 2. 可选依赖
-
-```java
-@Service
-public class UserService {
-    
-    @Autowired(required = false)
-    private CacheManager cacheManager; // 可选依赖，如果不存在则为 null
-    
-    @Autowired
-    private Optional<MetricsCollector> metricsCollector; // 使用 Optional 包装
-}
-```
-
-### @Qualifier 注解
-
-```java
-@Service
-public class UserService {
-    
-    @Autowired
-    @Qualifier("primaryDataSource")
-    private DataSource primaryDataSource;
-    
-    @Autowired
-    @Qualifier("secondaryDataSource")
-    private DataSource secondaryDataSource;
-}
-
-@Configuration
-public class DataSourceConfig {
-    
-    @Bean
-    @Qualifier("primaryDataSource")
-    public DataSource primaryDataSource() {
-        // 主数据源配置
-        return new HikariDataSource();
-    }
-    
-    @Bean
-    @Qualifier("secondaryDataSource")
-    public DataSource secondaryDataSource() {
-        // 辅助数据源配置
-        return new HikariDataSource();
-    }
-}
-```
-
-### @Primary 注解
-
-```java
-@Configuration
-public class DataSourceConfig {
-    
-    @Bean
-    @Primary // 当有多个相同类型的 Bean 时，优先选择这个
-    public DataSource primaryDataSource() {
-        return new HikariDataSource();
-    }
-    
-    @Bean
-    public DataSource secondaryDataSource() {
-        return new HikariDataSource();
-    }
-}
-
-@Service
-public class UserService {
-    
-    @Autowired
-    private DataSource dataSource; // 会注入 primaryDataSource
-}
-```
-
-### @Resource 注解
-
-```java
-@Service
-public class UserService {
-    
-    @Resource(name = "userRepository") // 按名称注入
-    private UserRepository userRepository;
-    
-    @Resource // 按名称注入，名称为字段名
-    private EmailService emailService;
-}
-```
-
----
-
-## 自动装配
-
-### 装配模式
-
-#### 1. byName
-
-```xml
-<bean id="userService" class="com.example.UserService" autowire="byName">
-    <!-- Spring 会查找名为 userRepository 的 Bean 并注入 -->
-</bean>
-
-<bean id="userRepository" class="com.example.UserRepositoryImpl"/>
-```
-
-#### 2. byType
-
-```xml
-<bean id="userService" class="com.example.UserService" autowire="byType">
-    <!-- Spring 会查找 UserRepository 类型的 Bean 并注入 -->
-</bean>
-
-<bean id="userRepo" class="com.example.UserRepositoryImpl"/>
-```
-
-#### 3. constructor
-
-```xml
-<bean id="userService" class="com.example.UserService" autowire="constructor">
-    <!-- Spring 会根据构造函数参数类型自动装配 -->
-</bean>
-```
-
-### 排除自动装配
-
-```java
-@Component
-public class UserService {
-    
-    @Autowired
-    @Qualifier("exclude")
-    private UserRepository userRepository;
-}
-
-@Repository
-@Qualifier("exclude")
-public class ExcludedUserRepository implements UserRepository {
-    // 这个实现会被排除在自动装配之外
-}
-```
-
----
-
-## 注解驱动开发
-
-### 启用注解支持
-
-```java
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan(basePackages = "com.example")
-public class AppConfig {
-    // 配置类
-}
-```
-
-### 条件注解
-
-#### 1. @Conditional
-
-```java
-public class DatabaseCondition implements Condition {
-    
-    @Override
-    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return context.getEnvironment().getProperty("database.enabled", Boolean.class, false);
-    }
-}
-
-@Configuration
-public class DatabaseConfig {
-    
-    @Bean
-    @Conditional(DatabaseCondition.class)
-    public DataSource dataSource() {
-        return new HikariDataSource();
-    }
-}
-```
-
-#### 2. Spring Boot 条件注解
-
-```java
-@Configuration
-public class ConditionalConfig {
-    
-    @Bean
-    @ConditionalOnProperty(name = "feature.enabled", havingValue = "true")
-    public FeatureService featureService() {
-        return new FeatureServiceImpl();
-    }
-    
-    @Bean
-    @ConditionalOnMissingBean(CacheManager.class)
-    public CacheManager defaultCacheManager() {
-        return new ConcurrentMapCacheManager();
-    }
-    
-    @Bean
-    @ConditionalOnClass(RedisTemplate.class)
-    public RedisService redisService() {
-        return new RedisServiceImpl();
-    }
-}
-```
-
-### Profile
-
-```java
-@Configuration
-@Profile("development")
-public class DevConfig {
-    
-    @Bean
-    public DataSource dataSource() {
-        // 开发环境数据源
-        return new H2DataSource();
-    }
-}
-
-@Configuration
-@Profile("production")
-public class ProdConfig {
-    
-    @Bean
-    public DataSource dataSource() {
-        // 生产环境数据源
-        return new HikariDataSource();
-    }
-}
-
-@Service
-@Profile("!test") // 非测试环境
-public class EmailService {
-    // 邮件服务实现
-}
-```
-
----
-
-## Java 配置
+| 注解 | 更适合放在 | 说明 |
+| --- | --- | --- |
+| `@Controller` / `@RestController` | Web 入口 | 处理 HTTP 协议 |
+| `@Service` | 应用服务 | 编排业务流程、控制事务边界 |
+| `@Repository` | 数据访问 | 数据库、缓存、外部存储访问 |
+| `@Component` | 通用组件 | 没有明确分层语义的工具型组件 |
 
 ### 配置类
 
-```java
-@Configuration
-public class AppConfig {
-    
-    @Bean
-    public UserRepository userRepository() {
-        return new JpaUserRepository();
-    }
-    
-    @Bean
-    public UserService userService() {
-        return new UserService(userRepository(), emailService());
-    }
-    
-    @Bean
-    public EmailService emailService() {
-        EmailService service = new EmailService();
-        service.setSmtpHost("smtp.example.com");
-        service.setSmtpPort(587);
-        return service;
-    }
-}
-```
+第三方对象、带构造参数的 SDK Client、线程池、连接池等，通常通过 `@Configuration` 和 `@Bean` 注册。它表达的是“这个对象怎样创建”。
 
-### 导入配置
+组件扫描适合“类本身就是组件”；配置类适合“对象创建过程需要额外说明”。把复杂创建逻辑塞进业务类，会让业务代码同时承担装配职责。
 
-```java
-@Configuration
-@Import({DatabaseConfig.class, SecurityConfig.class})
-public class AppConfig {
-    // 主配置类
-}
+## 依赖注入
 
-@Configuration
-public class DatabaseConfig {
-    // 数据库相关配置
-}
+依赖注入的目标是让对象只声明“我需要什么”，不关心“依赖从哪里来”。最推荐的是构造器注入，因为它有几个清晰特征：
 
-@Configuration
-public class SecurityConfig {
-    // 安全相关配置
-}
-```
+- 对象创建完成时，必需依赖已经齐全。
+- 依赖关系可以从构造器直接看见。
+- 字段可以保持不可变。
+- 单元测试可以直接传入替身对象。
+- 循环依赖会更早暴露。
 
-### 配置属性
+Setter 注入适合可选依赖或运行期可替换依赖。字段注入虽然短，但依赖不透明，测试不方便，业务代码中不建议作为默认选择。
 
-```java
-@Configuration
-@PropertySource("classpath:application.properties")
-public class AppConfig {
-    
-    @Value("${database.url}")
-    private String databaseUrl;
-    
-    @Value("${database.username}")
-    private String databaseUsername;
-    
-    @Bean
-    public DataSource dataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(databaseUrl);
-        dataSource.setUsername(databaseUsername);
-        return dataSource;
-    }
-}
-```
+## 多实现如何选择
 
----
+一个接口有多个实现时，容器会遇到“同一个插口有多根线”的问题。常见处理方式：
 
-## 高级特性
+| 场景 | 方式 | 含义 |
+| --- | --- | --- |
+| 调用方明确需要某个实现 | `@Qualifier` | 指定 Bean 名称或限定符 |
+| 某个实现是默认选择 | `@Primary` | 多实现中优先使用它 |
+| 调用方需要所有实现 | 注入 `List<T>` 或 `Map<String, T>` | 适合插件、策略、责任链 |
 
-### 1. 循环依赖处理
+不要靠类名巧合或加载顺序解决多实现问题。多实现本身是设计信息，应该用注解或集合注入表达清楚。
 
-```java
-// 问题：循环依赖
-@Service
-public class ServiceA {
-    @Autowired
-    private ServiceB serviceB;
-}
+## 生命周期
 
-@Service
-public class ServiceB {
-    @Autowired
-    private ServiceA serviceA;
-}
+单例 Bean 的生命周期可以按这条线理解：
 
-// 解决方案1：使用 @Lazy 注解
-@Service
-public class ServiceA {
-    @Autowired
-    @Lazy
-    private ServiceB serviceB;
-}
+1. 容器读取 Bean 定义。
+2. 调用构造器创建对象。
+3. 注入依赖和配置属性。
+4. 执行初始化前扩展。
+5. 执行初始化回调。
+6. 执行初始化后扩展。
+7. Bean 进入可用状态。
+8. 容器关闭时执行销毁回调。
 
-// 解决方案2：使用 Setter 注入
-@Service
-public class ServiceA {
-    private ServiceB serviceB;
-    
-    @Autowired
-    public void setServiceB(ServiceB serviceB) {
-        this.serviceB = serviceB;
-    }
-}
+初始化回调适合做必须在启动前完成的校验，例如配置完整性检查、本地缓存结构初始化。不适合放置耗时且非关键的远程调用，否则应用启动会被外部系统拖慢。
 
-// 解决方案3：重新设计，避免循环依赖
-@Service
-public class ServiceC {
-    // 提取公共逻辑，避免循环依赖
-}
-```
+## 作用域
 
-### 2. 懒加载
+多数业务 Bean 使用默认的 singleton。它表示容器中只有一个实例，并不表示它必须持有全局状态。
 
-```java
-@Component
-@Lazy // Bean 在第一次使用时才创建
-public class ExpensiveService {
-    
-    public ExpensiveService() {
-        System.out.println("创建 ExpensiveService，这是一个耗时操作");
-    }
-}
+单例 Bean 应尽量无状态。用户 ID、请求参数、导入进度、临时计算结果等不应放进单例字段，否则并发请求之间可能互相污染。
 
-@Service
-public class UserService {
-    
-    @Autowired
-    @Lazy // 注入点也需要标记为懒加载
-    private ExpensiveService expensiveService;
-    
-    public void someMethod() {
-        // 只有在这里调用时，ExpensiveService 才会被创建
-        expensiveService.doSomething();
-    }
-}
-```
+常见作用域：
 
-### 3. 工厂 Bean
+| 作用域 | 生命周期 | 适用性 |
+| --- | --- | --- |
+| `singleton` | 容器内单例 | Service、Repository、Client、配置类 |
+| `prototype` | 每次获取创建新实例 | 有状态任务对象，使用较少 |
+| `request` | 每个 HTTP 请求一个实例 | 请求上下文 |
+| `session` | 每个 HTTP Session 一个实例 | 会话状态，谨慎使用 |
 
-```java
-@Component
-public class ConnectionFactoryBean implements FactoryBean<Connection> {
-    
-    @Override
-    public Connection getObject() throws Exception {
-        // 创建复杂的 Connection 对象
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/db");
-    }
-    
-    @Override
-    public Class<?> getObjectType() {
-        return Connection.class;
-    }
-    
-    @Override
-    public boolean isSingleton() {
-        return false; // 每次调用都创建新的连接
-    }
-}
+## 配置绑定
 
-@Service
-public class DatabaseService {
-    
-    @Autowired
-    private Connection connection; // 注入的是 FactoryBean 创建的对象
-    
-    @Autowired
-    @Qualifier("&connectionFactoryBean")
-    private FactoryBean<Connection> factoryBean; // 注入 FactoryBean 本身
-}
-```
+零散的 `@Value` 适合少量简单值。只要配置形成一组，例如支付网关地址、Token、超时时间、重试次数，就更适合使用 `@ConfigurationProperties`。
 
-### 4. 事件机制
+结构化配置的好处：
 
-```java
-// 自定义事件
-public class UserRegisteredEvent extends ApplicationEvent {
-    private final User user;
-    
-    public UserRegisteredEvent(Object source, User user) {
-        super(source);
-        this.user = user;
-    }
-    
-    public User getUser() {
-        return user;
-    }
-}
+- 配置项属于同一个对象，含义集中。
+- 可以设置默认值和校验规则。
+- 测试时可以直接构造配置对象。
+- 排查时更容易确认前缀、字段和最终值。
 
-// 事件发布者
-@Service
-public class UserService {
-    
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
-    
-    public User registerUser(User user) {
-        User savedUser = userRepository.save(user);
-        
-        // 发布事件
-        eventPublisher.publishEvent(new UserRegisteredEvent(this, savedUser));
-        
-        return savedUser;
-    }
-}
+配置对象像“设备参数表”，业务组件只读取参数表，不应该到处散落读取配置文件。
 
-// 事件监听器
-@Component
-public class UserEventListener {
-    
-    @EventListener
-    public void handleUserRegistered(UserRegisteredEvent event) {
-        User user = event.getUser();
-        System.out.println("用户注册成功：" + user.getUsername());
-        // 发送欢迎邮件等后续处理
-    }
-    
-    @EventListener
-    @Async // 异步处理
-    public void handleUserRegisteredAsync(UserRegisteredEvent event) {
-        // 异步处理逻辑
-    }
-}
-```
+## 常见问题
 
----
+### 找不到 Bean
 
-## 最佳实践
+优先检查：
 
-### 1. 依赖注入最佳实践
+1. 类是否在启动类所在包或子包下。
+2. 类是否通过组件注解或配置类注册。
+3. 条件装配是否没有命中。
+4. 测试环境是否缺少配置类。
+5. 依赖是否进入运行时 classpath。
 
-```java
-// 推荐：使用构造函数注入
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    
-    public UserService(UserRepository userRepository, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.emailService = emailService;
-    }
-}
+### Bean 超过一个
 
-// 避免：字段注入（测试困难）
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private EmailService emailService;
-}
-```
+说明容器找到了多个候选对象，但注入点没有说明要哪个。用 `@Qualifier` 指定、用 `@Primary` 设置默认，或者改成注入集合。
 
-### 2. Bean 命名规范
+### 循环依赖
 
-```java
-// 推荐：使用有意义的名称
-@Component("userValidator")
-public class UserValidator {
-    // ...
-}
+循环依赖通常不是容器问题，而是服务边界问题。A 调 B，B 又调 A，往往说明两个服务职责互相缠绕。
 
-@Bean("primaryDataSource")
-public DataSource primaryDataSource() {
-    // ...
-}
+优先处理方式：
 
-// 避免：使用默认名称或无意义名称
-@Component
-public class Validator {
-    // ...
-}
-```
+- 抽出共同依赖。
+- 调整服务边界。
+- 用事件解耦后续动作。
+- 把事务入口放到更清晰的应用服务层。
 
-### 3. 配置组织
+### 配置没有注入
 
-```java
-// 推荐：按功能模块组织配置
-@Configuration
-public class DatabaseConfig {
-    // 数据库相关配置
-}
+检查顺序：
 
-@Configuration
-public class SecurityConfig {
-    // 安全相关配置
-}
+1. 配置文件是否进入 classpath。
+2. 当前 profile 是否正确。
+3. 环境变量或命令行参数是否覆盖文件配置。
+4. 配置前缀和字段名是否匹配。
+5. 配置属性类是否被启用或扫描。
 
-@Configuration
-public class CacheConfig {
-    // 缓存相关配置
-}
+## 测试判断
 
-// 主配置类
-@Configuration
-@Import({DatabaseConfig.class, SecurityConfig.class, CacheConfig.class})
-public class AppConfig {
-    // 主要配置
-}
-```
-
-### 4. 测试友好的设计
-
-```java
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    
-    // 构造函数注入便于测试
-    public UserService(UserRepository userRepository, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.emailService = emailService;
-    }
-}
-
-// 测试类
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
-    
-    @Mock
-    private UserRepository userRepository;
-    
-    @Mock
-    private EmailService emailService;
-    
-    @InjectMocks
-    private UserService userService;
-    
-    @Test
-    void shouldCreateUser() {
-        // 测试逻辑
-    }
-}
-```
-
-### 5. 性能优化
-
-```java
-// 使用懒加载避免不必要的初始化
-@Component
-@Lazy
-public class ExpensiveService {
-    // 耗时的初始化逻辑
-}
-
-// 使用 @Primary 避免歧义
-@Configuration
-public class DataSourceConfig {
-    
-    @Bean
-    @Primary
-    public DataSource primaryDataSource() {
-        return new HikariDataSource();
-    }
-    
-    @Bean
-    public DataSource secondaryDataSource() {
-        return new HikariDataSource();
-    }
-}
-
-// 合理使用作用域
-@Component
-@Scope("prototype") // 对于有状态的对象使用原型作用域
-public class StatefulService {
-    private String state;
-    // ...
-}
-```
-
----
+业务单元测试不一定需要启动 Spring。构造器注入设计良好的类，可以直接传入替身依赖测试业务规则。只有需要验证组件扫描、条件装配、配置绑定、事务代理等框架行为时，才需要启动 Spring 测试上下文。
 
 ## 总结
 
-Spring IoC 容器是 Spring 框架的核心，它通过控制反转和依赖注入的设计模式，实现了对象之间的松耦合。主要特点包括：
-
-### 核心优势
-
-1. **松耦合**：对象之间的依赖关系由容器管理
-2. **可测试性**：便于进行单元测试和集成测试
-3. **灵活性**：支持多种配置方式和注入方式
-4. **可维护性**：集中管理对象的创建和配置
-5. **扩展性**：支持自定义作用域、后处理器等扩展
-
-### 最佳实践总结
-
-1. **优先使用构造函数注入**：保证依赖的不可变性和必需性
-2. **合理使用作用域**：根据对象的生命周期选择合适的作用域
-3. **避免循环依赖**：通过重新设计或使用懒加载解决
-4. **使用有意义的命名**：提高代码的可读性和可维护性
-5. **按功能模块组织配置**：保持配置的清晰和可管理性
-
-Spring IoC 容器为现代 Java 应用开发提供了强大的基础设施，通过合理使用其特性，可以构建出高质量、可维护、可扩展的应用程序。
+IoC 的核心是明确对象管理边界。长期组件交给容器，临时数据留在业务流程里；必需依赖用构造器表达，多实现用明确规则选择；单例 Bean 保持无状态；排错时按扫描范围、注册来源、条件装配、多实现冲突、配置绑定逐层检查。

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">架构演进路线图</title>
+  <desc id="desc">展示从分层单体到模块化单体、领域驱动、微服务和云原生的演进路径。</desc>
+  <style>.bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.h{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:3}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="1120" height="520" rx="24"/>
+  <text class="title" x="56" y="58">架构演进路线：不要跳级复杂化</text>
+  <line class="line" x1="110" y1="260" x2="990" y2="260"/><polygon class="arrow" points="990,260 974,250 974,270"/>
+  <rect class="box" x="70" y="150" width="180" height="120" rx="16"/><text class="h" x="108" y="192">分层单体</text><text class="t" x="100" y="222">最快交付</text><text class="t" x="100" y="246">低运维成本</text>
+  <rect class="box" x="285" y="150" width="180" height="120" rx="16"/><text class="h" x="314" y="192">模块化单体</text><text class="t" x="315" y="222">明确模块边界</text><text class="t" x="315" y="246">限制跨模块依赖</text>
+  <rect class="box" x="500" y="150" width="180" height="120" rx="16"/><text class="h" x="535" y="192">DDD / 六边形</text><text class="t" x="530" y="222">业务模型清晰</text><text class="t" x="530" y="246">隔离技术细节</text>
+  <rect class="box" x="715" y="150" width="180" height="120" rx="16"/><text class="h" x="758" y="192">微服务</text><text class="t" x="745" y="222">团队自治</text><text class="t" x="745" y="246">独立部署</text>
+  <rect class="box" x="930" y="150" width="160" height="120" rx="16"/><text class="h" x="970" y="192">云原生</text><text class="t" x="955" y="222">弹性伸缩</text><text class="t" x="955" y="246">自动化治理</text>
+  <text class="t" x="76" y="350">演进触发点：模块边界混乱、团队互相阻塞、部署频繁冲突、性能瓶颈、故障隔离要求提升。</text>
+</svg>

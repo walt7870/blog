@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+  <title id="title">设计模式总览地图</title>
+  <desc id="desc">从创建、结构、行为三个维度展示常见设计模式的关注点和关系。</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#475569}
+      .card{fill:#fff;stroke:#cbd5e1;stroke-width:2}.h1{font:700 22px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.txt{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}
+      .tag{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.create{fill:#ecfeff;stroke:#06b6d4}.struct{fill:#f0fdf4;stroke:#22c55e}.behavior{fill:#fff7ed;stroke:#f97316}
+      .pill{fill:#f8fafc;stroke:#cbd5e1}.line{stroke:#94a3b8;stroke-width:2;fill:none}.center{fill:#1e293b}.ct{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#fff}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="680" rx="24"/>
+  <text class="title" x="56" y="58">设计模式总览地图</text>
+  <text class="sub" x="56" y="88">设计模式不是代码模板，而是把“对象如何创建、如何组合、如何协作”讲清楚的设计语言。</text>
+  <rect class="center" x="450" y="130" width="220" height="92" rx="18"/>
+  <text class="ct" x="487" y="168">设计模式</text>
+  <text class="ct" x="482" y="196">控制复杂度的经验</text>
+  <path class="line" d="M450 176H328M670 176h122M560 222v78"/>
+  <rect class="card create" x="58" y="120" width="270" height="430" rx="18"/>
+  <text class="h1" x="88" y="158">创建型：对象怎么来</text>
+  <text class="txt" x="88" y="190">把创建逻辑从使用逻辑中拆开，</text>
+  <text class="txt" x="88" y="214">让新增产品或复杂构建更可控。</text>
+  <rect class="pill" x="88" y="252" width="210" height="34" rx="17"/><text class="tag" x="108" y="275">单例：全局唯一实例</text>
+  <rect class="pill" x="88" y="298" width="210" height="34" rx="17"/><text class="tag" x="108" y="321">工厂方法：延迟创建</text>
+  <rect class="pill" x="88" y="344" width="210" height="34" rx="17"/><text class="tag" x="108" y="367">抽象工厂：产品族</text>
+  <rect class="pill" x="88" y="390" width="210" height="34" rx="17"/><text class="tag" x="108" y="413">建造者：分步组装</text>
+  <rect class="pill" x="88" y="436" width="210" height="34" rx="17"/><text class="tag" x="108" y="459">原型：复制已有对象</text>
+  <text class="txt" x="88" y="510">关键词：解耦 new、配置化、</text>
+  <text class="txt" x="88" y="534">复杂对象、产品扩展。</text>
+  <rect class="card struct" x="425" y="300" width="270" height="300" rx="18"/>
+  <text class="h1" x="455" y="338">结构型：对象怎么搭</text>
+  <text class="txt" x="455" y="370">通过组合、包装、代理、统一入口</text>
+  <text class="txt" x="455" y="394">让系统结构更稳定。</text>
+  <rect class="pill" x="455" y="428" width="210" height="34" rx="17"/><text class="tag" x="475" y="451">适配器 / 桥接 / 组合</text>
+  <rect class="pill" x="455" y="474" width="210" height="34" rx="17"/><text class="tag" x="475" y="497">装饰器 / 代理 / 外观</text>
+  <rect class="pill" x="455" y="520" width="210" height="34" rx="17"/><text class="tag" x="475" y="543">享元：共享细粒度对象</text>
+  <text class="txt" x="455" y="582">关键词：接口兼容、包装、层次、复用。</text>
+  <rect class="card behavior" x="792" y="120" width="270" height="430" rx="18"/>
+  <text class="h1" x="822" y="158">行为型：对象怎么协作</text>
+  <text class="txt" x="822" y="190">把职责、流程、通知、状态变化</text>
+  <text class="txt" x="822" y="214">从硬编码调用中抽出来。</text>
+  <rect class="pill" x="822" y="252" width="210" height="34" rx="17"/><text class="tag" x="842" y="275">策略 / 模板方法 / 状态</text>
+  <rect class="pill" x="822" y="298" width="210" height="34" rx="17"/><text class="tag" x="842" y="321">观察者 / 中介者 / 命令</text>
+  <rect class="pill" x="822" y="344" width="210" height="34" rx="17"/><text class="tag" x="842" y="367">责任链 / 迭代器 / 访问者</text>
+  <rect class="pill" x="822" y="390" width="210" height="34" rx="17"/><text class="tag" x="842" y="413">备忘录 / 解释器</text>
+  <text class="txt" x="822" y="480">关键词：流程扩展、事件通知、</text>
+  <text class="txt" x="822" y="504">算法替换、状态切换、撤销恢复。</text>
+</svg>

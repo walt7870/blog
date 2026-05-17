@@ -1,0 +1,26 @@
+{
+  "name": "blog-docs-miniapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "稻草人的技术小站 - uni-app 小程序版",
+  "scripts": {
+    "build:content": "node scripts/build-miniapp.mjs",
+    "dev:mp-weixin": "npm run build:content && uni -p mp-weixin",
+    "build:mp-weixin": "npm run build:content && uni build -p mp-weixin"
+  },
+  "dependencies": {
+    "mp-html": "^2.5.2",
+    "vue": "3.4.21"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "3.4.28",
+    "@dcloudio/uni-app": "3.0.0-5000520260324001",
+    "@dcloudio/uni-mp-weixin": "3.0.0-5000520260324001",
+    "@dcloudio/vite-plugin-uni": "3.0.0-5000520260324001",
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^14.1.0",
+    "sass": "1.89.0",
+    "typescript": "5.4.5",
+    "vite": "5.2.8"
+  }
+}

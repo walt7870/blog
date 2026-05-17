@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="520" viewBox="0 0 1080 520" role="img" aria-labelledby="title desc">
+  <title id="title">AI 模块关系图</title>
+  <desc id="desc">展示机器学习、大模型、智能体、MCP、Skill 与 AI 编程之间的关系</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
+      .core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}
+      .tool{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}
+      .work{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .title{font-size:21px;font-weight:700}.body{font-size:14px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="520"/>
+  <rect class="box" x="45" y="190" width="170" height="110"/>
+  <text class="text title" x="130" y="230" text-anchor="middle">机器学习</text>
+  <text class="text body" x="130" y="258" text-anchor="middle">从数据中学规律</text>
+  <text class="text small" x="130" y="282" text-anchor="middle">分类、预测、推荐</text>
+
+  <rect class="core" x="285" y="120" width="190" height="110"/>
+  <text class="text title" x="380" y="160" text-anchor="middle">大语言模型</text>
+  <text class="text body" x="380" y="188" text-anchor="middle">把上下文续写成结果</text>
+  <text class="text small" x="380" y="212" text-anchor="middle">理解、生成、推理</text>
+
+  <rect class="core" x="285" y="295" width="190" height="110"/>
+  <text class="text title" x="380" y="335" text-anchor="middle">SFT</text>
+  <text class="text body" x="380" y="363" text-anchor="middle">把模型调成会按格式答</text>
+  <text class="text small" x="380" y="387" text-anchor="middle">指令、风格、领域流程</text>
+
+  <rect class="tool" x="545" y="120" width="185" height="110"/>
+  <text class="text title" x="638" y="160" text-anchor="middle">智能体</text>
+  <text class="text body" x="638" y="188" text-anchor="middle">观察、计划、行动、反馈</text>
+  <text class="text small" x="638" y="212" text-anchor="middle">把模型接成工作循环</text>
+
+  <rect class="tool" x="545" y="295" width="185" height="110"/>
+  <text class="text title" x="638" y="335" text-anchor="middle">MCP</text>
+  <text class="text body" x="638" y="363" text-anchor="middle">标准化接入外部工具</text>
+  <text class="text small" x="638" y="387" text-anchor="middle">文件、数据库、API</text>
+
+  <rect class="work" x="805" y="120" width="220" height="110"/>
+  <text class="text title" x="915" y="160" text-anchor="middle">Skill</text>
+  <text class="text body" x="915" y="188" text-anchor="middle">把人的流程写成规则</text>
+  <text class="text small" x="915" y="212" text-anchor="middle">触发条件、步骤、验收</text>
+
+  <rect class="work" x="805" y="295" width="220" height="110"/>
+  <text class="text title" x="915" y="335" text-anchor="middle">AI 编程工程化</text>
+  <text class="text body" x="915" y="363" text-anchor="middle">上下文、工具、验证闭环</text>
+  <text class="text small" x="915" y="387" text-anchor="middle">从 Vibe 到 Harness</text>
+
+  <path class="line" d="M215 245 C245 210 255 175 285 175"/>
+  <path class="line" d="M215 255 C245 305 255 350 285 350"/>
+  <path class="line" d="M475 175 L545 175"/>
+  <path class="line" d="M475 350 L545 350"/>
+  <path class="line" d="M730 175 L805 175"/>
+  <path class="line" d="M730 350 L805 350"/>
+  <path class="line" d="M638 230 C660 260 660 265 638 295"/>
+</svg>

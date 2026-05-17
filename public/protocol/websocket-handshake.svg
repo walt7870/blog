@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .actor { fill:#1f2937; rx:6; ry:6; }
+    .actorTxt { fill:#fff; font-weight:600; }
+    .life { stroke:#9ca3af; stroke-width:1; stroke-dasharray:4 3; }
+    .arr  { stroke:#1d4ed8; stroke-width:1.5; fill:none; marker-end:url(#wsArr); }
+    .arrR { stroke:#059669; stroke-width:1.5; fill:none; marker-end:url(#wsArrG); }
+    .arrB { stroke:#7c3aed; stroke-width:1.5; fill:none; marker-end:url(#wsArrV); }
+    .lbl  { fill:#374151; }
+    .title { font-weight:700; font-size:16px; fill:#111827; }
+    .phase { fill:#6b7280; font-style:italic; }
+    .panel { fill:#f9fafb; stroke:#e5e7eb; rx:6; ry:6; }
+  </style>
+  <defs>
+    <marker id="wsArr"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="wsArrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="wsArrV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <text x="380" y="22" text-anchor="middle" class="title">WebSocket 握手与帧通信时序</text>
+
+  <rect class="actor" x="60"  y="44" width="120" height="32"/>
+  <text x="120" y="65" text-anchor="middle" class="actorTxt">Client</text>
+  <rect class="actor" x="580" y="44" width="120" height="32"/>
+  <text x="640" y="65" text-anchor="middle" class="actorTxt">Server</text>
+
+  <line x1="120" y1="76" x2="120" y2="360" class="life"/>
+  <line x1="640" y1="76" x2="640" y2="360" class="life"/>
+
+  <!-- HTTP 握手阶段 -->
+  <rect class="panel" x="40"  y="90" width="680" height="120"/>
+  <text x="380" y="108" text-anchor="middle" class="phase">阶段 1：HTTP Upgrade 握手</text>
+
+  <line x1="125" y1="130" x2="635" y2="145" class="arr"/>
+  <text x="380" y="126" text-anchor="middle" class="lbl">GET /chat HTTP/1.1 · Upgrade: websocket · Sec-WebSocket-Key</text>
+
+  <line x1="635" y1="170" x2="125" y2="185" class="arrR"/>
+  <text x="380" y="166" text-anchor="middle" class="lbl">101 Switching Protocols · Sec-WebSocket-Accept</text>
+
+  <!-- 帧通信阶段 -->
+  <rect class="panel" x="40"  y="220" width="680" height="140"/>
+  <text x="380" y="240" text-anchor="middle" class="phase">阶段 2：全双工帧通信（同一条 TCP 连接）</text>
+
+  <line x1="125" y1="262" x2="635" y2="262" class="arrB"/>
+  <text x="380" y="258" text-anchor="middle" class="lbl">DATA Frame（opcode=0x1 文本 / 0x2 二进制）</text>
+
+  <line x1="635" y1="288" x2="125" y2="288" class="arrB"/>
+  <text x="380" y="284" text-anchor="middle" class="lbl">DATA Frame（任意一方都能主动发）</text>
+
+  <line x1="125" y1="316" x2="635" y2="316" class="arrB" stroke-dasharray="3 2"/>
+  <text x="380" y="312" text-anchor="middle" class="lbl">PING / PONG（控制帧 · 心跳）</text>
+
+  <line x1="125" y1="344" x2="635" y2="344" class="arrB"/>
+  <text x="380" y="340" text-anchor="middle" class="lbl">CLOSE Frame（opcode=0x8）</text>
+</svg>

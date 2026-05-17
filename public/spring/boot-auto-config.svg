@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="460" viewBox="0 0 1040 460" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Boot 自动配置判断链</title>
+  <desc id="desc">依赖、自动配置候选、条件注解、用户配置和最终 Bean 的关系</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
+      .main{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}
+      .user{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .title{font-size:19px;font-weight:700}
+      .body{font-size:13px}
+      .small{font-size:12px;fill:#475569}
+      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#f97316;stroke-width:2;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1040" height="460"/>
+  <rect class="box" x="45" y="175" width="150" height="90"/>
+  <text class="text title" x="120" y="208" text-anchor="middle">Starter</text>
+  <text class="text body" x="120" y="235" text-anchor="middle">引入依赖集合</text>
+
+  <rect class="box" x="250" y="175" width="180" height="90"/>
+  <text class="text title" x="340" y="208" text-anchor="middle">自动配置候选</text>
+  <text class="text body" x="340" y="235" text-anchor="middle">AutoConfiguration.imports</text>
+
+  <rect class="main" x="485" y="120" width="190" height="200"/>
+  <text class="text title" x="580" y="158" text-anchor="middle">条件判断</text>
+  <text class="text body" x="580" y="192" text-anchor="middle">@ConditionalOnClass</text>
+  <text class="text body" x="580" y="220" text-anchor="middle">@ConditionalOnMissingBean</text>
+  <text class="text body" x="580" y="248" text-anchor="middle">@ConditionalOnProperty</text>
+  <text class="text small" x="580" y="282" text-anchor="middle">类、配置、已有 Bean 同时参与</text>
+
+  <rect class="user" x="760" y="45" width="190" height="90"/>
+  <text class="text title" x="855" y="78" text-anchor="middle">用户配置</text>
+  <text class="text body" x="855" y="105" text-anchor="middle">@Bean / application.yml</text>
+
+  <rect class="main" x="760" y="220" width="190" height="90"/>
+  <text class="text title" x="855" y="253" text-anchor="middle">最终 Bean</text>
+  <text class="text body" x="855" y="280" text-anchor="middle">数据源、MVC、Redis 等</text>
+
+  <rect class="box" x="760" y="350" width="190" height="70"/>
+  <text class="text title" x="855" y="378" text-anchor="middle">排查工具</text>
+  <text class="text body" x="855" y="402" text-anchor="middle">--debug / actuator</text>
+
+  <path class="line" d="M195 220 L250 220"/>
+  <path class="line" d="M430 220 L485 220"/>
+  <path class="line" d="M675 250 L760 265"/>
+  <path class="dash" d="M855 135 L855 220"/>
+  <path class="line" d="M855 310 L855 350"/>
+</svg>

@@ -5,15 +5,7 @@ export const nav: DefaultTheme.NavItem[] = [
     // { text: '概览', link: 'index' },
     {
       text: '人工智能',
-      items: [
-        { text: '概述', link: '/docs/ai/' },
-        { text: 'Agent Skill', link: '/docs/ai/skill/' },
-        { text: 'Skill 推荐与选型', link: '/docs/ai/skill/recommendations' },
-        { text: '机器学习', link: '/docs/ai/ml' },
-        { text: 'MCP', link: '/docs/ai/mcp' },
-        { text: '智能体', link: '/docs/ai/agent' },
-        { text: '大模型', link: '/docs/ai/llm/' },
-      ],
+      link: '/docs/ai/',
     },
     {
       text: '架构', items: [
@@ -31,16 +23,8 @@ export const nav: DefaultTheme.NavItem[] = [
     },
     {
       text: '开发语言', items: [
-        {
-          text:'JAVA',
-          items: [
-            {text: 'java基础', link: '/docs/devlanguage/java/basic/'},
-            {text: 'java框架', link: '/docs/devlanguage/java/framework/'},
-            {text: 'JVM', link: '/docs/devlanguage/java/jvm/'},
-            {text: 'jdk', link: '/docs/devlanguage/java/jdk/'},
-          ]
-        }
-
+        { text: 'JAVA', link: '/docs/devlanguage/java/' },
+        { text: 'Rust', link: '/docs/devlanguage/rust/' },
       ]
     },
 
@@ -48,6 +32,15 @@ export const nav: DefaultTheme.NavItem[] = [
 
 
 
+    {
+      text: '基础', items: [
+        { text: '通信协议', link: '/docs/basic/protocol/' },
+      ]
+    },
+    {
+      text: '嵌入式开发',
+      link: '/docs/embedded/'
+    },
     {
       text: 'Linux系统', items: [
         { text: '系统概述', link: '/docs/linux/index' },
@@ -58,7 +51,7 @@ export const nav: DefaultTheme.NavItem[] = [
     },
     {
       text: '工具', items: [
-        {text: '依赖管理', link: '/docs/devlanguage/java/manager/'},
+        { text: 'Git', link: '/docs/tools/git/' },
         {text: '消息中间件', link:"/docs/tools/mq/"},
         { text: 'vim', link: '/docs/tools/vim/' },
         { text: 'vfox', link: '/docs/tools/vfox/' },

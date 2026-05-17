@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">迪米特法则示意图</title>
+  <desc id="desc">展示避免链式穿透内部结构，通过封装方法降低对象之间的知道程度。</desc>
+  <style>.bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.code{font:16px Consolas,monospace;fill:#111827}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="960" height="420" rx="20"/>
+  <text class="t" x="48" y="52">迪米特法则：少知道，少穿透内部结构</text>
+  <rect class="box bad" x="70" y="120" width="340" height="130" rx="14"/>
+  <text class="t" x="110" y="158">链式访问</text>
+  <text class="code" x="100" y="200">order.getUser()</text><text class="code" x="100" y="225">     .getWallet()</text><text class="code" x="100" y="250">     .deduct(amount)</text>
+  <line class="line" x1="430" y1="190" x2="535" y2="190"/><polygon class="arrow" points="535,190 522,182 522,198"/>
+  <rect class="box good" x="560" y="120" width="330" height="130" rx="14"/>
+  <text class="t" x="600" y="158">封装意图</text>
+  <text class="code" x="590" y="205">order.pay(amount)</text>
+  <text class="s" x="90" y="330">链式穿透让调用方知道太多内部对象，结构一变调用方全变。</text>
+  <text class="s" x="560" y="330">把操作封装到拥有数据的对象附近，调用方只表达业务意图。</text>
+</svg>

@@ -2,26 +2,70 @@
 import type { DefaultTheme } from 'vitepress';
 
 export const sidebar: DefaultTheme.Sidebar = {
+  // 基础知识 - 通信协议
+  '/docs/basic/protocol/': [
+    {
+      text: '通信协议',
+      items: [
+        { text: '协议概览', link: '/docs/basic/protocol/' },
+        { text: 'HTTP vs WebSocket', link: '/docs/basic/protocol/http-vs-websocket' },
+        { text: '嵌入式与工业协议', link: '/docs/basic/protocol/embedded-protocols' },
+      ]
+    }
+  ],
+
+  // 嵌入式开发
+  '/docs/embedded/': [
+    {
+      text: '嵌入式开发',
+      items: [
+        { text: '总览与学习路线', link: '/docs/embedded/' },
+        { text: '电子电路基础', link: '/docs/embedded/electronics' },
+        { text: '微控制器原理与选型', link: '/docs/embedded/mcu' },
+        { text: '嵌入式 C 编程', link: '/docs/embedded/c-programming' },
+        { text: '开发工具链', link: '/docs/embedded/toolchain' },
+        { text: '外设驱动开发', link: '/docs/embedded/peripherals' },
+        { text: '实时操作系统', link: '/docs/embedded/rtos' },
+        { text: '通信协议实战', link: '/docs/embedded/communication' },
+        { text: '嵌入式 Linux', link: '/docs/embedded/linux-embedded' },
+        { text: '硬件设计入门', link: '/docs/embedded/hardware-design' },
+        { text: '主流平台实战', link: '/docs/embedded/platforms' },
+        { text: '综合项目案例', link: '/docs/embedded/projects' },
+        { text: '职业发展与进阶', link: '/docs/embedded/career' },
+      ]
+    }
+  ],
+
   '/docs/ai/': [
     {
       text: '人工智能',
       items: [
-        { text: '概述', link: '/docs/ai/index' },
+        { text: '概述', link: '/docs/ai/' },
         {
           text: 'Agent Skill',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Skill 概述', link: '/docs/ai/skill/' },
             { text: '推荐与选型', link: '/docs/ai/skill/recommendations' },
+            { text: 'Claude Code 实践', link: '/docs/ai/skill/claude-code-best-practices' },
           ],
         },
+        { text: 'Vibe Coding', link: '/docs/ai/vibe-coding/' },
         { text: '机器学习', link: '/docs/ai/ml' },
-        { text: 'mcp', link: '/docs/ai/mcp' },
+        { text: 'MCP', link: '/docs/ai/mcp' },
         { text: '智能体', link: '/docs/ai/agent' },
-        { text: '大模型', items: [
-          { text: '概述', link: '/docs/ai/llm/' },
-          { text: 'SFT', link: '/docs/ai/llm/sft' }
-        ] },
+        {
+          text: '大模型',
+          collapsed: true,
+          items: [
+            { text: '概述', link: '/docs/ai/llm/' },
+            { text: '核心概念', link: '/docs/ai/llm/concepts' },
+            { text: '训练与微调', link: '/docs/ai/llm/training' },
+            { text: 'SFT', link: '/docs/ai/llm/sft' },
+            { text: '推理与部署', link: '/docs/ai/llm/inference' },
+            { text: 'RAG 与工具调用', link: '/docs/ai/llm/rag-tools' }
+          ]
+        },
       ]
     }
   ],
@@ -93,6 +137,7 @@ export const sidebar: DefaultTheme.Sidebar = {
           text: '领域驱动设计(DDD)',
           collapsed: true,
           items: [
+            { text: 'DDD导读', link: '/docs/design/architecture/DDD/' },
             { text: 'DDD概述', link: '/docs/design/architecture/DDD/domain-driven-design' },
             { text: '基础概念', link: '/docs/design/architecture/DDD/basic-concept' },
             { text: '聚合根', link: '/docs/design/architecture/DDD/Aggregate' },
@@ -145,9 +190,24 @@ export const sidebar: DefaultTheme.Sidebar = {
     link: '/docs/design/design-pattern/',
   },
   {
+    text: '设计原则',
+    collapsed: false,
+    items: [
+      { text: '原则概述', link: '/docs/design/design-pattern/principles/' },
+      { text: '单一职责原则', link: '/docs/design/design-pattern/principles/single-responsibility' },
+      { text: '开闭原则', link: '/docs/design/design-pattern/principles/open-closed' },
+      { text: '里氏替换原则', link: '/docs/design/design-pattern/principles/liskov-substitution' },
+      { text: '依赖倒置原则', link: '/docs/design/design-pattern/principles/dependency-inversion' },
+      { text: '接口隔离原则', link: '/docs/design/design-pattern/principles/interface-segregation' },
+      { text: '迪米特法则', link: '/docs/design/design-pattern/principles/law-of-demeter' },
+      { text: '合成复用原则', link: '/docs/design/design-pattern/principles/composite-reuse' },
+    ]
+  },
+  {
     text: '创建型模式',
       collapsed: false,  
       items: [
+      { text: '创建型概述', link: '/docs/design/design-pattern/creational/' },
       { text: '工厂方法', link: '/docs/design/design-pattern/creational/factory-method' },
       { text: '抽象方法', link: '/docs/design/design-pattern/creational/abstract-method' },
       { text: '单例模式', link: '/docs/design/design-pattern/creational/singleton' },
@@ -159,6 +219,7 @@ export const sidebar: DefaultTheme.Sidebar = {
     text: '结构型模式',
     collapsed: false,  
     items: [
+      { text: '结构型概述', link: '/docs/design/design-pattern/structural/' },
       { text: '适配器模式', link: '/docs/design/design-pattern/structural/adapter' },
       { text: '桥接模式', link: '/docs/design/design-pattern/structural/bridge' },
       { text: '装饰器模式', link: '/docs/design/design-pattern/structural/decorator' },
@@ -170,8 +231,9 @@ export const sidebar: DefaultTheme.Sidebar = {
   },
   {
     text: '行为型模式',
-    collapsed: false,  
+    collapsed: false,
     items: [
+      { text: '行为型概述', link: '/docs/design/design-pattern/behavioral/' },
       { text: '模板方法模式', link: '/docs/design/design-pattern/behavioral/template-method' },
       { text: '策略模式', link: '/docs/design/design-pattern/behavioral/strategy' },
       { text: '观察者模式', link: '/docs/design/design-pattern/behavioral/observer' },
@@ -182,6 +244,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       { text: '备忘录模式', link: '/docs/design/design-pattern/behavioral/memento' },
       { text: '解释器模式', link: '/docs/design/design-pattern/behavioral/interpreter' },
       { text: '访问者模式', link: '/docs/design/design-pattern/behavioral/visitor' },
+      { text: '中介者模式', link: '/docs/design/design-pattern/behavioral/mediator' },
     ]
   },
 
@@ -191,78 +254,118 @@ export const sidebar: DefaultTheme.Sidebar = {
 
 
 
-  // 后端-java-jvm
-  '/docs/devlanguage/java/basic/': [
+  // Java 体系（所有 java 子目录共享同一棵侧边栏树）
+  '/docs/devlanguage/java/': [
     {
-      text: 'java体系',
+      text: 'JAVA',
       items: [
         { text: '概述', link: '/docs/devlanguage/java/' },
-        { text: '基础', items:[
-          {text: '基础语法',link: '/docs/devlanguage/java/basic'},
-          {text: '基础工具类',link: '/docs/devlanguage/java/basic/base-class'},
-          {text: '语言特性',link: '/docs/devlanguage/java/basic/special'},
-        ]},
+        {
+          text: 'Java 基础',
+          collapsed: false,
+          items: [
+            { text: '基础语法', link: '/docs/devlanguage/java/basic/' },
+            { text: '基础工具类', link: '/docs/devlanguage/java/basic/base-class' },
+            { text: '语言特性', link: '/docs/devlanguage/java/basic/special' },
+          ]
+        },
+        {
+          text: 'Java 框架',
+          collapsed: false,
+          items: [
+            {
+              text: 'Mybatis',
+              collapsed: true,
+              items: [
+                { text: '概述', link: '/docs/devlanguage/java/framework/mybatis/' },
+                { text: '插件', link: '/docs/devlanguage/java/framework/mybatis/plugin' },
+              ]
+            },
+            {
+              text: 'Spring',
+              collapsed: true,
+              items: [
+                { text: '概述', link: '/docs/devlanguage/java/framework/spring/' },
+                { text: 'AOP', link: '/docs/devlanguage/java/framework/spring/aop' },
+                { text: 'IoC', link: '/docs/devlanguage/java/framework/spring/ioc' },
+                { text: 'MVC', link: '/docs/devlanguage/java/framework/spring/mvc' },
+                { text: 'Spring Boot', link: '/docs/devlanguage/java/framework/spring/springboot' },
+              ]
+            },
+          ]
+        },
+        {
+          text: 'JVM',
+          collapsed: false,
+          items: [
+            { text: 'JVM 概览', link: '/docs/devlanguage/java/jvm/' },
+            {
+              text: '运行时数据区',
+              collapsed: true,
+              items: [
+                { text: '概述', link: '/docs/devlanguage/java/jvm/runtime-area/' },
+                { text: '堆', link: '/docs/devlanguage/java/jvm/runtime-area/heap' },
+                { text: '虚拟机栈', link: '/docs/devlanguage/java/jvm/runtime-area/vm-stack' },
+                { text: '程序计数器', link: '/docs/devlanguage/java/jvm/runtime-area/program-counter' },
+                { text: '本地方法栈', link: '/docs/devlanguage/java/jvm/runtime-area/native-method-stack' },
+                { text: '方法区', link: '/docs/devlanguage/java/jvm/runtime-area/method-area' },
+                { text: '直接内存', link: '/docs/devlanguage/java/jvm/runtime-area/direct-memory' },
+              ]
+            },
+            {
+              text: 'GC',
+              collapsed: true,
+              items: [
+                { text: '概述', link: '/docs/devlanguage/java/jvm/gc/' },
+                { text: 'Serial', link: '/docs/devlanguage/java/jvm/gc/serial' },
+                { text: 'Parallel', link: '/docs/devlanguage/java/jvm/gc/parallel' },
+                { text: 'ParNew', link: '/docs/devlanguage/java/jvm/gc/parnew' },
+                { text: 'CMS', link: '/docs/devlanguage/java/jvm/gc/cms' },
+                { text: 'G1', link: '/docs/devlanguage/java/jvm/gc/g1' },
+                { text: 'ZGC', link: '/docs/devlanguage/java/jvm/gc/zgc' },
+                { text: 'Shenandoah', link: '/docs/devlanguage/java/jvm/gc/shenandoah' },
+                { text: 'Epsilon', link: '/docs/devlanguage/java/jvm/gc/epsilon' },
+              ]
+            },
+          ]
+        },
+        {
+          text: 'JDK',
+          collapsed: false,
+          items: [
+            { text: '概述', link: '/docs/devlanguage/java/jdk/' },
+            { text: 'JDK 变化', link: '/docs/devlanguage/java/jdk/upgrade' },
+          ]
+        },
+        {
+          text: '依赖管理',
+          collapsed: false,
+          items: [
+            { text: 'Gradle', link: '/docs/devlanguage/java/manager/gradle' },
+            { text: 'Maven', link: '/docs/devlanguage/java/manager/maven' },
+          ]
+        },
       ]
     }
   ],
-  //java 框架
-  '/docs/devlanguage/java/framework/':[
-        { text: '框架', items:[
-          {text: 'Mybatis',items: [
-            {text: '概述',link: '/docs/devlanguage/java/framework/mybatis/'},
-            {text: '插件',link: '/docs/devlanguage/java/framework/mybatis/plugin'},
-          ]},
-          {text: 'Spring',items:[
-            {text: '概述',link: '/docs/devlanguage/java/framework/spring/'},
-            {text: 'AOP',link: '/docs/devlanguage/java/framework/spring/aop'},
-            {text: 'IOC',link: '/docs/devlanguage/java/framework/spring/ioc'},
-            {text: 'MVC',link: '/docs/devlanguage/java/framework/spring/mvc'},
-            {text: 'Springboot',link: '/docs/devlanguage/java/framework/spring/springboot'},
-            
-          ]},
-        ]},
-  ],
 
-  //jvm
-  '/docs/devlanguage/java/jvm/':[
-        {text: 'JVM', items:[
-          { text: '运行时数据区', items:[
-          {text: '概述',link: '/docs/devlanguage/java/jvm/runtime-area/'},
-            {text: '堆', link: '/docs/devlanguage/java/jvm/runtime-area/heap'},
-            {text: '栈',link: '/docs/devlanguage/java/jvm/runtime-area/stack'},
-            {text: '虚拟机栈',link: '/docs/devlanguage/java/jvm/runtime-area/vm-stack'},
-            {text: '程序计数器',link: '/docs/devlanguage/java/jvm/runtime-area/pc'},
-            {text: '本地方法栈',link: '/docs/devlanguage/java/jvm/runtime-area/local-stack'},
-            {text: '方法区',link: '/docs/devlanguage/java/jvm/runtime-area/method-area'},
-            {text: '运行时常量池',link: '/docs/devlanguage/java/jvm/runtime-area/constant-pool'},
-        ] },
-
-         {text: 'GC',items:[
-            {text: '概述', link: '/docs/devlanguage/java/jvm/gc/'},
-            {text: 'Serial',link: '/docs/devlanguage/java/jvm/gc/serial'},
-            {text: 'Parallel',link: '/docs/devlanguage/java/jvm/gc/parallel'},
-            {text: 'ParNew',link: '/docs/devlanguage/java/jvm/gc/parnew'},
-            {text: 'CMS',link: '/docs/devlanguage/java/jvm/gc/cms'},
-            {text: 'G1',link: '/docs/devlanguage/java/jvm/gc/g1'},
-            {text: 'ZGC',link: '/docs/devlanguage/java/jvm/gc/zgc'},
-            {text: 'Shenandoah',link: '/docs/devlanguage/java/jvm/gc/shenandoah'},
-            {text: 'Epsilon',link: '/docs/devlanguage/java/jvm/gc/epsilon'},
-          ]},
-
-         ]
-        },  
-  ],
-  //jdk
-  '/docs/devlanguage/java/jdk/':[
-    {text: '概述', link: '/docs/devlanguage/java/jdk/'},
-    {text: 'jdk变化', link: '/docs/devlanguage/java/jdk/upgrade'}
-  ],
-  //依赖管理
-  '/docs/devlanguage/java/manager/':[
-        { text: '依赖管理', items:[
-          {text: 'Gradle',link: '/docs/devlanguage/java/manager/gradle'},
-          {text: 'Maven',link: '/docs/devlanguage/java/manager/maven'},
-        ]},
+  // Rust
+  '/docs/devlanguage/rust/': [
+    {
+      text: 'Rust 体系',
+      items: [
+        { text: '概述导读', link: '/docs/devlanguage/rust/' },
+        { text: '基础概念', link: '/docs/devlanguage/rust/basic' },
+        { text: '所有权与借用', link: '/docs/devlanguage/rust/ownership' },
+        { text: '类型系统与错误处理', link: '/docs/devlanguage/rust/type-system' },
+        { text: '并发与异步', link: '/docs/devlanguage/rust/concurrency' },
+        { text: '核心优势', link: '/docs/devlanguage/rust/advantages' },
+        { text: '发展历程', link: '/docs/devlanguage/rust/history' },
+        { text: '生态系统', link: '/docs/devlanguage/rust/ecosystem' },
+        { text: '工具链与工程实践', link: '/docs/devlanguage/rust/tooling' },
+        { text: '学习路线与选型', link: '/docs/devlanguage/rust/learning-path' },
+      ]
+    }
   ],
 
   
@@ -273,7 +376,28 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
         { text: '概述', link: '/docs/tools/vim/' },
         { text: '寄存器', link: '/docs/tools/vim/register' },
-        { text: '特殊字符', link: '/docs/tools/vim/special' },
+        { text: '搜索与特殊用法', link: '/docs/tools/vim/special' },
+        { text: '插件生态', link: '/docs/tools/vim/plugin' },
+      ]
+    }
+  ],
+
+  // git
+  '/docs/tools/git/': [
+    {
+      text: 'Git',
+      collapsed: false,
+      items: [
+        { text: '概览', link: '/docs/tools/git/' },
+        { text: '基础命令', link: '/docs/tools/git/git' },
+        { text: '核心概念', link: '/docs/tools/git/concepts' },
+        { text: '分支与合并', link: '/docs/tools/git/branching' },
+        { text: '协作流程', link: '/docs/tools/git/workflow' },
+        { text: '提交规范', link: '/docs/tools/git/conventions' },
+        { text: '撤销与恢复', link: '/docs/tools/git/recovery' },
+        { text: '安全与治理', link: '/docs/tools/git/security' },
+        { text: '进阶操作', link: '/docs/tools/git/advanced' },
+        { text: '生态工具', link: '/docs/tools/git/ecosystem' },
       ]
     }
   ],

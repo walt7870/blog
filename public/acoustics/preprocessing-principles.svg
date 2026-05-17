@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
+  <title id="title">语音前处理原理</title>
+  <desc id="desc">展示回声消除、波束形成、噪声抑制、自动增益和端点检测分别解决的问题</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
+      .aec{fill:#eff6ff;stroke:#93c5fd}.bf{fill:#f0fdf4;stroke:#86efac}.ns{fill:#fff7ed;stroke:#fdba74}.agc{fill:#fdf2f8;stroke:#f9a8d4}.vad{fill:#f5f3ff;stroke:#c4b5fd}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
+      .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
+      .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="560"/>
+  <rect class="box" x="46" y="62" width="170" height="86"/>
+  <text class="title" x="82" y="98">原始拾音</text>
+  <text class="txt" x="72" y="124">人声 + 噪声 + 回声</text>
+  <rect class="aec" x="278" y="50" width="170" height="110" rx="10"/>
+  <text class="title" x="326" y="88">AEC</text>
+  <text class="txt" x="306" y="116">用播放参考</text>
+  <text class="txt" x="306" y="138">减掉自身回声</text>
+  <rect class="bf" x="510" y="50" width="170" height="110" rx="10"/>
+  <text class="title" x="542" y="88">波束形成</text>
+  <text class="txt" x="538" y="116">增强目标方向</text>
+  <text class="txt" x="538" y="138">压低其他方向</text>
+  <rect class="ns" x="742" y="50" width="170" height="110" rx="10"/>
+  <text class="title" x="790" y="88">NS</text>
+  <text class="txt" x="770" y="116">估计噪声谱</text>
+  <text class="txt" x="770" y="138">保留语音特征</text>
+  <path class="line" d="M216 105 H278"/>
+  <path class="line" d="M448 105 H510"/>
+  <path class="line" d="M680 105 H742"/>
+  <rect class="agc" x="278" y="250" width="170" height="110" rx="10"/>
+  <text class="title" x="326" y="288">AGC</text>
+  <text class="txt" x="306" y="316">小声拉高</text>
+  <text class="txt" x="306" y="338">大声压住</text>
+  <rect class="vad" x="510" y="250" width="170" height="110" rx="10"/>
+  <text class="title" x="552" y="288">VAD</text>
+  <text class="txt" x="538" y="316">判断语音起止</text>
+  <text class="txt" x="538" y="338">避免吞字和拖尾</text>
+  <rect class="box" x="742" y="250" width="170" height="110"/>
+  <text class="title" x="776" y="288">干净语音</text>
+  <text class="txt" x="770" y="316">送给唤醒、识别</text>
+  <text class="txt" x="770" y="338">或通话编码</text>
+  <path class="line" d="M827 160 V210 Q827 225 812 225 H363 Q348 225 348 250"/>
+  <path class="line" d="M448 305 H510"/>
+  <path class="line" d="M680 305 H742"/>
+  <rect class="box" x="46" y="404" width="866" height="92"/>
+  <text class="title" x="72" y="438">理解方式</text>
+  <text class="txt" x="72" y="468">AEC 像“拿着伴奏去消原唱里的伴奏”；波束形成像“把耳朵转向说话人”；NS 像“识别哪些频段更像噪声”；AGC 像“自动拧音量”；VAD 像“判断一句话从哪里开始到哪里结束”。</text>
+  <rect class="box" x="930" y="250" width="110" height="110"/>
+  <text class="title" x="962" y="288">代价</text>
+  <text class="small" x="954" y="318">每个模块都可能</text>
+  <text class="small" x="954" y="340">引入失真或延迟</text>
+  <path class="dash" d="M912 305 H930"/>
+</svg>

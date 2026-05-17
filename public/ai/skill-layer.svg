@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
+  <title id="title">Skill 与 Agent、工具的关系</title>
+  <desc id="desc">展示 Skill 是流程规则层，连接人的经验、Agent 执行和外部工具</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#f97316"/></marker>
+    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.skill{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}.agent{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.tool{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}.line{stroke:#f97316;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style></defs>
+  <rect class="bg" width="1080" height="430"/>
+  <rect class="box" x="65" y="165" width="170" height="100"/><text class="text title" x="150" y="203" text-anchor="middle">人的经验</text><text class="text body" x="150" y="231" text-anchor="middle">流程、禁区、验收</text>
+  <rect class="skill" x="310" y="135" width="200" height="160"/><text class="text title" x="410" y="180" text-anchor="middle">Skill</text><text class="text body" x="410" y="210" text-anchor="middle">触发条件</text><text class="text body" x="410" y="235" text-anchor="middle">步骤与输入输出</text><text class="text body" x="410" y="260" text-anchor="middle">完成标准</text>
+  <rect class="agent" x="585" y="165" width="170" height="100"/><text class="text title" x="670" y="203" text-anchor="middle">Agent</text><text class="text body" x="670" y="231" text-anchor="middle">按规则执行任务</text>
+  <rect class="tool" x="830" y="85" width="180" height="80"/><text class="text title" x="920" y="116" text-anchor="middle">MCP / API</text><text class="text small" x="920" y="140" text-anchor="middle">连接外部系统</text>
+  <rect class="tool" x="830" y="250" width="180" height="80"/><text class="text title" x="920" y="281" text-anchor="middle">本地工具</text><text class="text small" x="920" y="305" text-anchor="middle">命令、浏览器、测试</text>
+  <path class="line" d="M235 215 L310 215"/><path class="line" d="M510 215 L585 215"/><path class="line" d="M755 200 C785 155 800 125 830 125"/><path class="line" d="M755 230 C785 265 800 290 830 290"/>
+</svg>

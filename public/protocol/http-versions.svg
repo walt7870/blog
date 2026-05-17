@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .ver { stroke:#374151; stroke-width:1; rx:8; ry:8; }
+    .v09 { fill:#f3f4f6; }
+    .v10 { fill:#e5e7eb; }
+    .v11 { fill:#dbeafe; }
+    .h2  { fill:#bfdbfe; }
+    .h3  { fill:#93c5fd; }
+    .title { font-weight:700; font-size:16px; fill:#111827; }
+    .sub   { font-weight:600; fill:#1f2937; font-size:14px; }
+    .lbl   { fill:#374151; }
+    .yr    { font-weight:700; fill:#111827; }
+    .axis  { stroke:#9ca3af; stroke-width:1; }
+  </style>
+
+  <text x="410" y="24" text-anchor="middle" class="title">HTTP 版本演进</text>
+
+  <!-- 时间轴 -->
+  <line x1="40" y1="270" x2="780" y2="270" class="axis"/>
+  <polygon points="780,266 790,270 780,274" fill="#9ca3af"/>
+
+  <!-- HTTP/0.9 -->
+  <rect class="ver v09" x="40"  y="60" width="130" height="180"/>
+  <text x="105" y="84" text-anchor="middle" class="sub">HTTP/0.9</text>
+  <text x="105" y="290" text-anchor="middle" class="yr">1991</text>
+  <text x="50"  y="110" class="lbl">· 仅 GET</text>
+  <text x="50"  y="130" class="lbl">· 仅 HTML</text>
+  <text x="50"  y="150" class="lbl">· 无头部</text>
+  <text x="50"  y="170" class="lbl">· 无状态码</text>
+  <text x="50"  y="200" class="lbl" fill="#6b7280">基于 TCP</text>
+
+  <!-- HTTP/1.0 -->
+  <rect class="ver v10" x="180" y="60" width="130" height="180"/>
+  <text x="245" y="84" text-anchor="middle" class="sub">HTTP/1.0</text>
+  <text x="245" y="290" text-anchor="middle" class="yr">1996</text>
+  <text x="190" y="110" class="lbl">· 头部</text>
+  <text x="190" y="130" class="lbl">· 状态码</text>
+  <text x="190" y="150" class="lbl">· Content-Type</text>
+  <text x="190" y="170" class="lbl">· 短连接</text>
+  <text x="190" y="200" class="lbl" fill="#6b7280">基于 TCP</text>
+
+  <!-- HTTP/1.1 -->
+  <rect class="ver v11" x="320" y="60" width="150" height="180"/>
+  <text x="395" y="84" text-anchor="middle" class="sub">HTTP/1.1</text>
+  <text x="395" y="290" text-anchor="middle" class="yr">1997</text>
+  <text x="330" y="110" class="lbl">· Keep-Alive</text>
+  <text x="330" y="130" class="lbl">· 管线化</text>
+  <text x="330" y="150" class="lbl">· Host 头</text>
+  <text x="330" y="170" class="lbl">· 分块传输</text>
+  <text x="330" y="190" class="lbl">· 队头阻塞</text>
+  <text x="330" y="220" class="lbl" fill="#6b7280">基于 TCP</text>
+
+  <!-- HTTP/2 -->
+  <rect class="ver h2" x="480" y="60" width="150" height="180"/>
+  <text x="555" y="84" text-anchor="middle" class="sub">HTTP/2</text>
+  <text x="555" y="290" text-anchor="middle" class="yr">2015</text>
+  <text x="490" y="110" class="lbl">· 二进制分帧</text>
+  <text x="490" y="130" class="lbl">· 多路复用</text>
+  <text x="490" y="150" class="lbl">· HPACK 头压缩</text>
+  <text x="490" y="170" class="lbl">· 服务端推送</text>
+  <text x="490" y="220" class="lbl" fill="#6b7280">基于 TCP + TLS</text>
+
+  <!-- HTTP/3 -->
+  <rect class="ver h3" x="640" y="60" width="150" height="180"/>
+  <text x="715" y="84" text-anchor="middle" class="sub">HTTP/3</text>
+  <text x="715" y="290" text-anchor="middle" class="yr">2022</text>
+  <text x="650" y="110" class="lbl">· QUIC（UDP）</text>
+  <text x="650" y="130" class="lbl">· 0/1-RTT 握手</text>
+  <text x="650" y="150" class="lbl">· 无队头阻塞</text>
+  <text x="650" y="170" class="lbl">· 连接迁移</text>
+  <text x="650" y="220" class="lbl" fill="#6b7280">基于 QUIC/UDP</text>
+
+  <!-- 连接到时间轴的小圆 -->
+  <circle cx="105" cy="270" r="4" fill="#374151"/>
+  <circle cx="245" cy="270" r="4" fill="#374151"/>
+  <circle cx="395" cy="270" r="4" fill="#374151"/>
+  <circle cx="555" cy="270" r="4" fill="#374151"/>
+  <circle cx="715" cy="270" r="4" fill="#374151"/>
+</svg>

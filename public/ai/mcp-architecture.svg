@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
+  <title id="title">MCP 架构</title>
+  <desc id="desc">展示 AI 客户端、MCP Client、MCP Server 与外部资源之间的关系</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker>
+    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.data{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}.line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style></defs>
+  <rect class="bg" width="1080" height="430"/>
+  <rect class="box" x="50" y="160" width="170" height="100"/><text class="text title" x="135" y="198" text-anchor="middle">AI 客户端</text><text class="text body" x="135" y="226" text-anchor="middle">IDE、桌面助手、CLI</text>
+  <rect class="core" x="290" y="160" width="170" height="100"/><text class="text title" x="375" y="198" text-anchor="middle">MCP Client</text><text class="text body" x="375" y="226" text-anchor="middle">协议连接层</text>
+  <rect class="core" x="530" y="160" width="170" height="100"/><text class="text title" x="615" y="198" text-anchor="middle">MCP Server</text><text class="text body" x="615" y="226" text-anchor="middle">封装工具与权限</text>
+  <rect class="data" x="790" y="70" width="200" height="70"/><text class="text title" x="890" y="100" text-anchor="middle">文件系统</text><text class="text small" x="890" y="123" text-anchor="middle">读写受限目录</text>
+  <rect class="data" x="790" y="180" width="200" height="70"/><text class="text title" x="890" y="210" text-anchor="middle">数据库 / API</text><text class="text small" x="890" y="233" text-anchor="middle">查询、调用、鉴权</text>
+  <rect class="data" x="790" y="290" width="200" height="70"/><text class="text title" x="890" y="320" text-anchor="middle">业务工具</text><text class="text small" x="890" y="343" text-anchor="middle">搜索、工单、部署</text>
+  <path class="line" d="M220 210 L290 210"/><path class="line" d="M460 210 L530 210"/><path class="line" d="M700 200 C735 150 755 108 790 105"/><path class="line" d="M700 215 L790 215"/><path class="line" d="M700 230 C735 280 755 322 790 325"/>
+</svg>

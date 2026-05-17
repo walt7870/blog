@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960" role="img" aria-label="面向对象设计原则速查表">
+  <defs>
+    <linearGradient id="head" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#cfe9ff"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#e8f5ff"/>
+      <stop offset="1" stop-color="#a9d8f7"/>
+    </linearGradient>
+    <style>
+      .bg{fill:#fff}.head{fill:url(#head)}.line{stroke:#1f2b3a;stroke-width:1.2}.title{font:700 28px -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;fill:#071933}.left{font:700 23px -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;fill:#111}.abbr{font:600 22px Arial,sans-serif;fill:#111}.text{font:500 20px -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;fill:#111}.mini{font:500 17px Arial,sans-serif;fill:#0b1f33}.small{font:500 14px Arial,sans-serif;fill:#0b1f33}.b{fill:url(#box);stroke:#0b4b8c;stroke-width:1.2}.w{fill:#fff;stroke:#777;stroke-width:1}.dash{stroke:#555;stroke-width:1.5;stroke-dasharray:4 4;fill:none}.arrow{stroke:#222;stroke-width:1.5;fill:none;marker-end:url(#arr)}.blue{fill:#8ecaf0;stroke:#111;stroke-width:1.5}.pale{fill:#dff2ff;stroke:#111;stroke-width:1.5}.gray{fill:#eee;stroke:#777;stroke-width:1.5}
+    </style>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#222"/></marker>
+  </defs>
+  <rect class="bg" x="8" y="8" width="704" height="944" rx="8"/>
+  <rect class="head" x="8" y="8" width="704" height="64" rx="8"/>
+  <path class="line" d="M8 72H712M206 8V952"/>
+  <rect x="8" y="8" width="704" height="944" rx="8" fill="none" class="line"/>
+  <text class="title" x="107" y="49" text-anchor="middle">设计原则</text>
+  <text class="title" x="459" y="49" text-anchor="middle">解释</text>
+
+  <!-- row lines -->
+  <g class="line"><path d="M8 196H712M8 320H712M8 444H712M8 568H712M8 692H712M8 816H712"/></g>
+
+  <!-- SRP -->
+  <text class="left" x="107" y="123" text-anchor="middle">单一职责原则</text><text class="abbr" x="107" y="158" text-anchor="middle">(SRP)</text>
+  <text class="text" x="230" y="124">一个类应该只有一个引起它</text><text class="text" x="230" y="157">变化的原因。</text>
+  <rect class="b" x="528" y="98" width="150" height="38" rx="5"/><text class="mini" x="603" y="123" text-anchor="middle">Print Order</text>
+  <rect class="b" x="528" y="146" width="150" height="38" rx="5"/><text class="mini" x="603" y="171" text-anchor="middle">Save Order</text>
+  <path d="M544 111h18v14h-18zM548 103h10v8h-10M548 154h18v22h-18zM552 154v8h10v-8" fill="#1b62a3"/>
+
+  <!-- OCP -->
+  <text class="left" x="107" y="247" text-anchor="middle">开闭原则</text><text class="abbr" x="107" y="282" text-anchor="middle">(OCP)</text>
+  <text class="text" x="230" y="248">软件实体应当对扩展开放，</text><text class="text" x="230" y="281">对修改关闭。</text>
+  <rect class="b" x="512" y="238" width="110" height="48" rx="5"/><text class="mini" x="567" y="268" text-anchor="middle">Module</text>
+  <path class="arrow" d="M622 262H660"/><path class="dash" d="M638 220v84M638 220h18M638 304h18"/><path class="arrow" d="M638 220H660M638 304H660"/>
+  <rect class="b" x="662" y="208" width="28" height="28" rx="4"/><rect class="b" x="662" y="248" width="28" height="28" rx="4"/><rect class="b" x="662" y="288" width="28" height="28" rx="4"/>
+
+  <!-- LSP -->
+  <text class="left" x="107" y="371" text-anchor="middle">里氏替换原则</text><text class="abbr" x="107" y="406" text-anchor="middle">(LSP)</text>
+  <text class="text" x="230" y="372">所有引用父类的地方，必须</text><text class="text" x="230" y="405">能够透明地使用其子类对象。</text>
+  <path class="blue" d="M535 402c24-30 20-60 48-68 20-5 44 14 34 35-9 21-37 23-52 18-9 14-19 27-30 38z"/><circle cx="586" cy="350" r="3" fill="#111"/><path class="line" d="M553 421v19M578 414v24M560 440h-12M585 438h13"/>
+  <path class="pale" d="M632 404c9-20 31-20 42-4 9 14-2 32-19 32-11 0-21-8-23-28z"/><circle cx="654" cy="401" r="2.5" fill="#111"/><path class="line" d="M646 432v14M662 431v15M642 446h-8M667 446h9"/>
+  <path class="dash" d="M606 395h24" marker-end="url(#arr)"/>
+
+  <!-- DIP -->
+  <text class="left" x="107" y="495" text-anchor="middle">依赖倒置原则</text><text class="abbr" x="107" y="530" text-anchor="middle">(DIP)</text>
+  <text class="text" x="230" y="496">高层模块不应该依赖低层模块，</text><text class="text" x="230" y="529">二者都应该依赖抽象。</text>
+  <rect class="b" x="535" y="458" width="150" height="28" rx="5"/><text class="small" x="610" y="477" text-anchor="middle">High-level Module</text>
+  <rect class="w" x="550" y="508" width="120" height="28" rx="4"/><text class="small" x="610" y="527" text-anchor="middle">Abstraction</text>
+  <rect class="b" x="535" y="558" width="150" height="28" rx="5"/><text class="small" x="610" y="577" text-anchor="middle">Low-level Module</text>
+  <path class="dash" d="M610 486v22M580 536v22M640 536v22" marker-end="url(#arr)"/>
+
+  <!-- ISP -->
+  <text class="left" x="107" y="619" text-anchor="middle">接口隔离原则</text><text class="abbr" x="107" y="654" text-anchor="middle">(ISP)</text>
+  <text class="text" x="230" y="612">客户端不应该依赖它不需要的接口；</text><text class="text" x="230" y="645">应使用多个专门接口，而不是</text><text class="text" x="230" y="678">单一总接口。</text>
+  <rect class="b" x="570" y="594" width="90" height="34" rx="5"/><text class="mini" x="615" y="617" text-anchor="middle">Client</text>
+  <rect class="b" x="518" y="672" width="88" height="34" rx="5"/><text class="small" x="562" y="694" text-anchor="middle">Interface 1</text>
+  <rect class="b" x="624" y="672" width="88" height="34" rx="5"/><text class="small" x="668" y="694" text-anchor="middle">Interface 2</text>
+  <path class="arrow" d="M615 628v22H562v22M615 650h53v22"/>
+
+  <!-- LOD -->
+  <text class="left" x="107" y="743" text-anchor="middle">迪米特法则</text><text class="abbr" x="107" y="778" text-anchor="middle">(LOD)</text>
+  <text class="text" x="230" y="744">一个对象应当对其他对象有最少的</text><text class="text" x="230" y="777">了解，也叫最少知识原则。</text>
+  <circle class="b" cx="548" cy="756" r="24"/><text class="mini" x="548" y="763" text-anchor="middle">A</text>
+  <circle class="b" cx="618" cy="756" r="24"/><text class="mini" x="618" y="763" text-anchor="middle">B</text>
+  <circle class="gray" cx="688" cy="756" r="24"/><text class="mini" x="688" y="763" text-anchor="middle">C</text>
+  <path class="arrow" d="M572 756h22"/><path class="dash" d="M642 756h24"/><text x="663" y="762" font-size="22" fill="#d22" font-family="Arial">×</text>
+
+  <!-- CRP -->
+  <text class="left" x="107" y="867" text-anchor="middle">合成复用原则</text><text class="abbr" x="107" y="902" text-anchor="middle">(CRP)</text>
+  <text class="text" x="230" y="868">优先使用组合或聚合复用，</text><text class="text" x="230" y="901">而不是继承复用。</text>
+  <rect class="b" x="500" y="862" width="82" height="38" rx="5"/><text class="mini" x="541" y="887" text-anchor="middle">Class A</text>
+  <rect class="b" x="628" y="862" width="82" height="38" rx="5"/><text class="mini" x="669" y="887" text-anchor="middle">Class B</text>
+  <path class="line" d="M582 881H628"/><path d="M590 881l13-10 13 10-13 10z" fill="#111"/>
+</svg>

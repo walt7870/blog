@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+  <title id="title">机器学习工程流程</title>
+  <desc id="desc">展示从问题定义、数据、特征、训练、评估、部署到监控的闭环</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.focus{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}.back{stroke:#f97316;stroke-width:2;fill:none;marker-end:url(#arrow);stroke-dasharray:7 7}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="420"/>
+  <rect class="box" x="35" y="160" width="130" height="90"/><text class="text title" x="100" y="192" text-anchor="middle">业务问题</text><text class="text body" x="100" y="220" text-anchor="middle">要预测什么</text>
+  <rect class="focus" x="205" y="160" width="130" height="90"/><text class="text title" x="270" y="192" text-anchor="middle">数据</text><text class="text body" x="270" y="220" text-anchor="middle">样本与标签</text>
+  <rect class="box" x="375" y="160" width="130" height="90"/><text class="text title" x="440" y="192" text-anchor="middle">特征</text><text class="text body" x="440" y="220" text-anchor="middle">可学习信号</text>
+  <rect class="box" x="545" y="160" width="130" height="90"/><text class="text title" x="610" y="192" text-anchor="middle">模型</text><text class="text body" x="610" y="220" text-anchor="middle">学习映射</text>
+  <rect class="focus" x="715" y="160" width="130" height="90"/><text class="text title" x="780" y="192" text-anchor="middle">评估</text><text class="text body" x="780" y="220" text-anchor="middle">离线与线上</text>
+  <rect class="box" x="885" y="160" width="150" height="90"/><text class="text title" x="960" y="192" text-anchor="middle">部署监控</text><text class="text body" x="960" y="220" text-anchor="middle">漂移与反馈</text>
+  <path class="line" d="M165 205 L205 205"/><path class="line" d="M335 205 L375 205"/><path class="line" d="M505 205 L545 205"/><path class="line" d="M675 205 L715 205"/><path class="line" d="M845 205 L885 205"/>
+  <path class="back" d="M950 250 C900 340 290 340 250 250"/>
+  <text class="text small" x="600" y="358" text-anchor="middle">线上反馈会回到数据层，模型不是一次训练后就结束</text>
+</svg>

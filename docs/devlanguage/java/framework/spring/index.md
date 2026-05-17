@@ -1,562 +1,113 @@
-# Spring 框架全面指南
+# Spring 总览
 
-## 概述
+Spring 是 Java 应用的基础设施框架。它的核心价值不是“提供很多注解”，而是把应用中最容易散乱的几类事情收拢到统一机制里：对象创建、依赖组装、方法增强、Web 请求处理、配置加载、运行状态暴露。
 
-Spring 是一个开源的企业级 Java 应用程序开发框架，由 Rod Johnson 于 2003 年创建。Spring 框架的核心理念是简化企业级应用程序的开发，提供全面的编程和配置模型。
-
-## 目录
-
-1. [Spring 框架简介](#spring-框架简介)
-2. [核心理念](#核心理念)
-3. [框架架构](#框架架构)
-4. [核心模块](#核心模块)
-5. [Spring 生态系统](#spring-生态系统)
-6. [版本演进](#版本演进)
-7. [应用场景](#应用场景)
-8. [最佳实践](#最佳实践)
-
----
-
-## Spring 框架简介
-
-### 什么是 Spring
-
-Spring 是一个轻量级的控制反转（IoC）和面向切面编程（AOP）的容器框架。它不仅仅是一个框架，更是一个完整的生态系统，为企业级应用开发提供了全方位的解决方案。
+可以把一个 Spring 应用理解成一条加工线：
 
-### Spring 的历史
-
-- **2003年**：Rod Johnson 发布 Spring 框架 0.9 版本
-- **2004年**：Spring 1.0 正式发布
-- **2006年**：Spring 2.0 引入 XML 命名空间
-- **2009年**：Spring 3.0 支持 Java 5+ 和注解配置
-- **2013年**：Spring 4.0 全面支持 Java 8
-- **2017年**：Spring 5.0 引入响应式编程支持
-- **2022年**：Spring 6.0 基于 Java 17，支持 GraalVM
-
-### Spring 的优势
-
-1. **轻量级**：Spring 是非侵入性的，不强制继承特定的类
-2. **控制反转**：通过 IoC 容器管理对象的生命周期和依赖关系
-3. **面向切面编程**：AOP 支持将横切关注点与业务逻辑分离
-4. **容器**：Spring 包含并管理应用对象的配置和生命周期
-5. **MVC 框架**：Spring 的 Web 框架是一个设计良好的 Web MVC 框架
-6. **事务管理**：提供一致的事务管理接口
-7. **异常处理**：提供方便的 API 把具体技术相关的异常转化为一致的 unchecked 异常
-
----
-
-## 核心理念
-
-### 1. 控制反转（Inversion of Control, IoC）
-
-控制反转是 Spring 框架的核心理念之一。传统的程序设计中，对象的创建和依赖关系的管理由程序代码直接控制。而在 IoC 模式下，这种控制权被反转，由容器来管理对象的创建和依赖注入。
-
-**传统方式：**
-
-```java
-public class UserService {
-    private UserDao userDao = new UserDaoImpl(); // 直接创建依赖
-    
-    public void saveUser(User user) {
-        userDao.save(user);
-    }
-}
-```
-
-**IoC 方式：**
-
-```java
-@Service
-public class UserService {
-    @Autowired
-    private UserDao userDao; // 由容器注入依赖
-    
-    public void saveUser(User user) {
-        userDao.save(user);
-    }
-}
-```
-
-### 2. 依赖注入（Dependency Injection, DI）
-
-依赖注入是实现 IoC 的一种方式，Spring 支持三种依赖注入方式：
-
-#### 构造器注入
-
-```java
-@Service
-public class UserService {
-    private final UserDao userDao;
-    
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
-}
-```
+- IoC 容器像对象仓库，负责创建和保管应用组件。
+- AOP 像方法调用入口的检查站，负责在业务方法前后插入事务、日志、权限等通用动作。
+- MVC 像 HTTP 请求调度台，负责把 URL、参数和请求体转交给合适的控制器方法。
+- Spring Boot 像装配和启动系统，负责把常用依赖、默认配置、内嵌服务器和运维端点组织起来。
 
-#### Setter 注入
+![Spring 学习路径](/spring/spring-learning-map.svg)
 
-```java
-@Service
-public class UserService {
-    private UserDao userDao;
-    
-    @Autowired
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-}
-```
+## 模块概览
 
-#### 字段注入
+| 模块 | 解决的问题 | 可以这样理解 | 详细说明 |
+| --- | --- | --- | --- |
+| IoC 容器 | 对象由谁创建、依赖由谁连接、生命周期由谁管理 | 应用组件的登记簿和装配车间 | [IoC 容器](./ioc.md) |
+| AOP | 事务、日志、权限、审计等通用逻辑如何不侵入业务方法 | 方法调用外层的统一检查站 | [AOP](./aop.md) |
+| Spring MVC | HTTP 请求如何匹配控制器、绑定参数、返回响应 | Web 请求的调度中心 | [Spring MVC](./mvc.md) |
+| Spring Boot | 应用如何用较少配置启动，并获得默认 Web、配置、监控能力 | Spring 应用的启动器和默认装配器 | [Spring Boot](./springboot.md) |
 
-```java
-@Service
-public class UserService {
-    @Autowired
-    private UserDao userDao;
-}
-```
-
-### 3. 面向切面编程（Aspect-Oriented Programming, AOP）
-
-AOP 是对面向对象编程的补充，用于处理系统中分布于各个模块的横切关注点，如事务管理、日志记录、安全检查等。
-
-```java
-@Aspect
-@Component
-public class LoggingAspect {
-    
-    @Around("@annotation(Loggable)")
-    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        long start = System.currentTimeMillis();
-        Object proceed = joinPoint.proceed();
-        long executionTime = System.currentTimeMillis() - start;
-        System.out.println(joinPoint.getSignature() + " executed in " + executionTime + " ms");
-        return proceed;
-    }
-}
-```
-
-### 4. 约定优于配置（Convention over Configuration）
-
-Spring 通过合理的默认配置和约定，减少了开发者需要做的配置工作。例如：
-
-- 自动扫描 `@Component`、`@Service`、`@Repository`、`@Controller` 注解的类
-- 自动配置数据源、事务管理器等
-- 基于注解的配置方式
-
----
-
-## 框架架构
-
-### Spring 框架总体架构
-
-Spring 框架采用模块化设计，主要包含以下几个层次：
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        Spring 框架                          │
-├─────────────────────────────────────────────────────────────┤
-│  Web Layer (Spring MVC, Spring WebFlux)                   │
-├─────────────────────────────────────────────────────────────┤
-│  Service Layer (Business Logic)                           │
-├─────────────────────────────────────────────────────────────┤
-│  Data Access Layer (Spring Data, JDBC, ORM)               │
-├─────────────────────────────────────────────────────────────┤
-│  Core Container (IoC, DI, Bean Factory, Application Context)│
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 核心容器架构
-
-1. **Bean Factory**：Spring IoC 容器的基础，负责管理 Bean 的生命周期
-2. **Application Context**：Bean Factory 的扩展，提供更多企业级功能
-3. **Bean Definition**：Bean 的元数据定义
-4. **Bean Post Processor**：Bean 初始化前后的处理器
-
----
-
-## 核心模块
-
-### 1. Core Container（核心容器）
-
-#### Spring Core
-
-- 提供 IoC 和 DI 功能
-- Bean Factory 和 Application Context
-- 资源访问和国际化支持
-
-#### Spring Beans
-
-- Bean 的定义、创建和管理
-- Bean 的作用域和生命周期
-- Bean 的装配和自动装配
-
-#### Spring Context
-
-- Application Context 的实现
-- 事件发布和监听
-- 资源加载和环境抽象
-
-#### Spring Expression Language (SpEL)
-
-- 强大的表达式语言
-- 支持运行时查询和操作对象图
-
-### 2. Data Access/Integration（数据访问/集成）
-
-#### Spring JDBC
-
-```java
-@Repository
-public class UserDaoImpl implements UserDao {
-    
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    
-    @Override
-    public User findById(Long id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new UserRowMapper(), id);
-    }
-}
-```
-
-#### Spring ORM
-
-- 集成 Hibernate、JPA、MyBatis 等 ORM 框架
-- 提供统一的异常处理
-- 简化配置和使用
-
-#### Spring Transaction
-
-```java
-@Service
-@Transactional
-public class UserService {
-    
-    @Transactional(rollbackFor = Exception.class)
-    public void transferMoney(Long fromId, Long toId, BigDecimal amount) {
-        // 业务逻辑
-    }
-}
-```
-
-### 3. Web（Web 层）
-
-#### Spring Web MVC
-
-```java
-@RestController
-@RequestMapping("/api/users")
-public class UserController {
-    
-    @Autowired
-    private UserService userService;
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = userService.findById(id);
-        return ResponseEntity.ok(user);
-    }
-    
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
-        User savedUser = userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
-    }
-}
-```
-
-#### Spring WebFlux（响应式编程）
-
-```java
-@RestController
-public class ReactiveUserController {
-    
-    @Autowired
-    private UserService userService;
-    
-    @GetMapping("/users")
-    public Flux<User> getAllUsers() {
-        return userService.findAllUsers();
-    }
-    
-    @GetMapping("/users/{id}")
-    public Mono<User> getUser(@PathVariable String id) {
-        return userService.findById(id);
-    }
-}
-```
-
-### 4. AOP（面向切面编程）
-
-```java
-@Aspect
-@Component
-public class SecurityAspect {
-    
-    @Before("@annotation(RequiresRole)")
-    public void checkRole(JoinPoint joinPoint) {
-        RequiresRole requiresRole = ((MethodSignature) joinPoint.getSignature())
-                .getMethod().getAnnotation(RequiresRole.class);
-        String requiredRole = requiresRole.value();
-        
-        // 检查用户角色
-        if (!SecurityContext.hasRole(requiredRole)) {
-            throw new AccessDeniedException("Insufficient privileges");
-        }
-    }
-}
-```
-
-### 5. Test（测试支持）
-
-```java
-@SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
-class UserServiceTest {
-    
-    @Autowired
-    private UserService userService;
-    
-    @MockBean
-    private UserRepository userRepository;
-    
-    @Test
-    void testFindById() {
-        // Given
-        User mockUser = new User(1L, "John Doe", "john@example.com");
-        when(userRepository.findById(1L)).thenReturn(Optional.of(mockUser));
-        
-        // When
-        User result = userService.findById(1L);
-        
-        // Then
-        assertThat(result).isNotNull();
-        assertThat(result.getName()).isEqualTo("John Doe");
-    }
-}
-```
-
----
-
-## Spring 生态系统
-
-### 1. Spring Boot
-
-- 简化 Spring 应用的创建和部署
-- 自动配置和起步依赖
-- 内嵌服务器支持
-- 生产就绪的特性（健康检查、指标监控等）
-
-### 2. Spring Data
-
-- 简化数据访问层的开发
-- 支持关系型和非关系型数据库
-- 提供统一的编程模型
-
-### 3. Spring Security
-
-- 全面的安全框架
-- 认证和授权支持
-- 防护常见的安全攻击
-
-### 4. Spring Cloud
-
-- 微服务架构的解决方案
-- 服务发现、配置管理、断路器等
-- 分布式系统的常见模式
-
-### 5. Spring Integration
-
-- 企业集成模式的实现
-- 消息驱动的架构支持
-- 与外部系统的集成
-
----
-
-## 版本演进
-
-### Spring 5.x 主要特性
-
-1. **响应式编程支持**
-   - Spring WebFlux 框架
-   - Reactive Streams 支持
-   - 非阻塞 I/O
-
-2. **函数式编程**
-   - 函数式 Web 框架
-   - Lambda 表达式支持
-   - 函数式 Bean 注册
-
-3. **Kotlin 支持**
-   - 原生 Kotlin 支持
-   - Kotlin 扩展函数
-   - 协程支持
-
-### Spring 6.x 主要特性
-
-1. **Java 17 基线**
-   - 最低要求 Java 17
-   - 利用新的 Java 特性
-
-2. **GraalVM 原生镜像支持**
-   - 编译时优化
-   - 更快的启动时间
-   - 更低的内存占用
-
-3. **Jakarta EE 9+ 支持**
-   - 从 javax.* 迁移到 jakarta.*
-   - 支持最新的 Jakarta EE 规范
-
----
-
-## 应用场景
-
-### 1. 企业级应用开发
-
-- 大型企业管理系统
-- 电商平台
-- 金融系统
-- 政府信息系统
-
-### 2. 微服务架构
-
-- 服务拆分和治理
-- 分布式系统开发
-- 云原生应用
-
-### 3. Web 应用开发
-
-- RESTful API 开发
-- 传统 MVC Web 应用
-- 响应式 Web 应用
-
-### 4. 数据处理应用
-
-- 批处理系统
-- 实时数据处理
-- 数据集成平台
-
----
-
-## 最佳实践
-
-### 1. 依赖注入最佳实践
-
-```java
-// 推荐：构造器注入
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-    private final EmailService emailService;
-    
-    public UserService(UserRepository userRepository, EmailService emailService) {
-        this.userRepository = userRepository;
-        this.emailService = emailService;
-    }
-}
-
-// 避免：字段注入（测试困难）
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-}
-```
-
-### 2. 配置管理最佳实践
-
-```java
-// 使用 @ConfigurationProperties
-@ConfigurationProperties(prefix = "app.database")
-@Data
-public class DatabaseProperties {
-    private String url;
-    private String username;
-    private String password;
-    private int maxConnections = 10;
-}
-
-// 在配置类中使用
-@Configuration
-@EnableConfigurationProperties(DatabaseProperties.class)
-public class DatabaseConfig {
-    
-    @Bean
-    public DataSource dataSource(DatabaseProperties properties) {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(properties.getUrl());
-        config.setUsername(properties.getUsername());
-        config.setPassword(properties.getPassword());
-        config.setMaximumPoolSize(properties.getMaxConnections());
-        return new HikariDataSource(config);
-    }
-}
-```
-
-### 3. 异常处理最佳实践
-
-```java
-@ControllerAdvice
-public class GlobalExceptionHandler {
-    
-    @ExceptionHandler(UserNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFound(UserNotFoundException ex) {
-        return new ErrorResponse("USER_NOT_FOUND", ex.getMessage());
-    }
-    
-    @ExceptionHandler(ValidationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidation(ValidationException ex) {
-        return new ErrorResponse("VALIDATION_ERROR", ex.getMessage());
-    }
-}
-```
-
-### 4. 事务管理最佳实践
-
-```java
-@Service
-public class OrderService {
-    
-    @Transactional(rollbackFor = Exception.class)
-    public void processOrder(Order order) {
-        // 业务逻辑
-    }
-    
-    @Transactional(readOnly = true)
-    public List<Order> findOrdersByUser(Long userId) {
-        return orderRepository.findByUserId(userId);
-    }
-    
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void logOrderEvent(OrderEvent event) {
-        // 独立事务记录日志
-    }
-}
-```
-
----
-
-## 总结
-
-Spring 框架作为 Java 企业级开发的事实标准，提供了全面的解决方案。其核心的 IoC 和 AOP 理念，以及丰富的生态系统，使得开发者能够构建高质量、可维护的应用程序。
-
-### 学习路径建议
-
-1. **基础阶段**：掌握 IoC、DI、AOP 核心概念
-2. **进阶阶段**：学习 Spring MVC、数据访问、事务管理
-3. **高级阶段**：深入 Spring Boot、Spring Cloud、响应式编程
-4. **专家阶段**：源码分析、性能优化、架构设计
-
-### 相关文档
-
-- [Spring Boot 详细指南](./springboot.md)
-- Spring 核心特性详解
-- [Spring 官方文档](https://spring.io/projects/spring-framework)
-
-Spring 框架的强大之处在于其灵活性和可扩展性，无论是传统的单体应用还是现代的微服务架构，Spring 都能提供合适的解决方案。通过持续学习和实践，开发者可以充分利用 Spring 的优势，构建出色的企业级应用。
+阅读顺序建议是 IoC -> AOP -> MVC -> Spring Boot。IoC 是基础，AOP 和 MVC 都依赖容器管理 Bean；Spring Boot 则把这些能力按常见项目形态组合起来。
+
+## Spring 解决的核心矛盾
+
+没有框架约束时，一个业务类常常同时承担很多职责：自己创建数据库访问对象，自己读取配置，自己处理事务，自己记录日志，自己决定异常如何返回。代码能运行，但系统变大后会出现几个问题：
+
+- 依赖关系藏在方法和构造细节里，替换实现、写测试、定位问题都困难。
+- 事务、日志、权限等通用逻辑在多个业务方法里重复出现。
+- HTTP、数据库、缓存、消息、配置等入口没有统一组织方式。
+- 启动失败、配置不生效、注解不生效时，很难判断应该从哪一层查。
+
+Spring 的处理方式是把这些职责分层：
+
+- 业务类只声明自己需要哪些依赖，不直接决定依赖如何创建。
+- 容器负责找到这些依赖，并在应用启动时完成装配。
+- 通用逻辑通过代理或框架组件统一挂到调用链上。
+- Web 请求、异常响应、配置读取、健康检查都有稳定入口。
+
+因此，理解 Spring 的重点不是背注解，而是看清每个机制接管了哪一段责任。
+
+## 一次请求中的位置关系
+
+以“创建订单接口”为例，可以按这条链理解：
+
+1. Spring Boot 启动应用，读取配置，启动内嵌 Web 服务器。
+2. IoC 容器创建 Controller、Service、Repository、Client 等 Bean，并注入依赖。
+3. 浏览器或客户端发起 HTTP 请求。
+4. Spring MVC 根据路径和方法找到 Controller，并完成参数绑定与校验。
+5. Controller 把请求转换为业务命令，调用 Service。
+6. 如果 Service 方法带有事务、审计或日志增强，AOP 代理先执行这些通用逻辑。
+7. Service 执行业务流程，调用 Repository 或外部 Client。
+8. 方法返回后，AOP 处理提交、记录或异常逻辑。
+9. MVC 把结果转换成 JSON；如果发生异常，则交给统一异常处理。
+
+这条链也是排错顺序。请求没进来查 MVC 映射；业务对象没创建查 IoC；事务没生效查 AOP 代理；配置没加载查 Boot 配置和自动装配。
+
+## 关键边界
+
+### IoC 管对象，不管所有数据
+
+适合交给 IoC 容器的对象通常是长期存在、可复用、需要配置或需要被其他组件依赖的对象，例如 Controller、Service、Repository、消息监听器、HTTP 客户端、线程池、配置类。
+
+不适合交给容器的对象通常是一次请求或一次业务流程中的临时数据，例如 Request、Response、Command、DTO、Entity。它们更像“单据”，由业务流程创建和传递，不应该放进对象仓库长期保管。
+
+### AOP 管横切逻辑，不管核心业务分支
+
+AOP 适合处理“很多方法都要做，而且规则一致”的事情，例如事务、日志、审计、权限检查。它不适合隐藏关键业务分支，因为调用者很难从方法体直接看到完整行为。
+
+判断标准很简单：去掉这段逻辑后，业务流程是否仍然能被清楚描述。如果能，它可能是横切逻辑；如果不能，它应该显式写在业务流程里。
+
+### MVC 管协议适配，不管业务决策
+
+Controller 应该像翻译层：把 HTTP 路径、查询参数、请求体翻译成业务命令，再把业务结果翻译成接口响应。库存扣减、订单状态流转、支付超时补偿等业务决策，应放在 Service 或领域对象中。
+
+### Boot 管启动装配，不替代 Spring 基础能力
+
+Spring Boot 让项目更容易启动，但它并没有改变 Spring 的基本模型。`@SpringBootApplication` 背后仍然是组件扫描、自动配置和 IoC 容器；`spring-boot-starter-web` 背后仍然是 Spring MVC 和 Servlet Web 运行环境。
+
+## 常见入口
+
+| 目标 | 常见入口 | 说明 |
+| --- | --- | --- |
+| 注册应用组件 | `@Component`、`@Service`、`@Repository`、`@Controller` | 让类成为容器管理的 Bean |
+| 注册第三方对象 | `@Configuration` + `@Bean` | 适合 SDK Client、线程池、数据源等 |
+| 声明事务边界 | `@Transactional` | 通常放在应用服务的 public 方法 |
+| 处理 HTTP 请求 | `@RestController`、`@RequestMapping` | 由 MVC 完成路由和参数绑定 |
+| 绑定配置 | `@ConfigurationProperties` | 适合业务配置和外部服务配置 |
+| 观察运行状态 | Actuator | 查看健康、路由、配置、自动装配条件 |
+
+## 排错入口
+
+| 现象 | 优先检查 | 详细说明 |
+| --- | --- | --- |
+| Bean 没有注入 | 扫描范围、Bean 来源、条件装配、多实现冲突 | [IoC 常见问题](./ioc.md#常见问题) |
+| `@Transactional` 不生效 | 是否经过代理、是否内部调用、异常是否被吞掉 | [AOP 失效场景](./aop.md#失效场景) |
+| 接口 404 或参数绑定失败 | URL、HTTP Method、参数注解、内容类型 | [MVC 排查路径](./mvc.md#排查路径) |
+| 配置值不是预期 | profile、环境变量、命令行参数、配置绑定 | [Boot 配置排查](./springboot.md#常见问题) |
+| 自动配置没有生效 | classpath、条件注解、用户自定义 Bean、排除项 | [Boot 自动配置](./springboot.md#自动配置) |
+
+## 学习目标
+
+读完这一组文档后，应能回答这些问题：
+
+- 一个类为什么能被注入到另一个类里。
+- 同一个接口多个实现时，Spring 如何决定注入哪个。
+- 事务为什么有时生效、有时不生效。
+- 一个 HTTP 请求如何找到对应控制器方法。
+- Spring Boot 为什么加了 Starter 就会出现默认能力。
+- 出现 Bean、代理、路由、配置问题时，应该从哪一层开始查。
+
+Spring 的学习不应停留在注解清单。更有效的方式是把它看成应用运行链路：启动时装配对象，请求时调度入口，调用时经过代理，异常时统一处理，运行时通过日志和端点观察状态。

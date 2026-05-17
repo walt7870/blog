@@ -1,0 +1,20 @@
+{
+  "name": "blog-docs-miniapp",
+  "appid": "__UNI__D0C0DE",
+  "description": "稻草人的技术小站 - 技术文档与知识聚合小程序",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "wx6de94d55c6781813",
+    "lazyCodeLoading": "requiredComponents",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "enhance": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true
+  }
+}

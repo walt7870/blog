@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+  <title id="title">软件架构总览地图</title>
+  <desc id="desc">从业务复杂度、团队规模、部署形态和数据一致性四个维度理解架构选择。</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#475569}
+    .core{fill:#0f172a}.ct{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.a{fill:#e0f2fe;stroke:#0284c7}.b{fill:#dcfce7;stroke:#22c55e}.c{fill:#fff7ed;stroke:#f97316}.d{fill:#ede9fe;stroke:#8b5cf6}
+    .h{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#94a3b8;stroke-width:2;fill:none}
+  </style>
+  <rect class="bg" width="1120" height="680" rx="24"/>
+  <text class="title" x="56" y="58">软件架构总览地图</text>
+  <text class="sub" x="56" y="88">架构不是名词选择题，而是围绕业务复杂度、团队协作、部署运维和数据一致性做取舍。</text>
+  <rect class="core" x="430" y="270" width="260" height="120" rx="20"/>
+  <text class="ct" x="487" y="318">架构决策</text><text class="ct" x="470" y="350">让变化成本可控</text>
+  <rect class="box a" x="80" y="140" width="290" height="150" rx="18"/><text class="h" x="112" y="180">业务复杂度</text><text class="t" x="112" y="212">规则简单：分层单体</text><text class="t" x="112" y="238">规则复杂：DDD、六边形</text><text class="t" x="112" y="264">读写复杂：CQRS</text>
+  <rect class="box b" x="750" y="140" width="290" height="150" rx="18"/><text class="h" x="782" y="180">团队与交付</text><text class="t" x="782" y="212">小团队：模块化单体</text><text class="t" x="782" y="238">多团队：微服务</text><text class="t" x="782" y="264">平台团队：云原生治理</text>
+  <rect class="box c" x="80" y="430" width="290" height="150" rx="18"/><text class="h" x="112" y="470">数据一致性</text><text class="t" x="112" y="502">强一致：单体事务优先</text><text class="t" x="112" y="528">最终一致：事件驱动</text><text class="t" x="112" y="554">查询独立：读模型</text>
+  <rect class="box d" x="750" y="430" width="290" height="150" rx="18"/><text class="h" x="782" y="470">部署运维</text><text class="t" x="782" y="502">固定部署：传统应用</text><text class="t" x="782" y="528">弹性伸缩：云原生</text><text class="t" x="782" y="554">事件触发：Serverless</text>
+  <path class="line" d="M370 215L430 300M750 215L690 300M370 505L430 360M750 505L690 360"/>
+</svg>

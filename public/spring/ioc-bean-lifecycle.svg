@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="460" viewBox="0 0 1040 460" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Bean 生命周期</title>
+  <desc id="desc">Bean 从定义读取到依赖注入、初始化、使用和销毁的主要步骤</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
+      .hook{fill:#ecfeff;stroke:#0891b2;stroke-width:2;rx:10}
+      .warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .title{font-size:20px;font-weight:700}
+      .body{font-size:14px}
+      .small{font-size:12px;fill:#475569}
+      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 6;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1040" height="460"/>
+  <rect class="box" x="35" y="150" width="150" height="95"/>
+  <text class="text title" x="110" y="185" text-anchor="middle">Bean 定义</text>
+  <text class="text body" x="110" y="215" text-anchor="middle">@Component / @Bean</text>
+
+  <rect class="box" x="235" y="150" width="150" height="95"/>
+  <text class="text title" x="310" y="185" text-anchor="middle">实例化</text>
+  <text class="text body" x="310" y="215" text-anchor="middle">调用构造器</text>
+
+  <rect class="box" x="435" y="150" width="150" height="95"/>
+  <text class="text title" x="510" y="185" text-anchor="middle">依赖注入</text>
+  <text class="text body" x="510" y="215" text-anchor="middle">填充依赖和配置</text>
+
+  <rect class="hook" x="635" y="150" width="150" height="95"/>
+  <text class="text title" x="710" y="185" text-anchor="middle">初始化</text>
+  <text class="text body" x="710" y="215" text-anchor="middle">PostConstruct 等</text>
+
+  <rect class="box" x="835" y="150" width="150" height="95"/>
+  <text class="text title" x="910" y="185" text-anchor="middle">使用 Bean</text>
+  <text class="text body" x="910" y="215" text-anchor="middle">业务对象调用</text>
+
+  <rect class="hook" x="435" y="320" width="150" height="80"/>
+  <text class="text title" x="510" y="352" text-anchor="middle">销毁回调</text>
+  <text class="text body" x="510" y="378" text-anchor="middle">PreDestroy 等</text>
+
+  <rect class="warn" x="635" y="35" width="285" height="70"/>
+  <text class="text title" x="778" y="63" text-anchor="middle">扩展点</text>
+  <text class="text small" x="778" y="88" text-anchor="middle">BeanPostProcessor 可在初始化前后增强 Bean</text>
+
+  <path class="line" d="M185 198 L235 198"/>
+  <path class="line" d="M385 198 L435 198"/>
+  <path class="line" d="M585 198 L635 198"/>
+  <path class="line" d="M785 198 L835 198"/>
+  <path class="line" d="M910 245 C900 335 675 360 585 360"/>
+  <path class="dash" d="M710 105 L710 150"/>
+</svg>

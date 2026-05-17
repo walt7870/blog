@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">AI 编程工程化阶梯</title>
+  <desc id="desc">展示从 Vibe Coding 到提示词、上下文、工具、Harness 和组织流程的演进</desc>
+  <style>
+    .bg{fill:#f8fafc}.step{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.focus{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+    .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:12px;fill:#475569}
+  </style>
+  <rect class="bg" width="1080" height="460"/>
+  <rect class="step" x="60" y="330" width="150" height="70"/><text class="text title" x="135" y="358" text-anchor="middle">Vibe</text><text class="text body" x="135" y="382" text-anchor="middle">想法驱动原型</text>
+  <rect class="step" x="230" y="270" width="150" height="70"/><text class="text title" x="305" y="298" text-anchor="middle">提示词</text><text class="text body" x="305" y="322" text-anchor="middle">把任务说清楚</text>
+  <rect class="step" x="400" y="210" width="150" height="70"/><text class="text title" x="475" y="238" text-anchor="middle">上下文</text><text class="text body" x="475" y="262" text-anchor="middle">给它看对资料</text>
+  <rect class="step" x="570" y="150" width="150" height="70"/><text class="text title" x="645" y="178" text-anchor="middle">工具</text><text class="text body" x="645" y="202" text-anchor="middle">让它能行动验证</text>
+  <rect class="focus" x="740" y="90" width="150" height="70"/><text class="text title" x="815" y="118" text-anchor="middle">Harness</text><text class="text body" x="815" y="142" text-anchor="middle">轨道、护栏、反馈</text>
+  <rect class="focus" x="910" y="30" width="150" height="70"/><text class="text title" x="985" y="58" text-anchor="middle">组织流程</text><text class="text body" x="985" y="82" text-anchor="middle">把判断沉淀成制度</text>
+</svg>

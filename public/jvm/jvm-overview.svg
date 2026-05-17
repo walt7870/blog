@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="460" viewBox="0 0 980 460" role="img" aria-labelledby="title desc">
+  <title id="title">JVM 整体结构</title>
+  <desc id="desc">展示 Java 源码从编译、类加载、运行时数据区到执行引擎和垃圾回收的整体链路。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#dbe3ef;stroke-width:1.6}.core{fill:#e0f2fe;stroke:#0284c7;stroke-width:1.8}.mem{fill:#dcfce7;stroke:#22c55e;stroke-width:1.8}.exec{fill:#fef3c7;stroke:#f59e0b;stroke-width:1.8}.t{font:700 20px Arial,"Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"Microsoft YaHei",sans-serif;fill:#334155}.m{font:12px Consolas,monospace;fill:#475569}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="980" height="460" rx="22"/>
+  <text class="t" x="42" y="48">JVM：把字节码变成可运行程序的执行环境</text>
+  <text class="s" x="42" y="76">学习 JVM 时先抓四条线：类如何进入内存、数据放在哪里、代码如何执行、垃圾如何回收。</text>
+
+  <rect class="box" x="52" y="138" width="130" height="72" rx="14"/><text class="t" x="82" y="172">.java</text><text class="m" x="76" y="194">源代码</text>
+  <rect class="box" x="222" y="138" width="130" height="72" rx="14"/><text class="t" x="252" y="172">.class</text><text class="m" x="246" y="194">字节码</text>
+  <rect class="core" x="392" y="118" width="180" height="112" rx="14"/><text class="t" x="438" y="158">类加载</text><text class="s" x="426" y="186">加载 / 链接</text><text class="s" x="448" y="208">初始化</text>
+  <rect class="mem" x="632" y="92" width="250" height="164" rx="14"/><text class="t" x="704" y="132">运行时数据区</text><text class="s" x="666" y="164">堆、方法区、虚拟机栈</text><text class="s" x="686" y="190">本地方法栈、程序计数器</text><text class="s" x="704" y="216">直接内存</text>
+
+  <rect class="exec" x="214" y="306" width="210" height="94" rx="14"/><text class="t" x="270" y="344">执行引擎</text><text class="s" x="250" y="374">解释执行 / JIT 编译</text>
+  <rect class="exec" x="524" y="306" width="210" height="94" rx="14"/><text class="t" x="590" y="344">GC 系统</text><text class="s" x="560" y="374">对象存活判断与内存回收</text>
+
+  <path class="line" d="M182 174H222"/>
+  <path class="line" d="M352 174H392"/>
+  <path class="line" d="M572 174H632"/>
+  <path class="line" d="M482 230C460 272 405 302 424 340"/>
+  <path class="line" d="M756 256C744 286 710 305 686 326"/>
+  <text class="m" x="188" y="158">javac</text>
+  <text class="m" x="572" y="158">元数据与对象</text>
+</svg>

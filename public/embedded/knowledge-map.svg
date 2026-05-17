@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .layer { stroke:#374151; stroke-width:1; rx:6; ry:6; }
+    .l1 { fill:#fef3c7; }
+    .l2 { fill:#fde68a; }
+    .l3 { fill:#bfdbfe; }
+    .l4 { fill:#93c5fd; }
+    .l5 { fill:#c4b5fd; }
+    .title { font-weight:700; font-size:16px; fill:#111827; }
+    .ltitle { font-weight:700; font-size:14px; fill:#1f2937; }
+    .item { fill:#374151; font-size:12px; }
+    .arrow { stroke:#6b7280; stroke-width:1.5; fill:none; marker-end:url(#arr); }
+    .note { fill:#6b7280; font-size:11px; font-style:italic; }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="450" y="24" text-anchor="middle" class="title">嵌入式开发知识体系（从底向上）</text>
+
+  <!-- Layer 1: 电子基础 -->
+  <rect class="layer l1" x="40" y="420" width="820" height="70"/>
+  <text x="60" y="445" class="ltitle">电子基础</text>
+  <text x="60" y="468" class="item">欧姆定律 · 电阻电容电感 · 二极管/三极管/MOS管 · 运放 · 数字逻辑 · 万用表/示波器</text>
+  <text x="60" y="484" class="note">→ electronics.md</text>
+
+  <!-- Layer 2: 硬件平台 -->
+  <rect class="layer l2" x="40" y="330" width="820" height="75"/>
+  <text x="60" y="355" class="ltitle">硬件平台</text>
+  <text x="60" y="378" class="item">ARM Cortex-M / RISC-V 架构 · Flash/SRAM · 时钟树 · 中断(NVIC) · 启动流程 · 原理图/PCB · 电源设计</text>
+  <text x="60" y="398" class="note">→ mcu.md · hardware-design.md</text>
+
+  <!-- Layer 3: 系统软件 -->
+  <rect class="layer l3" x="40" y="235" width="820" height="80"/>
+  <text x="60" y="260" class="ltitle">系统软件</text>
+  <text x="60" y="283" class="item">嵌入式 C（指针/位操作/volatile/链接脚本） · 裸机编程（超级循环/状态机） · RTOS（任务/信号量/队列/定时器）</text>
+  <text x="60" y="303" class="item">GCC 工具链 · Makefile/CMake · OpenOCD/J-Link · GDB 调试 · IDE</text>
+  <text x="60" y="310" class="note">→ c-programming.md · toolchain.md · rtos.md</text>
+
+  <!-- Layer 4: 驱动与协议 -->
+  <rect class="layer l4" x="40" y="140" width="820" height="80"/>
+  <text x="60" y="165" class="ltitle">驱动与协议</text>
+  <text x="60" y="188" class="item">GPIO/EXTI · UART · SPI · I2C · ADC/DAC · PWM/Timer · DMA · 看门狗</text>
+  <text x="60" y="206" class="item">CAN · Modbus · BLE · Wi-Fi · LoRa · MQTT · 车载以太网</text>
+  <text x="60" y="215" class="note">→ peripherals.md · communication.md</text>
+
+  <!-- Layer 5: 应用与集成 -->
+  <rect class="layer l5" x="40" y="45" width="820" height="80"/>
+  <text x="60" y="70" class="ltitle">应用与集成</text>
+  <text x="60" y="93" class="item">产品逻辑 · OTA 升级 · 低功耗优化 · 嵌入式 Linux（U-Boot/内核/驱动/Buildroot）· 云平台对接</text>
+  <text x="60" y="111" class="item">STM32 CubeMX · ESP-IDF · 树莓派 · RISC-V 生态 · 综合项目实战</text>
+  <text x="60" y="120" class="note">→ linux-embedded.md · platforms.md · projects.md</text>
+
+  <!-- Arrows -->
+  <line x1="450" y1="420" x2="450" y2="410" class="arrow"/>
+  <line x1="450" y1="330" x2="450" y2="320" class="arrow"/>
+  <line x1="450" y1="235" x2="450" y2="225" class="arrow"/>
+  <line x1="450" y1="140" x2="450" y2="130" class="arrow"/>
+
+  <!-- Side labels -->
+  <text x="880" y="460" text-anchor="end" class="note">入门</text>
+  <text x="880" y="370" text-anchor="end" class="note">入门</text>
+  <text x="880" y="275" text-anchor="end" class="note">入门~进阶</text>
+  <text x="880" y="180" text-anchor="end" class="note">进阶</text>
+  <text x="880" y="85" text-anchor="end" class="note">精通</text>
+</svg>

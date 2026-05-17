@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
+  <title id="title">工厂方法模式结构图</title>
+  <desc id="desc">展示客户端依赖抽象工厂和抽象产品，具体工厂负责创建具体产品。</desc>
+  <style>.bg{fill:#f8fafc}.abs{fill:#e0f2fe;stroke:#0284c7}.impl{fill:#fff;stroke:#94a3b8}.new{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.dash{stroke-dasharray:6 6}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="1040" height="520" rx="22"/>
+  <text class="t" x="48" y="52">工厂方法：把“创建哪种产品”的决定放到具体工厂</text>
+  <rect class="box impl" x="70" y="180" width="180" height="86" rx="14"/><text class="t" x="124" y="218">客户端</text><text class="s" x="94" y="244">只依赖抽象</text>
+  <path class="line" d="M250 223H340"/><polygon class="arrow" points="340,223 327,215 327,231"/>
+  <rect class="box abs" x="340" y="116" width="220" height="90" rx="14"/><text class="t" x="402" y="154">LoggerFactory</text><text class="s" x="384" y="180">createLogger()</text>
+  <rect class="box abs" x="340" y="286" width="220" height="90" rx="14"/><text class="t" x="424" y="324">Logger</text><text class="s" x="416" y="350">log()</text>
+  <path class="line" d="M560 160H660"/><polygon class="arrow" points="660,160 647,152 647,168"/>
+  <path class="line" d="M560 330H660"/><polygon class="arrow" points="660,330 647,322 647,338"/>
+  <rect class="box impl" x="660" y="76" width="250" height="72" rx="14"/><text class="t" x="704" y="120">FileLoggerFactory</text>
+  <rect class="box impl" x="660" y="174" width="250" height="72" rx="14"/><text class="t" x="684" y="218">DatabaseLoggerFactory</text>
+  <rect class="box impl" x="660" y="276" width="250" height="72" rx="14"/><text class="t" x="722" y="320">FileLogger</text>
+  <rect class="box impl" x="660" y="374" width="250" height="72" rx="14"/><text class="t" x="700" y="418">DatabaseLogger</text>
+  <path class="line dash" d="M785 148v128"/><path class="line dash" d="M785 246v128"/>
+  <rect class="box new" x="70" y="365" width="210" height="70" rx="14"/><text class="s" x="96" y="394">新增产品时：</text><text class="s" x="96" y="418">新增产品 + 新增工厂</text>
+</svg>

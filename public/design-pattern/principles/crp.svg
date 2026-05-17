@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">合成复用原则示意图</title>
+  <desc id="desc">展示优先用组合复用能力，而不是用继承堆叠变化维度。</desc>
+  <style>.bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="960" height="420" rx="20"/>
+  <text class="t" x="48" y="52">合成复用原则：优先组合，谨慎继承</text>
+  <rect class="box bad" x="70" y="105" width="300" height="190" rx="14"/>
+  <text class="t" x="120" y="145">继承堆叠</text>
+  <text class="s" x="105" y="180">FileLogger</text><text class="s" x="105" y="210">EncryptedFileLogger</text><text class="s" x="105" y="240">CompressedEncryptedFileLogger</text>
+  <line class="line" x1="395" y1="200" x2="515" y2="200"/><polygon class="arrow" points="515,200 502,192 502,208"/>
+  <rect class="box good" x="560" y="90" width="300" height="80" rx="14"/><text class="t" x="620" y="138">Logger</text>
+  <rect class="box good" x="560" y="200" width="130" height="70" rx="14"/><text class="s" x="588" y="242">Encrypt</text>
+  <rect class="box good" x="730" y="200" width="130" height="70" rx="14"/><text class="s" x="752" y="242">Compress</text>
+  <line class="line" x1="650" y1="170" x2="625" y2="200"/><line class="line" x1="770" y1="170" x2="795" y2="200"/>
+  <text class="s" x="86" y="350">多个变化维度用继承组合，会快速膨胀成大量子类。</text>
+  <text class="s" x="560" y="350">用组合把能力拆成可插拔对象，新增能力不破坏原层次。</text>
+</svg>

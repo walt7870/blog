@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="430" viewBox="0 0 980 430" role="img" aria-labelledby="title desc">
+  <title id="title">直接内存位置</title>
+  <desc id="desc">展示 Java 堆、直接内存、操作系统内存和 I/O 之间的关系。</desc>
+  <style>
+    .bg{fill:#f8fafc}.heap{fill:#e0f2fe;stroke:#0284c7}.direct{fill:#fef3c7;stroke:#f59e0b}.os{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2}.t{font:700 20px Arial,"Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"Microsoft YaHei",sans-serif;fill:#334155}.m{font:12px Consolas,monospace;fill:#475569}.line{stroke:#64748b;stroke-width:2}
+  </style>
+  <rect class="bg" width="980" height="430" rx="22"/>
+  <text class="t" x="42" y="48">直接内存：不在 Java 堆里，但仍属于进程内存</text>
+  <text class="s" x="42" y="76">NIO、Netty、MappedByteBuffer 常用它减少堆内复制；限制不当时会触发直接内存 OOM。</text>
+
+  <rect class="heap box" x="70" y="130" width="240" height="150" rx="16"/>
+  <text class="t" x="152" y="172">Java 堆</text>
+  <text class="s" x="112" y="210">普通对象、数组</text>
+  <text class="m" x="112" y="240">-Xmx</text>
+
+  <rect class="direct box" x="390" y="130" width="240" height="150" rx="16"/>
+  <text class="t" x="478" y="172">直接内存</text>
+  <text class="s" x="432" y="210">DirectByteBuffer</text>
+  <text class="m" x="432" y="240">MaxDirectMemorySize</text>
+
+  <rect class="os box" x="710" y="130" width="200" height="150" rx="16"/>
+  <text class="t" x="770" y="172">OS / I/O</text>
+  <text class="s" x="748" y="210">Socket、FileChannel</text>
+  <text class="s" x="748" y="238">mmap、native</text>
+
+  <line class="line" x1="310" y1="205" x2="390" y2="205"/>
+  <line class="line" x1="630" y1="205" x2="710" y2="205"/>
+  <text class="s" x="116" y="340">堆内对象保存引用，真正的数据可能在堆外。</text>
+  <text class="s" x="430" y="340">回收依赖 Cleaner、引用处理和对象可达性。</text>
+  <text class="s" x="710" y="340">排查时同时看 JVM 参数和进程 RSS。</text>
+</svg>

@@ -1,0 +1,122 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^mp-html$": "mp-html/dist/uni-app/components/mp-html/mp-html.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/home/index",
+      "style": {
+        "navigationBarTitleText": "稻草人的技术小站",
+        "navigationBarBackgroundColor": "#0d1117",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/about/index",
+      "style": {
+        "navigationBarTitleText": "关于",
+        "navigationBarBackgroundColor": "#0d1117",
+        "navigationBarTextStyle": "white"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "#6e7681",
+    "selectedColor": "#e6edf3",
+    "backgroundColor": "#0d1117",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "text": "关于"
+      }
+    ]
+  },
+  "globalStyle": {
+    "backgroundColor": "#0d1117",
+    "navigationBarBackgroundColor": "#0d1117",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "稻草人的技术小站"
+  },
+  "subPackages": [
+    { "root": "subpackages/ai", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "人工智能" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/container-docker", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "Docker 容器" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/container-k8s-core", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "K8s 核心资源" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/container-k8s-ext", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "K8s 扩展资源" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/container-tools", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "容器工具" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/database-mysql-basic", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "MySQL 基础" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/database-mysql-advanced", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "MySQL 进阶" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/database-bigdata", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "大数据技术" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/design-architecture", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "架构设计" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/pattern-creational", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "创建型模式" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/pattern-structural", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "结构型模式" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/pattern-behavioral", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "行为型模式" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/devlanguage-java-core", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "Java 基础" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/devlanguage-java-jvm", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "JVM" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/devlanguage-java-framework", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "Java 框架" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/devlanguage-front", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "前端开发" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/linux", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "Linux 系统" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/tools", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "开发工具" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]}
+  ]
+}

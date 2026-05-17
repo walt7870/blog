@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">单一职责原则示意图</title>
+  <desc id="desc">展示一个类承担多类职责时如何拆分为多个职责清晰的组件。</desc>
+  <style>
+    .bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}
+  </style>
+  <rect class="bg" width="960" height="420" rx="20"/>
+  <text class="t" x="48" y="52">单一职责原则：一个模块只承受一类变化</text>
+  <rect class="box bad" x="70" y="120" width="260" height="180" rx="14"/>
+  <text class="t" x="112" y="158">OrderService</text>
+  <text class="s" x="102" y="196">创建订单</text><text class="s" x="102" y="226">计算优惠</text><text class="s" x="102" y="256">发送消息</text><text class="s" x="102" y="286">写审计日志</text>
+  <line class="line" x1="350" y1="210" x2="535" y2="210"/><polygon class="arrow" points="535,210 522,202 522,218"/>
+  <rect class="box good" x="580" y="86" width="260" height="70" rx="14"/><text class="t" x="628" y="128">OrderCreator</text><text class="s" x="650" y="150">订单创建</text>
+  <rect class="box good" x="580" y="176" width="260" height="70" rx="14"/><text class="t" x="626" y="218">PriceCalculator</text><text class="s" x="650" y="240">价格计算</text>
+  <rect class="box good" x="580" y="266" width="260" height="70" rx="14"/><text class="t" x="625" y="308">MessageSender</text><text class="s" x="650" y="330">消息通知</text>
+  <text class="s" x="80" y="360">坏味道：一个需求变更会同时影响多个职责。</text>
+  <text class="s" x="580" y="360">目标：每个类有清晰边界，变更影响范围更小。</text>
+</svg>

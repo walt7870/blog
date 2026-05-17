@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
+  <title id="title">策略模式结构图</title>
+  <desc id="desc">展示上下文对象通过策略接口调用不同算法实现。</desc>
+  <style>.bg{fill:#f8fafc}.ctx{fill:#e0f2fe;stroke:#0284c7}.strategy{fill:#ede9fe;stroke:#8b5cf6}.impl{fill:#fff;stroke:#94a3b8}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="1040" height="520" rx="22"/>
+  <text class="t" x="48" y="52">策略模式：把可替换算法从主流程中拆出去</text>
+  <rect class="box ctx" x="80" y="190" width="230" height="100" rx="14"/><text class="t" x="142" y="228">PromotionService</text><text class="s" x="126" y="255">按 type 找策略并执行</text>
+  <path class="line" d="M310 240H430"/><polygon class="arrow" points="430,240 417,232 417,248"/>
+  <rect class="box strategy" x="430" y="190" width="230" height="100" rx="14"/><text class="t" x="482" y="228">PromotionStrategy</text><text class="s" x="496" y="255">calculate(order)</text>
+  <path class="line" d="M660 240H750"/><polygon class="arrow" points="750,240 737,232 737,248"/>
+  <rect class="box impl" x="750" y="92" width="220" height="70" rx="14"/><text class="t" x="796" y="136">折扣策略</text>
+  <rect class="box impl" x="750" y="208" width="220" height="70" rx="14"/><text class="t" x="796" y="252">满减策略</text>
+  <rect class="box impl" x="750" y="324" width="220" height="70" rx="14"/><text class="t" x="796" y="368">优惠券策略</text>
+  <path class="line" d="M750 127H700Q660 127 660 190"/><path class="line" d="M750 243H660"/><path class="line" d="M750 359H700Q660 359 660 290"/>
+  <text class="s" x="92" y="410">主流程稳定：查找策略、执行策略、处理结果。</text>
+  <text class="s" x="430" y="410">变化点独立：每种算法单独测试、单独扩展。</text>
+</svg>

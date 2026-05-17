@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
+  <title id="title">声学系统结构图</title>
+  <desc id="desc">展示声源、声场、换能器、模拟链路、数字信号处理、语音算法和业务层之间的关系</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .band { fill: #eef2ff; stroke: #c7d2fe; }
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 8; }
+      .box2 { fill: #ecfeff; stroke: #67e8f9; stroke-width: 1.5; rx: 8; }
+      .box3 { fill: #f0fdf4; stroke: #86efac; stroke-width: 1.5; rx: 8; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; font-size: 18px; font-weight: 650; }
+      .small { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; font-size: 14px; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; font-size: 13px; }
+      .line { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #64748b; stroke-width: 1.6; stroke-dasharray: 6 6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1040" height="520"/>
+  <rect class="band" x="34" y="34" width="972" height="106" rx="14"/>
+  <text class="text" x="62" y="72">物理声学层</text>
+  <rect class="box" x="60" y="92" width="170" height="64"/>
+  <text class="small" x="88" y="120">声源</text>
+  <text class="label" x="88" y="142">人声 / 设备 / 环境噪声</text>
+  <rect class="box" x="300" y="92" width="170" height="64"/>
+  <text class="small" x="328" y="120">传播环境</text>
+  <text class="label" x="328" y="142">反射 / 混响 / 遮挡</text>
+  <rect class="box" x="540" y="92" width="170" height="64"/>
+  <text class="small" x="568" y="120">换能器</text>
+  <text class="label" x="568" y="142">麦克风 / 扬声器</text>
+  <rect class="box" x="780" y="92" width="170" height="64"/>
+  <text class="small" x="808" y="120">结构件</text>
+  <text class="label" x="808" y="142">腔体 / 网布 / 密封</text>
+  <path class="line" d="M230 124 H300"/>
+  <path class="line" d="M470 124 H540"/>
+  <path class="dash" d="M710 124 H780"/>
+
+  <text class="text" x="62" y="218">电声与数字链路</text>
+  <rect class="box2" x="60" y="238" width="170" height="74"/>
+  <text class="small" x="88" y="266">模拟前端</text>
+  <text class="label" x="88" y="288">偏置 / 放大 / 滤波</text>
+  <rect class="box2" x="300" y="238" width="170" height="74"/>
+  <text class="small" x="328" y="266">ADC / DAC</text>
+  <text class="label" x="328" y="288">采样率 / 位深 / 时钟</text>
+  <rect class="box2" x="540" y="238" width="170" height="74"/>
+  <text class="small" x="568" y="266">音频驱动</text>
+  <text class="label" x="568" y="288">DMA / Buffer / ALSA</text>
+  <rect class="box2" x="780" y="238" width="170" height="74"/>
+  <text class="small" x="808" y="266">DSP 处理</text>
+  <text class="label" x="808" y="288">滤波 / FFT / 重采样</text>
+  <path class="line" d="M145 156 V238"/>
+  <path class="line" d="M230 275 H300"/>
+  <path class="line" d="M470 275 H540"/>
+  <path class="line" d="M710 275 H780"/>
+
+  <text class="text" x="62" y="374">语音算法与业务层</text>
+  <rect class="box3" x="60" y="394" width="170" height="74"/>
+  <text class="small" x="88" y="422">前处理</text>
+  <text class="label" x="88" y="444">AEC / NS / AGC / VAD</text>
+  <rect class="box3" x="300" y="394" width="170" height="74"/>
+  <text class="small" x="328" y="422">唤醒与识别</text>
+  <text class="label" x="328" y="444">KWS / ASR / 标点</text>
+  <rect class="box3" x="540" y="394" width="170" height="74"/>
+  <text class="small" x="568" y="422">语义与对话</text>
+  <text class="label" x="568" y="444">NLU / LLM / 状态管理</text>
+  <rect class="box3" x="780" y="394" width="170" height="74"/>
+  <text class="small" x="808" y="422">合成与播放</text>
+  <text class="label" x="808" y="444">TTS / 音效 / 功放</text>
+  <path class="line" d="M865 312 V356 Q865 368 853 368 H145 Q145 368 145 394"/>
+  <path class="line" d="M230 431 H300"/>
+  <path class="line" d="M470 431 H540"/>
+  <path class="line" d="M710 431 H780"/>
+</svg>

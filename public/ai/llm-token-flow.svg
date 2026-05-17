@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+  <title id="title">大语言模型生成流程</title>
+  <desc id="desc">展示提示词、上下文、注意力计算、概率分布和逐 token 生成</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#7c3aed"/></marker>
+    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}.line{stroke:#7c3aed;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect class="bg" width="1080" height="420"/>
+  <rect class="box" x="40" y="150" width="150" height="110"/><text class="text title" x="115" y="190" text-anchor="middle">输入上下文</text><text class="text body" x="115" y="218" text-anchor="middle">提示词、历史、资料</text>
+  <rect class="box" x="240" y="150" width="145" height="110"/><text class="text title" x="313" y="190" text-anchor="middle">Token 化</text><text class="text body" x="313" y="218" text-anchor="middle">切成模型可读片段</text>
+  <rect class="core" x="435" y="115" width="210" height="180"/><text class="text title" x="540" y="160" text-anchor="middle">Transformer</text><text class="text body" x="540" y="192" text-anchor="middle">用注意力衡量关系</text><text class="text body" x="540" y="220" text-anchor="middle">融合上下文信号</text><text class="text small" x="540" y="252" text-anchor="middle">不是检索答案库，而是计算下一个 token 概率</text>
+  <rect class="box" x="695" y="150" width="145" height="110"/><text class="text title" x="768" y="190" text-anchor="middle">概率分布</text><text class="text body" x="768" y="218" text-anchor="middle">候选 token 排序</text>
+  <rect class="box" x="890" y="150" width="150" height="110"/><text class="text title" x="965" y="190" text-anchor="middle">逐步生成</text><text class="text body" x="965" y="218" text-anchor="middle">选一个，再继续</text>
+  <path class="line" d="M190 205 L240 205"/><path class="line" d="M385 205 L435 205"/><path class="line" d="M645 205 L695 205"/><path class="line" d="M840 205 L890 205"/>
+</svg>

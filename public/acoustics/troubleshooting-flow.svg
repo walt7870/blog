@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="520" viewBox="0 0 1060 520" role="img" aria-labelledby="title desc">
+  <title id="title">声学问题排查路径</title>
+  <desc id="desc">展示从现象到录音、波形、频谱、模块旁路和回放验证的排查流程</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}.warn{fill:#fff7ed;stroke:#fdba74}.ok{fill:#ecfdf5;stroke:#86efac}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
+      .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
+      .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="520"/>
+  <rect class="warn" x="48" y="76" width="170" height="86" rx="10"/>
+  <text class="title" x="78" y="112">用户现象</text>
+  <text class="txt" x="74" y="138">唤不醒 / 听错 / 回声</text>
+  <rect class="box" x="288" y="76" width="170" height="86"/>
+  <text class="title" x="318" y="112">固定场景</text>
+  <text class="txt" x="314" y="138">距离、角度、噪声</text>
+  <rect class="box" x="528" y="76" width="170" height="86"/>
+  <text class="title" x="558" y="112">保存信号</text>
+  <text class="txt" x="554" y="138">原始、参考、输出</text>
+  <rect class="box" x="768" y="76" width="170" height="86"/>
+  <text class="title" x="798" y="112">看波形</text>
+  <text class="txt" x="794" y="138">削顶、断续、错路</text>
+  <path class="line" d="M218 119 H288"/>
+  <path class="line" d="M458 119 H528"/>
+  <path class="line" d="M698 119 H768"/>
+  <rect class="box" x="768" y="250" width="170" height="86"/>
+  <text class="title" x="798" y="286">看频谱</text>
+  <text class="txt" x="794" y="312">噪声、混响、滤波</text>
+  <rect class="box" x="528" y="250" width="170" height="86"/>
+  <text class="title" x="552" y="286">旁路模块</text>
+  <text class="txt" x="554" y="312">逐个关 AEC/NS/AGC</text>
+  <rect class="box" x="288" y="250" width="170" height="86"/>
+  <text class="title" x="318" y="286">回放对比</text>
+  <text class="txt" x="314" y="312">同录音比版本</text>
+  <rect class="ok" x="48" y="250" width="170" height="86" rx="10"/>
+  <text class="title" x="78" y="286">定位归因</text>
+  <text class="txt" x="74" y="312">结构 / 链路 / 算法</text>
+  <path class="line" d="M853 162 V250"/>
+  <path class="line" d="M768 293 H698"/>
+  <path class="line" d="M528 293 H458"/>
+  <path class="line" d="M288 293 H218"/>
+  <rect class="box" x="116" y="394" width="828" height="74"/>
+  <text class="title" x="144" y="428">排查原则</text>
+  <text class="txt" x="144" y="454">先证明输入有没有坏，再判断处理有没有坏，最后才调模型阈值。没有原始录音和播放参考时，很多问题无法复盘。</text>
+</svg>

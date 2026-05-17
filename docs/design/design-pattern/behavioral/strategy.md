@@ -1,14 +1,89 @@
 # 策略模式 (Strategy Pattern)
 
+## 历史脉络
+
+策略模式是 GoF 行为型模式之一。它来自一个很常见的面向对象问题：同一件事存在多种算法，如果把所有算法都写在一个类的条件分支里，类会越来越难维护。策略模式用组合替代大量条件判断，让算法能独立扩展和测试。
+
+![策略模式结构图](/design-pattern/patterns/strategy.svg)
+
 ## 概述
 
 策略模式是一种行为型设计模式，它定义了一系列算法，把它们一个个封装起来，并且使它们可相互替换。策略模式让算法的变化独立于使用算法的客户端。
+
+更准确地说，策略模式适合“同一个业务目标，有多种可替换计算方式”的场景。它不负责决定业务流程顺序，只负责把可变算法从主流程中拆出去。
 
 ### 核心思想
 
 - **算法封装**：将不同的算法封装在独立的策略类中
 - **动态切换**：在运行时可以动态地改变对象的行为
 - **开闭原则**：对扩展开放，对修改关闭
+
+## 问题识别
+
+适合考虑策略模式的典型信号：
+
+- 一个方法里按 `type`、`channel`、`scene` 写了大量条件分支。
+- 每个分支完成的是同一类任务，只是算法细节不同。
+- 新增算法时不希望修改主流程。
+- 每种算法都需要单独测试、单独发布或单独配置。
+
+不适合的情况：
+
+- 分支数量很少且长期稳定。
+- 每个分支做的是完全不同的业务流程，而不是同一算法族。
+- 算法之间强依赖同一堆可变上下文，拆出去反而会增加耦合。
+
+## 重构前后对比
+
+问题代码：
+
+```java
+public BigDecimal calculateFee(String channel, Order order) {
+    if ("normal".equals(channel)) {
+        return order.getAmount().multiply(new BigDecimal("0.01"));
+    }
+    if ("vip".equals(channel)) {
+        return order.getAmount().multiply(new BigDecimal("0.005"));
+    }
+    if ("partner".equals(channel)) {
+        return order.getAmount().multiply(new BigDecimal("0.003"));
+    }
+    throw new IllegalArgumentException("不支持的渠道");
+}
+```
+
+策略化：
+
+```java
+public interface FeeStrategy {
+    String channel();
+    BigDecimal calculate(Order order);
+}
+
+public class VipFeeStrategy implements FeeStrategy {
+    public String channel() {
+        return "vip";
+    }
+
+    public BigDecimal calculate(Order order) {
+        return order.getAmount().multiply(new BigDecimal("0.005"));
+    }
+}
+
+public class FeeService {
+    private final Map<String, FeeStrategy> strategies;
+
+    public BigDecimal calculateFee(String channel, Order order) {
+        FeeStrategy strategy = strategies.get(channel);
+        if (strategy == null) {
+            throw new IllegalArgumentException("不支持的渠道");
+        }
+        return strategy.calculate(order);
+    }
+}
+```
+
+主流程只负责选择和调用策略，费率算法由各策略类独立承担。
 
 ## 使用场景
 

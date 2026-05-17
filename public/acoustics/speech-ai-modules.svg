@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
+  <title id="title">唤醒、识别与合成的关系</title>
+  <desc id="desc">展示 KWS、ASR、NLU 和 TTS 在语音系统中的不同职责</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}.hot{fill:#fff7ed;stroke:#fdba74}.engine{fill:#ecfdf5;stroke:#86efac}.reply{fill:#eff6ff;stroke:#93c5fd}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}.back{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
+      .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
+      .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="500"/>
+  <rect class="box" x="48" y="92" width="150" height="96"/>
+  <text class="title" x="82" y="130">语音流</text>
+  <text class="txt" x="74" y="158">连续音频</text>
+  <rect class="hot" x="260" y="92" width="150" height="96" rx="10"/>
+  <text class="title" x="302" y="130">KWS</text>
+  <text class="txt" x="286" y="158">有没有叫我</text>
+  <rect class="engine" x="472" y="92" width="150" height="96" rx="10"/>
+  <text class="title" x="510" y="130">ASR</text>
+  <text class="txt" x="498" y="158">说了什么字</text>
+  <rect class="engine" x="684" y="92" width="150" height="96" rx="10"/>
+  <text class="title" x="724" y="130">理解</text>
+  <text class="txt" x="710" y="158">想做什么事</text>
+  <rect class="reply" x="896" y="92" width="150" height="96" rx="10"/>
+  <text class="title" x="936" y="130">TTS</text>
+  <text class="txt" x="924" y="158">把回复说出</text>
+  <path class="line" d="M198 140 H260"/>
+  <path class="line" d="M410 140 H472"/>
+  <path class="line" d="M622 140 H684"/>
+  <path class="line" d="M834 140 H896"/>
+  <rect class="box" x="260" y="274" width="150" height="96"/>
+  <text class="title" x="294" y="312">阈值门</text>
+  <text class="txt" x="286" y="340">防误唤醒</text>
+  <rect class="box" x="472" y="274" width="150" height="96"/>
+  <text class="title" x="506" y="312">热词表</text>
+  <text class="txt" x="498" y="340">补业务词</text>
+  <rect class="box" x="684" y="274" width="150" height="96"/>
+  <text class="title" x="714" y="312">上下文</text>
+  <text class="txt" x="710" y="340">补省略信息</text>
+  <rect class="box" x="896" y="274" width="150" height="96"/>
+  <text class="title" x="936" y="312">韵律</text>
+  <text class="txt" x="924" y="340">控制停顿语气</text>
+  <path class="back" d="M335 274 V188"/>
+  <path class="back" d="M547 274 V188"/>
+  <path class="back" d="M759 274 V188"/>
+  <path class="back" d="M971 274 V188"/>
+  <text class="small" x="64" y="430">KWS 负责“开门”，ASR 负责“听写”，理解模块负责“判意图”，TTS 负责“说回来”。四者职责不同，不能用一个模型指标替代整条交互体验。</text>
+</svg>

@@ -1,8 +1,16 @@
 # 观察者模式 (Observer Pattern)
 
+## 历史脉络
+
+观察者模式是 GoF 行为型模式之一，也是图形界面、事件系统、消息通知中最常见的模式之一。早期 MVC 架构里，模型变化后通知视图刷新，就是观察者思想的典型应用。现代事件总线、领域事件、前端响应式系统也大量使用类似机制。
+
+![观察者模式结构图](/design-pattern/patterns/observer.svg)
+
 ## 概述
 
 观察者模式是一种行为型设计模式，它定义了对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。观察者模式也被称为发布-订阅(Publish-Subscribe)模式。
+
+更准确地说，观察者模式适合“一个事实发生后，多个后续动作需要被触发，但事实发布方不应该知道所有后续动作细节”的场景。
 
 ### 核心思想
 
@@ -13,6 +21,66 @@
 - **动态的订阅关系**：观察者可以在运行时订阅或取消订阅
 - **遵循开闭原则**：可以独立地改变主题和观察者
 - **分离关注点**：主题专注于状态管理，观察者专注于响应变化
+
+## 问题识别
+
+适合考虑观察者模式的典型信号：
+
+- 一个对象状态变化后，需要同步触发多个模块。
+- 发布方不应该直接依赖所有后续处理逻辑。
+- 后续处理逻辑经常增加或下线。
+- 事件发生和事件处理可以在概念上分离。
+
+不适合的情况：
+
+- 后续动作必须强事务同步，且失败处理非常严格。
+- 通知顺序是核心业务规则，但系统没有明确顺序控制。
+- 观察者数量很多且处理耗时，却仍然同步执行。
+- 发布方必须立即知道每个观察者的完整处理结果。
+
+## 重构前后对比
+
+问题代码：
+
+```java
+public class OrderService {
+    public void paid(Order order) {
+        order.markPaid();
+        inventoryService.reduce(order);
+        messageService.sendPaidMessage(order);
+        pointService.addPoint(order);
+        invoiceService.createInvoice(order);
+    }
+}
+```
+
+当后续动作越来越多时，订单服务会被迫知道所有细节。可以改成发布事件：
+
+```java
+public class OrderService {
+    private final EventPublisher eventPublisher;
+
+    public void paid(Order order) {
+        order.markPaid();
+        eventPublisher.publish(new OrderPaidEvent(order.getId()));
+    }
+}
+
+public class PointListener {
+    public void onOrderPaid(OrderPaidEvent event) {
+        // 增加积分
+    }
+}
+```
+
+订单服务只表达“订单已支付”这个事实，库存、消息、积分、发票等后续动作由观察者处理。
+
+## 工程注意点
+
+- 同步观察者要处理异常隔离，避免一个观察者失败影响全部流程。
+- 异步观察者要处理幂等、重试、消息丢失和顺序问题。
+- 事件命名应表达已经发生的事实，例如 `OrderPaidEvent`，不要命名成命令式的 `AddPointEvent`。
+- 观察者过多时要有日志、链路追踪或事件记录，否则排查困难。
 
 ## 使用场景
 

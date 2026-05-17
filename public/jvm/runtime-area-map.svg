@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-labelledby="title desc">
+  <title id="title">JVM 运行时数据区</title>
+  <desc id="desc">展示线程共享和线程私有的 JVM 内存区域，以及直接内存的边界。</desc>
+  <style>
+    .bg{fill:#f8fafc}.shared{fill:#e0f2fe;stroke:#0284c7}.private{fill:#dcfce7;stroke:#22c55e}.native{fill:#fef3c7;stroke:#f59e0b}.out{fill:#f1f5f9;stroke:#64748b}.box{stroke-width:2}.t{font:700 20px Arial,"Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"Microsoft YaHei",sans-serif;fill:#334155}.m{font:12px Consolas,monospace;fill:#475569}
+  </style>
+  <rect class="bg" width="980" height="520" rx="22"/>
+  <text class="t" x="42" y="48">JVM 运行时数据区：先分清共享、私有、堆外</text>
+  <text class="s" x="42" y="76">排查内存问题时，先判断异常落在哪个区域，再看对应参数和观测指标。</text>
+
+  <rect class="box shared" x="60" y="118" width="390" height="250" rx="16"/>
+  <text class="t" x="198" y="154">线程共享</text>
+  <rect class="box shared" x="92" y="186" width="150" height="98" rx="14"/><text class="t" x="150" y="224">堆</text><text class="s" x="120" y="252">对象和数组</text>
+  <rect class="box shared" x="268" y="186" width="150" height="98" rx="14"/><text class="t" x="314" y="224">方法区</text><text class="s" x="292" y="252">类元数据</text>
+  <text class="m" x="108" y="326">典型异常：OutOfMemoryError</text>
+
+  <rect class="box private" x="520" y="118" width="390" height="250" rx="16"/>
+  <text class="t" x="652" y="154">线程私有</text>
+  <rect class="box private" x="552" y="184" width="102" height="106" rx="14"/><text class="t" x="574" y="222">PC</text><text class="s" x="570" y="252">执行位置</text>
+  <rect class="box private" x="674" y="184" width="102" height="106" rx="14"/><text class="t" x="694" y="222">虚拟机栈</text><text class="s" x="692" y="252">栈帧</text>
+  <rect class="box private" x="796" y="184" width="82" height="106" rx="14"/><text class="t" x="808" y="222">本地栈</text><text class="s" x="812" y="252">JNI</text>
+  <text class="m" x="548" y="326">典型异常：StackOverflowError / OutOfMemoryError</text>
+
+  <rect class="box out" x="160" y="408" width="660" height="70" rx="16"/>
+  <text class="t" x="260" y="450">直接内存</text>
+  <text class="s" x="388" y="450">堆外，由 NIO、Netty、JNI、MappedByteBuffer 等使用</text>
+</svg>

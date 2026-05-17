@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">依赖倒置原则示意图</title>
+  <desc id="desc">展示高层业务不直接依赖底层实现，而是共同依赖抽象接口。</desc>
+  <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:2;rx:14}.abs{fill:#ede9fe;stroke:#8b5cf6}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="960" height="420" rx="20"/>
+  <text class="t" x="48" y="52">依赖倒置原则：业务策略依赖抽象，细节实现也依赖抽象</text>
+  <rect class="box" x="80" y="150" width="230" height="90" rx="14"/><text class="t" x="123" y="188">OrderService</text><text class="s" x="112" y="214">高层业务策略</text>
+  <rect class="abs" x="365" y="150" width="230" height="90" rx="14"/><text class="t" x="423" y="188">MessagePort</text><text class="s" x="418" y="214">稳定抽象接口</text>
+  <rect class="box" x="650" y="90" width="230" height="70" rx="14"/><text class="t" x="700" y="133">SmsSender</text>
+  <rect class="box" x="650" y="235" width="230" height="70" rx="14"/><text class="t" x="696" y="278">EmailSender</text>
+  <line class="line" x1="310" y1="195" x2="365" y2="195"/><polygon class="arrow" points="365,195 352,187 352,203"/>
+  <line class="line" x1="650" y1="125" x2="595" y2="175"/><polygon class="arrow" points="595,175 600,160 609,170"/>
+  <line class="line" x1="650" y1="270" x2="595" y2="215"/><polygon class="arrow" points="595,215 609,220 600,229"/>
+  <text class="s" x="92" y="350">这样替换短信、邮件、站内信实现时，订单业务不需要跟着改。</text>
+</svg>

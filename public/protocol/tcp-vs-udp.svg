@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .box { stroke:#374151; stroke-width:1; fill:#fff; }
+    .tcp { fill:#dbeafe; }
+    .udp { fill:#fee2e2; }
+    .title { font-weight:700; font-size:16px; fill:#111827; }
+    .sub   { fill:#374151; font-weight:600; }
+    .lbl   { fill:#374151; }
+    .arr   { stroke:#1d4ed8; stroke-width:1.5; fill:none; marker-end:url(#bArr); }
+    .arrU  { stroke:#b91c1c; stroke-width:1.5; fill:none; marker-end:url(#rArr); }
+    .arrDot{ stroke:#9ca3af; stroke-width:1; fill:none; stroke-dasharray:4 3; }
+  </style>
+  <defs>
+    <marker id="bArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="rArr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <text x="380" y="22" text-anchor="middle" class="title">TCP（可靠/有序）vs UDP（轻量/可丢）</text>
+
+  <!-- TCP -->
+  <rect class="box tcp" x="20" y="40" width="350" height="320" rx="8"/>
+  <text x="195" y="60" text-anchor="middle" class="sub">TCP · 三次握手 + 可靠传输</text>
+
+  <text x="60"  y="86" text-anchor="middle" class="lbl">Client</text>
+  <text x="330" y="86" text-anchor="middle" class="lbl">Server</text>
+  <line x1="60"  y1="92" x2="60"  y2="345" class="arrDot"/>
+  <line x1="330" y1="92" x2="330" y2="345" class="arrDot"/>
+
+  <line x1="60"  y1="110" x2="325" y2="125" class="arr"/>
+  <text x="195" y="106" text-anchor="middle" class="lbl">SYN seq=x</text>
+
+  <line x1="330" y1="140" x2="65"  y2="155" class="arr"/>
+  <text x="195" y="136" text-anchor="middle" class="lbl">SYN+ACK seq=y, ack=x+1</text>
+
+  <line x1="60"  y1="170" x2="325" y2="185" class="arr"/>
+  <text x="195" y="166" text-anchor="middle" class="lbl">ACK ack=y+1</text>
+
+  <text x="195" y="208" text-anchor="middle" class="lbl" font-style="italic" fill="#6b7280">— 连接建立 —</text>
+
+  <line x1="60"  y1="226" x2="325" y2="240" class="arr"/>
+  <text x="195" y="222" text-anchor="middle" class="lbl">DATA #1</text>
+
+  <line x1="330" y1="256" x2="65"  y2="270" class="arr"/>
+  <text x="195" y="252" text-anchor="middle" class="lbl">ACK</text>
+
+  <line x1="60"  y1="286" x2="325" y2="300" class="arr"/>
+  <text x="195" y="282" text-anchor="middle" class="lbl">DATA #2（丢失则重传）</text>
+
+  <text x="195" y="332" text-anchor="middle" class="lbl" fill="#1d4ed8">有序 · 不丢 · 不重 · 流量/拥塞控制</text>
+
+  <!-- UDP -->
+  <rect class="box udp" x="390" y="40" width="350" height="320" rx="8"/>
+  <text x="565" y="60" text-anchor="middle" class="sub">UDP · 无连接 · 直接发包</text>
+
+  <text x="430" y="86" text-anchor="middle" class="lbl">Client</text>
+  <text x="700" y="86" text-anchor="middle" class="lbl">Server</text>
+  <line x1="430" y1="92"  x2="430" y2="345" class="arrDot"/>
+  <line x1="700" y1="92"  x2="700" y2="345" class="arrDot"/>
+
+  <line x1="430" y1="120" x2="695" y2="135" class="arrU"/>
+  <text x="565" y="116" text-anchor="middle" class="lbl">DATAGRAM #1</text>
+
+  <line x1="430" y1="150" x2="695" y2="165" class="arrU"/>
+  <text x="565" y="146" text-anchor="middle" class="lbl">DATAGRAM #2（可能丢）</text>
+
+  <line x1="430" y1="180" x2="695" y2="195" class="arrU" stroke-dasharray="4 3"/>
+  <text x="565" y="176" text-anchor="middle" class="lbl" fill="#6b7280">DATAGRAM #3（在网络中丢失）</text>
+
+  <line x1="430" y1="210" x2="695" y2="225" class="arrU"/>
+  <text x="565" y="206" text-anchor="middle" class="lbl">DATAGRAM #4</text>
+
+  <line x1="700" y1="240" x2="435" y2="255" class="arrU"/>
+  <text x="565" y="236" text-anchor="middle" class="lbl">RESPONSE（可选）</text>
+
+  <text x="565" y="290" text-anchor="middle" class="lbl" fill="#b91c1c">无握手 · 不重传 · 保留消息边界</text>
+  <text x="565" y="312" text-anchor="middle" class="lbl">头部 8 字节 · 适合实时音视频/DNS/QUIC 底层</text>
+</svg>

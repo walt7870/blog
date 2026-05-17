@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="430" viewBox="0 0 1040 430" role="img" aria-labelledby="title desc">
+  <title id="title">Spring AOP 代理调用路径</title>
+  <desc id="desc">外部调用经过代理对象执行通知和目标方法，内部 this 调用绕过代理</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
+      .proxy{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:10}
+      .target{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}
+      .warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .title{font-size:20px;font-weight:700}
+      .body{font-size:14px}
+      .small{font-size:12px;fill:#475569}
+      .line{stroke:#7c3aed;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+      .bad{stroke:#f97316;stroke-width:2.5;fill:none;marker-end:url(#arrow);stroke-dasharray:7 7}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1040" height="430"/>
+  <rect class="box" x="45" y="155" width="160" height="95"/>
+  <text class="text title" x="125" y="190" text-anchor="middle">调用方</text>
+  <text class="text body" x="125" y="220" text-anchor="middle">Controller / Service</text>
+
+  <rect class="proxy" x="285" y="120" width="190" height="165"/>
+  <text class="text title" x="380" y="155" text-anchor="middle">代理对象</text>
+  <text class="text body" x="380" y="188" text-anchor="middle">Before</text>
+  <text class="text body" x="380" y="215" text-anchor="middle">Around / 目标方法</text>
+  <text class="text body" x="380" y="242" text-anchor="middle">After / 异常处理</text>
+
+  <rect class="target" x="560" y="155" width="170" height="95"/>
+  <text class="text title" x="645" y="190" text-anchor="middle">目标对象</text>
+  <text class="text body" x="645" y="220" text-anchor="middle">真实业务方法</text>
+
+  <rect class="warn" x="805" y="95" width="190" height="215"/>
+  <text class="text title" x="900" y="133" text-anchor="middle">失效高发点</text>
+  <text class="text small" x="900" y="166" text-anchor="middle">this 内部调用</text>
+  <text class="text small" x="900" y="195" text-anchor="middle">手动 new 对象</text>
+  <text class="text small" x="900" y="224" text-anchor="middle">final 方法</text>
+  <text class="text small" x="900" y="253" text-anchor="middle">异常被吞掉</text>
+
+  <path class="line" d="M205 203 L285 203"/>
+  <path class="line" d="M475 203 L560 203"/>
+  <path class="bad" d="M645 250 C655 345 815 345 875 310"/>
+  <text class="text small" x="712" y="345" text-anchor="middle">不经过代理，通知不会执行</text>
+</svg>

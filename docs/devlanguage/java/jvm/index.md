@@ -1,241 +1,147 @@
 # JVM
 
-JVM（Java Virtual Machine，Java虚拟机）是Java程序运行的核心部分，是一种虚拟的计算机，它能够执行用Java编写的字节码文件（.class文件），并提供了跨平台能力,即让java和能在jvm运行的语言具备一次编写，到处运行的能力。
+JVM（Java Virtual Machine）是 Java 程序的运行环境。它把 `.class` 字节码加载到内存中，通过解释执行和即时编译执行代码，并负责线程、内存、垃圾回收、异常、安全校验等运行时能力。
 
-## JVM能做什么
+![JVM 整体结构](/jvm/jvm-overview.svg)
 
-1. **加载字节码：** 读取 .class 文件（Java编译器编译生成的文件）。
+## 阅读路径
 
-2. **字节码执行**：将字节码转换为具体机器指令执行（通过解释器或即时编译器）。
+JVM 内容按问题拆成几组：
 
-3. **内存管理：** 负责内存分配与回收（包含垃圾回收机制 GC）。
+- [运行时数据区](./runtime-area/)：理解对象、栈帧、类元数据、直接内存分别放在哪里。
+- [GC](./gc/)：理解对象什么时候回收、不同垃圾回收器如何取舍。
+- 类加载：理解 `.class` 如何被加载、验证、准备、解析和初始化。
+- 执行引擎：理解解释执行、JIT 编译、热点代码优化。
 
-4. **运行时支持：** 提供线程管理、异常处理、安全控制等运行时功能。
+如果目标是排查问题，阅读顺序通常是：
 
-## 核心组成
-
-```markdown
-
-     ┌─────────────────────────────────────┐
-     │             JVM                     │
-     ├─────────────────────────────────────┤
-     │ 类加载器                             │
-     ├─────────────────────────────────────┤
-     │ 运行时数据区                        │
-     │ ├─ 方法区（MetaSpace）             │
-     │ ├─ 堆（Heap）                      │
-     │ ├─ 栈（JVM Stack）                 │
-     │ ├─ 程序计数器                      │
-     │ └─ 本地方法栈                      │
-     ├─────────────────────────────────────┤
-     │ 执行引擎                            │
-     │ ├─ 解释器                          │
-     │ ├─ JIT 编译器                      │
-     │ └─ GC 垃圾回收器                   │
-     ├─────────────────────────────────────┤
-     │ 本地方法接口（JNI）                │
-     └─────────────────────────────────────┘
+```text
+现象 -> 内存区域 -> JVM 参数 -> 观测命令 -> GC / 线程 / 类加载日志
 ```
 
-## 类字节码加载
+## JVM 负责什么
 
-java文件对应的类编译成.class后，将 .class 字节码文件加载到 JVM 内存中，形成 Class 对象。
+| 能力 | 说明 | 常见排查入口 |
+| --- | --- | --- |
+| 类加载 | 把字节码变成 JVM 内部可用的类元数据 | `ClassNotFoundException`、类冲突、热部署泄漏 |
+| 运行时内存 | 管理堆、栈、方法区、程序计数器等区域 | OOM、栈溢出、元空间增长 |
+| 执行引擎 | 解释执行字节码，并对热点代码做 JIT 编译 | 预热慢、CPU 高、性能抖动 |
+| 垃圾回收 | 自动识别无用对象并回收内存 | GC 停顿、Full GC、吞吐下降 |
+| 本地交互 | 通过 JNI、直接内存、系统调用访问 JVM 外能力 | native 内存泄漏、直接内存 OOM |
 
-### 类加载过程
+## 从源码到运行
 
-1. **加载（Loading）：** 通过类名找到 .class 文件并读取为字节码。
+Java 程序运行可以拆成几步：
 
-2. **连接（Linking）：**
-
-   - **验证（Verify）：** 确保类的字节码合法且符合 JVM 要求。
-
-   - **准备（Prepare）：** 分配静态变量的内存并初始化默认值。
-
-   - **解析（Resolve）：** 将符号引用转为直接引用。
-
-3. **初始化（Initialization）：** 执行静态代码块、赋值语句。
-
-### 一、类加载器类型
-
-jvm提供不同的类加载器类型，用于不同场景功能。遵循 双亲委派机制（Parent Delegation Model）。每个类都由某个类加载器加载，类的唯一性取决于：类名 + 类加载器。
-
-#### 启动类加载器（Bootstrap ClassLoader）
-
-%JAVA_HOME%/lib 目录下的核心类库，如：
-
-java.lang.*
-java.util.*
-java.io.*
-java.net.*
-
-启动类加载器加载的对象不在java层，加载的类类获取会返回null。
-
-```java
-System.out.println(String.class.getClassLoader());  // 输出 null
+```text
+.java -> javac -> .class -> 类加载 -> 运行时数据区 -> 执行引擎 -> 机器指令
 ```
 
-原因说明：
+### 编译
 
-1. **启动早：** Bootstrap ClassLoader 在 JVM 启动初期就存在，早于任何 Java 代码的执行。
+`javac` 把源码编译成字节码。字节码不是机器码，而是一套面向 JVM 的中间指令。
 
-2. **基础安全性：** 它加载的是最关键的核心类（如 java.lang.Object），必须可靠、安全、不可替换。
-
-3. **性能和兼容性：** C/C++实现更接近底层，执行更高效，也方便 JVM 跨平台。
-
-#### 扩展类加载器（Extension ClassLoader）
-
-- **加载路径：** %JAVA_HOME%/lib/ext 或由 java.ext.dirs 指定
-
-- **主要职责：** 加载扩展功能类，如一些加密包、数据库驱动等
-
-#### 应用类加载器（App ClassLoader）
-
-加载我们写的代码，也就是 classpath 下的类。
-
-- **加载路径：** classpath 所指定的目录下的类（即你写的代码）
-
-- **主要职责:** 加载应用程序开发者编写的类
-
-#### 自定义类加载器（可选）
-
-自己继承 ClassLoader 并实现 findClass() 方法
-
-- **典型用途：**
-
-  - 实现热部署（如 Tomcat 的 WebAppClassLoader）
-
-  - 插件系统
-
-  - 字节码加密/解密
-
-  - 沙箱隔离
-
-#### 双亲委派机制（Parent Delegation Model）
-
-**工作流程：**
-当类加载器尝试加载一个类时：
-
-1. 先委托其 父加载器 加载。
-
-2. 如果父类加载器无法加载（ClassNotFoundException），再自己尝试加载。
-
-**主要作用:**
-
-1. 避免重复加载
-
-2. 避免核心类被篡改（如自己定义一个 java.lang.String 会被拦截）
-
-```markdown
-          [ Bootstrap ClassLoader ]
-                    ↑
-        [ Extension ClassLoader ]
-                    ↑
-          [ App ClassLoader ]
-                    ↑
-       [ Custom ClassLoader (自定义的) ]
-
+```bash
+javac OrderService.java
+javap -c OrderService
 ```
 
-## 二、运行时数据区（Runtime Data Areas）
+`javap -c` 可以查看字节码，有助于理解方法调用、局部变量、分支和异常表。
 
-JVM 在运行 Java 程序时，会在内存中划分出若干数据区，用于执行和管理数据。
+### 类加载
 
-### 1. 程序计数器（Program Counter Register）
+类加载大致包含：
 
-- 每个线程独有（线程私有）
+| 阶段 | 作用 |
+| --- | --- |
+| 加载 | 找到 `.class`，读入字节码，生成 Class 元数据 |
+| 验证 | 校验字节码安全性和格式合法性 |
+| 准备 | 为静态变量分配默认值 |
+| 解析 | 把符号引用解析为直接引用 |
+| 初始化 | 执行静态变量赋值和静态代码块 |
 
-- 存储正在执行的字节码的地址
+类的唯一性由“类加载器 + 类全限定名”共同决定，这也是插件化、热部署、容器隔离中经常遇到类冲突的根源。
 
-- 如果正在执行 native 方法，则为空
+## 运行时数据区
 
-### 2. Java虚拟机栈（JVM Stack）
+运行时数据区决定数据放在哪里：
 
-- 每个线程独有（线程私有）
+| 区域 | 线程关系 | 主要内容 | 常见异常 |
+| --- | --- | --- | --- |
+| 堆 | 线程共享 | 对象实例、数组 | `OutOfMemoryError: Java heap space` |
+| 方法区 / 元空间 | 线程共享 | 类元数据、常量、方法信息 | `OutOfMemoryError: Metaspace` |
+| 虚拟机栈 | 线程私有 | 栈帧、局部变量、操作数栈 | `StackOverflowError` |
+| 本地方法栈 | 线程私有 | Native 方法调用栈 | `StackOverflowError`、native OOM |
+| 程序计数器 | 线程私有 | 当前线程执行位置 | 很少单独出问题 |
+| 直接内存 | 堆外 | NIO、Netty、mmap、JNI 数据 | `OutOfMemoryError: Direct buffer memory` |
 
-- 每个方法调用对应一个栈帧（Stack Frame）
+内存问题不要只看 `-Xmx`。容器内存、线程数、直接内存、Metaspace、Code Cache 都可能把进程 RSS 撑高。
 
-- 本地变量表（局部变量、参数）
+## GC 关注什么
 
-- 操作数栈（计算用）
+GC 的核心问题有三个：
 
-- 动态链接、方法返回地址等
+1. 哪些对象还活着。
+2. 回收哪些区域。
+3. 用多少停顿、CPU 和内存换取回收效果。
 
-- 可能抛出 StackOverflowError
+常见取舍：
 
-### 3. 本地方法栈（Native Method Stack）
+| 目标 | 常见选择 |
+| --- | --- |
+| 小应用、工具进程 | Serial |
+| 批处理、吞吐优先 | Parallel |
+| 通用服务端 | G1 |
+| 极低延迟、大堆 | ZGC / Shenandoah |
+| 老系统维护 | CMS / ParNew |
 
-- 用于执行本地方法（如 C/C++ 写的 JNI 方法）
+GC 调优先看业务指标，再看 GC 日志。只盯某个参数，容易把问题从停顿转成 CPU 或内存浪费。
 
-- 不同 JVM 实现不同
+## 常用观测命令
 
-- 也可能抛出 StackOverflowError
+```bash
+# 查看 Java 进程
+jps -l
 
-### 4. 堆（Heap）
+# 查看 JVM 参数
+jcmd <pid> VM.flags
+jcmd <pid> VM.command_line
 
-- 所有线程共享
+# 查看堆信息
+jcmd <pid> GC.heap_info
 
-- 对象实例与数组都在堆中分配
+# 查看类加载统计
+jcmd <pid> VM.classloader_stats
 
-- 垃圾回收（GC）主要工作区
+# 查看线程栈
+jstack <pid>
 
-- 可能抛出 OutOfMemoryError
+# 查看 GC 统计
+jstat -gcutil <pid> 1000
+```
 
-- 划分为新生代（Eden、Survivor）和老年代
+JDK 9+ 推荐使用统一日志：
 
-### 5. 方法区（Method Area）
+```bash
+-Xlog:gc*:file=gc.log:time,uptime,level,tags
+```
 
-- 所有线程共享
+## 排查入口
 
-- 存储类的结构信息（类的元数据）、常量池、静态变量、JIT 编译代码
+| 现象 | 优先查看 |
+| --- | --- |
+| `Java heap space` | 堆大小、对象增长、heap dump |
+| `Metaspace` | 类加载器数量、动态代理、热部署 |
+| `Direct buffer memory` | `MaxDirectMemorySize`、Netty/NIO buffer、进程 RSS |
+| `StackOverflowError` | 递归、栈帧大小、`-Xss` |
+| Full GC 频繁 | 老年代占用、晋升速度、内存泄漏 |
+| GC 停顿过长 | GC 类型、堆大小、对象存活率、日志 |
+| CPU 高但 GC 不高 | 线程栈、JIT、锁竞争、业务循环 |
 
-- 在 HotSpot 中叫做 元空间（MetaSpace）（Java 8之后）
+## 使用建议
 
-- 可能抛出 OutOfMemoryError
-
-## 三、执行引擎（Execution Engine）
-
-负责执行字节码，转换为具体平台的机器码。
-
-组成部分：
-
-1. **解释器（Interpreter）**
-
-   - 逐条解释执行字节码
-
-   - 启动快，但运行慢
-
-2. **即时编译器（JIT，Just-In-Time Compiler）**
-
-   - 将热点代码编译为本地机器码，提升性能
-
-   - 常用：C1（客户端模式）、C2（服务端模式）
-
-3. **执行子系统协调组件（执行调度、调用栈管理等）**
-
-   - 包括方法调用、返回、异常处理、线程切换、栈帧管理等。  
-
-## 四、本地接口（Native Interface）
-
-**作用：**
-
-1. 提供与其他语言（如 C/C++）互操作的能力。
-
-2. 使用 JNI（Java Native Interface）
-
-3. 可以调用系统底层库或本地方法，如 OpenGL、数据库驱动等
-
-4. 本地方法也会用到本地方法栈
-
-## 五、垃圾回收系统（GC Subsystem）
-
-**目标：**
-
-- 自动管理内存，释放不再被引用的对象，避免内存泄漏。
-
-**常见策略：**
-
-- 分代回收：将堆划分为新生代、老年代
-
-- Stop-The-World：GC过程会暂停应用线程
-
-- 多种GC算法适应不同业务场景（响应快 vs 吞吐量高）
+- 先理解区域边界，再调参数。
+- 先抓证据：日志、dump、线程栈、监控曲线。
+- GC 参数不要靠模板复制，必须结合堆大小、对象生命周期和延迟目标。
+- 容器环境要同时关注 JVM 内存和进程总内存。
+- 老版本 JVM 的经验不一定适用于新版本，迁移时要重新压测。

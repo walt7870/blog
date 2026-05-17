@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc">
+  <title id="title">语音交互流水线</title>
+  <desc id="desc">展示从麦克风采集到降噪、唤醒、识别、理解、合成和播放的语音交互链路</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .stage { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.5; rx: 8; }
+      .guard { fill: #fff7ed; stroke: #fdba74; stroke-width: 1.5; rx: 8; }
+      .engine { fill: #ecfdf5; stroke: #86efac; stroke-width: 1.5; rx: 8; }
+      .text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; font-size: 17px; font-weight: 650; }
+      .small { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; font-size: 13px; }
+      .line { stroke: #334155; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .feedback { stroke: #64748b; stroke-width: 1.7; stroke-dasharray: 6 6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="440"/>
+  <rect class="stage" x="40" y="82" width="128" height="86"/>
+  <text class="text" x="72" y="118">采集</text>
+  <text class="small" x="62" y="142">Mic Array</text>
+  <rect class="stage" x="214" y="82" width="150" height="86"/>
+  <text class="text" x="247" y="118">前处理</text>
+  <text class="small" x="236" y="142">AEC / NS / AGC</text>
+  <rect class="guard" x="410" y="82" width="128" height="86"/>
+  <text class="text" x="450" y="118">VAD</text>
+  <text class="small" x="436" y="142">端点检测</text>
+  <rect class="guard" x="584" y="82" width="128" height="86"/>
+  <text class="text" x="624" y="118">唤醒</text>
+  <text class="small" x="607" y="142">KWS / 声纹</text>
+  <rect class="engine" x="758" y="82" width="128" height="86"/>
+  <text class="text" x="796" y="118">识别</text>
+  <text class="small" x="792" y="142">ASR 文本</text>
+  <rect class="engine" x="932" y="82" width="128" height="86"/>
+  <text class="text" x="970" y="118">理解</text>
+  <text class="small" x="954" y="142">NLU / 对话</text>
+  <path class="line" d="M168 125 H214"/>
+  <path class="line" d="M364 125 H410"/>
+  <path class="line" d="M538 125 H584"/>
+  <path class="line" d="M712 125 H758"/>
+  <path class="line" d="M886 125 H932"/>
+
+  <rect class="engine" x="758" y="274" width="128" height="86"/>
+  <text class="text" x="796" y="310">合成</text>
+  <text class="small" x="788" y="334">TTS 音频</text>
+  <rect class="stage" x="584" y="274" width="128" height="86"/>
+  <text class="text" x="622" y="310">播放</text>
+  <text class="small" x="600" y="334">DAC / Amp / SPK</text>
+  <path class="line" d="M996 168 V222 Q996 238 980 238 H838 Q822 238 822 274"/>
+  <path class="line" d="M758 317 H712"/>
+  <path class="feedback" d="M648 274 V224 Q648 208 632 208 H290 Q274 208 274 168"/>
+  <text class="small" x="300" y="230">播放参考信号回送给 AEC，避免系统把自己的声音当成人声</text>
+</svg>

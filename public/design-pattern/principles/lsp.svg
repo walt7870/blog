@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">里氏替换原则示意图</title>
+  <desc id="desc">展示子类型替换父类型时必须保持父类型承诺的行为。</desc>
+  <style>.bg{fill:#f8fafc}.ok{fill:#dcfce7;stroke:#22c55e}.bad{fill:#fee2e2;stroke:#ef4444}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.x{font:700 28px Arial;fill:#ef4444}.check{font:700 28px Arial;fill:#16a34a}</style>
+  <rect class="bg" width="960" height="420" rx="20"/>
+  <text class="t" x="48" y="52">里氏替换原则：子类不能破坏父类承诺</text>
+  <rect class="box ok" x="90" y="120" width="240" height="90" rx="14"/><text class="t" x="150" y="158">Bird</text><text class="s" x="118" y="184">只承诺 eat()、move()</text>
+  <line class="line" x1="210" y1="210" x2="210" y2="260"/>
+  <rect class="box ok" x="90" y="260" width="240" height="70" rx="14"/><text class="check" x="112" y="304">✓</text><text class="t" x="158" y="304">Penguin</text>
+  <rect class="box bad" x="580" y="120" width="240" height="90" rx="14"/><text class="t" x="640" y="158">FlyingBird</text><text class="s" x="608" y="184">承诺 fly()</text>
+  <line class="line" x1="700" y1="210" x2="700" y2="260"/>
+  <rect class="box bad" x="580" y="260" width="240" height="70" rx="14"/><text class="x" x="602" y="304">×</text><text class="t" x="648" y="304">Penguin</text>
+  <text class="s" x="108" y="370">正确：父类抽象只放所有子类都能稳定履行的能力。</text>
+  <text class="s" x="580" y="370">错误：为了复用继承不成立的行为，调用方会被子类异常击穿。</text>
+</svg>

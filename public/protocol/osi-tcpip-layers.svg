@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .layer { stroke:#374151; stroke-width:1; }
+    .lyr-app  { fill:#dbeafe; }
+    .lyr-pres { fill:#bfdbfe; }
+    .lyr-sess { fill:#93c5fd; }
+    .lyr-tran { fill:#fde68a; }
+    .lyr-net  { fill:#fca5a5; }
+    .lyr-link { fill:#d1d5db; }
+    .lyr-phy  { fill:#e5e7eb; }
+    .title { font-weight:700; font-size:15px; fill:#111827; }
+    .sub   { fill:#374151; }
+    .arr   { stroke:#6b7280; stroke-width:1.2; fill:none; marker-end:url(#a); }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <text x="360" y="24" text-anchor="middle" class="title">OSI 七层 vs TCP/IP 四层</text>
+
+  <!-- OSI -->
+  <text x="120" y="50" text-anchor="middle" class="sub" font-weight="600">OSI 七层</text>
+  <rect class="layer lyr-app"  x="20" y="60"  width="200" height="34"/><text x="120" y="82" text-anchor="middle">7 应用层 Application</text>
+  <rect class="layer lyr-pres" x="20" y="94"  width="200" height="34"/><text x="120" y="116" text-anchor="middle">6 表示层 Presentation</text>
+  <rect class="layer lyr-sess" x="20" y="128" width="200" height="34"/><text x="120" y="150" text-anchor="middle">5 会话层 Session</text>
+  <rect class="layer lyr-tran" x="20" y="162" width="200" height="34"/><text x="120" y="184" text-anchor="middle">4 传输层 Transport</text>
+  <rect class="layer lyr-net"  x="20" y="196" width="200" height="34"/><text x="120" y="218" text-anchor="middle">3 网络层 Network</text>
+  <rect class="layer lyr-link" x="20" y="230" width="200" height="34"/><text x="120" y="252" text-anchor="middle">2 数据链路层 Data Link</text>
+  <rect class="layer lyr-phy"  x="20" y="264" width="200" height="34"/><text x="120" y="286" text-anchor="middle">1 物理层 Physical</text>
+
+  <!-- TCP/IP -->
+  <text x="360" y="50" text-anchor="middle" class="sub" font-weight="600">TCP/IP 四层</text>
+  <rect class="layer lyr-app"  x="260" y="60"  width="200" height="102"/><text x="360" y="115" text-anchor="middle">应用层 Application</text>
+  <rect class="layer lyr-tran" x="260" y="162" width="200" height="34"/> <text x="360" y="184" text-anchor="middle">传输层 Transport</text>
+  <rect class="layer lyr-net"  x="260" y="196" width="200" height="34"/> <text x="360" y="218" text-anchor="middle">网络层 Internet</text>
+  <rect class="layer lyr-link" x="260" y="230" width="200" height="68"/> <text x="360" y="268" text-anchor="middle">网络接口层 Link</text>
+
+  <!-- 协议示例 -->
+  <text x="600" y="50" text-anchor="middle" class="sub" font-weight="600">代表协议</text>
+  <text x="500" y="82">HTTP / WebSocket / SSE</text>
+  <text x="500" y="116">TLS / SSL（加密表示）</text>
+  <text x="500" y="150">DNS / SMTP / SSH / gRPC</text>
+  <text x="500" y="184">TCP / UDP / QUIC</text>
+  <text x="500" y="218">IP / ICMP / ARP</text>
+  <text x="500" y="252">Ethernet / Wi-Fi / PPP</text>
+  <text x="500" y="286">铜缆 / 光纤 / 无线电</text>
+
+  <text x="360" y="332" text-anchor="middle" class="sub" font-style="italic">应用层 = 应用怎么用 · 传输层 = 端到端可不可靠 · 网络层 = 包怎么寻址 · 物理层 = 信号怎么跑</text>
+</svg>

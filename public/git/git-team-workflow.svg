@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">Git team workflow</title>
+  <desc id="desc">A diagram of a team workflow from main branch to feature branch, review, CI, and merge.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .bg { fill: #fafafa; }
+      .lane { fill: #ffffff; stroke: #e5e7eb; stroke-width: 1.5; }
+      .head { font: 700 22px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .title { font: 700 15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111827; }
+      .body { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #374151; }
+      .cmd { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #5b21b6; }
+      .node { fill: #ede9fe; stroke: #c4b5fd; stroke-width: 1.5; }
+      .line { stroke: #7c3aed; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="920" height="420" rx="18"/>
+  <text class="head" x="36" y="46">团队协作的最小闭环</text>
+  <text class="body" x="36" y="74">任务分支承载修改，评审和 CI 提供门禁，主分支保持可集成。</text>
+
+  <rect class="lane" x="44" y="112" width="832" height="86" rx="14"/>
+  <text class="title" x="70" y="145">main</text>
+  <circle class="node" cx="178" cy="154" r="18"/>
+  <text class="cmd" x="162" y="158">C1</text>
+  <circle class="node" cx="334" cy="154" r="18"/>
+  <text class="cmd" x="318" y="158">C2</text>
+  <circle class="node" cx="744" cy="154" r="18"/>
+  <text class="cmd" x="728" y="158">C5</text>
+  <path class="line" d="M 196 154 L 314 154"/>
+  <path class="line" d="M 352 154 C 480 154, 586 154, 724 154"/>
+
+  <rect class="lane" x="44" y="228" width="832" height="110" rx="14"/>
+  <text class="title" x="70" y="264">feature/order-export</text>
+  <circle class="node" cx="334" cy="284" r="18"/>
+  <text class="cmd" x="318" y="288">C2</text>
+  <circle class="node" cx="486" cy="284" r="18"/>
+  <text class="cmd" x="470" y="288">C3</text>
+  <circle class="node" cx="616" cy="284" r="18"/>
+  <text class="cmd" x="600" y="288">C4</text>
+  <path class="line" d="M 352 284 L 466 284"/>
+  <path class="line" d="M 504 284 L 596 284"/>
+  <path class="line" d="M 616 266 C 638 218, 688 172, 724 158"/>
+
+  <text class="cmd" x="374" y="238">git switch -c</text>
+  <text class="cmd" x="430" y="316">commit</text>
+  <text class="cmd" x="560" y="316">push + PR</text>
+  <text class="cmd" x="662" y="228">review + CI + merge</text>
+</svg>

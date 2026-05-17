@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
+  <title id="title">观察者模式结构图</title>
+  <desc id="desc">展示主题状态变化后向多个观察者发送通知。</desc>
+  <style>.bg{fill:#f8fafc}.subject{fill:#e0f2fe;stroke:#0284c7}.obs{fill:#fff7ed;stroke:#f97316}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="1040" height="520" rx="22"/>
+  <text class="t" x="48" y="52">观察者模式：状态变化后广播给订阅者</text>
+  <rect class="box subject" x="92" y="185" width="250" height="120" rx="14"/><text class="t" x="156" y="225">Subject</text><text class="s" x="134" y="252">维护观察者列表</text><text class="s" x="134" y="278">状态变化后 notify()</text>
+  <path class="line" d="M342 245H520"/><polygon class="arrow" points="520,245 507,237 507,253"/>
+  <rect class="box obs" x="560" y="78" width="270" height="74" rx="14"/><text class="t" x="640" y="122">库存监听器</text>
+  <rect class="box obs" x="560" y="194" width="270" height="74" rx="14"/><text class="t" x="640" y="238">消息监听器</text>
+  <rect class="box obs" x="560" y="310" width="270" height="74" rx="14"/><text class="t" x="640" y="354">积分监听器</text>
+  <path class="line" d="M520 245Q530 115 560 115"/><path class="line" d="M520 245H560"/><path class="line" d="M520 245Q530 347 560 347"/>
+  <text class="s" x="100" y="410">主题不知道具体观察者要做什么，只负责发布变化。</text>
+  <text class="s" x="560" y="410">观察者可独立新增，但要注意顺序、异常隔离和重复通知。</text>
+</svg>

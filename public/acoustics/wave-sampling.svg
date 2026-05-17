@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="430" viewBox="0 0 1060 430" role="img" aria-labelledby="title desc">
+  <title id="title">声音从空气振动到数字采样</title>
+  <desc id="desc">展示连续声波、麦克风转换、采样点和量化阶梯之间的关系</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
+      .axis{stroke:#94a3b8;stroke-width:1.5}.wave{fill:none;stroke:#2563eb;stroke-width:3}
+      .sample{fill:#f97316;stroke:#9a3412;stroke-width:1}.step{fill:none;stroke:#16a34a;stroke-width:3}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
+      .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
+      .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1060" height="430"/>
+  <rect class="panel" x="34" y="56" width="285" height="270"/>
+  <text class="title" x="70" y="94">1. 空气里的连续声波</text>
+  <line class="axis" x1="62" y1="206" x2="294" y2="206"/>
+  <line class="axis" x1="78" y1="94" x2="78" y2="292"/>
+  <path class="wave" d="M78 206 C106 108 132 108 160 206 S214 304 242 206 S268 108 294 206"/>
+  <text class="txt" x="70" y="354">声压随时间连续变化，人耳听到的是这种压力波。</text>
+  <rect class="panel" x="388" y="56" width="285" height="270"/>
+  <text class="title" x="424" y="94">2. 麦克风按固定间隔取样</text>
+  <line class="axis" x1="416" y1="206" x2="648" y2="206"/>
+  <line class="axis" x1="432" y1="94" x2="432" y2="292"/>
+  <path class="wave" d="M432 206 C460 108 486 108 514 206 S568 304 596 206 S622 108 648 206"/>
+  <circle class="sample" cx="432" cy="206" r="5"/><circle class="sample" cx="456" cy="144" r="5"/>
+  <circle class="sample" cx="480" cy="119" r="5"/><circle class="sample" cx="504" cy="171" r="5"/>
+  <circle class="sample" cx="528" cy="235" r="5"/><circle class="sample" cx="552" cy="291" r="5"/>
+  <circle class="sample" cx="576" cy="260" r="5"/><circle class="sample" cx="600" cy="191" r="5"/>
+  <circle class="sample" cx="624" cy="128" r="5"/><circle class="sample" cx="648" cy="206" r="5"/>
+  <text class="txt" x="424" y="354">采样率越高，越能保留高频变化；语音常见 16 kHz 或 48 kHz。</text>
+  <rect class="panel" x="742" y="56" width="285" height="270"/>
+  <text class="title" x="778" y="94">3. 量化成数字幅度</text>
+  <line class="axis" x1="770" y1="206" x2="1002" y2="206"/>
+  <line class="axis" x1="786" y1="94" x2="786" y2="292"/>
+  <path class="step" d="M786 206 H810 V150 H834 V124 H858 V170 H882 V234 H906 V286 H930 V258 H954 V194 H978 V132 H1002 V206"/>
+  <text class="small" x="798" y="122">高电平</text>
+  <text class="small" x="798" y="285">低电平</text>
+  <text class="txt" x="778" y="354">位深越高，幅度刻度越细；削顶表示声音超过了数字上限。</text>
+  <path class="line" d="M320 190 H386"/>
+  <path class="line" d="M674 190 H740"/>
+</svg>

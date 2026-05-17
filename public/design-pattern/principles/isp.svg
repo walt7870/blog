@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">接口隔离原则示意图</title>
+  <desc id="desc">展示把大接口拆成多个小接口，避免实现方被迫依赖无关能力。</desc>
+  <style>.bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#e0f2fe;stroke:#0284c7}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
+  <rect class="bg" width="960" height="480" rx="20"/>
+  <text class="t" x="48" y="52">接口隔离原则：不要让实现类背负用不到的方法</text>
+  <rect class="box bad" x="80" y="120" width="260" height="170" rx="14"/><text class="t" x="140" y="158">Machine</text><text class="s" x="120" y="190">print()</text><text class="s" x="120" y="220">scan()</text><text class="s" x="120" y="250">fax()</text>
+  <line class="line" x1="360" y1="205" x2="525" y2="205"/><polygon class="arrow" points="525,205 512,197 512,213"/>
+  <rect class="box good" x="580" y="82" width="240" height="70" rx="14"/><text class="t" x="635" y="125">Printer</text>
+  <rect class="box good" x="580" y="182" width="240" height="70" rx="14"/><text class="t" x="635" y="225">Scanner</text>
+  <rect class="box good" x="580" y="282" width="240" height="70" rx="14"/><text class="t" x="660" y="325">Fax</text>
+  <text class="s" x="102" y="398">问题：普通打印机也被迫实现 scan、fax。</text>
+  <text class="s" x="580" y="392">拆分后：调用方只依赖需要的接口。</text>
+  <text class="s" x="580" y="418">实现类也只实现自己具备的能力。</text>
+</svg>

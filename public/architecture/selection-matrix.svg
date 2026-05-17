@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+  <title id="title">架构选型矩阵</title>
+  <desc id="desc">通过业务复杂度和组织复杂度判断架构起点。</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#475569}
+    .axis{stroke:#334155;stroke-width:3}.grid{stroke:#cbd5e1;stroke-width:2}.q1{fill:#e0f2fe}.q2{fill:#dcfce7}.q3{fill:#fff7ed}.q4{fill:#ede9fe}.h{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.label{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#334155}
+  </style>
+  <rect class="bg" width="1120" height="640" rx="24"/>
+  <text class="title" x="56" y="58">架构选型矩阵</text>
+  <text class="sub" x="56" y="88">优先选择能覆盖当前复杂度的最简单架构，等复杂度真实出现后再演进。</text>
+  <rect class="q1" x="160" y="130" width="390" height="200"/><rect class="q2" x="550" y="130" width="390" height="200"/><rect class="q3" x="160" y="330" width="390" height="200"/><rect class="q4" x="550" y="330" width="390" height="200"/>
+  <line class="axis" x1="160" y1="530" x2="940" y2="530"/><line class="axis" x1="160" y1="530" x2="160" y2="130"/>
+  <line class="grid" x1="550" y1="130" x2="550" y2="530"/><line class="grid" x1="160" y1="330" x2="940" y2="330"/>
+  <text class="label" x="420" y="570">业务复杂度低</text><text class="label" x="760" y="570">业务复杂度高</text>
+  <text class="label" x="40" y="450" transform="rotate(-90 40 450)">组织复杂度低</text><text class="label" x="40" y="245" transform="rotate(-90 40 245)">组织复杂度高</text>
+  <text class="h" x="215" y="180">模块化单体</text><text class="t" x="215" y="215">适合小团队、业务清晰、</text><text class="t" x="215" y="240">交付速度优先的系统。</text>
+  <text class="h" x="610" y="180">DDD + 模块化单体</text><text class="t" x="610" y="215">业务复杂但团队规模不大，</text><text class="t" x="610" y="240">先把领域边界建清楚。</text>
+  <text class="h" x="215" y="380">分层架构 / SOA 集成</text><text class="t" x="215" y="415">组织协作复杂但业务规则不深，</text><text class="t" x="215" y="440">重点治理接口与集成。</text>
+  <text class="h" x="610" y="380">微服务 / 事件驱动 / 云原生</text><text class="t" x="610" y="415">业务和组织都复杂时，</text><text class="t" x="610" y="440">才值得承担分布式成本。</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+  <title id="title">SFT 在训练链路中的位置</title>
+  <desc id="desc">展示预训练、监督微调、偏好对齐、评估部署之间的关系</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/></marker>
+    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.focus{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}.line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style></defs>
+  <rect class="bg" width="1080" height="420"/>
+  <rect class="box" x="55" y="155" width="170" height="110"/><text class="text title" x="140" y="195" text-anchor="middle">预训练</text><text class="text body" x="140" y="223" text-anchor="middle">学语言与世界知识</text>
+  <rect class="focus" x="300" y="135" width="190" height="150"/><text class="text title" x="395" y="180" text-anchor="middle">SFT</text><text class="text body" x="395" y="210" text-anchor="middle">学会按指令回答</text><text class="text small" x="395" y="240" text-anchor="middle">格式、语气、领域流程</text>
+  <rect class="box" x="565" y="155" width="170" height="110"/><text class="text title" x="650" y="195" text-anchor="middle">偏好对齐</text><text class="text body" x="650" y="223" text-anchor="middle">更符合人类偏好</text>
+  <rect class="box" x="810" y="155" width="170" height="110"/><text class="text title" x="895" y="195" text-anchor="middle">评估部署</text><text class="text body" x="895" y="223" text-anchor="middle">看是否可靠可用</text>
+  <rect class="warn" x="315" y="325" width="420" height="60"/><text class="text body" x="525" y="360" text-anchor="middle">SFT 不负责补全部知识，更像教模型“按样例办事”</text>
+  <path class="line" d="M225 210 L300 210"/><path class="line" d="M490 210 L565 210"/><path class="line" d="M735 210 L810 210"/>
+</svg>

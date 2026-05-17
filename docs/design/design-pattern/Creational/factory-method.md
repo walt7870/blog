@@ -1,8 +1,31 @@
 # 工厂方法 (Factory Method Pattern)
 
+## 历史脉络
+
+工厂方法是 GoF 经典设计模式之一，出现在面向对象框架大量发展的阶段。它解决的核心问题是：框架或高层流程知道“需要一个产品”，但不应该知道“具体创建哪一个产品类”。很多框架扩展点、插件系统、驱动加载机制都能看到它的影子。
+
+![工厂方法模式结构图](/design-pattern/patterns/factory-method.svg)
+
 ## 概括
 
 工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类。这样，父类可以将实例化的职责交给子类，实现了对象创建的延迟和扩展性。
+
+更准确地说，工厂方法不是为了简单隐藏 `new`，而是为了把“产品选择逻辑”从“产品使用逻辑”中隔离出去。
+
+## 问题识别
+
+适合考虑工厂方法的典型信号：
+
+- 创建对象前需要根据类型、配置、环境选择不同实现。
+- 多个产品类实现同一接口，调用方只关心接口能力。
+- 新增产品时，总要修改核心业务类里的分支。
+- 创建过程包含校验、初始化、资源准备等细节。
+
+不适合的情况：
+
+- 只有一个产品类，短期也没有扩展计划。
+- 创建逻辑只是简单 `new`，没有额外变化点。
+- 分支数量很少且稳定，直接构造更清楚。
 
 ## 使用场景
 
@@ -11,6 +34,66 @@
 * 对象的创建逻辑复杂，需要封装；
 * 系统中存在多个产品类，但它们都继承自一个共同的接口或父类；
 * 希望代码遵循开闭原则，对扩展开放、对修改封闭。
+
+## 重构前后对比
+
+问题代码通常长这样：
+
+```java
+public class LoggerService {
+    public Logger create(String type) {
+        if ("file".equals(type)) {
+            return new FileLogger();
+        }
+        if ("db".equals(type)) {
+            return new DatabaseLogger();
+        }
+        throw new IllegalArgumentException("不支持的日志类型");
+    }
+}
+```
+
+如果日志类型会继续扩展，可以把创建逻辑移动到工厂：
+
+```java
+public interface LoggerFactory {
+    String type();
+    Logger createLogger();
+}
+
+public class FileLoggerFactory implements LoggerFactory {
+    public String type() {
+        return "file";
+    }
+
+    public Logger createLogger() {
+        return new FileLogger();
+    }
+}
+```
+
+再用注册表统一选择：
+
+```java
+public class LoggerFactoryRegistry {
+    private final Map<String, LoggerFactory> factories;
+
+    public LoggerFactoryRegistry(List<LoggerFactory> factoryList) {
+        this.factories = factoryList.stream()
+                .collect(Collectors.toMap(LoggerFactory::type, factory -> factory));
+    }
+
+    public Logger create(String type) {
+        LoggerFactory factory = factories.get(type);
+        if (factory == null) {
+            throw new IllegalArgumentException("不支持的日志类型");
+        }
+        return factory.createLogger();
+    }
+}
+```
+
+这样新增 `KafkaLogger` 时，只需要新增 `KafkaLoggerFactory` 并注册，不需要改原有分支。
 
 ## 类图说明
 

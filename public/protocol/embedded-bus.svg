@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 540" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+  <style>
+    .chip { fill:#1f2937; rx:6; ry:6; }
+    .chipTxt { fill:#fff; font-weight:600; font-size:13px; }
+    .label { fill:#111827; }
+    .wire  { stroke:#111827; stroke-width:1.6; fill:none; }
+    .wireR { stroke:#dc2626; stroke-width:1.6; fill:none; }
+    .wireB { stroke:#1d4ed8; stroke-width:1.6; fill:none; }
+    .wireG { stroke:#059669; stroke-width:1.6; fill:none; }
+    .title { font-weight:700; font-size:15px; fill:#111827; }
+    .sub   { font-weight:600; fill:#374151; }
+    .note  { fill:#6b7280; font-size:12px; }
+    .panel { stroke:#e5e7eb; stroke-width:1; fill:#fafafa; rx:8; ry:8; }
+  </style>
+
+  <text x="410" y="24" text-anchor="middle" class="title">嵌入式四大总线接线示意</text>
+
+  <!-- UART -->
+  <rect class="panel" x="20"  y="40" width="380" height="220"/>
+  <text x="40"  y="62" class="sub">UART / 串口（点对点 · 异步）</text>
+
+  <rect class="chip" x="60"  y="100" width="100" height="60"/>
+  <text x="110" y="135" text-anchor="middle" class="chipTxt">MCU A</text>
+  <rect class="chip" x="260" y="100" width="100" height="60"/>
+  <text x="310" y="135" text-anchor="middle" class="chipTxt">MCU B</text>
+
+  <line x1="160" y1="115" x2="260" y2="115" class="wire"/>
+  <line x1="160" y1="145" x2="260" y2="145" class="wire"/>
+  <text x="210" y="110" text-anchor="middle" class="label">TX → RX</text>
+  <text x="210" y="160" text-anchor="middle" class="label">RX ← TX</text>
+
+  <text x="40"  y="200" class="note">• 两根线：发送 TX、接收 RX</text>
+  <text x="40"  y="218" class="note">• 异步：双方约定波特率（9600/115200…）</text>
+  <text x="40"  y="236" class="note">• RS-232 是电平标准，RS-485 = UART + 差分</text>
+
+  <!-- I2C -->
+  <rect class="panel" x="420" y="40" width="380" height="220"/>
+  <text x="440" y="62" class="sub">I²C（一主多从 · 两线 · 寻址）</text>
+
+  <rect class="chip" x="440" y="100" width="80" height="50"/>
+  <text x="480" y="130" text-anchor="middle" class="chipTxt">主</text>
+
+  <rect class="chip" x="560" y="100" width="60" height="40"/>
+  <text x="590" y="125" text-anchor="middle" class="chipTxt" font-size="11">从1</text>
+  <rect class="chip" x="640" y="100" width="60" height="40"/>
+  <text x="670" y="125" text-anchor="middle" class="chipTxt" font-size="11">从2</text>
+  <rect class="chip" x="720" y="100" width="60" height="40"/>
+  <text x="750" y="125" text-anchor="middle" class="chipTxt" font-size="11">从N</text>
+
+  <line x1="440" y1="170" x2="780" y2="170" class="wireR"/>
+  <line x1="440" y1="195" x2="780" y2="195" class="wireB"/>
+
+  <line x1="480" y1="150" x2="480" y2="170" class="wire"/>
+  <line x1="590" y1="140" x2="590" y2="170" class="wire"/>
+  <line x1="670" y1="140" x2="670" y2="170" class="wire"/>
+  <line x1="750" y1="140" x2="750" y2="170" class="wire"/>
+  <line x1="500" y1="150" x2="500" y2="195" class="wire"/>
+  <line x1="610" y1="140" x2="610" y2="195" class="wire"/>
+  <line x1="690" y1="140" x2="690" y2="195" class="wire"/>
+  <line x1="770" y1="140" x2="770" y2="195" class="wire"/>
+
+  <text x="790" y="175" class="label" fill="#dc2626">SDA</text>
+  <text x="790" y="200" class="label" fill="#1d4ed8">SCL</text>
+
+  <text x="440" y="220" class="note">• 共享 SDA/SCL · 上拉电阻拉高</text>
+  <text x="440" y="238" class="note">• 7/10 位地址寻址 · 100k~3.4M bps</text>
+
+  <!-- SPI -->
+  <rect class="panel" x="20"  y="280" width="380" height="240"/>
+  <text x="40"  y="302" class="sub">SPI（全双工 · 主从 · 片选）</text>
+
+  <rect class="chip" x="50"  y="340" width="100" height="60"/>
+  <text x="100" y="375" text-anchor="middle" class="chipTxt">Master</text>
+
+  <rect class="chip" x="240" y="320" width="80" height="40"/>
+  <text x="280" y="345" text-anchor="middle" class="chipTxt" font-size="11">Slave 1</text>
+  <rect class="chip" x="240" y="380" width="80" height="40"/>
+  <text x="280" y="405" text-anchor="middle" class="chipTxt" font-size="11">Slave 2</text>
+
+  <line x1="150" y1="345" x2="240" y2="345" class="wireR"/>
+  <text x="195" y="340" text-anchor="middle" class="note">SCLK</text>
+  <line x1="150" y1="360" x2="240" y2="360" class="wireB"/>
+  <text x="195" y="370" text-anchor="middle" class="note">MOSI</text>
+  <line x1="150" y1="375" x2="240" y2="375" class="wireG"/>
+  <text x="195" y="385" text-anchor="middle" class="note">MISO</text>
+
+  <line x1="150" y1="395" x2="240" y2="340" class="wire" stroke-dasharray="3 2"/>
+  <text x="195" y="430" text-anchor="middle" class="note">CS1</text>
+  <line x1="150" y1="395" x2="240" y2="400" class="wire" stroke-dasharray="3 2"/>
+  <text x="195" y="448" text-anchor="middle" class="note">CS2</text>
+
+  <text x="40"  y="475" class="note">• 4 线：SCLK + MOSI + MISO + CS</text>
+  <text x="40"  y="493" class="note">• 全双工 · 速度高（数十 Mbps）</text>
+  <text x="40"  y="511" class="note">• 多个从机靠各自的 CS 片选</text>
+
+  <!-- CAN -->
+  <rect class="panel" x="420" y="280" width="380" height="240"/>
+  <text x="440" y="302" class="sub">CAN（多主 · 差分 · 仲裁）</text>
+
+  <line x1="450" y1="370" x2="780" y2="370" class="wireR"/>
+  <line x1="450" y1="395" x2="780" y2="395" class="wireB"/>
+  <text x="790" y="375" class="label" fill="#dc2626">CAN_H</text>
+  <text x="790" y="400" class="label" fill="#1d4ed8">CAN_L</text>
+
+  <rect class="chip" x="450" y="320" width="80" height="40"/>
+  <text x="490" y="345" text-anchor="middle" class="chipTxt" font-size="11">ECU 1</text>
+  <line x1="490" y1="360" x2="490" y2="370" class="wire"/>
+  <line x1="510" y1="360" x2="510" y2="395" class="wire"/>
+
+  <rect class="chip" x="570" y="320" width="80" height="40"/>
+  <text x="610" y="345" text-anchor="middle" class="chipTxt" font-size="11">ECU 2</text>
+  <line x1="610" y1="360" x2="610" y2="370" class="wire"/>
+  <line x1="630" y1="360" x2="630" y2="395" class="wire"/>
+
+  <rect class="chip" x="690" y="320" width="80" height="40"/>
+  <text x="730" y="345" text-anchor="middle" class="chipTxt" font-size="11">ECU N</text>
+  <line x1="730" y1="360" x2="730" y2="370" class="wire"/>
+  <line x1="750" y1="360" x2="750" y2="395" class="wire"/>
+
+  <text x="440" y="430" class="note">• 多主总线 · 任意节点可主动发送</text>
+  <text x="440" y="448" class="note">• 报文 ID 越小优先级越高（位仲裁）</text>
+  <text x="440" y="466" class="note">• 抗干扰强 · 汽车电子 / 工业控制标准</text>
+  <text x="440" y="490" class="note">• 1 Mbps（CAN）/ 5 Mbps+（CAN-FD）</text>
+</svg>

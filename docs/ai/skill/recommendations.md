@@ -1,125 +1,81 @@
 # Skill 推荐与选型
 
-下文整理的是 **Claude Code** 场景下常用的一批 **现成 Skill**（通过 [skills.sh](https://skills.sh) 索引、`npx skills add … -g` 安装）。思路来自「高频、真能装进生态、能抬高结果下限」的筛选标准；同类能力只保留一个主力即可，避免装一堆却很少触发。
+选择 Skill 不应该从“装多少个”开始，而应该从任务稳定性开始。Skill 的收益来自重复和约束：同类任务越常见、流程越固定、返工代价越高，越值得沉淀成 Skill。
 
-> 装配前请自行核对仓库来源与权限；`-g` 为全局安装，团队规范若要求项目内锁定版本，可改为项目级流程并做审计。
+## 先判断是否需要 Skill
 
-## 装配顺序（三梯队）
+| 任务特征 | 建议 |
+| --- | --- |
+| 偶尔做一次，目标还在探索 | 先用普通提示词 |
+| 经常重复，但步骤简单 | 写成项目文档或检查清单 |
+| 经常重复，且容易漏步骤 | 适合 Skill |
+| 需要调用外部系统 | Skill + MCP 或本地工具 |
+| 需要人工确认高风险动作 | Skill 中写清确认点 |
 
-| 梯队 | 建议优先 | 解决什么问题 |
+Skill 的位置介于“提示词”和“自动化系统”之间。它比提示词稳定，比完整系统轻量。
+
+## 优先沉淀的几类 Skill
+
+### 代码审查
+
+适合把团队的高频 review 意见写进去，例如边界条件、异常处理、日志、权限、数据库迁移、兼容性。验收标准应包括“指出风险和文件位置”，而不是只说“代码质量不错”。
+
+### 前端页面验证
+
+适合写清设计约束、响应式检查、截图验证、文本不重叠、交互可用等规则。它的价值在于让 Agent 不只改 CSS，还能用浏览器验证实际效果。
+
+### 文档改写
+
+适合写清文档口吻、结构、禁用套话、图示要求、导航入口和构建验证。本站这类技术文档就很适合沉淀文档 Skill。
+
+### 测试补齐
+
+适合规定先读现有测试风格、再补边界用例、最后运行指定测试。测试 Skill 不应只生成 happy path，而应关注失败路径和回归风险。
+
+### 发布说明
+
+适合把 commit、issue、PR、影响范围、升级注意事项整理成稳定格式。它能减少发布前的机械整理工作。
+
+## 选择现成 Skill 还是自建
+
+| 选择 | 适合情况 | 注意点 |
 | --- | --- | --- |
-| 第一 | `agent-browser`、`summarize`、`find-skills` | 网页里能执行、长信息能压缩、生态里能搜到现成轮子 |
-| 第二 | `skill-creator`、`tmux`、测试 / 文档 / 重构类 | 把自己的流程固化、长会话与终端可控、写测写文档更像工程实践 |
-| 第三 | Git / Changelog / Research 类 | 交付链路（PR、版本说明）与调研型任务 |
+| 现成 Skill | 通用任务，例如浏览器操作、摘要、测试思路 | 先审内容和权限，不要盲装 |
+| 项目 Skill | 项目规范强，例如目录结构、构建命令、文档风格 | 应跟仓库一起版本化 |
+| 团队 Skill | 多项目共享，例如安全审查、发布流程 | 需要维护版本和适用范围 |
 
-## 十条：名称、用途、索引页、安装命令
+现成 Skill 解决通用能力，自建 Skill 解决“这个团队怎么做事”。长期看，真正拉开差距的是自建规则质量。
 
-以下 **skills.sh 链接** 与 **`npx skills add`** 均按公开索引页整理；若上游改名，以对应页面为准。
+## 评估一个 Skill 是否好用
 
-### 1. agent-browser
-
-| 项 | 内容 |
+| 维度 | 判断问题 |
 | --- | --- |
-| 用途 | 让助手能驱动浏览器：打开页、点击、填表、截图、抓页面信息、跑 Web 测试流程，把「网站上的事」接进工作流。 |
-| 索引 | [skills.sh · vercel-labs/agent-browser](https://skills.sh/vercel-labs/agent-browser/agent-browser) |
-| 安装 | `npx skills add vercel-labs/agent-browser@agent-browser -g -y` |
+| 触发明确 | Agent 是否知道什么时候用 |
+| 范围克制 | 是否只服务清晰场景 |
+| 步骤可执行 | 是否能按步骤操作，而不是只讲原则 |
+| 禁区具体 | 是否写清不能做什么以及原因 |
+| 验收可查 | 是否有命令、截图、测试或清单验证 |
+| 可维护 | 是否能随着项目变化更新 |
 
-### 2. find-skills
+如果一个 Skill 只有宽泛建议，没有输入输出和完成标准，它更像提示词片段，不像工程资产。
 
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 在 skills 生态里先搜有没有现成方案，降低「重复摸索」成本；偏发现与选型入口。 |
-| 索引 | [skills.sh · find-skills](https://skills.sh/vercel-labs/skills/find-skills) |
-| 安装 | `npx skills add vercel-labs/skills@find-skills -g -y` |
+## 装配顺序
 
-### 3. summarize
+更稳妥的顺序：
 
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 压缩长网页、长文档、转录稿、会议纪要、多篇材料，稳定做「读完 → 结论」；读 RFC/issue 讨论也适用。 |
-| 索引 | [skills.sh · steipete/clawdis · summarize](https://skills.sh/steipete/clawdis/summarize) |
-| 安装 | `npx skills add steipete/clawdis@summarize -g -y` |
+1. 先补一个项目说明类 Skill 或文档，告诉 Agent 技术栈、命令、目录、禁区。
+2. 再补高频任务 Skill，例如测试、文档、前端验证、代码审查。
+3. 最后接入外部工具类 Skill，并审查权限。
 
-### 4. skill-creator
+不要一开始安装大量重叠 Skill。触发条件重叠会让 Agent 在规则之间摇摆，反而降低稳定性。
 
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 把个人或团队重复动作（提纲、格式、测试骨架、release notes 等）沉淀成可复用 Skill。 |
-| 索引 | [skills.sh · anthropics · skill-creator](https://skills.sh/anthropics/skills/skill-creator) |
-| 安装 | `npx skills add anthropics/skills@skill-creator -g -y` |
+## 维护节奏
 
-### 5. tmux
+- 重复出错两次以上，就把规则写进 Skill。
+- Skill 长到难读时，把背景材料放到 references 或项目文档。
+- 技术栈升级后，更新命令、路径、禁用规则和验证方式。
+- 长期不用的 Skill 应删除或迁出默认加载范围。
 
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 长命令、持续看日志、交互式 CLI、并行任务、远程会话不断线时，用 tmux 维持续航式终端会话。 |
-| 索引 | [skills.sh · steipete/clawdis · tmux](https://skills.sh/steipete/clawdis/tmux) |
-| 安装 | `npx skills add steipete/clawdis@tmux -g -y` |
+## 总结
 
-### 6. 测试 / E2E / Playwright 向
-
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 强化测试结构、断言、边界与 Playwright 场景化写法，减少「能生成但难维护」的测试代码。 |
-| 索引（示例） | [anthropics · webapp-testing](https://skills.sh/anthropics/skills/webapp-testing)、[supercent-io · testing-strategies](https://skills.sh/supercent-io/skills-template/testing-strategies) |
-| 安装（其一） | `npx skills add anthropics/skills@webapp-testing -g -y` |
-
-可按栈再在 [skills.sh](https://skills.sh) 搜 `playwright`、`e2e` 等关键词补第二条。
-
-### 7. 文档 / README / API 文档向
-
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 约束文档结构，让 README、上手说明、API 说明更「有重点」而不是堆字。 |
-| 索引（示例） | [googleworkspace/cli · gws-docs](https://skills.sh/googleworkspace/cli/gws-docs) |
-| 安装（其一） | `npx skills add googleworkspace/cli@gws-docs -g -y` |
-
-文档类没有单一万能包名，建议按语言/场景在索引站搜索：`api docs`、`readme`、`java docs`、`python docs` 等，选与当前仓库最贴近的一条。
-
-### 8. 重构 / Review / 最佳实践向
-
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 坏味道、拆大函数、命名与复杂度控制，把「能跑」往「能长期维护」推。 |
-| 索引（主） | [supercent-io · code-refactoring](https://skills.sh/supercent-io/skills-template/code-refactoring) |
-| 安装（主） | `npx skills add supercent-io/skills-template@code-refactoring -g -y` |
-| 备选索引 | [github · awesome-copilot · refactor](https://skills.sh/github/awesome-copilot/refactor)（安装命令请在页面内查看） |
-
-### 9. Git 工作流 / Changelog / Release 向
-
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 规范 commit、整理 changelog、写 release note、PR 描述与影响范围，覆盖「开发之后那一串杂活」。 |
-| 索引（主） | [supercent-io · changelog-maintenance](https://skills.sh/supercent-io/skills-template/changelog-maintenance) |
-| 安装（主） | `npx skills add supercent-io/skills-template@changelog-maintenance -g -y` |
-| 备选索引 | [wshobson/agents · changelog-automation](https://skills.sh/wshobson/agents/changelog-automation) |
-
-### 10. 调研 / 网页检索 / 摘录向
-
-| 项 | 内容 |
-| --- | --- |
-| 用途 | 查资料、读网页、提取与对比方案，把选型、读文档、扫 issue 讨论纳入同一套流程。 |
-| 索引（主） | [tavily-ai · research](https://skills.sh/tavily-ai/skills/research) |
-| 安装（主） | `npx skills add tavily-ai/skills@research -g -y` |
-| 备选索引 | [199-biotechnologies · deep-research](https://skills.sh/199-biotechnologies/claude-deep-research-skill/deep-research) |
-
-Tavily 类能力通常需要 **API Key**；使用前在对应 Skill 说明与环境变量里配置好，避免把密钥写进仓库。
-
----
-
-## 通用原则（与上表配合）
-
-1. **少而精**：同类只保留一个主力，避免触发条件重叠。
-2. **可验证**：装上后至少跑通一条真实任务（例如打开指定站点、跑一条测试、产出一节 changelog）。
-3. **定期裁剪**：长期不用的从全局卸载或迁出团队清单，减少噪音与攻击面。
-
-## 维护节奏建议
-
-- **每月**：看触发频率，合并重复条目。
-- **大版本升级栈**：复查 `npx` 包名与文档是否仍有效。
-- **重复失误**：优先把防再犯写进自研 Skill（配合 `skill-creator`）。
-
-## 延伸阅读
-
-- 索引与发现：[skills.sh](https://skills.sh)
-- 原文讨论与装配思路：[Claude Code 十个最值得装的 Skills](https://mp.weixin.qq.com/s/9OOV_phsQacXQjeUF1jVug)（微信公众号）
+Skill 选型的核心不是数量，而是任务是否重复、边界是否清楚、验收是否可验证。通用能力可以先用现成 Skill，项目习惯和团队标准应尽早自建。一个好 Skill 应能让 Agent 少问、少猜、少返工。

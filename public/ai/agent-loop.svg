@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">智能体工作循环</title>
+  <desc id="desc">展示观察、计划、行动、反馈和记忆构成的智能体循环</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/></marker>
+    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:20px;font-weight:700}.body{font-size:14px}.small{font-size:12px;fill:#475569}.line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style></defs>
+  <rect class="bg" width="1080" height="460"/>
+  <rect class="core" x="455" y="175" width="170" height="100"/><text class="text title" x="540" y="215" text-anchor="middle">模型</text><text class="text body" x="540" y="242" text-anchor="middle">推理与决策</text>
+  <rect class="box" x="455" y="35" width="170" height="85"/><text class="text title" x="540" y="68" text-anchor="middle">观察</text><text class="text body" x="540" y="95" text-anchor="middle">任务、文件、日志</text>
+  <rect class="box" x="760" y="175" width="170" height="85"/><text class="text title" x="845" y="208" text-anchor="middle">计划</text><text class="text body" x="845" y="235" text-anchor="middle">拆步骤与风险</text>
+  <rect class="box" x="455" y="335" width="170" height="85"/><text class="text title" x="540" y="368" text-anchor="middle">行动</text><text class="text body" x="540" y="395" text-anchor="middle">工具、API、命令</text>
+  <rect class="box" x="150" y="175" width="170" height="85"/><text class="text title" x="235" y="208" text-anchor="middle">反馈</text><text class="text body" x="235" y="235" text-anchor="middle">结果、错误、测试</text>
+  <rect class="box" x="760" y="335" width="170" height="60"/><text class="text title" x="845" y="373" text-anchor="middle">记忆 / 状态</text>
+  <path class="line" d="M540 120 L540 175"/><path class="line" d="M625 225 L760 218"/><path class="line" d="M845 260 C820 325 700 372 625 378"/><path class="line" d="M455 378 C350 360 250 305 235 260"/><path class="line" d="M235 175 C260 90 370 72 455 78"/><path class="line" d="M760 365 L625 250"/>
+</svg>

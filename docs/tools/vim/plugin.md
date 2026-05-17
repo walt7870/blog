@@ -1,742 +1,439 @@
-# Vim 插件使用指南
+# Vim 插件生态
 
-Vim 的强大之处在于其丰富的插件生态系统。通过插件，可以将 Vim 打造成功能强大的现代化编辑器，满足各种开发需求。
+Vim 可以只靠内置功能完成大量编辑任务，但现代开发通常还需要文件查找、Git、LSP、补全、格式化、主题等能力。插件的价值不是把 Vim 变成另一个 IDE，而是补齐你的工作流。
 
-## 插件管理器
+本文以 Vim 为主，同时说明 Neovim 生态的差异。目标是帮你知道该选哪类插件、怎么管理配置、如何排查问题。
 
-### vim-plug（推荐）
+## 插件体系概览
 
-vim-plug 是目前最流行的 Vim 插件管理器，具有并行安装、延迟加载等特性。
+### Vim 内置 packages
 
-#### 安装 vim-plug
+Vim 8 以后内置 packages 机制，不装插件管理器也能加载插件。
 
-**Unix/Linux/macOS:**
+典型目录：
+
+```text
+~/.vim/pack/vendor/start/plugin-name
+~/.vim/pack/vendor/opt/plugin-name
+```
+
+- `start`：启动时自动加载。
+- `opt`：按需加载，需要 `:packadd plugin-name`。
+
+优点是简单、官方内置、依赖少；缺点是更新、锁版本、延迟加载等能力需要自己维护。
+
+### vim-plug
+
+vim-plug 是 Vim 里常见的插件管理器，配置简单，支持并行安装和按需加载。
+
+安装：
+
 ```bash
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-**Windows (PowerShell):**
-```powershell
-iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |
-    ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
-```
-
-#### 基本配置
-
-在 `.vimrc` 中添加：
+基础配置：
 
 ```vim
-" 插件开始
 call plug#begin('~/.vim/plugged')
 
-" 在这里添加插件
-Plug 'preservim/nerdtree'
-Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
-" 插件结束
 call plug#end()
 ```
 
-#### 常用命令
+常用命令：
 
 ```vim
-:PlugInstall    " 安装插件
-:PlugUpdate     " 更新插件
-:PlugClean      " 清理未使用的插件
-:PlugUpgrade    " 升级 vim-plug 自身
-:PlugStatus     " 查看插件状态
+:PlugInstall     " 安装插件
+:PlugUpdate      " 更新插件
+:PlugClean       " 清理未使用插件
+:PlugStatus      " 查看状态
+:PlugUpgrade     " 更新 vim-plug 自身
 ```
 
-### Vundle
-
-传统的插件管理器，配置简单但功能相对基础。
-
-#### 安装 Vundle
-
-```bash
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
-
-#### 基本配置
+按需加载示例：
 
 ```vim
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'preservim/nerdtree'
-
-call vundle#end()
-filetype plugin indent on
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 ```
 
-### Pathogen
+### Vundle 与 Pathogen
 
-最简单的插件管理方式，手动管理插件目录。
+Vundle 和 Pathogen 是更早期的插件管理方式。
 
-```vim
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
+- Pathogen 主要解决 runtimepath 管理问题，插件更新通常依赖手动 Git 操作。
+- Vundle 提供安装和更新命令，但生态活跃度和现代能力不如 vim-plug。
+
+新配置通常不建议从它们开始。维护老配置时，理解它们即可。
+
+### Neovim 与 lazy.nvim
+
+Neovim 的主流配置语言是 Lua，插件生态里 lazy.nvim 很常见，支持懒加载、依赖管理、锁文件和模块化配置。
+
+极简示例：
+
+```lua
+require("lazy").setup({
+  { "tpope/vim-surround" },
+  { "tpope/vim-commentary" },
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+})
 ```
 
-## 必备插件推荐
+如果你主要使用 Vimscript 和传统 Vim，vim-plug 更直接；如果你使用 Neovim 并愿意用 Lua 组织配置，lazy.nvim 更贴近当前 Neovim 生态。
 
-### 文件管理
+## 按功能选择插件
 
-#### NERDTree
+### 文件查找与项目搜索
 
-文件树浏览器，提供图形化的文件管理界面。
+推荐方向：
 
-```vim
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'  " Git 状态显示
-Plug 'ryanoasis/vim-devicons'       " 文件图标
-```
+- `junegunn/fzf.vim`：轻量、快，依赖 fzf，可配合 ripgrep。
+- Neovim 用户也常用 `telescope.nvim`。
 
-**配置示例：**
-```vim
-" 自动打开 NERDTree
-autocmd vimenter * NERDTree
-
-" 快捷键映射
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-" 设置
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-```
-
-#### fzf.vim
-
-强大的模糊搜索插件，支持文件、缓冲区、命令等搜索。
+vim-plug 示例：
 
 ```vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 ```
 
-**常用命令：**
+常用命令：
+
 ```vim
-:Files      " 搜索文件
-:Buffers    " 搜索缓冲区
-:Lines      " 搜索行内容
-:Rg         " 使用 ripgrep 搜索
-:History    " 搜索历史文件
+:Files       " 查找文件
+:Buffers     " 查找 buffer
+:Rg          " 使用 ripgrep 搜索内容
+:History     " 查找历史文件
 ```
 
-**配置示例：**
-```vim
-" 快捷键映射
-nnoremap <C-p> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
-nnoremap <C-g> :Rg<CR>
-
-" 自定义搜索命令
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-```
-
-### 状态栏增强
-
-#### vim-airline
-
-美观的状态栏插件，显示模式、文件信息、Git 状态等。
+常用映射：
 
 ```vim
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-```
-
-**配置示例：**
-```vim
-" 启用 tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" 设置主题
-let g:airline_theme='dark'
-
-" 启用 powerline 字体
-let g:airline_powerline_fonts = 1
-
-" 自定义符号
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-```
-
-#### lightline.vim
-
-轻量级状态栏插件，配置灵活。
-
-```vim
-Plug 'itchyny/lightline.vim'
-```
-
-### 代码补全
-
-#### coc.nvim
-
-基于 Language Server Protocol 的智能补全插件。
-
-```vim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-```
-
-**基本配置：**
-```vim
-" 使用 Tab 键确认补全
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" 使用 Enter 确认补全
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-```
-
-**安装语言服务器：**
-```vim
-:CocInstall coc-json coc-tsserver coc-python coc-java coc-go
-```
-
-#### YouCompleteMe
-
-功能强大的补全插件，支持多种语言。
-
-```vim
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
 ```
 
 ### Git 集成
 
-#### vim-fugitive
+推荐方向：
 
-Vim 中的 Git 包装器，提供完整的 Git 功能。
+- `tpope/vim-fugitive`：Git 命令集成，适合 status、diff、blame、commit。
+- `airblade/vim-gitgutter`：在符号列显示行级变更。
 
 ```vim
 Plug 'tpope/vim-fugitive'
-```
-
-**常用命令：**
-```vim
-:Git status     " 查看状态
-:Git add %      " 添加当前文件
-:Git commit     " 提交
-:Git push       " 推送
-:Git blame      " 查看 blame
-:Gdiffsplit     " 差异对比
-```
-
-#### vim-gitgutter
-
-在行号旁显示 Git 变更状态。
-
-```vim
 Plug 'airblade/vim-gitgutter'
 ```
 
-**配置示例：**
-```vim
-" 更新时间
-set updatetime=100
+常用命令：
 
-" 快捷键
+```vim
+:Git status
+:Git blame
+:Gdiffsplit
+```
+
+常用映射：
+
+```vim
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
-nmap <Leader>hs <Plug>(GitGutterStageHunk)
-nmap <Leader>hu <Plug>(GitGutterUndoHunk)
+nmap <leader>hs <Plug>(GitGutterStageHunk)
+nmap <leader>hu <Plug>(GitGutterUndoHunk)
 ```
 
-### 语法高亮
+### LSP、补全与诊断
 
-#### vim-polyglot
+Vim 里常见选择：
 
-多语言语法高亮包，支持 100+ 种语言。
+- `neoclide/coc.nvim`：体验接近 VS Code 扩展生态，配置相对集中。
+- `dense-analysis/ale`：异步 lint 和格式化，也可配合 LSP。
+
+Neovim 里常见选择：
+
+- 内置 LSP 客户端。
+- `nvim-cmp` 做补全。
+- `mason.nvim` 管理语言服务器。
+
+coc.nvim 示例：
 
 ```vim
-Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ```
 
-#### 特定语言插件
+安装语言扩展：
 
 ```vim
-" JavaScript/TypeScript
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-
-" Python
-Plug 'vim-python/python-syntax'
-
-" Go
-Plug 'fatih/vim-go'
-
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" Markdown
-Plug 'plasticboy/vim-markdown'
+:CocInstall coc-json coc-tsserver coc-pyright coc-go
 ```
 
-### 代码格式化
+### 格式化
 
-#### vim-autoformat
+推荐原则：优先使用项目已有格式化工具，例如 Prettier、black、gofmt、rustfmt，而不是让 Vim 插件重新定义格式规则。
 
-自动格式化代码插件。
+常见方式：
+
+- 使用 coc.nvim / ALE 调用格式化器。
+- 前端项目使用 Prettier。
+- 保存时按文件类型触发格式化。
+
+简单示例，把 Go 文件的格式化命令交给 `gq`：
 
 ```vim
-Plug 'Chiel92/vim-autoformat'
+augroup FormatTools
+  autocmd!
+  autocmd FileType go setlocal formatprg=gofmt
+augroup END
+
+nnoremap <leader>= gggqG
 ```
 
-**配置示例：**
-```vim
-" 保存时自动格式化
-autocmd BufWrite * :Autoformat
+实际项目中更推荐交给 LSP 或专门插件，避免手写过多自动命令。
 
-" 快捷键
-nnoremap <F3> :Autoformat<CR>
-```
+### 注释、括号与文本对象
 
-#### Prettier
-
-专门用于前端代码格式化。
-
-```vim
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-```
-
-### 主题和配色
-
-#### 热门主题
-
-```vim
-" Gruvbox
-Plug 'morhetz/gruvbox'
-
-" One Dark
-Plug 'joshdick/onedark.vim'
-
-" Dracula
-Plug 'dracula/vim', { 'as': 'dracula' }
-
-" Solarized
-Plug 'altercation/vim-colors-solarized'
-
-" Nord
-Plug 'arcticicestudio/nord-vim'
-```
-
-**主题配置：**
-```vim
-" 设置配色方案
-colorscheme gruvbox
-set background=dark
-
-" 启用真彩色
-if has('termguicolors')
-  set termguicolors
-endif
-```
-
-### 实用工具插件
-
-#### vim-surround
-
-快速操作包围字符（引号、括号等）。
-
-```vim
-Plug 'tpope/vim-surround'
-```
-
-**使用示例：**
-- `cs"'`：将双引号改为单引号
-- `ds"`：删除双引号
-- `ysiw"`：给单词加上双引号
-
-#### vim-commentary
-
-快速注释/取消注释。
+这些插件小而稳定，适合很早加入配置：
 
 ```vim
 Plug 'tpope/vim-commentary'
-```
-
-**使用方法：**
-- `gcc`：注释/取消注释当前行
-- `gc`：在可视模式下注释选中内容
-
-#### auto-pairs
-
-自动补全括号、引号等。
-
-```vim
+Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 ```
 
-#### vim-multiple-cursors
-
-多光标编辑功能。
+常用操作：
 
 ```vim
-Plug 'terryma/vim-multiple-cursors'
+gcc       " 注释或取消注释当前行
+gc        " 可视模式下注释选区
+cs"'      " 把双引号改成单引号
+ds"       " 删除双引号
+ysiw"     " 给当前单词加双引号
 ```
 
-**使用方法：**
-- `Ctrl+n`：选择下一个相同单词
-- `Ctrl+p`：选择上一个相同单词
-- `Ctrl+x`：跳过当前选择
+### 状态栏与主题
 
-## 完整配置示例
+状态栏：
 
-以下是一个完整的 `.vimrc` 配置示例：
+- `vim-airline/vim-airline`：功能完整。
+- `itchyny/lightline.vim`：轻量灵活。
+
+主题：
+
+- `morhetz/gruvbox`
+- `dracula/vim`
+- `joshdick/onedark.vim`
+- `arcticicestudio/nord-vim`
+
+配置示例：
 
 ```vim
-" ===== 基本设置 =====
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
+
+set termguicolors
+set background=dark
+colorscheme gruvbox
+let g:airline_theme = 'gruvbox'
+```
+
+主题是个人偏好，不建议为了外观引入太多互相影响的插件。
+
+### 文件树
+
+文件树不是 Vim 的必需品，因为 buffer 和模糊查找通常更高效。但如果你需要项目结构视图，可以使用：
+
+```vim
+Plug 'preservim/nerdtree'
+```
+
+```vim
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeFind<CR>
+let NERDTreeShowHidden = 1
+```
+
+如果已经习惯 `:Files` / `:Rg`，文件树可以作为辅助，而不是主要入口。
+
+## 一份可用的 `.vimrc`
+
+### 基础设置
+
+```vim
 set nocompatible
+filetype plugin indent on
+syntax enable
+
 set number
 set relativenumber
 set cursorline
+set hidden
 set showcmd
 set wildmenu
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set autoindent
-set smartindent
+
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set wrap
-set linebreak
-set scrolloff=5
-set sidescrolloff=15
-set laststatus=2
-set backspace=indent,eol,start
-set clipboard=unnamed
+set autoindent
 
-" ===== 插件管理 =====
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+set scrolloff=5
+set backspace=indent,eol,start
+set updatetime=300
+
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
+
+let mapleader = ","
+nnoremap <leader>w :write<CR>
+nnoremap <leader>q :quit<CR>
+nnoremap <leader><space> :nohlsearch<CR>
+```
+
+### 插件配置
+
+```vim
 call plug#begin('~/.vim/plugged')
 
-" 文件管理
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" 状态栏
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" 代码补全
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Git 集成
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" 语法高亮
-Plug 'sheerun/vim-polyglot'
-
-" 实用工具
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
 
-" 主题
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
 
-" 图标
-Plug 'ryanoasis/vim-devicons'
-
 call plug#end()
+```
 
-" ===== 主题设置 =====
-colorscheme gruvbox
-set background=dark
+### 快捷键与外观
+
+```vim
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap <leader>hs <Plug>(GitGutterStageHunk)
+nmap <leader>hu <Plug>(GitGutterUndoHunk)
+
 if has('termguicolors')
   set termguicolors
 endif
 
-" ===== 插件配置 =====
-
-" NERDTree
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-
-" fzf
-nnoremap <C-p> :Files<CR>
-nnoremap <C-b> :Buffers<CR>
-nnoremap <C-g> :Rg<CR>
-
-" airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='gruvbox'
-let g:airline_powerline_fonts = 1
-
-" coc.nvim
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" GitGutter
-set updatetime=100
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap <Leader>hs <Plug>(GitGutterStageHunk)
-nmap <Leader>hu <Plug>(GitGutterUndoHunk)
-
-" ===== 自定义快捷键 =====
-let mapleader = ","
-
-" 快速保存和退出
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>wq :wq<CR>
-
-" 分屏操作
-nnoremap <Leader>v :vsplit<CR>
-nnoremap <Leader>h :split<CR>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" 缓冲区切换
-nnoremap <Leader>bn :bnext<CR>
-nnoremap <Leader>bp :bprevious<CR>
-nnoremap <Leader>bd :bdelete<CR>
-
-" 清除搜索高亮
-nnoremap <Leader><space> :nohlsearch<CR>
+set background=dark
+silent! colorscheme gruvbox
+let g:airline_theme = 'gruvbox'
 ```
 
-## 插件开发
+这份配置不是“全家桶”，而是一个可维护起点。后续每加一个插件，都应该能说清它解决了哪个问题。
 
-### 基本结构
+## 配置组织
 
-Vim 插件通常包含以下目录结构：
-
-```
-plugin-name/
-├── plugin/          # 插件主要逻辑
-├── autoload/        # 自动加载函数
-├── ftplugin/        # 文件类型特定插件
-├── syntax/          # 语法高亮定义
-├── doc/             # 帮助文档
-└── README.md        # 说明文档
-```
-
-### 简单插件示例
-
-创建一个简单的插件来插入当前时间：
-
-**plugin/datetime.vim:**
-```vim
-" 防止重复加载
-if exists('g:loaded_datetime')
-  finish
-endif
-let g:loaded_datetime = 1
-
-" 定义命令
-command! InsertDateTime call datetime#insert()
-
-" 定义快捷键
-nnoremap <Leader>dt :InsertDateTime<CR>
-```
-
-**autoload/datetime.vim:**
-```vim
-function! datetime#insert()
-  let current_time = strftime('%Y-%m-%d %H:%M:%S')
-  execute 'normal! a' . current_time
-endfunction
-```
-
-### 发布插件
-
-1. 在 GitHub 创建仓库
-2. 添加适当的标签和文档
-3. 提交到插件管理器的索引（如 vim-plug 会自动识别 GitHub 仓库）
-
-## 性能优化
-
-### 延迟加载
-
-使用 vim-plug 的延迟加载功能：
+当 `.vimrc` 变长后，可以拆成多个文件：
 
 ```vim
-" 按需加载
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-Plug 'fatih/vim-go', { 'for': 'go' }
-```
-
-### 启动时间分析
-
-```vim
-" 分析启动时间
-vim --startuptime startup.log
-
-" 在 Vim 中分析
-:profile start profile.log
-:profile func *
-:profile file *
-" 执行一些操作
-:profile pause
-:noautocmd qall!
-```
-
-### 配置优化
-
-```vim
-" 减少重绘
-set lazyredraw
-
-" 优化搜索
-set regexpengine=1
-
-" 减少历史记录
-set history=100
-
-" 关闭不必要的功能
-set nobackup
-set noswapfile
-set noundofile
-```
-
-## 故障排除
-
-### 常见问题
-
-**1. 插件无法加载**
-```vim
-" 检查插件路径
-:echo &runtimepath
-
-" 检查插件状态
-:PlugStatus
-
-" 重新安装插件
-:PlugClean
-:PlugInstall
-```
-
-**2. 快捷键冲突**
-```vim
-" 查看键映射
-:map
-:nmap
-:imap
-:vmap
-
-" 查看特定键的映射
-:map <C-n>
-```
-
-**3. 性能问题**
-```vim
-" 禁用插件进行测试
-vim --noplugin
-
-" 逐个禁用插件
-" 在 .vimrc 中注释掉可疑插件
-```
-
-### 调试技巧
-
-```vim
-" 启用详细模式
-set verbose=9
-
-" 查看错误信息
-:messages
-
-" 检查函数定义
-:function FunctionName
-
-" 查看变量值
-:echo g:variable_name
-```
-
-## 最佳实践
-
-### 1. 渐进式配置
-
-- 从基础插件开始，逐步添加
-- 每次只添加一个插件，确保正常工作
-- 定期清理不使用的插件
-
-### 2. 备份配置
-
-```bash
-# 使用 Git 管理配置
-cd ~
-git init
-git add .vimrc
-git commit -m "Initial vim configuration"
-```
-
-### 3. 模块化配置
-
-将配置分割为多个文件：
-
-```vim
-" .vimrc
 source ~/.vim/config/basic.vim
 source ~/.vim/config/plugins.vim
 source ~/.vim/config/mappings.vim
 source ~/.vim/config/autocmds.vim
 ```
 
-### 4. 文档化
+建议用 Git 管理配置：
 
-在配置文件中添加注释，说明每个插件的用途和配置。
+```bash
+cd ~
+git init
+git add .vimrc .vim
+git commit -m "Initial vim config"
+```
 
-### 5. 定期维护
+如果需要跨机器同步，可以把配置放进 dotfiles 仓库。
 
-- 定期更新插件：`:PlugUpdate`
-- 清理无用插件：`:PlugClean`
-- 检查配置文件的有效性
+## 性能与排错
 
----
+### 查看启动耗时
 
-通过合理使用插件，Vim 可以成为一个功能强大、高效的现代化编辑器。关键是选择适合自己工作流程的插件，并进行合理的配置和优化。
+```bash
+vim --startuptime startup.log
+```
+
+打开后查看耗时较高的插件或脚本。
+
+也可以用 Vim 内置 profile：
+
+```vim
+:profile start profile.log
+:profile func *
+:profile file *
+" 执行一些慢操作
+:profile pause
+:noautocmd qall!
+```
+
+### 检查插件状态
+
+```vim
+:PlugStatus
+:scriptnames
+:messages
+:echo &runtimepath
+```
+
+### 排查快捷键冲突
+
+```vim
+:map <leader>f
+:nmap <leader>f
+:verbose nmap <leader>f
+```
+
+`:verbose map` 会显示映射来自哪个脚本，对排查插件覆盖很有用。
+
+### 临时禁用插件
+
+```bash
+vim --noplugin
+```
+
+如果禁用插件后问题消失，再逐个注释插件定位原因。
+
+### 常见问题
+
+- 插件安装后命令不存在：确认执行过 `:PlugInstall`，并检查 `:PlugStatus`。
+- 主题不生效：确认插件已安装，`colorscheme` 写在 `call plug#end()` 之后。
+- 图标乱码：通常需要 Nerd Font，或者不要启用图标插件。
+- 补全很慢：先确认语言服务器是否正常，再检查项目规模和诊断配置。
+- 剪贴板无效：执行 `:version`，确认是否有 `+clipboard`。
+
+## 选择原则
+
+- 先熟悉 Vim 内置能力，再用插件补齐明确缺口。
+- 插件按功能选，不按热度堆。
+- 每个插件都要有清晰入口、快捷键和退出方案。
+- 优先使用项目已有工具链，例如 formatter、linter、language server。
+- 遇到问题先查 `:messages`、`:scriptnames`、`:verbose map`。
+- 配置应该能被你自己解释，不能解释的配置迟早会变成维护成本。
+
+插件生态很丰富，但好的 Vim 配置通常很克制。把最常用的路径打磨顺，比安装更多插件更重要。

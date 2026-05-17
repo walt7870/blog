@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
+  <title id="title">大模型概念分层图</title>
+  <desc id="desc">按架构、训练、适配、推理、应用和评估整理大模型核心概念</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.center{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.train{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:10}
+      .run{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.app{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="560"/>
+  <rect class="center" x="440" y="220" width="200" height="100"/>
+  <text class="text title" x="540" y="260" text-anchor="middle">大语言模型</text>
+  <text class="text body" x="540" y="290" text-anchor="middle">基于上下文逐 token 生成</text>
+
+  <rect class="box" x="70" y="60" width="220" height="105"/>
+  <text class="text title" x="180" y="94" text-anchor="middle">基础表示</text>
+  <text class="text body" x="180" y="122" text-anchor="middle">Token、Embedding、上下文窗口</text>
+  <text class="text small" x="180" y="146" text-anchor="middle">模型能读什么、记多长</text>
+
+  <rect class="box" x="430" y="40" width="220" height="125"/>
+  <text class="text title" x="540" y="75" text-anchor="middle">模型架构</text>
+  <text class="text body" x="540" y="103" text-anchor="middle">Transformer、Attention、MoE</text>
+  <text class="text small" x="540" y="127" text-anchor="middle">参数如何组织，信息如何流动</text>
+
+  <rect class="train" x="790" y="60" width="220" height="105"/>
+  <text class="text title" x="900" y="94" text-anchor="middle">训练与对齐</text>
+  <text class="text body" x="900" y="122" text-anchor="middle">预训练、SFT、RLHF、DPO</text>
+  <text class="text small" x="900" y="146" text-anchor="middle">从会续写到更会服从任务</text>
+
+  <rect class="train" x="70" y="390" width="220" height="105"/>
+  <text class="text title" x="180" y="424" text-anchor="middle">参数适配</text>
+  <text class="text body" x="180" y="452" text-anchor="middle">LoRA、QLoRA、Adapter</text>
+  <text class="text small" x="180" y="476" text-anchor="middle">低成本改变模型行为</text>
+
+  <rect class="run" x="430" y="395" width="220" height="105"/>
+  <text class="text title" x="540" y="429" text-anchor="middle">推理部署</text>
+  <text class="text body" x="540" y="457" text-anchor="middle">KV Cache、量化、批处理</text>
+  <text class="text small" x="540" y="481" text-anchor="middle">让模型更快、更省、更稳定</text>
+
+  <rect class="app" x="790" y="390" width="220" height="105"/>
+  <text class="text title" x="900" y="424" text-anchor="middle">应用增强</text>
+  <text class="text body" x="900" y="452" text-anchor="middle">RAG、工具调用、Agent</text>
+  <text class="text small" x="900" y="476" text-anchor="middle">把模型接到真实资料和动作</text>
+
+  <path class="line" d="M290 112 C365 150 410 205 440 245"/>
+  <path class="line" d="M540 165 L540 220"/>
+  <path class="line" d="M790 112 C715 150 670 205 640 245"/>
+  <path class="line" d="M290 442 C365 405 410 335 440 295"/>
+  <path class="line" d="M540 395 L540 320"/>
+  <path class="line" d="M790 442 C715 405 670 335 640 295"/>
+</svg>

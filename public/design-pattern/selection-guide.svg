@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">设计模式选型路线图</title>
+  <desc id="desc">通过问题判断适合考虑哪一类设计模式。</desc>
+  <defs>
+    <style>.bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.q{fill:#1e293b}.qt{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.name{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.txt{font:13px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#94a3b8;stroke-width:2;fill:none}.arrow{fill:#94a3b8}.yes{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#16a34a}.no{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#ef4444}</style>
+  </defs>
+  <rect class="bg" width="1120" height="720" rx="24"/>
+  <text class="title" x="56" y="58">设计模式选型路线图</text>
+  <text class="sub" x="56" y="88">先问问题，再选模式。不要为了使用模式而使用模式。</text>
+  <rect class="q" x="410" y="120" width="300" height="76" rx="16"/><text class="qt" x="455" y="152">变化点在哪里？</text><text class="qt" x="448" y="178">创建、结构，还是协作？</text>
+  <path class="line" d="M560 196v60"/><polygon class="arrow" points="560,256 553,244 567,244"/>
+  <rect class="box" x="70" y="275" width="280" height="140" rx="16"/>
+  <text class="name" x="102" y="314">对象创建经常变化？</text>
+  <text class="txt" x="102" y="344">例如产品类型增多、构建步骤复杂、</text><text class="txt" x="102" y="366">创建成本高、需要控制唯一实例。</text>
+  <text class="yes" x="102" y="396">优先看：工厂、抽象工厂、建造者、原型、单例</text>
+  <rect class="box" x="420" y="275" width="280" height="140" rx="16"/>
+  <text class="name" x="452" y="314">对象关系经常变化？</text>
+  <text class="txt" x="452" y="344">例如接口不兼容、功能要叠加、</text><text class="txt" x="452" y="366">访问要控制、子系统需要统一入口。</text>
+  <text class="yes" x="452" y="396">优先看：适配器、装饰器、代理、外观、桥接</text>
+  <rect class="box" x="770" y="275" width="280" height="140" rx="16"/>
+  <text class="name" x="802" y="314">协作流程经常变化？</text>
+  <text class="txt" x="802" y="344">例如算法切换、状态变化、事件通知、</text><text class="txt" x="802" y="366">请求处理链或撤销恢复。</text>
+  <text class="yes" x="802" y="396">优先看：策略、状态、观察者、命令、责任链</text>
+  <path class="line" d="M560 256H210v19M560 256v19M560 256h350v19"/>
+  <rect class="q" x="390" y="505" width="340" height="86" rx="16"/>
+  <text class="qt" x="424" y="538">能用简单代码清楚表达吗？</text>
+  <text class="qt" x="428" y="566">能，就先不用模式；不能，再抽象。</text>
+  <path class="line" d="M210 415v133h180M560 415v90M910 415v133H730"/>
+</svg>

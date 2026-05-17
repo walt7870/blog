@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">Git mental model</title>
+  <desc id="desc">A visual model of Git from local changes to commits, remote collaboration, and release tracking.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.13"/>
+    </filter>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #fff; stroke: #dbe3ef; stroke-width: 1.5; filter: url(#shadow); }
+      .head { font: 700 22px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .title { font: 700 17px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .body { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #475569; }
+      .line { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .pill { fill: #eff6ff; stroke: #bfdbfe; }
+    </style>
+  </defs>
+  <rect class="bg" width="920" height="420" rx="18"/>
+  <text class="head" x="36" y="46">Git 的四层作用</text>
+  <text class="body" x="36" y="74">从个人修改到团队协作，再到发布追踪，Git 记录的是可审计的变更历史。</text>
+
+  <rect class="card" x="42" y="124" width="180" height="170" rx="14"/>
+  <rect class="pill" x="64" y="146" width="82" height="28" rx="14"/>
+  <text class="small" x="82" y="165">local</text>
+  <text class="title" x="64" y="204">个人修改</text>
+  <text class="body" x="64" y="232">查看差异</text>
+  <text class="body" x="64" y="254">选择暂存</text>
+  <text class="small" x="64" y="278">status / diff / add</text>
+
+  <rect class="card" x="262" y="124" width="180" height="170" rx="14"/>
+  <rect class="pill" x="284" y="146" width="88" height="28" rx="14"/>
+  <text class="small" x="303" y="165">commit</text>
+  <text class="title" x="284" y="204">版本记录</text>
+  <text class="body" x="284" y="232">形成快照</text>
+  <text class="body" x="284" y="254">保留上下文</text>
+  <text class="small" x="284" y="278">commit / log / tag</text>
+
+  <rect class="card" x="482" y="124" width="180" height="170" rx="14"/>
+  <rect class="pill" x="504" y="146" width="88" height="28" rx="14"/>
+  <text class="small" x="520" y="165">branch</text>
+  <text class="title" x="504" y="204">并行开发</text>
+  <text class="body" x="504" y="232">隔离任务</text>
+  <text class="body" x="504" y="254">合并变更</text>
+  <text class="small" x="504" y="278">switch / merge / rebase</text>
+
+  <rect class="card" x="702" y="124" width="180" height="170" rx="14"/>
+  <rect class="pill" x="724" y="146" width="88" height="28" rx="14"/>
+  <text class="small" x="740" y="165">remote</text>
+  <text class="title" x="724" y="204">团队协作</text>
+  <text class="body" x="724" y="232">同步远程</text>
+  <text class="body" x="724" y="254">审查发布</text>
+  <text class="small" x="724" y="278">fetch / push / PR</text>
+
+  <path class="line" d="M 222 209 C 238 209, 246 209, 262 209"/>
+  <path class="line" d="M 442 209 C 458 209, 466 209, 482 209"/>
+  <path class="line" d="M 662 209 C 678 209, 686 209, 702 209"/>
+
+  <text class="body" x="92" y="352">日常闭环：status 看状态 -> diff 看内容 -> add 选范围 -> commit 记录意图 -> push 进入协作。</text>
+</svg>
