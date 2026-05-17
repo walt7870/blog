@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="450" viewBox="0 0 1080 450" role="img" aria-labelledby="title desc">
+  <title id="title">Nginx 证书自动续期链路</title>
+  <desc id="desc">展示 acme.sh 通过 DNS API 完成校验、部署证书并 reload Nginx 的流程</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#7c3aed"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:10}.ok{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#7c3aed;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="450"/>
+  <rect class="core" x="45" y="175" width="145" height="90"/><text class="text title" x="118" y="210" text-anchor="middle">acme.sh</text><text class="text body" x="118" y="237" text-anchor="middle">定期检查证书</text>
+  <rect class="box" x="245" y="80" width="160" height="85"/><text class="text title" x="325" y="113" text-anchor="middle">Let's Encrypt</text><text class="text body" x="325" y="140" text-anchor="middle">发起域名验证</text>
+  <rect class="box" x="245" y="275" width="160" height="85"/><text class="text title" x="325" y="308" text-anchor="middle">DNS API</text><text class="text body" x="325" y="335" text-anchor="middle">写入 TXT 记录</text>
+  <rect class="ok" x="470" y="175" width="150" height="90"/><text class="text title" x="545" y="210" text-anchor="middle">签发证书</text><text class="text body" x="545" y="237" text-anchor="middle">fullchain + key</text>
+  <rect class="ok" x="680" y="175" width="160" height="90"/><text class="text title" x="760" y="210" text-anchor="middle">部署目录</text><text class="text body" x="760" y="237" text-anchor="middle">/etc/nginx/ssl</text>
+  <rect class="warn" x="895" y="175" width="145" height="90"/><text class="text title" x="968" y="210" text-anchor="middle">reload</text><text class="text body" x="968" y="237" text-anchor="middle">加载新证书</text>
+  <path class="line" d="M190 205 C220 160 220 122 245 122"/>
+  <path class="line" d="M190 235 C220 285 220 318 245 318"/>
+  <path class="line" d="M405 122 C450 135 455 175 470 205"/>
+  <path class="line" d="M405 318 C450 300 455 250 470 235"/>
+  <path class="line" d="M620 220 L680 220"/>
+  <path class="line" d="M840 220 L895 220"/>
+</svg>

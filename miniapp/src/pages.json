@@ -9,7 +9,7 @@
     {
       "path": "pages/home/index",
       "style": {
-        "navigationBarTitleText": "稻草人的技术小站",
+        "navigationBarTitleText": "稻草小站",
         "navigationBarBackgroundColor": "#0d1117",
         "navigationBarTextStyle": "white"
       }
@@ -43,7 +43,7 @@
     "backgroundColor": "#0d1117",
     "navigationBarBackgroundColor": "#0d1117",
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "稻草人的技术小站"
+    "navigationBarTitleText": "稻草小站"
   },
   "subPackages": [
     { "root": "subpackages/ai", "pages": [

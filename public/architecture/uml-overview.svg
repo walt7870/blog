@@ -1,0 +1,44 @@
+<svg width="1120" height="640" viewBox="0 0 1120 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1120" height="640" rx="18" fill="#F8FAFC"/>
+  <text x="56" y="58" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0F172A">UML 图示的分工</text>
+  <text x="56" y="88" font-family="Arial, sans-serif" font-size="15" fill="#475569">先确认要表达的问题，再选择图示；结构、交互、流程、状态和部署不要挤在同一张图里。</text>
+
+  <defs>
+    <filter id="soft-uml-overview" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#94A3B8" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect x="70" y="136" width="290" height="136" rx="14" fill="#EFF6FF" stroke="#93C5FD" filter="url(#soft-uml-overview)"/>
+  <text x="100" y="174" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1D4ED8">类图</text>
+  <text x="100" y="208" font-family="Arial, sans-serif" font-size="14" fill="#1E3A8A">表达对象、接口、属性、方法</text>
+  <text x="100" y="234" font-family="Arial, sans-serif" font-size="14" fill="#1E3A8A">适合领域模型和设计模式</text>
+
+  <rect x="415" y="136" width="290" height="136" rx="14" fill="#F0FDF4" stroke="#86EFAC" filter="url(#soft-uml-overview)"/>
+  <text x="445" y="174" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#166534">时序图</text>
+  <text x="445" y="208" font-family="Arial, sans-serif" font-size="14" fill="#14532D">表达对象之间的时间顺序</text>
+  <text x="445" y="234" font-family="Arial, sans-serif" font-size="14" fill="#14532D">适合调用链、同步和异步协作</text>
+
+  <rect x="760" y="136" width="290" height="136" rx="14" fill="#FFF7ED" stroke="#FDBA74" filter="url(#soft-uml-overview)"/>
+  <text x="790" y="174" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#9A3412">活动图</text>
+  <text x="790" y="208" font-family="Arial, sans-serif" font-size="14" fill="#7C2D12">表达流程、分支、并行和结束</text>
+  <text x="790" y="234" font-family="Arial, sans-serif" font-size="14" fill="#7C2D12">适合审批、退款、结算流程</text>
+
+  <rect x="70" y="340" width="290" height="136" rx="14" fill="#F5F3FF" stroke="#C4B5FD" filter="url(#soft-uml-overview)"/>
+  <text x="100" y="378" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#6D28D9">状态机图</text>
+  <text x="100" y="412" font-family="Arial, sans-serif" font-size="14" fill="#581C87">表达对象生命周期和合法流转</text>
+  <text x="100" y="438" font-family="Arial, sans-serif" font-size="14" fill="#581C87">适合订单、工单、任务状态</text>
+
+  <rect x="415" y="340" width="290" height="136" rx="14" fill="#ECFEFF" stroke="#67E8F9" filter="url(#soft-uml-overview)"/>
+  <text x="445" y="378" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#155E75">用例图</text>
+  <text x="445" y="412" font-family="Arial, sans-serif" font-size="14" fill="#164E63">表达参与者和系统能力边界</text>
+  <text x="445" y="438" font-family="Arial, sans-serif" font-size="14" fill="#164E63">适合需求早期范围确认</text>
+
+  <rect x="760" y="340" width="290" height="136" rx="14" fill="#FEF2F2" stroke="#FCA5A5" filter="url(#soft-uml-overview)"/>
+  <text x="790" y="378" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#B91C1C">组件图 / 部署图</text>
+  <text x="790" y="412" font-family="Arial, sans-serif" font-size="14" fill="#7F1D1D">表达服务、模块、节点和运行环境</text>
+  <text x="790" y="438" font-family="Arial, sans-serif" font-size="14" fill="#7F1D1D">适合架构边界和发布拓扑</text>
+
+  <rect x="214" y="530" width="692" height="52" rx="26" fill="#0F172A"/>
+  <text x="266" y="562" font-family="Arial, sans-serif" font-size="15" fill="#E2E8F0">绘图原则：一个图只解决一个沟通问题，保留关键关系，省略干扰细节。</text>
+</svg>

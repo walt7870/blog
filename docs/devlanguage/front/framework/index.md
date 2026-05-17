@@ -1,131 +1,39 @@
 # 前端框架与工具生态
 
-## 框架概述
+前端框架生态可以分为四层：组件框架负责组织页面和交互，元框架负责路由、渲染模式和服务端能力，跨端框架负责多运行端交付，构建工具负责开发服务器、打包和资源处理。把这些概念混在一起比较，容易导致选型失焦。
 
-现代前端开发已经形成了完整的生态系统，包括各种框架、库和工具的组合。本章节将详细介绍主流的前端技术栈。
+## 分类入口
 
-## 主流前端框架
+| 分类 | 页面 | 重点 |
+| --- | --- | --- |
+| 组件框架 | [React](./react)、[Vue](./vue)、[Angular](./angular)、[Svelte](./svelte) | 组件模型、响应式、状态和生态 |
+| 元框架与全栈框架 | [元框架与全栈框架](./meta-frameworks) | Next.js、Nuxt、SvelteKit、Astro、Remix、Umi |
+| 轻量框架与 Web Components | [轻量框架](./lightweight-frameworks) | Preact、Solid、Qwik、Lit、Alpine.js |
+| 跨端框架 | [跨端框架](./cross-platform) | React Native、Flutter、Taro、uni-app、Electron |
+| 构建工具 | [Vite](./vite)、[Webpack](./webpack)、[Rollup](./rollup)、[Parcel](./parcel) | 开发服务器、打包、插件、代码分割 |
 
-### React 生态
-React 是由 Facebook 开发的用于构建用户界面的 JavaScript 库，采用组件化开发模式。
+## 选型路线
 
-**核心特性：**
-- 虚拟 DOM 提高渲染性能
-- 单向数据流
-- 强大的生态系统
-- Hooks 函数式编程
+如果要做普通后台和业务系统，优先在 React、Vue、Angular 中选择。React 生态广，适合组件抽象和复杂交互；Vue 上手成本低，国内后台生态成熟；Angular 更完整，适合强规范企业项目。
 
-**相关技术栈：**
-- [React 基础](./react.md)
-- Next.js (服务端渲染)
-- Redux/Zustand (状态管理)
-- React Router (路由管理)
+如果项目需要 SEO、服务端渲染、静态生成、文件路由或服务端接口能力，应优先看元框架，而不是只使用裸 React/Vue/Svelte。内容站、官网、文档、营销页和需要首屏性能的页面，常常更适合 Next.js、Nuxt、Astro 或 SvelteKit。
 
-### Vue 生态  
-Vue 是一个渐进式 JavaScript 框架，易于上手且功能强大。
+如果目标是小体积嵌入、微交互、Web Components 或对运行时性能有特殊要求，可以评估轻量框架。它们适合特定问题，但团队招聘、调试资料和组件生态要提前验证。
 
-**核心特性：**
-- 响应式数据绑定
-- 组件化开发
-- 模板语法简洁
-- 渐进式采用
+如果目标是移动 App、小程序、桌面端或多端统一交付，需要进入跨端框架。跨端不是“写一次到处完美运行”，仍要处理平台能力、组件差异、包体积和发布审核。
 
-**相关技术栈：**
-- [Vue.js 详解](./vue.md)
-- Nuxt.js (服务端渲染)
-- Vuex/Pinia (状态管理)
-- Vue Router (路由管理)
+## 主流框架覆盖
 
-### Angular 生态
-Angular 是由 Google 开发的完整前端框架。
+目前本专题已覆盖 React、Vue、Angular、Svelte、Vite、Webpack、Rollup、Parcel，并补充了 Next.js、Nuxt、SvelteKit、Astro、Remix、Umi、Preact、Solid、Qwik、Lit、Alpine.js、React Native、Flutter、Taro、uni-app、Electron 等主流方向的分类说明。
 
-**核心特性：**
-- TypeScript 优先
-- 依赖注入
-- 完整的解决方案
-- 企业级应用支持
+后续如果需要深入某个框架，应按“概念边界 -> 创建项目 -> 路由和状态 -> 构建部署 -> 典型问题”的结构补单独页面。
 
-**相关技术栈：**
-- [Angular 指南](./angular.md)
-- RxJS (响应式编程)
-- NgRx (状态管理)
-- Angular Material (UI组件)
+## 排查入口
 
-### Svelte 生态
-Svelte 是一个编译时优化的框架，将组件编译成高效的原生 JavaScript。
-
-**核心特性：**
-- 无虚拟 DOM
-- 编译时优化
-- 响应式声明
-- 更小的包体积
-
-**相关技术栈：**
-- [Svelte 详解](./svelte.md)
-- SvelteKit (全栈框架)
-- Svelte Store (状态管理)
-
-## 构建工具
-
-### Webpack
-功能强大的模块打包器，生态最为丰富。
-- [Webpack 详解](./webpack.md)
-
-### Vite
-新一代前端构建工具，基于原生 ES 模块。
-- [Vite 指南](./vite.md)
-
-### Rollup
-专注于 ES 模块的打包器，适合库开发。
-- [Rollup 详解](./rollup.md)
-
-### Parcel
-零配置的构建工具，开箱即用。
-- [Parcel 指南](./parcel.md)
-
-## 性能优化
-
-性能优化是前端开发的重要环节，包括：
-- 代码分割和懒加载
-- 图片优化和压缩
-- 缓存策略
-- 网络优化
-- 渲染优化
-
-[查看性能优化指南 →](../performance/index.md)
-
-## 测试体系
-
-### 单元测试
-- Jest (JavaScript测试框架)
-- Vitest (Vite原生测试)
-- React Testing Library
-
-### 端到端测试
-- Cypress
-- Playwright
-- Puppeteer
-
-### 性能测试
-- Lighthouse
-- WebPageTest
-- Chrome DevTools
-
-[查看测试指南 →](../testing/index.md)
-
-## 部署策略
-
-### 静态部署
-- GitHub Pages
-- Netlify
-- Vercel
-
-### 容器化部署
-- Docker
-- Kubernetes
-
-### CDN部署
-- Cloudflare
-- AWS CloudFront
-
-[查看部署指南 →](../deployment/index.md)
+| 现象 | 优先检查 |
+| --- | --- |
+| 框架选型争议 | 先明确渲染模式、团队经验、组件生态和部署方式 |
+| 首屏慢 | 是否需要 SSR/SSG，包体积和数据请求是否可拆分 |
+| 状态混乱 | 本地状态、全局状态和服务端缓存是否边界清晰 |
+| 构建复杂 | 是否使用了过多插件，是否能回到 Vite 或框架默认配置 |
+| 跨端适配成本高 | 平台 API、组件差异、样式单位和发布流程是否提前验证 |

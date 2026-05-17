@@ -14,15 +14,16 @@ import { sidebar } from './sidebar.ts';
 // https://vitepress.dev/reference/site-config
 export default  defineConfig({
   base: '/blog/',
-  title: '稻草人的文档',
+  title: '稻草小站',
   // logo: 'logo.png',)
   head: [
-    ['link', { rel: 'icon', href: '/blog/favicon.ico' }]
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }]
   ],
   themeConfig: {
     logo: {
-      light: '/logo.png',
-      dark: '/logov1.png',
+      light: '/logo-transparent.webp',
+      dark: '/logo-transparent.webp',
       // alt: '站点 Logo'
     },
     search: {
@@ -56,7 +57,7 @@ export default  defineConfig({
     footer: {
       message:
         '专题：<a href="/blog/docs/ai/skill/">Agent Skill</a> · <a href="/blog/docs/ai/skill/recommendations">推荐与选型</a>',
-      copyright: '稻草人的文档',
+      copyright: '稻草小站 · 粤ICP备2026008222号-1',
     },
   }
 })

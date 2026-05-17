@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
+  <title id="title">Linux 命令学习地图</title>
+  <desc id="desc">按文件、文本、系统、网络、权限、软件包和排错路径整理 Linux 命令体系</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.center{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.ops{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="500"/>
+  <rect class="center" x="430" y="195" width="220" height="110"/>
+  <text class="text title" x="540" y="238" text-anchor="middle">Linux 命令</text>
+  <text class="text body" x="540" y="268" text-anchor="middle">读文件、查状态、改配置、排故障</text>
+
+  <rect class="box" x="70" y="60" width="200" height="90"/>
+  <text class="text title" x="170" y="94" text-anchor="middle">文件与目录</text>
+  <text class="text small" x="170" y="120" text-anchor="middle">ls / cp / mv / find</text>
+
+  <rect class="box" x="430" y="40" width="220" height="90"/>
+  <text class="text title" x="540" y="74" text-anchor="middle">文本处理</text>
+  <text class="text small" x="540" y="100" text-anchor="middle">cat / grep / sed / awk</text>
+
+  <rect class="ops" x="810" y="60" width="200" height="90"/>
+  <text class="text title" x="910" y="94" text-anchor="middle">系统与进程</text>
+  <text class="text small" x="910" y="120" text-anchor="middle">ps / top / systemctl</text>
+
+  <rect class="ops" x="70" y="350" width="200" height="90"/>
+  <text class="text title" x="170" y="384" text-anchor="middle">网络排查</text>
+  <text class="text small" x="170" y="410" text-anchor="middle">ip / ss / curl / tcpdump</text>
+
+  <rect class="warn" x="430" y="370" width="220" height="90"/>
+  <text class="text title" x="540" y="404" text-anchor="middle">权限与用户</text>
+  <text class="text small" x="540" y="430" text-anchor="middle">chmod / chown / sudo</text>
+
+  <rect class="box" x="810" y="350" width="200" height="90"/>
+  <text class="text title" x="910" y="384" text-anchor="middle">归档与软件包</text>
+  <text class="text small" x="910" y="410" text-anchor="middle">tar / gzip / apt / yum</text>
+
+  <path class="line" d="M270 105 C340 130 390 180 430 225"/>
+  <path class="line" d="M540 130 L540 195"/>
+  <path class="line" d="M810 105 C740 130 690 180 650 225"/>
+  <path class="line" d="M270 395 C340 365 390 315 430 275"/>
+  <path class="line" d="M540 370 L540 305"/>
+  <path class="line" d="M810 395 C740 365 690 315 650 275"/>
+</svg>

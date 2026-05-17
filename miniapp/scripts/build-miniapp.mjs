@@ -16,10 +16,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
-  scanMarkdownFiles,
-  parseMarkdownFile,
-  inferCategory,
-  generateArticleId
+    generateArticleId,
+    inferCategory,
+    parseMarkdownFile,
+    scanMarkdownFiles
 } from './parse-md.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -97,12 +97,12 @@ onLoad(() => {
 })
 
 onShareAppMessage(() => ({
-  title: '${categoryName} - 稻草人的技术小站',
+  title: '${categoryName} - 稻草小站',
   path: '/subpackages/${categoryKey}/pages/category'
 }))
 
 onShareTimeline(() => ({
-  title: '${categoryName} - 稻草人的技术小站'
+  title: '${categoryName} - 稻草小站'
 }))
 
 const openArticle = (id) => {

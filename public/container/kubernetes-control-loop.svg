@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 控制循环</title>
+  <desc id="desc">展示用户声明资源、API Server 存储期望状态、控制器调谐、节点运行 Pod 的控制循环。</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.api{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.ctrl{fill:#fef3c7;stroke:#f59e0b;stroke-width:2}.node{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.h{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:3;fill:none}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:8 6;fill:none}.arrow{fill:#64748b}
+  </style>
+  <rect class="bg" width="1120" height="620" rx="24"/>
+  <text class="title" x="56" y="62">Kubernetes 的控制循环</text>
+  <rect class="box" x="70" y="155" width="190" height="110" rx="16"/>
+  <text class="h" x="122" y="198">声明资源</text>
+  <text class="t" x="105" y="230">YAML / kubectl</text>
+  <path class="line" d="M260 210h95"/><polygon class="arrow" points="355,210 339,200 339,220"/>
+  <rect class="api" x="355" y="130" width="220" height="160" rx="18"/>
+  <text class="h" x="420" y="178">API Server</text>
+  <text class="t" x="402" y="210">校验、鉴权、准入</text>
+  <text class="t" x="402" y="238">写入 etcd</text>
+  <path class="line" d="M575 210h95"/><polygon class="arrow" points="670,210 654,200 654,220"/>
+  <rect class="ctrl" x="670" y="130" width="220" height="160" rx="18"/>
+  <text class="h" x="742" y="178">Controller</text>
+  <text class="t" x="716" y="210">观察期望状态</text>
+  <text class="t" x="716" y="238">创建或修正资源</text>
+  <path class="line" d="M780 290v90"/><polygon class="arrow" points="780,380 770,364 790,364"/>
+  <rect class="node" x="640" y="380" width="280" height="140" rx="18"/>
+  <text class="h" x="745" y="425">Node</text>
+  <text class="t" x="700" y="456">kubelet 调用运行时</text>
+  <text class="t" x="700" y="484">启动 Pod 并回报状态</text>
+  <path class="dash" d="M640 450H465V290"/><polygon class="arrow" points="465,290 455,306 475,306"/>
+  <rect class="box" x="140" y="390" width="270" height="105" rx="16"/>
+  <text class="h" x="208" y="432">核心判断</text>
+  <text class="t" x="174" y="464">期望状态和当前状态不断对齐</text>
+  <text class="t" x="174" y="488">资源对象是平台的操作入口</text>
+</svg>

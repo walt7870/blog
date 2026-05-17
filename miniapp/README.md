@@ -1,4 +1,4 @@
-# 稻草人的技术小站 - 小程序版（方案 A：离线内容打包）
+# 稻草小站 - 小程序版（方案 A：离线内容打包）
 
 基于 [uni-app](https://uniapp.dcloud.net.cn/) + Vue 3 + TypeScript，将 VitePress 博客（`blog/docs`）的 markdown 内容在**构建期**转换为 HTML 并打包进小程序，实现完全离线可用的技术文档阅读体验。
 

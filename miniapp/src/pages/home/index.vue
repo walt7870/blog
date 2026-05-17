@@ -3,7 +3,7 @@ import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import catalog from '../../static/catalog.json'
 
 const siteInfo = {
-  name: '稻草人的技术小站',
+  name: '稻草小站',
   slogan: '技术笔记与知识归档',
   homeUrl: 'https://niuwancheng.cn/blog/'
 }

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">3A 音频前处理链路</title>
+  <desc id="desc">展示 AEC、ANS 和 AGC 在语音前处理链路中的职责、输入输出和相互影响</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
+      .aec{fill:#eff6ff;stroke:#93c5fd;stroke-width:1.6;rx:10}
+      .ans{fill:#ecfdf5;stroke:#86efac;stroke-width:1.6;rx:10}
+      .agc{fill:#fff7ed;stroke:#fdba74;stroke-width:1.6;rx:10}
+      .out{fill:#f5f3ff;stroke:#c4b5fd;stroke-width:1.6;rx:10}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
+      .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
+      .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="520"/>
+  <rect class="box" x="46" y="92" width="150" height="96"/>
+  <text class="title" x="82" y="128">麦克风输入</text>
+  <text class="txt" x="72" y="156">人声 + 噪声 + 回声</text>
+  <rect class="aec" x="266" y="92" width="170" height="96"/>
+  <text class="title" x="326" y="128">AEC</text>
+  <text class="txt" x="292" y="156">先减掉自身播放回声</text>
+  <rect class="ans" x="506" y="92" width="170" height="96"/>
+  <text class="title" x="566" y="128">ANS</text>
+  <text class="txt" x="532" y="156">再压低环境噪声</text>
+  <rect class="agc" x="746" y="92" width="170" height="96"/>
+  <text class="title" x="806" y="128">AGC</text>
+  <text class="txt" x="772" y="156">最后拉齐语音响度</text>
+  <rect class="out" x="972" y="92" width="110" height="96"/>
+  <text class="title" x="1008" y="128">输出</text>
+  <text class="small" x="992" y="156">送给唤醒</text>
+  <text class="small" x="992" y="176">ASR 或通话</text>
+  <path class="line" d="M196 140 H266"/>
+  <path class="line" d="M436 140 H506"/>
+  <path class="line" d="M676 140 H746"/>
+  <path class="line" d="M916 140 H972"/>
+
+  <rect class="box" x="266" y="286" width="170" height="86"/>
+  <text class="title" x="306" y="320">播放参考</text>
+  <text class="txt" x="292" y="346">必须覆盖真实播放内容</text>
+  <rect class="box" x="506" y="286" width="170" height="86"/>
+  <text class="title" x="546" y="320">噪声估计</text>
+  <text class="txt" x="532" y="346">区分语音和背景声</text>
+  <rect class="box" x="746" y="286" width="170" height="86"/>
+  <text class="title" x="786" y="320">响度目标</text>
+  <text class="txt" x="772" y="346">控制增益上下限</text>
+  <path class="dash" d="M351 286 V188"/>
+  <path class="dash" d="M591 286 V188"/>
+  <path class="dash" d="M831 286 V188"/>
+
+  <rect class="box" x="92" y="420" width="936" height="58"/>
+  <text class="txt" x="118" y="455">顺序通常是 AEC -> ANS -> AGC：先去掉系统自己的声音，再压环境噪声，最后调响度。顺序错了会互相放大问题，例如 AGC 放大残留回声，ANS 把回声误当噪声处理。</text>
+</svg>

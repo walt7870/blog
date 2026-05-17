@@ -1,263 +1,203 @@
-# location 匹配规则详解
+# location 匹配
 
-## 1. 前缀匹配（Prefix Matching）
+`location` 决定某个 URI 进入 Nginx 后由哪段配置处理。它是 Nginx 最容易误解的部分：不是谁写在前面谁生效，也不是最长前缀永远优先。
 
-前缀匹配是最简单的匹配方式，它基于 URI 的前缀进行匹配。
+可以把 `location` 匹配理解成分诊：先看有没有完全相同的专用窗口，再看有没有明确声明“不再走正则”的前缀窗口，之后才轮到正则窗口，最后用普通最长前缀兜底。
 
-### 1.1 精确匹配
+![Nginx location 匹配优先级](/nginx/location-priority.svg)
 
-如果 URI 完全等于指定的前缀，则匹配成功。
+## 基本类型
 
-```nginx
-location = /exact {
-    # 只匹配精确的 URI "/exact"
-}
-```
+| 写法 | 类型 | 特点 |
+| --- | --- | --- |
+| `location = /login` | 精确匹配 | URI 完全相等才命中，命中后立即停止 |
+| `location ^~ /static/` | 高优先级前缀 | 命中最长 `^~` 后跳过正则 |
+| `location ~ \.php$` | 区分大小写正则 | 按配置顺序测试正则 |
+| `location ~* \.(png|jpg)$` | 不区分大小写正则 | 常用于扩展名 |
+| `location /api/` | 普通前缀 | 记录最长匹配，但可能被正则覆盖 |
+| `location @fallback` | 命名位置 | 不能被外部 URI 直接访问，常用于内部跳转 |
 
-**✅说明：**
+## 匹配顺序
 
-- 请求 /exact 会匹配到这个 location。
-- 请求 /exact/path 不会匹配。
+Nginx 对一个 URI 的选择过程可以简化为：
 
-### 1.2 前缀匹配
+1. 先检查 `=` 精确匹配；命中就直接使用。
+2. 找到最长前缀匹配。
+3. 如果最长前缀带 `^~`，直接使用它，不再检查正则。
+4. 否则按配置顺序检查正则 `~`、`~*`；第一个命中的正则生效。
+5. 如果没有正则命中，使用第 2 步记录的最长普通前缀。
 
-如果 URI 以指定的前缀开头，则匹配成功。
+最容易踩坑的是第 4 步：普通最长前缀可能被后面的正则覆盖。
 
-```nginx
-location /prefix {
-    # 匹配以 "/prefix" 开头的 URI
-}
-```
-
-**✅说明：**
-
-- 请求 /prefix 会匹配到这个 location。
-- 请求 /prefix/path 也会匹配。
-
-### 1.3 前缀匹配（最长匹配）
-
-如果有多个前缀匹配规则，Nginx 会选择最长的匹配规则。
-
-```nginx
-location / {
-    # 匹配所有 URI
-}
-
-location /api {
-    # 匹配以 "/api" 开头的 URI
-}
-
-location /api/v1 {
-    # 匹配以 "/api/v1" 开头的 URI
-}
-```
-
-**✅说明：**
-
-- 请求 /api 会匹配到 location /api。
-- 请求 /api/v1 会匹配到 location /api/v1。
-- 请求 /api/v1/resource 也会匹配到 location /api/v1。
-- 请求 / 会匹配到 location /。
-
-## 2. 正则表达式匹配（Regular Expression Matching）
-
-正则表达式匹配允许使用正则表达式来匹配 URI，提供了更强大的匹配能力。
-
-### 2.1 普通正则表达式
-
-使用正则表达式匹配 URI。
-
-```nginx
-location ~ ^/regex/ {
-    # 匹配以 "/regex/" 开头的 URI
-}
-```
-
-**✅说明：**
-
-- 请求 /regex/path 会匹配到这个 location。
-- 请求 /regex/ 也会匹配。
-
-### 2.2 普通正则表达式（区分大小写）
-
-默认情况下，正则表达式匹配是区分大小写的。
-
-```nginx
-location ~ ^/regex/ {
-    # 匹配以 "/regex/" 开头的 URI，区分大小写
-}
-```
-
-**✅说明：**
-
-- 请求 /regex/path 会匹配到这个 location。
-- 请求 /REGEX/path 不会匹配。
-
-### 2.3 普通正则表达式（不区分大小写）
-
-使用 ~* 使正则表达式匹配不区分大小写。
-
-```nginx
-location ~* ^/regex/ {
-    # 匹配以 "/regex/" 开头的 URI，不区分大小写
-}
-```
-
-**✅说明：**
-
-- 请求 /regex/path 会匹配到这个 location。
-- 请求 /REGEX/path 也会匹配。
-
-### 2.4 普通正则表达式（匹配文件扩展名）
-
-常用场景是根据文件扩展名匹配请求。
-
-```nginx
-location ~* \.(jpg|jpeg|png|gif)$ {
-    # 匹配以 .jpg、.jpeg、.png 或 .gif 结尾的文件
-}
-```
-
-**✅说明：**
-
-- 请求 /images/photo.jpg 会匹配到这个 location。
-- 请求 /images/photo.JPG 也会匹配（因为使用了 ~*）。
-
-## 3. 特殊匹配规则
-
-### 3.1 @ 命名位置
-
-@ 用于定义命名位置，通常用于 try_files 或 error_page 的内部跳转。
-
-```nginx
-location / {
-    try_files $uri $uri/ @fallback;
-}
-
-location @fallback {
-    # 处理未找到文件的情况
-    proxy_pass http://backend_server;
-}
-```
-
-**✅说明：**
-
-- 请求 /path 如果没有找到对应的文件，会跳转到 location @fallback。
-
-### 3.2 = 精确匹配
-
-= 用于精确匹配 URI，要求 URI 完全一致。
-
-```nginx
-location = /exact {
-    # 只匹配精确的 URI "/exact"
-}
-```
-
-**✅说明：**
-
-- 请求 /exact 会匹配到这个 location。
-- 请求 /exact/path 不会匹配。
-
-### 3.3 ^~ 前缀匹配（优先级高
-
-^~ 用于前缀匹配，但优先级高于正则表达式匹配。
-
-```nginx
-location ^~ /static/ {
-    # 匹配以 "/static/" 开头的 URI，优先级高于正则表达式
-}
-```
-
-**✅说明：**
-
-- 请求 /static/file 会匹配到这个 location，即使有其他正则表达式匹配规则。
-
-## 4. 匹配优先级
-
-Nginx 的 location 匹配规则有明确的优先级顺序：
-
-1. 精确匹配（=）：最高优先级
-2. 正则表达式匹配：按出现顺序匹配，第一个匹配的规则生效
-3. 前缀匹配（^~）：优先级高于普通前缀匹配
-4. 普通前缀匹配：最长匹配优先
-5. 默认匹配（/）：如果没有其他匹配规则，最后匹配默认的 location /
-
-## 5. 实际应用说明
-
-### 5.1 静态文件和 API 请求
+## 例子：API 与静态资源
 
 ```nginx
 server {
     listen 80;
     server_name example.com;
 
-    root /var/www/html;
-
-    # 静态文件
-    location /static/ {
-        # 匹配以 "/static/" 开头的 URI
-        try_files $uri =404;
+    location ^~ /api/ {
+        proxy_pass http://127.0.0.1:8080;
     }
 
-    # API 请求
-    location /api/ {
-        # 匹配以 "/api/" 开头的 URI
-        proxy_pass http://backend_api_server;
-    }
-
-    # 默认页面
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-### 5.2 文件扩展名匹配
-
-```nginx
-server {
-    listen 80;
-    server_name example.com;
-
-    root /var/www/html;
-
-    # 匹配图片文件
-    location ~* \.(jpg|jpeg|png|gif)$ {
-        # 设置缓存头
+    location ~* \.(js|css|png|jpg)$ {
+        root /var/www/static;
         expires 30d;
     }
 
-    # 匹配 CSS 和 JS 文件
-    location ~* \.(css|js)$ {
-        # 设置缓存头
-        expires 1h;
-    }
-
-    # 默认页面
     location / {
+        root /var/www/app;
         try_files $uri $uri/ /index.html;
     }
 }
 ```
 
-### 5.3 命名位置用于错误处理
+这段配置里：
+
+- `/api/users` 命中 `^~ /api/`，不会再进入正则。
+- `/assets/app.js` 命中静态资源正则。
+- `/profile` 命中 `/`，最终回退到 `index.html`。
+
+如果把 `/api/` 写成普通前缀，且请求路径看起来像静态扩展名，就可能被正则抢走。
+
+## `root` 与 `alias`
+
+`root` 是把 URI 追加到根目录后面；`alias` 是把匹配前缀替换成指定目录。
 
 ```nginx
-server {
-    listen 80;
-    server_name example.com;
-
-    root /var/www/html;
-
-    # 默认页面
-    location / {
-        try_files $uri $uri/ @fallback;
-    }
-
-    # 命名位置：处理未找到文件的情况
-    location @fallback {
-        proxy_pass http://backend_server;
-    }
+location /static/ {
+    root /var/www;
 }
 ```
+
+访问 `/static/logo.png` 时，实际路径是：
+
+```text
+/var/www/static/logo.png
+```
+
+```nginx
+location /static/ {
+    alias /data/assets/;
+}
+```
+
+访问 `/static/logo.png` 时，实际路径是：
+
+```text
+/data/assets/logo.png
+```
+
+`alias` 结尾斜杠和 `location` 前缀要配套，否则路径拼接很容易出错。
+
+## `try_files`
+
+`try_files` 用来按顺序尝试文件路径，找不到时回退到最后一个参数。
+
+SPA 常见写法：
+
+```nginx
+location / {
+    root /var/www/app;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+含义：
+
+1. 先找 URI 对应文件。
+2. 再找 URI 对应目录。
+3. 都没有就返回 `/index.html`。
+
+这不是“所有 404 都变成成功”。如果静态资源路径写错，也可能被回退成 HTML，导致浏览器报 JS MIME 类型错误。
+
+## `proxy_pass` 的路径问题
+
+`proxy_pass` 是否带 URI，会影响转发路径。
+
+```nginx
+location /api/ {
+    proxy_pass http://127.0.0.1:8080;
+}
+```
+
+请求 `/api/users` 转给后端仍是 `/api/users`。
+
+```nginx
+location /api/ {
+    proxy_pass http://127.0.0.1:8080/;
+}
+```
+
+请求 `/api/users` 转给后端通常会变成 `/users`。
+
+处理接口前缀时要先确认后端是否需要保留 `/api`。路径错位是 404 和接口不通的高发原因。
+
+## 常见场景
+
+### 前端应用 + API
+
+```nginx
+location ^~ /api/ {
+    proxy_pass http://127.0.0.1:8080;
+}
+
+location / {
+    root /var/www/app;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+`/api/` 用 `^~` 是为了避免被静态资源正则误抢。
+
+### 禁止访问隐藏文件
+
+```nginx
+location ~ /\.(?!well-known) {
+    return 404;
+}
+```
+
+它用于阻止访问 `.git`、`.env` 等隐藏文件，同时保留 ACME 可能使用的 `.well-known`。
+
+### 错误回退
+
+```nginx
+location / {
+    try_files $uri @backend;
+}
+
+location @backend {
+    proxy_pass http://127.0.0.1:8080;
+}
+```
+
+命名 location 只能内部跳转，适合做 fallback。
+
+## 排查路径
+
+### 请求命中了错误 location
+
+检查顺序：
+
+1. 是否有 `=` 精确匹配。
+2. 最长前缀是哪一个。
+3. 最长前缀是否带 `^~`。
+4. 是否有正则按配置顺序抢先命中。
+5. 是否存在 include 引入的额外 location。
+
+### 静态文件路径不对
+
+重点区分 `root` 和 `alias`。把 URI 和目录手动拼一遍，通常能很快发现问题。
+
+### API 被当成静态资源
+
+优先给 API 前缀使用 `^~ /api/`，并把静态资源正则放在不会误伤接口的位置。
+
+### SPA 刷新 404
+
+需要让前端路由回退到 `index.html`，但 API 和静态资源不要被错误回退。
+
+## 总结
+
+`location` 的核心是选择规则。精确匹配最强，`^~` 可以阻止正则抢走请求，普通最长前缀可能被正则覆盖。排查时不要只看配置顺序，要按 Nginx 的匹配流程一步步还原 URI 最终落到哪里。

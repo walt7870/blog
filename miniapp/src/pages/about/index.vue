@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
+import { computed } from 'vue'
 import catalog from '../../static/catalog.json'
 
 const siteInfo = {
-  name: '稻草人的技术小站',
+  name: '稻草小站',
   slogan: '技术笔记与知识归档',
   description: '后端 / 架构 / 数据 / AI / Linux / 工具链，系统化整理的技术文档。',
   homeUrl: 'https://niuwancheng.cn/blog/'

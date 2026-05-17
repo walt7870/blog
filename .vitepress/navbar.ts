@@ -16,16 +16,12 @@ export const nav: DefaultTheme.NavItem[] = [
       ]
     },
     {
-      text: '数据', items: [
-        { text: '数据库技术', link: '/docs/database/' },
-        { text: '大数据技术', link: '/docs/database/bigdata/' },
-      ]
+      text: '数据',
+      link: '/docs/database/',
     },
     {
-      text: '开发语言', items: [
-        { text: 'JAVA', link: '/docs/devlanguage/java/' },
-        { text: 'Rust', link: '/docs/devlanguage/rust/' },
-      ]
+      text: '开发语言',
+      link: '/docs/devlanguage/',
     },
 
 

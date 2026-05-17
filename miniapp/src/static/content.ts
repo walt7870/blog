@@ -101,7 +101,7 @@ export const linkFeed: LinkItem[] = [
     title: '人工智能概述',
     summary: '从科幻到现实的智能革命，介绍 AI 基本概念与发展脉络。',
     url: `${BASE}/docs/ai/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-skill',
@@ -110,7 +110,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Agent Skill 概述',
     summary: 'Claude Agent Skill 的设计理念、能力边界与工程实践。',
     url: `${BASE}/docs/ai/skill/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-skill-recommend',
@@ -119,7 +119,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Skill 推荐与选型',
     summary: '主流 Skill 的使用场景对比，帮助快速完成技术选型。',
     url: `${BASE}/docs/ai/skill/recommendations`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-ml',
@@ -128,7 +128,7 @@ export const linkFeed: LinkItem[] = [
     title: '机器学习',
     summary: '监督 / 无监督学习、常见算法与工程化落地思路。',
     url: `${BASE}/docs/ai/ml`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-mcp',
@@ -137,7 +137,7 @@ export const linkFeed: LinkItem[] = [
     title: 'MCP',
     summary: 'Model Context Protocol 的核心概念与典型实现。',
     url: `${BASE}/docs/ai/mcp`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-agent',
@@ -146,7 +146,7 @@ export const linkFeed: LinkItem[] = [
     title: '智能体',
     summary: 'Agent 的编排、记忆与工具调用范式。',
     url: `${BASE}/docs/ai/agent`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'ai-llm',
@@ -155,7 +155,7 @@ export const linkFeed: LinkItem[] = [
     title: '大模型概述与 SFT',
     summary: '大模型基础原理、监督微调（SFT）流程与实战要点。',
     url: `${BASE}/docs/ai/llm/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
 
   // ==== 架构 ====
@@ -166,7 +166,7 @@ export const linkFeed: LinkItem[] = [
     title: '架构设计概述',
     summary: '架构设计的目标、权衡与常见风格速览。',
     url: `${BASE}/docs/design/architecture/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-layered',
@@ -175,7 +175,7 @@ export const linkFeed: LinkItem[] = [
     title: '分层架构',
     summary: '经典三层 / 四层架构的定义、优势与适用场景。',
     url: `${BASE}/docs/design/architecture/layered-architecture`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-microservices',
@@ -184,7 +184,7 @@ export const linkFeed: LinkItem[] = [
     title: '微服务架构',
     summary: '服务拆分原则、通信机制、治理与可观测性。',
     url: `${BASE}/docs/design/architecture/microservices-architecture`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-cqrs',
@@ -193,7 +193,7 @@ export const linkFeed: LinkItem[] = [
     title: 'CQRS 架构',
     summary: '命令与查询职责分离的动机、落地模式与注意事项。',
     url: `${BASE}/docs/design/architecture/cqrs-architecture`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-ddd',
@@ -202,7 +202,7 @@ export const linkFeed: LinkItem[] = [
     title: '领域驱动设计 DDD',
     summary: '核心概念、聚合根、限界上下文与实践指南。',
     url: `${BASE}/docs/design/architecture/DDD/domain-driven-design`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-container',
@@ -211,7 +211,7 @@ export const linkFeed: LinkItem[] = [
     title: '容器与编排',
     summary: 'Docker、Kubernetes 核心资源与 Operator 模式。',
     url: `${BASE}/docs/container/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-design-pattern',
@@ -220,7 +220,7 @@ export const linkFeed: LinkItem[] = [
     title: '设计模式',
     summary: '创建型、结构型、行为型模式的系统梳理。',
     url: `${BASE}/docs/design/design-pattern/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'arch-develop-pattern',
@@ -229,7 +229,7 @@ export const linkFeed: LinkItem[] = [
     title: '开发模式',
     summary: '瀑布、敏捷、DevOps、精益等交付方法论。',
     url: `${BASE}/docs/design/develop-pattern/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
 
   // ==== 数据 ====
@@ -240,7 +240,7 @@ export const linkFeed: LinkItem[] = [
     title: '数据库技术概述',
     summary: '关系型、文档、KV、搜索、时序、图数据库全景。',
     url: `${BASE}/docs/database/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'db-mysql',
@@ -249,7 +249,7 @@ export const linkFeed: LinkItem[] = [
     title: 'MySQL 专栏',
     summary: '从基础语法到存储引擎、事务、查询优化与高可用。',
     url: `${BASE}/docs/database/mysql/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'db-redis',
@@ -258,7 +258,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Redis',
     summary: '数据结构、持久化、集群与典型使用场景。',
     url: `${BASE}/docs/database/redis`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'db-es',
@@ -267,7 +267,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Elasticsearch',
     summary: '倒排索引、查询 DSL、集群与调优要点。',
     url: `${BASE}/docs/database/elasticsearch`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'db-mongo',
@@ -276,7 +276,7 @@ export const linkFeed: LinkItem[] = [
     title: 'MongoDB',
     summary: '文档模型、聚合管道、副本集与分片架构。',
     url: `${BASE}/docs/database/mongodb`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'bd-overview',
@@ -285,7 +285,7 @@ export const linkFeed: LinkItem[] = [
     title: '大数据技术概述',
     summary: '数据分层、数据仓库与数据湖的演进。',
     url: `${BASE}/docs/database/bigdata/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'bd-spark',
@@ -294,7 +294,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Apache Spark',
     summary: '批处理 / 流处理统一引擎的原理与实践。',
     url: `${BASE}/docs/database/bigdata/apache-spark`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'bd-flink',
@@ -303,7 +303,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Apache Flink',
     summary: '状态管理、时间语义与流批一体实现。',
     url: `${BASE}/docs/database/bigdata/apache-flink`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
 
   // ==== 开发语言 ====
@@ -314,7 +314,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Java 基础',
     summary: '基础语法、工具类与语言特性的系统回顾。',
     url: `${BASE}/docs/devlanguage/java/basic/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'java-framework',
@@ -323,7 +323,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Java 框架',
     summary: 'Spring 生态（IOC / AOP / MVC / Boot）与 Mybatis。',
     url: `${BASE}/docs/devlanguage/java/framework/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'java-jvm',
@@ -332,7 +332,7 @@ export const linkFeed: LinkItem[] = [
     title: 'JVM 内核',
     summary: '运行时数据区、GC 策略（G1 / ZGC / Shenandoah）。',
     url: `${BASE}/docs/devlanguage/java/jvm/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'java-jdk',
@@ -341,7 +341,7 @@ export const linkFeed: LinkItem[] = [
     title: 'JDK 演进',
     summary: 'JDK 版本特性演化与升级要点。',
     url: `${BASE}/docs/devlanguage/java/jdk/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'java-manager',
@@ -350,7 +350,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Maven & Gradle',
     summary: 'Java 依赖与构建工具的使用与比较。',
     url: `${BASE}/docs/devlanguage/java/manager/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
 
   // ==== Linux ====
@@ -361,7 +361,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Linux 系统概述',
     summary: '发行版、内核与用户空间的基础概念。',
     url: `${BASE}/docs/linux/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'linux-command',
@@ -370,7 +370,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Linux 常用命令',
     summary: '文件 / 文本 / 网络 / 权限 / 进程相关命令速查。',
     url: `${BASE}/docs/linux/command/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'linux-process',
@@ -379,7 +379,7 @@ export const linkFeed: LinkItem[] = [
     title: '进程管理',
     summary: 'Init、systemd、内核线程与用户进程的全景。',
     url: `${BASE}/docs/linux/process/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'linux-nginx',
@@ -388,7 +388,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Nginx 实战',
     summary: '核心配置、location 详解与证书自动续期。',
     url: `${BASE}/docs/linux/nginx/nginx`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
 
   // ==== 工具 ====
@@ -399,7 +399,7 @@ export const linkFeed: LinkItem[] = [
     title: 'Vim',
     summary: '终端编辑器、寄存器与高效操作技巧。',
     url: `${BASE}/docs/tools/vim/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'tool-mq',
@@ -408,7 +408,7 @@ export const linkFeed: LinkItem[] = [
     title: '消息中间件',
     summary: 'Kafka、RabbitMQ、RocketMQ、Pulsar 的对比与实战。',
     url: `${BASE}/docs/tools/mq/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'tool-vfox',
@@ -417,7 +417,7 @@ export const linkFeed: LinkItem[] = [
     title: 'vfox',
     summary: '跨语言、跨平台的版本管理工具。',
     url: `${BASE}/docs/tools/vfox/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   },
   {
     id: 'tool-sdkman',
@@ -426,7 +426,7 @@ export const linkFeed: LinkItem[] = [
     title: 'sdkman',
     summary: 'JVM 生态构建工具的版本管理利器。',
     url: `${BASE}/docs/tools/sdkman/`,
-    source: '稻草人的技术小站'
+    source: '稻草小站'
   }
 ]
 
@@ -438,7 +438,7 @@ export const homeHighlights = [
 ]
 
 export const siteInfo = {
-  name: '稻草人的技术小站',
+  name: '稻草小站',
   slogan: '专注技术分享与知识传播',
   description:
     '后端、架构、数据、AI、Linux、工具链，系统化整理的技术文档与实战经验。',

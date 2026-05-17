@@ -1,303 +1,170 @@
 # Linux 常用命令概览
 
-## 概述
+Linux 命令不是一堆孤立的速查表，而是一套和系统交互的工具箱。日常工作里最常见的动作可以归成几类：找文件、看内容、处理文本、查系统状态、排网络问题、改权限、装软件、打包传输。
 
-Linux命令行是Linux系统的核心组成部分，提供了强大而灵活的系统管理和操作能力。通过命令行，用户可以高效地完成文件管理、系统监控、网络配置、进程控制等各种任务。
+![Linux 命令学习地图](/linux/linux-command-map.svg)
 
-本文档系列详细介绍了Linux系统中最常用的命令，按功能分类组织，便于学习和查阅。
+## 阅读路径
 
-## 命令分类导航
+| 目标 | 先看 | 解决的问题 |
+| --- | --- | --- |
+| 熟悉目录、复制、移动、删除 | [文件基础操作](./file-basic.md) | 文件和目录如何组织 |
+| 查看日志、搜索关键字、处理文本 | [文本处理命令](./text-processing.md) | 从文本里提取有效信息 |
+| 查进程、负载、内存、磁盘 | [系统信息命令](./system-info.md) / [系统监控](./system-monitoring.md) | 系统是否健康 |
+| 查端口、DNS、网络连通性 | [网络命令](./network.md) / [网络配置和诊断](./network-config.md) | 请求为什么不通 |
+| 改权限、用户、sudo | [权限管理](./permissions.md) / [用户管理](./user-management.md) | 谁能读写和执行 |
+| 压缩、解压、备份 | [压缩归档](./archive.md) | 文件如何打包传输 |
+| 安装和排查软件包 | [软件包管理](./package.md) | 命令从哪里来、依赖怎么装 |
 
-### 文件和目录操作
+## 命令的基本结构
 
-- **[文件基础操作](./file-basic.md)** - ls, cd, pwd, mkdir, rmdir, rm, cp, mv, ln
-- **[文件查看和编辑](./file-view-edit.md)** - cat, less, more, head, tail, vi/vim, nano
-- **[文件权限和属性](./file-permissions.md)** - chmod, chown, chgrp, umask, stat
-- **[文件查找和定位](./file-search.md)** - find, locate, which, whereis
+一条命令通常由三部分组成：
+
+```bash
+命令 [选项] [对象]
+```
+
+例如：
+
+```bash
+ls -lh /var/log
+```
+
+- `ls` 是命令，表示列出目录内容。
+- `-lh` 是选项，表示长格式和人类可读大小。
+- `/var/log` 是对象，表示要查看的目录。
+
+读命令时先看动词，再看选项，最后看作用对象。写命令时也按这个顺序思考，可以减少误操作。
+
+## 高频工作流
+
+### 查一个服务为什么不通
+
+1. 用 `systemctl status` 看服务是否运行。
+2. 用 `ss -lntp` 看端口是否监听。
+3. 用 `curl -v` 看 HTTP 响应。
+4. 用 `journalctl -u` 或日志文件看错误。
+5. 用 `ip route`、`ping`、`traceroute` 排查网络路径。
+
+相关页面：
+
+- [网络命令](./network.md)
+- [网络配置和诊断](./network-config.md)
+- [系统监控](./system-monitoring.md)
+
+### 查磁盘为什么满了
+
+1. `df -h` 看哪个挂载点满。
+2. `du -sh *` 找当前目录下的大目录。
+3. `find` 查大文件或旧文件。
+4. 确认是否日志、缓存、备份、容器镜像占用。
+5. 删除前确认文件是否仍被进程占用。
+
+相关页面：
+
+- [系统信息命令](./system-info.md)
+- [文件查找和定位](./file-search.md)
+- [文件基础操作](./file-basic.md)
+
+### 查日志里的异常
+
+1. `tail -f` 观察实时日志。
+2. `grep` 搜索错误关键字。
+3. `grep -n` 带行号定位上下文。
+4. `awk` 或 `cut` 提取字段。
+5. `sort | uniq -c | sort -nr` 统计频率。
+
+相关页面：
+
+- [文本处理命令](./text-processing.md)
+- [文本比较和合并](./text-compare.md)
+
+## 分类导航
+
+### 文件与目录
+
+- [文件基础操作](./file-basic.md)：`pwd`、`cd`、`ls`、`mkdir`、`cp`、`mv`、`ln`、`rm`
+- [文件查看与编辑](./file-view-edit.md)：文件查看、分页、编辑器入口
+- [文件查找和定位](./file-search.md)：`find`、`locate`、`which`、`whereis`
+- [文件权限和属性](./file-permissions.md)：`chmod`、`chown`、`umask`、`stat`
 
 ### 文本处理
 
-- **[文本查看和处理](./text-processing.md)** - grep, sed, awk, sort, uniq, cut, tr
-- **[文本比较和合并](./text-compare.md)** - diff, comm, join, paste
+- [文本处理命令](./text-processing.md)：`cat`、`less`、`head`、`tail`、`grep`、`sed`、`awk`、`sort`、`uniq`
+- [文本比较和合并](./text-compare.md)：`diff`、`comm`、`join`、`paste`
 
-### 系统信息和监控
+### 系统、进程和监控
 
-- **[系统信息查看](./system-info.md)** - ps, top, htop, free, df, du, uname, uptime
-- **[进程管理](./process-management.md)** - kill, killall, jobs, bg, fg, nohup
-- **[系统监控](./system-monitoring.md)** - iostat, vmstat, sar, netstat, ss
+- [系统信息命令](./system-info.md)：系统、CPU、内存、磁盘、登录用户等信息
+- [系统监控](./system-monitoring.md)：`top`、`htop`、`vmstat`、`iostat`、`free`、`df`
+- [进程管理命令](./process.md)：`ps`、`top`、`kill`、`nohup`、`screen`、`tmux`
+- [进程管理速查](./process-management.md)：常见进程操作的轻量入口
 
-### 网络操作
+### 网络
 
-- **[网络基础命令](./network-basic.md)** - ping, wget, curl, ssh, scp, rsync
-- **[网络配置和诊断](./network-config.md)** - ifconfig, ip, route, iptables, tcpdump
+- [网络命令](./network.md)：网络接口、连接、DNS、抓包等完整说明
+- [网络基础命令](./network-basic.md)：`ping`、`curl`、`wget`、`ssh`、`scp`
+- [网络配置和诊断](./network-config.md)：IP、路由、DNS、防火墙和诊断流程
 
-### 压缩和归档
+### 权限、用户和环境
 
-- **[压缩和解压](./archive-compress.md)** - tar, gzip, gunzip, zip, unzip, 7z
+- [权限管理](./permissions.md)：文件权限、ACL、sudo、特殊权限位
+- [用户和权限管理](./user-management.md)：用户、组、sudo、身份切换
+- [环境变量和配置](./environment.md)：`PATH`、`alias`、`history`、shell 配置
 
-### 软件包管理
+### 归档和软件包
 
-- **[包管理系统](./package.md)** - apt, yum, dnf, pacman, zypper
-<!-- - **[包格式处理](./package-format.md)** - dpkg, rpm -->
+- [压缩归档命令](./archive.md)：`tar`、`gzip`、`zip`、`7z` 及备份场景
+- [压缩和解压速查](./archive-compress.md)：压缩工具的轻量入口
+- [软件包管理](./package.md)：`apt`、`yum`、`dnf`、`pacman`、`zypper`
 
-### 环境和配置
+## grep 和正则速记
 
-- **[环境变量和配置](./environment.md)** - export, env, set, alias, history, source
-- **[用户和权限管理](./user-management.md)** - su, sudo, passwd, id, groups
+早期 `commond.md` 里的 grep 笔记已经合并到这里。常用选项：
 
-## Linux命令基础知识
+| 选项 | 含义 |
+| --- | --- |
+| `-c` | 只统计匹配行数 |
+| `-n` | 显示行号 |
+| `-o` | 只输出匹配到的内容 |
+| `-E` | 使用扩展正则表达式 |
+| `-r` | 递归搜索目录 |
+| `-i` | 忽略大小写 |
+| `-v` | 反向匹配 |
 
-### 命令结构
+常用正则：
 
-Linux命令的基本结构如下：
+| 写法 | 含义 | 示例 |
+| --- | --- | --- |
+| `?` | 前一个字符出现 0 次或 1 次 | `colou?r` |
+| `+` | 前一个字符出现 1 次或多次，需配合 `grep -E` | `grep -E 'l+' file` |
+| `|` | 或，需配合 `grep -E` | `grep -E 'error|warn' app.log` |
+| `()` | 分组，需配合 `grep -E` | `grep -E 'g(oo|la)d' file` |
+| `[^0-5]` | 不在 0 到 5 范围内的字符 | `grep '[^0-5]' file` |
+| `^$` | 空行 | `grep '^$' file` |
+| `^#` | 以 `#` 开头的行 | `grep '^#' file` |
+| `\.$` | 以 `.` 结尾的行 | `grep '\.$' file` |
 
-```bash
-命令名 [选项] [参数]
-```
-
-**示例：**
-
-```bash
-ls -la /home/user
-│  │   │
-│  │   └── 参数（目标目录）
-│  └── 选项（长格式显示，包含隐藏文件）
-└── 命令名
-```
-
-### 选项格式
-
-#### 短选项
-
-- 以单个连字符开头：`-l`, `-a`, `-h`
-- 可以组合使用：`-la` 等同于 `-l -a`
-
-#### 长选项
-
-- 以双连字符开头：`--help`, `--version`, `--recursive`
-- 更具描述性，易于理解
-
-### 通用选项
-
-几乎所有Linux命令都支持的选项：
-
-- `--help` 或 `-h`：显示帮助信息
-- `--version` 或 `-V`：显示版本信息
-- `--verbose` 或 `-v`：详细输出模式
-- `--quiet` 或 `-q`：静默模式
-
-### 特殊字符和通配符
-
-#### 通配符
-
-- `*`：匹配任意长度的任意字符
-- `?`：匹配单个字符
-- `[abc]`：匹配方括号中的任意一个字符
-- `[a-z]`：匹配指定范围内的字符
-- `{a,b,c}`：匹配大括号中的任意一个字符串
-
-#### 重定向和管道
-
-- `>`：输出重定向（覆盖）
-- `>>`：输出重定向（追加）
-- `<`：输入重定向
-- `|`：管道，将前一个命令的输出作为后一个命令的输入
-- `&&`：逻辑与，前一个命令成功执行后才执行后一个命令
-- `||`：逻辑或，前一个命令失败后才执行后一个命令
-
-### 命令执行环境
-
-#### 路径
-
-- **绝对路径**：从根目录开始的完整路径，如 `/home/user/file.txt`
-- **相对路径**：相对于当前目录的路径，如 `./file.txt` 或 `../parent/file.txt`
-- **特殊目录符号**：
-  - `.`：当前目录
-  - `..`：父目录
-  - `~`：用户主目录
-  - `-`：上一个工作目录
-
-#### 环境变量
-
-- `$PATH`：可执行文件搜索路径
-- `$HOME`：用户主目录
-- `$USER`：当前用户名
-- `$PWD`：当前工作目录
-- `$SHELL`：当前使用的Shell
-
-## 命令学习方法
-
-### 1. 查看帮助文档
+排查日志时常用组合：
 
 ```bash
-# 查看命令简要帮助
-command --help
-
-# 查看详细手册页
-man command
-
-# 查看命令信息
-info command
-
-# 查看命令类型和位置
-type command
-which command
+grep -nE 'error|exception|timeout' app.log
+grep -rni 'listen' /etc/nginx
+grep -v '^#' nginx.conf | grep -v '^$'
 ```
 
-### 2. 实践练习
+## 安全边界
 
-- 在安全的测试环境中练习
-- 从简单命令开始，逐步学习复杂用法
-- 结合实际工作场景练习
+Linux 命令直接操作系统状态，以下命令要先确认作用范围：
 
-### 3. 命令组合
+- `rm -rf`：递归删除，不可恢复。
+- `dd`：直接读写块设备，目标写错会破坏磁盘。
+- `chmod -R`、`chown -R`：递归改权限，可能影响服务运行。
+- `kill -9`：强制终止进程，可能导致数据未落盘。
+- `iptables`、`firewall-cmd`：可能把自己挡在服务器外。
 
-- 学会使用管道组合多个命令
-- 掌握重定向的使用
-- 了解命令替换和变量使用
-
-### 4. 安全注意事项
-
-- 谨慎使用具有破坏性的命令（如 `rm`, `dd`）
-- 在生产环境中操作前先在测试环境验证
-- 重要操作前做好备份
-- 理解命令的作用范围和影响
-
-## 常用命令速查
-
-### 文件操作
-
-```bash
-# 列出文件
-ls -la                    # 详细列出所有文件
-ls -lh                    # 人性化显示文件大小
-
-# 目录操作
-cd /path/to/directory     # 切换目录
-pwd                       # 显示当前目录
-mkdir -p dir1/dir2        # 递归创建目录
-
-# 文件复制移动
-cp file1 file2            # 复制文件
-cp -r dir1 dir2           # 递归复制目录
-mv file1 file2            # 移动/重命名文件
-
-# 文件删除
-rm file                   # 删除文件
-rm -rf directory          # 强制递归删除目录
-```
-
-### 文本处理
-
-```bash
-# 文件查看
-cat file                  # 显示文件内容
-less file                 # 分页查看文件
-head -n 10 file           # 显示前10行
-tail -f file              # 实时查看文件末尾
-
-# 文本搜索
-grep "pattern" file       # 搜索文本模式
-grep -r "pattern" dir     # 递归搜索目录
-find /path -name "*.txt"  # 按名称查找文件
-```
-
-### 系统监控
-
-```bash
-# 进程管理
-ps aux                    # 显示所有进程
-top                       # 实时显示进程
-kill PID                  # 终止进程
-
-# 系统信息
-df -h                     # 显示磁盘使用情况
-free -h                   # 显示内存使用情况
-uname -a                  # 显示系统信息
-```
-
-### 网络操作
-
-```bash
-# 网络连接
-ping host                 # 测试网络连通性
-wget URL                  # 下载文件
-curl URL                  # 发送HTTP请求
-ssh user@host             # SSH远程连接
-```
-
-## 进阶技巧
-
-### 命令历史
-
-```bash
-history                   # 查看命令历史
-!n                        # 执行历史中第n条命令
-!!                        # 执行上一条命令
-!string                   # 执行最近以string开头的命令
-Ctrl+R                    # 反向搜索命令历史
-```
-
-### 快捷键
-
-- `Ctrl+C`：中断当前命令
-- `Ctrl+Z`：暂停当前命令
-- `Ctrl+D`：退出当前Shell或发送EOF
-- `Ctrl+L`：清屏
-- `Tab`：自动补全
-- `Ctrl+A`：光标移到行首
-- `Ctrl+E`：光标移到行尾
-- `Ctrl+U`：删除光标前的内容
-- `Ctrl+K`：删除光标后的内容
-
-### 别名和函数
-
-```bash
-# 创建别名
-alias ll='ls -la'
-alias grep='grep --color=auto'
-
-# 查看所有别名
-alias
-
-# 创建函数
-function mkcd() {
-    mkdir -p "$1" && cd "$1"
-}
-```
-
-## 学习资源
-
-### 在线资源
-
-- Linux命令手册：`man command`
-- 在线Linux命令查询：[explainshell.com](https://explainshell.com/)
-- Linux命令大全：各种Linux发行版官方文档
-
-### 实践环境
-
-- 本地虚拟机（VirtualBox、VMware）
-- 云服务器（AWS、阿里云、腾讯云）
-- 容器环境（Docker）
-- 在线Linux环境
-
-### 学习建议
-
-1. **循序渐进**：从基础命令开始，逐步学习高级用法
-2. **多加练习**：理论结合实践，在实际环境中练习
-3. **查阅文档**：遇到问题时主动查阅man手册和帮助文档
-4. **总结归纳**：定期总结常用命令和技巧
-5. **关注安全**：了解命令的潜在风险，谨慎操作
+执行高风险命令前，先用 `pwd`、`ls`、`find ... -print`、`echo` 或 dry-run 模式确认目标。
 
 ## 总结
 
-Linux命令行是一个强大的工具集，掌握这些命令可以大大提高工作效率。本文档系列按功能分类详细介绍了各种常用命令，每个分类都有独立的文档进行深入讲解。
-
-建议读者：
-
-1. 先通读本概览文档，了解整体结构
-2. 根据需要选择相应的分类文档深入学习
-3. 在实际环境中练习和应用
-4. 定期回顾和总结，形成自己的命令使用习惯
-
-记住，熟练掌握Linux命令需要时间和实践，不要急于求成，循序渐进地学习和应用是最好的方法。
+Linux 命令学习应围绕真实任务组织：文件在哪里、内容是什么、服务是否运行、网络是否通、权限是否正确、包是否安装。旧的 `commond.md` 内容已合并到本入口，后续统一从 `docs/linux/command/` 维护命令文档。

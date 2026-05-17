@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">容器交付链路</title>
+  <desc id="desc">展示从源码构建镜像、推送仓库、运行时启动容器到 Kubernetes 集群部署的容器交付路径。</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.docker{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.k8s{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.repo{fill:#fff7ed;stroke:#f97316;stroke-width:2}.h{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:3;fill:none}.arrow{fill:#64748b}
+  </style>
+  <rect class="bg" width="1120" height="600" rx="24"/>
+  <text class="title" x="56" y="60">容器交付链路</text>
+  <text class="sub" x="56" y="90">构建工具产出镜像，运行时启动容器，Kubernetes 负责把容器应用稳定部署到集群。</text>
+  <rect class="box" x="70" y="180" width="170" height="110" rx="16"/>
+  <text class="h" x="122" y="222">源码</text>
+  <text class="t" x="105" y="252">业务代码</text>
+  <text class="t" x="105" y="276">依赖配置</text>
+  <path class="line" d="M240 235h75"/><polygon class="arrow" points="315,235 299,225 299,245"/>
+  <rect class="docker" x="315" y="165" width="190" height="140" rx="16"/>
+  <text class="h" x="366" y="210">构建镜像</text>
+  <text class="t" x="350" y="240">Dockerfile</text>
+  <text class="t" x="350" y="264">BuildKit / tag</text>
+  <path class="line" d="M505 235h75"/><polygon class="arrow" points="580,235 564,225 564,245"/>
+  <rect class="repo" x="580" y="165" width="190" height="140" rx="16"/>
+  <text class="h" x="642" y="210">镜像仓库</text>
+  <text class="t" x="620" y="240">Registry</text>
+  <text class="t" x="620" y="264">版本与分发</text>
+  <path class="line" d="M770 235h75"/><polygon class="arrow" points="845,235 829,225 829,245"/>
+  <rect class="k8s" x="845" y="165" width="205" height="140" rx="16"/>
+  <text class="h" x="905" y="210">集群部署</text>
+  <text class="t" x="885" y="240">Deployment</text>
+  <text class="t" x="885" y="264">Service / Ingress</text>
+  <rect class="docker" x="315" y="380" width="190" height="105" rx="16"/>
+  <text class="h" x="352" y="421">运行时验证</text>
+  <text class="t" x="340" y="452">Docker / containerd</text>
+  <path class="line" d="M410 305v75"/><polygon class="arrow" points="410,380 400,364 420,364"/>
+  <rect class="k8s" x="845" y="380" width="205" height="105" rx="16"/>
+  <text class="h" x="902" y="421">运行治理</text>
+  <text class="t" x="882" y="452">扩缩容、探针、权限</text>
+  <path class="line" d="M948 305v75"/><polygon class="arrow" points="948,380 938,364 958,364"/>
+</svg>

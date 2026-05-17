@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
+  <title id="title">TTS 声学模型与声码器</title>
+  <desc id="desc">展示文本前端、韵律、声学特征、声码器和播放适配的关系</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#ecfdf5;stroke:#86efac}.orange{fill:#fff7ed;stroke:#fdba74}.pink{fill:#fdf2f8;stroke:#f9a8d4}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}.txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}.small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="500"/>
+  <rect class="blue" x="48" y="92" width="160" height="90" rx="10"/>
+  <text class="title" x="86" y="128">文本前端</text>
+  <text class="txt" x="72" y="154">数字、分词、多音字</text>
+  <rect class="orange" x="286" y="92" width="160" height="90" rx="10"/>
+  <text class="title" x="324" y="128">韵律预测</text>
+  <text class="txt" x="310" y="154">停顿、重音、语速</text>
+  <rect class="green" x="524" y="92" width="160" height="90" rx="10"/>
+  <text class="title" x="562" y="128">声学模型</text>
+  <text class="txt" x="552" y="154">生成声学特征</text>
+  <rect class="pink" x="762" y="92" width="160" height="90" rx="10"/>
+  <text class="title" x="812" y="128">声码器</text>
+  <text class="txt" x="792" y="154">特征转成波形</text>
+  <path class="line" d="M208 137 H286"/>
+  <path class="line" d="M446 137 H524"/>
+  <path class="line" d="M684 137 H762"/>
+  <rect class="box" x="286" y="286" width="160" height="90"/>
+  <text class="title" x="324" y="322">音色条件</text>
+  <text class="txt" x="312" y="348">说话人、风格、情绪</text>
+  <rect class="box" x="524" y="286" width="160" height="90"/>
+  <text class="title" x="562" y="322">流式切片</text>
+  <text class="txt" x="550" y="348">按语义边界出首包</text>
+  <rect class="box" x="762" y="286" width="160" height="90"/>
+  <text class="title" x="800" y="322">播放适配</text>
+  <text class="txt" x="788" y="348">响度、限幅、采样率</text>
+  <path class="dash" d="M366 286 V182"/>
+  <path class="dash" d="M604 286 V182"/>
+  <path class="dash" d="M842 286 V182"/>
+  <rect class="box" x="74" y="424" width="880" height="50"/>
+  <text class="txt" x="104" y="455">TTS 的“读准”和“好听”来自不同层：文本前端决定读法，声学模型决定韵律和音色，声码器决定波形质感，播放侧决定设备上是否破音。</text>
+</svg>

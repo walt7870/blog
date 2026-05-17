@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
+  <title id="title">Nginx location 匹配优先级</title>
+  <desc id="desc">展示精确匹配、^~ 前缀、正则匹配和普通最长前缀的选择顺序</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.focus{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
+      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="430"/>
+  <rect class="box" x="40" y="170" width="140" height="80"/>
+  <text class="text title" x="110" y="202" text-anchor="middle">请求 URI</text>
+  <text class="text body" x="110" y="228" text-anchor="middle">/api/users</text>
+  <rect class="focus" x="230" y="55" width="155" height="80"/>
+  <text class="text title" x="308" y="87" text-anchor="middle">1. = 精确</text>
+  <text class="text body" x="308" y="113" text-anchor="middle">命中即停止</text>
+  <rect class="focus" x="460" y="55" width="170" height="80"/>
+  <text class="text title" x="545" y="87" text-anchor="middle">2. ^~ 前缀</text>
+  <text class="text body" x="545" y="113" text-anchor="middle">最长且跳过正则</text>
+  <rect class="box" x="705" y="55" width="155" height="80"/>
+  <text class="text title" x="783" y="87" text-anchor="middle">3. ~ 正则</text>
+  <text class="text body" x="783" y="113" text-anchor="middle">按配置顺序</text>
+  <rect class="box" x="460" y="250" width="170" height="80"/>
+  <text class="text title" x="545" y="282" text-anchor="middle">4. 普通前缀</text>
+  <text class="text body" x="545" y="308" text-anchor="middle">使用最长匹配</text>
+  <rect class="warn" x="705" y="250" width="240" height="80"/>
+  <text class="text title" x="825" y="282" text-anchor="middle">最常见误判</text>
+  <text class="text body" x="825" y="308" text-anchor="middle">最长前缀不一定赢过正则</text>
+  <path class="line" d="M180 210 C210 160 210 95 230 95"/>
+  <path class="line" d="M385 95 L460 95"/>
+  <path class="line" d="M630 95 L705 95"/>
+  <path class="line" d="M783 135 C760 210 665 260 630 290"/>
+  <path class="line" d="M630 290 L705 290"/>
+</svg>

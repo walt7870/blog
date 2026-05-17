@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="620" viewBox="0 0 920 620" role="img" aria-labelledby="title desc">
+  <title id="title">技术知识库结构图</title>
+  <desc id="desc">展示站点围绕工程基础、开发体系、平台部署、架构设计、数据系统和智能应用组织内容。</desc>
+  <style>
+    .bg{fill:#f8fafc}.axis{stroke:#cbd5e1;stroke-width:2}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#111827}.h{font:700 22px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.t{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:13px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.blue{stroke:#2563eb}.green{stroke:#16a34a}.orange{stroke:#ea580c}.cyan{stroke:#0891b2}.red{stroke:#dc2626}.purple{stroke:#7c3aed}.teal{stroke:#0f766e}.slate{stroke:#475569}.dot{fill:#0f766e}
+  </style>
+  <rect class="bg" width="920" height="620" rx="28"/>
+  <line class="axis" x1="460" y1="90" x2="460" y2="530"/>
+  <line class="axis" x1="155" y1="310" x2="765" y2="310"/>
+  <circle class="dot" cx="460" cy="310" r="6"/>
+  <rect class="core" x="330" y="250" width="260" height="120" rx="18"/>
+  <text class="h" x="390" y="300">技术知识库</text>
+  <text class="s" x="374" y="330" fill="#e5e7eb">总览、模块、场景、排查</text>
+  <rect class="node blue" x="70" y="105" width="190" height="94" rx="16"/>
+  <text class="t" x="118" y="144">人工智能</text>
+  <text class="s" x="105" y="172">LLM / Agent / MCP</text>
+  <rect class="node green" x="365" y="70" width="190" height="94" rx="16"/>
+  <text class="t" x="416" y="109">架构设计</text>
+  <text class="s" x="407" y="137">DDD / 云原生 / 模式</text>
+  <rect class="node orange" x="660" y="105" width="190" height="94" rx="16"/>
+  <text class="t" x="711" y="144">开发语言</text>
+  <text class="s" x="710" y="172">Java / Rust / JVM</text>
+  <rect class="node cyan" x="70" y="405" width="190" height="94" rx="16"/>
+  <text class="t" x="122" y="444">数据系统</text>
+  <text class="s" x="103" y="472">MySQL / Redis / Big Data</text>
+  <rect class="node red" x="365" y="455" width="190" height="94" rx="16"/>
+  <text class="t" x="416" y="494">容器平台</text>
+  <text class="s" x="404" y="522">Docker / Kubernetes</text>
+  <rect class="node purple" x="660" y="405" width="190" height="94" rx="16"/>
+  <text class="t" x="713" y="444">嵌入式</text>
+  <text class="s" x="696" y="472">MCU / RTOS / Linux</text>
+  <rect class="node teal" x="70" y="258" width="190" height="94" rx="16"/>
+  <text class="t" x="121" y="297">基础能力</text>
+  <text class="s" x="103" y="325">协议 / 声学 / 算法</text>
+  <rect class="node slate" x="660" y="258" width="190" height="94" rx="16"/>
+  <text class="t" x="713" y="297">工程工具</text>
+  <text class="s" x="702" y="325">Git / Vim / Linux</text>
+</svg>

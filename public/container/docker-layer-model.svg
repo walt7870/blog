@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="560" viewBox="0 0 1040 560" role="img" aria-labelledby="title desc">
+  <title id="title">Docker 镜像与容器层</title>
+  <desc id="desc">展示镜像只读层、容器可写层、数据卷和仓库之间的关系。</desc>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 28px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.layer{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.write{fill:#fef3c7;stroke:#f59e0b;stroke-width:2}.vol{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.h{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}
+  </style>
+  <rect class="bg" width="1040" height="560" rx="24"/>
+  <text class="title" x="56" y="58">Docker 镜像与容器层</text>
+  <rect class="box" x="90" y="125" width="270" height="300" rx="18"/>
+  <text class="h" x="170" y="160">镜像 Image</text>
+  <rect class="layer" x="125" y="190" width="200" height="48" rx="10"/><text class="t" x="176" y="221">应用层</text>
+  <rect class="layer" x="125" y="250" width="200" height="48" rx="10"/><text class="t" x="176" y="281">依赖层</text>
+  <rect class="layer" x="125" y="310" width="200" height="48" rx="10"/><text class="t" x="176" y="341">基础系统层</text>
+  <text class="t" x="128" y="388">只读、可复用、可分发</text>
+  <path class="line" d="M360 270h95"/><polygon class="arrow" points="455,270 439,260 439,280"/>
+  <rect class="box" x="455" y="125" width="270" height="300" rx="18"/>
+  <text class="h" x="538" y="160">容器 Container</text>
+  <rect class="write" x="490" y="190" width="200" height="54" rx="10"/><text class="t" x="545" y="223">可写层</text>
+  <rect class="layer" x="490" y="260" width="200" height="48" rx="10"/><text class="t" x="542" y="291">镜像层</text>
+  <rect class="layer" x="490" y="320" width="200" height="48" rx="10"/><text class="t" x="542" y="351">镜像层</text>
+  <text class="t" x="492" y="398">删除容器会丢失可写层</text>
+  <path class="line" d="M725 270h90"/><polygon class="arrow" points="815,270 799,260 799,280"/>
+  <rect class="vol" x="815" y="190" width="170" height="110" rx="16"/>
+  <text class="h" x="870" y="230">Volume</text>
+  <text class="t" x="850" y="260">持久化数据</text>
+  <text class="t" x="850" y="284">独立于容器层</text>
+  <rect class="box" x="815" y="345" width="170" height="80" rx="16"/>
+  <text class="h" x="860" y="378">Registry</text>
+  <text class="t" x="844" y="406">镜像拉取与推送</text>
+</svg>

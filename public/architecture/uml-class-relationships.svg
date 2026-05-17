@@ -1,0 +1,79 @@
+<svg width="1120" height="640" viewBox="0 0 1120 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1120" height="640" rx="18" fill="#F8FAFC"/>
+  <text x="56" y="58" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0F172A">UML 类图关系符号</text>
+  <text x="56" y="88" font-family="Arial, sans-serif" font-size="15" fill="#475569">不同箭头表达不同语义：临时使用、长期关联、整体部分、继承抽象和接口实现应分开表示。</text>
+
+  <defs>
+    <marker id="arrow-dep" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#475569"/>
+    </marker>
+    <marker id="tri-solid" markerWidth="14" markerHeight="12" refX="13" refY="6" orient="auto">
+      <path d="M1 1L13 6L1 11Z" fill="#F8FAFC" stroke="#475569" stroke-width="1.6"/>
+    </marker>
+    <filter id="soft-uml-class" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#94A3B8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect x="70" y="132" width="210" height="82" rx="10" fill="#EFF6FF" stroke="#93C5FD" filter="url(#soft-uml-class)"/>
+  <text x="112" y="167" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1D4ED8">应用服务</text>
+  <text x="106" y="190" font-family="Arial, sans-serif" font-size="12" fill="#1E3A8A">OrderApplicationService</text>
+
+  <rect x="382" y="132" width="210" height="82" rx="10" fill="#FFFFFF" stroke="#CBD5E1" filter="url(#soft-uml-class)"/>
+  <text x="434" y="167" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155">支付网关</text>
+  <text x="430" y="190" font-family="Arial, sans-serif" font-size="12" fill="#64748B">PaymentGateway</text>
+  <path d="M280 173H370" stroke="#475569" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow-dep)"/>
+  <text x="314" y="156" font-family="Arial, sans-serif" font-size="13" fill="#475569">依赖</text>
+
+  <rect x="70" y="294" width="210" height="82" rx="10" fill="#EFF6FF" stroke="#93C5FD" filter="url(#soft-uml-class)"/>
+  <text x="142" y="329" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1D4ED8">订单</text>
+  <text x="142" y="352" font-family="Arial, sans-serif" font-size="12" fill="#1E3A8A">Order</text>
+
+  <rect x="382" y="294" width="210" height="82" rx="10" fill="#F0FDF4" stroke="#86EFAC" filter="url(#soft-uml-class)"/>
+  <text x="454" y="329" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#166534">客户</text>
+  <text x="442" y="352" font-family="Arial, sans-serif" font-size="12" fill="#14532D">Customer</text>
+  <path d="M280 335H382" stroke="#475569" stroke-width="2"/>
+  <text x="317" y="318" font-family="Arial, sans-serif" font-size="13" fill="#475569">关联</text>
+
+  <rect x="70" y="456" width="210" height="82" rx="10" fill="#EFF6FF" stroke="#93C5FD" filter="url(#soft-uml-class)"/>
+  <text x="142" y="491" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#1D4ED8">订单</text>
+  <text x="139" y="514" font-family="Arial, sans-serif" font-size="12" fill="#1E3A8A">Order</text>
+
+  <rect x="382" y="456" width="210" height="82" rx="10" fill="#FFF7ED" stroke="#FDBA74" filter="url(#soft-uml-class)"/>
+  <text x="445" y="491" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#9A3412">订单项</text>
+  <text x="432" y="514" font-family="Arial, sans-serif" font-size="12" fill="#7C2D12">OrderLine</text>
+  <path d="M298 497H382" stroke="#475569" stroke-width="2"/>
+  <path d="M280 497L298 486L316 497L298 508Z" fill="#475569"/>
+  <text x="315" y="480" font-family="Arial, sans-serif" font-size="13" fill="#475569">组合</text>
+
+  <rect x="702" y="132" width="210" height="82" rx="10" fill="#F5F3FF" stroke="#C4B5FD" filter="url(#soft-uml-class)"/>
+  <text x="765" y="167" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#6D28D9">班级</text>
+  <text x="762" y="190" font-family="Arial, sans-serif" font-size="12" fill="#581C87">ClassGroup</text>
+
+  <rect x="702" y="294" width="210" height="82" rx="10" fill="#FFFFFF" stroke="#CBD5E1" filter="url(#soft-uml-class)"/>
+  <text x="765" y="329" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155">学生</text>
+  <text x="764" y="352" font-family="Arial, sans-serif" font-size="12" fill="#64748B">Student</text>
+  <path d="M807 232V294" stroke="#475569" stroke-width="2"/>
+  <path d="M807 214L796 232L807 250L818 232Z" fill="#F8FAFC" stroke="#475569" stroke-width="2"/>
+  <text x="824" y="258" font-family="Arial, sans-serif" font-size="13" fill="#475569">聚合</text>
+
+  <rect x="702" y="456" width="210" height="82" rx="10" fill="#ECFEFF" stroke="#67E8F9" filter="url(#soft-uml-class)"/>
+  <text x="753" y="491" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#155E75">支付方式</text>
+  <text x="741" y="514" font-family="Arial, sans-serif" font-size="12" fill="#164E63">PaymentMethod</text>
+
+  <rect x="940" y="456" width="130" height="82" rx="10" fill="#FFFFFF" stroke="#CBD5E1" filter="url(#soft-uml-class)"/>
+  <text x="967" y="491" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155">信用卡</text>
+  <text x="955" y="514" font-family="Arial, sans-serif" font-size="12" fill="#64748B">CreditCard</text>
+  <path d="M940 497H926" stroke="#475569" stroke-width="2" marker-end="url(#tri-solid)"/>
+  <text x="924" y="480" font-family="Arial, sans-serif" font-size="13" fill="#475569">泛化</text>
+
+  <rect x="940" y="132" width="130" height="82" rx="10" fill="#FEF2F2" stroke="#FCA5A5" filter="url(#soft-uml-class)"/>
+  <text x="963" y="167" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#B91C1C">仓储接口</text>
+  <text x="951" y="190" font-family="Arial, sans-serif" font-size="12" fill="#7F1D1D">OrderRepository</text>
+
+  <rect x="940" y="294" width="130" height="82" rx="10" fill="#FFFFFF" stroke="#CBD5E1" filter="url(#soft-uml-class)"/>
+  <text x="963" y="329" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#334155">仓储实现</text>
+  <text x="952" y="352" font-family="Arial, sans-serif" font-size="12" fill="#64748B">JpaRepository</text>
+  <path d="M1005 294V228" stroke="#475569" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#tri-solid)"/>
+  <text x="1020" y="263" font-family="Arial, sans-serif" font-size="13" fill="#475569">实现</text>
+</svg>

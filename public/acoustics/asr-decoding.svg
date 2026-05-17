@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+  <title id="title">ASR 解码与约束</title>
+  <desc id="desc">展示声学证据、语言约束、热词和后处理共同决定识别结果</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}.blue{fill:#eff6ff;stroke:#93c5fd}.green{fill:#ecfdf5;stroke:#86efac}.orange{fill:#fff7ed;stroke:#fdba74}.purple{fill:#f5f3ff;stroke:#c4b5fd}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}.txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}.small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1100" height="520"/>
+  <rect class="blue" x="56" y="90" width="170" height="86" rx="10"/>
+  <text class="title" x="96" y="126">音频特征</text>
+  <text class="txt" x="82" y="152">梅尔谱、能量、上下文</text>
+  <rect class="green" x="302" y="90" width="170" height="86" rx="10"/>
+  <text class="title" x="344" y="126">声学模型</text>
+  <text class="txt" x="326" y="152">每个片段像哪些音</text>
+  <rect class="orange" x="548" y="90" width="170" height="86" rx="10"/>
+  <text class="title" x="590" y="126">解码搜索</text>
+  <text class="txt" x="574" y="152">在候选路径中取最优</text>
+  <rect class="purple" x="794" y="90" width="170" height="86" rx="10"/>
+  <text class="title" x="836" y="126">文本输出</text>
+  <text class="txt" x="826" y="152">文字、置信度、时间戳</text>
+  <path class="line" d="M226 133 H302"/>
+  <path class="line" d="M472 133 H548"/>
+  <path class="line" d="M718 133 H794"/>
+  <rect class="box" x="302" y="270" width="170" height="86"/>
+  <text class="title" x="344" y="306">语言约束</text>
+  <text class="txt" x="328" y="332">哪些词序更自然</text>
+  <rect class="box" x="548" y="270" width="170" height="86"/>
+  <text class="title" x="590" y="306">热词偏置</text>
+  <text class="txt" x="574" y="332">设备名、型号、业务词</text>
+  <rect class="box" x="794" y="270" width="170" height="86"/>
+  <text class="title" x="836" y="306">后处理</text>
+  <text class="txt" x="820" y="332">标点、数字、领域规整</text>
+  <path class="dash" d="M387 270 V176"/>
+  <path class="dash" d="M633 270 V176"/>
+  <path class="dash" d="M879 270 V176"/>
+  <rect class="box" x="86" y="420" width="884" height="58"/>
+  <text class="txt" x="112" y="455">ASR 不是只听“哪个音最像”，还要结合上下文判断“哪句话更合理”。热词能提高领域词命中，但过强会把普通词误拉成业务词。</text>
+</svg>

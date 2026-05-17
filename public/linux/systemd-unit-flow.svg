@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="450" viewBox="0 0 1080 450" role="img" aria-labelledby="title desc">
+  <title id="title">systemd unit 启动链路</title>
+  <desc id="desc">展示 target、unit、依赖、进程、日志和重启策略之间的关系</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.log{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}
+      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="450"/>
+  <rect class="core" x="60" y="170" width="155" height="90"/>
+  <text class="text title" x="138" y="205" text-anchor="middle">target</text>
+  <text class="text body" x="138" y="232" text-anchor="middle">启动目标</text>
+  <rect class="core" x="285" y="170" width="155" height="90"/>
+  <text class="text title" x="363" y="205" text-anchor="middle">unit</text>
+  <text class="text body" x="363" y="232" text-anchor="middle">service/socket/timer</text>
+  <rect class="box" x="510" y="70" width="155" height="90"/>
+  <text class="text title" x="588" y="105" text-anchor="middle">依赖关系</text>
+  <text class="text body" x="588" y="132" text-anchor="middle">After / Requires</text>
+  <rect class="box" x="510" y="270" width="155" height="90"/>
+  <text class="text title" x="588" y="305" text-anchor="middle">服务进程</text>
+  <text class="text body" x="588" y="332" text-anchor="middle">ExecStart</text>
+  <rect class="log" x="735" y="70" width="155" height="90"/>
+  <text class="text title" x="813" y="105" text-anchor="middle">journald</text>
+  <text class="text body" x="813" y="132" text-anchor="middle">日志和状态</text>
+  <rect class="warn" x="735" y="270" width="155" height="90"/>
+  <text class="text title" x="813" y="305" text-anchor="middle">重启策略</text>
+  <text class="text body" x="813" y="332" text-anchor="middle">Restart / Limit</text>
+  <path class="line" d="M215 215 L285 215"/>
+  <path class="line" d="M440 205 C475 160 485 115 510 115"/>
+  <path class="line" d="M440 225 C475 270 485 315 510 315"/>
+  <path class="line" d="M665 115 L735 115"/>
+  <path class="line" d="M665 315 L735 315"/>
+</svg>

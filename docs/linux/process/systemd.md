@@ -1,617 +1,162 @@
-# systemd - 现代 Linux 初始化系统
+# systemd
 
-## 什么是 systemd
+systemd 是现代 Linux 发行版常用的初始化系统和服务管理器。它通常作为 PID 1 运行，负责启动系统目标、管理服务、处理依赖、收集日志，并在服务失败时按策略重启。
 
-systemd 是现代 Linux 发行版中广泛使用的系统和服务管理器，它作为 PID 1 进程运行，是系统启动后的第一个用户空间进程。systemd 取代了传统的 SysV init 系统，提供了更强大、更灵活的系统管理功能。
+可以把 systemd 理解成系统服务调度器：它不只执行启动脚本，还知道服务之间的依赖、启动顺序、运行状态、日志位置和失败后的处理方式。
 
-### 核心特性
+![systemd unit 启动链路](/linux/systemd-unit-flow.svg)
 
-- **并行启动**：同时启动多个服务，显著提高系统启动速度
-- **依赖管理**：基于依赖关系的智能服务启动顺序
-- **按需启动**：只在需要时启动服务，节省系统资源
-- **统一管理**：统一的服务、挂载点、设备、套接字管理
-- **日志集成**：内置的日志系统，提供结构化日志
-- **资源控制**：通过 cgroups 实现精细的资源管理
+## 核心概念
 
-### systemd 的优势
+| 概念 | 含义 |
+| --- | --- |
+| unit | systemd 管理对象，常见有 service、socket、timer、target |
+| service | 一个服务进程或服务启动方式 |
+| target | 一组 unit 的集合，类似启动阶段或运行目标 |
+| dependency | unit 之间的依赖和顺序关系 |
+| journal | systemd 的日志系统 |
 
-| 特性 | 传统 init | systemd |
-|------|-----------|----------|
-| 启动方式 | 串行启动 | 并行启动 |
-| 配置文件 | Shell 脚本 | 声明式配置 |
-| 依赖管理 | 手动管理 | 自动解析 |
-| 日志系统 | 分散管理 | 统一管理 |
-| 资源控制 | 有限支持 | 完整支持 |
-| 服务监控 | 基础功能 | 高级监控 |
-
-## systemd 架构组件
-
-### 核心守护进程
-
-#### 1. systemd (PID 1)
-主进程，负责系统和服务管理：
+## 常用命令
 
 ```bash
-# 查看 systemd 状态
-sudo systemctl status
-
-# 查看 systemd 版本
-systemctl --version
-
-# 分析启动时间
-systemd-analyze
-
-# 查看启动链
-systemd-analyze critical-chain
-```
-
-#### 2. systemd-journald
-日志管理守护进程：
-
-```bash
-# 查看所有日志
-journalctl
-
-# 查看特定服务日志
-journalctl -u nginx.service
-
-# 实时查看日志
-journalctl -f
-
-# 查看启动日志
-journalctl -b
-
-# 查看错误日志
-journalctl -p err
-
-# 查看特定时间范围的日志
-journalctl --since "2024-01-01" --until "2024-01-02"
-```
-
-#### 3. systemd-logind
-登录会话管理：
-
-```bash
-# 查看当前登录会话
-loginctl list-sessions
-
-# 查看用户状态
-loginctl show-user $USER
-
-# 查看座位信息
-loginctl list-seats
-
-# 终止用户会话
-sudo loginctl terminate-user username
-```
-
-#### 4. systemd-networkd
-网络配置管理：
-
-```bash
-# 查看网络状态
-networkctl status
-
-# 查看网络接口
-networkctl list
-
-# 重新配置网络
-sudo networkctl reload
-
-# 查看特定接口状态
-networkctl status eth0
-```
-
-#### 5. systemd-resolved
-DNS 解析服务：
-
-```bash
-# 查看 DNS 状态
-resolvectl status
-
-# 查询域名
-resolvectl query google.com
-
-# 清除 DNS 缓存
-sudo resolvectl flush-caches
-
-# 查看 DNS 统计
-resolvectl statistics
-```
-
-## systemctl 命令详解
-
-### 基本服务管理
-
-```bash
-# 启动服务
-sudo systemctl start nginx
-
-# 停止服务
-sudo systemctl stop nginx
-
-# 重启服务
-sudo systemctl restart nginx
-
-# 重新加载配置（不重启服务）
-sudo systemctl reload nginx
-
-# 查看服务状态
 systemctl status nginx
-
-# 检查服务是否运行
-systemctl is-active nginx
-
-# 检查服务是否启用
-systemctl is-enabled nginx
+systemctl start nginx
+systemctl stop nginx
+systemctl restart nginx
+systemctl reload nginx
+systemctl enable nginx
+systemctl disable nginx
+journalctl -u nginx -xe
 ```
 
-### 服务开机管理
+`restart` 会重启进程，`reload` 通常只是重新加载配置。支持 reload 的服务应优先使用 reload，减少中断。
 
-```bash
-# 启用服务（开机自启）
-sudo systemctl enable nginx
+## unit 文件结构
 
-# 禁用服务
-sudo systemctl disable nginx
-
-# 启用并立即启动
-sudo systemctl enable --now nginx
-
-# 禁用并立即停止
-sudo systemctl disable --now nginx
-
-# 屏蔽服务（完全禁用）
-sudo systemctl mask nginx
-
-# 取消屏蔽
-sudo systemctl unmask nginx
-```
-
-### 系统状态查看
-
-```bash
-# 查看所有服务状态
-systemctl list-units --type=service
-
-# 查看失败的服务
-systemctl --failed
-
-# 查看所有已安装的单元文件
-systemctl list-unit-files
-
-# 查看依赖关系
-systemctl list-dependencies nginx
-
-# 查看服务树
-systemctl status --all
-```
-
-## 服务单元文件详解
-
-### 单元文件位置
-
-```bash
-# 系统单元文件
-/usr/lib/systemd/system/     # 软件包安装的单元
-/etc/systemd/system/         # 系统管理员创建的单元
-/run/systemd/system/         # 运行时单元
-
-# 用户单元文件
-~/.config/systemd/user/      # 用户自定义单元
-/usr/lib/systemd/user/       # 系统提供的用户单元
-```
-
-### 服务单元文件结构
+典型 service：
 
 ```ini
 [Unit]
-# 单元描述和依赖关系
-Description=My Web Application
-Documentation=https://example.com/docs
-After=network.target
-Requires=network.target
-Wants=redis.service
-Conflicts=apache2.service
-
-[Service]
-# 服务配置
-Type=simple
-User=webapp
-Group=webapp
-WorkingDirectory=/opt/webapp
-Environment=NODE_ENV=production
-EnvironmentFile=/etc/webapp/config
-ExecStartPre=/opt/webapp/scripts/pre-start.sh
-ExecStart=/opt/webapp/bin/server
-ExecReload=/bin/kill -HUP $MAINPID
-ExecStop=/opt/webapp/scripts/stop.sh
-Restart=always
-RestartSec=5
-TimeoutStartSec=30
-TimeoutStopSec=30
-
-# 安全设置
-PrivateTmp=true
-NoNewPrivileges=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/var/log/webapp
-
-# 资源限制
-MemoryLimit=512M
-CPUQuota=50%
-TasksMax=100
-
-[Install]
-# 安装配置
-WantedBy=multi-user.target
-Also=webapp-worker.service
-```
-
-### 服务类型说明
-
-| Type | 说明 | 适用场景 |
-|------|------|----------|
-| simple | 默认类型，ExecStart 进程为主进程 | 前台运行的服务 |
-| forking | 服务会 fork 子进程，父进程退出 | 传统守护进程 |
-| oneshot | 执行一次性任务后退出 | 初始化脚本 |
-| notify | 服务启动后会通知 systemd | 支持 sd_notify 的服务 |
-| idle | 延迟启动直到其他任务完成 | 避免输出混乱 |
-
-## 实际应用示例
-
-### 示例 1：创建自定义 Web 服务
-
-```bash
-# 1. 创建服务文件
-sudo vim /etc/systemd/system/myapp.service
-```
-
-```ini
-[Unit]
-Description=My Node.js Application
-After=network.target
+Description=Order API
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-User=nodejs
-WorkingDirectory=/opt/myapp
-Environment=NODE_ENV=production
-ExecStart=/usr/bin/node server.js
-Restart=always
-RestartSec=10
+User=app
+WorkingDirectory=/opt/order-api
+ExecStart=/usr/bin/java -jar order-api.jar
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
 ```
 
+三段含义：
+
+- `[Unit]`：描述服务和依赖关系。
+- `[Service]`：描述如何启动、停止、重启服务。
+- `[Install]`：描述启用后挂到哪个启动目标。
+
+## 依赖关系
+
+`After=` 表示启动顺序，不表示强依赖；`Requires=` 表示强依赖，对方失败会影响当前 unit；`Wants=` 表示弱依赖，常用于希望一起启动但不强绑定。
+
+常见误区：
+
+- 只写 `After=network.target` 不代表网络已经可用。
+- `After=` 不会自动拉起对方服务。
+- 依赖写得过重，会导致一个非关键服务失败拖垮主服务。
+
+需要等待网络可用时，常见写法是 `After=network-online.target` 加 `Wants=network-online.target`。
+
+## 服务状态怎么读
+
+`systemctl status` 里重点看：
+
+- `Loaded`：unit 文件是否加载，是否 enable。
+- `Active`：当前状态。
+- `Main PID`：主进程 PID。
+- `Exit Code`：退出码。
+- 最近日志：启动失败原因通常在这里。
+
+状态不是只看 active。服务可能反复重启、启动后马上退出，或者被 systemd 限流。
+
+## 日志
+
 ```bash
-# 2. 重新加载 systemd 配置
+journalctl -u nginx --since "1 hour ago"
+journalctl -u nginx -f
+journalctl -u nginx -xe
+```
+
+排查服务失败时，先看 unit 状态，再看 journal，不要只看应用自己的日志。很多失败发生在应用启动前，例如工作目录不存在、用户权限不足、端口被占用、环境变量缺失。
+
+## 重启策略
+
+常用配置：
+
+```ini
+Restart=on-failure
+RestartSec=5s
+StartLimitBurst=5
+StartLimitIntervalSec=60
+```
+
+含义：
+
+- 失败后自动重启。
+- 每次重启间隔 5 秒。
+- 60 秒内最多尝试 5 次。
+
+没有限制的自动重启可能让服务疯狂拉起，掩盖真实错误，也可能打爆依赖系统。
+
+## 修改 unit 后的流程
+
+修改 unit 文件后：
+
+```bash
 sudo systemctl daemon-reload
-
-# 3. 启用并启动服务
-sudo systemctl enable --now myapp
-
-# 4. 查看服务状态
-systemctl status myapp
+sudo systemctl restart 服务名
+sudo systemctl status 服务名
 ```
 
-### 示例 2：创建定时任务服务
+只改应用配置文件，不一定需要 `daemon-reload`；改 unit 文件本身才需要。
+
+## 常见问题
+
+### 服务启动失败
+
+检查：
+
+1. `ExecStart` 路径是否存在。
+2. `User` 是否有目录和文件权限。
+3. `WorkingDirectory` 是否存在。
+4. 环境变量是否配置。
+5. 端口是否被占用。
+6. journal 中的第一条错误。
+
+### enable 后没有开机启动
+
+检查 `[Install]` 是否存在 `WantedBy=`，再执行：
 
 ```bash
-# 创建服务文件
-sudo vim /etc/systemd/system/backup.service
+systemctl is-enabled 服务名
+systemctl list-dependencies multi-user.target
 ```
 
-```ini
-[Unit]
-Description=Database Backup Service
+### 服务一直重启
 
-[Service]
-Type=oneshot
-User=backup
-ExecStart=/opt/scripts/backup-database.sh
-```
+先停止服务，再看日志：
 
 ```bash
-# 创建定时器文件
-sudo vim /etc/systemd/system/backup.timer
+systemctl stop 服务名
+journalctl -u 服务名 -n 100
 ```
 
-```ini
-[Unit]
-Description=Run backup daily
-Requires=backup.service
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-```
-
-```bash
-# 启用定时器
-sudo systemctl enable --now backup.timer
-
-# 查看定时器状态
-systemctl list-timers
-```
-
-### 示例 3：服务依赖管理
-
-```bash
-# 创建数据库服务
-sudo vim /etc/systemd/system/mydb.service
-```
-
-```ini
-[Unit]
-Description=My Database Service
-After=network.target
-
-[Service]
-Type=forking
-User=database
-ExecStart=/opt/database/bin/start
-PIDFile=/var/run/mydb.pid
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-# 创建依赖数据库的应用服务
-sudo vim /etc/systemd/system/webapp.service
-```
-
-```ini
-[Unit]
-Description=Web Application
-After=network.target mydb.service
-Requires=mydb.service
-
-[Service]
-Type=simple
-User=webapp
-ExecStart=/opt/webapp/start
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-## 高级功能
-
-### 1. 资源控制 (cgroups)
-
-```bash
-# 在服务文件中添加资源限制
-[Service]
-# 内存限制
-MemoryLimit=1G
-MemoryHigh=800M
-
-# CPU 限制
-CPUQuota=50%
-CPUWeight=100
-
-# I/O 限制
-IOWeight=100
-IOReadBandwidthMax=/dev/sda 10M
-IOWriteBandwidthMax=/dev/sda 5M
-
-# 进程数限制
-TasksMax=50
-
-# 文件描述符限制
-LimitNOFILE=1024
-```
-
-### 2. 安全特性
-
-```bash
-[Service]
-# 私有临时目录
-PrivateTmp=true
-
-# 只读文件系统
-ProtectSystem=strict
-ReadWritePaths=/var/log/myapp
-
-# 隐藏 /home 目录
-ProtectHome=true
-
-# 禁止新权限
-NoNewPrivileges=true
-
-# 系统调用过滤
-SystemCallFilter=@system-service
-SystemCallErrorNumber=EPERM
-
-# 网络命名空间
-PrivateNetwork=true
-
-# 设备访问控制
-PrivateDevices=true
-DevicePolicy=closed
-```
-
-### 3. 环境变量管理
-
-```bash
-# 在服务文件中设置环境变量
-[Service]
-# 直接设置
-Environment=NODE_ENV=production
-Environment=PORT=3000
-
-# 从文件读取
-EnvironmentFile=/etc/myapp/config
-EnvironmentFile=-/etc/myapp/optional-config
-```
-
-```bash
-# 环境变量文件示例 (/etc/myapp/config)
-NODE_ENV=production
-PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-```
-
-## 故障排除
-
-### 常见问题诊断
-
-```bash
-# 1. 服务启动失败
-systemctl status myapp.service
-journalctl -u myapp.service
-journalctl -u myapp.service --since "1 hour ago"
-
-# 2. 查看详细错误信息
-journalctl -u myapp.service -n 50
-journalctl -u myapp.service -f
-
-# 3. 检查配置文件语法
-sudo systemd-analyze verify /etc/systemd/system/myapp.service
-
-# 4. 重新加载配置
-sudo systemctl daemon-reload
-
-# 5. 重置失败状态
-sudo systemctl reset-failed myapp.service
-```
-
-### 性能分析
-
-```bash
-# 分析启动时间
-systemd-analyze
-systemd-analyze blame
-systemd-analyze critical-chain
-
-# 生成启动图表
-systemd-analyze plot > boot.svg
-
-# 分析特定服务
-systemd-analyze critical-chain nginx.service
-```
-
-### 系统恢复
-
-```bash
-# 进入救援模式
-sudo systemctl rescue
-
-# 进入紧急模式
-sudo systemctl emergency
-
-# 切换到多用户模式
-sudo systemctl isolate multi-user.target
-
-# 切换到图形模式
-sudo systemctl isolate graphical.target
-```
-
-## 最佳实践
-
-### 1. 服务设计原则
-
-- **单一职责**：每个服务只负责一个功能
-- **无状态设计**：避免依赖本地状态
-- **优雅关闭**：正确处理 SIGTERM 信号
-- **健康检查**：提供服务健康状态检查
-- **日志规范**：使用结构化日志格式
-
-### 2. 安全配置
-
-```bash
-# 最小权限原则
-[Service]
-User=myapp
-Group=myapp
-SupplementaryGroups=
-
-# 文件系统保护
-ProtectSystem=strict
-ProtectHome=true
-PrivateTmp=true
-PrivateDevices=true
-
-# 网络安全
-IPAddressDeny=any
-IPAddressAllow=localhost
-IPAddressAllow=10.0.0.0/8
-
-# 系统调用限制
-SystemCallFilter=@system-service
-SystemCallErrorNumber=EPERM
-```
-
-### 3. 监控和维护
-
-```bash
-#!/bin/bash
-# 服务健康检查脚本
-
-services=("nginx" "mysql" "redis")
-
-for service in "${services[@]}"; do
-    if systemctl is-active --quiet "$service"; then
-        echo "✓ $service is running"
-    else
-        echo "✗ $service is not running"
-        # 发送告警或自动重启
-        sudo systemctl start "$service"
-    fi
-done
-
-# 检查失败的服务
-failed_services=$(systemctl --failed --no-legend | wc -l)
-if [ "$failed_services" -gt 0 ]; then
-    echo "Warning: $failed_services services have failed"
-    systemctl --failed
-fi
-```
-
-### 4. 日志管理
-
-```bash
-# 配置日志轮转
-sudo vim /etc/systemd/journald.conf
-```
-
-```ini
-[Journal]
-# 限制日志大小
-SystemMaxUse=1G
-SystemKeepFree=2G
-SystemMaxFileSize=100M
-
-# 日志保留时间
-MaxRetentionSec=1month
-
-# 日志压缩
-Compress=yes
-
-# 转发到 syslog
-ForwardToSyslog=yes
-```
+不要只提高重启次数。反复重启通常说明启动命令、配置、依赖或权限有问题。
 
 ## 总结
 
-systemd 作为现代 Linux 系统的核心组件，提供了强大而灵活的系统管理功能。通过理解其架构、掌握 systemctl 命令、学会编写服务单元文件，可以有效地管理和维护 Linux 系统。
-
-**关键要点：**
-
-1. **统一管理**：systemd 提供了统一的服务、日志、网络管理接口
-2. **并行启动**：显著提高系统启动速度和效率
-3. **依赖管理**：自动处理服务间的依赖关系
-4. **资源控制**：通过 cgroups 实现精细的资源管理
-5. **安全特性**：提供多层次的安全保护机制
-6. **故障恢复**：强大的故障诊断和恢复功能
-
-掌握 systemd 是现代 Linux 系统管理的必备技能，它不仅简化了系统管理工作，还提供了更好的系统可靠性和安全性。
+systemd 的核心是 unit、依赖、状态和日志。排查服务问题时按“unit 是否加载 -> 依赖是否满足 -> 启动命令是否正确 -> 进程是否退出 -> journal 记录什么”的顺序推进。

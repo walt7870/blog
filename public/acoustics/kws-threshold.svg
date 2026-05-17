@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
+  <title id="title">唤醒词置信度与阈值</title>
+  <desc id="desc">展示唤醒词检测中正样本、负样本、阈值、误唤醒和漏唤醒的关系</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.axis{stroke:#94a3b8;stroke-width:1.5}.pos{fill:#22c55e;opacity:.72}.neg{fill:#f97316;opacity:.72}.line{stroke:#2563eb;stroke-width:3}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}
+      .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}.txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}.small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="460"/>
+  <line class="axis" x1="110" y1="330" x2="960" y2="330"/>
+  <line class="axis" x1="110" y1="80" x2="110" y2="330"/>
+  <text class="small" x="470" y="365">模型输出置信度：越往右越像唤醒词</text>
+  <text class="small" x="42" y="84">样本数量</text>
+  <path class="neg" d="M150 330 C210 180 280 120 360 150 C430 176 470 250 520 330 Z"/>
+  <path class="pos" d="M500 330 C560 248 620 160 720 130 C820 100 890 180 930 330 Z"/>
+  <line class="line" x1="612" y1="70" x2="612" y2="338"/>
+  <text class="title" x="584" y="58">阈值</text>
+  <text class="txt" x="190" y="122">负样本</text>
+  <text class="small" x="178" y="146">日常聊天、相似词、电视声</text>
+  <text class="txt" x="748" y="122">正样本</text>
+  <text class="small" x="724" y="146">真实唤醒词，不同人群和环境</text>
+  <rect class="box" x="108" y="386" width="390" height="48"/>
+  <text class="txt" x="128" y="416">阈值左移：更容易唤醒，但误唤醒增加。</text>
+  <rect class="box" x="566" y="386" width="390" height="48"/>
+  <text class="txt" x="586" y="416">阈值右移：误唤醒减少，但漏唤醒增加。</text>
+</svg>

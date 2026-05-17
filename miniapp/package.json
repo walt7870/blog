@@ -2,7 +2,7 @@
   "name": "blog-docs-miniapp",
   "version": "1.0.0",
   "private": true,
-  "description": "稻草人的技术小站 - uni-app 小程序版",
+  "description": "稻草小站 - uni-app 小程序版",
   "scripts": {
     "build:content": "node scripts/build-miniapp.mjs",
     "dev:mp-weixin": "npm run build:content && uni -p mp-weixin",

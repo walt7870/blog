@@ -355,7 +355,7 @@ npm run build
 # 构建
 npm run build
 
-# 部署到 GitHub Pages
+# 将构建产物发布到静态服务器、对象存储或 CDN
 npm run deploy
 ```
 
