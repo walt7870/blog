@@ -10,9 +10,7 @@ date: 2026-05-17
 
 ## 端到端流程
 
-```text
-采集 -> 前处理 -> 唤醒 -> ASR -> NLU/LLM -> 业务执行 -> TTS -> 播放 -> AEC 参考
-```
+![语音交互流水线](/acoustics/speech-pipeline.svg)
 
 每个模块都可能返回中间状态：
 

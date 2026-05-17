@@ -1,19 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
   <title id="title">架构决策流程图</title>
-  <desc id="desc">展示从业务边界、数据一致性、团队规模、部署运维到架构选择的决策路径。</desc>
+  <desc id="desc">展示从业务边界、团队协作、数据一致性到架构选择的决策路径。</desc>
   <style>
-    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.q{fill:#1e293b}.qt{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.h{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#94a3b8;stroke-width:2;fill:none}.arrow{fill:#94a3b8}
+    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.q{fill:#1e293b}.qt{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.h{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#94a3b8;stroke-width:2;fill:none}.arrow{fill:#94a3b8}
   </style>
-  <rect class="bg" width="1120" height="760" rx="24"/>
+  <rect class="bg" width="1120" height="640" rx="24"/>
   <text class="title" x="56" y="58">架构决策流程</text>
-  <rect class="q" x="410" y="100" width="300" height="70" rx="16"/><text class="qt" x="456" y="143">业务边界是否清楚？</text>
-  <path class="line" d="M560 170v55"/><polygon class="arrow" points="560,225 552,212 568,212"/>
-  <rect class="box" x="350" y="225" width="420" height="88" rx="16"/><text class="h" x="396" y="262">先做领域梳理</text><text class="t" x="396" y="288">识别核心流程、数据所有权、限界上下文。</text>
-  <path class="line" d="M560 313v55"/><polygon class="arrow" points="560,368 552,355 568,355"/>
-  <rect class="q" x="385" y="368" width="350" height="70" rx="16"/><text class="qt" x="430" y="411">是否需要独立团队交付？</text>
-  <path class="line" d="M560 438v55"/><polygon class="arrow" points="560,493 552,480 568,480"/>
-  <rect class="q" x="380" y="493" width="360" height="70" rx="16"/><text class="qt" x="426" y="536">是否能接受最终一致？</text>
-  <path class="line" d="M380 528H180v68"/><path class="line" d="M740 528h200v68"/><polygon class="arrow" points="180,596 172,583 188,583"/><polygon class="arrow" points="940,596 932,583 948,583"/>
-  <rect class="box" x="70" y="596" width="260" height="96" rx="16"/><text class="h" x="112" y="636">优先单体事务</text><text class="t" x="112" y="664">分层 / 模块化单体 / 六边形</text>
-  <rect class="box" x="810" y="596" width="260" height="96" rx="16"/><text class="h" x="850" y="636">考虑分布式架构</text><text class="t" x="850" y="664">微服务 / 事件驱动 / CQRS</text>
+  <rect class="q" x="410" y="96" width="300" height="62" rx="16"/>
+  <text class="qt" x="456" y="133">业务边界是否清楚？</text>
+  <path class="line" d="M560 158v42"/><polygon class="arrow" points="560,200 552,187 568,187"/>
+  <rect class="box" x="350" y="200" width="420" height="74" rx="16"/>
+  <text class="h" x="396" y="232">先完成领域梳理</text>
+  <text class="t" x="396" y="256">识别核心流程、数据所有权和限界上下文。</text>
+  <path class="line" d="M560 274v42"/><polygon class="arrow" points="560,316 552,303 568,303"/>
+  <rect class="q" x="385" y="316" width="350" height="62" rx="16"/>
+  <text class="qt" x="430" y="353">是否需要独立团队交付？</text>
+  <path class="line" d="M560 378v42"/><polygon class="arrow" points="560,420 552,407 568,407"/>
+  <rect class="q" x="380" y="420" width="360" height="62" rx="16"/>
+  <text class="qt" x="426" y="457">是否能接受最终一致？</text>
+  <path class="line" d="M380 451H190v56"/><path class="line" d="M740 451h190v56"/>
+  <polygon class="arrow" points="190,507 182,494 198,494"/><polygon class="arrow" points="930,507 922,494 938,494"/>
+  <rect class="box" x="70" y="507" width="260" height="86" rx="16"/>
+  <text class="h" x="112" y="543">优先单体事务</text>
+  <text class="t" x="112" y="569">分层、模块化单体或六边形架构</text>
+  <rect class="box" x="800" y="507" width="290" height="86" rx="16"/>
+  <text class="h" x="842" y="543">考虑分布式架构</text>
+  <text class="t" x="842" y="569">微服务、事件驱动或 CQRS</text>
 </svg>

@@ -35,6 +35,7 @@ export const nav: DefaultTheme.NavItem[] = [
     {
       text: '基础', items: [
         { text: '通信协议', link: '/docs/basic/protocol/' },
+        { text: '声学', link: '/docs/basic/acoustics/' },
       ]
     },
     {

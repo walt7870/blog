@@ -14,6 +14,45 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
+  // 基础知识 - 声学
+  '/docs/basic/acoustics/': [
+    {
+      text: '声学',
+      collapsed: false,
+      items: [
+        { text: '声学概览', link: '/docs/basic/acoustics/' },
+        {
+          text: '基础链路',
+          collapsed: true,
+          items: [
+            { text: '声学结构', link: '/docs/basic/acoustics/structure' },
+            { text: '声音与信号基础', link: '/docs/basic/acoustics/sound-fundamentals' },
+            { text: '采集与播放链路', link: '/docs/basic/acoustics/capture-playback' },
+          ],
+        },
+        {
+          text: '语音模块',
+          collapsed: true,
+          items: [
+            { text: '降噪与前处理', link: '/docs/basic/acoustics/noise-reduction' },
+            { text: '语音唤醒', link: '/docs/basic/acoustics/wake-word' },
+            { text: '语音识别', link: '/docs/basic/acoustics/speech-recognition' },
+            { text: '语音合成', link: '/docs/basic/acoustics/speech-synthesis' },
+            { text: '语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
+          ],
+        },
+        {
+          text: '工程实践',
+          collapsed: true,
+          items: [
+            { text: '质量评估与排错', link: '/docs/basic/acoustics/quality-evaluation' },
+            { text: '工程选型', link: '/docs/basic/acoustics/engineering' },
+          ],
+        },
+      ]
+    }
+  ],
+
   // 嵌入式开发
   '/docs/embedded/': [
     {
