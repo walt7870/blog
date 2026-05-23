@@ -1,25 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="460" viewBox="0 0 1160 460" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="480" viewBox="0 0 1160 480" role="img" aria-labelledby="title desc">
 <title id="title">Kafka 订单超时与发券流程</title>
 <desc id="desc">Kafka 订单超时与发券流程</desc>
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
-<rect class="bg" width="1160" height="460"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.group{fill:#fff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}</style></defs>
+<rect class="bg" width="1160" height="480"/>
 <text class="text title" x="580" y="38" text-anchor="middle">Kafka 订单超时与发券流程</text>
-<rect class="node" x="50" y="90" width="150" height="64"/><text class="text body" x="125" y="122" text-anchor="middle">订单服务</text>
-<rect class="main" x="250" y="90" width="150" height="64"/><text class="text body" x="325" y="122" text-anchor="middle">Kafka</text>
-<rect class="node" x="460" y="90" width="150" height="64"/><text class="text body" x="535" y="122" text-anchor="middle">延迟调度服务</text>
-<rect class="node" x="680" y="90" width="180" height="64"/><text class="text body" x="770" y="113" text-anchor="middle">order.timeout-</text><text class="text body" x="770" y="133" text-anchor="middle">check</text>
-<rect class="node" x="900" y="90" width="170" height="64"/><text class="text body" x="985" y="122" text-anchor="middle">超时检查消费者</text>
-<rect class="store" x="900" y="190" width="150" height="64"/><text class="text body" x="975" y="222" text-anchor="middle">订单库</text>
-<rect class="node" x="50" y="300" width="150" height="64"/><text class="text body" x="125" y="332" text-anchor="middle">支付服务</text>
-<rect class="main" x="250" y="300" width="150" height="64"/><text class="text body" x="325" y="332" text-anchor="middle">order.paid</text>
-<rect class="node" x="500" y="300" width="150" height="64"/><text class="text body" x="575" y="332" text-anchor="middle">发券消费者</text>
-<rect class="store" x="730" y="300" width="150" height="64"/><text class="text body" x="805" y="332" text-anchor="middle">券库</text>
-<path class="line" d="M200 122 L250 122"/><text class="text small" x="225" y="114" text-anchor="middle">order.created</text>
-<path class="line" d="M400 122 L460 122"/>
-<path class="line" d="M610 122 L680 122"/><text class="text small" x="645" y="114" text-anchor="middle">到期写入</text>
-<path class="line" d="M860 122 L900 122"/>
-<path class="line" d="M1070 122 L985 122 L985 222 L900 222"/>
-<path class="line" d="M200 332 L250 332"/><text class="text small" x="225" y="324" text-anchor="middle">order.paid</text>
-<path class="line" d="M400 332 L500 332"/>
-<path class="line" d="M650 332 L730 332"/>
+<rect class="node" x="50" y="95" width="150" height="64" rx="10"/><text class="text body" x="125" y="132" text-anchor="middle">订单服务</text>
+<rect class="main" x="260" y="95" width="150" height="64" rx="10"/><text class="text body" x="335" y="132" text-anchor="middle">Kafka</text>
+<rect class="node" x="470" y="95" width="170" height="64" rx="10"/><text class="text body" x="555" y="132" text-anchor="middle">延迟调度服务</text>
+<rect class="node" x="690" y="95" width="190" height="64" rx="10"/><text class="text body" x="785" y="132" text-anchor="middle">order.timeout-check</text>
+<rect class="node" x="930" y="95" width="180" height="64" rx="10"/><text class="text body" x="1020" y="132" text-anchor="middle">超时检查消费者</text>
+<rect class="store" x="930" y="200" width="180" height="64" rx="10"/><text class="text body" x="1020" y="237" text-anchor="middle">订单库</text>
+<rect class="node" x="50" y="320" width="150" height="64" rx="10"/><text class="text body" x="125" y="357" text-anchor="middle">支付服务</text>
+<rect class="main" x="260" y="320" width="150" height="64" rx="10"/><text class="text body" x="335" y="357" text-anchor="middle">order.paid</text>
+<rect class="node" x="500" y="320" width="160" height="64" rx="10"/><text class="text body" x="580" y="357" text-anchor="middle">发券消费者</text>
+<rect class="store" x="740" y="320" width="150" height="64" rx="10"/><text class="text body" x="815" y="357" text-anchor="middle">券库</text>
+<path class="line" d="M200 127 L260 127"/><text class="text small" x="230" y="116" text-anchor="middle">order.created</text>
+<path class="line" d="M410 127 L470 127"/>
+<path class="line" d="M640 127 L690 127"/><text class="text small" x="665" y="116" text-anchor="middle">到期写入</text>
+<path class="line" d="M880 127 L930 127"/>
+<path class="line" d="M1020 159 L1020 200"/>
+<path class="line" d="M200 352 L260 352"/><text class="text small" x="230" y="341" text-anchor="middle">order.paid</text>
+<path class="line" d="M410 352 L500 352"/>
+<path class="line" d="M660 352 L740 352"/>
 </svg>

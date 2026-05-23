@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440" role="img" aria-labelledby="title desc">
 <title id="title">MQ 在系统中的位置</title>
 <desc id="desc">MQ 在系统中的位置</desc>
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
-<rect class="bg" width="1080" height="420"/>
-<text class="text title" x="540" y="38" text-anchor="middle">MQ 在系统中的位置</text>
-<rect class="node" x="50" y="175" width="150" height="64"/><text class="text body" x="125" y="207" text-anchor="middle">用户请求</text>
-<rect class="main" x="230" y="175" width="150" height="64"/><text class="text body" x="305" y="207" text-anchor="middle">业务服务</text>
-<rect class="store" x="410" y="95" width="150" height="64"/><text class="text body" x="485" y="127" text-anchor="middle">业务数据库</text>
-<rect class="main" x="410" y="255" width="150" height="64"/><text class="text body" x="485" y="287" text-anchor="middle">消息中间件</text>
-<rect class="node" x="610" y="145" width="150" height="64"/><text class="text body" x="685" y="177" text-anchor="middle">异步任务服务</text>
-<rect class="node" x="610" y="235" width="150" height="64"/><text class="text body" x="685" y="267" text-anchor="middle">通知服务</text>
-<rect class="node" x="790" y="145" width="150" height="64"/><text class="text body" x="865" y="177" text-anchor="middle">搜索索引</text>
-<rect class="node" x="790" y="235" width="150" height="64"/><text class="text body" x="865" y="267" text-anchor="middle">实时数仓/报表</text>
-<rect class="node" x="610" y="330" width="150" height="64"/><text class="text body" x="685" y="362" text-anchor="middle">第三方系统</text>
-<rect class="node" x="790" y="330" width="150" height="64"/><text class="text body" x="865" y="362" text-anchor="middle">短信/邮件/站内信</text>
-<path class="line" d="M200 207 L230 207"/>
-<path class="line" d="M380 207 L395 207 L395 127 L410 127"/>
-<path class="line" d="M380 207 L395 207 L395 287 L410 287"/>
-<path class="line" d="M560 287 L585 287 L585 177 L610 177"/>
-<path class="line" d="M560 287 L585 287 L585 267 L610 267"/>
-<path class="line" d="M560 287 L675 287 L675 177 L790 177"/>
-<path class="line" d="M560 287 L675 287 L675 267 L790 267"/>
-<path class="line" d="M760 177 L685 177 L685 362 L610 362"/>
-<path class="line" d="M760 267 L775 267 L775 362 L790 362"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.group{fill:#fff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}</style></defs>
+<rect class="bg" width="1100" height="440"/>
+<text class="text title" x="550" y="38" text-anchor="middle">MQ 在系统中的位置</text>
+<rect class="node" x="60" y="180" width="150" height="64" rx="10"/><text class="text body" x="135" y="217" text-anchor="middle">用户请求</text>
+<rect class="main" x="250" y="180" width="150" height="64" rx="10"/><text class="text body" x="325" y="217" text-anchor="middle">业务服务</text>
+<rect class="store" x="470" y="90" width="170" height="64" rx="10"/><text class="text body" x="555" y="127" text-anchor="middle">业务数据库</text>
+<rect class="main" x="470" y="270" width="170" height="64" rx="10"/><text class="text body" x="555" y="307" text-anchor="middle">消息中间件</text>
+<rect class="node" x="720" y="90" width="170" height="64" rx="10"/><text class="text body" x="805" y="127" text-anchor="middle">异步任务服务</text>
+<rect class="node" x="720" y="190" width="170" height="64" rx="10"/><text class="text body" x="805" y="227" text-anchor="middle">通知服务</text>
+<rect class="node" x="720" y="290" width="170" height="64" rx="10"/><text class="text body" x="805" y="327" text-anchor="middle">搜索索引</text>
+<rect class="node" x="920" y="190" width="150" height="64" rx="10"/><text class="text body" x="995" y="227" text-anchor="middle">实时数仓/报表</text>
+<rect class="node" x="920" y="90" width="150" height="64" rx="10"/><text class="text body" x="995" y="127" text-anchor="middle">第三方系统</text>
+<rect class="node" x="920" y="290" width="150" height="64" rx="10"/><text class="text body" x="995" y="327" text-anchor="middle">短信/邮件/站内信</text>
+<path class="line" d="M210 212 L250 212"/>
+<path class="line" d="M400 212 L470 122"/>
+<path class="line" d="M400 212 L470 302"/>
+<path class="line" d="M640 302 L720 122"/>
+<path class="line" d="M640 302 L720 222"/>
+<path class="line" d="M640 302 L720 322"/>
+<path class="line" d="M640 302 L920 222"/>
+<path class="line" d="M890 122 L920 122"/>
+<path class="line" d="M890 222 L920 322"/>
 </svg>

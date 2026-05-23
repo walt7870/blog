@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="420" viewBox="0 0 940 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="440" viewBox="0 0 980 440" role="img" aria-labelledby="title desc">
 <title id="title">RabbitMQ TTL、死信与重试</title>
 <desc id="desc">RabbitMQ TTL、死信与重试</desc>
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
-<rect class="bg" width="940" height="420"/>
-<text class="text title" x="470" y="38" text-anchor="middle">RabbitMQ TTL、死信与重试</text>
-<rect class="main" x="90" y="120" width="150" height="64"/><text class="text body" x="165" y="152" text-anchor="middle">主队列</text>
-<rect class="node" x="330" y="120" width="150" height="64"/><text class="text body" x="405" y="152" text-anchor="middle">消费者</text>
-<rect class="warn" x="330" y="260" width="150" height="64"/><text class="text body" x="405" y="292" text-anchor="middle">重试队列 TTL</text>
-<rect class="store" x="590" y="260" width="150" height="64"/><text class="text body" x="665" y="292" text-anchor="middle">死信队列</text>
-<path class="line" d="M240 152 L330 152"/>
-<path class="line" d="M480 152 L405 152 L405 292 L330 292"/><text class="text small" x="405" y="214" text-anchor="middle">失败 nack/reject</text>
-<path class="line" d="M480 292 L285 292 L285 152 L90 152"/><text class="text small" x="285" y="214" text-anchor="middle">TTL 到期 DLX</text>
-<path class="line" d="M480 152 L535 152 L535 292 L590 292"/><text class="text small" x="535" y="214" text-anchor="middle">超过最大次数</text>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.group{fill:#fff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}</style></defs>
+<rect class="bg" width="980" height="440"/>
+<text class="text title" x="490" y="38" text-anchor="middle">RabbitMQ TTL、死信与重试</text>
+<rect class="main" x="90" y="165" width="160" height="70" rx="10"/><text class="text body" x="170" y="205" text-anchor="middle">主队列</text>
+<rect class="node" x="360" y="165" width="160" height="70" rx="10"/><text class="text body" x="440" y="205" text-anchor="middle">消费者</text>
+<rect class="warn" x="360" y="300" width="180" height="70" rx="10"/><text class="text body" x="450" y="340" text-anchor="middle">重试队列 TTL</text>
+<rect class="store" x="660" y="300" width="160" height="70" rx="10"/><text class="text body" x="740" y="340" text-anchor="middle">死信队列</text>
+<path class="line" d="M250 200 L360 200"/>
+<path class="line" d="M440 235 L440 300"/><text class="text small" x="505" y="272" text-anchor="middle">失败 nack/reject</text>
+<path class="line" d="M360 335 L170 335 L170 235"/><text class="text small" x="245" y="325" text-anchor="middle">TTL 到期 DLX</text>
+<path class="line" d="M520 200 L740 200 L740 300"/><text class="text small" x="715" y="192" text-anchor="middle">超过最大次数</text>
 </svg>

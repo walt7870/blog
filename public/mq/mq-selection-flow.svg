@@ -1,28 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
 <title id="title">消息中间件选型流程</title>
 <desc id="desc">消息中间件选型流程</desc>
-<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
-<rect class="bg" width="1120" height="560"/>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.group{fill:#fff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}</style></defs>
+<rect class="bg" width="1120" height="600"/>
 <text class="text title" x="560" y="38" text-anchor="middle">消息中间件选型流程</text>
-<rect class="main" x="480" y="70" width="150" height="64"/><text class="text body" x="555" y="102" text-anchor="middle">需要消息中间件</text>
-<rect class="warn" x="480" y="155" width="150" height="64"/><text class="text body" x="555" y="187" text-anchor="middle">业务异步任务为主?</text>
-<rect class="warn" x="230" y="250" width="150" height="64"/><text class="text body" x="305" y="282" text-anchor="middle">复杂路由/协议兼容?</text>
-<rect class="warn" x="230" y="360" width="150" height="64"/><text class="text body" x="305" y="383" text-anchor="middle">事务/顺序/延时强语</text><text class="text body" x="305" y="403" text-anchor="middle">义?</text>
-<rect class="store" x="50" y="440" width="150" height="64"/><text class="text body" x="125" y="472" text-anchor="middle">RabbitMQ</text>
-<rect class="store" x="410" y="440" width="150" height="64"/><text class="text body" x="485" y="472" text-anchor="middle">RocketMQ</text>
-<rect class="warn" x="730" y="250" width="150" height="64"/><text class="text body" x="805" y="282" text-anchor="middle">高吞吐事件流/日志?</text>
-<rect class="warn" x="730" y="360" width="150" height="64"/><text class="text body" x="805" y="383" text-anchor="middle">多租户/跨地域/存算</text><text class="text body" x="805" y="403" text-anchor="middle">分离?</text>
-<rect class="store" x="590" y="440" width="150" height="64"/><text class="text body" x="665" y="472" text-anchor="middle">Kafka</text>
-<rect class="store" x="890" y="440" width="150" height="64"/><text class="text body" x="965" y="472" text-anchor="middle">Pulsar</text>
-<path class="line" d="M630 102 L555 102 L555 187 L480 187"/>
-<path class="line" d="M630 187 L430 187 L430 282 L230 282"/><text class="text small" x="430" y="226.5" text-anchor="middle">是</text>
-<path class="line" d="M380 282 L215 282 L215 472 L50 472"/><text class="text small" x="215" y="369" text-anchor="middle">是</text>
-<path class="line" d="M380 282 L305 282 L305 392 L230 392"/><text class="text small" x="305" y="329" text-anchor="middle">否</text>
-<path class="line" d="M380 392 L395 392 L395 472 L410 472"/><text class="text small" x="395" y="424" text-anchor="middle">是</text>
-<path class="line" d="M380 392 L215 392 L215 472 L50 472"/><text class="text small" x="215" y="424" text-anchor="middle">否</text>
-<path class="line" d="M630 187 L680 187 L680 282 L730 282"/><text class="text small" x="680" y="226.5" text-anchor="middle">否</text>
-<path class="line" d="M880 282 L735 282 L735 472 L590 472"/><text class="text small" x="735" y="369" text-anchor="middle">是</text>
-<path class="line" d="M880 282 L805 282 L805 392 L730 392"/><text class="text small" x="805" y="329" text-anchor="middle">否</text>
-<path class="line" d="M880 392 L885 392 L885 472 L890 472"/><text class="text small" x="885" y="424" text-anchor="middle">是</text>
-<path class="line" d="M880 392 L735 392 L735 472 L590 472"/><text class="text small" x="735" y="424" text-anchor="middle">否</text>
+<rect class="main" x="480" y="70" width="160" height="64" rx="10"/><text class="text body" x="560" y="107" text-anchor="middle">需要消息中间件</text>
+<rect class="warn" x="470" y="155" width="180" height="70" rx="10"/><text class="text body" x="560" y="195" text-anchor="middle">业务异步任务为主?</text>
+<rect class="warn" x="190" y="260" width="210" height="70" rx="10"/><text class="text body" x="295" y="300" text-anchor="middle">复杂路由/协议兼容?</text>
+<rect class="warn" x="190" y="370" width="220" height="70" rx="10"/><text class="text body" x="300" y="401" text-anchor="middle">事务/顺序/延时</text><text class="text body" x="300" y="421" text-anchor="middle">强语义?</text>
+<rect class="store" x="70" y="485" width="160" height="64" rx="10"/><text class="text body" x="150" y="522" text-anchor="middle">RabbitMQ</text>
+<rect class="store" x="350" y="485" width="160" height="64" rx="10"/><text class="text body" x="430" y="522" text-anchor="middle">RocketMQ</text>
+<rect class="warn" x="720" y="260" width="210" height="70" rx="10"/><text class="text body" x="825" y="300" text-anchor="middle">高吞吐事件流/日志?</text>
+<rect class="warn" x="720" y="370" width="220" height="70" rx="10"/><text class="text body" x="830" y="401" text-anchor="middle">多租户/跨地域</text><text class="text body" x="830" y="421" text-anchor="middle">存算分离?</text>
+<rect class="store" x="630" y="485" width="160" height="64" rx="10"/><text class="text body" x="710" y="522" text-anchor="middle">Kafka</text>
+<rect class="store" x="900" y="485" width="160" height="64" rx="10"/><text class="text body" x="980" y="522" text-anchor="middle">Pulsar</text>
+<path class="line" d="M560 134 L560 155"/>
+<path class="line" d="M470 190 L295 190 L295 260"/><text class="text small" x="360" y="180" text-anchor="middle">是</text>
+<path class="line" d="M650 190 L825 190 L825 260"/><text class="text small" x="755" y="180" text-anchor="middle">否</text>
+<path class="line" d="M295 330 L295 370"/><text class="text small" x="330" y="355" text-anchor="middle">否</text>
+<path class="line" d="M260 330 L150 330 L150 485"/><text class="text small" x="185" y="350" text-anchor="middle">是</text>
+<path class="line" d="M300 440 L430 485"/><text class="text small" x="375" y="455" text-anchor="middle">是</text>
+<path class="line" d="M245 440 L150 485"/><text class="text small" x="205" y="455" text-anchor="middle">否</text>
+<path class="line" d="M825 330 L825 370"/><text class="text small" x="860" y="355" text-anchor="middle">否</text>
+<path class="line" d="M780 330 L710 485"/><text class="text small" x="735" y="405" text-anchor="middle">是</text>
+<path class="line" d="M875 440 L980 485"/><text class="text small" x="935" y="455" text-anchor="middle">是</text>
+<path class="line" d="M805 440 L710 485"/><text class="text small" x="760" y="455" text-anchor="middle">否</text>
 </svg>
