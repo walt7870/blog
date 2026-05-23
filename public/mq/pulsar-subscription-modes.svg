@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="950" height="450" viewBox="0 0 950 450" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar 四种订阅模式</title>
+<desc id="desc">Pulsar 四种订阅模式</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="950" height="450"/>
+<text class="text title" x="475" y="38" text-anchor="middle">Pulsar 四种订阅模式</text>
+<rect class="main" x="80" y="190" width="150" height="64"/><text class="text body" x="155" y="222" text-anchor="middle">Topic</text>
+<rect class="main" x="310" y="190" width="150" height="64"/><text class="text body" x="385" y="222" text-anchor="middle">Subscription</text>
+<rect class="node" x="560" y="80" width="240" height="64"/><text class="text body" x="680" y="103" text-anchor="middle">Exclusive: 1 </text><text class="text body" x="680" y="123" text-anchor="middle">个活跃消费者</text>
+<rect class="node" x="560" y="160" width="220" height="64"/><text class="text body" x="670" y="183" text-anchor="middle">Failover: 主备切</text><text class="text body" x="670" y="203" text-anchor="middle">换</text>
+<rect class="node" x="560" y="240" width="220" height="64"/><text class="text body" x="670" y="263" text-anchor="middle">Shared: 多消费者并</text><text class="text body" x="670" y="283" text-anchor="middle">行</text>
+<rect class="node" x="560" y="320" width="230" height="64"/><text class="text body" x="675" y="343" text-anchor="middle">Key_Shared: 同</text><text class="text body" x="675" y="363" text-anchor="middle"> key 保序</text>
+<path class="line" d="M230 222 L310 222"/>
+<path class="line" d="M460 222 L510 222 L510 112 L560 112"/>
+<path class="line" d="M460 222 L510 222 L510 192 L560 192"/>
+<path class="line" d="M460 222 L510 222 L510 272 L560 272"/>
+<path class="line" d="M460 222 L510 222 L510 352 L560 352"/>
+</svg>

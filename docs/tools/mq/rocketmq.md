@@ -7,14 +7,7 @@ RocketMQ 是 Apache 顶级项目，最早来自阿里巴巴大规模电商交易
 
 RocketMQ 是一个面向业务系统的分布式消息中间件：`NameServer` 负责路由发现，`Broker` 负责消息存储和投递，`Producer/Consumer` 通过 Topic 和 Queue 完成发布订阅。
 
-```mermaid
-flowchart LR
-  Producer[Producer] -->|查询路由| NS[NameServer]
-  Consumer[Consumer] -->|查询路由| NS
-  Producer -->|发送消息| B1[Broker Master]
-  B1 -->|复制| B2[Broker Slave]
-  B1 -->|投递消息| Consumer
-```
+![RocketMQ 路由发现与消息投递](/mq/rocketmq-routing-storage.svg)
 
 ## 适合与不适合
 
@@ -48,15 +41,7 @@ flowchart LR
 
 一个 Topic 通常包含多个 Queue，Queue 分布在不同 Broker 上。
 
-```mermaid
-flowchart TD
-  T[Topic: order-topic] --> Q0[Queue 0]
-  T --> Q1[Queue 1]
-  T --> Q2[Queue 2]
-  Q0 --> B1[Broker A]
-  Q1 --> B2[Broker B]
-  Q2 --> B3[Broker C]
-```
+![RocketMQ Topic 与 Queue](/mq/rocketmq-topic-queue.svg)
 
 设计原则：
 
@@ -75,33 +60,13 @@ flowchart TD
 
 ## 普通消息流程
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant N as NameServer
-  participant B as Broker
-  participant C as Consumer
-
-  P->>N: 获取 Topic 路由
-  P->>B: 发送消息
-  B-->>P: SendResult
-  C->>N: 获取订阅路由
-  B->>C: 投递消息
-  C-->>B: 消费确认
-```
+![RocketMQ 普通消息流程](/mq/rocketmq-normal-message-flow.svg)
 
 ## 顺序消息
 
 RocketMQ 顺序消息的关键是：**同一业务序列进入同一个 MessageQueue，并由消费者顺序处理**。
 
-```mermaid
-flowchart LR
-  M1[orderId=100 创建] --> Selector[按 orderId 选择 Queue]
-  M2[orderId=100 支付] --> Selector
-  M3[orderId=100 发货] --> Selector
-  Selector --> Q[同一个 Queue]
-  Q --> C[顺序消费者]
-```
+![RocketMQ 顺序消息](/mq/rocketmq-fifo-message.svg)
 
 适合：
 
@@ -122,42 +87,13 @@ flowchart LR
 - 会议开始前 10 分钟提醒。
 - 优惠券到期提醒。
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant B as Broker
-  participant C as Consumer
-
-  P->>B: 发送延时消息（deliverTime=30m later）
-  B->>B: 到期前不可见
-  B->>C: 到期后投递
-  C-->>B: 消费确认
-```
+![RocketMQ 延时消息流程](/mq/rocketmq-delay-message.svg)
 
 ## 事务消息
 
 事务消息用于解决“本地事务成功，但消息没发出去”或“消息发出去了，本地事务失败”的一致性问题。
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant B as Broker
-  participant DB as Local DB
-  participant C as Consumer
-
-  P->>B: 发送半事务消息
-  B-->>P: 半消息写入成功
-  P->>DB: 执行本地事务
-  alt 本地事务成功
-    P->>B: commit
-    B->>C: 消息可见并投递
-  else 本地事务失败
-    P->>B: rollback
-    B->>B: 删除/丢弃半消息
-  else Producer 异常
-    B->>P: 回查本地事务状态
-  end
-```
+![RocketMQ 事务消息流程](/mq/rocketmq-transaction-message.svg)
 
 关键点：
 
@@ -167,14 +103,7 @@ sequenceDiagram
 
 ## 消费重试与死信
 
-```mermaid
-flowchart TD
-  B[Broker 投递消息] --> C[Consumer]
-  C -->|成功| Ack[确认消费]
-  C -->|失败| Retry[按策略重试]
-  Retry --> C
-  Retry -->|超过最大次数| DLQ[死信队列]
-```
+![RocketMQ 消费重试与死信](/mq/rocketmq-retry-dlq.svg)
 
 实践建议：
 
@@ -195,16 +124,7 @@ flowchart TD
 
 ### 流程图
 
-```mermaid
-flowchart LR
-  Order[订单服务] -->|延时消息 30m| TimeoutTopic[order-timeout-topic]
-  TimeoutTopic --> TimeoutC[超时检查消费者]
-  TimeoutC --> OrderDB[(订单库)]
-
-  Payment[支付服务] -->|事务消息 order.paid| PaymentTopic[payment-topic]
-  PaymentTopic --> CouponC[发券消费者]
-  CouponC --> CouponDB[(券库)]
-```
+![RocketMQ 订单超时与发券流程](/mq/rocketmq-order-case.svg)
 
 ### 关键设计
 

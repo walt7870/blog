@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="460" viewBox="0 0 1160 460" role="img" aria-labelledby="title desc">
+<title id="title">Kafka 订单超时与发券流程</title>
+<desc id="desc">Kafka 订单超时与发券流程</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1160" height="460"/>
+<text class="text title" x="580" y="38" text-anchor="middle">Kafka 订单超时与发券流程</text>
+<rect class="node" x="50" y="90" width="150" height="64"/><text class="text body" x="125" y="122" text-anchor="middle">订单服务</text>
+<rect class="main" x="250" y="90" width="150" height="64"/><text class="text body" x="325" y="122" text-anchor="middle">Kafka</text>
+<rect class="node" x="460" y="90" width="150" height="64"/><text class="text body" x="535" y="122" text-anchor="middle">延迟调度服务</text>
+<rect class="node" x="680" y="90" width="180" height="64"/><text class="text body" x="770" y="113" text-anchor="middle">order.timeout-</text><text class="text body" x="770" y="133" text-anchor="middle">check</text>
+<rect class="node" x="900" y="90" width="170" height="64"/><text class="text body" x="985" y="122" text-anchor="middle">超时检查消费者</text>
+<rect class="store" x="900" y="190" width="150" height="64"/><text class="text body" x="975" y="222" text-anchor="middle">订单库</text>
+<rect class="node" x="50" y="300" width="150" height="64"/><text class="text body" x="125" y="332" text-anchor="middle">支付服务</text>
+<rect class="main" x="250" y="300" width="150" height="64"/><text class="text body" x="325" y="332" text-anchor="middle">order.paid</text>
+<rect class="node" x="500" y="300" width="150" height="64"/><text class="text body" x="575" y="332" text-anchor="middle">发券消费者</text>
+<rect class="store" x="730" y="300" width="150" height="64"/><text class="text body" x="805" y="332" text-anchor="middle">券库</text>
+<path class="line" d="M200 122 L250 122"/><text class="text small" x="225" y="114" text-anchor="middle">order.created</text>
+<path class="line" d="M400 122 L460 122"/>
+<path class="line" d="M610 122 L680 122"/><text class="text small" x="645" y="114" text-anchor="middle">到期写入</text>
+<path class="line" d="M860 122 L900 122"/>
+<path class="line" d="M1070 122 L985 122 L985 222 L900 222"/>
+<path class="line" d="M200 332 L250 332"/><text class="text small" x="225" y="324" text-anchor="middle">order.paid</text>
+<path class="line" d="M400 332 L500 332"/>
+<path class="line" d="M650 332 L730 332"/>
+</svg>

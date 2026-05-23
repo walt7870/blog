@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="460" viewBox="0 0 1180 460" role="img" aria-labelledby="title desc">
+<title id="title">Kafka Topic、Partition 与消费者组</title>
+<desc id="desc">Kafka Topic、Partition 与消费者组</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1180" height="460"/>
+<text class="text title" x="590" y="38" text-anchor="middle">Kafka Topic、Partition 与消费者组</text>
+<rect class="node" x="40" y="125" width="150" height="64"/><text class="text body" x="115" y="157" text-anchor="middle">Producer A</text>
+<rect class="node" x="40" y="245" width="150" height="64"/><text class="text body" x="115" y="277" text-anchor="middle">Producer B</text>
+<rect class="main" x="245" y="185" width="180" height="64"/><text class="text body" x="335" y="208" text-anchor="middle">Topic: order-e</text><text class="text body" x="335" y="228" text-anchor="middle">vents</text>
+<rect class="node" x="485" y="90" width="150" height="64"/><text class="text body" x="560" y="122" text-anchor="middle">Partition 0</text>
+<rect class="node" x="485" y="185" width="150" height="64"/><text class="text body" x="560" y="217" text-anchor="middle">Partition 1</text>
+<rect class="node" x="485" y="280" width="150" height="64"/><text class="text body" x="560" y="312" text-anchor="middle">Partition 2</text>
+<rect class="store" x="750" y="125" width="220" height="64"/><text class="text body" x="860" y="139" text-anchor="middle">Consumer Group</text><text class="text body" x="860" y="159" text-anchor="middle">: coupon-servi</text><text class="text body" x="860" y="179" text-anchor="middle">ce</text>
+<rect class="store" x="750" y="265" width="220" height="64"/><text class="text body" x="860" y="279" text-anchor="middle">Consumer Group</text><text class="text body" x="860" y="299" text-anchor="middle">: search-index</text><text class="text body" x="860" y="319" text-anchor="middle">er</text>
+<path class="line" d="M190 157 L217.5 157 L217.5 217 L245 217"/>
+<path class="line" d="M190 277 L217.5 277 L217.5 217 L245 217"/>
+<path class="line" d="M425 217 L455 217 L455 122 L485 122"/>
+<path class="line" d="M425 217 L485 217"/>
+<path class="line" d="M425 217 L455 217 L455 312 L485 312"/>
+<path class="line" d="M635 122 L692.5 122 L692.5 157 L750 157"/>
+<path class="line" d="M635 217 L692.5 217 L692.5 157 L750 157"/>
+<path class="line" d="M635 312 L692.5 312 L692.5 157 L750 157"/>
+<path class="line" d="M635 122 L692.5 122 L692.5 297 L750 297"/>
+<path class="line" d="M635 217 L692.5 217 L692.5 297 L750 297"/>
+<path class="line" d="M635 312 L692.5 312 L692.5 297 L750 297"/>
+</svg>

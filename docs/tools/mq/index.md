@@ -19,19 +19,7 @@
 
 ## MQ 在系统中的位置
 
-```mermaid
-flowchart LR
-  User[用户请求] --> API[业务服务]
-  API --> DB[(业务数据库)]
-  API --> MQ[(消息中间件)]
-  MQ --> Worker[异步任务服务]
-  MQ --> Notify[通知服务]
-  MQ --> Search[搜索索引]
-  MQ --> BI[实时数仓/报表]
-
-  Worker --> Ext[第三方系统]
-  Notify --> SMS[短信/邮件/站内信]
-```
+![MQ 在系统中的位置](/mq/mq-system-position.svg)
 
 核心变化是：主链路只完成必要的业务提交，耗时或可异步的动作交给 MQ 后面的消费者处理。
 
@@ -57,23 +45,7 @@ flowchart LR
 
 ## 选型流程图
 
-```mermaid
-flowchart TD
-  Start[需要消息中间件] --> Q1{主要是业务异步任务?}
-  Q1 -- 是 --> Q2{需要复杂路由/协议兼容?}
-  Q2 -- 是 --> Rabbit[RabbitMQ]
-  Q2 -- 否 --> Simple{需要事务/顺序/延时强语义?}
-  Simple -- 是 --> Rocket[RocketMQ]
-  Simple -- 否 --> Rabbit
-
-  Q1 -- 否 --> Q3{主要是高吞吐事件流/日志/埋点?}
-  Q3 -- 是 --> Kafka[Kafka]
-  Q3 -- 否 --> Q4{需要多租户平台化/跨地域/存算分离?}
-  Q4 -- 是 --> Pulsar[Pulsar]
-  Q4 -- 否 --> Q5{核心交易链路?}
-  Q5 -- 是 --> Rocket
-  Q5 -- 否 --> Kafka
-```
+![消息中间件选型流程](/mq/mq-selection-flow.svg)
 
 ## 消息投递的基本语义
 
@@ -87,27 +59,7 @@ flowchart TD
 
 ## 一个标准消息处理链路
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant M as MQ Broker
-  participant C as Consumer
-  participant D as Database
-  participant DLQ as Dead Letter Queue
-
-  P->>M: 发送消息
-  M-->>P: broker 确认
-  M->>C: 投递消息
-  C->>D: 执行业务处理
-  alt 处理成功
-    C-->>M: ack / commit offset
-  else 可重试失败
-    C-->>M: nack / 不提交
-    M->>C: 延迟后重投
-  else 超过重试上限
-    M->>DLQ: 投递死信
-  end
-```
+![标准消息处理链路](/mq/mq-delivery-semantics.svg)
 
 ## 落地前必须设计的 8 件事
 
@@ -124,15 +76,7 @@ sequenceDiagram
 
 这套案例会在每篇组件文档里展开：
 
-```mermaid
-flowchart LR
-  Order[订单服务] -->|order.created| MQ[(MQ)]
-  Payment[支付服务] -->|order.paid| MQ
-  MQ --> Timeout[超时检查消费者]
-  MQ --> Coupon[发券消费者]
-  Timeout --> OrderDB[(订单库)]
-  Coupon --> CouponDB[(券库)]
-```
+![订单超时关闭与支付成功发券](/mq/mq-order-timeout-coupon.svg)
 
 核心业务规则：
 

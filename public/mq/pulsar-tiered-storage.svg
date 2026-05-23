@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="390" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar 分层存储</title>
+<desc id="desc">Pulsar 分层存储</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="960" height="390"/>
+<text class="text title" x="480" y="38" text-anchor="middle">Pulsar 分层存储</text>
+<rect class="node" x="60" y="120" width="150" height="64"/><text class="text body" x="135" y="152" text-anchor="middle">Producer</text>
+<rect class="node" x="60" y="260" width="150" height="64"/><text class="text body" x="135" y="292" text-anchor="middle">Consumer</text>
+<rect class="main" x="300" y="190" width="150" height="64"/><text class="text body" x="375" y="222" text-anchor="middle">Broker</text>
+<rect class="store" x="560" y="120" width="180" height="64"/><text class="text body" x="650" y="152" text-anchor="middle">BookKeeper 热数据</text>
+<rect class="store" x="560" y="260" width="210" height="64"/><text class="text body" x="665" y="283" text-anchor="middle">S3/GCS/Azure </text><text class="text body" x="665" y="303" text-anchor="middle">Blob 冷数据</text>
+<path class="line" d="M210 152 L255 152 L255 222 L300 222"/>
+<path class="line" d="M450 222 L505 222 L505 152 L560 152"/>
+<path class="line" d="M740 152 L650 152 L650 292 L560 292"/><text class="text small" x="650" y="214" text-anchor="middle">offload</text>
+<path class="line" d="M210 292 L255 292 L255 222 L300 222"/>
+<path class="line" d="M450 222 L505 222 L505 292 L560 292"/>
+</svg>

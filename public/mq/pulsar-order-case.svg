@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar 订单超时与发券流程</title>
+<desc id="desc">Pulsar 订单超时与发券流程</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1080" height="420"/>
+<text class="text title" x="540" y="38" text-anchor="middle">Pulsar 订单超时与发券流程</text>
+<rect class="node" x="60" y="110" width="150" height="64"/><text class="text body" x="135" y="142" text-anchor="middle">订单服务</text>
+<rect class="main" x="300" y="110" width="180" height="64"/><text class="text body" x="390" y="133" text-anchor="middle">order-timeout-</text><text class="text body" x="390" y="153" text-anchor="middle">check</text>
+<rect class="node" x="570" y="110" width="170" height="64"/><text class="text body" x="655" y="142" text-anchor="middle">超时检查消费者</text>
+<rect class="store" x="820" y="110" width="150" height="64"/><text class="text body" x="895" y="142" text-anchor="middle">订单库</text>
+<rect class="node" x="60" y="270" width="150" height="64"/><text class="text body" x="135" y="302" text-anchor="middle">支付服务</text>
+<rect class="main" x="300" y="270" width="150" height="64"/><text class="text body" x="375" y="302" text-anchor="middle">order-paid</text>
+<rect class="node" x="570" y="270" width="150" height="64"/><text class="text body" x="645" y="302" text-anchor="middle">发券消费者</text>
+<rect class="store" x="820" y="270" width="150" height="64"/><text class="text body" x="895" y="302" text-anchor="middle">券库</text>
+<path class="line" d="M210 142 L300 142"/><text class="text small" x="255" y="134" text-anchor="middle">delayed message</text>
+<path class="line" d="M480 142 L570 142"/><text class="text small" x="525" y="134" text-anchor="middle">Key_Shared orderId</text>
+<path class="line" d="M740 142 L820 142"/>
+<path class="line" d="M210 302 L300 302"/>
+<path class="line" d="M450 302 L570 302"/><text class="text small" x="510" y="294" text-anchor="middle">Shared</text>
+<path class="line" d="M720 302 L820 302"/>
+</svg>

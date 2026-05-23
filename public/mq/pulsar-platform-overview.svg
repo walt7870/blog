@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="950" height="380" viewBox="0 0 950 380" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar 多租户消息平台</title>
+<desc id="desc">Pulsar 多租户消息平台</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="950" height="380"/>
+<text class="text title" x="475" y="38" text-anchor="middle">Pulsar 多租户消息平台</text>
+<rect class="node" x="70" y="105" width="150" height="64"/><text class="text body" x="145" y="137" text-anchor="middle">Producer</text>
+<rect class="node" x="70" y="235" width="150" height="64"/><text class="text body" x="145" y="267" text-anchor="middle">Consumer</text>
+<rect class="main" x="330" y="170" width="150" height="64"/><text class="text body" x="405" y="202" text-anchor="middle">Pulsar Broker</text>
+<rect class="store" x="600" y="105" width="150" height="64"/><text class="text body" x="675" y="128" text-anchor="middle">BookKeeper Boo</text><text class="text body" x="675" y="148" text-anchor="middle">kies</text>
+<rect class="store" x="600" y="235" width="150" height="64"/><text class="text body" x="675" y="267" text-anchor="middle">Metadata Store</text>
+<rect class="node" x="330" y="300" width="210" height="64"/><text class="text body" x="435" y="323" text-anchor="middle">Admin API / p</text><text class="text body" x="435" y="343" text-anchor="middle">ulsar-admin</text>
+<path class="line" d="M220 137 L275 137 L275 202 L330 202"/>
+<path class="line" d="M220 267 L275 267 L275 202 L330 202"/>
+<path class="line" d="M480 202 L540 202 L540 137 L600 137"/>
+<path class="line" d="M480 202 L540 202 L540 267 L600 267"/>
+<path class="line" d="M540 332 L435 332 L435 202 L330 202"/>
+</svg>

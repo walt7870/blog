@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
+  <title id="title">组织经验沉淀循环</title>
+  <desc id="desc">展示团队如何把订单导出中的问题沉淀为规格库、Checklist、风险库和 Skill</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#059669"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:12}.core{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:14}.risk{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.line{stroke:#059669;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="500"/>
+  <text class="text h" x="540" y="42" text-anchor="middle">重复问题要进入系统，而不是留在聊天记录里</text>
+  <rect class="box" x="80" y="190" width="180" height="90"/>
+  <text class="text h" x="170" y="224" text-anchor="middle">项目实践</text>
+  <text class="text b" x="170" y="250" text-anchor="middle">完成订单导出</text>
+  <rect class="risk" x="320" y="80" width="180" height="90"/>
+  <text class="text h" x="410" y="114" text-anchor="middle">发现问题</text>
+  <text class="text b" x="410" y="140" text-anchor="middle">漏权限、漏字段测试</text>
+  <rect class="core" x="590" y="80" width="180" height="90"/>
+  <text class="text h" x="680" y="114" text-anchor="middle">沉淀规则</text>
+  <text class="text b" x="680" y="140" text-anchor="middle">规格库、风险库</text>
+  <rect class="core" x="830" y="190" width="180" height="90"/>
+  <text class="text h" x="920" y="224" text-anchor="middle">自动化</text>
+  <text class="text b" x="920" y="250" text-anchor="middle">Checklist、Skill</text>
+  <rect class="box" x="590" y="320" width="180" height="90"/>
+  <text class="text h" x="680" y="354" text-anchor="middle">下一次复用</text>
+  <text class="text b" x="680" y="380" text-anchor="middle">退款导出、用户导出</text>
+  <rect class="box" x="320" y="320" width="180" height="90"/>
+  <text class="text h" x="410" y="354" text-anchor="middle">反馈评估</text>
+  <text class="text b" x="410" y="380" text-anchor="middle">CI 通过率、返工率</text>
+  <path class="line" d="M260 215 C300 170 310 140 320 125"/>
+  <path class="line" d="M500 125 L590 125"/>
+  <path class="line" d="M770 125 C840 135 900 165 920 190"/>
+  <path class="line" d="M920 280 C895 330 820 360 770 365"/>
+  <path class="line" d="M590 365 L500 365"/>
+  <path class="line" d="M320 365 C220 350 170 300 170 280"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="380" viewBox="0 0 920 380" role="img" aria-labelledby="title desc">
+<title id="title">Kafka CDC 数据同步</title>
+<desc id="desc">Kafka CDC 数据同步</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="920" height="380"/>
+<text class="text title" x="460" y="38" text-anchor="middle">Kafka CDC 数据同步</text>
+<rect class="store" x="60" y="160" width="150" height="64"/><text class="text body" x="135" y="183" text-anchor="middle">MySQL/PostgreS</text><text class="text body" x="135" y="203" text-anchor="middle">QL</text>
+<rect class="node" x="285" y="160" width="150" height="64"/><text class="text body" x="360" y="192" text-anchor="middle">Debezium</text>
+<rect class="main" x="500" y="160" width="150" height="64"/><text class="text body" x="575" y="192" text-anchor="middle">Kafka</text>
+<rect class="node" x="710" y="80" width="150" height="64"/><text class="text body" x="785" y="112" text-anchor="middle">Elasticsearch</text>
+<rect class="node" x="710" y="160" width="150" height="64"/><text class="text body" x="785" y="192" text-anchor="middle">Data Warehouse</text>
+<rect class="node" x="710" y="240" width="150" height="64"/><text class="text body" x="785" y="272" text-anchor="middle">Cache Builder</text>
+<path class="line" d="M210 192 L285 192"/>
+<path class="line" d="M435 192 L500 192"/>
+<path class="line" d="M650 192 L680 192 L680 112 L710 112"/>
+<path class="line" d="M650 192 L710 192"/>
+<path class="line" d="M650 192 L680 192 L680 272 L710 272"/>
+</svg>

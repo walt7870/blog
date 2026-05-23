@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="288" viewBox="0 0 760 288" role="img" aria-labelledby="title desc">
+<title id="title">RocketMQ 延时消息流程</title>
+<desc id="desc">RocketMQ 延时消息流程</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="760" height="288"/>
+<text class="text title" x="380" y="38" text-anchor="middle">RocketMQ 延时消息流程</text>
+<rect class="main" x="20" y="70" width="120" height="44"/><text class="text body" x="80" y="98" text-anchor="middle">Producer</text>
+<path class="dash" d="M80 114 L80 253"/>
+<rect class="main" x="190" y="70" width="120" height="44"/><text class="text body" x="250" y="98" text-anchor="middle">Broker</text>
+<path class="dash" d="M250 114 L250 253"/>
+<rect class="main" x="360" y="70" width="120" height="44"/><text class="text body" x="420" y="98" text-anchor="middle">Consumer</text>
+<path class="dash" d="M420 114 L420 253"/>
+<path class="msg" d="M80 145 L250 145"/><text class="text small" x="165" y="137" text-anchor="middle">发送延时消息 deliverTime=30m later</text>
+<path class="msg" d="M250 187 C320 187 320 211 250 211"/><text class="text small" x="328" y="201">到期前不可见</text>
+<path class="msg" d="M250 229 L420 229"/><text class="text small" x="335" y="221" text-anchor="middle">到期后投递</text>
+<path class="msg" d="M420 271 L250 271"/><text class="text small" x="335" y="263" text-anchor="middle">消费确认</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
+  <title id="title">订单导出原型反馈循环</title>
+  <desc id="desc">展示 Vibe Coding 阶段围绕订单导出原型的表达、产出、试用、反馈和决策循环</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#0f766e"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:12}.focus{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:12}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="500"/>
+  <text class="text h" x="540" y="42" text-anchor="middle">Vibe 阶段只验证关键问题</text>
+  <rect class="box" x="70" y="110" width="170" height="105"/>
+  <text class="text h" x="155" y="145" text-anchor="middle">表达想法</text>
+  <text class="text b" x="155" y="173" text-anchor="middle">导出按钮</text>
+  <text class="text b" x="155" y="195" text-anchor="middle">时间范围和 CSV</text>
+  <rect class="box" x="310" y="110" width="170" height="105"/>
+  <text class="text h" x="395" y="145" text-anchor="middle">产出原型</text>
+  <text class="text b" x="395" y="173" text-anchor="middle">测试数据</text>
+  <text class="text b" x="395" y="195" text-anchor="middle">下载状态</text>
+  <rect class="box" x="550" y="110" width="170" height="105"/>
+  <text class="text h" x="635" y="145" text-anchor="middle">试用观察</text>
+  <text class="text b" x="635" y="173" text-anchor="middle">入口是否顺手</text>
+  <text class="text b" x="635" y="195" text-anchor="middle">字段是否可用</text>
+  <rect class="box" x="790" y="110" width="220" height="105"/>
+  <text class="text h" x="900" y="145" text-anchor="middle">具体反馈</text>
+  <text class="text b" x="900" y="173" text-anchor="middle">文件名、字段顺序</text>
+  <text class="text b" x="900" y="195" text-anchor="middle">失败提示、重复点击</text>
+  <path class="line" d="M240 162 L310 162"/><path class="line" d="M480 162 L550 162"/><path class="line" d="M720 162 L790 162"/>
+  <path class="line" d="M900 215 C900 310 155 310 155 215"/>
+  <rect class="focus" x="250" y="355" width="260" height="90"/>
+  <text class="text h" x="380" y="390" text-anchor="middle">继续原型</text>
+  <text class="text b" x="380" y="418" text-anchor="middle">方向未稳定，继续低成本迭代</text>
+  <rect class="warn" x="570" y="355" width="260" height="90"/>
+  <text class="text h" x="700" y="390" text-anchor="middle">进入工程化</text>
+  <text class="text b" x="700" y="418" text-anchor="middle">接真实数据、权限、测试和发布</text>
+  <path class="line" d="M540 310 L380 355"/><path class="line" d="M540 310 L700 355"/>
+</svg>

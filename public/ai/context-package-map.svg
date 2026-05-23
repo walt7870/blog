@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">订单导出上下文包</title>
+  <desc id="desc">展示订单导出任务需要的页面、接口、权限、字段、测试和验证命令上下文</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.center{fill:#ecfeff;stroke:#0891b2;stroke-width:2;rx:14}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.line{stroke:#0891b2;stroke-width:2;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="520"/>
+  <text class="text h" x="560" y="42" text-anchor="middle">上下文包围绕任务关系组织</text>
+  <rect class="center" x="430" y="205" width="260" height="110"/>
+  <text class="text h" x="560" y="247" text-anchor="middle">订单导出任务</text>
+  <text class="text b" x="560" y="276" text-anchor="middle">按筛选导出 CSV</text>
+  <rect class="box" x="70" y="95" width="210" height="90"/>
+  <text class="text h" x="175" y="128" text-anchor="middle">页面入口</text>
+  <text class="text b" x="175" y="154" text-anchor="middle">列表、筛选、按钮位置</text>
+  <rect class="box" x="455" y="95" width="210" height="90"/>
+  <text class="text h" x="560" y="128" text-anchor="middle">数据查询</text>
+  <text class="text b" x="560" y="154" text-anchor="middle">参数、分页、状态枚举</text>
+  <rect class="box" x="840" y="95" width="210" height="90"/>
+  <text class="text h" x="945" y="128" text-anchor="middle">权限规则</text>
+  <text class="text b" x="945" y="154" text-anchor="middle">权限点和无权限行为</text>
+  <rect class="box" x="70" y="340" width="210" height="90"/>
+  <text class="text h" x="175" y="373" text-anchor="middle">字段定义</text>
+  <text class="text b" x="175" y="399" text-anchor="middle">白名单和敏感字段</text>
+  <rect class="box" x="455" y="340" width="210" height="90"/>
+  <text class="text h" x="560" y="373" text-anchor="middle">测试样例</text>
+  <text class="text b" x="560" y="399" text-anchor="middle">权限、空结果、失败</text>
+  <rect class="box" x="840" y="340" width="210" height="90"/>
+  <text class="text h" x="945" y="373" text-anchor="middle">验证命令</text>
+  <text class="text b" x="945" y="399" text-anchor="middle">test、build、lint</text>
+  <path class="line" d="M280 140 L430 230"/><path class="line" d="M560 185 L560 205"/><path class="line" d="M840 140 L690 230"/>
+  <path class="line" d="M280 385 L430 290"/><path class="line" d="M560 340 L560 315"/><path class="line" d="M840 385 L690 290"/>
+</svg>

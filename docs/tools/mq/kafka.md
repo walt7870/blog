@@ -7,20 +7,7 @@ Kafka 不只是消息队列，它更准确的定位是**分布式事件流平台
 
 Kafka 像一组可扩展的“分区日志文件”：生产者不断追加事件，消费者按自己的 offset 读取事件。消息不会因为某个消费者读过就立即消失，其他消费者组仍然可以继续读取。
 
-```mermaid
-flowchart LR
-  P1[Producer A] --> T[Topic: order-events]
-  P2[Producer B] --> T
-  T --> P0[Partition 0]
-  T --> P1P[Partition 1]
-  T --> P2P[Partition 2]
-  P0 --> G1[Consumer Group: coupon-service]
-  P1P --> G1
-  P2P --> G1
-  P0 --> G2[Consumer Group: search-indexer]
-  P1P --> G2
-  P2P --> G2
-```
+![Kafka Topic、Partition 与消费者组](/mq/kafka-topic-partition-consumers.svg)
 
 ## 适合与不适合
 
@@ -55,14 +42,7 @@ flowchart LR
 
 Kafka 的顺序保证是：**同一个 Partition 内有序，Topic 全局不保证有序**。
 
-```mermaid
-flowchart TD
-  Topic[Topic: order-events] --> P0[Partition 0: offset 0,1,2,3]
-  Topic --> P1[Partition 1: offset 0,1,2,3]
-  Topic --> P2[Partition 2: offset 0,1,2,3]
-  Key[message key = orderId] --> Hash[hash key]
-  Hash --> P1
-```
+![Kafka 分区顺序模型](/mq/kafka-topic-partition-order.svg)
 
 如果你希望同一个订单的事件有序，必须让相同 `orderId` 的消息进入同一个分区。
 
@@ -70,30 +50,7 @@ flowchart TD
 
 同一个 Consumer Group 内，一个分区同时只能分配给一个消费者；不同消费者组之间互不影响。
 
-```mermaid
-flowchart LR
-  subgraph Topic[Topic partitions]
-    P0[Partition 0]
-    P1[Partition 1]
-    P2[Partition 2]
-  end
-
-  subgraph GroupA[Consumer Group A]
-    A1[Consumer A1]
-    A2[Consumer A2]
-  end
-
-  subgraph GroupB[Consumer Group B]
-    B1[Consumer B1]
-  end
-
-  P0 --> A1
-  P1 --> A2
-  P2 --> A1
-  P0 --> B1
-  P1 --> B1
-  P2 --> B1
-```
+![Kafka Consumer Group 工作方式](/mq/kafka-consumer-groups.svg)
 
 注意：
 
@@ -103,22 +60,7 @@ flowchart LR
 
 ## 写入流程
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant B as Leader Broker
-  participant F as Follower Brokers
-  participant C as Consumer
-
-  P->>B: send(record)
-  B->>B: append to log
-  B->>F: replicate
-  F-->>B: ack replication
-  B-->>P: ack
-  C->>B: fetch by offset
-  B-->>C: records
-  C->>B: commit offset
-```
+![Kafka 写入与读取流程](/mq/kafka-write-fetch-flow.svg)
 
 生产可靠性关键参数：
 
@@ -158,42 +100,17 @@ Kafka 支持：
 
 ### 1) 日志与埋点管道
 
-```mermaid
-flowchart LR
-  App[业务应用] --> Kafka[(Kafka)]
-  Kafka --> Flink[Flink 实时处理]
-  Kafka --> Lake[数据湖]
-  Kafka --> OLAP[ClickHouse/Druid]
-```
+![Kafka 日志与埋点管道](/mq/kafka-log-pipeline.svg)
 
 ### 2) CDC 数据同步
 
-```mermaid
-flowchart LR
-  DB[(MySQL/PostgreSQL)] --> Debezium[Debezium]
-  Debezium --> Kafka[(Kafka)]
-  Kafka --> ES[Elasticsearch]
-  Kafka --> DW[Data Warehouse]
-  Kafka --> Cache[Cache Builder]
-```
+![Kafka CDC 数据同步](/mq/kafka-cdc-pipeline.svg)
 
 ### 3) Outbox 最终一致性
 
 业务服务先在同一个数据库事务里写业务表和 outbox 表，再由 outbox relay 投递 Kafka。
 
-```mermaid
-sequenceDiagram
-  participant API as Order Service
-  participant DB as Database
-  participant Relay as Outbox Relay
-  participant K as Kafka
-
-  API->>DB: 写订单 + 写 outbox（同事务）
-  Relay->>DB: 扫描未投递 outbox
-  Relay->>K: 发送事件
-  K-->>Relay: ack
-  Relay->>DB: 标记已投递
-```
+![Kafka Outbox 最终一致性](/mq/kafka-outbox-flow.svg)
 
 ## 统一案例：订单超时关闭 + 支付成功发券
 
@@ -208,18 +125,7 @@ sequenceDiagram
 
 ### 推荐流程
 
-```mermaid
-flowchart LR
-  Order[订单服务] -->|order.created| K[(Kafka)]
-  K --> Scheduler[延迟调度服务]
-  Scheduler -->|到期写入| TimeoutTopic[order.timeout-check]
-  TimeoutTopic --> TimeoutC[超时检查消费者]
-  TimeoutC --> OrderDB[(订单库)]
-
-  Payment[支付服务] -->|order.paid| PaidTopic[order.paid]
-  PaidTopic --> CouponC[发券消费者]
-  CouponC --> CouponDB[(券库)]
-```
+![Kafka 订单超时与发券流程](/mq/kafka-order-case.svg)
 
 Kafka 不直接等价于延迟队列，因此常见做法是加一个调度服务，用数据库、时间轮、Redis ZSet 或专门调度系统记录到期任务。
 

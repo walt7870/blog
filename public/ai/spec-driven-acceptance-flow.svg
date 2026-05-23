@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+  <title id="title">Spec-Driven 验收流转</title>
+  <desc id="desc">展示订单导出规格如何进入测试、实现、验证和评审</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#7c3aed"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.spec{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:14}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:12}.ok{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.line{stroke:#7c3aed;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="500"/>
+  <text class="text h" x="560" y="42" text-anchor="middle">完成标准来自规格，而不是主观感觉</text>
+  <rect class="spec" x="70" y="150" width="210" height="135"/>
+  <text class="text h" x="175" y="190" text-anchor="middle">订单导出规格</text>
+  <text class="text b" x="175" y="218" text-anchor="middle">字段、权限、失败</text>
+  <text class="text b" x="175" y="242" text-anchor="middle">性能、验证命令</text>
+  <rect class="box" x="350" y="80" width="180" height="90"/>
+  <text class="text h" x="440" y="114" text-anchor="middle">测试</text>
+  <text class="text b" x="440" y="140" text-anchor="middle">把规格变成检查</text>
+  <rect class="box" x="350" y="265" width="180" height="90"/>
+  <text class="text h" x="440" y="299" text-anchor="middle">实现</text>
+  <text class="text b" x="440" y="325" text-anchor="middle">按规格改代码</text>
+  <rect class="box" x="610" y="170" width="180" height="90"/>
+  <text class="text h" x="700" y="204" text-anchor="middle">验证</text>
+  <text class="text b" x="700" y="230" text-anchor="middle">运行测试和构建</text>
+  <rect class="ok" x="870" y="170" width="180" height="90"/>
+  <text class="text h" x="960" y="204" text-anchor="middle">验收</text>
+  <text class="text b" x="960" y="230" text-anchor="middle">规格满足才完成</text>
+  <path class="line" d="M280 190 C315 150 325 125 350 125"/>
+  <path class="line" d="M280 245 C315 285 325 310 350 310"/>
+  <path class="line" d="M530 125 C585 135 650 155 680 170"/>
+  <path class="line" d="M530 310 C585 300 650 275 690 260"/>
+  <path class="line" d="M790 215 L870 215"/>
+  <path class="line" d="M960 260 C930 395 230 395 175 285"/>
+</svg>

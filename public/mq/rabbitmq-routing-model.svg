@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420" role="img" aria-labelledby="title desc">
+<title id="title">RabbitMQ Exchange 路由模型</title>
+<desc id="desc">RabbitMQ Exchange 路由模型</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1040" height="420"/>
+<text class="text title" x="520" y="38" text-anchor="middle">RabbitMQ Exchange 路由模型</text>
+<rect class="node" x="50" y="180" width="150" height="64"/><text class="text body" x="125" y="212" text-anchor="middle">Producer</text>
+<rect class="main" x="250" y="180" width="150" height="64"/><text class="text body" x="325" y="212" text-anchor="middle">Exchange</text>
+<rect class="node" x="500" y="80" width="150" height="64"/><text class="text body" x="575" y="112" text-anchor="middle">Queue: error</text>
+<rect class="node" x="500" y="180" width="150" height="64"/><text class="text body" x="575" y="212" text-anchor="middle">Queue: info</text>
+<rect class="node" x="500" y="280" width="170" height="64"/><text class="text body" x="585" y="303" text-anchor="middle">Queue: order e</text><text class="text body" x="585" y="323" text-anchor="middle">vents</text>
+<rect class="node" x="760" y="80" width="150" height="64"/><text class="text body" x="835" y="112" text-anchor="middle">Consumer A</text>
+<rect class="node" x="760" y="180" width="150" height="64"/><text class="text body" x="835" y="212" text-anchor="middle">Consumer B</text>
+<rect class="node" x="760" y="280" width="150" height="64"/><text class="text body" x="835" y="312" text-anchor="middle">Consumer C</text>
+<path class="line" d="M200 212 L250 212"/>
+<path class="line" d="M400 212 L450 212 L450 112 L500 112"/><text class="text small" x="450" y="154" text-anchor="middle">Binding: error</text>
+<path class="line" d="M400 212 L500 212"/><text class="text small" x="450" y="204" text-anchor="middle">Binding: info</text>
+<path class="line" d="M400 212 L450 212 L450 312 L500 312"/><text class="text small" x="450" y="254" text-anchor="middle">Binding: order.*</text>
+<path class="line" d="M650 112 L760 112"/>
+<path class="line" d="M650 212 L760 212"/>
+<path class="line" d="M670 312 L760 312"/>
+</svg>

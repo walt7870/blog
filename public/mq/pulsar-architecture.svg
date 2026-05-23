@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar 架构组件</title>
+<desc id="desc">Pulsar 架构组件</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1120" height="540"/>
+<text class="text title" x="560" y="38" text-anchor="middle">Pulsar 架构组件</text>
+<rect class="group" x="60" y="70" width="210" height="310"/><text class="text small" x="76" y="94">客户端</text>
+<rect class="group" x="305" y="70" width="385" height="370"/><text class="text small" x="321" y="94">服务层</text>
+<rect class="group" x="780" y="70" width="210" height="310"/><text class="text small" x="796" y="94">存储层</text>
+<rect class="node" x="90" y="110" width="150" height="64"/><text class="text body" x="165" y="142" text-anchor="middle">Producer</text>
+<rect class="node" x="90" y="210" width="150" height="64"/><text class="text body" x="165" y="242" text-anchor="middle">Consumer</text>
+<rect class="node" x="90" y="310" width="150" height="64"/><text class="text body" x="165" y="342" text-anchor="middle">Reader</text>
+<rect class="node" x="330" y="210" width="180" height="64"/><text class="text body" x="420" y="233" text-anchor="middle">Pulsar Proxy 可</text><text class="text body" x="420" y="253" text-anchor="middle">选</text>
+<rect class="main" x="560" y="150" width="150" height="64"/><text class="text body" x="635" y="182" text-anchor="middle">Broker 1</text>
+<rect class="main" x="560" y="270" width="150" height="64"/><text class="text body" x="635" y="302" text-anchor="middle">Broker 2</text>
+<rect class="store" x="810" y="95" width="150" height="64"/><text class="text body" x="885" y="127" text-anchor="middle">Bookie 1</text>
+<rect class="store" x="810" y="210" width="150" height="64"/><text class="text body" x="885" y="242" text-anchor="middle">Bookie 2</text>
+<rect class="store" x="810" y="325" width="150" height="64"/><text class="text body" x="885" y="357" text-anchor="middle">Bookie 3</text>
+<rect class="store" x="560" y="410" width="150" height="64"/><text class="text body" x="635" y="442" text-anchor="middle">Metadata Store</text>
+<path class="line" d="M240 142 L285 142 L285 242 L330 242"/>
+<path class="line" d="M240 242 L330 242"/>
+<path class="line" d="M240 342 L285 342 L285 242 L330 242"/>
+<path class="line" d="M510 242 L535 242 L535 182 L560 182"/>
+<path class="line" d="M510 242 L535 242 L535 302 L560 302"/>
+<path class="line" d="M710 182 L760 182 L760 127 L810 127"/>
+<path class="line" d="M710 182 L760 182 L760 242 L810 242"/>
+<path class="line" d="M710 302 L760 302 L760 242 L810 242"/>
+<path class="line" d="M710 302 L760 302 L760 357 L810 357"/>
+<path class="line" d="M710 182 L635 182 L635 442 L560 442"/>
+<path class="line" d="M710 302 L635 302 L635 442 L560 442"/>
+</svg>

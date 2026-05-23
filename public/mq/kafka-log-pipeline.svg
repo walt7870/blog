@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+<title id="title">Kafka 日志与埋点管道</title>
+<desc id="desc">Kafka 日志与埋点管道</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="900" height="360"/>
+<text class="text title" x="450" y="38" text-anchor="middle">Kafka 日志与埋点管道</text>
+<rect class="node" x="60" y="155" width="150" height="64"/><text class="text body" x="135" y="187" text-anchor="middle">业务应用</text>
+<rect class="main" x="280" y="155" width="150" height="64"/><text class="text body" x="355" y="187" text-anchor="middle">Kafka</text>
+<rect class="node" x="520" y="70" width="150" height="64"/><text class="text body" x="595" y="102" text-anchor="middle">Flink 实时处理</text>
+<rect class="store" x="520" y="155" width="150" height="64"/><text class="text body" x="595" y="187" text-anchor="middle">数据湖</text>
+<rect class="store" x="520" y="240" width="150" height="64"/><text class="text body" x="595" y="263" text-anchor="middle">ClickHouse/Dru</text><text class="text body" x="595" y="283" text-anchor="middle">id</text>
+<path class="line" d="M210 187 L280 187"/>
+<path class="line" d="M430 187 L475 187 L475 102 L520 102"/>
+<path class="line" d="M430 187 L520 187"/>
+<path class="line" d="M430 187 L475 187 L475 272 L520 272"/>
+</svg>

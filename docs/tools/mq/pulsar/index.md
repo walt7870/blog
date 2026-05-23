@@ -7,14 +7,7 @@ Apache Pulsar 是一个面向云原生和多租户场景的分布式消息与流
 
 Pulsar 像一个“多租户消息平台”：业务按 Tenant/Namespace 隔离，Broker 负责接入和调度，BookKeeper 负责持久化日志，消费者通过不同订阅模式读取消息。
 
-```mermaid
-flowchart LR
-  Producer[Producer] --> Broker[Pulsar Broker]
-  Consumer[Consumer] --> Broker
-  Broker --> BK[(BookKeeper Bookies)]
-  Broker --> Meta[(Metadata Store)]
-  Admin[Admin API / pulsar-admin] --> Broker
-```
+![Pulsar 多租户消息平台](/mq/pulsar-platform-overview.svg)
 
 ## 适合与不适合
 
@@ -53,37 +46,7 @@ non-persistent://tenant/namespace/topic
 
 ## 架构组件
 
-```mermaid
-flowchart TD
-  subgraph Client[客户端]
-    P[Producer]
-    C[Consumer]
-    R[Reader]
-  end
-
-  subgraph Serving[服务层]
-    Proxy[Pulsar Proxy 可选]
-    Broker1[Broker]
-    Broker2[Broker]
-  end
-
-  subgraph Storage[存储层]
-    B1[Bookie 1]
-    B2[Bookie 2]
-    B3[Bookie 3]
-  end
-
-  Meta[(Metadata Store)]
-
-  P --> Proxy --> Broker1
-  C --> Proxy --> Broker2
-  Broker1 --> B1
-  Broker1 --> B2
-  Broker2 --> B2
-  Broker2 --> B3
-  Broker1 --> Meta
-  Broker2 --> Meta
-```
+![Pulsar 架构组件](/mq/pulsar-architecture.svg)
 
 ### Broker
 
@@ -122,32 +85,11 @@ BookKeeper 负责持久化存储：
 | Shared | 多消费者轮询/分摊 | 弱 | 高吞吐任务处理 |
 | Key_Shared | 同 key 到同消费者 | key 内有序 | 订单/用户维度保序 |
 
-```mermaid
-flowchart TD
-  Topic[Topic] --> Sub[Subscription]
-  Sub --> Exclusive[Exclusive: 1 个活跃消费者]
-  Sub --> Failover[Failover: 主备切换]
-  Sub --> Shared[Shared: 多消费者并行]
-  Sub --> KeyShared[Key_Shared: 同 key 保序]
-```
+![Pulsar 四种订阅模式](/mq/pulsar-subscription-modes.svg)
 
 ## 消息写入与消费流程
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant B as Broker
-  participant BK as BookKeeper
-  participant C as Consumer
-
-  P->>B: send(message)
-  B->>BK: append to ledger
-  BK-->>B: write ack
-  B-->>P: send ack
-  B->>C: dispatch message
-  C-->>B: ack
-  B->>B: 更新 subscription cursor
-```
+![Pulsar 消息写入与消费流程](/mq/pulsar-write-consume-flow.svg)
 
 Pulsar 通过 subscription cursor 保存每个订阅的消费进度。不同订阅之间互不影响。
 
@@ -184,27 +126,13 @@ Schema 的价值：
 
 Pulsar 可以把已经封存的 BookKeeper ledger 下沉到对象存储，例如 S3、GCS、Azure Blob。
 
-```mermaid
-flowchart LR
-  Producer --> Broker
-  Broker --> BK[(BookKeeper 热数据)]
-  BK -->|offload| Object[(S3/GCS/Azure Blob 冷数据)]
-  Consumer --> Broker
-  Broker --> BK
-  Broker --> Object
-```
+![Pulsar 分层存储](/mq/pulsar-tiered-storage.svg)
 
 这样可以在保留长期历史消息的同时降低热存储成本。
 
 ## Pulsar Functions 与 IO
 
-```mermaid
-flowchart LR
-  Source[Source Connector] --> TopicA[Input Topic]
-  TopicA --> Fn[Pulsar Function]
-  Fn --> TopicB[Output Topic]
-  TopicB --> Sink[Sink Connector]
-```
+![Pulsar Functions 与 IO](/mq/pulsar-functions-io.svg)
 
 典型用途：
 
@@ -229,16 +157,7 @@ flowchart LR
 
 ### 流程图
 
-```mermaid
-flowchart LR
-  Order[订单服务] -->|delayed message| Timeout[order-timeout-check]
-  Timeout -->|Key_Shared orderId| TimeoutC[超时检查消费者]
-  TimeoutC --> OrderDB[(订单库)]
-
-  Payment[支付服务] --> Paid[order-paid]
-  Paid -->|Shared| CouponC[发券消费者]
-  CouponC --> CouponDB[(券库)]
-```
+![Pulsar 订单超时与发券流程](/mq/pulsar-order-case.svg)
 
 ### 订阅设计
 

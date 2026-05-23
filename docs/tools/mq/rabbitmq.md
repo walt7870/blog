@@ -7,16 +7,7 @@ RabbitMQ 是一个成熟的消息代理（Message Broker），最核心的特点
 
 RabbitMQ 像一个“带规则的分拣中心”：生产者把消息交给 `Exchange`，`Exchange` 根据规则把消息投递到一个或多个 `Queue`，消费者从队列里取消息处理。
 
-```mermaid
-flowchart LR
-  P1[Producer] --> E[Exchange]
-  E -->|Binding: error| Q1[Queue: error]
-  E -->|Binding: info| Q2[Queue: info]
-  E -->|Binding: order.*| Q3[Queue: order events]
-  Q1 --> C1[Consumer A]
-  Q2 --> C2[Consumer B]
-  Q3 --> C3[Consumer C]
-```
+![RabbitMQ Exchange 路由模型](/mq/rabbitmq-routing-model.svg)
 
 ## 适合与不适合
 
@@ -66,19 +57,7 @@ binding key: *.error        匹配 payment.error、stock.error
 
 ## 消息发送与消费流程
 
-```mermaid
-sequenceDiagram
-  participant P as Producer
-  participant E as Exchange
-  participant Q as Queue
-  participant C as Consumer
-
-  P->>E: basic.publish(exchange, routingKey, message)
-  E->>Q: 根据 binding 路由到队列
-  Q->>C: 投递消息
-  C->>C: 执行业务逻辑
-  C-->>Q: basic.ack
-```
+![RabbitMQ 消息发送与消费流程](/mq/rabbitmq-publish-consume-flow.svg)
 
 如果消费者处理失败，可以 `nack/reject`，让消息重新入队或进入死信队列。
 
@@ -89,13 +68,7 @@ RabbitMQ 的可靠性分两段：
 1. **生产者 -> RabbitMQ**：靠 Publisher Confirms 确认 broker 已接收。
 2. **RabbitMQ -> 消费者**：靠 Consumer Acknowledgements 确认消费者已处理。
 
-```mermaid
-flowchart LR
-  P[Producer] -->|publish| B[(Broker)]
-  B -->|publisher confirm| P
-  B -->|deliver| C[Consumer]
-  C -->|ack/nack| B
-```
+![RabbitMQ 可靠性确认链路](/mq/rabbitmq-reliability.svg)
 
 生产建议：
 
@@ -109,13 +82,7 @@ flowchart LR
 
 RabbitMQ 常用 TTL + DLX 实现延迟重试：
 
-```mermaid
-flowchart TD
-  MainQ[主队列] --> C[消费者]
-  C -->|失败 nack/reject| RetryQ[重试队列 TTL]
-  RetryQ -->|TTL 到期 DLX| MainQ
-  C -->|超过最大次数| DLQ[死信队列]
-```
+![RabbitMQ TTL、死信与重试](/mq/rabbitmq-ttl-dlx-retry.svg)
 
 核心参数：
 
@@ -172,23 +139,7 @@ RabbitMQ 通过 `Virtual Host` 做逻辑隔离：
 
 ### 拓扑设计
 
-```mermaid
-flowchart LR
-  Order[订单服务] -->|order.created| Ex[order.event.exchange topic]
-  Payment[支付服务] -->|order.paid| Ex
-
-  Ex -->|order.created| DelayQ[order.timeout.delay.queue TTL 30m]
-  DelayQ -->|DLX 到期| TimeoutQ[order.timeout.check.queue]
-  TimeoutQ --> TimeoutC[超时检查消费者]
-
-  Ex -->|order.paid| CouponQ[coupon.issue.queue]
-  CouponQ --> CouponC[发券消费者]
-
-  TimeoutC --> OrderDB[(订单库)]
-  CouponC --> CouponDB[(券库)]
-  TimeoutQ --> TimeoutDLQ[timeout.dlq]
-  CouponQ --> CouponDLQ[coupon.dlq]
-```
+![RabbitMQ 订单超时与发券拓扑](/mq/rabbitmq-order-case.svg)
 
 ### 处理逻辑
 

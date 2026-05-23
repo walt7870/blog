@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+<title id="title">Kafka 分区顺序模型</title>
+<desc id="desc">Kafka 分区顺序模型</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="960" height="420"/>
+<text class="text title" x="480" y="38" text-anchor="middle">Kafka 分区顺序模型</text>
+<rect class="main" x="90" y="125" width="150" height="64"/><text class="text body" x="165" y="148" text-anchor="middle">Topic: order-e</text><text class="text body" x="165" y="168" text-anchor="middle">vents</text>
+<rect class="node" x="330" y="70" width="220" height="64"/><text class="text body" x="440" y="93" text-anchor="middle">Partition 0: off</text><text class="text body" x="440" y="113" text-anchor="middle">set 0,1,2,3</text>
+<rect class="node" x="330" y="165" width="220" height="64"/><text class="text body" x="440" y="188" text-anchor="middle">Partition 1: off</text><text class="text body" x="440" y="208" text-anchor="middle">set 0,1,2,3</text>
+<rect class="node" x="330" y="260" width="220" height="64"/><text class="text body" x="440" y="283" text-anchor="middle">Partition 2: off</text><text class="text body" x="440" y="303" text-anchor="middle">set 0,1,2,3</text>
+<rect class="node" x="90" y="290" width="190" height="64"/><text class="text body" x="185" y="313" text-anchor="middle">message key = </text><text class="text body" x="185" y="333" text-anchor="middle">orderId</text>
+<rect class="warn" x="620" y="165" width="150" height="64"/><text class="text body" x="695" y="197" text-anchor="middle">hash key</text>
+<rect class="store" x="760" y="165" width="150" height="64"/><text class="text body" x="835" y="197" text-anchor="middle">进入同一分区</text>
+<path class="line" d="M240 157 L285 157 L285 102 L330 102"/>
+<path class="line" d="M240 157 L285 157 L285 197 L330 197"/>
+<path class="line" d="M240 157 L285 157 L285 292 L330 292"/>
+<path class="line" d="M280 322 L450 322 L450 197 L620 197"/>
+<path class="line" d="M770 197 L760 197"/>
+<path class="line" d="M550 197 L620 197"/>
+</svg>

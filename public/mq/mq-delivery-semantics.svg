@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="456" viewBox="0 0 940 456" role="img" aria-labelledby="title desc">
+<title id="title">标准消息处理链路</title>
+<desc id="desc">标准消息处理链路</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="940" height="456"/>
+<text class="text title" x="470" y="38" text-anchor="middle">标准消息处理链路</text>
+<rect class="main" x="20" y="70" width="120" height="44"/><text class="text body" x="80" y="98" text-anchor="middle">Producer</text>
+<path class="dash" d="M80 114 L80 421"/>
+<rect class="main" x="190" y="70" width="120" height="44"/><text class="text body" x="250" y="98" text-anchor="middle">MQ Broker</text>
+<path class="dash" d="M250 114 L250 421"/>
+<rect class="main" x="360" y="70" width="120" height="44"/><text class="text body" x="420" y="98" text-anchor="middle">Consumer</text>
+<path class="dash" d="M420 114 L420 421"/>
+<rect class="main" x="530" y="70" width="120" height="44"/><text class="text body" x="590" y="98" text-anchor="middle">Database</text>
+<path class="dash" d="M590 114 L590 421"/>
+<rect class="main" x="700" y="70" width="120" height="44"/><text class="text body" x="760" y="98" text-anchor="middle">DLQ</text>
+<path class="dash" d="M760 114 L760 421"/>
+<path class="msg" d="M80 145 L250 145"/><text class="text small" x="165" y="137" text-anchor="middle">发送消息</text>
+<path class="msg" d="M250 187 L80 187"/><text class="text small" x="165" y="179" text-anchor="middle">broker 确认</text>
+<path class="msg" d="M250 229 L420 229"/><text class="text small" x="335" y="221" text-anchor="middle">投递消息</text>
+<path class="msg" d="M420 271 L590 271"/><text class="text small" x="505" y="263" text-anchor="middle">执行业务处理</text>
+<path class="msg" d="M420 313 L250 313"/><text class="text small" x="335" y="305" text-anchor="middle">成功: ack / commit offset</text>
+<path class="msg" d="M420 355 L250 355"/><text class="text small" x="335" y="347" text-anchor="middle">失败: nack / 不提交</text>
+<path class="msg" d="M250 397 L420 397"/><text class="text small" x="335" y="389" text-anchor="middle">延迟后重投</text>
+<path class="msg" d="M250 439 L760 439"/><text class="text small" x="505" y="431" text-anchor="middle">超过重试上限: 死信</text>
+</svg>

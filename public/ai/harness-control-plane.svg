@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">Harness 控制关系</title>
+  <desc id="desc">展示 Harness 如何通过规则、CI、隔离、审计和人工确认约束订单导出 Agent 行动</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}.agent{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:14}.guard{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:12}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.line{stroke:#ea580c;stroke-width:2;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="520"/>
+  <text class="text h" x="560" y="42" text-anchor="middle">Harness 是 Agent 行动的控制面</text>
+  <rect class="agent" x="430" y="210" width="260" height="100"/>
+  <text class="text h" x="560" y="250" text-anchor="middle">订单导出 Agent</text>
+  <text class="text b" x="560" y="278" text-anchor="middle">读文件、改代码、跑命令</text>
+  <rect class="guard" x="70" y="90" width="220" height="90"/>
+  <text class="text h" x="180" y="123" text-anchor="middle">项目规则</text>
+  <text class="text b" x="180" y="149" text-anchor="middle">字段、权限、禁区</text>
+  <rect class="guard" x="450" y="90" width="220" height="90"/>
+  <text class="text h" x="560" y="123" text-anchor="middle">可执行检查</text>
+  <text class="text b" x="560" y="149" text-anchor="middle">测试、构建、扫描</text>
+  <rect class="guard" x="830" y="90" width="220" height="90"/>
+  <text class="text h" x="940" y="123" text-anchor="middle">隔离环境</text>
+  <text class="text b" x="940" y="149" text-anchor="middle">分支、沙箱、测试数据</text>
+  <rect class="box" x="70" y="350" width="220" height="90"/>
+  <text class="text h" x="180" y="383" text-anchor="middle">人工确认</text>
+  <text class="text b" x="180" y="409" text-anchor="middle">敏感字段和权限改造</text>
+  <rect class="box" x="450" y="350" width="220" height="90"/>
+  <text class="text h" x="560" y="383" text-anchor="middle">审计日志</text>
+  <text class="text b" x="560" y="409" text-anchor="middle">谁导出、导出什么</text>
+  <rect class="box" x="830" y="350" width="220" height="90"/>
+  <text class="text h" x="940" y="383" text-anchor="middle">回滚恢复</text>
+  <text class="text b" x="940" y="409" text-anchor="middle">关闭入口、回退版本</text>
+  <path class="line" d="M290 135 L430 230"/><path class="line" d="M560 180 L560 210"/><path class="line" d="M830 135 L690 230"/>
+  <path class="line" d="M290 395 L430 290"/><path class="line" d="M560 350 L560 310"/><path class="line" d="M830 395 L690 290"/>
+</svg>

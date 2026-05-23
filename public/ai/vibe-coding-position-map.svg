@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520" role="img" aria-labelledby="title desc">
+  <title id="title">Vibe Coding 工程化定位图</title>
+  <desc id="desc">展示从原型验证到规格、上下文、Agent、Harness 和组织流程的工程化关系</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.lane{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;rx:12}.core{fill:#eef2ff;stroke:#4f46e5;stroke-width:2;rx:12}
+      .guard{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:12}.org{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:12}
+      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.h{font-size:18px;font-weight:700}.b{font-size:13px;fill:#475569}.s{font-size:12px;fill:#64748b}
+      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="520"/>
+  <text class="text h" x="590" y="42" text-anchor="middle">订单导出从想法到交付的工程化链路</text>
+  <rect class="lane" x="55" y="105" width="145" height="115"/>
+  <text class="text h" x="128" y="140" text-anchor="middle">Vibe</text>
+  <text class="text b" x="128" y="168" text-anchor="middle">做出按钮</text>
+  <text class="text b" x="128" y="190" text-anchor="middle">验证流程</text>
+  <rect class="core" x="245" y="105" width="145" height="115"/>
+  <text class="text h" x="318" y="140" text-anchor="middle">提示词</text>
+  <text class="text b" x="318" y="168" text-anchor="middle">目标、范围</text>
+  <text class="text b" x="318" y="190" text-anchor="middle">验收、禁区</text>
+  <rect class="core" x="435" y="105" width="145" height="115"/>
+  <text class="text h" x="508" y="140" text-anchor="middle">上下文</text>
+  <text class="text b" x="508" y="168" text-anchor="middle">页面、接口</text>
+  <text class="text b" x="508" y="190" text-anchor="middle">权限、测试</text>
+  <rect class="core" x="625" y="105" width="145" height="115"/>
+  <text class="text h" x="698" y="140" text-anchor="middle">Agent</text>
+  <text class="text b" x="698" y="168" text-anchor="middle">改代码</text>
+  <text class="text b" x="698" y="190" text-anchor="middle">跑验证</text>
+  <rect class="guard" x="815" y="105" width="145" height="115"/>
+  <text class="text h" x="888" y="140" text-anchor="middle">Harness</text>
+  <text class="text b" x="888" y="168" text-anchor="middle">CI、禁区</text>
+  <text class="text b" x="888" y="190" text-anchor="middle">审计、回滚</text>
+  <rect class="org" x="1005" y="105" width="145" height="115"/>
+  <text class="text h" x="1078" y="140" text-anchor="middle">组织流程</text>
+  <text class="text b" x="1078" y="168" text-anchor="middle">规格库</text>
+  <text class="text b" x="1078" y="190" text-anchor="middle">Checklist</text>
+  <path class="line" d="M200 162 L245 162"/><path class="line" d="M390 162 L435 162"/><path class="line" d="M580 162 L625 162"/><path class="line" d="M770 162 L815 162"/><path class="line" d="M960 162 L1005 162"/>
+  <rect class="lane" x="95" y="310" width="990" height="110"/>
+  <text class="text h" x="590" y="345" text-anchor="middle">Spec-Driven 贯穿全程</text>
+  <text class="text b" x="590" y="374" text-anchor="middle">把“感觉可以”转换成“字段、权限、失败路径、测试命令都满足”</text>
+  <text class="text s" x="590" y="401" text-anchor="middle">规格既进入提示词，也进入上下文、测试、CI、审计和团队模板</text>
+  <path class="line" d="M590 310 C590 260 318 250 318 220"/>
+  <path class="line" d="M590 310 C590 260 698 250 698 220"/>
+  <path class="line" d="M590 310 C590 260 888 250 888 220"/>
+</svg>

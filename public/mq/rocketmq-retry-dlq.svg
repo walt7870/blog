@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="400" viewBox="0 0 900 400" role="img" aria-labelledby="title desc">
+<title id="title">RocketMQ 消费重试与死信</title>
+<desc id="desc">RocketMQ 消费重试与死信</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="900" height="400"/>
+<text class="text title" x="450" y="38" text-anchor="middle">RocketMQ 消费重试与死信</text>
+<rect class="main" x="80" y="160" width="150" height="64"/><text class="text body" x="155" y="192" text-anchor="middle">Broker 投递消息</text>
+<rect class="node" x="330" y="160" width="150" height="64"/><text class="text body" x="405" y="192" text-anchor="middle">Consumer</text>
+<rect class="store" x="570" y="80" width="150" height="64"/><text class="text body" x="645" y="112" text-anchor="middle">确认消费</text>
+<rect class="warn" x="570" y="200" width="150" height="64"/><text class="text body" x="645" y="232" text-anchor="middle">按策略重试</text>
+<rect class="store" x="570" y="310" width="150" height="64"/><text class="text body" x="645" y="342" text-anchor="middle">死信队列</text>
+<path class="line" d="M230 192 L330 192"/>
+<path class="line" d="M480 192 L525 192 L525 112 L570 112"/><text class="text small" x="525" y="144" text-anchor="middle">成功</text>
+<path class="line" d="M480 192 L525 192 L525 232 L570 232"/><text class="text small" x="525" y="204" text-anchor="middle">失败</text>
+<path class="line" d="M720 232 L525 232 L525 192 L330 192"/>
+<path class="line" d="M720 232 L645 232 L645 342 L570 342"/><text class="text small" x="645" y="279" text-anchor="middle">超过最大次数</text>
+</svg>

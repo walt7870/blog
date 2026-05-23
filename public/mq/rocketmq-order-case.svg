@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="420" viewBox="0 0 1080 420" role="img" aria-labelledby="title desc">
+<title id="title">RocketMQ 订单超时与发券流程</title>
+<desc id="desc">RocketMQ 订单超时与发券流程</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="1080" height="420"/>
+<text class="text title" x="540" y="38" text-anchor="middle">RocketMQ 订单超时与发券流程</text>
+<rect class="node" x="60" y="100" width="150" height="64"/><text class="text body" x="135" y="132" text-anchor="middle">订单服务</text>
+<rect class="main" x="300" y="100" width="180" height="64"/><text class="text body" x="390" y="123" text-anchor="middle">order-timeout-</text><text class="text body" x="390" y="143" text-anchor="middle">topic</text>
+<rect class="node" x="550" y="100" width="170" height="64"/><text class="text body" x="635" y="132" text-anchor="middle">超时检查消费者</text>
+<rect class="store" x="790" y="100" width="150" height="64"/><text class="text body" x="865" y="132" text-anchor="middle">订单库</text>
+<rect class="node" x="60" y="270" width="150" height="64"/><text class="text body" x="135" y="302" text-anchor="middle">支付服务</text>
+<rect class="main" x="300" y="270" width="150" height="64"/><text class="text body" x="375" y="302" text-anchor="middle">payment-topic</text>
+<rect class="node" x="550" y="270" width="150" height="64"/><text class="text body" x="625" y="302" text-anchor="middle">发券消费者</text>
+<rect class="store" x="790" y="270" width="150" height="64"/><text class="text body" x="865" y="302" text-anchor="middle">券库</text>
+<path class="line" d="M210 132 L300 132"/><text class="text small" x="255" y="124" text-anchor="middle">延时消息 30m</text>
+<path class="line" d="M480 132 L550 132"/>
+<path class="line" d="M720 132 L790 132"/>
+<path class="line" d="M210 302 L300 302"/><text class="text small" x="255" y="294" text-anchor="middle">事务消息 order.paid</text>
+<path class="line" d="M450 302 L550 302"/>
+<path class="line" d="M700 302 L790 302"/>
+</svg>

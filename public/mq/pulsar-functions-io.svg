@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-labelledby="title desc">
+<title id="title">Pulsar Functions 与 IO</title>
+<desc id="desc">Pulsar Functions 与 IO</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.main{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.store{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:10}.group{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;stroke-dasharray:6 4;rx:12}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px;fill:#475569}.small{font-size:12px;fill:#64748b}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:1.5;stroke-dasharray:5 5}.msg{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}</style></defs>
+<rect class="bg" width="980" height="360"/>
+<text class="text title" x="490" y="38" text-anchor="middle">Pulsar Functions 与 IO</text>
+<rect class="node" x="60" y="160" width="150" height="64"/><text class="text body" x="135" y="183" text-anchor="middle">Source Connect</text><text class="text body" x="135" y="203" text-anchor="middle">or</text>
+<rect class="main" x="270" y="160" width="150" height="64"/><text class="text body" x="345" y="192" text-anchor="middle">Input Topic</text>
+<rect class="warn" x="480" y="160" width="150" height="64"/><text class="text body" x="555" y="183" text-anchor="middle">Pulsar Functio</text><text class="text body" x="555" y="203" text-anchor="middle">n</text>
+<rect class="main" x="700" y="160" width="150" height="64"/><text class="text body" x="775" y="192" text-anchor="middle">Output Topic</text>
+<rect class="node" x="890" y="160" width="150" height="64"/><text class="text body" x="965" y="192" text-anchor="middle">Sink Connector</text>
+<path class="line" d="M210 192 L270 192"/>
+<path class="line" d="M420 192 L480 192"/>
+<path class="line" d="M630 192 L700 192"/>
+<path class="line" d="M850 192 L890 192"/>
+</svg>
