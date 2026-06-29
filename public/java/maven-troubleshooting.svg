@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">Maven 排错路径</title>
+  <desc id="desc">展示 Maven 构建失败时从命令阶段、项目模型、依赖树、插件配置和仓库网络逐步排查。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.start{fill:#fee2e2;stroke:#dc2626;stroke-width:2}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.ok{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:13px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="560" rx="22"/>
+  <text class="t" x="56" y="50">Maven 排错：先还原最终结果，再改配置</text>
+  <text class="s" x="56" y="80">不要只看最后一行错误，先确认失败发生在哪个阶段。</text>
+
+  <rect class="start" x="64" y="210" width="170" height="94" rx="14"/>
+  <text class="h" x="149" y="248" text-anchor="middle">构建失败</text>
+  <text class="m" x="149" y="278" text-anchor="middle">mvn clean package</text>
+
+  <rect class="core" x="304" y="84" width="190" height="92" rx="14"/>
+  <text class="h" x="399" y="120" text-anchor="middle">确认失败阶段</text>
+  <text class="s" x="399" y="150" text-anchor="middle">compile / test / package</text>
+
+  <rect class="box" x="304" y="218" width="190" height="92" rx="14"/>
+  <text class="h" x="399" y="254" text-anchor="middle">还原有效模型</text>
+  <text class="m" x="399" y="284" text-anchor="middle">help:effective-pom</text>
+
+  <rect class="box" x="304" y="352" width="190" height="92" rx="14"/>
+  <text class="h" x="399" y="388" text-anchor="middle">查看环境配置</text>
+  <text class="m" x="399" y="418" text-anchor="middle">help:effective-settings</text>
+
+  <rect class="warn" x="584" y="84" width="210" height="92" rx="14"/>
+  <text class="h" x="689" y="120" text-anchor="middle">依赖版本冲突</text>
+  <text class="m" x="689" y="150" text-anchor="middle">dependency:tree</text>
+
+  <rect class="warn" x="584" y="218" width="210" height="92" rx="14"/>
+  <text class="h" x="689" y="254" text-anchor="middle">插件或 JDK 不一致</text>
+  <text class="m" x="689" y="284" text-anchor="middle">mvn -version</text>
+
+  <rect class="warn" x="584" y="352" width="210" height="92" rx="14"/>
+  <text class="h" x="689" y="388" text-anchor="middle">仓库或认证问题</text>
+  <text class="m" x="689" y="418" text-anchor="middle">mvn -U dependency:resolve</text>
+
+  <rect class="ok" x="884" y="204" width="190" height="120" rx="14"/>
+  <text class="h" x="979" y="244" text-anchor="middle">收敛修复</text>
+  <text class="s" x="979" y="276" text-anchor="middle">统一版本、排除依赖</text>
+  <text class="s" x="979" y="302" text-anchor="middle">固定插件、修正私服</text>
+
+  <path class="line" d="M234 236C270 170 280 130 304 130"/>
+  <path class="line" d="M234 258H304"/>
+  <path class="line" d="M234 282C270 350 280 398 304 398"/>
+  <path class="line" d="M494 130H584"/>
+  <path class="line" d="M494 264H584"/>
+  <path class="line" d="M494 398H584"/>
+  <path class="line" d="M794 130C846 146 866 196 884 232"/>
+  <path class="line" d="M794 264H884"/>
+  <path class="line" d="M794 398C846 382 866 330 884 298"/>
+</svg>

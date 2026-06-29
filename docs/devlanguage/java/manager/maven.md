@@ -1,1033 +1,570 @@
 # Maven
 
-## 概述
+Maven 是 Java 工程里最常见的构建与依赖管理工具。它不是单纯的“下载 jar 包工具”，而是把项目坐标、依赖版本、源码目录、测试、打包、发布和插件执行统一放进一套可重复的工程模型里。一个项目只要给出 `pom.xml`，团队成员、CI 服务器和发布流水线就能用同一套命令得到一致的构建结果。
 
-Apache Maven 是一个项目管理和构建自动化工具，主要用于 Java 项目，但也支持 C#、Ruby、Scala 等其他语言。Maven 使用项目对象模型（POM）来管理项目的构建、报告和文档。它通过标准化的目录结构、依赖管理和构建生命周期，简化了项目的构建过程。
+Maven 的核心价值可以概括为四件事：用 `pom.xml` 描述项目，用仓库保存构件，用生命周期组织构建步骤，用插件执行具体工作。理解这四件事之后，`mvn clean package`、`dependencyManagement`、`scope`、多模块聚合、私服发布和依赖冲突排查就会落到同一条主线上。
 
-## Maven 优势
+## 视频讲解
 
-**标准化项目结构**：Maven 提供了标准的目录布局，使得项目结构清晰统一，便于团队协作。
+配套视频系列：[Maven 深入教程：从 POM 到依赖治理与发布部署](https://www.bilibili.com/video/BV1uEK96HEyw)。
 
-**强大的依赖管理**：自动下载和管理项目依赖，解决依赖冲突，支持传递性依赖。
+视频更适合先建立整体图景，文章更适合回查命令、配置和排错细节。建议先按视频顺序理解 Maven 的构建链路，再回到本文对照 `pom.xml`、依赖树、生命周期、插件绑定和多模块构建。
 
-**丰富的插件生态**：拥有大量的官方和第三方插件，覆盖编译、测试、打包、部署等各个环节。
+| 分P | 主题 | 对应文章重点 |
+| --- | --- | --- |
+| P01 | Maven 到底在管理什么 | 项目模型、坐标、仓库、生命周期和插件的总览 |
+| P02 | POM 与 effective POM | POM 结构、父 POM、继承、最终生效配置 |
+| P03 | 生命周期、phase 与 plugin | 生命周期阶段如何触发插件目标 |
+| P04 | 依赖解析、传递依赖与冲突 | 仓库解析、传递依赖、版本冲突处理 |
+| P05 | scope 与 classpath 边界 | 编译、测试、运行、打包时的依赖可见性 |
+| P06 | 仓库、本地缓存与 SNAPSHOT | 本地仓库、远程仓库、私服、快照版本 |
+| P07 | BOM、parent 与版本治理 | 团队级版本收敛和依赖管理 |
+| P08 | 多模块与 Reactor 构建 | 聚合、继承、模块顺序和局部构建 |
+| P09 | Profile、资源过滤与环境差异 | 构建参数和环境差异的边界 |
+| P10 | 测试、质量检查与构建门禁 | 单元测试、验证阶段和质量约束 |
+| P11 | 发布、部署与制品管理 | `install`、`deploy`、私服和制品生命周期 |
+| P12 | Maven 排查方法论 | effective POM、依赖树、插件日志和常见故障 |
 
-**生命周期管理**：定义了清晰的构建生命周期，包括编译、测试、打包、安装、部署等阶段。
+![Maven 在 Java 工程中的位置](/java/maven-position.svg)
 
-**仓库管理**：支持本地仓库、中央仓库和私有仓库，便于依赖的存储和分发。
+## 解决的问题
 
-**跨平台支持**：基于 Java 开发，可在任何支持 Java 的平台上运行。
+没有 Maven 时，一个 Java 项目通常需要手工完成这些事情：下载第三方 jar 包、维护编译命令、区分测试代码和业务代码、把资源文件复制到输出目录、运行测试、组装最终 jar 或 war、把公共模块交给其他项目使用。项目越大，越容易出现“本地能跑、CI 不能跑”“A 同学下载了新版本依赖、B 同学还是旧版本”“公共模块复制来复制去”的问题。
 
-**IDE 集成**：与主流 IDE（如 IntelliJ IDEA、Eclipse）深度集成。
+Maven 把这些不稳定的手工动作收敛成约定和配置。项目采用固定目录结构，依赖通过坐标声明，构建过程按生命周期推进，真正的编译、测试、打包由插件完成。开发者不需要记住一长串 `javac`、`jar`、复制资源的命令，只要维护项目模型，再用目标阶段触发构建。
 
-## Maven 安装
+典型工程里，Maven 负责以下边界：
 
-### 前置条件
+| 问题 | Maven 的处理方式 |
+| --- | --- |
+| 项目叫什么、产物是什么 | 使用 `groupId`、`artifactId`、`version`、`packaging` 定义项目坐标 |
+| 第三方库从哪里来 | 从本地仓库、私服仓库、中央仓库解析依赖 |
+| 编译、测试、打包如何执行 | 生命周期阶段绑定插件目标 |
+| 多个模块如何一起构建 | 父 POM 管版本，聚合 POM 管构建顺序 |
+| 版本冲突如何定位 | 用依赖树、有效 POM 和插件日志还原最终结果 |
 
-确保系统已安装 JDK 8 或更高版本：
+## 从 0 建立项目
+
+一个最小 Maven 项目只需要一个 `pom.xml` 和标准源码目录：
+
+```text
+demo-order/
+├── pom.xml
+└── src/
+    ├── main/
+    │   ├── java/
+    │   │   └── com/example/order/OrderApplication.java
+    │   └── resources/
+    │       └── application.yml
+    └── test/
+        └── java/
+            └── com/example/order/OrderApplicationTest.java
+```
+
+`src/main/java` 放业务代码，`src/main/resources` 放运行时资源，`src/test/java` 放测试代码，`target/` 是构建输出目录。这个目录结构本身就是约定，Maven 插件会默认从这些位置读取源码、资源和测试文件。
+
+可以用 Archetype 创建普通 Java 项目：
+
+```bash
+mvn archetype:generate \
+  -DgroupId=com.example \
+  -DartifactId=demo-order \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DinteractiveMode=false
+```
+
+Spring Boot 项目更常见的入口是 Spring Initializr。它会直接生成 Maven 结构、启动类、测试类和适配 Spring Boot 的 `pom.xml`。无论从哪个入口创建，后续判断项目是否是 Maven 工程，只看根目录是否有 `pom.xml`。
+
+## 安装与验证
+
+Maven 运行依赖 JDK。安装前先确认 Java 可用：
 
 ```bash
 java -version
 javac -version
 ```
 
-### 安装方式
-
-#### 1. 官方下载安装
-
-从 [Maven 官网](https://maven.apache.org/download.cgi) 下载二进制包：
+常见安装方式：
 
 ```bash
-# 下载并解压
-wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-tar -xzf apache-maven-3.9.6-bin.tar.gz
-sudo mv apache-maven-3.9.6 /opt/maven
-
-# 配置环境变量
-echo 'export MAVEN_HOME=/opt/maven' >> ~/.bashrc
-echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-```
-
-#### 2. 使用包管理器
-
-**macOS (Homebrew)**：
-```bash
+# macOS
 brew install maven
-```
 
-**Ubuntu/Debian**：
-```bash
+# SDKMAN
+sdk install maven
+
+# Ubuntu / Debian
 sudo apt update
 sudo apt install maven
 ```
 
-**CentOS/RHEL**：
-```bash
-sudo yum install maven
-```
-
-#### 3. 使用 SDKMAN（推荐）
-
-```bash
-# 安装 SDKMAN
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# 安装 Maven
-sdk install maven
-
-# 查看可用版本
-sdk list maven
-
-# 切换版本
-sdk use maven 3.9.6
-```
-
-### 验证安装
+验证安装：
 
 ```bash
 mvn -version
 ```
 
-### Maven 镜像配置
+输出中需要关注三类信息：Maven 版本、Java 版本、用户主目录。用户主目录会影响默认本地仓库路径，一般是 `~/.m2/repository`。
 
-国内用户建议配置阿里云镜像以提高下载速度。编辑 `~/.m2/settings.xml`：
+## POM 的核心结构
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
-          http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  
-  <mirrors>
-    <mirror>
-      <id>aliyunmaven</id>
-      <mirrorOf>*</mirrorOf>
-      <name>阿里云公共仓库</name>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </mirror>
-  </mirrors>
-  
-  <profiles>
-    <profile>
-      <id>jdk-1.8</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-      </properties>
-    </profile>
-  </profiles>
-</settings>
-```
-
-## 新建项目
-
-### 使用 Maven Archetype
-
-Maven 提供了多种项目模板（Archetype）来快速创建项目：
-
-#### 1. 创建简单 Java 项目
-
-```bash
-mvn archetype:generate \
-  -DgroupId=com.example \
-  -DartifactId=my-app \
-  -DarchetypeArtifactId=maven-archetype-quickstart \
-  -DinteractiveMode=false
-```
-
-#### 2. 创建 Web 项目
-
-```bash
-mvn archetype:generate \
-  -DgroupId=com.example \
-  -DartifactId=my-web-app \
-  -DarchetypeArtifactId=maven-archetype-webapp \
-  -DinteractiveMode=false
-```
-
-#### 3. 创建 Spring Boot 项目
-
-```bash
-mvn archetype:generate \
-  -DgroupId=com.example \
-  -DartifactId=spring-boot-demo \
-  -DarchetypeGroupId=org.springframework.boot \
-  -DarchetypeArtifactId=spring-boot-starter-parent \
-  -DinteractiveMode=false
-```
-
-### 项目目录结构
-
-Maven 标准目录结构：
-
-```
-my-app/
-├── pom.xml
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── example/
-│   │   │           └── App.java
-│   │   ├── resources/
-│   │   │   ├── application.properties
-│   │   │   ├── static/
-│   │   │   └── templates/
-│   │   └── webapp/
-│   │       ├── WEB-INF/
-│   │       │   └── web.xml
-│   │       └── index.jsp
-│   ├── test/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── example/
-│   │   │           └── AppTest.java
-│   │   └── resources/
-│   └── site/
-│       └── site.xml
-├── target/
-│   ├── classes/
-│   ├── test-classes/
-│   └── my-app-1.0-SNAPSHOT.jar
-└── README.md
-```
-
-### 目录说明
-
-```
-src/main/java: 主要的 Java 源代码
-src/main/resources: 主要的资源文件（配置文件、属性文件等）
-src/main/webapp: Web 应用资源（JSP、HTML、CSS、JS 等）
-src/test/java: 测试 Java 源代码
-src/test/resources: 测试资源文件
-src/site: 项目站点文档
-target: 构建输出目录
-pom.xml: 项目对象模型文件，Maven 的核心配置文件
-```
-
-## POM 文件详解
-
-### 基本 POM 结构
+`pom.xml` 是 Maven 的项目对象模型。它不是脚本，而是项目声明：这个项目是谁、依赖谁、如何构建、产物如何发布。
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
-    <!-- POM 模型版本 -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
-    <!-- 项目坐标 -->
+
     <groupId>com.example</groupId>
-    <artifactId>my-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>demo-order</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
-    <!-- 项目信息 -->
-    <name>My Application</name>
-    <description>A sample Maven project</description>
-    <url>http://www.example.com</url>
-    
-    <!-- 属性配置 -->
+
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.9.2</junit.version>
-        <spring.version>5.3.23</spring.version>
+        <junit.version>5.10.2</junit.version>
     </properties>
-    
-    <!-- 依赖管理 -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
-    <!-- 项目依赖 -->
+
     <dependencies>
-        <!-- Spring Core -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
-        
-        <!-- JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
-    
-    <!-- 构建配置 -->
+
     <build>
-        <!-- 最终构建文件名 -->
-        <finalName>my-application</finalName>
-        
-        <!-- 插件配置 -->
         <plugins>
-            <!-- 编译插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            
-            <!-- Surefire 测试插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M9</version>
-                <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                        <include>**/*Tests.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
-            
-            <!-- JAR 打包插件 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.example.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <version>3.2.5</version>
             </plugin>
         </plugins>
     </build>
-    
-    <!-- 仓库配置 -->
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo1.maven.org/maven2</url>
-        </repository>
-    </repositories>
-    
-    <!-- 插件仓库 -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo1.maven.org/maven2</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
 ```
 
-### 依赖作用域（Scope）
+坐标由 `groupId`、`artifactId`、`version` 组成。`groupId` 通常表示组织或业务域，`artifactId` 表示模块名，`version` 表示产物版本。其他项目引用当前模块时，本质上也是引用这个坐标。
 
-Maven 提供了多种依赖作用域：
+`packaging` 决定产物形态。普通库和服务常用 `jar`，传统 Servlet 应用可能使用 `war`，父工程或版本管理工程常用 `pom`。当 `packaging` 不同时，Maven 默认绑定的插件目标也会不同。
+
+## settings 与 pom 的边界
+
+`pom.xml` 描述项目本身，应提交到代码仓库。`settings.xml` 描述当前开发者或构建环境的私有配置，一般放在 `~/.m2/settings.xml`，不应提交到业务代码仓库。
+
+| 文件 | 作用 | 典型内容 |
+| --- | --- | --- |
+| `pom.xml` | 项目模型 | 项目坐标、依赖、插件、模块、发布地址 |
+| `settings.xml` | 本机或 CI 环境配置 | 本地仓库路径、镜像、私服账号、激活 profile |
+
+国内网络或企业内网环境通常会配置镜像和私服认证：
 
 ```xml
-<!-- 编译和运行时都需要（默认） -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-core</artifactId>
-    <scope>compile</scope>
-</dependency>
+<settings>
+    <mirrors>
+        <mirror>
+            <id>company-public</id>
+            <mirrorOf>*</mirrorOf>
+            <url>https://maven.example.com/repository/public/</url>
+        </mirror>
+    </mirrors>
 
-<!-- 仅编译时需要 -->
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <scope>provided</scope>
-</dependency>
-
-<!-- 仅运行时需要 -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <scope>runtime</scope>
-</dependency>
-
-<!-- 仅测试时需要 -->
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <scope>test</scope>
-</dependency>
-
-<!-- 系统依赖（不推荐使用） -->
-<dependency>
-    <groupId>com.sun</groupId>
-    <artifactId>tools</artifactId>
-    <scope>system</scope>
-    <systemPath>${java.home}/../lib/tools.jar</systemPath>
-</dependency>
-
-<!-- 导入其他 POM 的依赖管理 -->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-dependencies</artifactId>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+    <servers>
+        <server>
+            <id>company-releases</id>
+            <username>${env.MAVEN_REPO_USER}</username>
+            <password>${env.MAVEN_REPO_PASSWORD}</password>
+        </server>
+    </servers>
+</settings>
 ```
 
-## Maven 生命周期
+`server.id` 要和 `pom.xml` 中 `distributionManagement` 或仓库配置里的 `id` 对上。这样项目里只保存发布地址，账号密码留在开发机或 CI 密钥里。
 
-Maven 定义了三个标准的生命周期：
+## 仓库与依赖解析
 
-### 1. Clean 生命周期
+Maven 仓库保存的是构件，常见文件包括 `.pom`、`.jar`、源码包、Javadoc 包和校验文件。依赖解析时，Maven 先看本地仓库；本地没有，再按远程仓库或镜像配置下载；下载成功后缓存到本地仓库，后续构建直接复用。
 
-清理项目构建产生的文件：
+![Maven 依赖解析链路](/java/maven-dependency-resolution.svg)
 
-- **pre-clean**: 执行清理前的准备工作
-- **clean**: 清理构建产生的文件
-- **post-clean**: 执行清理后的收尾工作
+依赖声明只写直接依赖，但实际进入项目 classpath 的还包括传递依赖。例如订单服务直接依赖 `spring-web`，`spring-web` 又依赖 `spring-core`、`spring-beans`，这些间接依赖也会被解析进来。传递依赖提高了复用效率，也带来了版本冲突。
 
 ```bash
-# 清理项目
+# 查看依赖树
+mvn dependency:tree
+
+# 只看某个 groupId 或 artifactId
+mvn dependency:tree -Dincludes=org.springframework
+
+# 分析声明但未使用、使用但未声明的依赖
+mvn dependency:analyze
+```
+
+依赖冲突时，Maven 主要按“路径最近优先”选择版本。路径长度相同，再按声明顺序选择先出现的依赖。工程中更稳定的做法不是依赖这个隐式结果，而是在 `dependencyManagement` 中统一声明版本。
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>3.2.6</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+`dependencyManagement` 只管理版本，不会自动引入依赖。真正使用某个库，仍然要在 `dependencies` 里声明。
+
+## scope 与 classpath
+
+`scope` 决定依赖在哪些阶段可见。判断 scope 时不要只问“会不会下载”，而要问“编译、测试、运行、打包时是否进入 classpath”。
+
+| scope | 编译 | 测试 | 运行 | 典型场景 |
+| --- | --- | --- | --- | --- |
+| `compile` | 是 | 是 | 是 | 业务代码直接使用的库，默认值 |
+| `provided` | 是 | 是 | 否 | Servlet API、Lombok、由运行容器提供的库 |
+| `runtime` | 否 | 是 | 是 | JDBC 驱动、运行时实现 |
+| `test` | 否 | 是 | 否 | JUnit、Mockito、测试工具 |
+| `import` | 否 | 否 | 否 | 在 `dependencyManagement` 中导入 BOM |
+| `system` | 是 | 是 | 取决于手工路径 | 绑定本机文件，不适合团队项目 |
+
+常见误区是把 Lombok、Servlet API 这类编译期需要但运行期不应打进包的依赖写成 `compile`，导致最终产物混入不需要的库。另一个误区是把 JDBC 驱动写成 `provided`，本地编译没问题，运行时连接数据库才报 `ClassNotFoundException`。
+
+## 生命周期与插件
+
+Maven 命令不是直接调用“编译器”或“打包器”，而是请求执行某个生命周期阶段。执行 `mvn package` 时，Maven 会从 `validate` 一路执行到 `package`，中间包括资源处理、编译、测试编译、测试和打包。
+
+![Maven 生命周期与插件执行](/java/maven-lifecycle.svg)
+
+常用阶段：
+
+| 命令 | 会做什么 | 适用场景 |
+| --- | --- | --- |
+| `mvn validate` | 检查项目模型是否完整 | 快速验证 POM 是否能被解析 |
+| `mvn compile` | 处理资源并编译主代码 | 本地确认语法和主依赖 |
+| `mvn test` | 编译并执行单元测试 | 提交前验证 |
+| `mvn package` | 测试后生成 jar 或 war | 本地打包、容器镜像构建前 |
+| `mvn verify` | 运行更多校验 | 集成测试、质量门禁 |
+| `mvn install` | 安装产物到本地仓库 | 本地联调多项目 |
+| `mvn deploy` | 发布产物到远程仓库 | CI 发布公共库 |
+
+插件是生命周期真正做事的执行者。`maven-compiler-plugin` 负责编译，`maven-surefire-plugin` 负责单元测试，`maven-jar-plugin` 负责普通 jar，`maven-war-plugin` 负责 war，`maven-deploy-plugin` 负责发布。生命周期提供顺序，插件提供能力。
+
+常见编译配置：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <release>17</release>
+                <parameters>true</parameters>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+`release` 比同时写 `source` 和 `target` 更适合控制 JDK API 兼容性。项目统一 JDK 版本时，建议把版本放到 `properties` 中，再由插件引用。
+
+## 常用命令
+
+本地开发时，先掌握少量高频命令即可：
+
+```bash
+# 清理输出目录
 mvn clean
+
+# 编译主代码
+mvn compile
+
+# 运行测试
+mvn test
+
+# 打包，默认会执行测试
+mvn clean package
+
+# 跳过测试执行，但仍编译测试代码
+mvn clean package -DskipTests
+
+# 跳过测试编译和测试执行
+mvn clean package -Dmaven.test.skip=true
+
+# 将当前模块安装到本地仓库，供其他本地项目引用
+mvn clean install
+
+# 查看最终生效的 POM
+mvn help:effective-pom
+
+# 查看当前项目最终解析出的属性
+mvn help:effective-settings
 ```
 
-### 2. Default 生命周期
-
-项目的构建和部署：
-
-- **validate**: 验证项目信息
-- **initialize**: 初始化构建状态
-- **generate-sources**: 生成源代码
-- **process-sources**: 处理源代码
-- **generate-resources**: 生成资源文件
-- **process-resources**: 处理资源文件
-- **compile**: 编译源代码
-- **process-classes**: 处理编译后的文件
-- **generate-test-sources**: 生成测试源代码
-- **process-test-sources**: 处理测试源代码
-- **generate-test-resources**: 生成测试资源
-- **process-test-resources**: 处理测试资源
-- **test-compile**: 编译测试代码
-- **process-test-classes**: 处理测试编译后的文件
-- **test**: 运行单元测试
-- **prepare-package**: 打包前的准备
-- **package**: 打包
-- **pre-integration-test**: 集成测试前的准备
-- **integration-test**: 运行集成测试
-- **post-integration-test**: 集成测试后的处理
-- **verify**: 验证包的有效性
-- **install**: 安装到本地仓库
-- **deploy**: 部署到远程仓库
-
-```bash
-# 常用命令
-mvn compile          # 编译
-mvn test            # 测试
-mvn package         # 打包
-mvn install         # 安装到本地仓库
-mvn deploy          # 部署到远程仓库
-
-# 组合命令
-mvn clean compile   # 清理并编译
-mvn clean package   # 清理并打包
-mvn clean install   # 清理、编译、测试、打包、安装
-```
-
-### 3. Site 生命周期
-
-生成项目站点文档：
-
-- **pre-site**: 生成站点前的准备
-- **site**: 生成项目站点
-- **post-site**: 生成站点后的处理
-- **site-deploy**: 部署站点到服务器
-
-```bash
-# 生成项目站点
-mvn site
-```
-
-## Maven 插件详解
-
-### 核心插件
-
-#### 1. 编译插件
-
-```xml
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.11.0</version>
-    <configuration>
-        <source>17</source>
-        <target>17</target>
-        <encoding>UTF-8</encoding>
-        <compilerArgs>
-            <arg>-parameters</arg>
-            <arg>-Xlint:unchecked</arg>
-        </compilerArgs>
-    </configuration>
-</plugin>
-```
-
-#### 2. 测试插件
-
-```xml
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>3.0.0-M9</version>
-    <configuration>
-        <!-- 跳过测试 -->
-        <skipTests>false</skipTests>
-        <!-- 测试失败时继续构建 -->
-        <testFailureIgnore>false</testFailureIgnore>
-        <!-- 包含的测试文件 -->
-        <includes>
-            <include>**/*Test.java</include>
-            <include>**/*Tests.java</include>
-        </includes>
-        <!-- 排除的测试文件 -->
-        <excludes>
-            <exclude>**/*IntegrationTest.java</exclude>
-        </excludes>
-        <!-- 系统属性 -->
-        <systemPropertyVariables>
-            <spring.profiles.active>test</spring.profiles.active>
-        </systemPropertyVariables>
-    </configuration>
-</plugin>
-```
-
-#### 3. 打包插件
-
-```xml
-<!-- JAR 打包 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-jar-plugin</artifactId>
-    <version>3.3.0</version>
-    <configuration>
-        <archive>
-            <manifest>
-                <addClasspath>true</addClasspath>
-                <mainClass>com.example.Main</mainClass>
-            </manifest>
-        </archive>
-    </configuration>
-</plugin>
-
-<!-- WAR 打包 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-war-plugin</artifactId>
-    <version>3.3.2</version>
-    <configuration>
-        <warSourceDirectory>src/main/webapp</warSourceDirectory>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </configuration>
-</plugin>
-```
-
-#### 4. 源码和文档插件
-
-```xml
-<!-- 源码打包 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-source-plugin</artifactId>
-    <version>3.2.1</version>
-    <executions>
-        <execution>
-            <id>attach-sources</id>
-            <goals>
-                <goal>jar</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-
-<!-- JavaDoc 生成 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <version>3.4.1</version>
-    <configuration>
-        <encoding>UTF-8</encoding>
-        <charset>UTF-8</charset>
-        <docencoding>UTF-8</docencoding>
-    </configuration>
-    <executions>
-        <execution>
-            <id>attach-javadocs</id>
-            <goals>
-                <goal>jar</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-```
-
-### 第三方插件
-
-#### 1. Spring Boot 插件
-
-```xml
-<plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <version>3.2.0</version>
-    <configuration>
-        <mainClass>com.example.Application</mainClass>
-        <excludes>
-            <exclude>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-            </exclude>
-        </excludes>
-    </configuration>
-    <executions>
-        <execution>
-            <goals>
-                <goal>repackage</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-```
-
-#### 2. Docker 插件
-
-```xml
-<plugin>
-    <groupId>com.spotify</groupId>
-    <artifactId>dockerfile-maven-plugin</artifactId>
-    <version>1.4.13</version>
-    <configuration>
-        <repository>${docker.image.prefix}/${project.artifactId}</repository>
-        <tag>${project.version}</tag>
-        <buildArgs>
-            <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-        </buildArgs>
-    </configuration>
-</plugin>
-```
-
-#### 3. 代码质量插件
-
-```xml
-<!-- Checkstyle -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>3.2.0</version>
-    <configuration>
-        <configLocation>checkstyle.xml</configLocation>
-        <encoding>UTF-8</encoding>
-        <consoleOutput>true</consoleOutput>
-        <failsOnError>true</failsOnError>
-    </configuration>
-</plugin>
-
-<!-- SpotBugs -->
-<plugin>
-    <groupId>com.github.spotbugs</groupId>
-    <artifactId>spotbugs-maven-plugin</artifactId>
-    <version>4.7.3.0</version>
-</plugin>
-
-<!-- JaCoCo 代码覆盖率 -->
-<plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>0.8.8</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>prepare-agent</goal>
-            </goals>
-        </execution>
-        <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
-```
+跳过测试要谨慎区分。`-DskipTests` 只跳过测试运行，测试代码仍会编译；`-Dmaven.test.skip=true` 连测试代码编译也跳过，更容易掩盖测试依赖和测试源码问题。
 
 ## 多模块项目
 
-Maven 支持多模块项目管理，适用于大型项目的模块化开发：
+当订单、支付、库存、通知等模块需要在一个仓库里协作时，单个 Maven 项目会演变成多模块项目。多模块项目通常有一个根 POM，负责聚合子模块、统一版本和插件配置。
 
-### 父项目 POM
+![Maven 多模块组织方式](/java/maven-multi-module.svg)
+
+目录示例：
+
+```text
+shop-platform/
+├── pom.xml
+├── shop-common/
+│   └── pom.xml
+├── order-service/
+│   └── pom.xml
+├── payment-service/
+│   └── pom.xml
+└── inventory-service/
+    └── pom.xml
+```
+
+根 POM：
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+<project>
     <modelVersion>4.0.0</modelVersion>
-    
-    <groupId>com.example</groupId>
-    <artifactId>parent-project</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.example.shop</groupId>
+    <artifactId>shop-platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
-    <name>Parent Project</name>
-    <description>Multi-module parent project</description>
-    
-    <!-- 子模块 -->
+
     <modules>
-        <module>common</module>
-        <module>service</module>
-        <module>web</module>
+        <module>shop-common</module>
+        <module>order-service</module>
+        <module>payment-service</module>
+        <module>inventory-service</module>
     </modules>
-    
-    <!-- 属性管理 -->
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>3.2.0</spring.boot.version>
-        <junit.version>5.9.2</junit.version>
-    </properties>
-    
-    <!-- 依赖管理 -->
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            
-            <!-- 内部模块依赖 -->
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>service</artifactId>
+                <groupId>com.example.shop</groupId>
+                <artifactId>shop-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
-    <!-- 插件管理 -->
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
-                    <configuration>
-                        <source>17</source>
-                        <target>17</target>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-                
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring.boot.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>
 ```
 
-### 子模块 POM
+子模块通过 `parent` 继承公共配置：
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
-    <modelVersion>4.0.0</modelVersion>
-    
-    <!-- 继承父项目 -->
-    <parent>
-        <groupId>com.example</groupId>
-        <artifactId>parent-project</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
-    <artifactId>service</artifactId>
-    <packaging>jar</packaging>
-    
-    <name>Service Module</name>
-    <description>Business service module</description>
-    
-    <dependencies>
-        <!-- 依赖其他模块 -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        
-        <!-- 外部依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-    </dependencies>
-</project>
+<parent>
+    <groupId>com.example.shop</groupId>
+    <artifactId>shop-platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</parent>
+
+<artifactId>order-service</artifactId>
+
+<dependencies>
+    <dependency>
+        <groupId>com.example.shop</groupId>
+        <artifactId>shop-common</artifactId>
+    </dependency>
+</dependencies>
 ```
 
-### 多模块构建命令
+多模块有两个容易混淆的概念：继承和聚合。`parent` 是继承关系，子模块继承父 POM 的属性、依赖管理和插件管理；`modules` 是聚合关系，根项目一次构建多个模块，并按模块依赖关系决定构建顺序。两者常常写在同一个根 POM 中，但含义不同。
+
+局部构建常用命令：
 
 ```bash
-# 构建所有模块
-mvn clean install
+# 只构建 order-service 以及它依赖的模块
+mvn clean install -pl order-service -am
 
-# 构建特定模块
-mvn clean install -pl service
+# 从某个模块开始继续构建
+mvn clean install -rf :order-service
 
-# 构建模块及其依赖
-mvn clean install -pl service -am
-
-# 构建依赖于指定模块的模块
-mvn clean install -pl service -amd
-
-# 跳过测试
-mvn clean install -DskipTests
-
-# 并行构建
-mvn clean install -T 4
+# 构建多个模块
+mvn clean install -pl order-service,payment-service -am
 ```
 
-## Profile 配置
+`-pl` 选择模块，`-am` 同时构建所需依赖模块，`-rf` 用于失败后从指定模块恢复构建。
 
-Maven Profile 允许为不同环境定制构建配置：
+## 版本管理与 BOM
+
+企业项目里最容易失控的是版本。一个服务直接写几十个依赖版本，多个服务各写一套版本，很快就会出现 Spring、Jackson、Netty、日志框架版本不一致的问题。
+
+稳定做法是把版本集中到父 POM 或 BOM：
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.example.platform</groupId>
+            <artifactId>platform-dependencies</artifactId>
+            <version>1.4.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+BOM 的作用是给一组依赖提供统一版本表。业务模块只声明要用什么，不重复声明版本：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
+</dependencies>
+```
+
+对于业务平台，建议分三层管理版本：语言和构建插件版本放父 POM，通用三方库版本放 BOM，业务模块只声明真实使用的依赖。这样升级 Spring Boot 或日志组件时，改动集中，回滚也清晰。
+
+## Profile 与环境差异
+
+Profile 用于切换少量构建差异，例如不同仓库、不同打包参数、不同资源过滤配置。它不适合承载大量业务环境逻辑。数据库地址、密钥、运行时开关更适合交给应用配置中心、环境变量或部署平台。
 
 ```xml
 <profiles>
-    <!-- 开发环境 -->
     <profile>
         <id>dev</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
         <properties>
-            <spring.profiles.active>dev</spring.profiles.active>
-            <database.url>jdbc:mysql://localhost:3306/dev_db</database.url>
-        </properties>
-        <dependencies>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <scope>runtime</scope>
-            </dependency>
-        </dependencies>
-    </profile>
-    
-    <!-- 测试环境 -->
-    <profile>
-        <id>test</id>
-        <properties>
-            <spring.profiles.active>test</spring.profiles.active>
-            <database.url>jdbc:mysql://test-server:3306/test_db</database.url>
+            <skip.integration.tests>true</skip.integration.tests>
         </properties>
     </profile>
-    
-    <!-- 生产环境 -->
     <profile>
-        <id>prod</id>
+        <id>release</id>
         <properties>
-            <spring.profiles.active>prod</spring.profiles.active>
-            <database.url>jdbc:mysql://prod-server:3306/prod_db</database.url>
-        </properties>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <optimize>true</optimize>
-                        <debug>false</debug>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
-    
-    <!-- 基于操作系统的激活 -->
-    <profile>
-        <id>windows</id>
-        <activation>
-            <os>
-                <family>windows</family>
-            </os>
-        </activation>
-        <properties>
-            <script.extension>.bat</script.extension>
-        </properties>
-    </profile>
-    
-    <!-- 基于 JDK 版本的激活 -->
-    <profile>
-        <id>jdk11</id>
-        <activation>
-            <jdk>11</jdk>
-        </activation>
-        <properties>
-            <maven.compiler.source>11</maven.compiler.source>
-            <maven.compiler.target>11</maven.compiler.target>
+            <skip.integration.tests>false</skip.integration.tests>
         </properties>
     </profile>
 </profiles>
 ```
 
-### Profile 使用
+使用方式：
 
 ```bash
-# 激活特定 Profile
-mvn clean package -Ptest
-
-# 激活多个 Profile
-mvn clean package -Ptest,prod
-
-# 查看当前激活的 Profile
-mvn help:active-profiles
-
-# 查看所有可用的 Profile
-mvn help:all-profiles
+mvn clean verify -Pdev
+mvn clean deploy -Prelease
 ```
 
-## 仓库管理
+Profile 越多，构建结果越难判断。一个项目如果需要通过 Profile 切换大量源码、依赖和插件，通常说明模块边界或部署模型需要重新整理。
 
-### 仓库类型
+## 私服与发布
 
-1. **本地仓库**: `~/.m2/repository`
-2. **中央仓库**: Maven 官方仓库
-3. **远程仓库**: 第三方或私有仓库
+公共三方依赖一般来自 Maven Central 或企业镜像，内部公共库应发布到企业私服。私服的价值不只是加速下载，还包括统一缓存、权限控制、制品留存、漏洞治理和离线构建。
 
-### 私有仓库配置
-
-#### Nexus 仓库配置
+发布配置通常放在项目 POM：
 
 ```xml
-<!-- settings.xml -->
-<servers>
-    <server>
-        <id>nexus-releases</id>
-        <username>admin</username>
-        <password>admin123</password>
-    </server>
-    <server>
-        <id>nexus-snapshots</id>
-        <username>admin</username>
-        <password>admin123</password>
-    </server>
-</servers>
-
-<mirrors>
-    <mirror>
-        <id>nexus</id>
-        <mirrorOf>*</mirrorOf>
-        <url>http://nexus.company.com:8081/repository/maven-public/</url>
-    </mirror>
-</mirrors>
-```
-
-#### POM 中的仓库配置
-
-```xml
-<repositories>
-    <repository>
-        <id>nexus-releases</id>
-        <name>Nexus Release Repository</name>
-        <url>http://nexus.company.com:8081/repository/maven-releases/</url>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
-</repositories>
-
 <distributionManagement>
     <repository>
-        <id>nexus-releases</id>
-        <name>Nexus Release Repository</name>
-        <url>http://nexus.company.com:8081/repository/maven-releases/</url>
+        <id>company-releases</id>
+        <url>https://maven.example.com/repository/releases/</url>
     </repository>
     <snapshotRepository>
-        <id>nexus-snapshots</id>
-        <name>Nexus Snapshot Repository</name>
-        <url>http://nexus.company.com:8081/repository/maven-snapshots/</url>
+        <id>company-snapshots</id>
+        <url>https://maven.example.com/repository/snapshots/</url>
     </snapshotRepository>
 </distributionManagement>
 ```
 
-## 高级特性
-
-### 1. 依赖冲突解决
-
-#### 查看依赖树
+账号密码放在 `settings.xml` 的 `servers` 中。执行发布：
 
 ```bash
-# 查看完整依赖树
-mvn dependency:tree
-
-# 查看特定依赖的冲突
-mvn dependency:tree -Dverbose -Dincludes=org.springframework:spring-core
-
-# 分析依赖
-mvn dependency:analyze
+mvn clean deploy
 ```
 
-#### 排除传递依赖
+`SNAPSHOT` 版本表示开发中的可变版本，适合联调；正式版本不应重复覆盖。公共库发布前应确保源码包、Javadoc 包、测试和版本号策略清晰，否则下游项目很难追踪问题。
+
+## Spring Boot 项目中的 Maven
+
+Spring Boot Maven 项目通常通过父 POM 或 BOM 继承大量版本管理能力：
+
+```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.6</version>
+    <relativePath/>
+</parent>
+```
+
+使用 Spring Boot 父 POM 后，常见 starter 不需要重复写版本：
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+可执行 jar 由 Spring Boot 插件重新打包：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+普通 `maven-jar-plugin` 打出的 jar 通常只包含项目自己的 class，不能直接运行完整 Spring Boot 应用；`spring-boot-maven-plugin` 会把依赖和启动器结构一起组织进可执行包。
+
+## 常见排错路径
+
+Maven 问题不要只看最后一行错误。有效排查顺序是：先确认命令阶段，再看项目模型，再看依赖树，再看插件配置，最后定位仓库或网络。
+
+![Maven 排错路径](/java/maven-troubleshooting.svg)
+
+### 依赖下载失败
+
+先判断是坐标不存在、仓库不可访问，还是认证失败：
+
+```bash
+mvn -U dependency:resolve
+mvn help:effective-settings
+```
+
+`-U` 会强制检查远程更新。若私服需要账号，检查 `settings.xml` 中 `server.id` 是否和仓库 `id` 一致。若本地仓库缓存了失败结果，可以删除对应目录后重新解析。
+
+### 版本冲突或运行时报错
+
+编译能过但运行时报 `NoSuchMethodError`、`ClassNotFoundException`、`ClassCastException`，常见原因是实际进入运行 classpath 的版本和预期不一致。
+
+```bash
+mvn dependency:tree -Dverbose
+mvn dependency:tree -Dincludes=com.fasterxml.jackson.core
+```
+
+定位后优先在 `dependencyManagement` 统一版本，必要时用 `exclusions` 排除不该传递进来的依赖：
 
 ```xml
 <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-web</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>legacy-client</artifactId>
+    <version>1.0.0</version>
     <exclusions>
         <exclusion>
             <groupId>commons-logging</groupId>
@@ -1037,205 +574,49 @@ mvn dependency:analyze
 </dependency>
 ```
 
-#### 强制指定版本
+### 插件版本或编译 JDK 不一致
 
-```xml
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-```
-
-### 2. 资源过滤
-
-```xml
-<build>
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-            <includes>
-                <include>**/*.properties</include>
-                <include>**/*.yml</include>
-            </includes>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>false</filtering>
-            <excludes>
-                <exclude>**/*.properties</exclude>
-                <exclude>**/*.yml</exclude>
-            </excludes>
-        </resource>
-    </resources>
-</build>
-```
-
-### 3. 自定义插件开发
-
-```java
-@Mojo(name = "hello", defaultPhase = LifecyclePhase.COMPILE)
-public class HelloMojo extends AbstractMojo {
-    
-    @Parameter(property = "hello.message", defaultValue = "Hello World!")
-    private String message;
-    
-    @Parameter(defaultValue = "${project}", readonly = true)
-    private MavenProject project;
-    
-    public void execute() throws MojoExecutionException {
-        getLog().info("Project: " + project.getName());
-        getLog().info("Message: " + message);
-    }
-}
-```
-
-## 最佳实践
-
-### 1. 项目结构
-
-- 遵循 Maven 标准目录结构
-- 合理划分模块，保持单一职责
-- 使用有意义的 groupId 和 artifactId
-
-### 2. 依赖管理
-
-- 在父 POM 中统一管理依赖版本
-- 避免在子模块中指定版本号
-- 定期更新依赖版本，关注安全漏洞
-- 使用 `dependencyManagement` 而不是直接依赖
-
-### 3. 版本管理
-
-- 使用语义化版本号（Semantic Versioning）
-- 开发版本使用 SNAPSHOT 后缀
-- 发布版本去掉 SNAPSHOT 后缀
-
-### 4. 构建优化
-
-```xml
-<!-- 并行构建 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <configuration>
-        <fork>true</fork>
-        <meminitial>128m</meminitial>
-        <maxmem>512m</maxmem>
-    </configuration>
-</plugin>
-
-<!-- 跳过不必要的插件 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <configuration>
-        <skip>true</skip>
-    </configuration>
-</plugin>
-```
-
-### 5. 安全配置
-
-```xml
-<!-- settings.xml 中加密密码 -->
-<servers>
-    <server>
-        <id>nexus</id>
-        <username>admin</username>
-        <password>{COQLCE6DU6GtcS5P=}</password>
-    </server>
-</servers>
-```
+本地能编译，CI 报 JDK API 不存在，通常是 JDK 版本或编译插件配置不一致。先看：
 
 ```bash
-# 生成主密码
-mvn --encrypt-master-password mypassword
-
-# 加密服务器密码
-mvn --encrypt-password mypassword
+mvn -version
+mvn help:effective-pom
 ```
 
-## 常见问题与解决方案
+项目应明确编译目标，例如使用 `maven.compiler.release`。团队项目还可以结合 Maven Wrapper、CI 镜像和工具链配置固定构建环境。
 
-### 1. 编码问题
+### 测试跳过后仍然失败
 
-```xml
-<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-</properties>
-```
+如果使用 `-DskipTests` 后仍然失败，说明失败可能发生在测试编译阶段。测试源码依赖缺失、生成测试代码失败、测试资源过滤失败都会在这个阶段暴露。只有 `-Dmaven.test.skip=true` 才会跳过测试编译，但这不适合作为长期构建参数。
 
-### 2. 内存不足
+### 多模块找不到内部依赖
+
+本地只进入某个子目录执行构建时，Maven 可能找不到兄弟模块的最新产物。优先回到根目录执行：
 
 ```bash
-# 设置环境变量
-export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m"
-
-# 或在 .mavenrc 文件中设置
-echo 'export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m"' >> ~/.mavenrc
+mvn clean install -pl order-service -am
 ```
 
-### 3. 依赖下载失败
+如果仍然失败，检查子模块 `parent` 坐标、根 POM `modules` 声明、内部依赖版本是否和 `${project.version}` 保持一致。
 
-```bash
-# 清理本地仓库
-mvn dependency:purge-local-repository
+## 选型与使用边界
 
-# 强制更新依赖
-mvn clean install -U
+Maven 适合约定清晰、依赖管理稳定、CI 发布流程标准化的 Java 项目。企业后端服务、公共 SDK、多模块平台、Spring Boot 应用都很适合使用 Maven。它的优势是模型稳定、生态成熟、团队协作成本低。
 
-# 离线模式
-mvn clean install -o
-```
+Gradle 更适合构建逻辑高度定制、需要更强增量构建和脚本表达能力的项目，例如大型 Android 工程或复杂多语言构建。普通 Java 后端项目如果没有明显的构建性能或脚本扩展需求，Maven 的可读性和统一性通常更容易维护。
 
-### 4. 测试失败
+## 能力验证清单
 
-```bash
-# 跳过测试
-mvn clean install -DskipTests
+学完 Maven 后，应能独立完成这些事情：
 
-# 跳过测试编译
-mvn clean install -Dmaven.test.skip=true
-
-# 运行特定测试
-mvn test -Dtest=UserServiceTest
-```
-
-## Maven vs Gradle 对比
-
-| 特性 | Maven | Gradle |
-|------|-------|--------|
-| 配置文件 | XML (pom.xml) | Groovy/Kotlin DSL |
-| 学习曲线 | 较平缓 | 较陡峭 |
-| 构建性能 | 中等 | 较快（增量构建、并行执行） |
-| 插件生态 | 成熟丰富 | 快速发展 |
-| IDE 支持 | 优秀 | 良好 |
-| 企业采用 | 广泛 | 增长中 |
-| 灵活性 | 中等 | 高 |
-| 标准化 | 高 | 中等 |
+- 从空目录创建一个 Maven Java 项目，并解释标准目录结构的作用。
+- 读懂 `pom.xml` 中项目坐标、依赖、插件、父 POM、模块声明的含义。
+- 使用 `mvn clean package`、`mvn test`、`mvn install` 完成本地构建和联调。
+- 通过 `dependency:tree` 找到版本冲突来源，并用 `dependencyManagement` 或 `exclusions` 收敛依赖。
+- 区分 `pom.xml` 和 `settings.xml`，正确配置镜像、私服账号和发布仓库。
+- 维护一个多模块项目，知道 `parent` 继承和 `modules` 聚合的区别。
+- 按错误类型选择排查入口，而不是反复删除整个本地仓库。
 
 ## 总结
 
-Maven 作为 Java 生态系统中最重要的构建工具之一，具有以下核心价值：
-
-**标准化优势**：提供了统一的项目结构和构建生命周期，降低了项目维护成本。
-
-**依赖管理**：强大的依赖管理机制，自动处理传递依赖和版本冲突。
-
-**插件生态**：丰富的插件生态系统，覆盖构建、测试、部署等各个环节。
-
-**企业级支持**：成熟稳定，在企业级项目中得到广泛应用。
-
-**多模块支持**：优秀的多模块项目管理能力，适合大型项目开发。
-
-**工具集成**：与主流 IDE 和 CI/CD 工具深度集成。
-
-Maven 通过其约定优于配置的理念，为 Java 项目提供了标准化的构建解决方案，是 Java 开发者必须掌握的重要工具。
+Maven 的学习重点不是记住所有标签，而是建立工程模型。`pom.xml` 定义项目，仓库提供构件，生命周期安排顺序，插件执行动作，依赖树决定最终 classpath。沿着这条线看，一个 Maven 项目从 0 到发布就是：声明坐标和依赖，按标准目录组织代码，执行生命周期阶段，生成构件，必要时发布到仓库，再用依赖树和有效 POM 排查偏差。

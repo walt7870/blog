@@ -6,6 +6,12 @@
 
 ![软件架构总览地图](/architecture/architecture-map.svg)
 
+## 视频学习入口
+
+| 系列 | 链接 | 建议搭配 |
+| --- | --- | --- |
+| TOGAF 企业架构系统课 | [B站视频](https://www.bilibili.com/video/BV1dnKD6pEfW) | 先看视频理解 ADM、4A 架构域、Baseline/Target/Gap 和实施治理，再阅读 [TOGAF 架构框架](./togaf/) |
+
 ## 架构选型判断
 
 架构选型先看两个维度：业务复杂度和组织复杂度。业务复杂度高，说明规则、流程、模型和数据一致性难；组织复杂度高，说明团队多、交付链路长、部署协作复杂。

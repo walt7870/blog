@@ -1,6 +1,31 @@
 
 # Gradle
 
+Gradle 是一套面向现代工程的构建系统。它不只是“另一种 Maven 写法”，而是把项目组织、任务执行、依赖变体、插件扩展、构建缓存和 CI 性能优化放进同一套可编程构建模型里。理解 Gradle 时，重点不是先背 `build.gradle.kts` 的语法，而是先看清它如何从 Settings 发现项目，再用 Project 承载配置，最后把 Task 组织成一张可以优化、跳过和缓存的执行图。
+
+Gradle 的优势来自两个方向：一边保留 Java 生态熟悉的约定目录、仓库和依赖坐标，一边提供比 Maven 更强的脚本表达能力、任务建模能力和性能优化空间。大型多项目、Android、复杂代码生成、跨语言构建、企业 CI 加速，都是 Gradle 更容易发挥价值的场景。
+
+## 视频讲解
+
+配套视频系列：[Gradle 深入教程：从构建模型到缓存、插件与 CI 优化](https://www.bilibili.com/video/BV1d2K96wE4L)。
+
+视频按“构建模型 -> 任务图 -> 插件扩展 -> 依赖变体 -> 缓存优化 -> 多项目 -> 发布与排查”的顺序展开，适合先建立整体理解。本文则保留安装、配置、脚本示例和常见命令，适合作为落地时的查阅材料。
+
+| 分P | 主题 | 对应文章重点 |
+| --- | --- | --- |
+| P01 | Gradle 到底解决什么 | Gradle 与 Maven 的边界、构建系统价值 |
+| P02 | Settings、Project 与构建模型 | `settings.gradle.kts`、`build.gradle.kts`、多项目发现 |
+| P03 | Task 与执行图 | Task 注册、依赖关系、DAG、增量执行 |
+| P04 | Plugin、Extension 与 Convention | 插件如何扩展模型，约定配置如何沉淀团队规范 |
+| P05 | 依赖管理、Configuration 与 Variant | `api`、`implementation`、变体选择和依赖洞察 |
+| P06 | 增量构建、Build Cache 与 Configuration Cache | 输入输出声明、缓存命中和配置阶段优化 |
+| P07 | 多项目构建与 Composite Build | 子项目协作、复合构建和边界拆分 |
+| P08 | Kotlin DSL、类型安全与脚本组织 | Kotlin DSL、Version Catalog、脚本复用 |
+| P09 | Java 与 Spring 项目里的 Gradle | Spring Boot、测试、打包和运行任务 |
+| P10 | 发布与制品管理 | `maven-publish`、私服发布、制品坐标 |
+| P11 | 性能调优与 CI 实战 | 守护进程、并行、缓存、CI 缓存策略 |
+| P12 | Gradle 排查方法论 | 依赖洞察、构建扫描、任务日志和配置缓存问题 |
+
 ## 概述
 
 Gradle 是一个基于 Apache Ant 和 Apache Maven 概念的项目自动化构建开源工具。它使用一种基于 Groovy 的特定领域语言(DSL)来声明项目设置，而不是传统的 XML，使得构建脚本更加简单易懂。Gradle 也支持基于 Kotlin 语言的 Kotlin DSL，提供了更多选择和更好的 IDE 支持。

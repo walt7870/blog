@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">Maven 生命周期与插件执行</title>
+  <desc id="desc">展示 clean、default、site 生命周期，以及 package 阶段从 validate 到 package 的执行顺序。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.phase{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.plug{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.side{fill:#fff;stroke:#cbd5e1;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:13px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.down{stroke:#ea580c;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="520" rx="22"/>
+  <text class="t" x="56" y="50">执行 mvn package 时，Maven 会顺序走完前置阶段</text>
+  <text class="s" x="56" y="80">生命周期决定顺序，插件目标负责具体动作。</text>
+
+  <rect class="side" x="58" y="126" width="190" height="96" rx="14"/>
+  <text class="h" x="153" y="166" text-anchor="middle">clean 生命周期</text>
+  <text class="m" x="153" y="196" text-anchor="middle">mvn clean</text>
+
+  <rect class="side" x="58" y="298" width="190" height="96" rx="14"/>
+  <text class="h" x="153" y="338" text-anchor="middle">site 生命周期</text>
+  <text class="m" x="153" y="368" text-anchor="middle">mvn site</text>
+
+  <rect class="phase" x="310" y="132" width="112" height="72" rx="12"/>
+  <text class="h" x="366" y="163" text-anchor="middle">validate</text>
+  <text class="s" x="366" y="186" text-anchor="middle">校验模型</text>
+  <rect class="phase" x="470" y="132" width="112" height="72" rx="12"/>
+  <text class="h" x="526" y="163" text-anchor="middle">compile</text>
+  <text class="s" x="526" y="186" text-anchor="middle">编译主代码</text>
+  <rect class="phase" x="630" y="132" width="112" height="72" rx="12"/>
+  <text class="h" x="686" y="163" text-anchor="middle">test</text>
+  <text class="s" x="686" y="186" text-anchor="middle">运行测试</text>
+  <rect class="phase" x="790" y="132" width="112" height="72" rx="12"/>
+  <text class="h" x="846" y="163" text-anchor="middle">package</text>
+  <text class="s" x="846" y="186" text-anchor="middle">生成产物</text>
+  <rect class="phase" x="950" y="132" width="112" height="72" rx="12"/>
+  <text class="h" x="1006" y="163" text-anchor="middle">deploy</text>
+  <text class="s" x="1006" y="186" text-anchor="middle">发布仓库</text>
+
+  <path class="line" d="M422 168H470"/>
+  <path class="line" d="M582 168H630"/>
+  <path class="line" d="M742 168H790"/>
+  <path class="line" d="M902 168H950"/>
+
+  <rect class="plug" x="444" y="292" width="164" height="84" rx="12"/>
+  <text class="h" x="526" y="326" text-anchor="middle">compiler 插件</text>
+  <text class="s" x="526" y="354" text-anchor="middle">执行 javac 编译</text>
+  <rect class="plug" x="604" y="394" width="164" height="84" rx="12"/>
+  <text class="h" x="686" y="428" text-anchor="middle">surefire 插件</text>
+  <text class="s" x="686" y="456" text-anchor="middle">执行单元测试</text>
+  <rect class="plug" x="764" y="292" width="164" height="84" rx="12"/>
+  <text class="h" x="846" y="326" text-anchor="middle">jar / war 插件</text>
+  <text class="s" x="846" y="354" text-anchor="middle">组装最终包</text>
+
+  <path class="down" d="M526 204V292"/>
+  <path class="down" d="M686 204V394"/>
+  <path class="down" d="M846 204V292"/>
+  <text class="m" x="314" y="108">default 生命周期</text>
+</svg>
