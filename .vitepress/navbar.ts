@@ -54,5 +54,9 @@ export const nav: DefaultTheme.NavItem[] = [
         { text: 'vfox', link: '/docs/tools/vfox/' },
         { text: 'sdkman', link: '/docs/tools/sdkman/' },
       ]
+    },
+    {
+      text: '每日资讯',
+      link: 'https://niuwancheng.cn/knology-news/',
     }
   ]

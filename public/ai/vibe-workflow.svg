@@ -1,0 +1,82 @@
+<svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="500" y="30" font-size="28" font-weight="bold" text-anchor="middle" fill="#1a1a1a">
+    Vibe Coding 工作流程
+  </text>
+
+  <!-- Step 1: Express Idea -->
+  <rect x="50" y="80" width="180" height="120" rx="10" fill="#e8f4f8" stroke="#0066cc" stroke-width="2"/>
+  <text x="140" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. 清晰表达想法</text>
+  <text x="140" y="135" font-size="13" text-anchor="middle" fill="#333">写下你想要的页面</text>
+  <text x="140" y="155" font-size="13" text-anchor="middle" fill="#333">和功能说明</text>
+  <text x="140" y="175" font-size="13" text-anchor="middle" fill="#666">(用自然语言)</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 230 140 L 270 140" stroke="#0066cc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2: AI Generate -->
+  <rect x="270" y="80" width="180" height="120" rx="10" fill="#f0f8e8" stroke="#00aa33" stroke-width="2"/>
+  <text x="360" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. AI 生成初版</text>
+  <text x="360" y="135" font-size="13" text-anchor="middle" fill="#333">代码、界面、</text>
+  <text x="360" y="155" font-size="13" text-anchor="middle" fill="#333">或功能原型</text>
+  <text x="360" y="175" font-size="13" text-anchor="middle" fill="#666">(2-5分钟)</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 450 140 L 490 140" stroke="#0066cc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3: Test & Review -->
+  <rect x="490" y="80" width="180" height="120" rx="10" fill="#fff8e8" stroke="#ff9900" stroke-width="2"/>
+  <text x="580" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3. 看效果、试用</text>
+  <text x="580" y="135" font-size="13" text-anchor="middle" fill="#333">跑起来测试</text>
+  <text x="580" y="155" font-size="13" text-anchor="middle" fill="#333">点一点、看一看</text>
+  <text x="580" y="175" font-size="13" text-anchor="middle" fill="#666">(5-10分钟)</text>
+
+  <!-- Arrow 3 -->
+  <path d="M 670 140 L 710 140" stroke="#0066cc" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 4: Feedback -->
+  <rect x="710" y="80" width="240" height="120" rx="10" fill="#f8e8f4" stroke="#cc00cc" stroke-width="2"/>
+  <text x="830" y="110" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. 反馈和调整</text>
+  <text x="830" y="135" font-size="13" text-anchor="middle" fill="#333">"按钮位置改一下"</text>
+  <text x="830" y="155" font-size="13" text-anchor="middle" fill="#333">"结果排序方式改改"</text>
+  <text x="830" y="175" font-size="13" text-anchor="middle" fill="#666">(具体反馈,不要"感觉不对")</text>
+
+  <!-- Decision Diamond -->
+  <polygon points="500,280 580,340 500,400 420,340" fill="#f0e8f8" stroke="#6633cc" stroke-width="2"/>
+  <text x="500" y="345" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">满足了吗?</text>
+
+  <!-- No path - loop back -->
+  <path d="M 420 340 L 100 340 L 100 230" stroke="#cc0000" stroke-width="2" fill="none" marker-end="url(#arrowhead-red)"/>
+  <text x="200" y="360" font-size="13" fill="#cc0000" font-weight="bold">不满足: 继续迭代</text>
+  <text x="200" y="380" font-size="12" fill="#cc0000">(通常 2-3 轮)</text>
+
+  <!-- Yes path - continue -->
+  <path d="M 500 400 L 500 480" stroke="#00aa33" stroke-width="2" fill="none" marker-end="url(#arrowhead-green)"/>
+  <text x="520" y="445" font-size="13" fill="#00aa33" font-weight="bold">满足</text>
+
+  <!-- Final Step -->
+  <rect x="350" y="480" width="300" height="100" rx="10" fill="#e8f8e8" stroke="#00aa33" stroke-width="2"/>
+  <text x="500" y="510" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">✓ 原型完成</text>
+  <text x="500" y="535" font-size="13" text-anchor="middle" fill="#333">决定下一步</text>
+  <text x="500" y="558" font-size="12" text-anchor="middle" fill="#666">继续迭代 / 推倒重来 / 进入工程化</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0066cc"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#cc0000"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#00aa33"/>
+    </marker>
+  </defs>
+
+  <!-- Time indicators -->
+  <g fill="#999" font-size="11">
+    <text x="140" y="220">典型耗时</text>
+    <text x="140" y="235">15-30 分钟</text>
+    <text x="140" y="250">完成原型</text>
+  </g>
+</svg>

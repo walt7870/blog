@@ -18,7 +18,7 @@ aside: false
         <a class="action primary" href="docs/ai/">AI 工程体系</a>
         <a class="action" href="docs/container/">容器与部署</a>
         <a class="action" href="docs/design/architecture/">架构设计</a>
-        <a class="action" href="https://niuwancheng.cn/static/files/webfile/games/index.html">休闲游戏</a>
+        <a class="action" href="https://niuwancheng.cn/knology-news/">每日资讯</a>
       </div>
     </div>
     <div class="hero-board" aria-label="站点专题地图">
@@ -140,10 +140,10 @@ aside: false
         <h3>工程工具</h3>
         <p>Git、Vim、消息中间件、vfox、sdkman、Android Studio。</p>
       </a>
-      <a class="topic-card c-leisure" href="https://niuwancheng.cn/static/files/webfile/games/index.html">
+      <a class="topic-card c-news" href="https://niuwancheng.cn/knology-news/">
         <span>09</span>
-        <h3>休闲游戏</h3>
-        <p>贪吃蛇、俄罗斯方块、三消、麻将消消乐和圣杯占卜，作为工作学习间隙的轻量放松入口。</p>
+        <h3>每日资讯</h3>
+        <p>聚合技术、产业和工程实践相关资讯，作为日常浏览和知识更新入口。</p>
       </a>
     </div>
   </section>
@@ -607,7 +607,7 @@ aside: false
 .c-linux { --card-bg: color-mix(in srgb, #64748b 10%, var(--home-card)); }
 .c-basic { --card-bg: color-mix(in srgb, #7c3aed 11%, var(--home-card)); }
 .c-tools { --card-bg: color-mix(in srgb, #0f766e 12%, var(--home-card)); }
-.c-leisure { --card-bg: color-mix(in srgb, #f59e0b 15%, var(--home-card)); }
+.c-news { --card-bg: color-mix(in srgb, #db2777 12%, var(--home-card)); }
 
 .route-section {
   display: grid;
