@@ -9,6 +9,8 @@ RabbitMQ 像一个“带规则的分拣中心”：生产者把消息交给 `Exc
 
 ![RabbitMQ Exchange 路由模型](/mq/rabbitmq-routing-model.svg)
 
+RabbitMQ 的核心不是“队列”两个字，而是 Exchange、Binding 和 Queue 组合出的路由拓扑。生产者通常不直接关心具体队列，而是把消息发到 Exchange；Exchange 根据 routing key、binding key 或 header 规则决定消息进入哪些队列。
+
 ## 适合与不适合
 
 适合：
@@ -55,6 +57,26 @@ binding key: order.#        匹配 order.created、order.payment.success
 binding key: *.error        匹配 payment.error、stock.error
 ```
 
+Exchange 选择建议：
+
+- 明确一类业务事件只去固定队列，优先 Direct。
+- 同一事件需要广播给多个系统，优先 Fanout。
+- 业务域、动作、状态有层级结构，优先 Topic，例如 `order.created`, `order.paid`, `payment.refund.success`。
+- Headers 功能灵活但可读性和治理成本更高，除非确实需要按多个消息头组合路由。
+
+## Connection、Channel 与消费并发
+
+RabbitMQ 的 TCP Connection 成本较高，应用通常复用连接，再在连接里创建多个 Channel。Channel 是 AMQP 操作的轻量逻辑通道，发布、声明交换机、声明队列、消费确认通常都发生在 Channel 上。
+
+生产环境需要注意：
+
+- 不要每发一条消息就创建连接。
+- 连接数和 Channel 数要监控，异常增长通常代表资源泄漏。
+- 消费并发不要只看线程数，还要结合 `prefetch`。
+- `prefetch` 太大，单个消费者可能拿走太多未确认消息；太小，吞吐可能上不去。
+
+常见设置思路是：每个消费者实例开固定数量 Channel，每个 Channel 设置合适的 prefetch，让未确认消息数量可控，同时避免某个消费者长期占住大量消息。
+
 ## 消息发送与消费流程
 
 ![RabbitMQ 消息发送与消费流程](/mq/rabbitmq-publish-consume-flow.svg)
@@ -78,6 +100,16 @@ RabbitMQ 的可靠性分两段：
 - 消费者手动 ack
 - 业务侧做幂等
 
+这里有一个常见误区：`durable=true` 只表示队列定义可持久化，不代表消息一定持久化。消息本身也要设置持久化属性，并且生产者最好启用 Publisher Confirms，确认 broker 已经接收消息。消费者侧则应使用手动 ack，只有业务处理成功后再确认。
+
+可靠投递通常要形成闭环：
+
+1. 生产者发送消息并等待 confirm。
+2. 发送失败或超时进入本地重试、Outbox 或补偿流程。
+3. 消费者处理成功后手动 ack。
+4. 消费失败时按错误类型决定重试、丢弃或进入死信。
+5. 业务操作必须幂等，避免重复投递导致重复扣款、重复发券。
+
 ## TTL、死信与重试
 
 RabbitMQ 常用 TTL + DLX 实现延迟重试：
@@ -92,6 +124,16 @@ RabbitMQ 常用 TTL + DLX 实现延迟重试：
 - `x-max-length`：队列最大消息数。
 - `x-max-length-bytes`：队列最大容量。
 
+重试设计不要无限循环。更稳妥的做法是把失败分成三类：
+
+| 失败类型 | 处理方式 |
+| --- | --- |
+| 临时失败 | 延迟重试，例如网络抖动、下游限流 |
+| 业务不可重试 | 直接拒绝或记录失败，例如参数非法、状态不允许 |
+| 多次失败 | 进入死信队列并告警，等待人工或补偿任务处理 |
+
+死信队列不是垃圾桶。生产环境应监控死信数量、死信原因和最早死信时间，否则问题只会从主队列转移到无人处理的角落。
+
 ## 队列类型
 
 | 队列类型 | 特点 | 使用建议 |
@@ -101,6 +143,14 @@ RabbitMQ 常用 TTL + DLX 实现延迟重试：
 | Stream | 追加日志模型，支持重复读取和回放 | 大 fan-out、回放、高吞吐场景 |
 
 Quorum Queue 更适合需要高可用和数据安全的业务队列；Stream 更接近日志流，不是传统任务队列。
+
+选型时可以这样判断：
+
+- 普通异步任务、低风险业务，可以从 Classic Queue 起步。
+- 涉及订单、支付、库存、通知等重要业务，优先评估 Quorum Queue。
+- 如果需求接近事件流、需要保留和回放，RabbitMQ Stream 可以考虑，但也要和 Kafka、Pulsar 对比。
+
+队列不是越多越好，也不是越少越好。一个队列承载所有业务会形成热点和排查困难；每个事件都建独立队列又会增加运维成本。更合理的方式是按业务域、消费语义、可靠性级别和扩缩容需求拆分。
 
 ## 集群与跨集群
 
@@ -167,6 +217,14 @@ RabbitMQ 通过 `Virtual Host` 做逻辑隔离：
 | Deliver rate | 投递速率 | 消费处理能力 |
 | Connections/Channels | 连接与信道数 | 是否泄漏或过度建连 |
 | Disk/Memory watermark | 资源水位 | 触发流控会影响生产 |
+
+排查时可以按这个顺序看：
+
+1. Ready 持续增长：消费者处理能力不足、消费端异常或下游变慢。
+2. Unacked 很高：消费者拿到消息但没确认，可能卡在业务逻辑或忘记 ack。
+3. Publish rate 高于 Deliver rate：生产速度超过消费速度，需要扩消费者或削峰。
+4. Connection/Channel 异常增长：客户端连接管理有问题。
+5. Memory/Disk watermark 触发：Broker 会流控生产者，导致上游发送变慢。
 
 ## 常见坑
 

@@ -1,5 +1,7 @@
 # Apache Kafka 详解
 
+如果你想从消息中间件和事件流平台角度系统学习 Kafka，建议优先阅读 [Kafka：事件流平台完整入门](/docs/tools/mq/kafka)，其中整理了 16 集 Kafka 核心原理视频入口，并按 Topic、Partition、Consumer Group、可靠性、事务、存储和运维场景展开。
+
 ## 概述
 
 Apache Kafka 是一个分布式流处理平台，最初由LinkedIn开发，现在是Apache软件基金会的顶级项目。Kafka被设计为一个高吞吐量、低延迟的分布式消息系统，能够处理大规模的实时数据流。

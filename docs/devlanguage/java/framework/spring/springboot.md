@@ -2,6 +2,27 @@
 
 Spring Boot 是 Spring 应用的启动和默认装配体系。它把常用依赖、默认配置、内嵌服务器、配置加载、日志、健康检查等工程能力组织起来，让应用能以更少样板配置启动，但底层仍然是 Spring Framework 的 IoC、AOP、MVC 等机制。
 
+## 视频讲解
+
+配套视频系列：[Spring Boot 深入原理教程：从容器启动到自动配置与工程边界](https://www.bilibili.com/video/BV1YzKo6eEKd)。
+
+视频按下面顺序展开，文章则用于回查 Starter、自动配置、配置加载、Actuator、打包运行和排查路径。
+
+| 分P | 主题 | 对应文章重点 |
+| --- | --- | --- |
+| P01 | Spring 到底解决了什么 | Spring 接管对象创建、依赖组装、通用增强和 Web 调度 |
+| P02 | ApplicationContext 启动全链路 | 应用上下文创建、环境准备、Bean 定义加载和刷新 |
+| P03 | 自动配置为什么能少写配置 | classpath、条件注解、默认 Bean 和用户覆盖 |
+| P04 | Bean 生命周期与扩展点 | Bean 创建、初始化、后置处理器和扩展点 |
+| P05 | AOP、代理与声明式能力 | 代理、切面、事务和横切逻辑边界 |
+| P06 | Spring MVC 请求处理链路 | HandlerMapping、Adapter、参数绑定、返回值处理 |
+| P07 | 数据访问与事务底层逻辑 | 事务边界、资源绑定、传播行为和失效场景 |
+| P08 | 配置体系、Profile 与外部化配置 | 配置来源、优先级、Profile 和配置绑定 |
+| P09 | 运行期观测、健康检查与诊断 | Actuator、health、metrics、conditions、mappings |
+| P10 | 启动优化、运行性能与优雅停机 | 依赖清理、扫描范围、连接超时和生命周期钩子 |
+| P11 | Spring Security 的过滤器链设计 | 安全过滤器链、认证授权和请求保护 |
+| P12 | Spring 体系的工程边界与架构取舍 | 什么交给框架，什么留给业务和架构设计 |
+
 ![Spring Boot 自动配置判断链](/spring/boot-auto-config.svg)
 
 ## 详细位置

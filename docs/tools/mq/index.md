@@ -17,6 +17,14 @@
 - [RocketMQ](/docs/tools/mq/rocketmq)
 - [Pulsar](/docs/tools/mq/pulsar/)
 
+## 视频学习入口
+
+| 系列 | 链接 | 搭配阅读 |
+| --- | --- | --- |
+| Kafka 核心原理科普 | [从第 01 集开始](https://www.bilibili.com/video/BV1fA7N64EiL) | 看完后阅读 [Kafka](./kafka.md)，重点补 Topic、Partition、Consumer Group、事务和容量规划 |
+| RocketMQ 核心原理科普 | [RocketMQ 01](https://www.bilibili.com/video/BV1DH7N65EF3) | 看完后阅读 [RocketMQ](./rocketmq.md)，重点补事务消息、延迟消息、顺序消息和存储结构 |
+| RabbitMQ | 暂无配套视频 | 先阅读 [RabbitMQ](./rabbitmq.md)，重点理解 Exchange、Queue、Binding、Confirm、Ack、TTL 与 DLX |
+
 ## MQ 在系统中的位置
 
 ![MQ 在系统中的位置](/mq/mq-system-position.svg)
