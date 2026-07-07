@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520" role="img" aria-labelledby="title desc">
+  <title id="title">Flutter 学习路线图</title>
+  <desc id="desc">从环境、Dart、Widget 模型、布局状态、工程能力到发布观测的学习路径。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07141e"/>
+      <stop offset="1" stop-color="#0b302b"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#55c2ff"/>
+      <stop offset="1" stop-color="#8ee7c4"/>
+    </linearGradient>
+    <style>
+      .bg{fill:url(#bg)}
+      .grid{stroke:#ffffff;stroke-opacity:.08}
+      .title{font:700 34px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#f7fbff}
+      .sub{font:400 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#b7d5d0}
+      .node{fill:#0d2b31;stroke:#6ad7d0;stroke-width:2}
+      .node.hot{fill:#103848;stroke:#55c2ff;stroke-width:3}
+      .n-title{font:700 20px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#ffffff}
+      .n-text{font:400 15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#c8dbd8}
+      .num{font:700 18px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#06131a}
+      .badge{fill:#8ee7c4}
+      .path{stroke:url(#line);stroke-width:5;fill:none;stroke-linecap:round}
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="520" rx="18"/>
+  <path class="grid" d="M60 80H1120M60 160H1120M60 240H1120M60 320H1120M60 400H1120M180 50V470M340 50V470M500 50V470M660 50V470M820 50V470M980 50V470"/>
+  <text class="title" x="58" y="58">Flutter 从新手到高手</text>
+  <text class="sub" x="58" y="88">先跑通工程，再理解三层模型、约束布局、状态边界、平台能力和发布观测。</text>
+  <path class="path" d="M130 230 C230 120 340 120 440 230 S650 340 750 230 960 120 1050 230"/>
+  <g transform="translate(60 150)">
+    <rect class="node hot" width="190" height="135" rx="12"/>
+    <circle class="badge" cx="34" cy="34" r="18"/><text class="num" x="24" y="40">1</text>
+    <text class="n-title" x="64" y="40">工程入口</text>
+    <text class="n-text" x="24" y="75">SDK / doctor / run</text>
+    <text class="n-text" x="24" y="100">pubspec / 目录结构</text>
+  </g>
+  <g transform="translate(285 150)">
+    <rect class="node" width="190" height="135" rx="12"/>
+    <circle class="badge" cx="34" cy="34" r="18"/><text class="num" x="24" y="40">2</text>
+    <text class="n-title" x="64" y="40">Dart 基础</text>
+    <text class="n-text" x="24" y="75">空安全 / 类型</text>
+    <text class="n-text" x="24" y="100">Future / Stream</text>
+  </g>
+  <g transform="translate(510 150)">
+    <rect class="node hot" width="190" height="135" rx="12"/>
+    <circle class="badge" cx="34" cy="34" r="18"/><text class="num" x="24" y="40">3</text>
+    <text class="n-title" x="64" y="40">核心模型</text>
+    <text class="n-text" x="24" y="75">Widget / Element</text>
+    <text class="n-text" x="24" y="100">RenderObject / Layout</text>
+  </g>
+  <g transform="translate(735 150)">
+    <rect class="node" width="190" height="135" rx="12"/>
+    <circle class="badge" cx="34" cy="34" r="18"/><text class="num" x="24" y="40">4</text>
+    <text class="n-title" x="64" y="40">工程能力</text>
+    <text class="n-text" x="24" y="75">状态 / 路由 / 接口</text>
+    <text class="n-text" x="24" y="100">缓存 / 动画 / 插件</text>
+  </g>
+  <g transform="translate(960 150)">
+    <rect class="node hot" width="190" height="135" rx="12"/>
+    <circle class="badge" cx="34" cy="34" r="18"/><text class="num" x="24" y="40">5</text>
+    <text class="n-title" x="64" y="40">上线闭环</text>
+    <text class="n-text" x="24" y="75">性能 / 测试 / CI</text>
+    <text class="n-text" x="24" y="100">签名 / 灰度 / 观测</text>
+  </g>
+  <rect x="70" y="350" width="1040" height="86" rx="12" fill="#06131a" fill-opacity=".62" stroke="#ffffff" stroke-opacity=".14"/>
+  <text class="sub" x="100" y="385">项目练习建议：用任务管理 App 串起登录、列表、详情、编辑、缓存、同步、测试和发布。</text>
+  <text class="sub" x="100" y="415">学习检查点：能画链路、能解释职责、能定位卡顿、能写测试、能完成一次可追溯发布。</text>
+</svg>

@@ -456,6 +456,18 @@ export const sidebar: DefaultTheme.Sidebar = {
           ]
         },
         {
+          text: 'Flutter',
+          collapsed: true,
+          items: [
+            { text: 'Flutter 概览', link: '/docs/devlanguage/flutter/' },
+            { text: '视频学习系列', link: '/docs/devlanguage/flutter/video-series' },
+            { text: '动手入门路径', link: '/docs/devlanguage/flutter/hands-on' },
+            { text: '核心架构', link: '/docs/devlanguage/flutter/architecture' },
+            { text: '项目实战路线', link: '/docs/devlanguage/flutter/project-practice' },
+            { text: '排错手册', link: '/docs/devlanguage/flutter/troubleshooting' },
+          ]
+        },
+        {
           text: '前端开发',
           collapsed: true,
           items: [
