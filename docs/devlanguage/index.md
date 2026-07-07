@@ -9,7 +9,7 @@
 | 专题 | 关注点 | 适用场景 |
 | --- | --- | --- |
 | [Java](./java/) | 语法、JDK、JVM、Maven/Gradle、Spring、MyBatis | 企业后端、微服务、业务系统、中间件生态 |
-| [Rust](./rust/) | 所有权、类型系统、并发、Cargo、系统级工程 | 基础设施、命令行工具、高性能服务、WebAssembly |
+| [Rust](./rust/) | 所有权、类型系统、并发、Cargo、CLI/Axum 实战 | 基础设施、命令行工具、高性能服务、WebAssembly |
 | [前端开发](./front/) | HTML/CSS/JavaScript、框架、包管理、构建、测试、部署 | Web 应用、管理后台、移动 H5、前端工程化 |
 
 ## 选型边界

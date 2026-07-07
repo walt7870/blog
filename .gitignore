@@ -16,6 +16,11 @@ node_modules/
 dist
 dist-ssr
 
+# Large media should be published on external video platforms, not committed.
+public/**/*.mp4
+public/**/*.mov
+public/**/*.m4v
+
 # Cache directories
 cache
 .cache

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Rust 学习路线图">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07140f"/>
+      <stop offset="1" stop-color="#12392d"/>
+    </linearGradient>
+    <style>
+      .title{font:700 42px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#f3f7ef}
+      .label{font:700 26px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#f2c65d}
+      .body{font:500 20px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#e7f0e8}
+      .small{font:500 17px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#a8c6b7}
+      .card{fill:#102b23;stroke:#6fa38c;stroke-width:2}
+      .line{stroke:#f2c65d;stroke-width:3;fill:none;opacity:.85}
+    </style>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <path d="M80 120 H1200 M80 250 H1200 M80 380 H1200 M80 510 H1200" stroke="#2d5a48" stroke-width="1" opacity=".55"/>
+  <text x="64" y="72" class="title">Rust 从入门到工程落地：一条主线，四层能力</text>
+  <text x="64" y="110" class="small">先理解语言设计，再进入工具链、核心机制、生产生态和长期选型。</text>
+
+  <rect class="card" x="70" y="155" rx="14" ry="14" width="245" height="150"/>
+  <text class="label" x="95" y="205">01 语言定位</text>
+  <text class="body" x="95" y="245">诞生背景 / 安全目标</text>
+  <text class="body" x="95" y="278">性能 / 适用边界</text>
+
+  <rect class="card" x="370" y="155" rx="14" ry="14" width="245" height="150"/>
+  <text class="label" x="395" y="205">02 基础使用</text>
+  <text class="body" x="395" y="245">Cargo / crate / module</text>
+  <text class="body" x="395" y="278">测试 / 格式化 / 检查</text>
+
+  <rect class="card" x="670" y="155" rx="14" ry="14" width="245" height="150"/>
+  <text class="label" x="695" y="205">03 核心机制</text>
+  <text class="body" x="695" y="245">所有权 / 借用 / 生命周期</text>
+  <text class="body" x="695" y="278">Trait / 泛型 / 错误处理</text>
+
+  <rect class="card" x="970" y="155" rx="14" ry="14" width="245" height="150"/>
+  <text class="label" x="995" y="205">04 工程实践</text>
+  <text class="body" x="995" y="245">并发 / async / unsafe</text>
+  <text class="body" x="995" y="278">Web / WASM / 嵌入式</text>
+
+  <path class="line" d="M315 230 C340 230 345 230 370 230"/>
+  <path class="line" d="M615 230 C640 230 645 230 670 230"/>
+  <path class="line" d="M915 230 C940 230 945 230 970 230"/>
+
+  <rect class="card" x="150" y="405" rx="18" ry="18" width="980" height="170"/>
+  <text class="label" x="190" y="455">学习时的关键判断</text>
+  <text class="body" x="190" y="500">Rust 的难点不在语法数量，而在资源所有权、类型建模和工程边界的思维转换。</text>
+  <text class="body" x="190" y="538">适合从 CLI、小服务、独立 Agent、性能热点、基础设施组件逐步进入真实项目。</text>
+  <text class="small" x="190" y="590">不要过早堆 async、宏和 unsafe；先把同步 Rust、Result、Trait 和 Cargo 闭环练稳。</text>
+</svg>

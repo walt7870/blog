@@ -440,6 +440,7 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: true,
           items: [
             { text: 'Rust 概览', link: '/docs/devlanguage/rust/' },
+            { text: '视频学习系列', link: '/docs/devlanguage/rust/video-series' },
             { text: '基础概念', link: '/docs/devlanguage/rust/basic' },
             { text: '所有权与借用', link: '/docs/devlanguage/rust/ownership' },
             { text: '类型系统与错误处理', link: '/docs/devlanguage/rust/type-system' },
@@ -448,6 +449,9 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '发展历程', link: '/docs/devlanguage/rust/history' },
             { text: '生态系统', link: '/docs/devlanguage/rust/ecosystem' },
             { text: '工具链与工程实践', link: '/docs/devlanguage/rust/tooling' },
+            { text: '动手入门路径', link: '/docs/devlanguage/rust/hands-on' },
+            { text: '排错手册', link: '/docs/devlanguage/rust/troubleshooting' },
+            { text: '项目实战路线', link: '/docs/devlanguage/rust/project-practice' },
             { text: '学习路线与选型', link: '/docs/devlanguage/rust/learning-path' },
           ]
         },

@@ -23,13 +23,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # 根据你的项目需求选择 Node.js 版本
+          node-version: '24'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
-        run: npm run docs:build  # 确保你的项目有 build 脚本
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: |
+          node -v
+          npm -v
+          df -h .
+          npm run docs:build
+          du -sh .vitepress/dist
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
