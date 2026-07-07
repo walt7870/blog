@@ -36,7 +36,14 @@ jobs:
           node -v
           npm -v
           df -h .
-          npm run docs:build
+          npm run docs:build 2>&1 | tee /tmp/vitepress-build.log
+          status=${PIPESTATUS[0]}
+          if [ "$status" -ne 0 ]; then
+            tail -n 120 /tmp/vitepress-build.log
+            message=$(tail -n 30 /tmp/vitepress-build.log | tr '\n' ' ' | sed 's/%/%25/g; s/\r/%0D/g; s/\n/%0A/g')
+            echo "::error title=VitePress build failed::$message"
+            exit "$status"
+          fi
           du -sh .vitepress/dist
 
       - name: Setup Pages
