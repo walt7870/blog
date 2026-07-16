@@ -56,6 +56,36 @@ SpringApplication.run()
 
 `ApplicationContext` 被创建出来时还只是容器外壳。初始 BeanDefinition 加载完成后，`refresh()` 才会执行工厂后处理器、注册 BeanPostProcessor、创建非懒加载单例并启动生命周期组件。把“创建 Context”和“刷新 Context”分开，是理解启动日志、断点位置和失败阶段的关键。
 
+### `SpringApplication` 在 `run()` 之前已经决定了什么
+
+调用 `SpringApplication.run(OrderApplication.class, args)` 看起来只有一行，实际先构造 `SpringApplication`，把主配置类保存为 primary source，并根据 classpath 推断应用类型。MVC 类存在时通常选择 Servlet，只有响应式 Web 条件满足且 MVC 不存在时才选择 Reactive，都不满足则是普通非 Web Context。这个判断会影响随后创建哪种 ApplicationContext，以及是否需要启动 WebServer。
+
+构造阶段还会发现启动期初始化器和监听器。它们不是普通业务 Bean，因为此时 BeanFactory 尚未刷新；它们服务于 Context 创建之前或启动事件阶段。理解这一点后，才不会尝试在过早的监听器中随意注入尚未创建的业务 Bean。
+
+### Environment 为什么必须先于 Context 刷新准备好
+
+`run()` 先创建并配置 Environment，把命令行参数、系统属性、环境变量和 Config Data 组织成有顺序的 PropertySource。日志级别、激活 Profile、应用类型和部分 `spring.main.*` 参数会在 Context 刷新前使用，所以配置系统不能等普通 `@Bean` 创建后再工作。
+
+Config Data 处理的不只是读取一个 `application.yml`。它要解析默认位置、外部目录、Profile 文档、`spring.config.import` 和可选位置，再按规则把文档加入 Environment。同名属性的最终值取决于来源优先级和文档顺序。`@PropertySource` 在配置类解析阶段才加入，因而来不及影响某些更早读取的启动参数。排查配置覆盖时，必须问“这个值在哪个启动阶段被谁读取”，而不能只比较两个 YAML 文件。
+
+### Context 创建、加载和刷新是三个不同动作
+
+Environment 准备好后，ApplicationContextFactory 创建与应用类型匹配的 Context。接着 `load()` 把 primary source 登记为初始 BeanDefinition。此时主配置类进入容器，但组件扫描和自动配置还没有全部展开。只有进入 `refresh()`，`ConfigurationClassPostProcessor` 才解析主配置类上的复合注解，递归导入更多配置并注册 BeanDefinition。
+
+这三个时刻对应不同故障：Context 类型错误通常与 classpath 或显式 WebApplicationType 有关；主配置类无法加载属于初始来源问题；Bean 缺失、条件不命中和依赖注入失败多发生在刷新阶段。把所有启动异常都归为“自动配置失败”，会从错误入口开始排查。
+
+### 内嵌服务器为什么在 `refresh()` 中启动
+
+Servlet 应用使用专门的 WebServerApplicationContext。刷新过程中，它从容器寻找 `ServletWebServerFactory`，例如 Tomcat 工厂；工厂创建服务器，Boot 再把 DispatcherServlet、Filter 和 Listener 等注册到 ServletContext。服务器对象被创建、端口绑定、生命周期启动不是同一概念，端口真正可监听要以服务器状态和操作系统端口为证据。
+
+WebServer 放在 Context 生命周期内有两个效果：服务器需要的配置、Factory 和自定义器都可以作为 Bean 参与装配；如果后续关键单例创建失败，Context 刷新会失败并关闭已经分配的资源，而不会留下一个“端口开着但业务 Bean 不完整”的半成品应用。应用就绪事件更晚，它还要等待 Context 刷新、Runner 执行等步骤结束，因此“端口已经监听”和“实例可以接业务流量”也不应简单画等号。
+
+### 启动失败时沿阶段定位
+
+一段异常栈的价值不只是最后一行错误。若日志尚未出现 Environment 准备完成，应检查配置位置、格式和导入；若 Context 已创建但 BeanDefinition 解析失败，应检查配置类、条件和类加载；若错误位于 `finishBeanFactoryInitialization()`，应沿最底层 `BeanCreationException` 查构造器、注入和初始化回调；若 WebServer 启动失败，再检查端口、证书、Connector 和 Servlet 注册。
+
+Boot 的失败分析器会把部分底层异常整理成更可操作的描述，但它不会替代因果链。排错时应找到第一个与业务配置或 Bean 创建相关的 `Caused by`，同时判断它位于上述哪个阶段，避免只围绕最外层 `Application run failed` 搜索。
+
 ## 核心组成
 
 | 组成 | 负责什么 | 直观理解 |
@@ -132,6 +162,14 @@ curl http://localhost:8080/actuator/conditions
 - 没命中的条件是什么。
 - 是否已有自定义 Bean 导致默认配置让位。
 
+### 以 DataSource 为例理解“条件化默认值”
+
+项目引入 JDBC Starter 后，classpath 中出现 JDBC API、连接池实现和相关自动配置候选。配置类解析器导入 DataSource 自动配置，并逐项判断它要求的类、应用类型和已有 Bean。若用户没有定义 DataSource，且配置足以确定连接方式，自动配置中的 `@Bean` 方法才会生成 DataSource BeanDefinition；若用户已经提供 DataSource，`@ConditionalOnMissingBean` 让默认定义退出。
+
+这里 Starter、自动配置类、BeanDefinition 和 Bean 分属四个阶段。Starter 只改变依赖图；自动配置候选只是可被导入的配置类；条件成立后才产生 BeanDefinition；BeanFactory 最后根据定义创建连接池对象。把它们都简称为“Starter 自动创建 DataSource”，就无法解释为什么依赖存在但条件报告不匹配，或者为什么自定义 Bean 能让默认实现退让。
+
+条件判断还存在时序。`@ConditionalOnMissingBean` 依据当时 BeanDefinitionRegistry 中可见的定义作决定，自定义 Starter 的顺序错误可能让条件判断早于用户定义被发现。Boot 通过自动配置排序和约定减少这种问题，但编写扩展时仍要明确配置导入顺序，而不能把条件注解当成运行期随时重新计算的开关。Context 刷新完成后再注册一个 Bean，并不会让整套自动配置自动重跑。
+
 ## 配置加载
 
 Boot 支持从多个位置读取配置。常见来源可以按优先级粗略理解为：
@@ -143,6 +181,8 @@ Boot 支持从多个位置读取配置。常见来源可以按优先级粗略理
 5. 代码默认值。
 
 例如同一个端口配置，命令行参数通常会覆盖配置文件。配置排查时不要只看 `application.yml`，要确认运行时最终值来自哪里。
+
+“优先级”也不能只背成五行简表。Boot 官方定义了更完整的 PropertySource 顺序，测试属性、`SPRING_APPLICATION_JSON`、系统属性等也可能参与覆盖；外部 Config Data 通常可以覆盖包内默认配置，Profile 专属文档又会覆盖同位置的非 Profile 文档。生产排错应通过 `Environment`、`env` 或 `configprops` 端点确认最终值及来源，而不是凭经验猜测。涉及密钥时要依赖端点脱敏和访问控制，不直接输出完整配置。
 
 常用命令：
 

@@ -146,11 +146,50 @@ getBean()
 
 BeanPostProcessor 不只是“初始化前后各调用一次”。自动注入、配置属性绑定、生命周期注解和自动代理都可能通过不同处理器介入对象创建。排查 Bean 状态时，需要先确认当前看到的是原始实例、初始化中的实例，还是已经完成代理包装的最终对象。
 
+### `refresh()` 怎样把定义变成对象图
+
+`ApplicationContext` 创建完成并不表示容器已经可用。真正把配置元数据推进为运行时对象的是 `AbstractApplicationContext.refresh()`。它先准备 BeanFactory，再执行 BeanFactoryPostProcessor，随后注册 BeanPostProcessor，最后才创建普通非懒加载单例。这个顺序不是实现细节，而是容器能够扩展的基础：修改“说明书”的处理器必须先执行，参与“造对象”的处理器必须在普通 Bean 创建前安装好。
+
+`ConfigurationClassPostProcessor` 是前一类处理器。它读取主配置类，递归处理 `@ComponentScan`、`@Import` 和 `@Bean`，继续向 BeanDefinitionRegistry 写入定义。假设项目最初只把 `OrderApplication` 登记进容器，经过配置类解析后，订单 Controller、Service、Repository、数据源自动配置等定义才逐步展开。此时可以有几百份 BeanDefinition，但绝大多数业务对象仍未实例化。
+
+`AutowiredAnnotationBeanPostProcessor`、处理生命周期注解的处理器和自动代理创建器属于后一类扩展。它们必须先注册，之后 `finishBeanFactoryInitialization()` 批量创建单例时才能参与依赖注入、初始化和代理包装。若把两类处理器都笼统称为“后处理器”，就会看不懂为什么有的扩展能增加 BeanDefinition，有的只能改变某个已经创建的 Bean。
+
+### 构造器参数是怎样解析的
+
+以下对象图并不是按照源码文件顺序创建的：
+
+```java
+@Service
+class OrderService {
+    private final OrderRepository repository;
+    private final PaymentClient paymentClient;
+
+    OrderService(OrderRepository repository, PaymentClient paymentClient) {
+        this.repository = repository;
+        this.paymentClient = paymentClient;
+    }
+}
+```
+
+容器准备创建 `OrderService` 时，会先选择可用构造器，再把每个参数包装成依赖描述。BeanFactory 按“所需类型 + 泛型 + 限定符 + 是否必需”等信息查找候选 BeanDefinition。只有一个候选时直接选中；多个候选时继续比较 `@Primary`、`@Qualifier`、优先级和名称；仍无法唯一确定才抛出异常。选中候选并不代表它已经存在，如果对应单例尚未创建，`getBean()` 会递归创建它。
+
+因此，构造器注入形成的是一棵按需展开的创建树。创建 Controller 可能触发创建 Service，创建 Service 又触发 Repository 和 Client。单例缓存避免同一个完整 Bean 被重复创建，`dependsOn` 和依赖关系记录则帮助容器确定初始化、销毁顺序以及异常信息。所谓“自动注入”并不是按字段名猜一个对象，而是一套可观察的候选解析过程。
+
+### 原始对象为什么可能不是最终 Bean
+
+`createBeanInstance()` 返回的只是刚完成构造的实例。随后属性填充、Aware 回调、初始化方法和 BeanPostProcessor 会依次介入。`initializeBean()` 的返回值可以与传入对象不同，AOP 自动代理创建器正是在这里把目标对象包装成代理。最终放入单例池、注入其他组件的通常是处理器链最后返回的对象。
+
+这一区别对排错非常重要。构造方法和早期初始化回调里看到的 `this` 是目标对象；Controller 中注入的 Service 可能是代理；`getBean(OrderService.class)` 返回的是容器最终暴露的 Bean。若某个处理器提前持有原始对象，而其他调用方拿到代理，同一个逻辑对象就出现两种引用，事务和切面行为会变得不一致。Spring 对循环依赖和提前代理有大量约束，根源正是要保证最终暴露对象的一致性。
+
 ### 循环依赖的准确边界
 
 Spring 的三级缓存可以在特定条件下提前暴露单例引用，但它不是通用的循环依赖解决器。构造器循环依赖无法先创建任何一方；prototype Bean 不进入单例缓存；关闭循环引用或对象创建过程中出现其他异常时，也不会被缓存机制自动修复。
 
 即使某个字段注入循环依赖能够启动，也应优先调整设计。缓存解决的是对象创建时序，不会消除两个服务职责相互纠缠的问题。
+
+三级缓存所保存的也不是三个完整 Bean。一级缓存保存已经完成初始化的单例；二级缓存保存提前暴露的引用；三级缓存保存能够在需要时产生提前引用的工厂。A 创建后尚未完成初始化，注入 B 时触发 B 创建，B 又需要 A，容器才会从三级缓存取得 A 的提前引用。等 A 最终完成初始化后，正式引用再进入一级缓存。构造器循环无法使用这条路径，因为 A 在需要 B 时连原始实例都还没有产生。
+
+如果 A 最终需要被 AOP 代理，提前引用还必须与最终代理保持一致，否则 B 可能拿到原始 A，而其他 Bean 拿到代理 A。这也是循环依赖与代理叠加后更难推断的原因。工程上应把循环依赖视为对象边界信号，而不是依赖缓存技巧维持启动。
 
 ## 作用域
 

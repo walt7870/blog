@@ -45,6 +45,26 @@ DispatcherServlet.doDispatch()
 
 HandlerMapping 负责“找谁”，HandlerAdapter 负责“怎么调用”，ArgumentResolver 负责“参数从哪里来”，ReturnValueHandler 负责“返回值怎么写出去”。把这四个职责分开后，自定义参数解析、响应体转换和异常处理才能各自扩展，而不必修改 DispatcherServlet。
 
+### 请求不是直接“反射调用 Controller”
+
+应用启动时，`RequestMappingHandlerMapping` 已经扫描 Controller Bean，把类级和方法级映射条件解析为 `RequestMappingInfo`，并与 `HandlerMethod` 建立注册关系。这里不仅有路径，还包含 HTTP Method、可消费和可产生的媒体类型、Header 与参数条件。请求到来后，映射器用这些条件查找最佳匹配；所以同一路径因 Method 或 Content-Type 不同，可以得到 404、405 或 415 等不同结果。
+
+找到的 `HandlerMethod` 只是“哪个 Bean 的哪个方法”的描述，不能直接处理 Servlet 请求。`RequestMappingHandlerAdapter` 为它准备 `ServletInvocableHandlerMethod`，逐个参数询问已注册的 `HandlerMethodArgumentResolver`。`@PathVariable` 从 URI 模板变量取值，`@RequestParam` 从参数表取值，`@RequestBody` 则把输入流交给合适的 `HttpMessageConverter`。JSON 反序列化、类型转换和 Bean Validation 因而是连续但不同的步骤：JSON 语法错误发生在消息读取阶段，字符串转数字失败发生在类型转换阶段，`@NotBlank` 失败发生在校验阶段。
+
+Controller 返回对象后也不是简单调用 `toString()`。返回值处理器先根据返回类型和注解决定是否写响应体，再做内容协商，从客户端 `Accept`、控制器 `produces` 和可用转换器中选择媒体类型。最终 Jackson 转换器把对象写入响应流。方法已经成功返回但序列化失败，会表现为响应阶段异常；这正是“断点进了 Controller，客户端仍收到 500”的典型原因。
+
+### 用创建订单追踪一次真实转换
+
+客户端发送 `POST /orders`、`Content-Type: application/json`。Filter 链先建立请求 ID 和安全上下文，DispatcherServlet 再取得对应 HandlerExecutionChain。JSON 转换器把字节流读成 `CreateOrderRequest`，校验器只检查数量、地址等输入约束。Controller 将协议对象转换成 `CreateOrderCommand`，调用由 IoC 注入的 Service 代理；事务和业务规则在 Service 层执行。返回的 `Order` 被转换为稳定的 `OrderResponse`，最后由消息转换器写成 JSON。
+
+这里每次转换都有目的。Request 隔离外部协议，Command 表达业务意图，领域对象维护业务状态，Response 控制对外字段。若 Controller 直接接收并返回 JPA Entity，HTTP 字段、持久化映射、懒加载关系和业务状态就被绑在同一个类型上；一次数据库模型调整可能改变接口，一次 JSON 序列化又可能意外触发查询。MVC 分层不是为了增加类数量，而是隔离变化方向。
+
+### 异常解析也属于分派链
+
+Controller、参数解析器或返回值处理器抛出异常后，`DispatcherServlet` 会依次询问 `HandlerExceptionResolver`。`ExceptionHandlerExceptionResolver` 处理 `@ExceptionHandler` 和 `@ControllerAdvice`，其他解析器可处理状态码注解或默认 MVC 异常。某个解析器返回 ModelAndView 或写入响应，表示异常已经转换；没有解析器接住，异常才继续交给 Servlet 容器和 Boot 的错误处理。
+
+因此，统一异常处理不是包住 Controller 的一个 `try/catch`。它是分派流程中的策略链，既能处理业务方法异常，也能处理部分绑定和转换异常。若响应头或响应体已经提交，后续异常处理往往无法再替换完整响应，这也是流式下载、手工写响应时必须更谨慎的原因。
+
 ## 分层职责
 
 | 层级 | 负责 | 不负责 |

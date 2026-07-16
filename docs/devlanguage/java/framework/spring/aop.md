@@ -128,6 +128,38 @@ public class OrderService {
 
 传播行为描述的是调用边界，不是数据库隔离级别。隔离级别处理并发读写可见性，传播行为处理方法调用时如何使用事务，两者不要混用。
 
+### 一次事务调用的完整执行过程
+
+当 Controller 调用 `orderService.create()` 时，首先进入代理而不是目标对象。代理按顺序执行 Advisor 对应的拦截器，`TransactionInterceptor` 从方法、目标类和注解中解析 `TransactionAttribute`，再根据限定符或默认规则选择 `PlatformTransactionManager`。对于 JDBC，事务管理器从 DataSource 取得连接，关闭自动提交，并把连接持有者绑定到当前线程。
+
+之后目标方法调用 Repository。Repository 再通过 Spring 的数据访问设施取得连接时，会复用当前线程已经绑定的资源，而不是另开一个与事务无关的连接。业务方法正常返回，拦截器提交物理事务并解绑、释放资源；异常符合回滚规则时则回滚。`@Transactional` 能覆盖多次数据库操作，不是因为注解传播到了 Repository，而是因为同一调用线程上的数据访问共享了事务资源。
+
+这也给出了三个清晰边界。异步线程不会天然继承原线程的事务；跨 HTTP 或消息调用的远端服务不会加入本地数据库事务；手动使用不受 Spring 管理的数据源连接，也不会自动复用线程绑定资源。声明式事务解决的是一个进程内、一个事务管理器所管理资源的调用边界，不是分布式一致性的通用答案。
+
+### `REQUIRED` 内层失败为什么可能在外层提交时报错
+
+假设 `OrderService.place()` 开启 `REQUIRED` 事务，并调用同样使用 `REQUIRED` 的 `InventoryService.deduct()`。内层加入的是同一个物理事务。如果库存更新抛出运行时异常，事务会被标记为 rollback-only。即使外层捕获异常并继续返回，外层最终请求提交时也不能把一个已标记回滚的事务提交，于是会得到 `UnexpectedRollbackException`。
+
+```java
+@Transactional
+public void place(Order order) {
+    orderRepository.save(order);
+    try {
+        inventoryService.deduct(order.items());
+    } catch (InsufficientStockException ex) {
+        log.warn("deduct failed", ex); // 捕获异常并不会清除 rollback-only
+    }
+}
+```
+
+正确处理取决于业务语义：订单和库存必须原子成功，就让异常继续传播并整体回滚；允许库存失败但订单保留，就需要重新设计状态机和补偿，而不是简单吞异常；确实需要独立提交的审计可使用独立 Bean 上的 `REQUIRES_NEW`，但要考虑额外连接和内外事务提交顺序。传播行为不是“遇到异常换个注解”的修补工具，它表达的是业务动作之间是否共享同一个提交命运。
+
+### 回滚规则不是“发生异常就回滚”
+
+默认声明式事务通常对 `RuntimeException` 和 `Error` 回滚，对受检异常不自动回滚。更关键的是，事务拦截器只能处理从代理调用中传播出来的异常。业务方法在内部捕获异常并正常返回，代理看到的就是成功；异常在事务方法提交后才发生，例如消息异步发送失败，也不会倒推已经提交的数据库事务。
+
+设计事务方法时，应同时写清数据库修改范围、异常传播方式、外部副作用和重试语义。把远程支付、发消息和数据库写入全部包进长事务，既不能让远端操作参与本地回滚，还会长时间占用连接。常见做法是先在短事务中保存业务状态和事件记录，再由事务外的可靠投递机制处理远端副作用。
+
 ## 切点设计
 
 切点设计的目标是“准”。过宽会误伤，过窄会漏掉。
