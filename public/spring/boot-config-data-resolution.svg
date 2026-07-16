@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Boot 配置发现、覆盖与绑定</title>
+  <desc id="desc">展示 Config Data 位置发现、PropertySource 优先级合并、配置属性绑定和最终消费者之间的关系</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081b23"/>
+      <stop offset="1" stop-color="#102e36"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#020b0f" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6bc2d0"/>
+    </marker>
+    <style>
+      .title{font:700 38px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#f4fbfc}
+      .subtitle{font:400 19px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#9eb8bf}
+      .heading{font:700 24px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#f4fbfc}
+      .body{font:400 18px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#c7dadd}
+      .small{font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#96b1b7}
+      .mono{font:600 17px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e9b957}
+    </style>
+  </defs>
+  <rect width="1440" height="860" rx="28" fill="url(#bg)"/>
+  <path d="M0 72 H1440 M82 0 V860 M1358 0 V860" stroke="#173f48" opacity="0.55"/>
+  <text x="86" y="82" class="title">配置生效需要经过发现、覆盖、绑定和消费</text>
+  <text x="86" y="119" class="subtitle">文件存在只证明一个来源可读，最终值由 Environment 的有序 PropertySource 决定</text>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="164" width="350" height="496" rx="18" fill="#14343d" stroke="#557f89" stroke-width="2"/>
+    <text x="116" y="208" class="heading">1. 发现配置来源</text>
+    <rect x="116" y="238" width="290" height="64" rx="11" fill="#0b252d"/>
+    <text x="136" y="266" class="mono">classpath</text><text x="136" y="289" class="small">application.yml · /config</text>
+    <rect x="116" y="318" width="290" height="64" rx="11" fill="#0b252d"/>
+    <text x="136" y="346" class="mono">file system</text><text x="136" y="369" class="small">当前目录 · config/ · 挂载目录</text>
+    <rect x="116" y="398" width="290" height="64" rx="11" fill="#0b252d"/>
+    <text x="136" y="426" class="mono">config import</text><text x="136" y="449" class="small">必需位置 · optional 位置</text>
+    <rect x="116" y="478" width="290" height="64" rx="11" fill="#0b252d"/>
+    <text x="136" y="506" class="mono">runtime inputs</text><text x="136" y="529" class="small">环境变量 · 系统属性 · 命令行</text>
+    <text x="116" y="585" class="body">Environment 准备阶段完成</text>
+    <text x="116" y="616" class="small">普通业务 Bean 尚未创建</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="500" y="164" width="350" height="496" rx="18" fill="#14343d" stroke="#6bc2d0" stroke-width="2"/>
+    <text x="530" y="208" class="heading">2. 合并最终值</text>
+    <text x="530" y="248" class="small">高优先级</text>
+    <rect x="530" y="266" width="290" height="58" rx="10" fill="#21454b" stroke="#e2b253"/>
+    <text x="550" y="301" class="body">命令行参数</text>
+    <rect x="530" y="338" width="290" height="58" rx="10" fill="#1b3d45"/>
+    <text x="550" y="373" class="body">系统属性 · 环境变量</text>
+    <rect x="530" y="410" width="290" height="58" rx="10" fill="#173740"/>
+    <text x="550" y="445" class="body">外部 Config Data</text>
+    <rect x="530" y="482" width="290" height="58" rx="10" fill="#132f38"/>
+    <text x="550" y="517" class="body">Jar 内 Config Data</text>
+    <rect x="530" y="554" width="290" height="58" rx="10" fill="#102a32"/>
+    <text x="550" y="589" class="body">应用默认属性</text>
+    <text x="530" y="638" class="small">低优先级 · 同名键被上层遮蔽</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="914" y="164" width="440" height="496" rx="18" fill="#14343d" stroke="#69bd75" stroke-width="2"/>
+    <text x="944" y="208" class="heading">3. 绑定并交给消费者</text>
+    <rect x="944" y="240" width="380" height="96" rx="12" fill="#0b252d"/>
+    <text x="966" y="273" class="mono">@ConfigurationProperties</text>
+    <text x="966" y="304" class="body">宽松命名 · 类型转换 · 嵌套结构</text>
+    <rect x="944" y="354" width="380" height="82" rx="12" fill="#123037" stroke="#e2b253"/>
+    <text x="966" y="387" class="mono">Validation</text>
+    <text x="966" y="417" class="body">缺失或越界时阻止启动</text>
+    <rect x="944" y="454" width="180" height="92" rx="12" fill="#173a3c"/>
+    <text x="964" y="488" class="body">PaymentClient</text>
+    <text x="964" y="518" class="small">超时 · 地址 · 重试</text>
+    <rect x="1144" y="454" width="180" height="92" rx="12" fill="#173a3c"/>
+    <text x="1164" y="488" class="body">WebServer</text>
+    <text x="1164" y="518" class="small">端口 · TLS · 压缩</text>
+    <rect x="944" y="564" width="380" height="64" rx="12" fill="#183f35"/>
+    <text x="1134" y="603" text-anchor="middle" class="body">运行对象采用已验证的最终配置</text>
+  </g>
+
+  <path d="M436 412 H492" stroke="#6bc2d0" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M850 412 H906" stroke="#6bc2d0" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="86" y="704" width="1268" height="94" rx="14" fill="#0b252d" stroke="#2b5660"/>
+  <text x="116" y="742" class="body">排查证据：实际启动参数 · PropertySource 来源 · 绑定对象 · 使用该对象的运行组件</text>
+  <text x="116" y="774" class="small">不要只检查仓库里的 YAML；修正最高优先级来源后，必须重启实例并验证真实调用</text>
+</svg>

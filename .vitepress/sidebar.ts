@@ -462,6 +462,7 @@ export const sidebar: DefaultTheme.Sidebar = {
                       items: [
                         { text: 'Spring Boot 总览', link: '/docs/devlanguage/java/framework/spring/springboot' },
                         { text: 'SpringApplication 启动过程', link: '/docs/devlanguage/java/framework/spring/boot-startup' },
+                        { text: 'Config Data 与配置绑定', link: '/docs/devlanguage/java/framework/spring/boot-config-data' },
                         { text: '自动配置与条件退让', link: '/docs/devlanguage/java/framework/spring/boot-autoconfiguration' },
                         { text: '配置与生产运行', link: '/docs/devlanguage/java/framework/spring/boot-production' },
                       ],

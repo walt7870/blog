@@ -4,6 +4,10 @@
 
 本篇用一个最小订单服务贯穿这两个时间轴。读完后，应能区分“类被发现、Bean 被创建、代理被调用”三个时刻，并能根据异常发生的位置判断应该进入 Boot、IoC、AOP 还是 MVC 排查。
 
+![Spring 启动期与请求期总结图](/spring/summary/runtime-model-overview.webp)
+
+上图用于先建立全局分区：启动期形成可复用的对象图、代理、路由和服务器，请求期沿已有运行系统完成一次业务调用。下面的 SVG 继续展示更精确的调用链与对象关系。
+
 ![Spring 启动链与请求链](/spring/spring-runtime-chains.svg)
 
 > 配套视频：先看 [EP01：工程怎样变成可以响应请求的服务](https://www.bilibili.com/video/BV1A5Ku6jE6R) 建立全局地图；进入请求阶段时再看 [EP20：请求怎样找到 Controller 并变成响应](https://www.bilibili.com/video/BV1osKu6BEqK)。

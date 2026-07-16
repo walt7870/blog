@@ -54,16 +54,16 @@
 | EP01 | 一个磁盘上的工程怎样变成可以响应请求的服务 | `SpringApplication.run()`、`AbstractApplicationContext.refresh()` | [B站](https://www.bilibili.com/video/BV1A5Ku6jE6R) | [Spring 总览](./)、[Spring Boot](./springboot.md) |
 | EP02 | `run()` 怎样编排环境、容器、Runner 和就绪事件 | `SpringApplication.run()` | [B站](https://www.bilibili.com/video/BV1AGKu6mEXo) | [Spring Boot](./springboot.md) |
 | EP03 | 容器还没创建时，启动事件为什么已经能够发布 | `SpringApplicationRunListeners`、`EventPublishingRunListener` | [B站](https://www.bilibili.com/video/BV1AGKu6mEQA) | [Spring 总览](./) |
-| EP04 | 同一配置来自多个位置时，最终值怎样确定 | `prepareEnvironment()`、`PropertySource` | [B站](https://www.bilibili.com/video/BV1AGKu6mEDp) | [配置加载](./springboot.md#配置加载) |
-| EP05 | `application.yml`、Profile 和外部目录怎样进入配置栈 | `ConfigDataEnvironmentPostProcessor` | [B站](https://www.bilibili.com/video/BV1d8Ku6NEMh) | [配置加载](./springboot.md#配置加载) |
+| EP04 | 同一配置来自多个位置时，最终值怎样确定 | `prepareEnvironment()`、`PropertySource` | [B站](https://www.bilibili.com/video/BV1AGKu6mEDp) | [Config Data 与配置绑定](./boot-config-data.md) |
+| EP05 | `application.yml`、Profile 和外部目录怎样进入配置栈 | `ConfigDataEnvironmentPostProcessor` | [B站](https://www.bilibili.com/video/BV1d8Ku6NEMh) | [Config Data 与配置绑定](./boot-config-data.md) |
 | EP06 | 同一个 `main()` 为什么会创建普通、Servlet 或 Reactive 上下文 | `WebApplicationType`、`ApplicationContextFactory` | [B站](https://www.bilibili.com/video/BV1R8Ku6NEKT) | [Spring Boot](./springboot.md)、[Spring MVC](./mvc.md) |
 | EP07 | Bean 创建前，主配置类怎样先登记为 BeanDefinition | `SpringApplication.load()`、`BeanDefinitionLoader` | [B站](https://www.bilibili.com/video/BV1RtKu6iEqZ) | [IoC 容器](./ioc.md) |
 | EP08 | `refresh()` 怎样把定义集合推进成可用容器 | `AbstractApplicationContext.refresh()` | [B站](https://www.bilibili.com/video/BV1jtKu6qEEC) | [IoC 容器](./ioc.md) |
 | EP09 | BeanFactory 创建业务 Bean 前要先安装哪些运行规则 | `prepareBeanFactory()` | [B站](https://www.bilibili.com/video/BV1GYKu6PE99) | [IoC 容器](./ioc.md) |
 | EP10 | 主配置类怎样通过工厂后处理器展开成更多定义 | `invokeBeanFactoryPostProcessors()`、`ConfigurationClassPostProcessor` | [B站](https://www.bilibili.com/video/BV19YKu6AEFn) | [IoC 容器](./ioc.md) |
 | EP11 | `@ComponentScan`、`@Import` 和 `@Bean` 怎样递归解析 | `ConfigurationClassParser` | [B站](https://www.bilibili.com/video/BV19hKu6eEAr) | [IoC 容器](./ioc.md) |
-| EP12 | 自动配置候选从哪里来，又怎样进入普通配置解析链 | `AutoConfigurationImportSelector` | [B站](https://www.bilibili.com/video/BV1RhKu6eENY) | [自动配置](./springboot.md#自动配置) |
-| EP13 | 用户自定义 Bean 后，默认自动配置为什么会让位 | `ConditionEvaluator`、`OnBeanCondition` | [B站](https://www.bilibili.com/video/BV1RhKu6eE14) | [自动配置](./springboot.md#自动配置) |
+| EP12 | 自动配置候选从哪里来，又怎样进入普通配置解析链 | `AutoConfigurationImportSelector` | [B站](https://www.bilibili.com/video/BV1RhKu6eENY) | [自动配置](./boot-autoconfiguration.md) |
+| EP13 | 用户自定义 Bean 后，默认自动配置为什么会让位 | `ConditionEvaluator`、`OnBeanCondition` | [B站](https://www.bilibili.com/video/BV1RhKu6eE14) | [自动配置](./boot-autoconfiguration.md) |
 | EP14 | BeanDefinition 怎样经过实例化、填充和初始化成为对象 | `getBean()`、`doCreateBean()` | [B站](https://www.bilibili.com/video/BV1fWKu6uE5W) | [IoC 容器](./ioc.md) |
 | EP15 | Spring 怎样从多个候选对象中确定注入目标 | `AutowiredAnnotationBeanPostProcessor`、`DependencyDescriptor` | [B站](https://www.bilibili.com/video/BV1oWKu6uEyp) | [IoC 容器](./ioc.md) |
 | EP16 | BeanPostProcessor 在对象生命周期的什么位置接入增强 | `PostProcessorRegistrationDelegate`、`BeanPostProcessor` | [B站](https://www.bilibili.com/video/BV1fHKu66EeJ) | [IoC 容器](./ioc.md)、[AOP](./aop.md) |
@@ -101,10 +101,10 @@
 | 现象 | 优先集数 | 建议断点或证据 | 文字入口 |
 | --- | --- | --- | --- |
 | 启动失败，但不清楚发生在哪个阶段 | EP01–EP03、EP08 | `SpringApplication.run()`、`refresh()` 异常栈、启动事件 | [Spring Boot 常见问题](./springboot.md#常见问题) |
-| 配置值与 `application.yml` 不一致 | EP04–EP05 | PropertySource 顺序、激活 Profile、`/actuator/env` | [配置加载](./springboot.md#配置加载) |
+| 配置值与 `application.yml` 不一致 | EP04–EP05 | PropertySource 顺序、激活 Profile、`/actuator/env` | [Config Data 与配置绑定](./boot-config-data.md) |
 | 应用创建了错误的上下文或服务器没有启动 | EP06、EP19 | WebApplicationType、Context 真实类型、端口监听、启动日志 | [Spring Boot](./springboot.md) |
 | Bean 没注册、没注入或出现多实现冲突 | EP07–EP11、EP14–EP15 | BeanDefinition 名称、候选类型、Qualifier、Primary | [IoC 容器](./ioc.md) |
-| 自动配置未生效或自定义 Bean 没有覆盖默认实现 | EP12–EP13 | conditions 报告、classpath、已有 BeanDefinition | [自动配置](./springboot.md#自动配置) |
+| 自动配置未生效或自定义 Bean 没有覆盖默认实现 | EP12–EP13 | conditions 报告、classpath、已有 BeanDefinition | [自动配置](./boot-autoconfiguration.md) |
 | AOP 或事务注解没有生效 | EP16–EP18 | Bean 真实类型、Advisor、是否经过代理、异常传播 | [AOP 失效场景](./aop.md#失效场景) |
 | 请求 404、参数绑定失败或响应转换异常 | EP20 | mappings、HandlerMapping、HandlerAdapter、Converter | [Spring MVC 排查路径](./mvc.md#排查路径) |
 

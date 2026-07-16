@@ -4,6 +4,10 @@ IoC 容器负责管理应用里的长期组件。它记录哪些类可以成为 
 
 如果把业务应用看成一座工厂，IoC 容器不是生产线上的某个工人，而是设备台账和装配系统：哪些设备需要登记，设备之间怎么连接，启动前要做什么检查，关闭时要按什么顺序收尾，都由它统一管理。
 
+![Spring IoC 容器总结图](/spring/summary/ioc-container-overview.webp)
+
+总结图先区分 BeanDefinition、BeanFactory 与 ApplicationContext，再把“来源、定义、实例化、注入、初始化、可用”连成完整生命周期。后续源码图继续展开每个扩展点的准确位置。
+
 ![Spring Bean 生命周期](/spring/ioc-bean-lifecycle.svg)
 
 > 配套视频：Bean 定义与对象创建不是同一步。可先看 [EP07：主配置类怎样登记为 BeanDefinition](https://www.bilibili.com/video/BV1RtKu6iEqZ)，再看 [EP14：BeanDefinition 怎样成为对象](https://www.bilibili.com/video/BV1fWKu6uE5W)。
