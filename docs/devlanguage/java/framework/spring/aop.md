@@ -61,6 +61,27 @@ Spring AOP 的实现方式是代理。调用方拿到的是代理对象，代理
 
 这就是很多 `@Transactional`、缓存注解、自定义切面失效的根本原因：注解在方法上，但调用没有走到代理门口。
 
+### 代理怎样形成
+
+Bean 创建接近完成时，`AbstractAutoProxyCreator` 会检查当前 Bean 是否匹配 Advisor。匹配成功后，它把目标对象、拦截器链和代理策略交给 ProxyFactory，最终返回代理对象放入单例池。后续其他 Bean 注入到的通常是这个代理，而不是最初实例化的对象。
+
+```text
+Bean 初始化后
+  -> AbstractAutoProxyCreator.postProcessAfterInitialization()
+  -> 查找可用 Advisor
+  -> 判断切点是否匹配当前类和方法
+  -> ProxyFactory 创建代理
+  -> 代理对象进入单例池
+  -> 方法调用时执行拦截器链
+```
+
+| 方式 | 常见选择条件 | 需要注意 |
+| --- | --- | --- |
+| JDK 动态代理 | 目标对象通过接口暴露能力 | 代理类型面向接口，直接按实现类取对象可能产生误解 |
+| CGLIB 类代理 | 没有合适接口或明确使用类代理 | final 类或 final 方法不能被子类覆盖增强 |
+
+选择哪一种代理不是排查的第一步。第一步仍然是确认调用方拿到的对象是否为代理，以及这次调用是否从代理外部进入。
+
 ## 事务与 AOP
 
 `@Transactional` 可以看作 Spring 提供的内置切面。它在方法调用前开启事务，在方法正常返回后提交事务，在异常符合回滚规则时回滚事务。
@@ -75,6 +96,37 @@ Spring AOP 的实现方式是代理。调用方拿到的是代理对象，代理
 | 方法不可见或被限制 | 代理无法作为外部入口增强 | 把事务放在清晰的 public 应用服务方法上 |
 
 事务边界通常放在应用服务层，而不是 Controller 或 Repository。Controller 太靠近协议，Repository 太靠近数据访问细节；Service 更适合表达“一次业务操作要保持一致”。
+
+下面的写法看起来给 `createOrder()` 加了事务，但 `placeOrder()` 通过 `this` 直接调用目标方法，事务拦截器没有机会介入：
+
+```java
+@Service
+public class OrderService {
+    public void placeOrder(OrderCommand command) {
+        this.createOrder(command); // 绕过代理
+    }
+
+    @Transactional
+    public void createOrder(OrderCommand command) {
+        // 写订单、扣库存
+    }
+}
+```
+
+更清晰的设计是把事务放到外部可见的应用服务入口，调用方直接调用代理公开的方法；如果两个步骤确实需要不同事务边界，再拆成两个职责明确的 Bean。
+
+### 事务内部发生了什么
+
+`TransactionInterceptor` 在进入业务方法前取得 TransactionAttribute，选择 PlatformTransactionManager，并根据传播行为决定新建事务、加入现有事务或挂起现有事务。数据库事务还会把连接等资源绑定到当前线程，使同一调用链中的数据访问共享事务资源。
+
+| 传播行为 | 当前已有事务 | 当前没有事务 | 常见用途 |
+| --- | --- | --- | --- |
+| `REQUIRED` | 加入 | 新建 | 默认业务事务 |
+| `REQUIRES_NEW` | 挂起原事务并新建 | 新建 | 独立审计、必须单独提交的动作 |
+| `SUPPORTS` | 加入 | 非事务执行 | 可选事务的只读查询 |
+| `MANDATORY` | 加入 | 抛出异常 | 强制要求上层提供事务 |
+
+传播行为描述的是调用边界，不是数据库隔离级别。隔离级别处理并发读写可见性，传播行为处理方法调用时如何使用事务，两者不要混用。
 
 ## 切点设计
 
@@ -155,6 +207,18 @@ Spring AOP 的实现方式是代理。调用方拿到的是代理对象，代理
 ### 性能异常
 
 检查切点是否过宽，是否在高频方法中做了参数深拷贝、JSON 序列化、远程写日志等重操作。AOP 越靠底层、命中越频繁，越需要控制成本。
+
+## 源码与运行验证
+
+排查代理问题时，可以按下面的证据顺序推进：
+
+1. 打印 `bean.getClass()`，确认实际类型是否包含代理特征。
+2. 使用 `AopUtils.isAopProxy(bean)`、`isJdkDynamicProxy()`、`isCglibProxy()` 判断代理类型。
+3. 在 `AbstractAutoProxyCreator.wrapIfNecessary()` 查看 Bean 是否匹配 Advisor。
+4. 在 `TransactionInterceptor.invoke()` 查看事务调用是否真正进入拦截器。
+5. 检查日志中的事务开始、提交或回滚是否与业务异常一致。
+
+不要用“方法上有注解”作为事务已生效的证据。代理类型、拦截器断点、数据库结果和事务日志才能形成完整闭环。
 
 ## 总结
 

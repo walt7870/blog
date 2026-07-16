@@ -26,6 +26,25 @@ Spring MVC 负责把 HTTP 世界和 Java 方法连接起来。客户端看到的
 
 `DispatcherServlet` 可以理解为前台调度员：它不亲自处理业务，而是找到合适窗口、准备好材料、交给对应处理人，再把处理结果按协议返回。
 
+### `doDispatch()` 内部怎样推进
+
+源码中的主链比“找到 Controller”多几个关键对象：
+
+```text
+DispatcherServlet.doDispatch()
+  -> getHandler()                   HandlerMapping 找到执行链
+  -> HandlerExecutionChain         Controller 方法 + Interceptor
+  -> getHandlerAdapter()            选择可以调用该 Handler 的适配器
+  -> HandlerAdapter.handle()
+  -> RequestMappingHandlerAdapter.invokeHandlerMethod()
+       -> ArgumentResolver          解析路径、查询参数、Header、Body
+       -> InvocableHandlerMethod    调用 Controller 方法
+       -> ReturnValueHandler        写 JSON、状态码或视图
+  -> processDispatchResult()        处理结果或进入异常解析
+```
+
+HandlerMapping 负责“找谁”，HandlerAdapter 负责“怎么调用”，ArgumentResolver 负责“参数从哪里来”，ReturnValueHandler 负责“返回值怎么写出去”。把这四个职责分开后，自定义参数解析、响应体转换和异常处理才能各自扩展，而不必修改 DispatcherServlet。
+
 ## 分层职责
 
 | 层级 | 负责 | 不负责 |
@@ -79,6 +98,29 @@ Controller 像海关窗口，负责检查表单、核对格式、把材料转交
 
 后一类属于业务规则，应放在 Service 或领域对象里。校验层负责“材料格式是否齐”，业务层负责“这件事能不能办”。
 
+一个保持边界清晰的 Controller 可以这样写：
+
+```java
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @PostMapping
+    public ResponseEntity<OrderResponse> create(
+            @Valid @RequestBody CreateOrderRequest request) {
+        Order order = orderService.create(request.toCommand());
+        return ResponseEntity.status(201).body(OrderResponse.from(order));
+    }
+}
+```
+
+这里的 `@RequestBody` 触发消息转换器把 JSON 读成对象，`@Valid` 执行字段约束，Controller 再把协议对象转换成业务命令。库存检查和订单状态流转仍由 Service 负责。
+
 ## 统一异常
 
 统一异常处理的目标是让接口错误稳定、可读、可排查。
@@ -98,6 +140,24 @@ Controller 像海关窗口，负责检查表单、核对格式、把材料转交
 - 密钥、Token、连接串。
 
 HTTP 状态码和业务错误码不冲突。参数错误可以是 400，同时业务错误码是 `PARAM_INVALID`；系统异常可以是 500，同时业务错误码是 `SYSTEM_ERROR`。
+
+```java
+@RestControllerAdvice
+public class ApiExceptionHandler {
+    @ExceptionHandler(OrderNotFoundException.class)
+    ResponseEntity<ApiError> handleNotFound(
+            OrderNotFoundException exception,
+            HttpServletRequest request) {
+        ApiError error = new ApiError(
+                "ORDER_NOT_FOUND",
+                exception.getMessage(),
+                request.getHeader("X-Request-Id"));
+        return ResponseEntity.status(404).body(error);
+    }
+}
+```
+
+异常处理器负责协议转换，不应在这里补做库存回滚、订单状态修改等业务补偿。业务一致性由事务或明确的补偿流程负责。
 
 ## 拦截器、过滤器、AOP 的区别
 
@@ -183,6 +243,22 @@ Spring Boot 可以直接提供 classpath 下的静态资源，也可以通过 MV
 ### 500
 
 优先看服务端日志中的第一处业务异常。全局异常处理应记录原始异常，响应中只保留调用方需要知道的信息。
+
+### 返回对象存在，但 JSON 写出失败
+
+这类问题发生在 Controller 方法已经返回之后，常见原因是返回类型无法序列化、懒加载对象访问失败、响应已经提交后再次写入，或 HttpMessageConverter 不支持当前媒体类型。排查时应从 ReturnValueHandler 和消息转换器进入，而不是重复检查路由。
+
+## 源码与运行验证
+
+可以用同一个接口同时验证映射、参数、业务调用和响应转换：
+
+1. 访问 `/actuator/mappings` 或查看启动日志，确认 Controller 方法已注册。
+2. 在 `DispatcherServlet.doDispatch()` 观察取得的 HandlerExecutionChain。
+3. 在 `RequestMappingHandlerAdapter.invokeHandlerMethod()` 查看参数解析器和返回值处理器集合。
+4. 使用 MockMvc 验证 201、400、404 和 500 的响应结构。
+5. 再用随机端口集成测试发出真实 HTTP 请求，确认 Filter、序列化和服务器配置也被覆盖。
+
+Web 层测试通过只能证明 MVC 边界符合预期；数据库事务、外部接口和真实服务器行为仍需要对应层级的集成测试。
 
 ## 总结
 

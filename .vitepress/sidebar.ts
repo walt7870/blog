@@ -429,6 +429,7 @@ export const sidebar: DefaultTheme.Sidebar = {
                     { text: 'IoC', link: '/docs/devlanguage/java/framework/spring/ioc' },
                     { text: 'MVC', link: '/docs/devlanguage/java/framework/spring/mvc' },
                     { text: 'Spring Boot', link: '/docs/devlanguage/java/framework/spring/springboot' },
+                    { text: 'Spring Boot 源码系列', link: '/docs/devlanguage/java/framework/spring/video-series' },
                   ]
                 },
               ]
