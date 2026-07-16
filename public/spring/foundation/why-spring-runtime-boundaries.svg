@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
+  <title id="title">Spring 管理的运行边界</title>
+  <desc id="desc">订单业务从启动装配到 HTTP 请求处理的分层图，区分业务职责、Spring Framework、Spring Boot 与外部运行系统。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071922"/>
+      <stop offset="1" stop-color="#0b2530"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#001018" flood-opacity=".34"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#71c7ec"/>
+    </marker>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .label{font-size:20px;fill:#92aab5;letter-spacing:2px}
+      .title{font-size:38px;font-weight:700;fill:#f5fbfd}
+      .h{font-size:25px;font-weight:700;fill:#f3fafb}
+      .p{font-size:18px;fill:#b9ccd3}
+      .small{font-size:16px;fill:#91a8b1}
+    </style>
+  </defs>
+  <rect width="1440" height="820" rx="28" fill="url(#bg)"/>
+  <text x="70" y="70" class="sans label">ORDER APPLICATION · RUNTIME BOUNDARIES</text>
+  <text x="70" y="121" class="sans title">Spring 管基础设施接线，业务代码管订单决策</text>
+
+  <g filter="url(#shadow)">
+    <rect x="70" y="175" width="1300" height="128" rx="18" fill="#123945" stroke="#2b6170" stroke-width="2"/>
+    <rect x="92" y="197" width="235" height="84" rx="12" fill="#18313a" stroke="#ffc857" stroke-width="2"/>
+    <text x="116" y="230" class="sans h">Spring Boot</text>
+    <text x="116" y="260" class="sans p">启动 · 配置 · 默认装配</text>
+    <path d="M347 239H405" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="426" y="197" width="258" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
+    <text x="450" y="230" class="sans h">ApplicationContext</text>
+    <text x="450" y="260" class="sans p">校验并保存完整对象图</text>
+    <path d="M704 239H762" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="783" y="197" width="258" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
+    <text x="807" y="230" class="sans h">WebServer</text>
+    <text x="807" y="260" class="sans p">监听端口 · 调用 Servlet</text>
+    <path d="M1061 239H1119" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="1140" y="197" width="208" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
+    <text x="1164" y="230" class="sans h">READY</text>
+    <text x="1164" y="260" class="sans p">启动完成，可接流量</text>
+  </g>
+
+  <text x="70" y="350" class="sans label">REQUEST PATH · REUSE THE OBJECT GRAPH</text>
+  <g filter="url(#shadow)">
+    <rect x="70" y="382" width="205" height="118" rx="18" fill="#102b35" stroke="#71c7ec" stroke-width="2"/>
+    <text x="96" y="423" class="sans h">HTTP / JSON</text>
+    <text x="96" y="458" class="sans p">输入协议与用户数据</text>
+    <path d="M295 441H357" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="378" y="382" width="235" height="118" rx="18" fill="#123945" stroke="#63c174" stroke-width="2"/>
+    <text x="404" y="423" class="sans h">Spring MVC</text>
+    <text x="404" y="458" class="sans p">路由 · 绑定 · 校验 · 转换</text>
+    <path d="M633 441H695" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="716" y="382" width="235" height="118" rx="18" fill="#123945" stroke="#63c174" stroke-width="2"/>
+    <text x="742" y="423" class="sans h">AOP / 事务</text>
+    <text x="742" y="458" class="sans p">在方法调用边界执行策略</text>
+    <path d="M971 441H1033" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="1054" y="382" width="316" height="118" rx="18" fill="#19342d" stroke="#ffc857" stroke-width="3"/>
+    <text x="1080" y="423" class="sans h">OrderService</text>
+    <text x="1080" y="458" class="sans p">订单规则 · 状态变化 · 业务决策</text>
+  </g>
+
+  <path d="M1212 520V570" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
+  <g filter="url(#shadow)">
+    <rect x="70" y="592" width="1300" height="154" rx="18" fill="#0b2029" stroke="#2b6170" stroke-width="2"/>
+    <text x="96" y="633" class="sans label">EXTERNAL SYSTEMS · INTEGRATED, NOT OWNED BY SPRING</text>
+    <rect x="96" y="658" width="270" height="58" rx="10" fill="#132f39"/>
+    <text x="120" y="694" class="sans p">数据库 / 连接池</text>
+    <rect x="390" y="658" width="270" height="58" rx="10" fill="#132f39"/>
+    <text x="414" y="694" class="sans p">消息中间件</text>
+    <rect x="684" y="658" width="270" height="58" rx="10" fill="#132f39"/>
+    <text x="708" y="694" class="sans p">第三方 HTTP 服务</text>
+    <rect x="978" y="658" width="366" height="58" rx="10" fill="#132f39"/>
+    <text x="1002" y="694" class="sans p">线程、网络、操作系统资源</text>
+  </g>
+  <text x="70" y="790" class="sans small">启动阶段建立并验证对象图；请求阶段复用对象图。注解是元数据，真正执行行为的是容器、代理和协议适配器。</text>
+</svg>
