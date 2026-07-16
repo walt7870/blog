@@ -6,6 +6,8 @@ Spring AOP 的实现方式是代理。调用方拿到的是代理对象，代理
 
 ![Spring AOP 代理调用路径](/spring/aop-proxy-flow.svg)
 
+> 配套视频：[EP17：Advisor 怎样匹配 Bean 并生成代理](https://www.bilibili.com/video/BV1EHKu6rE39) 解释代理形成；[EP18：`@Transactional` 怎样提交或回滚](https://www.bilibili.com/video/BV1i4Ku6MEng) 解释一次事务调用。
+
 ## 详细位置
 
 - 本页说明 AOP 的适用边界、代理机制、事务失效、切点设计和排查方式。

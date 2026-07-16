@@ -4,6 +4,8 @@
 
 ## 配置不是一份 YAML 文件
 
+> 配套视频：[EP04：多个配置来源怎样决定最终值](https://www.bilibili.com/video/BV1AGKu6mEDp) 与 [EP05：Config Data、Profile 和外部目录怎样进入配置栈](https://www.bilibili.com/video/BV1d8Ku6NEMh)。
+
 Boot 把多个 PropertySource 合并为 Environment。包内配置适合保存安全默认值，外部文件和环境变量提供环境差异，命令行参数适合临时覆盖。测试属性还有独立优先级。相同键的最终值由来源顺序决定。
 
 结构化业务配置应使用 `@ConfigurationProperties`，在启动时完成类型转换与校验：

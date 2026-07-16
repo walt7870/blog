@@ -4,6 +4,8 @@
 
 ![Spring Boot 自动配置判断链](/spring/boot-auto-config.svg)
 
+> 配套视频：[EP12：自动配置候选怎样进入配置解析链](https://www.bilibili.com/video/BV1RhKu6eENY) 与 [EP13：用户 Bean 为什么能让默认配置退让](https://www.bilibili.com/video/BV1RhKu6eE14)。
+
 ## 四个容易混淆的阶段
 
 Starter 只负责依赖组合，让框架类、驱动和自动配置模块进入 classpath。`@EnableAutoConfiguration` 触发 AutoConfigurationImportSelector 读取候选配置；条件评估决定哪些配置和 `@Bean` 方法成立；BeanFactory 最后才根据 BeanDefinition 创建对象。

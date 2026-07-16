@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="920" viewBox="0 0 1440 920" role="img" aria-labelledby="title desc">
+  <title id="title">Spring 应用各层边界</title>
+  <desc id="desc">展示业务代码、Spring 生态项目、Spring Framework、Spring Boot、Servlet 规范和服务器实现之间的责任关系</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081b23"/>
+      <stop offset="1" stop-color="#102d35"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#020b0f" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#71c8d5"/>
+    </marker>
+    <style>
+      .title{font:700 40px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#f4fbfc}
+      .subtitle{font:400 20px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#9fb9c0}
+      .layer{font:700 24px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#f4fbfc}
+      .body{font:400 18px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#c6d8dc}
+      .tag{font:600 17px ui-monospace,SFMono-Regular,Menlo,monospace;fill:#e9b957}
+      .small{font:400 16px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#8facb3}
+    </style>
+  </defs>
+  <rect width="1440" height="920" rx="28" fill="url(#bg)"/>
+  <path d="M0 72 H1440 M90 0 V920 M1350 0 V920" stroke="#173e47" stroke-width="1" opacity="0.55"/>
+  <text x="88" y="82" class="title">Spring 应用不是一个框架包，而是多层协作系统</text>
+  <text x="88" y="120" class="subtitle">从上到下区分业务职责、框架机制、应用装配、协议契约与服务器实现</text>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="166" width="1264" height="104" rx="16" fill="#163941" stroke="#65be76" stroke-width="2"/>
+    <text x="122" y="207" class="layer">业务应用</text>
+    <text x="122" y="240" class="body">订单规则 · 应用服务 · Controller · 配置选择 · 故障恢复</text>
+    <rect x="1080" y="190" width="230" height="48" rx="24" fill="#1d4a3b"/>
+    <text x="1195" y="221" text-anchor="middle" class="tag">OWN THE DOMAIN</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="300" width="606" height="132" rx="16" fill="#13333c" stroke="#7fbd65" stroke-width="2"/>
+    <text x="122" y="342" class="layer">Spring 生态项目</text>
+    <text x="122" y="376" class="body">Data · Security · Cloud · Integration · Batch · Kafka</text>
+    <text x="122" y="407" class="small">独立仓库、独立发布节奏，通过容器与扩展点接入</text>
+
+    <rect x="724" y="300" width="628" height="132" rx="16" fill="#15343d" stroke="#e4b253" stroke-width="2"/>
+    <text x="758" y="342" class="layer">Spring Boot</text>
+    <text x="758" y="376" class="body">Starter · Config Data · 自动配置 · 内嵌服务器 · Actuator</text>
+    <text x="758" y="407" class="small">组织 Framework 与第三方库，形成可运行、可交付应用</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="462" width="1264" height="142" rx="16" fill="#123440" stroke="#64bfd0" stroke-width="2"/>
+    <text x="122" y="505" class="layer">Spring Framework</text>
+    <text x="122" y="540" class="body">Core Container · AOP · Transactions · Data Access · MVC · WebFlux · Testing · Integration</text>
+    <text x="122" y="575" class="small">定义 Bean、代理、事务与 Web 分派等机制；可以脱离 Boot 单独使用</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="88" y="634" width="606" height="148" rx="16" fill="#132f38" stroke="#7899a2" stroke-width="2"/>
+    <text x="122" y="676" class="layer">Jakarta Servlet 规范</text>
+    <text x="122" y="711" class="body">Request · Response · Filter · Servlet · 生命周期</text>
+    <text x="122" y="746" class="small">定义 Web 组件与运行环境之间的可移植契约</text>
+
+    <rect x="724" y="634" width="628" height="148" rx="16" fill="#132f38" stroke="#7899a2" stroke-width="2"/>
+    <text x="758" y="676" class="layer">服务器实现</text>
+    <text x="758" y="711" class="body">Tomcat · Jetty · Reactor Netty</text>
+    <text x="758" y="746" class="small">监听端口、解析协议、管理线程与连接，承载实际网络流量</text>
+  </g>
+
+  <path d="M720 270 V292" stroke="#71c8d5" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M720 432 V454" stroke="#71c8d5" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M720 604 V626" stroke="#71c8d5" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M694 708 H716" stroke="#71c8d5" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="88" y="824" width="1264" height="54" rx="12" fill="#0c252d" stroke="#28535d"/>
+  <text x="720" y="858" text-anchor="middle" class="body">定位故障：先确认发生阶段，再确认对象所属层，最后用运行时证据验证责任边界</text>
+</svg>

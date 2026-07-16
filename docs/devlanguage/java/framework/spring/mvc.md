@@ -4,6 +4,8 @@ Spring MVC 负责把 HTTP 世界和 Java 方法连接起来。客户端看到的
 
 ![Spring MVC 请求处理流程](/spring/mvc-request-flow.svg)
 
+> 配套视频：[EP20：请求怎样找到 Controller 方法并变成响应](https://www.bilibili.com/video/BV1osKu6BEqK)。视频展示调用顺序，本文继续拆解映射、参数解析、异常处理和排错证据。
+
 ## 详细位置
 
 - 本页说明 MVC 请求链、Controller 职责、参数绑定、校验、异常处理和排查方式。

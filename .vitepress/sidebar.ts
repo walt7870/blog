@@ -430,8 +430,43 @@ export const sidebar: DefaultTheme.Sidebar = {
                       collapsed: false,
                       items: [
                         { text: 'Spring 解决了什么问题', link: '/docs/devlanguage/java/framework/spring/foundation/why-spring' },
+                        { text: '从启动到 JSON 响应', link: '/docs/devlanguage/java/framework/spring/runtime-model' },
+                        { text: 'Framework、Boot 与容器边界', link: '/docs/devlanguage/java/framework/spring/foundation/platform-boundaries' },
+                        { text: 'Spring 注解运行机制', link: '/docs/devlanguage/java/framework/spring/annotations' },
                       ],
                     },
+                    {
+                      text: 'Core Container',
+                      collapsed: true,
+                      items: [
+                        { text: 'IoC 容器与 Bean 生命周期', link: '/docs/devlanguage/java/framework/spring/ioc' },
+                      ],
+                    },
+                    {
+                      text: 'AOP、事务与数据访问',
+                      collapsed: true,
+                      items: [
+                        { text: 'AOP 代理与事务入口', link: '/docs/devlanguage/java/framework/spring/aop' },
+                      ],
+                    },
+                    {
+                      text: 'Web',
+                      collapsed: true,
+                      items: [
+                        { text: 'Spring MVC 请求链', link: '/docs/devlanguage/java/framework/spring/mvc' },
+                      ],
+                    },
+                    {
+                      text: 'Spring Boot',
+                      collapsed: true,
+                      items: [
+                        { text: 'Spring Boot 总览', link: '/docs/devlanguage/java/framework/spring/springboot' },
+                        { text: 'SpringApplication 启动过程', link: '/docs/devlanguage/java/framework/spring/boot-startup' },
+                        { text: '自动配置与条件退让', link: '/docs/devlanguage/java/framework/spring/boot-autoconfiguration' },
+                        { text: '配置与生产运行', link: '/docs/devlanguage/java/framework/spring/boot-production' },
+                      ],
+                    },
+                    { text: '源码视频系列', link: '/docs/devlanguage/java/framework/spring/video-series' },
                   ]
                 },
               ]
