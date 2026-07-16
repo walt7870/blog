@@ -65,15 +65,7 @@ Spring AOP 的实现方式是代理。调用方拿到的是代理对象，代理
 
 Bean 创建接近完成时，`AbstractAutoProxyCreator` 会检查当前 Bean 是否匹配 Advisor。匹配成功后，它把目标对象、拦截器链和代理策略交给 ProxyFactory，最终返回代理对象放入单例池。后续其他 Bean 注入到的通常是这个代理，而不是最初实例化的对象。
 
-```text
-Bean 初始化后
-  -> AbstractAutoProxyCreator.postProcessAfterInitialization()
-  -> 查找可用 Advisor
-  -> 判断切点是否匹配当前类和方法
-  -> ProxyFactory 创建代理
-  -> 代理对象进入单例池
-  -> 方法调用时执行拦截器链
-```
+![Spring AOP 代理创建流程](/spring/aop-proxy-creation-flow.svg)
 
 | 方式 | 常见选择条件 | 需要注意 |
 | --- | --- | --- |

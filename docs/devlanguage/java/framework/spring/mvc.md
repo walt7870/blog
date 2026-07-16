@@ -28,20 +28,9 @@ Spring MVC 负责把 HTTP 世界和 Java 方法连接起来。客户端看到的
 
 ### `doDispatch()` 内部怎样推进
 
-源码中的主链比“找到 Controller”多几个关键对象：
+源码中的主链比“找到 Controller”多几个关键对象，它同时包含正常返回路径和异常解析分支：
 
-```text
-DispatcherServlet.doDispatch()
-  -> getHandler()                   HandlerMapping 找到执行链
-  -> HandlerExecutionChain         Controller 方法 + Interceptor
-  -> getHandlerAdapter()            选择可以调用该 Handler 的适配器
-  -> HandlerAdapter.handle()
-  -> RequestMappingHandlerAdapter.invokeHandlerMethod()
-       -> ArgumentResolver          解析路径、查询参数、Header、Body
-       -> InvocableHandlerMethod    调用 Controller 方法
-       -> ReturnValueHandler        写 JSON、状态码或视图
-  -> processDispatchResult()        处理结果或进入异常解析
-```
+![DispatcherServlet 内部分派流程](/spring/mvc-dispatch-internals.svg)
 
 HandlerMapping 负责“找谁”，HandlerAdapter 负责“怎么调用”，ArgumentResolver 负责“参数从哪里来”，ReturnValueHandler 负责“返回值怎么写出去”。把这四个职责分开后，自定义参数解析、响应体转换和异常处理才能各自扩展，而不必修改 DispatcherServlet。
 

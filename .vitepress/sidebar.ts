@@ -425,10 +425,14 @@ export const sidebar: DefaultTheme.Sidebar = {
                   collapsed: true,
                   items: [
                     { text: '概述', link: '/docs/devlanguage/java/framework/spring/' },
+                    { text: '一个请求的完整运行过程', link: '/docs/devlanguage/java/framework/spring/runtime-model' },
                     { text: 'AOP', link: '/docs/devlanguage/java/framework/spring/aop' },
                     { text: 'IoC', link: '/docs/devlanguage/java/framework/spring/ioc' },
                     { text: 'MVC', link: '/docs/devlanguage/java/framework/spring/mvc' },
                     { text: 'Spring Boot', link: '/docs/devlanguage/java/framework/spring/springboot' },
+                    { text: 'Boot 启动机制', link: '/docs/devlanguage/java/framework/spring/boot-startup' },
+                    { text: 'Boot 自动配置', link: '/docs/devlanguage/java/framework/spring/boot-autoconfiguration' },
+                    { text: '配置与生产运行', link: '/docs/devlanguage/java/framework/spring/boot-production' },
                     { text: 'Spring Boot 源码系列', link: '/docs/devlanguage/java/framework/spring/video-series' },
                   ]
                 },

@@ -20,25 +20,9 @@
 
 ## 源码主线
 
-```text
-main()
-  -> SpringApplication.run()
-  -> 创建 BootstrapContext
-  -> 准备 Environment 与配置源
-  -> 选择并创建 ApplicationContext
-  -> 加载初始 BeanDefinition
-  -> AbstractApplicationContext.refresh()
-       -> 执行 BeanFactoryPostProcessor
-       -> 解析配置类与自动配置
-       -> 注册 BeanPostProcessor
-       -> 创建、注入并初始化单例 Bean
-       -> 生成 AOP 与事务代理
-       -> 启动 WebServer
-  -> DispatcherServlet 接管 HTTP 请求
-  -> ApplicationReadyEvent
-```
+页面开头的启动源码主链图把流程分为两层：`refresh()` 之前准备 Environment、ApplicationContext 和初始 BeanDefinition；`refresh()` 内部展开配置、创建 Bean、生成代理并启动 WebServer。DispatcherServlet 随后使用已经形成的对象图处理 HTTP 请求。
 
-这条主线同时回答三个问题：启动代码按什么顺序执行、容器里的对象怎样形成、应用启动后请求怎样进入业务方法。阅读单个类时，应先确认它位于这三段中的哪一段，再进入方法内部。
+这条主线同时回答三个问题：启动代码按什么顺序执行、容器里的对象怎样形成、应用启动后请求怎样进入业务方法。阅读单个类时，应先确认它位于启动输入、容器刷新还是请求处理阶段，再进入方法内部。
 
 ## 学习路线
 
