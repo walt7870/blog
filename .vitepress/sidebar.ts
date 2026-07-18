@@ -235,11 +235,17 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: true,
           items: [
             { text: 'TOGAF概述', link: '/docs/design/architecture/togaf/index' },
+            { text: 'TOGAF深度实践', link: '/docs/design/architecture/togaf/deep-practice' },
+            { text: '核心问题与应用辨析', link: '/docs/design/architecture/togaf/core-questions' },
+            { text: '干系人与架构原则', link: '/docs/design/architecture/togaf/stakeholders-principles' },
+            { text: 'ADM方法', link: '/docs/design/architecture/togaf/adm-method' },
             { text: '业务架构', link: '/docs/design/architecture/togaf/business-architecture' },
             { text: '数据架构', link: '/docs/design/architecture/togaf/data-architecture' },
             { text: '应用架构', link: '/docs/design/architecture/togaf/application-architecture' },
             { text: '技术架构', link: '/docs/design/architecture/togaf/technology-architecture' },
-            { text: 'ADM方法', link: '/docs/design/architecture/togaf/adm-method' },
+            { text: '架构内容与仓库', link: '/docs/design/architecture/togaf/architecture-content-repository' },
+            { text: 'Baseline与Gap', link: '/docs/design/architecture/togaf/baseline-target-gap' },
+            { text: '过渡架构与迁移', link: '/docs/design/architecture/togaf/transition-migration-planning' },
             { text: '架构治理', link: '/docs/design/architecture/togaf/architecture-governance' }
           ]
         }

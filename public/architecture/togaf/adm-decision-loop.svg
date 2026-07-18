@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="640" viewBox="0 0 1440 640" role="img" aria-labelledby="title desc">
+  <title id="title">ADM 从业务驱动到运行证据的决策闭环</title>
+  <desc id="desc">ADM 通过授权、目标、迁移和反馈四次收敛减少不确定性，需求与证据贯穿所有阶段。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#475569"/>
+    </marker>
+    <marker id="loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="640" fill="#fff"/>
+  <text x="72" y="58" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">ADM 管理四次收敛，而不是排列八个阶段</text>
+  <text x="72" y="95" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每次收敛都减少一种不确定性，运行证据会重新进入下一轮。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="150" width="300" height="170" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="100" y="188" fill="#9a3412" font-size="16" font-weight="700">01 架构授权</text>
+    <text x="100" y="229" fill="#172033" font-size="23" font-weight="700">为什么现在改变</text>
+    <text x="100" y="264" fill="#526078" font-size="15">Preliminary · Phase A</text>
+    <text x="100" y="291" fill="#526078" font-size="15">范围、原则、干系人、成功指标</text>
+
+    <rect x="410" y="150" width="300" height="170" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="438" y="188" fill="#854d0e" font-size="16" font-weight="700">02 目标定义</text>
+    <text x="438" y="229" fill="#172033" font-size="23" font-weight="700">企业需要获得什么</text>
+    <text x="438" y="264" fill="#526078" font-size="15">Phase B · C · D</text>
+    <text x="438" y="291" fill="#526078" font-size="15">能力、事实、边界、质量属性</text>
+
+    <rect x="748" y="150" width="300" height="170" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="776" y="188" fill="#1d4ed8" font-size="16" font-weight="700">03 迁移设计</text>
+    <text x="776" y="229" fill="#172033" font-size="23" font-weight="700">怎样逐步到达目标</text>
+    <text x="776" y="264" fill="#526078" font-size="15">Phase E · F</text>
+    <text x="776" y="291" fill="#526078" font-size="15">Gap、工作包、过渡架构、依赖</text>
+
+    <rect x="1086" y="150" width="300" height="170" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1114" y="188" fill="#166534" font-size="16" font-weight="700">04 实施反馈</text>
+    <text x="1114" y="229" fill="#172033" font-size="23" font-weight="700">结果是否支持假设</text>
+    <text x="1114" y="264" fill="#526078" font-size="15">Phase G · H</text>
+    <text x="1114" y="291" fill="#526078" font-size="15">一致性、例外、指标、变更</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M372 235H404"/><path d="M710 235H742"/><path d="M1048 235H1080"/>
+  </g>
+  <rect x="210" y="382" width="1020" height="90" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2.5"/>
+  <text x="720" y="420" text-anchor="middle" fill="#115e59" font-family="Arial, 'PingFang SC', sans-serif" font-size="21" font-weight="700">需求与证据追踪</text>
+  <text x="720" y="451" text-anchor="middle" fill="#334155" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">业务驱动 → 架构要求 → 项目交付 → 运行指标</text>
+  <path d="M1230 427H1324Q1360 427 1360 391V337" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
+  <path d="M210 427H116Q80 427 80 391V337" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
+  <text x="720" y="544" text-anchor="middle" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" font-weight="700">阶段完成不是输出，风险下降和决策可执行才是输出</text>
+  <text x="72" y="592" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">需求管理让一条要求从愿景追踪到运行证据；Phase H 允许证据反过来修正原有架构假设。</text>
+</svg>

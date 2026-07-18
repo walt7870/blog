@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">应用边界由能力、数据责任、团队和交互共同决定</title>
+  <desc id="desc">渠道、订单、库存和履约应用各自承担能力与事实，通过同步接口和业务事件协作，分析平台只消费数据。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">应用边界不是方框，而是责任、契约和故障域</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每个应用都要说明负责什么、不负责什么、拥有哪类事实，以及如何在失败时协作。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="154" width="226" height="190" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="185" y="194" text-anchor="middle" fill="#334155" font-size="20" font-weight="700">渠道应用</text>
+    <text x="185" y="233" text-anchor="middle" fill="#172033" font-size="15">展示、购物车、编排</text>
+    <text x="185" y="263" text-anchor="middle" fill="#526078" font-size="14">不拥有库存和订单事实</text>
+    <text x="185" y="303" text-anchor="middle" fill="#64748b" font-size="14">BFF / API / 查询视图</text>
+
+    <rect x="356" y="154" width="226" height="190" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="469" y="194" text-anchor="middle" fill="#9a3412" font-size="20" font-weight="700">订单管理</text>
+    <text x="469" y="233" text-anchor="middle" fill="#172033" font-size="15">订单身份、交易状态</text>
+    <text x="469" y="263" text-anchor="middle" fill="#526078" font-size="14">不直接修改实物库存</text>
+    <text x="469" y="303" text-anchor="middle" fill="#64748b" font-size="14">同步预占 / 发布订单事件</text>
+
+    <rect x="640" y="154" width="226" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="753" y="194" text-anchor="middle" fill="#1d4ed8" font-size="20" font-weight="700">库存平台</text>
+    <text x="753" y="233" text-anchor="middle" fill="#172033" font-size="15">可售、预占、释放、确认</text>
+    <text x="753" y="263" text-anchor="middle" fill="#526078" font-size="14">库存事实唯一写入方</text>
+    <text x="753" y="303" text-anchor="middle" fill="#64748b" font-size="14">预占结果 / 库存事件</text>
+
+    <rect x="924" y="154" width="226" height="190" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1037" y="194" text-anchor="middle" fill="#166534" font-size="20" font-weight="700">履约系统</text>
+    <text x="1037" y="233" text-anchor="middle" fill="#172033" font-size="15">节点、包裹、发货、签收</text>
+    <text x="1037" y="263" text-anchor="middle" fill="#526078" font-size="14">不改变订单交易规则</text>
+    <text x="1037" y="303" text-anchor="middle" fill="#64748b" font-size="14">消费订单与库存事实</text>
+
+    <rect x="1208" y="154" width="160" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="1288" y="194" text-anchor="middle" fill="#6d28d9" font-size="20" font-weight="700">分析平台</text>
+    <text x="1288" y="233" text-anchor="middle" fill="#172033" font-size="15">历史与指标</text>
+    <text x="1288" y="263" text-anchor="middle" fill="#526078" font-size="14">只读副本</text>
+    <text x="1288" y="303" text-anchor="middle" fill="#64748b" font-size="14">CDC / 事件</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M298 222H348"/><path d="M582 222H632"/><path d="M866 222H916"/><path d="M1150 222H1200"/>
+  </g>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="356" y="400" width="794" height="106" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="753" y="438" text-anchor="middle" fill="#155e75" font-size="20" font-weight="700">交互契约</text>
+    <text x="753" y="471" text-anchor="middle" fill="#334155" font-size="16">同步：需要立即作出业务决定　|　事件：传播已经发生的事实</text>
+    <text x="753" y="496" text-anchor="middle" fill="#526078" font-size="14">双方都要定义幂等、超时、版本、重试、补偿和可观测性</text>
+    <text x="72" y="581" fill="#172033" font-size="18" font-weight="700">边界判断</text>
+    <text x="72" y="614" fill="#526078" font-size="16">业务内聚 + 数据权威 + 一致性范围 + 变化节奏 + 团队责任 + 故障隔离</text>
+  </g>
+</svg>

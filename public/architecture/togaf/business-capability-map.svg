@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">从战略结果到业务能力和责任的推导关系</title>
+  <desc id="desc">业务驱动推导业务结果，结果由价值流阶段兑现，价值流由业务能力支撑，能力再分配给责任人。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">业务架构把战略结果拆成可负责的能力</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">能力是稳定的“能做什么”，流程是变化的“如何做”，系统只是当前承载方式。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="140" width="1296" height="76" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="100" y="171" fill="#9a3412" font-size="15" font-weight="700">业务驱动</text>
+    <text x="100" y="201" fill="#172033" font-size="21" font-weight="700">全渠道增长受到库存、订单和售后割裂限制</text>
+    <path d="M720 216V244" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="72" y="258" width="410" height="76" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="100" y="290" fill="#854d0e" font-size="15" font-weight="700">结果 O1</text>
+    <text x="100" y="318" fill="#172033" font-size="19" font-weight="700">降低缺货取消率</text>
+    <rect x="515" y="258" width="410" height="76" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="543" y="290" fill="#854d0e" font-size="15" font-weight="700">结果 O2</text>
+    <text x="543" y="318" fill="#172033" font-size="19" font-weight="700">缩短新渠道接入周期</text>
+    <rect x="958" y="258" width="410" height="76" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="986" y="290" fill="#854d0e" font-size="15" font-weight="700">结果 O3</text>
+    <text x="986" y="318" fill="#172033" font-size="19" font-weight="700">支持跨渠道售后</text>
+    <path d="M277 334V365M720 334V365M1163 334V365" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="72" y="380" width="198" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="171" y="414" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="700">价值阶段</text>
+    <text x="171" y="449" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">识别客户</text>
+    <text x="171" y="474" text-anchor="middle" fill="#526078" font-size="14">选择商品前</text>
+    <rect x="286" y="380" width="198" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="385" y="414" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="700">价值阶段</text>
+    <text x="385" y="449" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">承诺库存</text>
+    <text x="385" y="474" text-anchor="middle" fill="#526078" font-size="14">下单前后</text>
+    <rect x="500" y="380" width="198" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="599" y="414" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="700">价值阶段</text>
+    <text x="599" y="449" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">完成交易</text>
+    <text x="599" y="474" text-anchor="middle" fill="#526078" font-size="14">支付与状态</text>
+    <rect x="714" y="380" width="198" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="813" y="414" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="700">价值阶段</text>
+    <text x="813" y="449" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">安排履约</text>
+    <text x="813" y="474" text-anchor="middle" fill="#526078" font-size="14">节点与包裹</text>
+    <rect x="928" y="380" width="198" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="1027" y="414" text-anchor="middle" fill="#1d4ed8" font-size="15" font-weight="700">价值阶段</text>
+    <text x="1027" y="449" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">交付与售后</text>
+    <text x="1027" y="474" text-anchor="middle" fill="#526078" font-size="14">异常与退款</text>
+    <path d="M270 435H280M484 435H494M698 435H708M912 435H922" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+    <rect x="72" y="544" width="1296" height="84" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="100" y="578" fill="#166534" font-size="15" font-weight="700">能力与责任</text>
+    <text x="100" y="607" fill="#172033" font-size="18" font-weight="700">客户识别 · 商品管理 · 库存可视 · 库存承诺 · 订单管理 · 履约编排 · 售后服务</text>
+    <text x="1020" y="578" fill="#166534" font-size="15" font-weight="700">结果 Owner</text>
+    <text x="1020" y="607" fill="#526078" font-size="15">能力责任不等于部门名称</text>
+  </g>
+</svg>

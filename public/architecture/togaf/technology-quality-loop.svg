@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">从业务场景到质量属性、技术机制和运行证据的闭环</title>
+  <desc id="desc">业务场景转换成质量属性和容量假设，技术机制承载它们，压测、演练和业务指标反馈回模型。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#475569"/>
+    </marker>
+    <marker id="loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">技术架构是可验证的运行假设</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">组件不是起点；业务损失、失败语义、容量假设和恢复证据才是技术决策的起点。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="172" width="236" height="164" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="190" y="211" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">业务场景</text>
+    <text x="190" y="250" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">大促下单</text>
+    <text x="190" y="282" text-anchor="middle" fill="#526078" font-size="14">2500 tx/s、热点商品</text>
+    <text x="190" y="307" text-anchor="middle" fill="#526078" font-size="14">不能超卖、可恢复</text>
+
+    <rect x="366" y="172" width="236" height="164" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="484" y="211" text-anchor="middle" fill="#854d0e" font-size="16" font-weight="700">质量属性</text>
+    <text x="484" y="250" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">可用、性能、恢复</text>
+    <text x="484" y="282" text-anchor="middle" fill="#526078" font-size="14">SLO、RPO、RTO</text>
+    <text x="484" y="307" text-anchor="middle" fill="#526078" font-size="14">时延、错误、积压预算</text>
+
+    <rect x="660" y="172" width="236" height="164" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="778" y="211" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">技术机制</text>
+    <text x="778" y="250" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">隔离、排队、限流</text>
+    <text x="778" y="282" text-anchor="middle" fill="#526078" font-size="14">幂等、重试、缓存</text>
+    <text x="778" y="307" text-anchor="middle" fill="#526078" font-size="14">备份、恢复、审计</text>
+
+    <rect x="954" y="172" width="236" height="164" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1072" y="211" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">运行证据</text>
+    <text x="1072" y="250" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">压测、演练、指标</text>
+    <text x="1072" y="282" text-anchor="middle" fill="#526078" font-size="14">业务主键链路</text>
+    <text x="1072" y="307" text-anchor="middle" fill="#526078" font-size="14">成本和故障数据</text>
+
+    <rect x="1248" y="172" width="120" height="164" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="1308" y="211" text-anchor="middle" fill="#6d28d9" font-size="16" font-weight="700">反馈</text>
+    <text x="1308" y="250" text-anchor="middle" fill="#172033" font-size="17" font-weight="700">修正模型</text>
+    <text x="1308" y="282" text-anchor="middle" fill="#526078" font-size="14">容量</text>
+    <text x="1308" y="307" text-anchor="middle" fill="#526078" font-size="14">假设</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M308 254H358"/><path d="M602 254H652"/><path d="M896 254H946"/><path d="M1190 254H1240"/>
+  </g>
+  <path d="M1308 350V430Q1308 466 1272 466H172Q136 466 136 430V350" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
+  <rect x="330" y="420" width="780" height="92" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+  <text x="720" y="458" text-anchor="middle" fill="#155e75" font-size="20" font-weight="700">同一业务主键贯穿技术、服务和业务指标</text>
+  <text x="720" y="489" text-anchor="middle" fill="#526078" font-size="15">customer_id → order_id → reservation_id → payment_id → fulfillment_id</text>
+  <text x="72" y="602" fill="#172033" font-size="18" font-weight="700">技术选择的判断</text>
+  <text x="72" y="635" fill="#526078" font-size="16">这个机制解决哪个质量场景？失败时系统做什么？如何验证？成本是否与业务价值匹配？</text>
+</svg>

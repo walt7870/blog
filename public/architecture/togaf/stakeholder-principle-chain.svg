@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="700" viewBox="0 0 1440 700" role="img" aria-labelledby="title desc">
+  <title id="title">干系人关注点形成架构原则和项目证据</title>
+  <desc id="desc">业务、运营、财务和技术干系人的关注点通过架构视角和取舍形成原则，再转成要求、设计和运行证据。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+  </defs>
+  <rect width="1440" height="700" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">从不同关注点到共同架构约束</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">原则不是口号，而是把跨项目反复出现的取舍沉淀为可验证规则。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="152" fill="#526078" font-size="16" font-weight="700">干系人</text>
+    <rect x="72" y="175" width="210" height="72" rx="7" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="177" y="207" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">门店运营</text><text x="177" y="231" text-anchor="middle" fill="#526078" font-size="13">断网经营、操作成本</text>
+    <rect x="72" y="263" width="210" height="72" rx="7" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="177" y="295" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">财务与审计</text><text x="177" y="319" text-anchor="middle" fill="#526078" font-size="13">凭证、对账、追责</text>
+    <rect x="72" y="351" width="210" height="72" rx="7" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="177" y="383" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">交易与库存 Owner</text><text x="177" y="407" text-anchor="middle" fill="#526078" font-size="13">超卖、规则、异常</text>
+    <rect x="72" y="439" width="210" height="72" rx="7" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="177" y="471" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">平台与安全</text><text x="177" y="495" text-anchor="middle" fill="#526078" font-size="13">容量、恢复、权限</text>
+
+    <text x="360" y="152" fill="#526078" font-size="16" font-weight="700">关注点与场景</text>
+    <rect x="340" y="200" width="250" height="270" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="465" y="240" text-anchor="middle" fill="#854d0e" font-size="19" font-weight="700">可决策问题</text>
+    <text x="465" y="282" text-anchor="middle" fill="#172033" font-size="15">断网 30 分钟能否销售？</text>
+    <text x="465" y="317" text-anchor="middle" fill="#172033" font-size="15">谁能修改库存锁定？</text>
+    <text x="465" y="352" text-anchor="middle" fill="#172033" font-size="15">失败后由谁补偿？</text>
+    <text x="465" y="387" text-anchor="middle" fill="#172033" font-size="15">大促保护哪些操作？</text>
+    <text x="465" y="422" text-anchor="middle" fill="#172033" font-size="15">什么证据满足审计？</text>
+
+    <text x="680" y="152" fill="#526078" font-size="16" font-weight="700">视角与取舍</text>
+    <rect x="650" y="200" width="240" height="270" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="770" y="240" text-anchor="middle" fill="#1d4ed8" font-size="19" font-weight="700">选择正确表达</text>
+    <text x="770" y="282" text-anchor="middle" fill="#172033" font-size="15">能力与价值流</text>
+    <text x="770" y="317" text-anchor="middle" fill="#172033" font-size="15">数据责任与生命周期</text>
+    <text x="770" y="352" text-anchor="middle" fill="#172033" font-size="15">应用交互与状态机</text>
+    <text x="770" y="387" text-anchor="middle" fill="#172033" font-size="15">质量属性与故障场景</text>
+    <text x="770" y="422" text-anchor="middle" fill="#172033" font-size="15">过渡架构与退出</text>
+
+    <text x="980" y="152" fill="#526078" font-size="16" font-weight="700">架构原则</text>
+    <rect x="950" y="200" width="250" height="270" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2.5"/>
+    <text x="1075" y="240" text-anchor="middle" fill="#166534" font-size="19" font-weight="700">稳定约束</text>
+    <text x="1075" y="282" text-anchor="middle" fill="#172033" font-size="15">一个事实一个权威方</text>
+    <text x="1075" y="317" text-anchor="middle" fill="#172033" font-size="15">渠道不复制企业规则</text>
+    <text x="1075" y="352" text-anchor="middle" fill="#172033" font-size="15">迁移可观测、可回退</text>
+    <text x="1075" y="387" text-anchor="middle" fill="#172033" font-size="15">最小权限与完整审计</text>
+    <text x="1075" y="422" text-anchor="middle" fill="#526078" font-size="14">理由 · 影响 · 度量 · 例外</text>
+
+    <text x="1260" y="152" fill="#526078" font-size="16" font-weight="700">落地证据</text>
+    <rect x="1240" y="200" width="128" height="270" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="1304" y="250" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">要求</text>
+    <text x="1304" y="302" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">设计</text>
+    <text x="1304" y="354" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">测试</text>
+    <text x="1304" y="406" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">指标</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)"><path d="M282 335H332"/><path d="M590 335H642"/><path d="M890 335H942"/><path d="M1200 335H1232"/></g>
+  <rect x="340" y="548" width="860" height="74" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+  <text x="770" y="579" text-anchor="middle" fill="#334155" font-family="Arial, 'PingFang SC', sans-serif" font-size="18" font-weight="700">冲突不被隐藏：统一事实 vs 离线经营、平台复用 vs 上线速度、最小权限 vs 紧急操作</text>
+  <text x="770" y="604" text-anchor="middle" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">通过范围、优先级、补偿和例外机制进行可追踪取舍。</text>
+</svg>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">ADM 在架构变化中的控制回路</title>
+  <desc id="desc">ADM 从架构能力和愿景出发，经过业务、数据、应用、技术、机会、迁移和治理，再根据运行证据进行变更管理并反馈到下一轮。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="760" fill="#ffffff"/>
+  <text x="72" y="62" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">ADM 不是瀑布阶段，而是持续收敛不确定性的控制回路</text>
+  <text x="72" y="99" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">需求与证据贯穿全程；后续阶段发现的新约束，可以修正愿景、业务能力或任一架构域。</text>
+
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="151" width="190" height="104" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="167" y="185" text-anchor="middle" fill="#334155" font-size="16" font-weight="700">Preliminary</text>
+    <text x="167" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">建立架构能力</text>
+    <text x="167" y="241" text-anchor="middle" fill="#64748b" font-size="14">角色、原则、治理与资产</text>
+
+    <rect x="294" y="151" width="190" height="104" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="389" y="185" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">Phase A</text>
+    <text x="389" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">架构愿景</text>
+    <text x="389" y="241" text-anchor="middle" fill="#64748b" font-size="14">驱动、范围与承诺</text>
+
+    <rect x="516" y="151" width="190" height="104" rx="6" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="611" y="185" text-anchor="middle" fill="#854d0e" font-size="16" font-weight="700">Phase B</text>
+    <text x="611" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">业务架构</text>
+    <text x="611" y="241" text-anchor="middle" fill="#64748b" font-size="14">能力、价值流与责任</text>
+
+    <rect x="738" y="151" width="190" height="104" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="833" y="185" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">Phase C</text>
+    <text x="833" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">数据与应用</text>
+    <text x="833" y="241" text-anchor="middle" fill="#64748b" font-size="14">事实、边界与协作</text>
+
+    <rect x="960" y="151" width="190" height="104" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="1055" y="185" text-anchor="middle" fill="#6d28d9" font-size="16" font-weight="700">Phase D</text>
+    <text x="1055" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">技术架构</text>
+    <text x="1055" y="241" text-anchor="middle" fill="#64748b" font-size="14">质量属性与平台能力</text>
+
+    <rect x="1182" y="151" width="190" height="104" rx="6" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
+    <text x="1277" y="185" text-anchor="middle" fill="#9d174d" font-size="16" font-weight="700">Phase E</text>
+    <text x="1277" y="216" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">机会与解决方案</text>
+    <text x="1277" y="241" text-anchor="middle" fill="#64748b" font-size="14">Gap、工作包、过渡状态</text>
+
+    <rect x="960" y="492" width="190" height="104" rx="6" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="1055" y="526" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">Phase F</text>
+    <text x="1055" y="557" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">迁移规划</text>
+    <text x="1055" y="582" text-anchor="middle" fill="#64748b" font-size="14">依赖、收益、风险与顺序</text>
+
+    <rect x="738" y="492" width="190" height="104" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="833" y="526" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">Phase G</text>
+    <text x="833" y="557" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">实施治理</text>
+    <text x="833" y="582" text-anchor="middle" fill="#64748b" font-size="14">一致性、例外与交付证据</text>
+
+    <rect x="516" y="492" width="190" height="104" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="611" y="526" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">Phase H</text>
+    <text x="611" y="557" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">架构变更管理</text>
+    <text x="611" y="582" text-anchor="middle" fill="#64748b" font-size="14">运行反馈与新业务变化</text>
+
+    <rect x="318" y="325" width="804" height="100" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="2.5"/>
+    <text x="720" y="363" text-anchor="middle" fill="#115e59" font-size="21" font-weight="700">需求管理与证据追踪</text>
+    <text x="720" y="395" text-anchor="middle" fill="#334155" font-size="16">业务驱动 ⇄ 架构要求 ⇄ 项目交付 ⇄ 运行指标</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M 262 203 L 288 203"/>
+    <path d="M 484 203 L 510 203"/>
+    <path d="M 706 203 L 732 203"/>
+    <path d="M 928 203 L 954 203"/>
+    <path d="M 1150 203 L 1176 203"/>
+    <path d="M 1277 255 L 1277 544 L 1156 544"/>
+    <path d="M 960 544 L 934 544"/>
+    <path d="M 738 544 L 712 544"/>
+  </g>
+
+  <path d="M 516 544 L 389 544 Q 294 544 294 449 L 294 304 Q 294 274 324 274 L 389 274 L 389 261" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop-arrow)"/>
+  <text x="151" y="375" text-anchor="middle" fill="#0f766e" font-family="Arial, 'PingFang SC', sans-serif" font-size="16" font-weight="700">能力与原则</text>
+  <text x="151" y="400" text-anchor="middle" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">约束每一轮</text>
+
+  <text x="72" y="681" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">控制回路的输出不是“阶段已完成”，而是风险下降、决策更清楚、迁移可执行，并且新的运行证据能够触发修正。</text>
+</svg>

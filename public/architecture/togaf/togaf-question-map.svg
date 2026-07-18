@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="700" viewBox="0 0 1440 700" role="img" aria-labelledby="title desc">
+  <title id="title">TOGAF 核心问题从定位、建模、迁移到验证的关系地图</title>
+  <desc id="desc">TOGAF 的问题沿为什么改变、目标由什么构成、怎样逐步到达、如何证明四条主线展开，内容资产和治理贯穿全程。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#475569"/>
+    </marker>
+    <marker id="loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="700" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">三十个问题最终汇成四条架构主线</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">术语不是孤立知识点，它们共同解释一次企业变化为什么发生、如何实施以及怎样验证。</text>
+
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="158" width="288" height="270" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="216" y="198" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">01 定位与授权</text>
+    <text x="216" y="240" text-anchor="middle" fill="#172033" font-size="23" font-weight="700">为什么改变</text>
+    <text x="104" y="287" fill="#526078" font-size="15">TOGAF 的边界</text>
+    <text x="104" y="320" fill="#526078" font-size="15">企业架构与系统架构</text>
+    <text x="104" y="353" fill="#526078" font-size="15">干系人与关注点</text>
+    <text x="104" y="386" fill="#526078" font-size="15">原则、范围与成功标准</text>
+
+    <rect x="408" y="158" width="288" height="270" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="552" y="198" text-anchor="middle" fill="#854d0e" font-size="16" font-weight="700">02 目标与建模</text>
+    <text x="552" y="240" text-anchor="middle" fill="#172033" font-size="23" font-weight="700">改变什么</text>
+    <text x="440" y="287" fill="#526078" font-size="15">业务能力与价值流</text>
+    <text x="440" y="320" fill="#526078" font-size="15">数据事实与权威责任</text>
+    <text x="440" y="353" fill="#526078" font-size="15">应用边界与协作契约</text>
+    <text x="440" y="386" fill="#526078" font-size="15">质量属性与技术机制</text>
+
+    <rect x="744" y="158" width="288" height="270" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="888" y="198" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">03 差距与迁移</text>
+    <text x="888" y="240" text-anchor="middle" fill="#172033" font-size="23" font-weight="700">怎样到达</text>
+    <text x="776" y="287" fill="#526078" font-size="15">Baseline / Target / Gap</text>
+    <text x="776" y="320" fill="#526078" font-size="15">Transition Architecture</text>
+    <text x="776" y="353" fill="#526078" font-size="15">Work Package 与依赖</text>
+    <text x="776" y="386" fill="#526078" font-size="15">切换、回退与遗留退出</text>
+
+    <rect x="1080" y="158" width="288" height="270" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1224" y="198" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">04 治理与反馈</text>
+    <text x="1224" y="240" text-anchor="middle" fill="#172033" font-size="23" font-weight="700">怎样证明</text>
+    <text x="1112" y="287" fill="#526078" font-size="15">原则与 ADR</text>
+    <text x="1112" y="320" fill="#526078" font-size="15">交付一致性与例外</text>
+    <text x="1112" y="353" fill="#526078" font-size="15">业务、数据和运行指标</text>
+    <text x="1112" y="386" fill="#526078" font-size="15">Phase H 变更反馈</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M360 293H400"/>
+    <path d="M696 293H736"/>
+    <path d="M1032 293H1072"/>
+  </g>
+
+  <rect x="240" y="490" width="960" height="92" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2.5"/>
+  <text x="720" y="528" text-anchor="middle" fill="#155e75" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="700">内容资产与需求追踪贯穿全程</text>
+  <text x="720" y="559" text-anchor="middle" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="15">Deliverable · Artifact · ABB/SBB · 架构仓库 · 驱动到运行证据</text>
+
+  <path d="M1224 442V466Q1224 536 1208 536" fill="none" stroke="#0f766e" stroke-width="3"/>
+  <path d="M240 536H176Q144 536 144 504V442" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
+  <text x="72" y="646" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">运行结果可以修正业务假设、目标架构和迁移顺序，因此这是一条控制回路，而不是单向交付流程。</text>
+</svg>

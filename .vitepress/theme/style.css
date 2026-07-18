@@ -215,7 +215,16 @@
 }
 
 @media (max-width: 640px) {
-  .vp-doc p:has(> img[src*="/spring/"][src$=".svg"]) {
+  .vp-doc h1,
+  .vp-doc h2,
+  .vp-doc h3,
+  .vp-doc h4 {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .vp-doc p:has(> img[src*="/spring/"][src$=".svg"]),
+  .vp-doc p:has(> img[src*="/architecture/togaf/"][src$=".svg"]) {
     max-width: 100%;
     margin: 24px 0;
     overflow-x: auto;
@@ -226,7 +235,8 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  .vp-doc p > img[src*="/spring/"][src$=".svg"] {
+  .vp-doc p > img[src*="/spring/"][src$=".svg"],
+  .vp-doc p > img[src*="/architecture/togaf/"][src$=".svg"] {
     width: 760px;
     max-width: none;
     margin: 0;

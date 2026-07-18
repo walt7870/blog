@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">库存事实从来源到权威模型和消费视图的数据责任流</title>
+  <desc id="desc">POS、WMS 和订单系统产生来源事实，库存平台负责库存承诺事实，读模型和分析平台只能消费副本，治理贯穿全程。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">数据架构先回答：谁能改变这个事实？</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">副本可以很多，最终裁决权不能漂移；每条数据流还要标明时效、用途和失败处理。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="158" fill="#526078" font-size="16" font-weight="700">来源事实</text>
+    <rect x="72" y="182" width="220" height="82" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="182" y="217" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">门店 POS</text>
+    <text x="182" y="243" text-anchor="middle" fill="#526078" font-size="14">盘点、销售、地点库存</text>
+    <rect x="72" y="292" width="220" height="82" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="182" y="327" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">WMS</text>
+    <text x="182" y="353" text-anchor="middle" fill="#526078" font-size="14">入库、出库、调拨、实物台账</text>
+    <rect x="72" y="402" width="220" height="82" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="182" y="437" text-anchor="middle" fill="#9a3412" font-size="19" font-weight="700">订单管理</text>
+    <text x="182" y="463" text-anchor="middle" fill="#526078" font-size="14">创建、支付、取消、售后事实</text>
+
+    <text x="408" y="158" fill="#526078" font-size="16" font-weight="700">语义与映射</text>
+    <rect x="370" y="230" width="260" height="190" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="500" y="270" text-anchor="middle" fill="#854d0e" font-size="20" font-weight="700">企业数据模型</text>
+    <text x="500" y="310" text-anchor="middle" fill="#172033" font-size="16">企业 SKU / 地点 ID</text>
+    <text x="500" y="340" text-anchor="middle" fill="#172033" font-size="16">事实语义 / 生命周期</text>
+    <text x="500" y="370" text-anchor="middle" fill="#172033" font-size="16">来源映射 / 质量规则</text>
+
+    <text x="744" y="158" fill="#526078" font-size="16" font-weight="700">权威事实</text>
+    <rect x="700" y="182" width="300" height="302" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="850" y="224" text-anchor="middle" fill="#1d4ed8" font-size="21" font-weight="700">库存平台</text>
+    <text x="850" y="265" text-anchor="middle" fill="#172033" font-size="16">可售库存计算</text>
+    <text x="850" y="300" text-anchor="middle" fill="#172033" font-size="16">预占 / 释放 / 确认</text>
+    <text x="850" y="335" text-anchor="middle" fill="#172033" font-size="16">对账 / 补偿 / 审计</text>
+    <text x="850" y="382" text-anchor="middle" fill="#526078" font-size="14">只允许声明的权威方修改</text>
+    <text x="850" y="413" text-anchor="middle" fill="#526078" font-size="14">消费者通过 API、事件、批处理读取</text>
+
+    <text x="1080" y="158" fill="#526078" font-size="16" font-weight="700">消费副本</text>
+    <rect x="1060" y="182" width="300" height="82" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1210" y="217" text-anchor="middle" fill="#166534" font-size="18" font-weight="700">渠道读模型</text>
+    <text x="1210" y="243" text-anchor="middle" fill="#526078" font-size="14">带时效预算，不参与裁决</text>
+    <rect x="1060" y="292" width="300" height="82" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1210" y="327" text-anchor="middle" fill="#166534" font-size="18" font-weight="700">客服与履约视图</text>
+    <text x="1210" y="353" text-anchor="middle" fill="#526078" font-size="14">可追溯来源与更新时间</text>
+    <rect x="1060" y="402" width="300" height="82" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1210" y="437" text-anchor="middle" fill="#166534" font-size="18" font-weight="700">分析平台</text>
+    <text x="1210" y="463" text-anchor="middle" fill="#526078" font-size="14">历史事实、指标、预测</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M292 223H362"/><path d="M292 333H362"/><path d="M292 443H362"/>
+    <path d="M630 325H692"/>
+    <path d="M1008 223H1052"/><path d="M1008 333H1052"/><path d="M1008 443H1052"/>
+  </g>
+  <rect x="72" y="554" width="1288" height="76" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+  <text x="716" y="587" text-anchor="middle" fill="#155e75" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" font-weight="700">治理贯穿全程：身份、Owner、时效、质量、安全、血缘与退出</text>
+  <text x="716" y="613" text-anchor="middle" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">事件传播得越快，越需要先解决语义和责任，否则只是更快地复制错误。</text>
+</svg>

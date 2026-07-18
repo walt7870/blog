@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">架构决策进入内容框架和仓库的生命周期</title>
+  <desc id="desc">架构决策形成交付物、工件和构建块，进入带版本和状态的仓库，随后被项目复用并由运行证据反馈。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker><marker id="loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0f766e"/></marker></defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">架构资产的价值来自关系、状态和复用</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">文档是容器；真正需要管理的是决策对象、适用范围、生命周期和采用证据。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="170" width="210" height="150" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="177" y="207" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">架构决策</text>
+    <text x="177" y="247" text-anchor="middle" fill="#172033" font-size="19" font-weight="700">为什么这样设计</text>
+    <text x="177" y="280" text-anchor="middle" fill="#526078" font-size="14">背景、约束、取舍、复审</text>
+
+    <rect x="332" y="142" width="330" height="206" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="497" y="178" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">架构内容框架</text>
+    <rect x="356" y="199" width="282" height="38" rx="5" fill="#fff" stroke="#d97706"/>
+    <text x="497" y="224" text-anchor="middle" fill="#172033" font-size="15">Deliverable：正式交付成果</text>
+    <rect x="356" y="248" width="282" height="38" rx="5" fill="#fff" stroke="#d97706"/>
+    <text x="497" y="273" text-anchor="middle" fill="#172033" font-size="15">Artifact：目录、矩阵、图示</text>
+    <rect x="356" y="297" width="282" height="38" rx="5" fill="#fff" stroke="#d97706"/>
+    <text x="497" y="322" text-anchor="middle" fill="#172033" font-size="15">Building Block：ABB / SBB</text>
+
+    <rect x="712" y="142" width="370" height="320" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="897" y="180" text-anchor="middle" fill="#1d4ed8" font-size="19" font-weight="700">架构仓库</text>
+    <text x="750" y="222" fill="#172033" font-size="15">元模型与命名规则</text><text x="940" y="222" fill="#526078" font-size="14">对象如何关联</text>
+    <text x="750" y="261" fill="#172033" font-size="15">架构景观</text><text x="940" y="261" fill="#526078" font-size="14">Baseline / Target / Transition</text>
+    <text x="750" y="300" fill="#172033" font-size="15">参考资料库</text><text x="940" y="300" fill="#526078" font-size="14">模式、ABB、SBB</text>
+    <text x="750" y="339" fill="#172033" font-size="15">标准信息库</text><text x="940" y="339" fill="#526078" font-size="14">标准、版本、例外</text>
+    <text x="750" y="378" fill="#172033" font-size="15">治理日志</text><text x="940" y="378" fill="#526078" font-size="14">ADR、评审、债务</text>
+    <text x="750" y="417" fill="#172033" font-size="15">需求与追踪</text><text x="940" y="417" fill="#526078" font-size="14">驱动、Gap、证据</text>
+
+    <rect x="1132" y="170" width="236" height="150" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1250" y="207" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">采用与复用</text>
+    <text x="1250" y="247" text-anchor="middle" fill="#172033" font-size="18" font-weight="700">项目模板与护栏</text>
+    <text x="1250" y="280" text-anchor="middle" fill="#526078" font-size="14">引用、验证、替换、退出</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)"><path d="M282 245H324"/><path d="M662 245H704"/><path d="M1082 245H1124"/></g>
+  <path d="M1250 334V520Q1250 556 1214 556H214Q178 556 178 520V334" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
+  <rect x="430" y="508" width="570" height="94" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+  <text x="715" y="546" text-anchor="middle" fill="#155e75" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" font-weight="700">运行证据更新资产状态</text>
+  <text x="715" y="577" text-anchor="middle" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="14">草拟 → 已批准 → 采用中 → 已验证 → 已弃用 → 已归档</text>
+  <text x="72" y="658" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">没有 Owner、版本、适用范围和最近验证时间的“最终版”，不是可复用资产。</text>
+</svg>

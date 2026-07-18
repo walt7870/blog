@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">从 Baseline 经过过渡架构到 Target 的迁移路线</title>
+  <desc id="desc">库存迁移经过基线、影子、局部接管、扩大接管和目标五个状态，工作包与门槛贯穿时间线。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect width="1440" height="760" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">路线图连接可运行状态，而不是只排列项目日期</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每个过渡状态都声明写入权威、工作包、进入/退出条件和收益证据。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="152" width="228" height="152" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="186" y="190" text-anchor="middle" fill="#334155" font-size="18" font-weight="700">T0 Baseline</text>
+    <text x="186" y="229" text-anchor="middle" fill="#172033" font-size="15">旧系统分散写入</text>
+    <text x="186" y="259" text-anchor="middle" fill="#526078" font-size="14">建立差异与流量基线</text>
+    <rect x="336" y="152" width="228" height="152" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="450" y="190" text-anchor="middle" fill="#1d4ed8" font-size="18" font-weight="700">T1 影子运行</text>
+    <text x="450" y="229" text-anchor="middle" fill="#172033" font-size="15">新平台只读计算</text>
+    <text x="450" y="259" text-anchor="middle" fill="#526078" font-size="14">规则差异可以解释</text>
+    <rect x="600" y="152" width="228" height="152" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="714" y="190" text-anchor="middle" fill="#854d0e" font-size="18" font-weight="700">T2 局部接管</text>
+    <text x="714" y="229" text-anchor="middle" fill="#172033" font-size="15">按渠道唯一写入</text>
+    <text x="714" y="259" text-anchor="middle" fill="#526078" font-size="14">对账与回退通过</text>
+    <rect x="864" y="152" width="228" height="152" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="978" y="190" text-anchor="middle" fill="#9a3412" font-size="18" font-weight="700">T3 扩大接管</text>
+    <text x="978" y="229" text-anchor="middle" fill="#172033" font-size="15">主要渠道进入新平台</text>
+    <text x="978" y="259" text-anchor="middle" fill="#526078" font-size="14">旧入口停止新增</text>
+    <rect x="1128" y="152" width="240" height="152" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1248" y="190" text-anchor="middle" fill="#166534" font-size="18" font-weight="700">T4 Target</text>
+    <text x="1248" y="229" text-anchor="middle" fill="#172033" font-size="15">统一库存承诺</text>
+    <text x="1248" y="259" text-anchor="middle" fill="#526078" font-size="14">旧依赖、权限和任务清退</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)"><path d="M300 228H328"/><path d="M564 228H592"/><path d="M828 228H856"/><path d="M1092 228H1120"/></g>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="370" fill="#172033" font-size="17" font-weight="700">工作包</text>
+    <rect x="180" y="338" width="360" height="66" rx="7" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="360" y="378" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">WP1 身份与语义基础</text>
+    <rect x="360" y="424" width="420" height="66" rx="7" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="570" y="464" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">WP2 库存可视与差异解释</text>
+    <rect x="600" y="510" width="500" height="66" rx="7" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="850" y="550" text-anchor="middle" fill="#854d0e" font-size="16" font-weight="700">WP3 库存承诺与渠道迁移</text>
+    <rect x="864" y="596" width="504" height="66" rx="7" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1116" y="636" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">WP4 遗留退出与责任收敛</text>
+  </g>
+  <g stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 7"><path d="M300 318V680"/><path d="M564 318V680"/><path d="M828 318V680"/><path d="M1092 318V680"/></g>
+  <text x="72" y="704" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="15">门槛：映射完整 → 影子差异可解释 → 局部对账与演练通过 → 旧写入归零 → 收益持续兑现</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="620" viewBox="0 0 1440 620" role="img" aria-labelledby="title desc">
+  <title id="title">从业务驱动到运行证据的架构决策链</title>
+  <desc id="desc">业务驱动依次推导业务结果与能力、核心数据事实、应用责任、质量属性、过渡架构与工作包，并由运行证据反馈修正。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="feedback-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+
+  <rect width="1440" height="620" fill="#ffffff"/>
+  <text x="72" y="66" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">企业架构是一条可追踪的决策链</text>
+  <text x="72" y="103" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每一层都回答不同问题；任何技术决策都应能回到业务驱动，任何业务目标都应落到运行证据。</text>
+
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="164" width="168" height="176" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="94" y="203" fill="#9a3412" font-size="16" font-weight="700">01 业务驱动</text>
+    <text x="94" y="246" fill="#172033" font-size="22" font-weight="700">为什么必须改变</text>
+    <text x="94" y="280" fill="#526078" font-size="15">增长、成本、风险</text>
+    <text x="94" y="307" fill="#526078" font-size="15">法规、客户体验</text>
+
+    <rect x="260" y="164" width="168" height="176" rx="6" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="282" y="203" fill="#854d0e" font-size="16" font-weight="700">02 结果与能力</text>
+    <text x="282" y="246" fill="#172033" font-size="22" font-weight="700">企业要能做什么</text>
+    <text x="282" y="280" fill="#526078" font-size="15">业务结果、价值流</text>
+    <text x="282" y="307" fill="#526078" font-size="15">能力与责任组织</text>
+
+    <rect x="448" y="164" width="168" height="176" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="470" y="203" fill="#1d4ed8" font-size="16" font-weight="700">03 数据事实</text>
+    <text x="470" y="246" fill="#172033" font-size="22" font-weight="700">什么必须可信</text>
+    <text x="470" y="280" fill="#526078" font-size="15">语义、身份、Owner</text>
+    <text x="470" y="307" fill="#526078" font-size="15">生命周期与质量</text>
+
+    <rect x="636" y="164" width="168" height="176" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="658" y="203" fill="#166534" font-size="16" font-weight="700">04 应用责任</text>
+    <text x="658" y="246" fill="#172033" font-size="22" font-weight="700">谁负责改变事实</text>
+    <text x="658" y="280" fill="#526078" font-size="15">系统边界、契约</text>
+    <text x="658" y="307" fill="#526078" font-size="15">协作与故障语义</text>
+
+    <rect x="824" y="164" width="168" height="176" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="846" y="203" fill="#6d28d9" font-size="16" font-weight="700">05 质量属性</text>
+    <text x="846" y="246" fill="#172033" font-size="22" font-weight="700">什么程度才可用</text>
+    <text x="846" y="280" fill="#526078" font-size="15">容量、可用、安全</text>
+    <text x="846" y="307" fill="#526078" font-size="15">恢复、成本、观测</text>
+
+    <rect x="1012" y="164" width="168" height="176" rx="6" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
+    <text x="1034" y="203" fill="#9d174d" font-size="16" font-weight="700">06 迁移与投资</text>
+    <text x="1034" y="246" fill="#172033" font-size="22" font-weight="700">如何逐步到达</text>
+    <text x="1034" y="280" fill="#526078" font-size="15">Gap、过渡架构</text>
+    <text x="1034" y="307" fill="#526078" font-size="15">工作包与依赖</text>
+
+    <rect x="1200" y="164" width="168" height="176" rx="6" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="1222" y="203" fill="#155e75" font-size="16" font-weight="700">07 运行证据</text>
+    <text x="1222" y="246" fill="#172033" font-size="22" font-weight="700">是否真的变好了</text>
+    <text x="1222" y="280" fill="#526078" font-size="15">业务指标、SLO</text>
+    <text x="1222" y="307" fill="#526078" font-size="15">数据质量与退出证据</text>
+  </g>
+
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
+    <path d="M 240 252 L 254 252"/>
+    <path d="M 428 252 L 442 252"/>
+    <path d="M 616 252 L 630 252"/>
+    <path d="M 804 252 L 818 252"/>
+    <path d="M 992 252 L 1006 252"/>
+    <path d="M 1180 252 L 1194 252"/>
+  </g>
+
+  <path d="M 1284 356 L 1284 438 Q 1284 476 1246 476 L 194 476 Q 156 476 156 438 L 156 358" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#feedback-arrow)"/>
+  <rect x="480" y="446" width="480" height="58" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+  <text x="720" y="483" text-anchor="middle" fill="#115e59" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" font-weight="700">运行结果校准业务假设、架构决策与迁移顺序</text>
+
+  <text x="72" y="566" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="16">缺少任意一层，都会产生断点：目标没有项目承接、系统没有业务理由，或项目完成却无法证明企业状态已经改变。</text>
+</svg>

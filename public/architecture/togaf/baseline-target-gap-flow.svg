@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">同维度比较 Baseline 与 Target 形成可执行 Gap</title>
+  <desc id="desc">Baseline 和 Target 使用业务、数据、应用、技术与组织相同维度描述，中间形成带责任、依赖和退出证据的 Gap。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+  <rect width="1440" height="720" fill="#fff"/>
+  <text x="72" y="60" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">可执行 Gap 来自同一尺度的比较</text>
+  <text x="72" y="97" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">现状说事实，目标说可验证条件，Gap 说明谁改变什么以及何时算完成。</text>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <rect x="72" y="145" width="360" height="430" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="252" y="185" text-anchor="middle" fill="#9a3412" font-size="21" font-weight="700">Baseline 当前状态</text>
+    <text x="104" y="231" fill="#172033" font-size="16" font-weight="700">业务</text><text x="188" y="231" fill="#526078" font-size="14">渠道独立承诺库存</text>
+    <text x="104" y="291" fill="#172033" font-size="16" font-weight="700">数据</text><text x="188" y="291" fill="#526078" font-size="14">多套 SKU 与库存口径</text>
+    <text x="104" y="351" fill="#172033" font-size="16" font-weight="700">应用</text><text x="188" y="351" fill="#526078" font-size="14">三个系统都能锁定</text>
+    <text x="104" y="411" fill="#172033" font-size="16" font-weight="700">技术</text><text x="188" y="411" fill="#526078" font-size="14">批量同步、缺少重放</text>
+    <text x="104" y="471" fill="#172033" font-size="16" font-weight="700">组织</text><text x="188" y="471" fill="#526078" font-size="14">规则由多团队修改</text>
+    <text x="252" y="531" text-anchor="middle" fill="#9a3412" font-size="14">证据：调用链、写入来源、对账、访谈</text>
+
+    <rect x="504" y="145" width="432" height="430" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2.5"/>
+    <text x="720" y="185" text-anchor="middle" fill="#854d0e" font-size="21" font-weight="700">Gap 可执行差距</text>
+    <rect x="538" y="215" width="364" height="58" rx="6" fill="#fff" stroke="#d97706"/>
+    <text x="720" y="250" text-anchor="middle" fill="#172033" font-size="16">统一规则、Owner 与异常流程</text>
+    <rect x="538" y="287" width="364" height="58" rx="6" fill="#fff" stroke="#d97706"/>
+    <text x="720" y="322" text-anchor="middle" fill="#172033" font-size="16">映射、清洗、责任与质量</text>
+    <rect x="538" y="359" width="364" height="58" rx="6" fill="#fff" stroke="#d97706"/>
+    <text x="720" y="394" text-anchor="middle" fill="#172033" font-size="16">接口、权限、迁移和旧逻辑退出</text>
+    <rect x="538" y="431" width="364" height="58" rx="6" fill="#fff" stroke="#d97706"/>
+    <text x="720" y="466" text-anchor="middle" fill="#172033" font-size="16">幂等、重放、容量与观测</text>
+    <text x="720" y="531" text-anchor="middle" fill="#854d0e" font-size="14">Owner · 依赖 · 风险 · 退出条件 · 证据</text>
+
+    <rect x="1008" y="145" width="360" height="430" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="1188" y="185" text-anchor="middle" fill="#166534" font-size="21" font-weight="700">Target 目标状态</text>
+    <text x="1040" y="231" fill="#172033" font-size="16" font-weight="700">业务</text><text x="1124" y="231" fill="#526078" font-size="14">企业级库存承诺</text>
+    <text x="1040" y="291" fill="#172033" font-size="16" font-weight="700">数据</text><text x="1124" y="291" fill="#526078" font-size="14">企业身份与统一语义</text>
+    <text x="1040" y="351" fill="#172033" font-size="16" font-weight="700">应用</text><text x="1124" y="351" fill="#526078" font-size="14">库存平台为权威方</text>
+    <text x="1040" y="411" fill="#172033" font-size="16" font-weight="700">技术</text><text x="1124" y="411" fill="#526078" font-size="14">实时预占、可恢复</text>
+    <text x="1040" y="471" fill="#172033" font-size="16" font-weight="700">组织</text><text x="1124" y="471" fill="#526078" font-size="14">能力与数据 Owner 明确</text>
+    <text x="1188" y="531" text-anchor="middle" fill="#166534" font-size="14">条件：指标、流量、责任和退出均可验证</text>
+  </g>
+  <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)"><path d="M432 360H496"/><path d="M936 360H1000"/></g>
+  <rect x="336" y="615" width="768" height="60" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+  <text x="720" y="652" text-anchor="middle" fill="#155e75" font-family="Arial, 'PingFang SC', sans-serif" font-size="18" font-weight="700">Gap 不是系统名称，而是能够被负责、排序、验证和关闭的变化对象</text>
+</svg>
