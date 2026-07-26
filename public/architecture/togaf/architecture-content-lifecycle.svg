@@ -23,7 +23,7 @@
     <rect x="712" y="142" width="370" height="320" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
     <text x="897" y="180" text-anchor="middle" fill="#1d4ed8" font-size="19" font-weight="700">架构仓库</text>
     <text x="750" y="222" fill="#172033" font-size="15">元模型与命名规则</text><text x="940" y="222" fill="#526078" font-size="14">对象如何关联</text>
-    <text x="750" y="261" fill="#172033" font-size="15">架构景观</text><text x="940" y="261" fill="#526078" font-size="14">Baseline / Target / Transition</text>
+    <text x="750" y="261" fill="#172033" font-size="15">架构景观</text><text x="940" y="261" fill="#526078" font-size="14">基线 / 目标 / 过渡态</text>
     <text x="750" y="300" fill="#172033" font-size="15">参考资料库</text><text x="940" y="300" fill="#526078" font-size="14">模式、ABB、SBB</text>
     <text x="750" y="339" fill="#172033" font-size="15">标准信息库</text><text x="940" y="339" fill="#526078" font-size="14">标准、版本、例外</text>
     <text x="750" y="378" fill="#172033" font-size="15">治理日志</text><text x="940" y="378" fill="#526078" font-size="14">ADR、评审、债务</text>

@@ -236,6 +236,7 @@ export const sidebar: DefaultTheme.Sidebar = {
           items: [
             { text: 'TOGAF概述', link: '/docs/design/architecture/togaf/index' },
             { text: 'TOGAF深度实践', link: '/docs/design/architecture/togaf/deep-practice' },
+            { text: '营销系统架构实战', link: '/docs/design/architecture/togaf/marketing-system-practice' },
             { text: '核心问题与应用辨析', link: '/docs/design/architecture/togaf/core-questions' },
             { text: '干系人与架构原则', link: '/docs/design/architecture/togaf/stakeholders-principles' },
             { text: 'ADM方法', link: '/docs/design/architecture/togaf/adm-method' },

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">实时营销决策、权益预留与结果记录</title>
+  <desc id="desc">渠道请求依次经过决策入口、特征人群、规则裁决和权益账本，返回可履约 Offer，并在真实展示后记录曝光。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    </marker>
+    <marker id="return" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="760" fill="#ffffff"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">实时决策不是查一个 Offer，而是完成一次有限期业务承诺</text>
+    <text x="72" y="98" fill="#526078" font-size="18">同步链路只保留必须立即裁决的步骤；曝光、转化和测量使用带业务主键的事实传播。</text>
+
+    <g>
+      <rect x="55" y="130" width="180" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+      <text x="145" y="158" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">渠道 / BFF</text>
+      <text x="145" y="180" text-anchor="middle" fill="#526078" font-size="13">场景与上下文</text>
+
+      <rect x="285" y="130" width="180" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="375" y="158" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">决策入口</text>
+      <text x="375" y="180" text-anchor="middle" fill="#526078" font-size="13">身份、Consent、超时</text>
+
+      <rect x="515" y="130" width="180" height="64" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="605" y="158" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">特征 / 人群</text>
+      <text x="605" y="180" text-anchor="middle" fill="#526078" font-size="13">版本、asOf、新鲜度</text>
+
+      <rect x="745" y="130" width="180" height="64" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+      <text x="835" y="158" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">规则裁决</text>
+      <text x="835" y="180" text-anchor="middle" fill="#526078" font-size="13">资格、互斥、频控</text>
+
+      <rect x="975" y="130" width="180" height="64" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+      <text x="1065" y="158" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">权益账本</text>
+      <text x="1065" y="180" text-anchor="middle" fill="#526078" font-size="13">预算与额度预留</text>
+
+      <rect x="1205" y="130" width="180" height="64" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+      <text x="1295" y="158" text-anchor="middle" fill="#155e75" font-size="17" font-weight="700">决策 / 曝光日志</text>
+      <text x="1295" y="180" text-anchor="middle" fill="#526078" font-size="13">版本、理由、业务凭证</text>
+    </g>
+
+    <g stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 6">
+      <path d="M145 194 V670"/><path d="M375 194 V670"/><path d="M605 194 V670"/>
+      <path d="M835 194 V670"/><path d="M1065 194 V670"/><path d="M1295 194 V670"/>
+    </g>
+
+    <g fill="none" stroke="#475569" stroke-width="2.2" marker-end="url(#arrow)">
+      <path d="M145 235 H365"/>
+      <path d="M375 295 H595"/>
+      <path d="M375 375 H825"/>
+      <path d="M835 455 H1055"/>
+      <path d="M835 535 H1285"/>
+      <path d="M145 655 H1285"/>
+    </g>
+    <g fill="none" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#return)">
+      <path d="M595 335 H385"/>
+      <path d="M1055 495 H845"/>
+      <path d="M825 575 H385"/>
+      <path d="M365 615 H155"/>
+    </g>
+
+    <g font-size="14">
+      <rect x="196" y="210" width="126" height="28" rx="5" fill="#ffffff"/>
+      <text x="259" y="229" text-anchor="middle" fill="#172033">1 决策请求</text>
+      <text x="160" y="257" fill="#526078">requestId、客户、场景、商品、触点</text>
+
+      <rect x="426" y="270" width="130" height="28" rx="5" fill="#ffffff"/>
+      <text x="491" y="289" text-anchor="middle" fill="#172033">2 读取特征</text>
+      <text x="390" y="317" fill="#526078">按用途读取可授权视图</text>
+      <text x="390" y="357" fill="#0f766e">返回版本、新鲜度和缺失标记</text>
+
+      <rect x="540" y="350" width="132" height="28" rx="5" fill="#ffffff"/>
+      <text x="606" y="369" text-anchor="middle" fill="#172033">3 召回与裁决</text>
+      <text x="390" y="397" fill="#526078">候选 Campaign、利润护栏、实验组</text>
+
+      <rect x="876" y="430" width="138" height="28" rx="5" fill="#ffffff"/>
+      <text x="945" y="449" text-anchor="middle" fill="#172033">4 预留稀缺权益</text>
+      <text x="850" y="477" fill="#526078">幂等键、预算、券额度、有效期</text>
+      <text x="850" y="517" fill="#0f766e">reservationId 或明确拒绝原因</text>
+
+      <rect x="986" y="510" width="142" height="28" rx="5" fill="#ffffff"/>
+      <text x="1057" y="529" text-anchor="middle" fill="#172033">5 保存决策证据</text>
+      <text x="850" y="557" fill="#526078">policyVersion、快照、reasonCodes</text>
+
+      <rect x="539" y="550" width="136" height="28" rx="5" fill="#ffffff"/>
+      <text x="607" y="569" text-anchor="middle" fill="#0f766e">6 返回可履约 Offer</text>
+      <text x="390" y="597" fill="#526078">decisionId、凭证、有效期、降级标记</text>
+
+      <rect x="205" y="630" width="158" height="28" rx="5" fill="#ffffff"/>
+      <text x="284" y="649" text-anchor="middle" fill="#172033">7 真实展示后记曝光</text>
+      <text x="715" y="686" text-anchor="middle" fill="#526078">决策返回不是曝光；渠道渲染成功后才产生 Exposure，后续转化通过 decisionId 与 exposureId 关联。</text>
+    </g>
+  </g>
+</svg>

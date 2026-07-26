@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">营销价值流、业务能力与常见断点</title>
+  <desc id="desc">展示营销从策略、人群、决策、权益、触达、转化到学习的价值流，以及支撑它的基础、执行和测量能力。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="760" fill="#ffffff"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">价值流决定能力组合，能力断点决定投资顺序</text>
+    <text x="72" y="98" fill="#526078" font-size="18">从策略假设到结果学习，任一阶段缺少责任或证据，后续都只能用猜测补齐。</text>
+
+    <g>
+      <rect x="70" y="145" width="166" height="152" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+      <text x="153" y="181" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">制定策略</text>
+      <text x="153" y="218" text-anchor="middle" fill="#172033" font-size="15">目标与预算</text>
+      <text x="153" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：先排渠道</text>
+      <text x="153" y="269" text-anchor="middle" fill="#526078" font-size="14">再补业务假设</text>
+
+      <rect x="259" y="145" width="166" height="152" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+      <text x="342" y="181" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">识别人群</text>
+      <text x="342" y="218" text-anchor="middle" fill="#172033" font-size="15">身份、标签、快照</text>
+      <text x="342" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：同名人群</text>
+      <text x="342" y="269" text-anchor="middle" fill="#526078" font-size="14">成员无法重现</text>
+
+      <rect x="448" y="145" width="166" height="152" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="531" y="181" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">生成决策</text>
+      <text x="531" y="218" text-anchor="middle" fill="#172033" font-size="15">资格、互斥、频控</text>
+      <text x="531" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：多套规则</text>
+      <text x="531" y="269" text-anchor="middle" fill="#526078" font-size="14">都认为自己优先</text>
+
+      <rect x="637" y="145" width="166" height="152" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+      <text x="720" y="181" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">承诺权益</text>
+      <text x="720" y="218" text-anchor="middle" fill="#172033" font-size="15">预算、券与赠品</text>
+      <text x="720" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：发放成功</text>
+      <text x="720" y="269" text-anchor="middle" fill="#526078" font-size="14">无法关联预算</text>
+
+      <rect x="826" y="145" width="166" height="152" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="909" y="181" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">渠道触达</text>
+      <text x="909" y="218" text-anchor="middle" fill="#172033" font-size="15">发送、到达、展示</text>
+      <text x="909" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：渠道局部</text>
+      <text x="909" y="269" text-anchor="middle" fill="#526078" font-size="14">频控与重复触达</text>
+
+      <rect x="1015" y="145" width="166" height="152" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
+      <text x="1098" y="181" text-anchor="middle" fill="#9d174d" font-size="17" font-weight="700">观察转化</text>
+      <text x="1098" y="218" text-anchor="middle" fill="#172033" font-size="15">订单、支付、退款</text>
+      <text x="1098" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：按客户与</text>
+      <text x="1098" y="269" text-anchor="middle" fill="#526078" font-size="14">时间事后拼接</text>
+
+      <rect x="1204" y="145" width="166" height="152" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+      <text x="1287" y="181" text-anchor="middle" fill="#155e75" font-size="17" font-weight="700">归因学习</text>
+      <text x="1287" y="218" text-anchor="middle" fill="#172033" font-size="15">实验、归因、复盘</text>
+      <text x="1287" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：模型分配</text>
+      <text x="1287" y="269" text-anchor="middle" fill="#526078" font-size="14">冒充因果效果</text>
+    </g>
+
+    <g fill="none" stroke="#475569" stroke-width="2.2" marker-end="url(#arrow)">
+      <path d="M236 221 H251"/><path d="M425 221 H440"/><path d="M614 221 H629"/>
+      <path d="M803 221 H818"/><path d="M992 221 H1007"/><path d="M1181 221 H1196"/>
+    </g>
+
+    <text x="72" y="355" fill="#172033" font-size="19" font-weight="700">支撑能力分层</text>
+    <rect x="72" y="380" width="1298" height="86" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="100" y="416" fill="#1d4ed8" font-size="17" font-weight="700">可信基础</text>
+    <text x="230" y="416" fill="#172033" font-size="16">客户身份解析</text>
+    <text x="425" y="416" fill="#172033" font-size="16">Consent 与偏好</text>
+    <text x="635" y="416" fill="#172033" font-size="16">事件标准与质量</text>
+    <text x="845" y="416" fill="#172033" font-size="16">标签、人群与快照</text>
+    <text x="1085" y="416" fill="#172033" font-size="16">商品、价格与交易事实</text>
+    <text x="100" y="447" fill="#526078" font-size="14">先解决语义、身份、时间、授权和责任，再讨论实时化。</text>
+
+    <rect x="72" y="486" width="1298" height="86" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="100" y="522" fill="#166534" font-size="17" font-weight="700">决策执行</text>
+    <text x="230" y="522" fill="#172033" font-size="16">活动组合管理</text>
+    <text x="425" y="522" fill="#172033" font-size="16">实时 Offer 决策</text>
+    <text x="635" y="522" fill="#172033" font-size="16">权益与预算账本</text>
+    <text x="845" y="522" fill="#172033" font-size="16">渠道协调与频控</text>
+    <text x="1085" y="522" fill="#172033" font-size="16">规则发布与降级</text>
+    <text x="100" y="553" fill="#526078" font-size="14">每个客户决策都留下版本、理由、承诺凭证和有效期。</text>
+
+    <rect x="72" y="592" width="1298" height="86" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="100" y="628" fill="#6d28d9" font-size="17" font-weight="700">测量治理</text>
+    <text x="230" y="628" fill="#172033" font-size="16">真实曝光</text>
+    <text x="425" y="628" fill="#172033" font-size="16">实验与 Holdout</text>
+    <text x="635" y="628" fill="#172033" font-size="16">转化与退款关联</text>
+    <text x="845" y="628" fill="#172033" font-size="16">归因批次与重算</text>
+    <text x="1085" y="628" fill="#172033" font-size="16">增量毛利与架构反馈</text>
+    <text x="100" y="659" fill="#526078" font-size="14">把相关性、模型归因和因果增量分层，防止局部指标冒充企业收益。</text>
+  </g>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">从活动烟囱到统一营销能力的七阶段迁移路线</title>
+  <desc id="desc">按语义事实、影子决策、低风险接管、权益账本、渠道测量和遗留退出七个阶段逐步转移营销责任。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="760" fill="#ffffff"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">迁移路线按事实责任依赖推进，不按系统上线日期排列</text>
+    <text x="72" y="98" fill="#526078" font-size="18">每个阶段都声明接管范围、对账证据、回退边界和旧责任退出条件。</text>
+
+    <g>
+      <rect x="60" y="150" width="170" height="190" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+      <text x="82" y="184" fill="#9a3412" font-size="15" font-weight="700">阶段 1</text>
+      <text x="82" y="218" fill="#172033" font-size="17" font-weight="700">语义与 Owner</text>
+      <text x="82" y="248" fill="#526078" font-size="13">对象、责任、写入口</text>
+      <text x="82" y="274" fill="#526078" font-size="13">活动与报表盘点</text>
+      <text x="82" y="312" fill="#166534" font-size="13">退出：新增活动使用</text>
+      <text x="82" y="331" fill="#166534" font-size="13">统一对象与结果</text>
+
+      <rect x="252" y="150" width="170" height="190" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+      <text x="274" y="184" fill="#854d0e" font-size="15" font-weight="700">阶段 2</text>
+      <text x="274" y="218" fill="#172033" font-size="17" font-weight="700">事实与 Consent</text>
+      <text x="274" y="248" fill="#526078" font-size="13">事件、身份、授权</text>
+      <text x="274" y="274" fill="#526078" font-size="13">版本人群快照</text>
+      <text x="274" y="312" fill="#166534" font-size="13">退出：主要触点覆盖</text>
+      <text x="274" y="331" fill="#166534" font-size="13">撤回达到 SLA</text>
+
+      <rect x="444" y="150" width="170" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="466" y="184" fill="#1d4ed8" font-size="15" font-weight="700">阶段 3</text>
+      <text x="466" y="218" fill="#172033" font-size="17" font-weight="700">影子决策</text>
+      <text x="466" y="248" fill="#526078" font-size="13">真实输入、不作承诺</text>
+      <text x="466" y="274" fill="#526078" font-size="13">分类新旧差异</text>
+      <text x="466" y="312" fill="#166534" font-size="13">退出：关键差异有</text>
+      <text x="466" y="331" fill="#166534" font-size="13">Owner 并收敛</text>
+
+      <rect x="636" y="150" width="170" height="190" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+      <text x="658" y="184" fill="#166534" font-size="15" font-weight="700">阶段 4</text>
+      <text x="658" y="218" fill="#172033" font-size="17" font-weight="700">低风险接管</text>
+      <text x="658" y="248" fill="#526078" font-size="13">非稀缺 Offer</text>
+      <text x="658" y="274" fill="#526078" font-size="13">活动或客户分桶</text>
+      <text x="658" y="312" fill="#166534" font-size="13">退出：灰度指标稳定</text>
+      <text x="658" y="331" fill="#166534" font-size="13">旧范围停止决策</text>
+
+      <rect x="828" y="150" width="170" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="850" y="184" fill="#6d28d9" font-size="15" font-weight="700">阶段 5</text>
+      <text x="850" y="218" fill="#172033" font-size="17" font-weight="700">权益账本接管</text>
+      <text x="850" y="248" fill="#526078" font-size="13">预算、券、积分</text>
+      <text x="850" y="274" fill="#526078" font-size="13">退款回冲与对账</text>
+      <text x="850" y="312" fill="#166534" font-size="13">退出：账本守恒</text>
+      <text x="850" y="331" fill="#166534" font-size="13">遗留写流量归零</text>
+
+      <rect x="1020" y="150" width="170" height="190" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
+      <text x="1042" y="184" fill="#9d174d" font-size="15" font-weight="700">阶段 6</text>
+      <text x="1042" y="218" fill="#172033" font-size="17" font-weight="700">渠道与测量</text>
+      <text x="1042" y="248" fill="#526078" font-size="13">频控、曝光、实验</text>
+      <text x="1042" y="274" fill="#526078" font-size="13">归因批次迁移</text>
+      <text x="1042" y="312" fill="#166534" font-size="13">退出：口径可解释</text>
+      <text x="1042" y="331" fill="#166534" font-size="13">渠道不再本地裁决</text>
+
+      <rect x="1212" y="150" width="168" height="190" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+      <text x="1234" y="184" fill="#155e75" font-size="15" font-weight="700">阶段 7</text>
+      <text x="1234" y="218" fill="#172033" font-size="17" font-weight="700">遗留责任退出</text>
+      <text x="1234" y="248" fill="#526078" font-size="13">任务、权限、报表</text>
+      <text x="1234" y="274" fill="#526078" font-size="13">手工 SOP 与脚本</text>
+      <text x="1234" y="312" fill="#166534" font-size="13">退出：收益兑现</text>
+      <text x="1234" y="331" fill="#166534" font-size="13">旧责任证据归零</text>
+    </g>
+
+    <g stroke="#475569" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
+      <path d="M230 245 H244"/><path d="M422 245 H436"/><path d="M614 245 H628"/>
+      <path d="M806 245 H820"/><path d="M998 245 H1012"/><path d="M1190 245 H1204"/>
+    </g>
+
+    <text x="72" y="405" fill="#172033" font-size="19" font-weight="700">贯穿每个阶段的四条控制线</text>
+    <rect x="72" y="430" width="1296" height="62" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="100" y="468" fill="#1d4ed8" font-size="17" font-weight="700">责任范围</text>
+    <text x="250" y="468" fill="#172033" font-size="15">活动、渠道或客户桶互斥归属，新旧系统不能同时最终裁决</text>
+
+    <rect x="72" y="510" width="1296" height="62" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="100" y="548" fill="#166534" font-size="17" font-weight="700">接管证据</text>
+    <text x="250" y="548" fill="#172033" font-size="15">影子差异、契约测试、账本对账、灰度指标、故障演练和收益验证</text>
+
+    <rect x="72" y="590" width="1296" height="62" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="100" y="628" fill="#854d0e" font-size="17" font-weight="700">回退边界</text>
+    <text x="250" y="628" fill="#172033" font-size="15">回切流量前说明已产生权益和新数据如何保留、回灌或继续履约</text>
+
+    <rect x="72" y="670" width="1296" height="62" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
+    <text x="100" y="708" fill="#9d174d" font-size="17" font-weight="700">旧责任退出</text>
+    <text x="250" y="708" fill="#172033" font-size="15">页面下线不等于完成；写权限、定时任务、消费者、导出和应急脚本都要归零</text>
+  </g>
+</svg>

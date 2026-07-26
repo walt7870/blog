@@ -17,43 +17,43 @@
   <g font-family="Arial, 'PingFang SC', sans-serif">
     <rect x="72" y="164" width="168" height="176" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
     <text x="94" y="203" fill="#9a3412" font-size="16" font-weight="700">01 业务驱动</text>
-    <text x="94" y="246" fill="#172033" font-size="22" font-weight="700">为什么必须改变</text>
+    <text x="94" y="246" fill="#172033" font-size="18" font-weight="700">为什么必须改变</text>
     <text x="94" y="280" fill="#526078" font-size="15">增长、成本、风险</text>
     <text x="94" y="307" fill="#526078" font-size="15">法规、客户体验</text>
 
     <rect x="260" y="164" width="168" height="176" rx="6" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
     <text x="282" y="203" fill="#854d0e" font-size="16" font-weight="700">02 结果与能力</text>
-    <text x="282" y="246" fill="#172033" font-size="22" font-weight="700">企业要能做什么</text>
+    <text x="282" y="246" fill="#172033" font-size="18" font-weight="700">企业要能做什么</text>
     <text x="282" y="280" fill="#526078" font-size="15">业务结果、价值流</text>
     <text x="282" y="307" fill="#526078" font-size="15">能力与责任组织</text>
 
     <rect x="448" y="164" width="168" height="176" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
     <text x="470" y="203" fill="#1d4ed8" font-size="16" font-weight="700">03 数据事实</text>
-    <text x="470" y="246" fill="#172033" font-size="22" font-weight="700">什么必须可信</text>
+    <text x="470" y="246" fill="#172033" font-size="18" font-weight="700">什么必须可信</text>
     <text x="470" y="280" fill="#526078" font-size="15">语义、身份、Owner</text>
     <text x="470" y="307" fill="#526078" font-size="15">生命周期与质量</text>
 
     <rect x="636" y="164" width="168" height="176" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
     <text x="658" y="203" fill="#166534" font-size="16" font-weight="700">04 应用责任</text>
-    <text x="658" y="246" fill="#172033" font-size="22" font-weight="700">谁负责改变事实</text>
+    <text x="658" y="246" fill="#172033" font-size="18" font-weight="700">谁负责改变事实</text>
     <text x="658" y="280" fill="#526078" font-size="15">系统边界、契约</text>
     <text x="658" y="307" fill="#526078" font-size="15">协作与故障语义</text>
 
     <rect x="824" y="164" width="168" height="176" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
     <text x="846" y="203" fill="#6d28d9" font-size="16" font-weight="700">05 质量属性</text>
-    <text x="846" y="246" fill="#172033" font-size="22" font-weight="700">什么程度才可用</text>
+    <text x="846" y="246" fill="#172033" font-size="18" font-weight="700">什么程度才可用</text>
     <text x="846" y="280" fill="#526078" font-size="15">容量、可用、安全</text>
     <text x="846" y="307" fill="#526078" font-size="15">恢复、成本、观测</text>
 
     <rect x="1012" y="164" width="168" height="176" rx="6" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
     <text x="1034" y="203" fill="#9d174d" font-size="16" font-weight="700">06 迁移与投资</text>
-    <text x="1034" y="246" fill="#172033" font-size="22" font-weight="700">如何逐步到达</text>
+    <text x="1034" y="246" fill="#172033" font-size="18" font-weight="700">如何逐步到达</text>
     <text x="1034" y="280" fill="#526078" font-size="15">Gap、过渡架构</text>
     <text x="1034" y="307" fill="#526078" font-size="15">工作包与依赖</text>
 
     <rect x="1200" y="164" width="168" height="176" rx="6" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
     <text x="1222" y="203" fill="#155e75" font-size="16" font-weight="700">07 运行证据</text>
-    <text x="1222" y="246" fill="#172033" font-size="22" font-weight="700">是否真的变好了</text>
+    <text x="1222" y="246" fill="#172033" font-size="18" font-weight="700">是否真的变好了</text>
     <text x="1222" y="280" fill="#526078" font-size="15">业务指标、SLO</text>
     <text x="1222" y="307" fill="#526078" font-size="15">数据质量与退出证据</text>
   </g>

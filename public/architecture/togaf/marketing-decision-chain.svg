@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img" aria-labelledby="title desc">
+  <title id="title">从增长目标到运行证据的营销架构决策链</title>
+  <desc id="desc">增长假设依次经过业务能力、核心事实、实时决策、客户触达和结果测量，并由运行证据反馈修正。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    </marker>
+    <marker id="feedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="680" fill="#ffffff"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif">
+    <text x="72" y="64" fill="#172033" font-size="30" font-weight="700">营销架构是一条从增长假设到运行证据的承诺链</text>
+    <text x="72" y="101" fill="#526078" font-size="18">每一层既产生下一层的约束，也留下可以复盘、对账和推翻原假设的证据。</text>
+
+    <rect x="60" y="160" width="190" height="190" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="82" y="199" fill="#9a3412" font-size="16" font-weight="700">01 增长假设</text>
+    <text x="82" y="239" fill="#172033" font-size="19" font-weight="700">为什么值得投入</text>
+    <text x="82" y="278" fill="#526078" font-size="15">增量毛利、客户价值</text>
+    <text x="82" y="306" fill="#526078" font-size="15">预算与客户护栏</text>
+
+    <rect x="286" y="160" width="190" height="190" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+    <text x="308" y="199" fill="#854d0e" font-size="16" font-weight="700">02 业务能力</text>
+    <text x="308" y="239" fill="#172033" font-size="19" font-weight="700">企业必须会什么</text>
+    <text x="308" y="278" fill="#526078" font-size="15">识别人群、生成 Offer</text>
+    <text x="308" y="306" fill="#526078" font-size="15">承诺权益、测量结果</text>
+
+    <rect x="512" y="160" width="190" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="534" y="199" fill="#1d4ed8" font-size="16" font-weight="700">03 核心事实</text>
+    <text x="534" y="239" fill="#172033" font-size="19" font-weight="700">什么必须可信</text>
+    <text x="534" y="278" fill="#526078" font-size="15">身份、Consent、人群</text>
+    <text x="534" y="306" fill="#526078" font-size="15">预算、权益与交易</text>
+
+    <rect x="738" y="160" width="190" height="190" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+    <text x="760" y="199" fill="#166534" font-size="16" font-weight="700">04 决策与承诺</text>
+    <text x="760" y="239" fill="#172033" font-size="19" font-weight="700">此刻向谁提供什么</text>
+    <text x="760" y="278" fill="#526078" font-size="15">资格、冲突、频控</text>
+    <text x="760" y="306" fill="#526078" font-size="15">权益预留与有效期</text>
+
+    <rect x="964" y="160" width="190" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="986" y="199" fill="#6d28d9" font-size="16" font-weight="700">05 触达与转化</text>
+    <text x="986" y="239" fill="#172033" font-size="19" font-weight="700">客户实际经历什么</text>
+    <text x="986" y="278" fill="#526078" font-size="15">到达、展示、点击</text>
+    <text x="986" y="306" fill="#526078" font-size="15">订单、支付与退款</text>
+
+    <rect x="1190" y="160" width="190" height="190" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+    <text x="1212" y="199" fill="#155e75" font-size="16" font-weight="700">06 测量与反馈</text>
+    <text x="1212" y="239" fill="#172033" font-size="19" font-weight="700">是否产生增量结果</text>
+    <text x="1212" y="278" fill="#526078" font-size="15">实验、归因、成本</text>
+    <text x="1212" y="306" fill="#526078" font-size="15">策略与架构变更</text>
+
+    <g fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)">
+      <path d="M250 255 H278"/>
+      <path d="M476 255 H504"/>
+      <path d="M702 255 H730"/>
+      <path d="M928 255 H956"/>
+      <path d="M1154 255 H1182"/>
+    </g>
+
+    <path d="M1285 370 V455 Q1285 490 1250 490 H190 Q155 490 155 455 V370" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#feedback)"/>
+    <rect x="450" y="452" width="540" height="76" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+    <text x="720" y="483" text-anchor="middle" fill="#115e59" font-size="18" font-weight="700">运行证据校准增长假设、规则版本、预算分配与能力路线</text>
+    <text x="720" y="510" text-anchor="middle" fill="#526078" font-size="14">结果不是报表终点，而是下一轮 ADM 迭代的输入</text>
+
+    <text x="72" y="602" fill="#526078" font-size="16">断点示例：人群不可重现，决策无法解释；权益没有账本，费用无法核对；曝光不可信，归因结论没有基础。</text>
+  </g>
+</svg>
