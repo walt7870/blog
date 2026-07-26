@@ -1,94 +1,142 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
-  <title id="title">从活动烟囱到统一营销能力的七阶段迁移路线</title>
-  <desc id="desc">按语义事实、影子决策、低风险接管、权益账本、渠道测量和遗留退出七个阶段逐步转移营销责任。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">营销能力从活动烟囱到单一写入口的七阶段迁移路线</title>
+  <desc id="desc">七个阶段依次完成语义、采集、影子决策、活动接管、权益账本、渠道和旧入口退出，每阶段都有进入条件、对账指标、回退锚点和退出证据，并逐步转移业务事实写入责任。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
+    </marker>
+    <marker id="rollback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#be123c"/>
     </marker>
   </defs>
-  <rect width="1440" height="760" fill="#ffffff"/>
+  <rect width="1440" height="900" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">迁移路线按事实责任依赖推进，不按系统上线日期排列</text>
-    <text x="72" y="98" fill="#526078" font-size="18">每个阶段都声明接管范围、对账证据、回退边界和旧责任退出条件。</text>
+    <text x="66" y="54" fill="#172033" font-size="29" font-weight="700">迁移不是七次上线，而是七次事实责任接管</text>
+    <text x="66" y="90" fill="#526078" font-size="17">只有进入条件、对账指标、回退路径和退出证据齐备，写入口才能继续从遗留系统移向目标平台。</text>
+    <g font-size="12">
+      <rect x="1110" y="44" width="16" height="16" rx="3" fill="#cbd5e1"/><text x="1136" y="57" fill="#526078">旧系统责任</text>
+      <rect x="1222" y="44" width="16" height="16" rx="3" fill="#0f766e"/><text x="1248" y="57" fill="#526078">新平台责任</text>
+      <path d="M1332 52 H1372" stroke="#be123c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#rollback)"/>
+    </g>
 
+    <path d="M104 388 H1332" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+    <g fill="#ffffff" stroke="#334155" stroke-width="3">
+      <circle cx="152" cy="388" r="15"/><circle cx="334" cy="388" r="15"/><circle cx="516" cy="388" r="15"/>
+      <circle cx="698" cy="388" r="15"/><circle cx="880" cy="388" r="15"/><circle cx="1062" cy="388" r="15"/><circle cx="1244" cy="388" r="15"/>
+    </g>
+    <g text-anchor="middle">
+      <rect x="68" y="134" width="168" height="220" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+      <rect x="68" y="134" width="168" height="40" rx="12" fill="#e2e8f0"/>
+      <text x="152" y="160" fill="#334155" font-size="13" font-weight="700">01 语义与 Owner</text>
+      <text x="152" y="200" fill="#172033" font-size="14" font-weight="700">先对齐共同语言</text>
+      <text x="152" y="229" fill="#526078" font-size="11">接管：无</text>
+      <text x="152" y="251" fill="#526078" font-size="11">客户、人群、曝光</text>
+      <text x="152" y="273" fill="#526078" font-size="11">权益与归因语义</text>
+      <rect x="88" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#64748b"/>
+      <text x="152" y="320" fill="#334155" font-size="11" font-weight="700">权威矩阵获批</text>
+
+      <rect x="250" y="134" width="168" height="220" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+      <rect x="250" y="134" width="168" height="40" rx="12" fill="#dbeafe"/>
+      <text x="334" y="160" fill="#1d4ed8" font-size="13" font-weight="700">02 采集与 Consent</text>
+      <text x="334" y="200" fill="#172033" font-size="14" font-weight="700">先统一证据入口</text>
+      <text x="334" y="229" fill="#526078" font-size="11">接管：事件契约</text>
+      <text x="334" y="251" fill="#526078" font-size="11">授权校验</text>
+      <text x="334" y="273" fill="#526078" font-size="11">客户身份映射</text>
+      <rect x="270" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#2563eb"/>
+      <text x="334" y="320" fill="#1d4ed8" font-size="11" font-weight="700">事件质量达标</text>
+
+      <rect x="432" y="134" width="168" height="220" rx="12" fill="#ecfeff" stroke="#0e7490" stroke-width="1.6"/>
+      <rect x="432" y="134" width="168" height="40" rx="12" fill="#cffafe"/>
+      <text x="516" y="160" fill="#155e75" font-size="13" font-weight="700">03 影子决策</text>
+      <text x="516" y="200" fill="#172033" font-size="14" font-weight="700">比较但不承诺</text>
+      <text x="516" y="229" fill="#526078" font-size="11">接管：决策计算</text>
+      <text x="516" y="251" fill="#526078" font-size="11">不发券、不触达</text>
+      <text x="516" y="273" fill="#526078" font-size="11">只记录差异原因</text>
+      <rect x="452" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#0e7490"/>
+      <text x="516" y="320" fill="#155e75" font-size="11" font-weight="700">差异率可解释</text>
+
+      <rect x="614" y="134" width="168" height="220" rx="12" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.6"/>
+      <rect x="614" y="134" width="168" height="40" rx="12" fill="#ccfbf1"/>
+      <text x="698" y="160" fill="#0f766e" font-size="13" font-weight="700">04 低风险活动</text>
+      <text x="698" y="200" fill="#172033" font-size="14" font-weight="700">互斥灰度接管</text>
+      <text x="698" y="229" fill="#526078" font-size="11">接管：资格与 Offer</text>
+      <text x="698" y="251" fill="#526078" font-size="11">客户按桶互斥</text>
+      <text x="698" y="273" fill="#526078" font-size="11">不做长期双写</text>
+      <rect x="634" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#0f766e"/>
+      <text x="698" y="320" fill="#0f766e" font-size="11" font-weight="700">结果与护栏稳定</text>
+
+      <rect x="796" y="134" width="168" height="220" rx="12" fill="#fefce8" stroke="#a16207" stroke-width="1.6"/>
+      <rect x="796" y="134" width="168" height="40" rx="12" fill="#fef3c7"/>
+      <text x="880" y="160" fill="#854d0e" font-size="13" font-weight="700">05 权益账本</text>
+      <text x="880" y="200" fill="#172033" font-size="14" font-weight="700">接管稀缺承诺</text>
+      <text x="880" y="229" fill="#526078" font-size="11">接管：预算预留</text>
+      <text x="880" y="251" fill="#526078" font-size="11">发放、核销、释放</text>
+      <text x="880" y="273" fill="#526078" font-size="11">统一 reservationId</text>
+      <rect x="816" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#a16207"/>
+      <text x="880" y="320" fill="#854d0e" font-size="11" font-weight="700">三账对平</text>
+
+      <rect x="978" y="134" width="168" height="220" rx="12" fill="#fff7ed" stroke="#c2410c" stroke-width="1.6"/>
+      <rect x="978" y="134" width="168" height="40" rx="12" fill="#ffedd5"/>
+      <text x="1062" y="160" fill="#9a3412" font-size="13" font-weight="700">06 渠道迁移</text>
+      <text x="1062" y="200" fill="#172033" font-size="14" font-weight="700">统一频控与曝光</text>
+      <text x="1062" y="229" fill="#526078" font-size="11">接管：投递编排</text>
+      <text x="1062" y="251" fill="#526078" font-size="11">展示回执与曝光</text>
+      <text x="1062" y="273" fill="#526078" font-size="11">跨渠道频控</text>
+      <rect x="998" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#c2410c"/>
+      <text x="1062" y="320" fill="#9a3412" font-size="11" font-weight="700">曝光口径一致</text>
+
+      <rect x="1160" y="134" width="168" height="220" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+      <rect x="1160" y="134" width="168" height="40" rx="12" fill="#ede9fe"/>
+      <text x="1244" y="160" fill="#6d28d9" font-size="13" font-weight="700">07 旧入口退出</text>
+      <text x="1244" y="200" fill="#172033" font-size="14" font-weight="700">形成单一写入口</text>
+      <text x="1244" y="229" fill="#526078" font-size="11">接管：全部新活动</text>
+      <text x="1244" y="251" fill="#526078" font-size="11">旧系统只读归档</text>
+      <text x="1244" y="273" fill="#526078" font-size="11">停用旧规则入口</text>
+      <rect x="1180" y="299" width="128" height="32" rx="16" fill="#ffffff" stroke="#7c3aed"/>
+      <text x="1244" y="320" fill="#6d28d9" font-size="11" font-weight="700">退出证据归档</text>
+    </g>
+
+    <g fill="#334155" font-size="11" text-anchor="middle" font-weight="700">
+      <text x="152" y="422">语义门</text><text x="334" y="422">质量门</text><text x="516" y="422">一致性门</text><text x="698" y="422">灰度门</text><text x="880" y="422">账本门</text><text x="1062" y="422">渠道门</text><text x="1244" y="422">退出门</text>
+    </g>
+
+    <rect x="68" y="452" width="1260" height="180" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+    <g font-size="11">
+      <rect x="68" y="452" width="112" height="60" rx="10" fill="#e2e8f0"/><text x="124" y="478" text-anchor="middle" fill="#334155" font-weight="700">进入条件</text><text x="124" y="498" text-anchor="middle" fill="#526078">允许开始接管</text>
+      <rect x="68" y="512" width="112" height="60" fill="#e8f2ff"/><text x="124" y="538" text-anchor="middle" fill="#1d4ed8" font-weight="700">对账指标</text><text x="124" y="558" text-anchor="middle" fill="#526078">证明没有偏移</text>
+      <rect x="68" y="572" width="112" height="60" rx="10" fill="#ecfdf5"/><text x="124" y="598" text-anchor="middle" fill="#0f766e" font-weight="700">退出证据</text><text x="124" y="618" text-anchor="middle" fill="#526078">允许关闭旧入口</text>
+    </g>
+    <g stroke="#cbd5e1"><path d="M180 512 H1328"/><path d="M180 572 H1328"/></g>
+    <g text-anchor="middle" font-size="10">
+      <text x="235" y="480" fill="#334155">干系人签字</text><text x="235" y="500" fill="#526078">术语冲突清零</text><text x="235" y="540" fill="#1d4ed8">Owner 覆盖率</text><text x="235" y="560" fill="#526078">定义版本完整</text><text x="235" y="600" fill="#0f766e">权威矩阵</text><text x="235" y="620" fill="#526078">与命名规范</text>
+      <text x="417" y="480" fill="#334155">Schema 冻结</text><text x="417" y="500" fill="#526078">Consent 接口可用</text><text x="417" y="540" fill="#1d4ed8">丢失 / 重复率</text><text x="417" y="560" fill="#526078">撤回传播时间</text><text x="417" y="600" fill="#0f766e">采集对账报告</text><text x="417" y="620" fill="#526078">授权审计证据</text>
+      <text x="599" y="480" fill="#334155">只读影子环境</text><text x="599" y="500" fill="#526078">策略版本可追踪</text><text x="599" y="540" fill="#1d4ed8">候选 / 拒绝差异</text><text x="599" y="560" fill="#526078">reasonCode 覆盖</text><text x="599" y="600" fill="#0f766e">差异可解释</text><text x="599" y="620" fill="#526078">无权益副作用</text>
+      <text x="781" y="480" fill="#334155">低风险活动池</text><text x="781" y="500" fill="#526078">客户互斥分桶</text><text x="781" y="540" fill="#1d4ed8">转化 / 投诉 / SLO</text><text x="781" y="560" fill="#526078">与旧链对齐</text><text x="781" y="600" fill="#0f766e">灰度复盘</text><text x="781" y="620" fill="#526078">回退演练通过</text>
+      <text x="963" y="480" fill="#334155">幂等与状态机</text><text x="963" y="500" fill="#526078">预算授权完成</text><text x="963" y="540" fill="#1d4ed8">预算 / 权益 / 订单</text><text x="963" y="560" fill="#526078">差异趋近于零</text><text x="963" y="600" fill="#0f766e">账本单一写入</text><text x="963" y="620" fill="#526078">旧发券入口关闭</text>
+      <text x="1145" y="480" fill="#334155">渠道适配完成</text><text x="1145" y="500" fill="#526078">曝光契约一致</text><text x="1145" y="540" fill="#1d4ed8">频控 / 曝光 / 到达</text><text x="1145" y="560" fill="#526078">跨渠道对账</text><text x="1145" y="600" fill="#0f766e">渠道切换记录</text><text x="1145" y="620" fill="#526078">局部名单停用</text>
+      <text x="1275" y="480" fill="#334155">连续稳定周期</text><text x="1275" y="500" fill="#526078">无未迁活动</text><text x="1275" y="540" fill="#1d4ed8">旧入口调用量</text><text x="1275" y="560" fill="#526078">归零且无回流</text><text x="1275" y="600" fill="#0f766e">只读归档</text><text x="1275" y="620" fill="#526078">资产与 Owner 移交</text>
+    </g>
+
+    <g fill="none" stroke="#be123c" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#rollback)">
+      <path d="M334 638 V666 H152 V632"/><path d="M516 638 V680 H334 V632"/><path d="M698 638 V694 H516 V632"/>
+      <path d="M880 638 V708 H698 V632"/><path d="M1062 638 V722 H880 V632"/><path d="M1244 638 V736 H1062 V632"/>
+    </g>
+    <text x="68" y="670" fill="#9f1239" font-size="11" font-weight="700">回退锚点：恢复上一阶段单一责任边界，而不是开启第二条长期写入链</text>
+
+    <text x="68" y="774" fill="#172033" font-size="17" font-weight="700">事实写入责任接管比例</text>
+    <rect x="68" y="792" width="1260" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
     <g>
-      <rect x="60" y="150" width="170" height="190" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-      <text x="82" y="184" fill="#9a3412" font-size="15" font-weight="700">阶段 1</text>
-      <text x="82" y="218" fill="#172033" font-size="17" font-weight="700">语义与 Owner</text>
-      <text x="82" y="248" fill="#526078" font-size="13">对象、责任、写入口</text>
-      <text x="82" y="274" fill="#526078" font-size="13">活动与报表盘点</text>
-      <text x="82" y="312" fill="#166534" font-size="13">退出：新增活动使用</text>
-      <text x="82" y="331" fill="#166534" font-size="13">统一对象与结果</text>
-
-      <rect x="252" y="150" width="170" height="190" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-      <text x="274" y="184" fill="#854d0e" font-size="15" font-weight="700">阶段 2</text>
-      <text x="274" y="218" fill="#172033" font-size="17" font-weight="700">事实与 Consent</text>
-      <text x="274" y="248" fill="#526078" font-size="13">事件、身份、授权</text>
-      <text x="274" y="274" fill="#526078" font-size="13">版本人群快照</text>
-      <text x="274" y="312" fill="#166534" font-size="13">退出：主要触点覆盖</text>
-      <text x="274" y="331" fill="#166534" font-size="13">撤回达到 SLA</text>
-
-      <rect x="444" y="150" width="170" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="466" y="184" fill="#1d4ed8" font-size="15" font-weight="700">阶段 3</text>
-      <text x="466" y="218" fill="#172033" font-size="17" font-weight="700">影子决策</text>
-      <text x="466" y="248" fill="#526078" font-size="13">真实输入、不作承诺</text>
-      <text x="466" y="274" fill="#526078" font-size="13">分类新旧差异</text>
-      <text x="466" y="312" fill="#166534" font-size="13">退出：关键差异有</text>
-      <text x="466" y="331" fill="#166534" font-size="13">Owner 并收敛</text>
-
-      <rect x="636" y="150" width="170" height="190" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-      <text x="658" y="184" fill="#166534" font-size="15" font-weight="700">阶段 4</text>
-      <text x="658" y="218" fill="#172033" font-size="17" font-weight="700">低风险接管</text>
-      <text x="658" y="248" fill="#526078" font-size="13">非稀缺 Offer</text>
-      <text x="658" y="274" fill="#526078" font-size="13">活动或客户分桶</text>
-      <text x="658" y="312" fill="#166534" font-size="13">退出：灰度指标稳定</text>
-      <text x="658" y="331" fill="#166534" font-size="13">旧范围停止决策</text>
-
-      <rect x="828" y="150" width="170" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-      <text x="850" y="184" fill="#6d28d9" font-size="15" font-weight="700">阶段 5</text>
-      <text x="850" y="218" fill="#172033" font-size="17" font-weight="700">权益账本接管</text>
-      <text x="850" y="248" fill="#526078" font-size="13">预算、券、积分</text>
-      <text x="850" y="274" fill="#526078" font-size="13">退款回冲与对账</text>
-      <text x="850" y="312" fill="#166534" font-size="13">退出：账本守恒</text>
-      <text x="850" y="331" fill="#166534" font-size="13">遗留写流量归零</text>
-
-      <rect x="1020" y="150" width="170" height="190" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-      <text x="1042" y="184" fill="#9d174d" font-size="15" font-weight="700">阶段 6</text>
-      <text x="1042" y="218" fill="#172033" font-size="17" font-weight="700">渠道与测量</text>
-      <text x="1042" y="248" fill="#526078" font-size="13">频控、曝光、实验</text>
-      <text x="1042" y="274" fill="#526078" font-size="13">归因批次迁移</text>
-      <text x="1042" y="312" fill="#166534" font-size="13">退出：口径可解释</text>
-      <text x="1042" y="331" fill="#166534" font-size="13">渠道不再本地裁决</text>
-
-      <rect x="1212" y="150" width="168" height="190" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-      <text x="1234" y="184" fill="#155e75" font-size="15" font-weight="700">阶段 7</text>
-      <text x="1234" y="218" fill="#172033" font-size="17" font-weight="700">遗留责任退出</text>
-      <text x="1234" y="248" fill="#526078" font-size="13">任务、权限、报表</text>
-      <text x="1234" y="274" fill="#526078" font-size="13">手工 SOP 与脚本</text>
-      <text x="1234" y="312" fill="#166534" font-size="13">退出：收益兑现</text>
-      <text x="1234" y="331" fill="#166534" font-size="13">旧责任证据归零</text>
+      <rect x="84" y="808" width="152" height="34" rx="5" fill="#cbd5e1"/><rect x="266" y="808" width="152" height="34" rx="5" fill="#cbd5e1"/>
+      <rect x="448" y="808" width="152" height="34" rx="5" fill="#cbd5e1"/>
+      <rect x="630" y="808" width="122" height="34" rx="5" fill="#cbd5e1"/><rect x="752" y="808" width="30" height="34" rx="5" fill="#0f766e"/>
+      <rect x="812" y="808" width="76" height="34" rx="5" fill="#cbd5e1"/><rect x="888" y="808" width="76" height="34" rx="5" fill="#0f766e"/>
+      <rect x="994" y="808" width="30" height="34" rx="5" fill="#cbd5e1"/><rect x="1024" y="808" width="122" height="34" rx="5" fill="#0f766e"/>
+      <rect x="1176" y="808" width="152" height="34" rx="5" fill="#0f766e"/>
     </g>
-
-    <g stroke="#475569" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
-      <path d="M230 245 H244"/><path d="M422 245 H436"/><path d="M614 245 H628"/>
-      <path d="M806 245 H820"/><path d="M998 245 H1012"/><path d="M1190 245 H1204"/>
+    <g text-anchor="middle" font-size="10" font-weight="700">
+      <text x="160" y="833" fill="#334155">旧 100% / 新 0%</text><text x="342" y="833" fill="#334155">旧 100% / 新 0%</text><text x="524" y="833" fill="#334155">只比较，不写入</text>
+      <text x="706" y="833" fill="#ffffff">80 / 20</text><text x="850" y="833" fill="#334155">旧 50</text><text x="926" y="833" fill="#ffffff">新 50</text><text x="1070" y="833" fill="#ffffff">20 / 80</text><text x="1252" y="833" fill="#ffffff">旧 0% / 新 100%</text>
     </g>
-
-    <text x="72" y="405" fill="#172033" font-size="19" font-weight="700">贯穿每个阶段的四条控制线</text>
-    <rect x="72" y="430" width="1296" height="62" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="100" y="468" fill="#1d4ed8" font-size="17" font-weight="700">责任范围</text>
-    <text x="250" y="468" fill="#172033" font-size="15">活动、渠道或客户桶互斥归属，新旧系统不能同时最终裁决</text>
-
-    <rect x="72" y="510" width="1296" height="62" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <text x="100" y="548" fill="#166534" font-size="17" font-weight="700">接管证据</text>
-    <text x="250" y="548" fill="#172033" font-size="15">影子差异、契约测试、账本对账、灰度指标、故障演练和收益验证</text>
-
-    <rect x="72" y="590" width="1296" height="62" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-    <text x="100" y="628" fill="#854d0e" font-size="17" font-weight="700">回退边界</text>
-    <text x="250" y="628" fill="#172033" font-size="15">回切流量前说明已产生权益和新数据如何保留、回灌或继续履约</text>
-
-    <rect x="72" y="670" width="1296" height="62" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-    <text x="100" y="708" fill="#9d174d" font-size="17" font-weight="700">旧责任退出</text>
-    <text x="250" y="708" fill="#172033" font-size="15">页面下线不等于完成；写权限、定时任务、消费者、导出和应急脚本都要归零</text>
+    <text x="720" y="884" text-anchor="middle" fill="#526078" font-size="11">百分比表示被互斥分配给新平台的业务责任范围，不表示同一请求同时写入两套系统</text>
   </g>
 </svg>

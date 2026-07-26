@@ -1,80 +1,113 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
-  <title id="title">从实验分组、曝光和转化到策略反馈的测量闭环</title>
-  <desc id="desc">营销策略经过实验分组、决策曝光和交易转化，分别形成漏斗、归因和增量证据，再反馈到下一轮策略。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">营销交易事实、测量方法与策略反馈双轨闭环</title>
+  <desc id="desc">上轨记录人群、分组、决策、曝光、订单和退款事实，下轨分别计算漏斗、触点归因和实验增量，迟到事件与退款进入重算窗口，分析结果只能反馈下一版策略而不能修改交易事实。</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    <marker id="factArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
     </marker>
-    <marker id="loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <marker id="measureArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
     </marker>
+    <marker id="correctionArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b45309"/>
+    </marker>
   </defs>
-  <rect width="1440" height="720" fill="#ffffff"/>
+  <rect width="1440" height="900" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">测量闭环要区分发生了什么、贡献如何分配、是否真正产生增量</text>
-    <text x="72" y="98" fill="#526078" font-size="18">原始事实保持不变，模型结果按版本重算，实验结论再进入下一轮策略与架构决策。</text>
-
-    <g>
-      <rect x="72" y="154" width="190" height="120" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-      <text x="167" y="190" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">策略与假设</text>
-      <text x="167" y="222" text-anchor="middle" fill="#172033" font-size="15">目标、预算、Offer</text>
-      <text x="167" y="249" text-anchor="middle" fill="#526078" font-size="14">主要指标与护栏</text>
-
-      <rect x="292" y="154" width="190" height="120" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="387" y="190" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">实验分组</text>
-      <text x="387" y="222" text-anchor="middle" fill="#172033" font-size="15">稳定单元、哈希、Salt</text>
-      <text x="387" y="249" text-anchor="middle" fill="#526078" font-size="14">实验组、对照组、Holdout</text>
-
-      <rect x="512" y="154" width="190" height="120" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-      <text x="607" y="190" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">决策与曝光</text>
-      <text x="607" y="222" text-anchor="middle" fill="#172033" font-size="15">decisionId、policyVersion</text>
-      <text x="607" y="249" text-anchor="middle" fill="#526078" font-size="14">真实展示产生 exposureId</text>
-
-      <rect x="732" y="154" width="190" height="120" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-      <text x="827" y="190" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">交易转化</text>
-      <text x="827" y="222" text-anchor="middle" fill="#172033" font-size="15">订单、支付、退款</text>
-      <text x="827" y="249" text-anchor="middle" fill="#526078" font-size="14">交易域确认业务事实</text>
-
-      <rect x="952" y="154" width="190" height="120" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-      <text x="1047" y="190" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">模型计算</text>
-      <text x="1047" y="222" text-anchor="middle" fill="#172033" font-size="15">窗口、模型、批次</text>
-      <text x="1047" y="249" text-anchor="middle" fill="#526078" font-size="14">迟到与退款触发重算</text>
-
-      <rect x="1172" y="154" width="196" height="120" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-      <text x="1270" y="190" text-anchor="middle" fill="#155e75" font-size="17" font-weight="700">增量与反馈</text>
-      <text x="1270" y="222" text-anchor="middle" fill="#172033" font-size="15">增量毛利、客户护栏</text>
-      <text x="1270" y="249" text-anchor="middle" fill="#526078" font-size="14">改变策略与投资顺序</text>
+    <text x="66" y="54" fill="#172033" font-size="29" font-weight="700">交易事实回答“发生了什么”，测量模型回答“如何解释”</text>
+    <text x="66" y="90" fill="#526078" font-size="17">漏斗、触点归因和随机实验解决不同问题；分析结论通过下一版策略生效，不能覆盖已经发生的订单事实。</text>
+    <g font-size="12">
+      <line x1="1030" y1="54" x2="1070" y2="54" stroke="#334155" stroke-width="2.2" marker-end="url(#factArrow)"/><text x="1080" y="58" fill="#526078">业务事实</text>
+      <line x1="1170" y1="54" x2="1210" y2="54" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#measureArrow)"/><text x="1220" y="58" fill="#526078">测量与反馈</text>
+      <line x1="1322" y1="54" x2="1362" y2="54" stroke="#b45309" stroke-width="2.2" marker-end="url(#correctionArrow)"/>
     </g>
 
-    <g stroke="#475569" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
-      <path d="M262 214 H284"/><path d="M482 214 H504"/><path d="M702 214 H724"/>
-      <path d="M922 214 H944"/><path d="M1142 214 H1164"/>
+    <rect x="54" y="122" width="1332" height="212" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+    <rect x="54" y="122" width="132" height="212" rx="12" fill="#e2e8f0"/>
+    <text x="120" y="164" text-anchor="middle" fill="#334155" font-size="16" font-weight="700">交易事实轨</text>
+    <text x="120" y="191" text-anchor="middle" fill="#526078" font-size="12">只追加或按</text><text x="120" y="212" text-anchor="middle" fill="#526078" font-size="12">业务状态变更</text>
+    <text x="120" y="260" text-anchor="middle" fill="#172033" font-size="12" font-weight="700">回答</text>
+    <text x="120" y="283" text-anchor="middle" fill="#334155" font-size="13">客户经历了什么</text>
+    <text x="120" y="305" text-anchor="middle" fill="#334155" font-size="13">交易最终怎样结束</text>
+
+    <path d="M224 226 H1350" fill="none" stroke="#334155" stroke-width="2.4" marker-end="url(#factArrow)"/>
+    <g text-anchor="middle">
+      <circle cx="274" cy="226" r="52" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="274" y="218" fill="#1d4ed8" font-size="13" font-weight="700">Audience</text><text x="274" y="238" fill="#1d4ed8" font-size="13" font-weight="700">Snapshot</text><text x="274" y="260" fill="#526078" font-size="10">圈选时成员</text>
+      <circle cx="470" cy="226" r="52" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="470" y="218" fill="#6d28d9" font-size="13" font-weight="700">Assignment</text><text x="470" y="240" fill="#526078" font-size="11">实验 / 对照分组</text><text x="470" y="259" fill="#526078" font-size="10">稳定 hash</text>
+      <circle cx="666" cy="226" r="52" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+      <text x="666" y="218" fill="#0f766e" font-size="13" font-weight="700">Decision</text><text x="666" y="240" fill="#526078" font-size="11">Offer 与理由</text><text x="666" y="259" fill="#526078" font-size="10">policyVersion</text>
+      <circle cx="862" cy="226" r="52" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
+      <text x="862" y="218" fill="#155e75" font-size="13" font-weight="700">Exposure</text><text x="862" y="240" fill="#526078" font-size="11">真实展示</text><text x="862" y="259" fill="#526078" font-size="10">exposureId</text>
+      <circle cx="1058" cy="226" r="52" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+      <text x="1058" y="218" fill="#854d0e" font-size="13" font-weight="700">Order / Pay</text><text x="1058" y="240" fill="#526078" font-size="11">成交与实付</text><text x="1058" y="259" fill="#526078" font-size="10">orderId</text>
+      <circle cx="1254" cy="226" r="52" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+      <text x="1254" y="218" fill="#9a3412" font-size="13" font-weight="700">Refund</text><text x="1254" y="240" fill="#526078" font-size="11">退款与成本回冲</text><text x="1254" y="259" fill="#526078" font-size="10">最终交易状态</text>
     </g>
 
-    <path d="M1270 286 V332 Q1270 360 1242 360 H196 Q168 360 168 332 V286" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#loop)"/>
-    <rect x="486" y="329" width="468" height="58" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-    <text x="720" y="365" text-anchor="middle" fill="#115e59" font-size="17" font-weight="700">证据推翻假设时，调整 Campaign、能力投资或架构约束</text>
+    <g fill="none" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#measureArrow)">
+      <path d="M274 278 V398"/><path d="M470 278 V444"/><path d="M666 278 V398"/><path d="M862 278 V398"/><path d="M1058 278 V398"/><path d="M1254 278 V398"/>
+    </g>
 
-    <text x="72" y="436" fill="#172033" font-size="19" font-weight="700">三种证据不能互相替代</text>
-    <rect x="72" y="462" width="400" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="100" y="499" fill="#1d4ed8" font-size="18" font-weight="700">漏斗：发生了什么</text>
-    <text x="100" y="532" fill="#172033" font-size="15">曝光 → 点击 → 领券 → 下单 → 支付</text>
-    <text x="100" y="560" fill="#526078" font-size="14">定位过程断点和数据缺口</text>
-    <text x="100" y="588" fill="#9a3412" font-size="14">不能证明购买由营销造成</text>
+    <rect x="54" y="370" width="1332" height="302" rx="12" fill="#f2fbf8" stroke="#0f766e" stroke-width="1.5"/>
+    <rect x="54" y="370" width="132" height="302" rx="12" fill="#ccfbf1"/>
+    <text x="120" y="412" text-anchor="middle" fill="#0f766e" font-size="16" font-weight="700">测量解释轨</text>
+    <text x="120" y="439" text-anchor="middle" fill="#526078" font-size="12">读取事实</text><text x="120" y="460" text-anchor="middle" fill="#526078" font-size="12">生成版本化结论</text>
+    <text x="120" y="507" text-anchor="middle" fill="#172033" font-size="12" font-weight="700">三种问题</text>
+    <text x="120" y="532" text-anchor="middle" fill="#115e59" font-size="12">过程哪里流失</text>
+    <text x="120" y="555" text-anchor="middle" fill="#115e59" font-size="12">触点怎样分配</text>
+    <text x="120" y="578" text-anchor="middle" fill="#115e59" font-size="12">策略是否带来增量</text>
 
-    <rect x="520" y="462" width="400" height="150" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="548" y="499" fill="#6d28d9" font-size="18" font-weight="700">归因：贡献如何分配</text>
-    <text x="548" y="532" fill="#172033" font-size="15">首次、末次、线性、时间衰减</text>
-    <text x="548" y="560" fill="#526078" font-size="14">声明模型、窗口、批次和置信度</text>
-    <text x="548" y="588" fill="#9a3412" font-size="14">模型分配不等于因果贡献</text>
+    <g text-anchor="middle">
+      <rect x="236" y="414" width="286" height="150" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+      <text x="379" y="447" fill="#1d4ed8" font-size="16" font-weight="700">漏斗与过程转化</text>
+      <text x="379" y="476" fill="#172033" font-size="13">展示 → 点击 → 下单 → 支付</text>
+      <text x="379" y="502" fill="#526078" font-size="12">回答“哪里流失”</text>
+      <rect x="279" y="521" width="200" height="24" rx="12" fill="#eff6ff"/>
+      <text x="379" y="538" fill="#1d4ed8" font-size="11">不能证明活动造成了购买</text>
 
-    <rect x="968" y="462" width="400" height="150" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <text x="996" y="499" fill="#166534" font-size="18" font-weight="700">实验：是否产生增量</text>
-    <text x="996" y="532" fill="#172033" font-size="15">随机对照、Holdout、准实验</text>
-    <text x="996" y="560" fill="#526078" font-size="14">处理分组、污染、漂移和退款</text>
-    <text x="996" y="588" fill="#9a3412" font-size="14">结论受人群、时期和干预范围约束</text>
+      <rect x="556" y="414" width="286" height="150" rx="12" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+      <text x="699" y="447" fill="#6d28d9" font-size="16" font-weight="700">触点归因</text>
+      <text x="699" y="476" fill="#172033" font-size="13">末次、首次或规则化分配</text>
+      <text x="699" y="502" fill="#526078" font-size="12">回答“怎样解释贡献”</text>
+      <rect x="599" y="521" width="200" height="24" rx="12" fill="#f5f3ff"/>
+      <text x="699" y="538" fill="#6d28d9" font-size="11">规则改变会改变分配结果</text>
 
-    <rect x="72" y="640" width="1296" height="46" rx="8" fill="#f8fafc" stroke="#94a3b8"/>
-    <text x="720" y="669" text-anchor="middle" fill="#526078" font-size="14">原始 Exposure、Order、Payment、Refund 保持不可变；AttributionResult 按 modelVersion 与 calculationBatchId 版本化重算。</text>
+      <rect x="876" y="414" width="286" height="150" rx="12" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="1019" y="447" fill="#0f766e" font-size="16" font-weight="700">随机实验与 Holdout</text>
+      <text x="1019" y="476" fill="#172033" font-size="13">实验组与对照组结果差异</text>
+      <text x="1019" y="502" fill="#526078" font-size="12">回答“是否产生因果增量”</text>
+      <rect x="919" y="521" width="200" height="24" rx="12" fill="#ecfdf5"/>
+      <text x="1019" y="538" fill="#0f766e" font-size="11">需要稳定分组并控制污染</text>
+    </g>
+
+    <rect x="1198" y="414" width="162" height="150" rx="12" fill="#fffbeb" stroke="#b45309" stroke-width="1.8"/>
+    <text x="1279" y="444" text-anchor="middle" fill="#92400e" font-size="14" font-weight="700">重算窗口</text>
+    <text x="1279" y="472" text-anchor="middle" fill="#172033" font-size="12">迟到 Exposure</text>
+    <text x="1279" y="495" text-anchor="middle" fill="#172033" font-size="12">退款与成本回冲</text>
+    <text x="1279" y="522" text-anchor="middle" fill="#526078" font-size="11">更新 analysisVersion</text>
+    <text x="1279" y="542" text-anchor="middle" fill="#526078" font-size="11">不改写原始事件</text>
+    <path d="M1254 278 C1345 304 1360 344 1298 406" fill="none" stroke="#b45309" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#correctionArrow)"/>
+    <path d="M862 278 C910 330 1188 326 1250 406" fill="none" stroke="#b45309" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#correctionArrow)"/>
+    <path d="M1198 548 C1124 606 1046 610 1018 572" fill="none" stroke="#b45309" stroke-width="2.2" marker-end="url(#correctionArrow)"/>
+
+    <rect x="366" y="598" width="650" height="50" rx="25" fill="#172033"/>
+    <text x="691" y="620" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700">策略评审：同时查看漏斗、归因、实验增量和护栏指标</text>
+    <text x="691" y="638" text-anchor="middle" fill="#cbd5e1" font-size="11">保留 metricDefinition、modelVersion、analysisVersion 与证据窗口</text>
+    <g fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#measureArrow)">
+      <path d="M379 564 V590 H566"/><path d="M699 564 V590"/><path d="M1019 564 V590 H816"/>
+    </g>
+
+    <path d="M366 623 H250 C126 623 38 708 84 792 C110 840 180 852 270 852 H1230 C1334 852 1376 792 1376 724 V278" fill="none" stroke="#0f766e" stroke-width="2.4" stroke-dasharray="8 6" marker-end="url(#measureArrow)"/>
+    <rect x="418" y="792" width="604" height="52" rx="26" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.6"/>
+    <text x="720" y="814" text-anchor="middle" fill="#115e59" font-size="15" font-weight="700">反馈只生成下一版策略、Offer 与实验设计</text>
+    <text x="720" y="834" text-anchor="middle" fill="#526078" font-size="11">新版本影响未来决策，不覆盖已经发生的交易事实</text>
+
+    <path d="M699 414 V350 H1058 V286" fill="none" stroke="#be123c" stroke-width="2.2" stroke-dasharray="7 5"/>
+    <circle cx="1058" cy="342" r="18" fill="#fff1f2" stroke="#be123c" stroke-width="2"/>
+    <path d="M1048 332 L1068 352 M1068 332 L1048 352" stroke="#be123c" stroke-width="2.5"/>
+    <rect x="726" y="332" width="292" height="36" rx="6" fill="#fff1f2" stroke="#be123c"/>
+    <text x="872" y="355" text-anchor="middle" fill="#9f1239" font-size="12" font-weight="700">归因只能解释交易，不能修改订单事实</text>
   </g>
 </svg>

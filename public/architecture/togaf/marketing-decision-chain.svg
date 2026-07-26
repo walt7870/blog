@@ -1,68 +1,137 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img" aria-labelledby="title desc">
-  <title id="title">从增长目标到运行证据的营销架构决策链</title>
-  <desc id="desc">增长假设依次经过业务能力、核心事实、实时决策、客户触达和结果测量，并由运行证据反馈修正。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840" role="img" aria-labelledby="title desc">
+  <title id="title">营销架构从业务结果到运行证据的决策闭环</title>
+  <desc id="desc">四层决策链依次连接业务结果与护栏、营销能力、事实与应用责任、运行证据，并由运行证据反馈业务假设和投资顺序。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
     </marker>
     <marker id="feedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
     </marker>
+    <marker id="failure" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#be123c"/>
+    </marker>
   </defs>
-  <rect width="1440" height="680" fill="#ffffff"/>
+  <rect width="1440" height="840" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="64" fill="#172033" font-size="30" font-weight="700">营销架构是一条从增长假设到运行证据的承诺链</text>
-    <text x="72" y="101" fill="#526078" font-size="18">每一层既产生下一层的约束，也留下可以复盘、对账和推翻原假设的证据。</text>
+    <text x="68" y="54" fill="#172033" font-size="29" font-weight="700">营销架构是一条可追踪、可校准的决策闭环</text>
+    <text x="68" y="90" fill="#526078" font-size="17">每一层都把上一层的意图变成可执行约束；运行证据再验证增长假设，而不是只证明系统已经上线。</text>
 
-    <rect x="60" y="160" width="190" height="190" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-    <text x="82" y="199" fill="#9a3412" font-size="16" font-weight="700">01 增长假设</text>
-    <text x="82" y="239" fill="#172033" font-size="19" font-weight="700">为什么值得投入</text>
-    <text x="82" y="278" fill="#526078" font-size="15">增量毛利、客户价值</text>
-    <text x="82" y="306" fill="#526078" font-size="15">预算与客户护栏</text>
-
-    <rect x="286" y="160" width="190" height="190" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-    <text x="308" y="199" fill="#854d0e" font-size="16" font-weight="700">02 业务能力</text>
-    <text x="308" y="239" fill="#172033" font-size="19" font-weight="700">企业必须会什么</text>
-    <text x="308" y="278" fill="#526078" font-size="15">识别人群、生成 Offer</text>
-    <text x="308" y="306" fill="#526078" font-size="15">承诺权益、测量结果</text>
-
-    <rect x="512" y="160" width="190" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="534" y="199" fill="#1d4ed8" font-size="16" font-weight="700">03 核心事实</text>
-    <text x="534" y="239" fill="#172033" font-size="19" font-weight="700">什么必须可信</text>
-    <text x="534" y="278" fill="#526078" font-size="15">身份、Consent、人群</text>
-    <text x="534" y="306" fill="#526078" font-size="15">预算、权益与交易</text>
-
-    <rect x="738" y="160" width="190" height="190" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <text x="760" y="199" fill="#166534" font-size="16" font-weight="700">04 决策与承诺</text>
-    <text x="760" y="239" fill="#172033" font-size="19" font-weight="700">此刻向谁提供什么</text>
-    <text x="760" y="278" fill="#526078" font-size="15">资格、冲突、频控</text>
-    <text x="760" y="306" fill="#526078" font-size="15">权益预留与有效期</text>
-
-    <rect x="964" y="160" width="190" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="986" y="199" fill="#6d28d9" font-size="16" font-weight="700">05 触达与转化</text>
-    <text x="986" y="239" fill="#172033" font-size="19" font-weight="700">客户实际经历什么</text>
-    <text x="986" y="278" fill="#526078" font-size="15">到达、展示、点击</text>
-    <text x="986" y="306" fill="#526078" font-size="15">订单、支付与退款</text>
-
-    <rect x="1190" y="160" width="190" height="190" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-    <text x="1212" y="199" fill="#155e75" font-size="16" font-weight="700">06 测量与反馈</text>
-    <text x="1212" y="239" fill="#172033" font-size="19" font-weight="700">是否产生增量结果</text>
-    <text x="1212" y="278" fill="#526078" font-size="15">实验、归因、成本</text>
-    <text x="1212" y="306" fill="#526078" font-size="15">策略与架构变更</text>
-
-    <g fill="none" stroke="#475569" stroke-width="2.5" marker-end="url(#arrow)">
-      <path d="M250 255 H278"/>
-      <path d="M476 255 H504"/>
-      <path d="M702 255 H730"/>
-      <path d="M928 255 H956"/>
-      <path d="M1154 255 H1182"/>
+    <g font-size="12">
+      <line x1="1110" y1="56" x2="1150" y2="56" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/>
+      <text x="1160" y="60" fill="#526078">决策传递</text>
+      <line x1="1246" y1="56" x2="1286" y2="56" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#feedback)"/>
+      <text x="1296" y="60" fill="#526078">证据反馈</text>
     </g>
 
-    <path d="M1285 370 V455 Q1285 490 1250 490 H190 Q155 490 155 455 V370" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#feedback)"/>
-    <rect x="450" y="452" width="540" height="76" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
-    <text x="720" y="483" text-anchor="middle" fill="#115e59" font-size="18" font-weight="700">运行证据校准增长假设、规则版本、预算分配与能力路线</text>
-    <text x="720" y="510" text-anchor="middle" fill="#526078" font-size="14">结果不是报表终点，而是下一轮 ADM 迭代的输入</text>
+    <g>
+      <rect x="54" y="126" width="1238" height="126" rx="12" fill="#fffaf2" stroke="#d97706" stroke-width="1.8"/>
+      <rect x="54" y="126" width="174" height="126" rx="12" fill="#ffedd5"/>
+      <text x="78" y="158" fill="#9a3412" font-size="14" font-weight="700">01 业务结果与护栏</text>
+      <text x="78" y="190" fill="#172033" font-size="18" font-weight="700">企业为什么投入</text>
+      <text x="78" y="218" fill="#7c2d12" font-size="13">断裂：成交额增长</text>
+      <text x="78" y="238" fill="#7c2d12" font-size="13">却无法证明增量利润</text>
 
-    <text x="72" y="602" fill="#526078" font-size="16">断点示例：人群不可重现，决策无法解释；权益没有账本，费用无法核对；曝光不可信，归因结论没有基础。</text>
+      <path d="M270 189 H1170" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+      <circle cx="348" cy="189" r="39" fill="#ffffff" stroke="#c2410c" stroke-width="2"/>
+      <text x="348" y="184" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">增量毛利</text>
+      <text x="348" y="207" text-anchor="middle" fill="#526078" font-size="12">核心结果</text>
+      <rect x="468" y="151" width="172" height="76" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="554" y="181" text-anchor="middle" fill="#9a3412" font-size="15" font-weight="700">预算与成本</text>
+      <text x="554" y="205" text-anchor="middle" fill="#526078" font-size="12">不得透支利润</text>
+      <rect x="674" y="151" width="172" height="76" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="760" y="181" text-anchor="middle" fill="#9a3412" font-size="15" font-weight="700">客户关系</text>
+      <text x="760" y="205" text-anchor="middle" fill="#526078" font-size="12">投诉、退订、频控</text>
+      <rect x="880" y="151" width="172" height="76" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+      <text x="966" y="181" text-anchor="middle" fill="#9a3412" font-size="15" font-weight="700">授权边界</text>
+      <text x="966" y="205" text-anchor="middle" fill="#526078" font-size="12">目的、渠道、有效期</text>
+      <text x="1132" y="172" text-anchor="middle" fill="#9a3412" font-size="13" font-weight="700">形成</text>
+      <text x="1132" y="196" text-anchor="middle" fill="#172033" font-size="15" font-weight="700">结果树</text>
+      <text x="1132" y="218" text-anchor="middle" fill="#526078" font-size="12">与护栏指标</text>
+    </g>
+
+    <g>
+      <rect x="54" y="272" width="1238" height="126" rx="12" fill="#f5f9ff" stroke="#2563eb" stroke-width="1.8"/>
+      <rect x="54" y="272" width="174" height="126" rx="12" fill="#dbeafe"/>
+      <text x="78" y="304" fill="#1d4ed8" font-size="14" font-weight="700">02 端到端业务能力</text>
+      <text x="78" y="336" fill="#172033" font-size="18" font-weight="700">企业必须能做什么</text>
+      <text x="78" y="364" fill="#9f1239" font-size="13">断裂：局部功能正常</text>
+      <text x="78" y="384" fill="#9f1239" font-size="13">价值流仍然失控</text>
+
+      <path d="M282 335 H1170" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+      <g font-size="14" font-weight="700" text-anchor="middle">
+        <circle cx="337" cy="335" r="42" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="337" y="331" fill="#1d4ed8">识别</text><text x="337" y="351" fill="#172033">人群</text>
+        <circle cx="515" cy="335" r="42" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="515" y="331" fill="#1d4ed8">生成</text><text x="515" y="351" fill="#172033">决策</text>
+        <circle cx="693" cy="335" r="42" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="693" y="331" fill="#1d4ed8">承诺</text><text x="693" y="351" fill="#172033">权益</text>
+        <circle cx="871" cy="335" r="42" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="871" y="331" fill="#1d4ed8">协调</text><text x="871" y="351" fill="#172033">触达</text>
+        <circle cx="1049" cy="335" r="42" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="1049" y="331" fill="#1d4ed8">观察</text><text x="1049" y="351" fill="#172033">转化</text>
+      </g>
+      <text x="1165" y="322" text-anchor="middle" fill="#1d4ed8" font-size="13" font-weight="700">形成</text>
+      <text x="1165" y="346" text-anchor="middle" fill="#172033" font-size="15" font-weight="700">能力投资顺序</text>
+      <text x="1165" y="369" text-anchor="middle" fill="#526078" font-size="12">而非系统采购清单</text>
+    </g>
+
+    <g>
+      <rect x="54" y="418" width="1238" height="126" rx="12" fill="#f4fbf8" stroke="#0f766e" stroke-width="1.8"/>
+      <rect x="54" y="418" width="174" height="126" rx="12" fill="#ccfbf1"/>
+      <text x="78" y="450" fill="#0f766e" font-size="14" font-weight="700">03 事实与应用责任</text>
+      <text x="78" y="482" fill="#172033" font-size="18" font-weight="700">谁有权改变事实</text>
+      <text x="78" y="510" fill="#9f1239" font-size="13">断裂：多个系统写入</text>
+      <text x="78" y="530" fill="#9f1239" font-size="13">同一个业务事实</text>
+
+      <path d="M278 481 H1170" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+      <g text-anchor="middle">
+        <rect x="274" y="445" width="154" height="72" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+        <text x="351" y="475" fill="#115e59" font-size="14" font-weight="700">身份 / Consent</text><text x="351" y="498" fill="#526078" font-size="12">客户与授权 Owner</text>
+        <rect x="450" y="445" width="154" height="72" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+        <text x="527" y="475" fill="#115e59" font-size="14" font-weight="700">活动 / Offer</text><text x="527" y="498" fill="#526078" font-size="12">营销平台 Owner</text>
+        <rect x="626" y="445" width="154" height="72" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+        <text x="703" y="475" fill="#115e59" font-size="14" font-weight="700">权益 / 预算</text><text x="703" y="498" fill="#526078" font-size="12">账本 Owner</text>
+        <rect x="802" y="445" width="154" height="72" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+        <text x="879" y="475" fill="#115e59" font-size="14" font-weight="700">曝光 / 订单</text><text x="879" y="498" fill="#526078" font-size="12">渠道与交易 Owner</text>
+        <rect x="978" y="445" width="154" height="72" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.6"/>
+        <text x="1055" y="475" fill="#115e59" font-size="14" font-weight="700">实验 / 归因</text><text x="1055" y="498" fill="#526078" font-size="12">度量平台解释</text>
+      </g>
+      <text x="1184" y="469" text-anchor="middle" fill="#0f766e" font-size="13" font-weight="700">形成</text>
+      <text x="1184" y="493" text-anchor="middle" fill="#172033" font-size="15" font-weight="700">权威矩阵</text>
+      <text x="1184" y="516" text-anchor="middle" fill="#526078" font-size="12">边界与契约</text>
+    </g>
+
+    <g>
+      <rect x="54" y="564" width="1238" height="126" rx="12" fill="#f8f7ff" stroke="#7c3aed" stroke-width="1.8"/>
+      <rect x="54" y="564" width="174" height="126" rx="12" fill="#ede9fe"/>
+      <text x="78" y="596" fill="#6d28d9" font-size="14" font-weight="700">04 运行证据</text>
+      <text x="78" y="628" fill="#172033" font-size="18" font-weight="700">改变是否真实发生</text>
+      <text x="78" y="656" fill="#9f1239" font-size="13">断裂：项目已上线</text>
+      <text x="78" y="676" fill="#9f1239" font-size="13">却无法解释业务变化</text>
+
+      <g text-anchor="middle">
+        <rect x="286" y="590" width="242" height="76" rx="38" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+        <text x="407" y="620" fill="#6d28d9" font-size="16" font-weight="700">业务结果</text><text x="407" y="644" fill="#526078" font-size="12">增量毛利、成本、退订与投诉</text>
+        <rect x="566" y="590" width="242" height="76" rx="38" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+        <text x="687" y="620" fill="#6d28d9" font-size="16" font-weight="700">系统运行</text><text x="687" y="644" fill="#526078" font-size="12">延迟、可用性、积压与降级</text>
+        <rect x="846" y="590" width="242" height="76" rx="38" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+        <text x="967" y="620" fill="#6d28d9" font-size="16" font-weight="700">数据质量</text><text x="967" y="644" fill="#526078" font-size="12">完整性、新鲜度、对账与可追踪</text>
+      </g>
+      <path d="M1088 628 H1178" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="1205" y="616" text-anchor="middle" fill="#6d28d9" font-size="13" font-weight="700">形成</text>
+      <text x="1205" y="641" text-anchor="middle" fill="#172033" font-size="15" font-weight="700">投资证据</text>
+      <text x="1205" y="663" text-anchor="middle" fill="#526078" font-size="12">退出与治理</text>
+    </g>
+
+    <g>
+      <rect x="1314" y="126" width="72" height="564" rx="34" fill="#172033"/>
+      <text x="1350" y="184" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">架</text>
+      <text x="1350" y="210" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">构</text>
+      <text x="1350" y="236" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">决</text>
+      <text x="1350" y="262" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">策</text>
+      <path d="M1292 189 H1306 M1292 335 H1306 M1292 481 H1306 M1292 627 H1306" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M1350 282 V610" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 6"/>
+      <circle cx="1350" cy="335" r="6" fill="#60a5fa"/><circle cx="1350" cy="481" r="6" fill="#5eead4"/><circle cx="1350" cy="627" r="6" fill="#c4b5fd"/>
+    </g>
+
+    <path d="M1350 702 C1350 780 1218 790 1094 790 H192 C96 790 44 750 44 690 V198 C44 170 48 154 54 146" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#feedback)"/>
+    <rect x="475" y="758" width="490" height="42" rx="21" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.6"/>
+    <text x="720" y="784" text-anchor="middle" fill="#115e59" font-size="15" font-weight="700">运行证据验证业务假设，并调整下一轮规则、能力投资与迁移顺序</text>
   </g>
 </svg>

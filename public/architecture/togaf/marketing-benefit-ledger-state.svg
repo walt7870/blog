@@ -1,96 +1,108 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
-  <title id="title">优惠权益与预算账本状态机</title>
-  <desc id="desc">展示权益从预留、发放、核销到返还或回冲的状态变化，以及预算和限量权益的守恒关系。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">营销权益与预算账本状态机</title>
+  <desc id="desc">正常路径从可用、预留、发放、核销走到结算，异常路径处理预留超时、发放失败、权益到期、交易失败以及退款后的返还或费用回冲。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
     </marker>
-    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <marker id="recover" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
     </marker>
+    <marker id="exception" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#be123c"/>
+    </marker>
   </defs>
-  <rect width="1440" height="760" fill="#ffffff"/>
+  <rect width="1440" height="900" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">权益状态变化必须同时解释客户承诺、预算占用和费用确认</text>
-    <text x="72" y="98" fill="#526078" font-size="18">接口成功只是过程；账本不变量、业务凭证与可对账状态才证明企业没有重复承诺或丢失费用。</text>
-
-    <text x="72" y="145" fill="#172033" font-size="19" font-weight="700">客户权益生命周期</text>
-    <g>
-      <rect x="72" y="172" width="184" height="96" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="164" y="207" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">RESERVED</text>
-      <text x="164" y="235" text-anchor="middle" fill="#172033" font-size="14">暂时占用预算与额度</text>
-      <text x="164" y="255" text-anchor="middle" fill="#526078" font-size="12">关联 decisionId</text>
-
-      <rect x="298" y="172" width="184" height="96" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-      <text x="390" y="207" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">GRANTED</text>
-      <text x="390" y="235" text-anchor="middle" fill="#172033" font-size="14">权益已经属于客户</text>
-      <text x="390" y="255" text-anchor="middle" fill="#526078" font-size="12">形成 grantId</text>
-
-      <rect x="524" y="172" width="184" height="96" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-      <text x="616" y="207" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">REDEEMING</text>
-      <text x="616" y="235" text-anchor="middle" fill="#172033" font-size="14">交易尝试核销权益</text>
-      <text x="616" y="255" text-anchor="middle" fill="#526078" font-size="12">关联 orderId</text>
-
-      <rect x="750" y="172" width="184" height="96" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-      <text x="842" y="207" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">REDEEMED</text>
-      <text x="842" y="235" text-anchor="middle" fill="#172033" font-size="14">核销完成并确认费用</text>
-      <text x="842" y="255" text-anchor="middle" fill="#526078" font-size="12">形成 settlementId</text>
-
-      <rect x="976" y="172" width="184" height="96" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-      <text x="1068" y="207" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">RETURNED</text>
-      <text x="1068" y="235" text-anchor="middle" fill="#172033" font-size="14">退款后权益返还可用</text>
-      <text x="1068" y="255" text-anchor="middle" fill="#526078" font-size="12">按活动政策裁决</text>
-
-      <rect x="1202" y="172" width="166" height="96" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-      <text x="1285" y="207" text-anchor="middle" fill="#9d174d" font-size="17" font-weight="700">REVERSED</text>
-      <text x="1285" y="235" text-anchor="middle" fill="#172033" font-size="14">费用回冲但不返权益</text>
-      <text x="1285" y="255" text-anchor="middle" fill="#526078" font-size="12">保留审计轨迹</text>
+    <text x="66" y="54" fill="#172033" font-size="29" font-weight="700">账本状态机同时保护客户承诺、预算占用和限量额度</text>
+    <text x="66" y="90" fill="#526078" font-size="17">接口成功只是过程；每次状态转换都必须有业务凭证、前置状态和可对账的资金或数量变化。</text>
+    <g font-size="12">
+      <line x1="1030" y1="54" x2="1070" y2="54" stroke="#334155" stroke-width="2.2" marker-end="url(#arrow)"/><text x="1080" y="58" fill="#526078">正常转换</text>
+      <line x1="1170" y1="54" x2="1210" y2="54" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)"/><text x="1220" y="58" fill="#526078">异常 / 退款</text>
+      <line x1="1308" y1="54" x2="1348" y2="54" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#recover)"/><text x="1358" y="58" fill="#526078">恢复</text>
     </g>
 
-    <g stroke="#475569" stroke-width="2.2" fill="none" marker-end="url(#arrow)">
-      <path d="M256 220 H290"/><path d="M482 220 H516"/><path d="M708 220 H742"/>
-      <path d="M934 202 H968"/><path d="M934 240 C1040 320 1180 320 1278 276"/>
+    <text x="66" y="130" fill="#172033" font-size="17" font-weight="700">正常承诺与核销路径</text>
+    <path d="M110 222 H1330" fill="none" stroke="#334155" stroke-width="2.4"/>
+    <g text-anchor="middle">
+      <circle cx="138" cy="222" r="58" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+      <text x="138" y="214" fill="#334155" font-size="15" font-weight="700">AVAILABLE</text><text x="138" y="238" fill="#172033" font-size="12">预算与额度可用</text><text x="138" y="256" fill="#526078" font-size="10">尚未承诺给客户</text>
+
+      <circle cx="370" cy="222" r="58" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="370" y="214" fill="#1d4ed8" font-size="15" font-weight="700">RESERVED</text><text x="370" y="238" fill="#172033" font-size="12">短期占用预算</text><text x="370" y="256" fill="#526078" font-size="10">关联 decisionId</text>
+
+      <circle cx="602" cy="222" r="58" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+      <text x="602" y="214" fill="#0f766e" font-size="15" font-weight="700">GRANTED</text><text x="602" y="238" fill="#172033" font-size="12">权益已属于客户</text><text x="602" y="256" fill="#526078" font-size="10">形成 grantId</text>
+
+      <circle cx="834" cy="222" r="58" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+      <text x="834" y="214" fill="#854d0e" font-size="15" font-weight="700">REDEEMING</text><text x="834" y="238" fill="#172033" font-size="12">订单尝试占用</text><text x="834" y="256" fill="#526078" font-size="10">关联 orderId</text>
+
+      <circle cx="1066" cy="222" r="58" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+      <text x="1066" y="214" fill="#9a3412" font-size="15" font-weight="700">REDEEMED</text><text x="1066" y="238" fill="#172033" font-size="12">支付确认核销</text><text x="1066" y="256" fill="#526078" font-size="10">权益不可再使用</text>
+
+      <circle cx="1298" cy="222" r="58" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+      <text x="1298" y="214" fill="#6d28d9" font-size="15" font-weight="700">SETTLED</text><text x="1298" y="238" fill="#172033" font-size="12">费用完成结算</text><text x="1298" y="256" fill="#526078" font-size="10">形成 settlementId</text>
     </g>
-    <g fill="#526078" font-size="13">
-      <text x="268" y="205">发放</text><text x="494" y="205">占用</text><text x="720" y="205">成功</text>
-      <text x="947" y="187">返还</text><text x="1085" y="326">退款回冲</text>
+    <g fill="none" stroke="#334155" stroke-width="2.4" marker-end="url(#arrow)">
+      <path d="M196 222 H304"/><path d="M428 222 H536"/><path d="M660 222 H768"/><path d="M892 222 H1000"/><path d="M1124 222 H1232"/>
+    </g>
+    <g text-anchor="middle" font-size="11">
+      <rect x="215" y="168" width="128" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="279" y="183" fill="#172033" font-weight="700">条件预留</text><text x="279" y="197" fill="#526078">decisionId + benefitType</text>
+      <rect x="457" y="168" width="118" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="516" y="183" fill="#172033" font-weight="700">发放确认</text><text x="516" y="197" fill="#526078">形成 grantId</text>
+      <rect x="689" y="168" width="118" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="748" y="183" fill="#172033" font-weight="700">订单试占</text><text x="748" y="197" fill="#526078">grantId + orderId</text>
+      <rect x="921" y="168" width="118" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="980" y="183" fill="#172033" font-weight="700">支付确认</text><text x="980" y="197" fill="#526078">核销不可重复</text>
+      <rect x="1153" y="168" width="118" height="36" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="1212" y="183" fill="#172033" font-weight="700">费用结算</text><text x="1212" y="197" fill="#526078">settlementId</text>
     </g>
 
-    <g>
-      <rect x="72" y="315" width="184" height="72" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-      <text x="164" y="345" text-anchor="middle" fill="#172033" font-size="16" font-weight="700">RELEASED</text>
-      <text x="164" y="370" text-anchor="middle" fill="#526078" font-size="13">决策过期或渠道未展示</text>
-
-      <rect x="298" y="315" width="184" height="72" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-      <text x="390" y="345" text-anchor="middle" fill="#172033" font-size="16" font-weight="700">EXPIRED</text>
-      <text x="390" y="370" text-anchor="middle" fill="#526078" font-size="13">客户未在有效期内使用</text>
-
-      <path d="M164 268 V307" fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#green)"/>
-      <path d="M390 268 V307" fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#green)"/>
-      <path d="M616 268 C616 350 520 350 490 350" fill="none" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#green)"/>
-      <text x="176" y="292" fill="#115e59" font-size="13">释放</text>
-      <text x="402" y="292" fill="#115e59" font-size="13">到期</text>
-      <text x="530" y="337" fill="#115e59" font-size="13">交易失败恢复</text>
+    <text x="66" y="330" fill="#172033" font-size="17" font-weight="700">超时、失败与退款分支</text>
+    <g text-anchor="middle">
+      <rect x="274" y="370" width="192" height="76" rx="10" fill="#fff1f2" stroke="#be123c" stroke-width="1.8"/>
+      <text x="370" y="399" fill="#9f1239" font-size="15" font-weight="700">RELEASED</text><text x="370" y="423" fill="#172033" font-size="12">释放预算与额度</text><text x="370" y="439" fill="#526078" font-size="10">超时或发放失败</text>
+      <rect x="506" y="370" width="192" height="76" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+      <text x="602" y="399" fill="#334155" font-size="15" font-weight="700">EXPIRED</text><text x="602" y="423" fill="#172033" font-size="12">客户未在有效期使用</text><text x="602" y="439" fill="#526078" font-size="10">保留历史授予事实</text>
     </g>
+    <g fill="none" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)">
+      <path d="M370 280 V362"/><path d="M602 280 V362"/>
+    </g>
+    <g font-size="11" fill="#9f1239">
+      <text x="382" y="316">TTL 到期</text><text x="382" y="334">或发放失败</text>
+      <text x="614" y="326">有效期结束</text>
+    </g>
+    <path d="M274 408 C178 408 138 348 138 288" fill="none" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#recover)"/>
+    <text x="156" y="386" fill="#115e59" font-size="11">资源重新可用</text>
 
-    <text x="72" y="442" fill="#172033" font-size="19" font-weight="700">账本守恒</text>
-    <rect x="72" y="466" width="630" height="104" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="100" y="501" fill="#1d4ed8" font-size="17" font-weight="700">预算账户</text>
-    <text x="100" y="533" fill="#172033" font-size="16">可用金额 + 已预留金额 + 已确认费用</text>
-    <text x="100" y="558" fill="#526078" font-size="14">= 授权预算 + 已回冲金额</text>
+    <path d="M834 280 C834 346 748 346 670 266" fill="none" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)"/>
+    <rect x="695" y="306" width="142" height="34" rx="6" fill="#fff1f2" stroke="#be123c"/>
+    <text x="766" y="321" text-anchor="middle" fill="#9f1239" font-size="11" font-weight="700">交易失败 / 超时</text><text x="766" y="335" text-anchor="middle" fill="#526078" font-size="10">恢复为 GRANTED</text>
 
-    <rect x="738" y="466" width="630" height="104" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <text x="766" y="501" fill="#166534" font-size="17" font-weight="700">限量权益</text>
-    <text x="766" y="533" fill="#172033" font-size="16">可发数量 + 已预留数量 + 已发放数量</text>
-    <text x="766" y="558" fill="#526078" font-size="14">= 配置总量 + 已返还数量</text>
+    <path d="M1066 280 V364" fill="none" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)"/>
+    <path d="M1298 280 C1298 332 1180 344 1106 376" fill="none" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)"/>
+    <polygon points="1066,360 1126,408 1066,456 1006,408" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+    <text x="1066" y="403" text-anchor="middle" fill="#9a3412" font-size="13" font-weight="700">退款政策</text><text x="1066" y="421" text-anchor="middle" fill="#526078" font-size="10">权益是否返还</text>
 
-    <rect x="72" y="604" width="1296" height="82" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-    <text x="100" y="638" fill="#155e75" font-size="17" font-weight="700">实现护栏</text>
-    <text x="235" y="638" fill="#172033" font-size="15">业务幂等键</text>
-    <text x="400" y="638" fill="#172033" font-size="15">条件写与状态前置校验</text>
-    <text x="650" y="638" fill="#172033" font-size="15">Outbox 事实发布</text>
-    <text x="850" y="638" fill="#172033" font-size="15">过期扫描与补偿</text>
-    <text x="1050" y="638" fill="#172033" font-size="15">预算、权益、订单对账</text>
-    <text x="100" y="667" fill="#526078" font-size="14">消息可能重复到达，目标是重复处理仍保持业务状态正确，而不是宣称全链路 exactly-once。</text>
+    <rect x="886" y="500" width="180" height="76" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.8"/>
+    <text x="976" y="529" text-anchor="middle" fill="#0f766e" font-size="15" font-weight="700">RETURNED</text><text x="976" y="553" text-anchor="middle" fill="#172033" font-size="12">费用回冲且权益返还</text><text x="976" y="569" text-anchor="middle" fill="#526078" font-size="10">客户可以再次使用</text>
+    <rect x="1106" y="500" width="200" height="76" rx="10" fill="#fff1f2" stroke="#be123c" stroke-width="1.8"/>
+    <text x="1206" y="529" text-anchor="middle" fill="#9f1239" font-size="15" font-weight="700">REVERSED</text><text x="1206" y="553" text-anchor="middle" fill="#172033" font-size="12">费用回冲但权益不返还</text><text x="1206" y="569" text-anchor="middle" fill="#526078" font-size="10">保留不可篡改审计轨迹</text>
+    <g fill="none" stroke="#be123c" stroke-width="2.2" marker-end="url(#exception)">
+      <path d="M1036 432 C1024 456 996 470 980 492"/><path d="M1096 432 C1122 458 1176 468 1196 492"/>
+    </g>
+    <text x="950" y="472" fill="#115e59" font-size="11">返还</text><text x="1165" y="472" fill="#9f1239" font-size="11">不返还</text>
+
+    <text x="66" y="632" fill="#172033" font-size="17" font-weight="700">守恒关系：每次转换都必须解释“从哪里减、到哪里加”</text>
+    <rect x="66" y="656" width="626" height="112" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="94" y="688" fill="#1d4ed8" font-size="15" font-weight="700">预算账户</text>
+    <text x="94" y="719" fill="#172033" font-size="16">可用金额 + 已预留金额 + 已确认费用</text>
+    <text x="94" y="746" fill="#526078" font-size="13">= 授权预算 + 已回冲金额</text>
+    <rect x="748" y="656" width="626" height="112" rx="12" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.8"/>
+    <text x="776" y="688" fill="#0f766e" font-size="15" font-weight="700">限量权益</text>
+    <text x="776" y="719" fill="#172033" font-size="16">可发数量 + 已预留数量 + 已发放数量</text>
+    <text x="776" y="746" fill="#526078" font-size="13">= 配置总量 + 已返还数量</text>
+
+    <rect x="66" y="798" width="1308" height="66" rx="12" fill="#172033"/>
+    <text x="94" y="824" fill="#ffffff" font-size="14" font-weight="700">转换护栏</text>
+    <text x="226" y="824" fill="#dbeafe" font-size="13">业务幂等键</text><text x="396" y="824" fill="#dbeafe" font-size="13">条件写 + 状态前置校验</text>
+    <text x="660" y="824" fill="#dbeafe" font-size="13">Outbox 发布</text><text x="824" y="824" fill="#dbeafe" font-size="13">过期扫描与补偿</text><text x="1036" y="824" fill="#dbeafe" font-size="13">预算 / 权益 / 订单对账</text>
+    <text x="720" y="850" text-anchor="middle" fill="#94a3b8" font-size="11">消息允许重复到达，但重复处理不得破坏账本不变量；不依赖消息系统宣称全链路 exactly-once</text>
   </g>
 </svg>

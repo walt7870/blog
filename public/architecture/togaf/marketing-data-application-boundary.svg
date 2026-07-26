@@ -1,94 +1,122 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
-  <title id="title">营销核心数据权威与应用责任边界</title>
-  <desc id="desc">上层为权威业务事实，中层为营销应用责任，下层为可重建的测量和渠道视图，箭头表达读取与事实传播。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="850" viewBox="0 0 1440 850" role="img" aria-labelledby="title desc">
+  <title id="title">营销核心数据权威、应用协作与分析消费边界</title>
+  <desc id="desc">上层展示五类权威事实及其 Owner，中层展示围绕事实协作的营销应用，下层展示只读消费的 CDP、实验归因和经营看板，并禁止分析结果反向修改业务事实。</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+    <marker id="writeArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
+    </marker>
+    <marker id="readArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#0f766e"/>
+    </marker>
+    <marker id="stopArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#be123c"/>
     </marker>
   </defs>
-  <rect width="1440" height="760" fill="#ffffff"/>
+  <rect width="1440" height="850" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">统一视图不等于统一写入权</text>
-    <text x="72" y="98" fill="#526078" font-size="18">营销平台组合企业事实形成决策，但不能因为持有副本就改写身份、交易、授权和财务状态。</text>
-
-    <text x="72" y="143" fill="#172033" font-size="18" font-weight="700">权威事实层</text>
-    <g>
-      <rect x="72" y="164" width="235" height="104" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="189" y="198" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">身份与会员平台</text>
-      <text x="189" y="228" text-anchor="middle" fill="#172033" font-size="15">客户身份、账号、等级</text>
-      <text x="189" y="250" text-anchor="middle" fill="#526078" font-size="13">合并与拆分可审计</text>
-
-      <rect x="337" y="164" width="235" height="104" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-      <text x="454" y="198" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">Consent 服务</text>
-      <text x="454" y="228" text-anchor="middle" fill="#172033" font-size="15">用途、渠道、授权、撤回</text>
-      <text x="454" y="250" text-anchor="middle" fill="#526078" font-size="13">撤回按 SLA 传播</text>
-
-      <rect x="602" y="164" width="235" height="104" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-      <text x="719" y="198" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">商品与定价平台</text>
-      <text x="719" y="228" text-anchor="middle" fill="#172033" font-size="15">商品、价格与促销规则</text>
-      <text x="719" y="250" text-anchor="middle" fill="#526078" font-size="13">不保存客户权益资产</text>
-
-      <rect x="867" y="164" width="235" height="104" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-      <text x="984" y="198" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">权益与预算账本</text>
-      <text x="984" y="228" text-anchor="middle" fill="#172033" font-size="15">预留、发放、核销、回冲</text>
-      <text x="984" y="250" text-anchor="middle" fill="#526078" font-size="13">守恒、幂等、可对账</text>
-
-      <rect x="1132" y="164" width="235" height="104" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-      <text x="1249" y="198" text-anchor="middle" fill="#9d174d" font-size="17" font-weight="700">订单与支付域</text>
-      <text x="1249" y="228" text-anchor="middle" fill="#172033" font-size="15">订单、支付、退款事实</text>
-      <text x="1249" y="250" text-anchor="middle" fill="#526078" font-size="13">营销结论不能反向修改</text>
+    <text x="66" y="54" fill="#172033" font-size="29" font-weight="700">数据能被组合消费，但事实只能由明确的 Owner 裁决</text>
+    <text x="66" y="90" fill="#526078" font-size="17">统一客户视图不等于统一写入入口；读取、派生和解释都不能夺走业务系统对事实生命周期的责任。</text>
+    <g font-size="12">
+      <line x1="1070" y1="54" x2="1110" y2="54" stroke="#334155" stroke-width="2.2" marker-end="url(#writeArrow)"/><text x="1120" y="58" fill="#526078">事实写入</text>
+      <line x1="1205" y1="54" x2="1245" y2="54" stroke="#0f766e" stroke-width="2.2" stroke-dasharray="6 5" marker-end="url(#readArrow)"/><text x="1255" y="58" fill="#526078">事实读取 / 派生</text>
     </g>
 
-    <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)">
-      <path d="M189 268 V318"/><path d="M454 268 V318"/><path d="M719 268 V318"/>
-      <path d="M984 268 V318"/><path d="M1249 268 V318"/>
+    <rect x="52" y="120" width="1336" height="220" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+    <rect x="52" y="120" width="150" height="220" rx="12" fill="#e2e8f0"/>
+    <text x="127" y="166" text-anchor="middle" fill="#172033" font-size="16" font-weight="700">事实权威层</text>
+    <text x="127" y="193" text-anchor="middle" fill="#526078" font-size="12">谁创建、变更</text>
+    <text x="127" y="215" text-anchor="middle" fill="#526078" font-size="12">并解释生命周期</text>
+    <rect x="76" y="259" width="102" height="48" rx="24" fill="#ffffff" stroke="#64748b"/>
+    <text x="127" y="279" text-anchor="middle" fill="#334155" font-size="12" font-weight="700">单一裁决者</text>
+    <text x="127" y="297" text-anchor="middle" fill="#526078" font-size="10">不等于单数据库</text>
+
+    <g text-anchor="middle">
+      <rect x="222" y="144" width="210" height="170" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+      <text x="327" y="175" fill="#1d4ed8" font-size="15" font-weight="700">会员与身份平台</text>
+      <text x="327" y="200" fill="#172033" font-size="13">企业 customerId</text>
+      <text x="327" y="222" fill="#172033" font-size="13">会员等级与身份映射</text>
+      <rect x="252" y="247" width="150" height="42" rx="21" fill="#ffffff" stroke="#93c5fd"/>
+      <text x="327" y="273" fill="#1d4ed8" font-size="12" font-weight="700">Customer / Membership</text>
+
+      <rect x="450" y="144" width="210" height="170" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="555" y="175" fill="#0f766e" font-size="15" font-weight="700">Consent 服务</text>
+      <text x="555" y="200" fill="#172033" font-size="13">授权目的、渠道</text>
+      <text x="555" y="222" fill="#172033" font-size="13">版本、有效期与撤回</text>
+      <rect x="480" y="247" width="150" height="42" rx="21" fill="#ffffff" stroke="#5eead4"/>
+      <text x="555" y="273" fill="#0f766e" font-size="12" font-weight="700">Consent Grant</text>
+
+      <rect x="678" y="144" width="210" height="170" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+      <text x="783" y="175" fill="#6d28d9" font-size="15" font-weight="700">营销平台</text>
+      <text x="783" y="200" fill="#172033" font-size="13">Campaign、Journey</text>
+      <text x="783" y="222" fill="#172033" font-size="13">Offer 与人群定义</text>
+      <rect x="708" y="247" width="150" height="42" rx="21" fill="#ffffff" stroke="#c4b5fd"/>
+      <text x="783" y="273" fill="#6d28d9" font-size="12" font-weight="700">Policy / Decision</text>
+
+      <rect x="906" y="144" width="210" height="170" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+      <text x="1011" y="175" fill="#c2410c" font-size="15" font-weight="700">权益与预算账本</text>
+      <text x="1011" y="200" fill="#172033" font-size="13">预留、发放、核销</text>
+      <text x="1011" y="222" fill="#172033" font-size="13">释放、回冲与余额</text>
+      <rect x="936" y="247" width="150" height="42" rx="21" fill="#ffffff" stroke="#fdba74"/>
+      <text x="1011" y="273" fill="#c2410c" font-size="12" font-weight="700">Benefit Ledger</text>
+
+      <rect x="1134" y="144" width="230" height="170" rx="10" fill="#fefce8" stroke="#a16207" stroke-width="1.8"/>
+      <text x="1249" y="175" fill="#854d0e" font-size="15" font-weight="700">订单与支付域</text>
+      <text x="1249" y="200" fill="#172033" font-size="13">订单、商品、价格快照</text>
+      <text x="1249" y="222" fill="#172033" font-size="13">支付、退款与交易成本</text>
+      <rect x="1174" y="247" width="150" height="42" rx="21" fill="#ffffff" stroke="#fde047"/>
+      <text x="1249" y="273" fill="#854d0e" font-size="12" font-weight="700">Order / Payment</text>
     </g>
 
-    <text x="72" y="333" fill="#172033" font-size="18" font-weight="700">营销能力层</text>
-    <rect x="72" y="350" width="1295" height="210" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
-    <g>
-      <rect x="95" y="380" width="190" height="72" rx="7" fill="#ffffff" stroke="#2563eb"/>
-      <text x="190" y="409" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">画像、标签与人群</text>
-      <text x="190" y="434" text-anchor="middle" fill="#526078" font-size="13">版本、asOf、血缘</text>
-
-      <rect x="310" y="380" width="190" height="72" rx="7" fill="#ffffff" stroke="#7c3aed"/>
-      <text x="405" y="409" text-anchor="middle" fill="#6d28d9" font-size="16" font-weight="700">活动中心</text>
-      <text x="405" y="434" text-anchor="middle" fill="#526078" font-size="13">目标、预算、策略、实验</text>
-
-      <rect x="525" y="380" width="190" height="72" rx="7" fill="#ffffff" stroke="#15803d"/>
-      <text x="620" y="409" text-anchor="middle" fill="#166534" font-size="16" font-weight="700">实时决策</text>
-      <text x="620" y="434" text-anchor="middle" fill="#526078" font-size="13">资格、互斥、频控</text>
-
-      <rect x="740" y="380" width="190" height="72" rx="7" fill="#ffffff" stroke="#c2410c"/>
-      <text x="835" y="409" text-anchor="middle" fill="#9a3412" font-size="16" font-weight="700">权益编排</text>
-      <text x="835" y="434" text-anchor="middle" fill="#526078" font-size="13">请求账本承诺与释放</text>
-
-      <rect x="955" y="380" width="190" height="72" rx="7" fill="#ffffff" stroke="#0e7490"/>
-      <text x="1050" y="409" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">渠道网关</text>
-      <text x="1050" y="434" text-anchor="middle" fill="#526078" font-size="13">发送、撤销、回执</text>
-
-      <rect x="1170" y="380" width="174" height="72" rx="7" fill="#ffffff" stroke="#be185d"/>
-      <text x="1257" y="409" text-anchor="middle" fill="#9d174d" font-size="16" font-weight="700">实验与归因</text>
-      <text x="1257" y="434" text-anchor="middle" fill="#526078" font-size="13">分组、窗口、重算</text>
-    </g>
-    <text x="720" y="505" text-anchor="middle" fill="#172033" font-size="16" font-weight="700">决策日志保留输入摘要、规则版本、理由码和业务凭证</text>
-    <text x="720" y="535" text-anchor="middle" fill="#526078" font-size="14">CDP 是可授权使用的组合视图，不拥有上层全部事实的最终写入权</text>
-
-    <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)">
-      <path d="M190 560 V613"/><path d="M620 560 V613"/><path d="M1050 560 V613"/><path d="M1257 560 V613"/>
+    <g fill="none" stroke="#334155" stroke-width="2" marker-end="url(#writeArrow)">
+      <path d="M327 314 V378"/><path d="M555 314 V378"/><path d="M783 314 V378"/><path d="M1011 314 V378"/><path d="M1249 314 V378"/>
     </g>
 
-    <text x="72" y="602" fill="#172033" font-size="18" font-weight="700">可重建的输出与证据</text>
-    <rect x="72" y="620" width="390" height="82" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-    <text x="267" y="653" text-anchor="middle" fill="#155e75" font-size="16" font-weight="700">渠道执行视图</text>
-    <text x="267" y="680" text-anchor="middle" fill="#526078" font-size="14">投递任务、到达、展示、失败回执</text>
+    <rect x="52" y="378" width="1336" height="196" rx="12" fill="#f2fbf8" stroke="#0f766e" stroke-width="1.5"/>
+    <rect x="52" y="378" width="150" height="196" rx="12" fill="#ccfbf1"/>
+    <text x="127" y="424" text-anchor="middle" fill="#0f766e" font-size="16" font-weight="700">应用协作层</text>
+    <text x="127" y="451" text-anchor="middle" fill="#526078" font-size="12">读取权威事实</text>
+    <text x="127" y="473" text-anchor="middle" fill="#526078" font-size="12">生成新业务凭证</text>
+    <text x="127" y="512" text-anchor="middle" fill="#115e59" font-size="12">应用边界由</text>
+    <text x="127" y="532" text-anchor="middle" fill="#115e59" font-size="12">责任而非数据副本划分</text>
 
-    <rect x="525" y="620" width="390" height="82" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="720" y="653" text-anchor="middle" fill="#6d28d9" font-size="16" font-weight="700">客户与活动读模型</text>
-    <text x="720" y="680" text-anchor="middle" fill="#526078" font-size="14">当前画像、历史快照、决策与权益视图</text>
+    <path d="M238 476 H1358" fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#readArrow)"/>
+    <g text-anchor="middle">
+      <circle cx="300" cy="476" r="55" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="300" y="470" fill="#115e59" font-size="14" font-weight="700">画像与标签</text><text x="300" y="493" fill="#526078" font-size="11">当前视图 + asOf</text>
+      <circle cx="496" cy="476" r="55" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="496" y="470" fill="#115e59" font-size="14" font-weight="700">人群计算</text><text x="496" y="493" fill="#526078" font-size="11">定义与成员快照</text>
+      <circle cx="692" cy="476" r="65" fill="#ffffff" stroke="#0f766e" stroke-width="3"/>
+      <text x="692" y="466" fill="#0f766e" font-size="15" font-weight="700">实时决策</text><text x="692" y="490" fill="#172033" font-size="12">资格、互斥、频控</text><text x="692" y="510" fill="#526078" font-size="11">生成 decisionId</text>
+      <circle cx="908" cy="476" r="55" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="908" y="470" fill="#115e59" font-size="14" font-weight="700">促销定价</text><text x="908" y="493" fill="#526078" font-size="11">价格与叠加裁决</text>
+      <circle cx="1104" cy="476" r="55" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="1104" y="470" fill="#115e59" font-size="14" font-weight="700">渠道网关</text><text x="1104" y="493" fill="#526078" font-size="11">投递与真实曝光</text>
+      <circle cx="1296" cy="476" r="55" fill="#ffffff" stroke="#0f766e" stroke-width="1.8"/>
+      <text x="1296" y="470" fill="#115e59" font-size="14" font-weight="700">事件采集</text><text x="1296" y="493" fill="#526078" font-size="11">统一契约与去重</text>
+    </g>
 
-    <rect x="978" y="620" width="389" height="82" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-    <text x="1172" y="653" text-anchor="middle" fill="#9d174d" font-size="16" font-weight="700">经营与测量结果</text>
-    <text x="1172" y="680" text-anchor="middle" fill="#526078" font-size="14">漏斗、归因批次、实验增量与成本</text>
+    <g fill="none" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#readArrow)">
+      <path d="M300 531 V642"/><path d="M692 541 V642"/><path d="M1104 531 V642"/><path d="M1296 531 V642"/>
+    </g>
+
+    <rect x="52" y="612" width="1336" height="134" rx="12" fill="#fafafa" stroke="#64748b" stroke-width="1.5"/>
+    <rect x="52" y="612" width="150" height="134" rx="12" fill="#e2e8f0"/>
+    <text x="127" y="654" text-anchor="middle" fill="#334155" font-size="16" font-weight="700">分析消费层</text>
+    <text x="127" y="681" text-anchor="middle" fill="#526078" font-size="12">组合、解释、比较</text>
+    <text x="127" y="703" text-anchor="middle" fill="#526078" font-size="12">不成为交易写入口</text>
+
+    <g text-anchor="middle">
+      <rect x="260" y="638" width="300" height="82" rx="41" fill="#ffffff" stroke="#64748b" stroke-width="1.6"/>
+      <text x="410" y="670" fill="#334155" font-size="15" font-weight="700">CDP 客户组合视图</text><text x="410" y="695" fill="#526078" font-size="12">拼接身份、画像、行为和活动上下文</text>
+      <rect x="610" y="638" width="300" height="82" rx="41" fill="#ffffff" stroke="#64748b" stroke-width="1.6"/>
+      <text x="760" y="670" fill="#334155" font-size="15" font-weight="700">实验与归因</text><text x="760" y="695" fill="#526078" font-size="12">解释相关、触点贡献与因果增量</text>
+      <rect x="960" y="638" width="360" height="82" rx="41" fill="#ffffff" stroke="#64748b" stroke-width="1.6"/>
+      <text x="1140" y="670" fill="#334155" font-size="15" font-weight="700">经营与三层证据看板</text><text x="1140" y="695" fill="#526078" font-size="12">业务结果、系统运行、数据质量</text>
+    </g>
+
+    <path d="M1200 746 V780 H242 V746" fill="none" stroke="#be123c" stroke-width="2.3" stroke-dasharray="7 5" marker-end="url(#stopArrow)"/>
+    <rect x="310" y="762" width="820" height="52" rx="26" fill="#fff1f2" stroke="#be123c" stroke-width="1.6"/>
+    <text x="720" y="784" text-anchor="middle" fill="#9f1239" font-size="15" font-weight="700">禁止反向写入：CDP 与度量平台不能修改身份、Consent、权益状态和订单事实</text>
+    <text x="720" y="804" text-anchor="middle" fill="#526078" font-size="11">分析结果通过策略评审产生下一版规则，而不是覆盖已经发生的业务事实</text>
   </g>
 </svg>

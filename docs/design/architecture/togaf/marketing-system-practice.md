@@ -1,3 +1,7 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # TOGAF 营销系统实践：从活动烟囱到可度量的增长能力
 
 一家拥有 1200 家门店、商城、App 和小程序的零售企业，在年度会员节结束后拿到了一组看似漂亮的数字：活动页面访问量增长 86%，领券人数增长 63%，活动期间成交额同比增长 27%。营销负责人准备把这套打法复制到更多区域，财务团队却给出了完全不同的结论。
@@ -8,7 +12,14 @@
 
 营销系统的复杂性不主要来自页面数量或规则数量，而来自它同时跨越客户、商品、价格、权益、渠道、交易、财务和分析多个责任域。局部系统都可能运行正常，组合结果却仍然失控。TOGAF 在这里提供的不是一套活动模板，而是一条从业务驱动到运行证据的可追踪决策链。
 
-![从增长目标到运行证据的营销架构决策链](/architecture/togaf/marketing-decision-chain.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-decision-chain.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-decision-chain.svg')" alt="从增长目标到运行证据的营销架构决策链"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：先从业务结果向下追到能力、事实责任和运行证据，再沿反馈线回到下一轮策略；任一层断裂，增长结论都无法被证明。
 
 本文用一条营销业务线完整推演架构决策。需要回查单项方法时，可以进入对应专题：
 
@@ -138,7 +149,14 @@
 
 营销价值不是“创建活动后发送消息”，而是从策略假设到证据学习的完整流动。
 
-![营销价值流、业务能力与常见断点](/architecture/togaf/marketing-value-capability-map.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-value-capability-map.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-value-capability-map.svg')" alt="营销价值流、业务能力与常见断点"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：横向是营销价值产生的顺序，纵向是每一步必须留下的事实和支撑能力；红色断点说明上游缺失会怎样污染后续决策。
 
 | 价值阶段 | 需要回答的问题 | 关键能力 | 当前断点 |
 | --- | --- | --- | --- |
@@ -194,7 +212,14 @@
 
 CDP 经常被描述成“统一客户数据中心”，但统一视图不等于统一写入权。客户姓名来自会员资料，支付结果来自支付域，订单金额来自订单域，退订来自 Consent 或渠道反馈。CDP 可以组合这些事实形成画像，却不能因为保存了副本就成为所有对象的最终裁决者。
 
-![营销核心数据权威与应用责任边界](/architecture/togaf/marketing-data-application-boundary.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-data-application-boundary.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-data-application-boundary.svg')" alt="营销核心数据权威与应用责任边界"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：上层系统裁决业务事实，中层应用围绕事实完成决策，底层平台只消费并解释；读取关系不等于拥有反向修改权。
 
 | 核心对象 | 业务 Owner | 权威修改方 | 可建立的副本 | 关键规则 |
 | --- | --- | --- | --- | --- |
@@ -275,7 +300,14 @@ CDP 经常被描述成“统一客户数据中心”，但统一视图不等于�
 
 营销决策不是“从候选列表随机返回一条广告”。当结果包含专属价格、优惠券或赠品时，系统实际上正在代表企业作出有限期承诺。决策链需要同时处理客户授权、数据新鲜度、活动状态、人群资格、商品范围、渠道能力、互斥优先级、频控、预算和权益可用性。
 
-![实时营销决策、权益预留与结果记录](/architecture/togaf/marketing-realtime-decision-flow.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-realtime-decision-flow.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-realtime-decision-flow.svg')" alt="实时营销决策、权益预留与结果记录"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：黑色实线是 100ms 内的同步承诺链，红色和橙色分别表示拒绝与降级，青色虚线表示渠道展示后的异步曝光事实。
 
 一次 App 商品详情页决策可以按下面的责任顺序执行：
 
@@ -383,7 +415,14 @@ POST /marketing-decisions
 
 优惠券总量、活动预算和财务费用是三个不同对象。券模板可以剩余，但活动预算可能已经耗尽；预算已占用，客户却可能没有最终领取；券已核销，订单退款后又需要返还或回冲费用。
 
-![优惠权益与预算账本的状态和守恒关系](/architecture/togaf/marketing-benefit-ledger-state.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-benefit-ledger-state.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-benefit-ledger-state.svg')" alt="优惠权益与预算账本的状态和守恒关系"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：主干描述权益从可用到结算，向下分支处理超时、失败和退款；每次转换都必须同时保持客户权益、预算和限量额度一致。
 
 可以把一次营销承诺拆成以下对象：
 
@@ -614,7 +653,14 @@ customerId
 
 客户看到活动后下单，只能证明接触和购买存在时间关联。归因模型按照规则分配贡献，但仍不必然证明活动造成购买。只有合理实验或准实验设计，才能估计“如果没有活动，客户是否仍会购买”。
 
-![从实验分组、曝光和转化到策略反馈的测量闭环](/architecture/togaf/marketing-measurement-loop.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-measurement-loop.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-measurement-loop.svg')" alt="从实验分组、曝光和转化到策略反馈的测量闭环"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：上轨只记录发生过的交易事实，下轨分别回答过程转化、触点解释和因果增量；分析结论通过策略反馈生效，不能改写订单事实。
 
 | 层次 | 回答的问题 | 典型方法 | 不能证明什么 |
 | --- | --- | --- | --- |
@@ -711,7 +757,14 @@ exit_criteria:
 
 企业不能停掉 300 个活动后重建。迁移路线需要让每个阶段都能运行、对账和回退，并明确谁在当前范围内拥有最终裁决权。
 
-![从活动烟囱到统一营销能力的七阶段迁移路线](/architecture/togaf/marketing-migration-roadmap.svg)
+<figure class="marketing-flow-figure">
+  <div class="marketing-flow-scroll">
+    <a :href="withBase('/architecture/togaf/marketing-migration-roadmap.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-migration-roadmap.svg')" alt="从活动烟囱到统一营销能力的七阶段迁移路线"></a>
+  </div>
+  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
+</figure>
+
+> 读图：迁移不是七次系统上线，而是七次责任接管；只有进入条件、对账结果、回退点和退出证据齐备，写入口才能继续向新平台移动。
 
 ### 阶段一：语义和 Owner 对齐
 
@@ -872,3 +925,53 @@ ADM 在这里是控制不确定性的循环。影子决策可能证明目标规�
 TOGAF 把这件事从单个系统建设扩展成企业变化：业务架构定义结果、价值流和能力；数据架构确定身份、人群、权益、曝光和转化的权威；应用架构划分活动、决策、账本、渠道和测量责任；技术架构从业务损失推导一致性、容量、降级和可观测性；Gap 与过渡架构安排责任接管顺序；治理再用实验、对账、投诉和运行偏差把真实结果带回下一轮决策。
 
 当每个 Offer 都能回到目标和规则版本，每笔权益都能回到预算和业务凭证，每次曝光都能回到真实展示，每个转化结论都能说明模型与证据，营销平台才不再是活动功能的集合，而成为企业可持续学习和增长的能力。
+
+<style scoped>
+.marketing-flow-figure {
+  max-width: 100%;
+  margin: 24px 0 12px;
+}
+
+.marketing-flow-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+  -webkit-overflow-scrolling: touch;
+}
+
+.marketing-flow-scroll a {
+  display: block;
+  width: 1180px;
+}
+
+.marketing-flow-scroll img {
+  display: block;
+  box-sizing: border-box;
+  width: 1180px;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  padding: 12px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  filter: none;
+}
+
+.marketing-flow-figure figcaption {
+  margin-top: 7px;
+  color: var(--vp-c-text-3);
+  font-size: 12px;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .marketing-flow-scroll a,
+  .marketing-flow-scroll img {
+    width: 920px;
+  }
+}
+</style>

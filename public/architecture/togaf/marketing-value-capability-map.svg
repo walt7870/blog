@@ -1,91 +1,122 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
-  <title id="title">营销价值流、业务能力与常见断点</title>
-  <desc id="desc">展示营销从策略、人群、决策、权益、触达、转化到学习的价值流，以及支撑它的基础、执行和测量能力。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="850" viewBox="0 0 1440 850" role="img" aria-labelledby="title desc">
+  <title id="title">营销价值流、关键事实与能力成熟度</title>
+  <desc id="desc">横向展示从策略到学习的七阶段价值流，纵向对齐每一阶段必须留下的事实、支撑能力和成熟度，并标记三个会污染后续阶段的断点。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#475569"/>
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
+    </marker>
+    <marker id="breakArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#be123c"/>
     </marker>
   </defs>
-  <rect width="1440" height="760" fill="#ffffff"/>
+  <rect width="1440" height="850" fill="#ffffff"/>
   <g font-family="Arial, 'PingFang SC', sans-serif">
-    <text x="72" y="62" fill="#172033" font-size="30" font-weight="700">价值流决定能力组合，能力断点决定投资顺序</text>
-    <text x="72" y="98" fill="#526078" font-size="18">从策略假设到结果学习，任一阶段缺少责任或证据，后续都只能用猜测补齐。</text>
+    <text x="66" y="54" fill="#172033" font-size="29" font-weight="700">价值流不是活动步骤清单，而是一条连续生成事实的业务链</text>
+    <text x="66" y="90" fill="#526078" font-size="17">上游没有形成可复现事实，后续规则、权益和归因就只能用猜测补齐。</text>
+
+    <g font-size="12">
+      <rect x="1110" y="44" width="14" height="14" rx="3" fill="#dcfce7" stroke="#15803d"/><text x="1132" y="56" fill="#526078">成熟 4—5</text>
+      <rect x="1204" y="44" width="14" height="14" rx="3" fill="#fef3c7" stroke="#a16207"/><text x="1226" y="56" fill="#526078">成熟 2—3</text>
+      <rect x="1298" y="44" width="14" height="14" rx="3" fill="#ffe4e6" stroke="#be123c"/><text x="1320" y="56" fill="#526078">成熟 1</text>
+    </g>
+
+    <rect x="48" y="122" width="1344" height="492" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <g>
+      <rect x="48" y="122" width="126" height="118" rx="12" fill="#e2e8f0"/>
+      <text x="111" y="168" text-anchor="middle" fill="#172033" font-size="16" font-weight="700">价值动作</text>
+      <text x="111" y="194" text-anchor="middle" fill="#526078" font-size="12">业务如何前进</text>
+      <text x="111" y="216" text-anchor="middle" fill="#526078" font-size="12">以及交给谁</text>
+
+      <rect x="48" y="248" width="126" height="118" fill="#e8f2ff"/>
+      <text x="111" y="294" text-anchor="middle" fill="#1d4ed8" font-size="16" font-weight="700">关键事实</text>
+      <text x="111" y="320" text-anchor="middle" fill="#526078" font-size="12">本阶段必须留下</text>
+      <text x="111" y="342" text-anchor="middle" fill="#526078" font-size="12">可追踪输入输出</text>
+
+      <rect x="48" y="374" width="126" height="240" rx="12" fill="#ecfdf5"/>
+      <text x="111" y="422" text-anchor="middle" fill="#0f766e" font-size="16" font-weight="700">支撑能力</text>
+      <text x="111" y="448" text-anchor="middle" fill="#526078" font-size="12">当前成熟度</text>
+      <text x="111" y="484" text-anchor="middle" fill="#115e59" font-size="12">1 依赖人工</text>
+      <text x="111" y="510" text-anchor="middle" fill="#115e59" font-size="12">3 可重复</text>
+      <text x="111" y="536" text-anchor="middle" fill="#115e59" font-size="12">5 可度量</text>
+    </g>
+
+    <g fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2">
+      <rect x="182" y="134" width="166" height="94" rx="8"/><rect x="356" y="134" width="166" height="94" rx="8"/>
+      <rect x="530" y="134" width="166" height="94" rx="8"/><rect x="704" y="134" width="166" height="94" rx="8"/>
+      <rect x="878" y="134" width="166" height="94" rx="8"/><rect x="1052" y="134" width="166" height="94" rx="8"/>
+      <rect x="1226" y="134" width="154" height="94" rx="8"/>
+    </g>
+    <path d="M332 181 H352 M506 181 H526 M680 181 H700 M854 181 H874 M1028 181 H1048 M1202 181 H1222" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+    <g text-anchor="middle">
+      <text x="265" y="166" fill="#172033" font-size="15" font-weight="700">制定策略</text><text x="265" y="194" fill="#526078" font-size="12">定义行为假设</text><text x="265" y="214" fill="#526078" font-size="12">与投资边界</text>
+      <text x="439" y="166" fill="#172033" font-size="15" font-weight="700">识别人群</text><text x="439" y="194" fill="#526078" font-size="12">确定此刻符合</text><text x="439" y="214" fill="#526078" font-size="12">条件的客户</text>
+      <text x="613" y="166" fill="#172033" font-size="15" font-weight="700">生成决策</text><text x="613" y="194" fill="#526078" font-size="12">资格、互斥</text><text x="613" y="214" fill="#526078" font-size="12">利润与频控裁决</text>
+      <text x="787" y="166" fill="#172033" font-size="15" font-weight="700">承诺权益</text><text x="787" y="194" fill="#526078" font-size="12">占用预算</text><text x="787" y="214" fill="#526078" font-size="12">与稀缺额度</text>
+      <text x="961" y="166" fill="#172033" font-size="15" font-weight="700">渠道触达</text><text x="961" y="194" fill="#526078" font-size="12">送达、展示</text><text x="961" y="214" fill="#526078" font-size="12">与频次协调</text>
+      <text x="1135" y="166" fill="#172033" font-size="15" font-weight="700">观察转化</text><text x="1135" y="194" fill="#526078" font-size="12">订单、支付</text><text x="1135" y="214" fill="#526078" font-size="12">退款和成本</text>
+      <text x="1303" y="166" fill="#172033" font-size="15" font-weight="700">归因学习</text><text x="1303" y="194" fill="#526078" font-size="12">解释贡献</text><text x="1303" y="214" fill="#526078" font-size="12">验证增量</text>
+    </g>
 
     <g>
-      <rect x="70" y="145" width="166" height="152" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
-      <text x="153" y="181" text-anchor="middle" fill="#9a3412" font-size="17" font-weight="700">制定策略</text>
-      <text x="153" y="218" text-anchor="middle" fill="#172033" font-size="15">目标与预算</text>
-      <text x="153" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：先排渠道</text>
-      <text x="153" y="269" text-anchor="middle" fill="#526078" font-size="14">再补业务假设</text>
-
-      <rect x="259" y="145" width="166" height="152" rx="8" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
-      <text x="342" y="181" text-anchor="middle" fill="#854d0e" font-size="17" font-weight="700">识别人群</text>
-      <text x="342" y="218" text-anchor="middle" fill="#172033" font-size="15">身份、标签、快照</text>
-      <text x="342" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：同名人群</text>
-      <text x="342" y="269" text-anchor="middle" fill="#526078" font-size="14">成员无法重现</text>
-
-      <rect x="448" y="145" width="166" height="152" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-      <text x="531" y="181" text-anchor="middle" fill="#1d4ed8" font-size="17" font-weight="700">生成决策</text>
-      <text x="531" y="218" text-anchor="middle" fill="#172033" font-size="15">资格、互斥、频控</text>
-      <text x="531" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：多套规则</text>
-      <text x="531" y="269" text-anchor="middle" fill="#526078" font-size="14">都认为自己优先</text>
-
-      <rect x="637" y="145" width="166" height="152" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-      <text x="720" y="181" text-anchor="middle" fill="#166534" font-size="17" font-weight="700">承诺权益</text>
-      <text x="720" y="218" text-anchor="middle" fill="#172033" font-size="15">预算、券与赠品</text>
-      <text x="720" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：发放成功</text>
-      <text x="720" y="269" text-anchor="middle" fill="#526078" font-size="14">无法关联预算</text>
-
-      <rect x="826" y="145" width="166" height="152" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-      <text x="909" y="181" text-anchor="middle" fill="#6d28d9" font-size="17" font-weight="700">渠道触达</text>
-      <text x="909" y="218" text-anchor="middle" fill="#172033" font-size="15">发送、到达、展示</text>
-      <text x="909" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：渠道局部</text>
-      <text x="909" y="269" text-anchor="middle" fill="#526078" font-size="14">频控与重复触达</text>
-
-      <rect x="1015" y="145" width="166" height="152" rx="8" fill="#fdf2f8" stroke="#be185d" stroke-width="2"/>
-      <text x="1098" y="181" text-anchor="middle" fill="#9d174d" font-size="17" font-weight="700">观察转化</text>
-      <text x="1098" y="218" text-anchor="middle" fill="#172033" font-size="15">订单、支付、退款</text>
-      <text x="1098" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：按客户与</text>
-      <text x="1098" y="269" text-anchor="middle" fill="#526078" font-size="14">时间事后拼接</text>
-
-      <rect x="1204" y="145" width="166" height="152" rx="8" fill="#ecfeff" stroke="#0e7490" stroke-width="2"/>
-      <text x="1287" y="181" text-anchor="middle" fill="#155e75" font-size="17" font-weight="700">归因学习</text>
-      <text x="1287" y="218" text-anchor="middle" fill="#172033" font-size="15">实验、归因、复盘</text>
-      <text x="1287" y="245" text-anchor="middle" fill="#526078" font-size="14">断点：模型分配</text>
-      <text x="1287" y="269" text-anchor="middle" fill="#526078" font-size="14">冒充因果效果</text>
+      <path d="M174 307 H1380" fill="none" stroke="#93c5fd" stroke-width="2"/>
+      <g text-anchor="middle">
+        <circle cx="265" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="265" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Strategy</text><text x="265" y="321" fill="#526078" font-size="11">Hypothesis</text>
+        <circle cx="439" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="439" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Audience</text><text x="439" y="321" fill="#526078" font-size="11">Snapshot</text>
+        <circle cx="613" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="613" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Decision</text><text x="613" y="321" fill="#526078" font-size="11">+ reasons</text>
+        <circle cx="787" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="787" y="303" fill="#1d4ed8" font-size="10" font-weight="700">Reservation</text><text x="787" y="321" fill="#526078" font-size="11">+ budget</text>
+        <circle cx="961" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="961" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Exposure</text><text x="961" y="321" fill="#526078" font-size="11">rendered</text>
+        <circle cx="1135" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="1135" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Order</text><text x="1135" y="321" fill="#526078" font-size="11">+ Refund</text>
+        <circle cx="1303" cy="307" r="31" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="1303" y="303" fill="#1d4ed8" font-size="12" font-weight="700">Experiment</text><text x="1303" y="321" fill="#526078" font-size="11">Result</text>
+      </g>
     </g>
 
-    <g fill="none" stroke="#475569" stroke-width="2.2" marker-end="url(#arrow)">
-      <path d="M236 221 H251"/><path d="M425 221 H440"/><path d="M614 221 H629"/>
-      <path d="M803 221 H818"/><path d="M992 221 H1007"/><path d="M1181 221 H1196"/>
+    <g text-anchor="middle">
+      <rect x="182" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="265" y="424" fill="#172033" font-size="13" font-weight="700">目标与预算组合</text><text x="265" y="449" fill="#526078" font-size="12">成熟度 2 / 5</text>
+      <rect x="356" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="439" y="424" fill="#172033" font-size="13" font-weight="700">身份、人群、授权</text><text x="439" y="449" fill="#526078" font-size="12">成熟度 2 / 5</text>
+      <rect x="530" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="613" y="424" fill="#172033" font-size="13" font-weight="700">Offer 实时裁决</text><text x="613" y="449" fill="#526078" font-size="12">成熟度 1 / 5</text>
+      <rect x="704" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="787" y="424" fill="#172033" font-size="13" font-weight="700">权益与预算账本</text><text x="787" y="449" fill="#526078" font-size="12">成熟度 1 / 5</text>
+      <rect x="878" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="961" y="424" fill="#172033" font-size="13" font-weight="700">渠道协调与曝光</text><text x="961" y="449" fill="#526078" font-size="12">成熟度 2 / 5</text>
+      <rect x="1052" y="392" width="166" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="1135" y="424" fill="#172033" font-size="13" font-weight="700">交易事实采集</text><text x="1135" y="449" fill="#526078" font-size="12">成熟度 3 / 5</text>
+      <rect x="1226" y="392" width="154" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1"/><text x="1303" y="424" fill="#172033" font-size="13" font-weight="700">实验与归因</text><text x="1303" y="449" fill="#526078" font-size="12">成熟度 1 / 5</text>
     </g>
 
-    <text x="72" y="355" fill="#172033" font-size="19" font-weight="700">支撑能力分层</text>
-    <rect x="72" y="380" width="1298" height="86" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="100" y="416" fill="#1d4ed8" font-size="17" font-weight="700">可信基础</text>
-    <text x="230" y="416" fill="#172033" font-size="16">客户身份解析</text>
-    <text x="425" y="416" fill="#172033" font-size="16">Consent 与偏好</text>
-    <text x="635" y="416" fill="#172033" font-size="16">事件标准与质量</text>
-    <text x="845" y="416" fill="#172033" font-size="16">标签、人群与快照</text>
-    <text x="1085" y="416" fill="#172033" font-size="16">商品、价格与交易事实</text>
-    <text x="100" y="447" fill="#526078" font-size="14">先解决语义、身份、时间、授权和责任，再讨论实时化。</text>
+    <g>
+      <g fill="#e2e8f0"><rect x="206" y="486" width="18" height="78" rx="4"/><rect x="232" y="486" width="18" height="78" rx="4"/><rect x="258" y="486" width="18" height="78" rx="4"/><rect x="284" y="486" width="18" height="78" rx="4"/><rect x="310" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="206" y="533" width="18" height="31" rx="4" fill="#fbbf24"/><rect x="232" y="518" width="18" height="46" rx="4" fill="#fbbf24"/>
+      <g fill="#e2e8f0"><rect x="380" y="486" width="18" height="78" rx="4"/><rect x="406" y="486" width="18" height="78" rx="4"/><rect x="432" y="486" width="18" height="78" rx="4"/><rect x="458" y="486" width="18" height="78" rx="4"/><rect x="484" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="380" y="533" width="18" height="31" rx="4" fill="#fbbf24"/><rect x="406" y="518" width="18" height="46" rx="4" fill="#fbbf24"/>
+      <g fill="#e2e8f0"><rect x="554" y="486" width="18" height="78" rx="4"/><rect x="580" y="486" width="18" height="78" rx="4"/><rect x="606" y="486" width="18" height="78" rx="4"/><rect x="632" y="486" width="18" height="78" rx="4"/><rect x="658" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="554" y="548" width="18" height="16" rx="4" fill="#fb7185"/>
+      <g fill="#e2e8f0"><rect x="728" y="486" width="18" height="78" rx="4"/><rect x="754" y="486" width="18" height="78" rx="4"/><rect x="780" y="486" width="18" height="78" rx="4"/><rect x="806" y="486" width="18" height="78" rx="4"/><rect x="832" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="728" y="548" width="18" height="16" rx="4" fill="#fb7185"/>
+      <g fill="#e2e8f0"><rect x="902" y="486" width="18" height="78" rx="4"/><rect x="928" y="486" width="18" height="78" rx="4"/><rect x="954" y="486" width="18" height="78" rx="4"/><rect x="980" y="486" width="18" height="78" rx="4"/><rect x="1006" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="902" y="533" width="18" height="31" rx="4" fill="#fbbf24"/><rect x="928" y="518" width="18" height="46" rx="4" fill="#fbbf24"/>
+      <g fill="#e2e8f0"><rect x="1076" y="486" width="18" height="78" rx="4"/><rect x="1102" y="486" width="18" height="78" rx="4"/><rect x="1128" y="486" width="18" height="78" rx="4"/><rect x="1154" y="486" width="18" height="78" rx="4"/><rect x="1180" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="1076" y="533" width="18" height="31" rx="4" fill="#fbbf24"/><rect x="1102" y="518" width="18" height="46" rx="4" fill="#fbbf24"/><rect x="1128" y="502" width="18" height="62" rx="4" fill="#fbbf24"/>
+      <g fill="#e2e8f0"><rect x="1244" y="486" width="18" height="78" rx="4"/><rect x="1270" y="486" width="18" height="78" rx="4"/><rect x="1296" y="486" width="18" height="78" rx="4"/><rect x="1322" y="486" width="18" height="78" rx="4"/><rect x="1348" y="486" width="18" height="78" rx="4"/></g>
+      <rect x="1244" y="548" width="18" height="16" rx="4" fill="#fb7185"/>
+    </g>
 
-    <rect x="72" y="486" width="1298" height="86" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
-    <text x="100" y="522" fill="#166534" font-size="17" font-weight="700">决策执行</text>
-    <text x="230" y="522" fill="#172033" font-size="16">活动组合管理</text>
-    <text x="425" y="522" fill="#172033" font-size="16">实时 Offer 决策</text>
-    <text x="635" y="522" fill="#172033" font-size="16">权益与预算账本</text>
-    <text x="845" y="522" fill="#172033" font-size="16">渠道协调与频控</text>
-    <text x="1085" y="522" fill="#172033" font-size="16">规则发布与降级</text>
-    <text x="100" y="553" fill="#526078" font-size="14">每个客户决策都留下版本、理由、承诺凭证和有效期。</text>
-
-    <rect x="72" y="592" width="1298" height="86" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="100" y="628" fill="#6d28d9" font-size="17" font-weight="700">测量治理</text>
-    <text x="230" y="628" fill="#172033" font-size="16">真实曝光</text>
-    <text x="425" y="628" fill="#172033" font-size="16">实验与 Holdout</text>
-    <text x="635" y="628" fill="#172033" font-size="16">转化与退款关联</text>
-    <text x="845" y="628" fill="#172033" font-size="16">归因批次与重算</text>
-    <text x="1085" y="628" fill="#172033" font-size="16">增量毛利与架构反馈</text>
-    <text x="100" y="659" fill="#526078" font-size="14">把相关性、模型归因和因果增量分层，防止局部指标冒充企业收益。</text>
+    <g fill="none" stroke="#be123c" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#breakArrow)">
+      <path d="M439 338 V660"/><path d="M787 338 V700"/><path d="M961 338 V740"/>
+    </g>
+    <g>
+      <rect x="218" y="644" width="442" height="52" rx="8" fill="#fff1f2" stroke="#be123c"/>
+      <text x="439" y="666" text-anchor="middle" fill="#9f1239" font-size="14" font-weight="700">人群不可重现 → 决策无法复盘</text>
+      <text x="439" y="686" text-anchor="middle" fill="#526078" font-size="12">同名人群没有定义版本、计算时间和成员快照</text>
+      <rect x="566" y="704" width="442" height="52" rx="8" fill="#fff1f2" stroke="#be123c"/>
+      <text x="787" y="726" text-anchor="middle" fill="#9f1239" font-size="14" font-weight="700">权益无共同凭证 → 成本无法对账</text>
+      <text x="787" y="746" text-anchor="middle" fill="#526078" font-size="12">发放、预算占用和核销之间没有同一 reservationId</text>
+      <rect x="892" y="764" width="442" height="52" rx="8" fill="#fff1f2" stroke="#be123c"/>
+      <text x="1113" y="786" text-anchor="middle" fill="#9f1239" font-size="14" font-weight="700">曝光定义不统一 → 归因失去可信输入</text>
+      <text x="1113" y="806" text-anchor="middle" fill="#526078" font-size="12">发送、到达、展示和点击不能被重复计为真实曝光</text>
+    </g>
   </g>
 </svg>
