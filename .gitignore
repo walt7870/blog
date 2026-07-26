@@ -25,6 +25,7 @@ public/**/*.m4v
 cache
 .cache
 .temp
+.worktrees/
 
 # Log files
 *.log
