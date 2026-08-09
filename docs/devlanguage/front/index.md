@@ -9,6 +9,7 @@
 | 阶段 | 关注点 | 入口 |
 | --- | --- | --- |
 | 基础能力 | HTML 语义、CSS 布局、JavaScript/TypeScript、浏览器模型 | 本页 |
+| 系列课程 | 从浏览器基础到现代前端生态的 33 篇深度图文 | [前端全链路系列](./frontend-foundations-series/) |
 | 包管理 | npm、pnpm、Yarn、Bun、Corepack、镜像和私有源 | [包管理器](./package-managers/) |
 | 框架生态 | React、Vue、Angular、Svelte、元框架、轻量框架、跨端框架 | [前端框架](./framework/) |
 | 状态管理 | 本地状态、全局状态、服务端状态、缓存同步 | [状态管理](./state-management/) |
@@ -16,6 +17,10 @@
 | 测试 | 单元测试、组件测试、端到端测试 | [测试策略](./testing/) |
 | 性能 | 加载性能、运行时性能、资源优化、监控指标 | [性能优化](./performance/) |
 | 部署 | Nginx、对象存储/CDN、Docker、GitLab CI、回滚 | [前端部署](./deployment/) |
+
+## 系列课程
+
+[前端全链路：从浏览器基础到现代生态](./frontend-foundations-series/) 是这个专区的系统化学习路线。它把浏览器导航、HTML/CSS/JavaScript、TypeScript、Node、Vite、框架、渲染架构、测试、性能、安全和部署监控放到一条链路里讲，适合从基础补到现代前端工程。
 
 ## 基础边界
 
