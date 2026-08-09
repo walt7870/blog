@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="52%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.24"/>
+      <stop offset="55%" stop-color="#1d4ed8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="1000" fill="url(#bg)"/>
+  <rect width="1440" height="1000" fill="url(#glow)"/>
+  <text x="80" y="82" fill="#67e8f9" font-size="24" font-family="Inter, Arial, sans-serif" letter-spacing="3">EP17 · FRONTEND FOUNDATIONS</text>
+  <text x="80" y="126" fill="#f8fafc" font-size="36" font-weight="700" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">JavaScript 模块系统：import、export、依赖图与加载策略</text>
+  <text x="80" y="946" fill="#94a3b8" font-size="22" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">视频主线 + 博客深讲：机制、证据、边界、排查</text>
+
+      <g>
+        <rect x="250" y="168" width="940" height="64" rx="18" fill="#111827" stroke="#22d3ee" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="208" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">01｜import/export 是模块接口</text>
+        <path d="M720 230 L720 254" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 246 L720 256 L728 246" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="260" width="940" height="64" rx="18" fill="#111827" stroke="#a78bfa" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="300" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">02｜模块有自己的作用域</text>
+        <path d="M720 322 L720 346" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 338 L720 348 L728 338" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="352" width="940" height="64" rx="18" fill="#111827" stroke="#22d3ee" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="392" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">03｜依赖图支撑加载和构建</text>
+        <path d="M720 414 L720 438" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 430 L720 440 L728 430" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="444" width="940" height="64" rx="18" fill="#111827" stroke="#a78bfa" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="484" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">04｜dynamic import 支持按需加载</text>
+        <path d="M720 506 L720 530" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 522 L720 532 L728 522" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="536" width="940" height="64" rx="18" fill="#111827" stroke="#22d3ee" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="576" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">05｜模块系统让前端代码从脚本变成依赖图</text>
+        <path d="M720 598 L720 622" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 614 L720 624 L728 614" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="628" width="940" height="64" rx="18" fill="#111827" stroke="#a78bfa" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="668" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">06｜export 暴露能力，import 使用能力</text>
+        <path d="M720 690 L720 714" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 706 L720 716 L728 706" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="720" width="940" height="64" rx="18" fill="#111827" stroke="#22d3ee" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="760" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">07｜模块有自己的作用域，并且只执行一次</text>
+        <path d="M720 782 L720 806" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.75"/><path d="M712 798 L720 808 L728 798" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+      </g>
+
+      <g>
+        <rect x="250" y="812" width="940" height="64" rx="18" fill="#111827" stroke="#a78bfa" stroke-width="2" opacity="0.96"/>
+        <text x="296" y="852" fill="#e5e7eb" font-size="24" font-family="PingFang SC, Microsoft YaHei, Arial, sans-serif">08｜import 会形成模块依赖图</text>
+
+      </g>
+</svg>
