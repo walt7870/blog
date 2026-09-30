@@ -106,6 +106,9 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '用证据驱动语音回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
             { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
             { text: '从代码变更到部署交接', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
+            { text: '故障复盘与排查闭环', link: '/docs/ai/speech-engineering/incident-playbook' },
+            { text: '性能、并发与资源治理', link: '/docs/ai/speech-engineering/performance-and-capacity' },
+            { text: '可复现交付与协作', link: '/docs/ai/speech-engineering/release-and-collaboration' },
           ],
         },
         {

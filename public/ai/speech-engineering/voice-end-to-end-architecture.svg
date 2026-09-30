@@ -28,7 +28,7 @@
   <rect x="550" y="335" width="170" height="72" fill="#fef3c7" stroke="#d97706" class="box"/><text x="635" y="365" text-anchor="middle" class="node">角色证据</text><text x="635" y="388" text-anchor="middle" class="sub">槽位 / 时间范围</text>
   <rect x="785" y="335" width="170" height="72" fill="#f1f5f9" stroke="#64748b" class="box"/><text x="870" y="365" text-anchor="middle" class="node">ASR worker</text><text x="870" y="388" text-anchor="middle" class="sub">普通 / 目标模式</text>
   <rect x="1020" y="335" width="230" height="72" fill="#fce7f3" stroke="#db2777" class="box"/><text x="1135" y="365" text-anchor="middle" class="node">结果合并器</text><text x="1135" y="388" text-anchor="middle" class="sub">Preview / Final / 冻结</text>
-  <path d="M250 371 H315" class="edge"/><path d="M485 371 H550" class="edge"/><path d="M720 371 H785" class="edge"/><path d="M955 371 H1020" class="edge"/>
+  <path d="M250 371 H315" class="edge"/><path d="M485 371 H550" class="edge"/><path d="M485 390 V435 H870 V407" class="edge"/><path d="M720 350 V320 H1135 V335" class="edge"/><path d="M955 371 H1020" class="edge"/>
   <path d="M410 217 V335" class="control"/><path d="M660 217 V335" class="control"/><path d="M910 217 V335" class="control"/>
 
   <rect x="80" y="565" width="180" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="170" y="595" text-anchor="middle" class="node">用例与标注</text><text x="170" y="618" text-anchor="middle" class="sub">输入 / 期望 / 边界</text>
@@ -38,5 +38,5 @@
   <rect x="1080" y="565" width="170" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="1165" y="595" text-anchor="middle" class="node">回滚点</text><text x="1165" y="618" text-anchor="middle" class="sub">已验证工件</text>
   <path d="M260 601 H330" class="evidence"/><path d="M510 601 H580" class="evidence"/><path d="M760 601 H830" class="evidence"/><path d="M1010 601 H1080" class="evidence"/>
   <path d="M1135 407 V520 H420 V565" class="evidence"/>
-  <text x="65" y="665" class="note">任何模型替换都应同时说明：影响哪条数据流、改变哪个状态、增加哪些证据，以及回滚到哪个工件。</text>
+  <text x="65" y="665" class="note">会话收音与多个段的识别并行；角色证据和 ASR 文本在合并器汇合，Final 按协议顺序发布。</text>
 </svg>
