@@ -97,6 +97,18 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: 'MCP', link: '/docs/ai/mcp' },
         { text: '智能体', link: '/docs/ai/agent' },
         {
+          text: '语音项目工程实践',
+          collapsed: true,
+          items: [
+            { text: '专题概览', link: '/docs/ai/speech-engineering/' },
+            { text: '端到端流程架构', link: '/docs/ai/speech-engineering/architecture-and-workflow' },
+            { text: '从模型堆叠到责任边界', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
+            { text: '用证据驱动语音回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
+            { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
+            { text: '从代码变更到部署交接', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
+          ],
+        },
+        {
           text: '大模型',
           collapsed: true,
           items: [

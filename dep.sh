@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REMOTE_HOST="root@117.72.10.198"
-REMOTE_TMP="/opt/tmpfile"
-REMOTE_SITE="/opt/blog"
+: "${REMOTE_HOST:?请通过 REMOTE_HOST 指定部署目标，例如 REMOTE_HOST=jd}"
+REMOTE_TMP="${REMOTE_TMP:-/opt/tmpfile}"
+REMOTE_SITE="${REMOTE_SITE:-/opt/blog}"
 
 rm -rf ./.vitepress/dist
 npm run docs:build
@@ -13,12 +13,12 @@ rm -rf dist.zip
 zip -qr dist.zip ./dist/*
 scp dist.zip "${REMOTE_HOST}:${REMOTE_TMP}/"
 
-ssh "${REMOTE_HOST}" 'bash -s' <<'REMOTE_DEPLOY'
+ssh "${REMOTE_HOST}" "REMOTE_TMP='${REMOTE_TMP}' REMOTE_SITE='${REMOTE_SITE}' bash -s" <<'REMOTE_DEPLOY'
 set -euo pipefail
 
-DIST_ZIP="/opt/tmpfile/dist.zip"
-SITE_DIR="/opt/blog"
-BACKUP_ROOT="/opt/tmpfile"
+DIST_ZIP="${REMOTE_TMP}/dist.zip"
+SITE_DIR="${REMOTE_SITE}"
+BACKUP_ROOT="${REMOTE_TMP}"
 RELEASE_DIR="${BACKUP_ROOT}/blog_release_$(date '+%Y%m%d%H%M%S')"
 
 if [ ! -e "${DIST_ZIP}" ]; then
