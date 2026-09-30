@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">离线容器启动依赖</title><desc id="desc">宿主设备与驱动、只读工件及可写状态共同构成运行环境，按预检、解密、模型启动、预热与真实请求验证顺序启动。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>.b{rx:6;stroke-width:1.5}.h{font:600 23px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.t{font:600 17px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.s{font:14px -apple-system,"PingFang SC",sans-serif;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="480" fill="#fff"/><text x="35" y="43" class="h">工件绑定、运行隔离与真实就绪</text>
+  <rect x="35" y="95" width="320" height="85" fill="#edf4fa" stroke="#4280a8" class="b"/><text x="195" y="128" text-anchor="middle" class="t">宿主设备与驱动</text><text x="195" y="155" text-anchor="middle" class="s">物理设备 → 容器逻辑编号</text>
+  <rect x="435" y="95" width="330" height="85" fill="#eaf5ed" stroke="#488661" class="b"/><text x="600" y="128" text-anchor="middle" class="t">只读工件与校验输入</text><text x="600" y="155" text-anchor="middle" class="s">镜像 / 密文 / 授权 / 配置 / 公钥</text>
+  <rect x="845" y="95" width="320" height="85" fill="#fff5e6" stroke="#ae8135" class="b"/><text x="1005" y="128" text-anchor="middle" class="t">受控可写目录</text><text x="1005" y="155" text-anchor="middle" class="s">临时解密 / 编译缓存 / 日志 / 状态</text>
+  <path d="M195 180V218H140V255" class="e"/><path d="M600 180V218H385V255" class="e"/><path d="M1005 180V218H625V255" class="e"/>
+  <rect x="35" y="255" width="200" height="90" fill="#f1f3f4" stroke="#748188" class="b"/><text x="135" y="289" text-anchor="middle" class="t">启动预检</text><text x="135" y="318" text-anchor="middle" class="s">资源 / 映射 / 签名</text>
+  <rect x="275" y="255" width="200" height="90" fill="#f1f3f4" stroke="#748188" class="b"/><text x="375" y="289" text-anchor="middle" class="t">解密与模型启动</text><text x="375" y="318" text-anchor="middle" class="s">运行库 / 模型清单</text>
+  <rect x="515" y="255" width="200" height="90" fill="#f1f3f4" stroke="#748188" class="b"/><text x="615" y="289" text-anchor="middle" class="t">模型健康检查</text><text x="615" y="318" text-anchor="middle" class="s">真实子进程环境</text>
+  <rect x="755" y="255" width="170" height="90" fill="#eaf5ed" stroke="#488661" class="b"/><text x="840" y="289" text-anchor="middle" class="t">代表性波形预热</text><text x="840" y="318" text-anchor="middle" class="s">不同长度与形状</text>
+  <rect x="965" y="255" width="200" height="90" fill="#eaf5ed" stroke="#488661" class="b"/><text x="1065" y="289" text-anchor="middle" class="t">端到端请求</text><text x="1065" y="318" text-anchor="middle" class="s">文字 / 身份 / 收尾</text>
+  <path d="M235 300H275" class="e"/><path d="M475 300H515" class="e"/><path d="M715 300H755" class="e"/><path d="M925 300H965" class="e"/>
+  <text x="35" y="408" class="s">任一阶段失败，定位该阶段输入。端口监听不等于模型可用，模型加载不等于完成波形预热。</text><text x="35" y="439" class="s">最终入口验证：无网络、只读根、冷启动、重启和指定设备映射；报告绑定完整工件摘要。</text>
+</svg>

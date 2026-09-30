@@ -1,42 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
-  <title id="title">语音服务端到端流程架构</title>
-  <desc id="desc">展示数据流、控制流、状态流和证据流从接入到部署交接的协作关系。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="title desc">
+  <title id="title">流式语音处理链路</title>
+  <desc id="desc">连续 PCM 经 TEN-VAD 主分段，普通与多人模式使用普通 ASR，目标模式结合声纹门控和登记参考使用 TS-ASR。角色证据不等于登记身份，热词能力共享，结果冻结后输出。</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker>
-    <style>
-      .lane{stroke:#cbd5e1;stroke-width:1}.box{stroke-width:2;rx:12;ry:12}.head{font:600 22px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#0f172a}.node{font:600 17px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#0f172a}.sub{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#334155}.note{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;fill:#475569}.edge{stroke:#475569;stroke-width:2;fill:none;marker-end:url(#arrow)}.control{stroke:#2563eb;stroke-dasharray:8 5;fill:none;marker-end:url(#arrow)}.evidence{stroke:#7c3aed;stroke-dasharray:4 4;fill:none;marker-end:url(#arrow)}
-    </style>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#52616b"/></marker>
+    <style>.box{rx:6;stroke-width:1.5}.h{font:600 23px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.t{font:600 17px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.s{font:14px -apple-system,"PingFang SC",sans-serif;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}.d{stroke-dasharray:5 4}</style>
   </defs>
-  <rect width="1400" height="760" fill="#f8fafc"/>
-  <text x="55" y="45" class="head">语音服务端到端流程架构</text>
-  <text x="55" y="70" class="note">实线表示数据流，虚线表示控制流，点划线表示证据流</text>
-  <rect x="45" y="95" width="1310" height="155" fill="#eff6ff" class="lane"/>
-  <rect x="45" y="265" width="1310" height="205" fill="#f0fdf4" class="lane"/>
-  <rect x="45" y="485" width="1310" height="210" fill="#faf5ff" class="lane"/>
-  <text x="65" y="125" class="node">控制流：会话生命周期与异常收敛</text>
-  <text x="65" y="295" class="node">数据流：音频区间、模型任务与结果合并</text>
-  <text x="65" y="515" class="node">证据流：回归、工件、发布与回滚</text>
-
-  <rect x="80" y="155" width="170" height="62" fill="#dbeafe" stroke="#2563eb" class="box"/><text x="165" y="182" text-anchor="middle" class="node">调用方</text><text x="165" y="204" text-anchor="middle" class="sub">连接 / start / stop</text>
-  <rect x="315" y="155" width="190" height="62" fill="#e0f2fe" stroke="#0284c7" class="box"/><text x="410" y="182" text-anchor="middle" class="node">会话编排器</text><text x="410" y="204" text-anchor="middle" class="sub">准入 / 顺序 / 生命周期</text>
-  <rect x="570" y="155" width="180" height="62" fill="#dbeafe" stroke="#2563eb" class="box"/><text x="660" y="182" text-anchor="middle" class="node">状态机</text><text x="660" y="204" text-anchor="middle" class="sub">Receiving / Finalizing</text>
-  <rect x="815" y="155" width="190" height="62" fill="#dbeafe" stroke="#2563eb" class="box"/><text x="910" y="182" text-anchor="middle" class="node">关闭协调器</text><text x="910" y="204" text-anchor="middle" class="sub">等待任务 / terminal</text>
-  <path d="M250 186 H315" class="control"/><path d="M505 186 H570" class="control"/><path d="M750 186 H815" class="control"/>
-
-  <rect x="80" y="335" width="170" height="72" fill="#dcfce7" stroke="#16a34a" class="box"/><text x="165" y="365" text-anchor="middle" class="node">PCM 缓冲</text><text x="165" y="388" text-anchor="middle" class="sub">有序帧 / 尾部缓存</text>
-  <rect x="315" y="335" width="170" height="72" fill="#dcfce7" stroke="#16a34a" class="box"/><text x="400" y="365" text-anchor="middle" class="node">VAD</text><text x="400" y="388" text-anchor="middle" class="sub">语音区间 / 停顿</text>
-  <rect x="550" y="335" width="170" height="72" fill="#fef3c7" stroke="#d97706" class="box"/><text x="635" y="365" text-anchor="middle" class="node">角色证据</text><text x="635" y="388" text-anchor="middle" class="sub">槽位 / 时间范围</text>
-  <rect x="785" y="335" width="170" height="72" fill="#f1f5f9" stroke="#64748b" class="box"/><text x="870" y="365" text-anchor="middle" class="node">ASR worker</text><text x="870" y="388" text-anchor="middle" class="sub">普通 / 目标模式</text>
-  <rect x="1020" y="335" width="230" height="72" fill="#fce7f3" stroke="#db2777" class="box"/><text x="1135" y="365" text-anchor="middle" class="node">结果合并器</text><text x="1135" y="388" text-anchor="middle" class="sub">Preview / Final / 冻结</text>
-  <path d="M250 371 H315" class="edge"/><path d="M485 371 H550" class="edge"/><path d="M485 390 V435 H870 V407" class="edge"/><path d="M720 350 V320 H1135 V335" class="edge"/><path d="M955 371 H1020" class="edge"/>
-  <path d="M410 217 V335" class="control"/><path d="M660 217 V335" class="control"/><path d="M910 217 V335" class="control"/>
-
-  <rect x="80" y="565" width="180" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="170" y="595" text-anchor="middle" class="node">用例与标注</text><text x="170" y="618" text-anchor="middle" class="sub">输入 / 期望 / 边界</text>
-  <rect x="330" y="565" width="180" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="420" y="595" text-anchor="middle" class="node">事件与指标</text><text x="420" y="618" text-anchor="middle" class="sub">顺序 / 时延 / 错误</text>
-  <rect x="580" y="565" width="180" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="670" y="595" text-anchor="middle" class="node">manifest</text><text x="670" y="618" text-anchor="middle" class="sub">源码 / 环境 / 摘要</text>
-  <rect x="830" y="565" width="180" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="920" y="595" text-anchor="middle" class="node">目标环境</text><text x="920" y="618" text-anchor="middle" class="sub">smoke / 分阶段发布</text>
-  <rect x="1080" y="565" width="170" height="72" fill="#ede9fe" stroke="#7c3aed" class="box"/><text x="1165" y="595" text-anchor="middle" class="node">回滚点</text><text x="1165" y="618" text-anchor="middle" class="sub">已验证工件</text>
-  <path d="M260 601 H330" class="evidence"/><path d="M510 601 H580" class="evidence"/><path d="M760 601 H830" class="evidence"/><path d="M1010 601 H1080" class="evidence"/>
-  <path d="M1135 407 V520 H420 V565" class="evidence"/>
-  <text x="65" y="665" class="note">会话收音与多个段的识别并行；角色证据和 ASR 文本在合并器汇合，Final 按协议顺序发布。</text>
+  <rect width="1320" height="640" fill="#fff"/>
+  <text x="36" y="42" class="h">连续收音、分模式识别与结果定稿</text>
+  <text x="36" y="70" class="s">实线：音频或结果依赖　虚线：身份条件与共享能力</text>
+  <rect x="30" y="108" width="205" height="80" fill="#edf4fa" stroke="#4280a8" class="box"/>
+  <text x="132" y="140" text-anchor="middle" class="t">WebSocket / PCM</text><text x="132" y="166" text-anchor="middle" class="s">有序帧与样本时间轴</text>
+  <rect x="280" y="108" width="220" height="80" fill="#eaf5ed" stroke="#488661" class="box"/>
+  <text x="390" y="140" text-anchor="middle" class="t">TEN-VAD 主分段</text><text x="390" y="166" text-anchor="middle" class="s">封口段与尾部缓存</text>
+  <path d="M235 148H280" class="e"/>
+  <rect x="280" y="225" width="220" height="92" fill="#fff5e6" stroke="#ae8135" class="box"/>
+  <text x="390" y="254" text-anchor="middle" class="t">Nemotron 角色证据</text><text x="390" y="280" text-anchor="middle" class="s">连续上下文 / 活动区间</text><text x="390" y="302" text-anchor="middle" class="s">局部槽位 → 会话身份</text>
+  <path d="M132 188V271H280" class="e"/>
+  <rect x="570" y="108" width="225" height="80" fill="#eaf5ed" stroke="#488661" class="box"/>
+  <text x="682" y="140" text-anchor="middle" class="t">普通 / 多人模式</text><text x="682" y="166" text-anchor="middle" class="s">父段或角色核心子段</text>
+  <path d="M500 148H570" class="e"/><path d="M500 271H535V177H570" class="e"/>
+  <rect x="860" y="108" width="185" height="80" fill="#edf4fa" stroke="#4280a8" class="box"/>
+  <text x="952" y="140" text-anchor="middle" class="t">普通 ASR</text><text x="952" y="166" text-anchor="middle" class="s">全量文字转写</text><path d="M795 148H860" class="e"/>
+  <rect x="570" y="352" width="225" height="92" fill="#fff5e6" stroke="#ae8135" class="box"/>
+  <text x="682" y="382" text-anchor="middle" class="t">目标说话人模式</text><text x="682" y="408" text-anchor="middle" class="s">Speaker VAD 身份证据</text><text x="682" y="432" text-anchor="middle" class="s">保留混合语音上下文</text>
+  <path d="M500 170H520V398H570" class="e"/>
+  <rect x="280" y="352" width="220" height="92" fill="#f5eef2" stroke="#a46a84" class="box"/>
+  <text x="390" y="386" text-anchor="middle" class="t">登记参考</text><text x="390" y="412" text-anchor="middle" class="s">参考波形 / 声纹证据</text><path d="M500 398H570" class="e d"/>
+  <rect x="860" y="352" width="185" height="92" fill="#edf4fa" stroke="#4280a8" class="box"/>
+  <text x="952" y="382" text-anchor="middle" class="t">TS-ASR</text><text x="952" y="408" text-anchor="middle" class="s">参考 + learned SEP</text><text x="952" y="432" text-anchor="middle" class="s">+ 混合语音编码</text><path d="M795 398H860" class="e"/>
+  <rect x="860" y="225" width="185" height="80" fill="#f1f3f4" stroke="#748188" class="box"/>
+  <text x="952" y="258" text-anchor="middle" class="t">共享热词解析</text><text x="952" y="282" text-anchor="middle" class="s">当前 PCM / pool ID</text><path d="M952 225V188" class="e d"/><path d="M952 305V352" class="e d"/>
+  <rect x="1110" y="225" width="180" height="115" fill="#f5eef2" stroke="#a46a84" class="box"/>
+  <text x="1200" y="256" text-anchor="middle" class="t">结果合并与冻结</text><text x="1200" y="282" text-anchor="middle" class="s">文字 / 区间 / 身份</text><text x="1200" y="306" text-anchor="middle" class="s">Final → 稳定协议</text><text x="1200" y="328" text-anchor="middle" class="s">排空后 terminal</text>
+  <path d="M1045 148H1200V225" class="e"/><path d="M1045 398H1200V340" class="e"/>
+  <path d="M390 317V480H1080V282H1110" class="e d"/>
+  <text x="36" y="537" class="t">决策权</text><text x="36" y="565" class="s">TEN-VAD 决定主音频段；角色证据决定多人子段与身份关联；登记参考约束目标识别。</text>
+  <text x="36" y="593" class="s">匿名槽位不等于登记身份。普通模式不启用目标门控。热词共享不合并普通与目标解码路径。</text>
 </svg>
