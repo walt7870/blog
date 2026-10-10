@@ -7,6 +7,7 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { defineConfig } from 'vitepress';
+import { Buffer } from 'node:buffer';
 
 import { nav } from './navbar.ts';
 import { sidebar } from './sidebar.ts';
@@ -59,5 +60,24 @@ export default  defineConfig({
         '专题：<a href="/blog/docs/ai/skill/">Agent Skill</a> · <a href="/blog/docs/ai/skill/recommendations">推荐与选型</a>',
       copyright: '稻草小站 · 粤ICP备2026008222号-1',
     },
-  }
+  },
+  markdown: {
+    config(md) {
+      const defaultFence = md.renderer.rules.fence;
+
+      md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+        const token = tokens[idx];
+        const language = token.info.trim().split(/\s+/)[0];
+
+        if (language === 'mermaid') {
+          const encoded = Buffer.from(token.content, 'utf8').toString('base64');
+          return `<MermaidDiagram code="${encoded}" />`;
+        }
+
+        return defaultFence
+          ? defaultFence(tokens, idx, options, env, self)
+          : self.renderToken(tokens, idx, options);
+      };
+    },
+  },
 })

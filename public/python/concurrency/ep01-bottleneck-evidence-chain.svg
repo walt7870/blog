@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">并发选型前的瓶颈证据链</title>
+  <desc id="desc">先让慢可复现，再定位阶段、采集资源指标，最后把证据翻译成并发模型。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">并发选型前的瓶颈证据链</text>
+  <text class="sub" x="56" y="86">先让慢可复现，再定位阶段、采集资源指标，最后把证据翻译成并发模型。</text><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="56" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="82" y="204">STEP 01</text>
+  <text class="h" x="82" y="240">baseline</text>
+  <text class="b" x="82" y="276">固定输入和参数</text>
+<text class="b" x="82" y="304">记录总耗时 / 成功率</text>
+<text class="b" x="82" y="332">形成可复现实验</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="300" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="326" y="204">STEP 02</text>
+  <text class="h" x="326" y="240">stage probe</text>
+  <text class="b" x="326" y="276">拆扫描 / 转码 / API</text>
+<text class="b" x="326" y="304">记录每阶段耗时</text>
+<text class="b" x="326" y="332">定位最慢段</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="544" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="570" y="204">STEP 03</text>
+  <text class="h" x="570" y="240">system metrics</text>
+  <text class="b" x="570" y="276">top / iostat / nvidia-smi</text>
+<text class="b" x="570" y="304">CPU、磁盘、GPU、内存</text>
+<text class="b" x="570" y="332">找最先到上限的资源</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="788" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="814" y="204">STEP 04</text>
+  <text class="h" x="814" y="240">profiler &amp; logs</text>
+  <text class="b" x="814" y="276">py-spy / cProfile</text>
+<text class="b" x="814" y="304">API 429 / timeout</text>
+<text class="b" x="814" y="332">stderr / 队列长度</text>
+<rect class="card" style="stroke:#ec4899;fill:#ffffff" x="1032" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="1058" y="204">STEP 05</text>
+  <text class="h" x="1058" y="240">模型选择</text>
+  <text class="b" x="1058" y="276">I/O → 线程池/asyncio</text>
+<text class="b" x="1058" y="304">CPU → 进程池/原生库</text>
+<text class="b" x="1058" y="332">API/GPU → 限流和队列</text><path class="blueLine" d="M248 282 H300"/>
+<path class="blueLine" d="M492 282 H544"/>
+<path class="blueLine" d="M736 282 H788"/>
+<path class="blueLine" d="M980 282 H1032"/><text class="tag" x="56" y="462">关键工具 / 指标</text><path class="line" d="M152 400 V490"/>
+<path class="line" d="M396 400 V490"/>
+<path class="line" d="M640 400 V490"/>
+<path class="line" d="M884 400 V490"/>
+<path class="line" d="M1128 400 V490"/><rect class="card" style="stroke:#94a3b8;fill:#fff" x="92" y="490" width="168" height="62" rx="14"/><text class="h" x="176" y="529" text-anchor="middle">time.perf_counter</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="318" y="490" width="168" height="62" rx="14"/><text class="h" x="402" y="529" text-anchor="middle">py-spy</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="544" y="490" width="168" height="62" rx="14"/><text class="h" x="628" y="529" text-anchor="middle">cProfile</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="770" y="490" width="168" height="62" rx="14"/><text class="h" x="854" y="529" text-anchor="middle">iostat</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="996" y="490" width="168" height="62" rx="14"/><text class="h" x="1080" y="529" text-anchor="middle">nvidia-smi</text></svg>

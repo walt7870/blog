@@ -10,6 +10,8 @@ date: 2026-05-17
 
 ![容器交付链路](/container/container-delivery-map.svg)
 
+配套视频分为两条路线：[容器与容器管理系统课](https://www.bilibili.com/video/BV1tbNK6LEgq/)负责从容器基础进入 Kubernetes，[Kubernetes 进阶：机制、扩展与云原生生态](https://space.bilibili.com/181407346/lists/5147962?type=series)继续深入控制面、数据面、Operator 和平台工程。逐集正文映射见 [容器基础视频系列](./video-series)和 [Kubernetes 进阶视频系列](./kubernetes/video-series)。
+
 ## 这组文档解决什么问题
 
 容器专题按“基础概念 -> 容器实现 -> 部署编排 -> 使用工具”的方式组织：
@@ -18,8 +20,18 @@ date: 2026-05-17
 | --- | --- | --- |
 | [Basic](./basic/) | 容器、镜像、运行时、隔离机制、标准接口 | 建立全局认知，分清生态层级 |
 | [Docker](./docker/) | Docker 作为容器工具链如何构建镜像、运行容器、管理网络和卷 | 单机开发、镜像制作、排查 Docker 使用问题 |
-| [Kubernetes](./kubernetes/) | 如何把容器应用部署成可调度、可扩缩、可恢复的集群服务 | 多服务生产部署、发布治理、资源隔离 |
+| [Kubernetes](./kubernetes/) | 如何把容器应用部署成可调度、可扩缩、可恢复的集群服务，并扩展为平台能力 | 多服务生产部署、发布治理、资源隔离、平台工程 |
 | [Tools](./tools/) | Colima 等本地容器工具如何选择和使用 | macOS/Linux 本地容器环境、轻量 K8s 实验 |
+
+## 从入门到生产的学习路径
+
+| 阶段 | 需要解决的问题 | 正文入口 | 实践产物 |
+| --- | --- | --- | --- |
+| 运行模型 | 容器与虚拟机有何不同，进程怎样被隔离和限制 | [核心概念](./basic/concepts)、[运行时边界](./basic/runtimes) | 能画出镜像、容器、运行时和宿主内核的关系 |
+| 单机交付 | 怎样构建、运行、联网并保存数据 | [Docker 导览](./docker/)、[存储、网络与 Compose](./docker/storage-network-compose) | 一个应用与数据库组成的可重复开发环境 |
+| 制品治理 | 怎样缓存构建、缩小镜像并追踪进入生产的内容 | [镜像构建与供应链](./docker/image-build-supply-chain) | 带版本、摘要、扫描记录的运行镜像 |
+| 集群编排 | 怎样管理副本、发布、服务发现、配置和持久卷 | [Kubernetes 导览](./kubernetes/)、[资源导览](./kubernetes/resources/) | 一组可部署的 Kubernetes 资源清单 |
+| 生产治理 | 怎样约束资源、安全、容量并形成排障闭环 | [Kubernetes 生产实践](./kubernetes/production-practice) | 发布检查清单、容量数据和一次故障复盘 |
 
 ## 容器解决的核心问题
 
@@ -92,7 +104,10 @@ date: 2026-05-17
 | 不清楚 Docker、containerd、Kubernetes、Colima 的关系 | [容器基础导览](./basic/) |
 | 想理解 OCI、CRI、CNI、CSI | [容器标准](./basic/standards) |
 | 镜像构建慢、镜像过大、容器启动命令不清楚 | [Docker 导览](./docker/) |
+| 构建缓存不稳定、镜像无法追踪、供应链风险不清楚 | [镜像构建与供应链](./docker/image-build-supply-chain) |
 | `docker run` 后端口不通、卷挂载不生效 | [Docker 常用命令](./docker/command) |
+| 多服务启动顺序、容器 DNS、Volume 生命周期不清楚 | [存储、网络与 Compose](./docker/storage-network-compose) |
 | Pod 起不来、服务访问不到、发布失败 | [Kubernetes 导览](./kubernetes/) |
 | 不清楚 Pod、Service、Ingress、PVC 的分工 | [Kubernetes 资源导览](./kubernetes/resources/) |
 | 想在 macOS 上轻量跑 Docker 或 Kubernetes | [工具导览](./tools/) |
+| 需要上线检查、容量估算、安全基线和系统排障路径 | [Kubernetes 生产实践](./kubernetes/production-practice) |

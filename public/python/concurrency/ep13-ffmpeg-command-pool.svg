@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">ffmpeg 有界命令池先把音频标准化</title>
+  <desc id="desc">语音并发前先统一采样率、声道和响度，并保留退出码与 stderr。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">ffmpeg 有界命令池先把音频标准化</text>
+  <text class="sub" x="56" y="86">语音并发前先统一采样率、声道和响度，并保留退出码与 stderr。</text><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="56" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="82" y="204">STEP 01</text>
+  <text class="h" x="82" y="240">输入校验</text>
+  <text class="b" x="82" y="276">文件存在 / 时长</text>
+<text class="b" x="82" y="304">ffprobe 读取元数据</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="300" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="326" y="204">STEP 02</text>
+  <text class="h" x="326" y="240">命令模板</text>
+  <text class="b" x="326" y="276">16kHz / mono</text>
+<text class="b" x="326" y="304">响度和格式固定</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="544" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="570" y="204">STEP 03</text>
+  <text class="h" x="570" y="240">有界命令池</text>
+  <text class="b" x="570" y="276">限制进程数</text>
+<text class="b" x="570" y="304">保护 CPU 和磁盘</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="788" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="814" y="204">STEP 04</text>
+  <text class="h" x="814" y="240">结果检查</text>
+  <text class="b" x="814" y="276">returncode / stderr</text>
+<text class="b" x="814" y="304">输出大小 / duration</text>
+<rect class="card" style="stroke:#ec4899;fill:#ffffff" x="1032" y="170" width="192" height="230" rx="18"/>
+  <text class="tag" x="1058" y="204">STEP 05</text>
+  <text class="h" x="1058" y="240">状态归档</text>
+  <text class="b" x="1058" y="276">成功进入 ASR</text>
+<text class="b" x="1058" y="304">失败进入重试或隔离</text><path class="blueLine" d="M248 282 H300"/>
+<path class="blueLine" d="M492 282 H544"/>
+<path class="blueLine" d="M736 282 H788"/>
+<path class="blueLine" d="M980 282 H1032"/><text class="tag" x="56" y="462">关键工具 / 指标</text><path class="line" d="M152 400 V490"/>
+<path class="line" d="M396 400 V490"/>
+<path class="line" d="M640 400 V490"/>
+<path class="line" d="M884 400 V490"/>
+<path class="line" d="M1128 400 V490"/><rect class="card" style="stroke:#94a3b8;fill:#fff" x="92" y="490" width="168" height="62" rx="14"/><text class="h" x="176" y="529" text-anchor="middle">ffprobe</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="318" y="490" width="168" height="62" rx="14"/><text class="h" x="402" y="529" text-anchor="middle">ffmpeg</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="544" y="490" width="168" height="62" rx="14"/><text class="h" x="628" y="529" text-anchor="middle">returncode</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="770" y="490" width="168" height="62" rx="14"/><text class="h" x="854" y="529" text-anchor="middle">stderr</text>
+<rect class="card" style="stroke:#94a3b8;fill:#fff" x="996" y="490" width="168" height="62" rx="14"/><text class="h" x="1080" y="529" text-anchor="middle">tmpdir waterline</text></svg>

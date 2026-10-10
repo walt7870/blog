@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 请求与存储数据路径</title>
+  <desc id="desc">上半部分展示外部请求到 Pod，下半部分展示 PVC 到 CSI 和存储后端。</desc>
+  <rect width="1280" height="560" fill="#f5f7fa"/>
+  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">对象已收敛，不代表请求和数据已经可用</text>
+  <text x="66" y="112" font-family="sans-serif" font-size="20" font-weight="700" fill="#326ce5">请求路径</text>
+  <g font-family="sans-serif" font-size="18" text-anchor="middle">
+    <rect x="60" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="135" y="180" fill="#172033">客户端 / DNS</text>
+    <rect x="255" y="138" width="180" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="345" y="166" fill="#172033">Gateway / Ingress</text><text x="345" y="191" fill="#526078">监听与路由</text>
+    <rect x="480" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="555" y="180" fill="#172033">Service</text>
+    <rect x="675" y="138" width="180" height="70" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="765" y="166" fill="#172033">EndpointSlice</text><text x="765" y="191" fill="#526078">Ready 后端集合</text>
+    <rect x="900" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="975" y="166" fill="#172033">CNI / 策略</text><text x="975" y="191" fill="#526078">路由与允许</text>
+    <rect x="1095" y="138" width="125" height="70" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1157" y="180" fill="#172033">Pod</text>
+  </g>
+  <g stroke="#326ce5" stroke-width="3"><path d="M210 173H245"/><path d="M435 173H470"/><path d="M630 173H665"/><path d="M855 173H890"/><path d="M1050 173H1085"/></g>
+  <g fill="#326ce5"><path d="M245 173l-11-7v14z"/><path d="M470 173l-11-7v14z"/><path d="M665 173l-11-7v14z"/><path d="M890 173l-11-7v14z"/><path d="M1085 173l-11-7v14z"/></g>
+  <text x="66" y="296" font-family="sans-serif" font-size="20" font-weight="700" fill="#7a4a00">存储路径</text>
+  <g font-family="sans-serif" font-size="18" text-anchor="middle">
+    <rect x="125" y="326" width="160" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="205" y="353" fill="#172033">PVC</text><text x="205" y="379" fill="#526078">容量与访问模式</text>
+    <rect x="355" y="326" width="180" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="445" y="353" fill="#172033">StorageClass</text><text x="445" y="379" fill="#526078">供应与绑定策略</text>
+    <rect x="605" y="326" width="170" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="690" y="353" fill="#172033">scheduler</text><text x="690" y="379" fill="#526078">Pod / 卷拓扑</text>
+    <rect x="845" y="326" width="150" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="920" y="353" fill="#172033">CSI</text><text x="920" y="379" fill="#526078">创建与挂载</text>
+    <rect x="1065" y="326" width="150" height="70" rx="8" fill="#fff4e5" stroke="#d88416" stroke-width="3"/><text x="1140" y="353" fill="#172033">存储后端</text><text x="1140" y="379" fill="#526078">数据与故障域</text>
+  </g>
+  <g stroke="#d88416" stroke-width="3"><path d="M285 361H345"/><path d="M535 361H595"/><path d="M775 361H835"/><path d="M995 361H1055"/></g>
+  <g fill="#d88416"><path d="M345 361l-11-7v14z"/><path d="M595 361l-11-7v14z"/><path d="M835 361l-11-7v14z"/><path d="M1055 361l-11-7v14z"/></g>
+  <rect x="60" y="462" width="1160" height="52" rx="8" fill="#fff" stroke="#b7c0ce"/><text x="640" y="495" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#526078">控制面对象、节点执行、网络状态和应用指标必须放到同一时间线上判断</text>
+</svg>

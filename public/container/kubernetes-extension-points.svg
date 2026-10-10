@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 扩展点与故障边界</title>
+  <desc id="desc">从 API 同步路径、异步控制、调度、节点与数据面展示不同扩展接口。</desc>
+  <rect width="1280" height="560" fill="#f7f8fa"/>
+  <text x="64" y="58" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#17212b">扩展位置决定故障范围</text>
+  <text x="64" y="91" font-family="Arial, sans-serif" font-size="16" fill="#53606d">先确定请求经过哪条路径，再选择接口</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="64" y="128" width="1152" height="72" rx="8" fill="#fff4ed" stroke="#c66a3d" stroke-width="2"/>
+    <text x="88" y="159" font-size="18" font-weight="700" fill="#17212b">API 同步路径</text>
+    <text x="88" y="185" font-size="15" fill="#53606d">Admission Policy / Webhook · Aggregated API　失败会直接增加 API 延迟或拒绝写入</text>
+    <rect x="64" y="218" width="552" height="114" rx="8" fill="#edf7f3" stroke="#2f6f61" stroke-width="2"/>
+    <text x="88" y="251" font-size="18" font-weight="700" fill="#17212b">异步控制链</text>
+    <text x="88" y="278" font-size="15" fill="#53606d">CRD · Controller · Operator</text>
+    <text x="88" y="305" font-size="14" fill="#53606d">API 可接受对象，但控制器故障时状态不再收敛</text>
+    <rect x="664" y="218" width="552" height="114" rx="8" fill="#fff9e8" stroke="#936f18" stroke-width="2"/>
+    <text x="688" y="251" font-size="18" font-weight="700" fill="#17212b">调度路径</text>
+    <text x="688" y="278" font-size="15" fill="#53606d">Scheduler Framework · DRA</text>
+    <text x="688" y="305" font-size="14" fill="#53606d">插件失败会让匹配 Pod Pending 或绑定延迟</text>
+    <rect x="64" y="350" width="1152" height="126" rx="8" fill="#eef4f9" stroke="#356a9a" stroke-width="2"/>
+    <text x="88" y="383" font-size="18" font-weight="700" fill="#17212b">节点与数据面</text>
+    <text x="88" y="412" font-size="15" fill="#53606d">CRI：容器与 sandbox　　CNI：接口、地址和路由　　CSI：供应、attach、mount</text>
+    <text x="88" y="440" font-size="15" fill="#53606d">Device Plugin / DRA：设备发现与分配　　RuntimeClass：运行时 handler 和开销</text>
+    <text x="88" y="463" font-size="14" fill="#53606d">节点扩展要按节点池灰度，并验证已有工作负载与新建工作负载的不同边界</text>
+  </g>
+  <text x="64" y="522" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#a64b4b">原则：能异步完成的动作不要进入同步 Admission；标准资源能表达时，不先发明新 API。</text>
+</svg>

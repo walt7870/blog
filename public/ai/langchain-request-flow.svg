@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">LangChain 与 LangGraph 在应用请求中的职责</title>
+  <desc id="desc">上半部分展示 LangChain 连接用户输入、提示词、检索器、模型、解析校验和工具，下半部分展示 LangGraph 管理共享状态、条件分支、重试和恢复。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 27px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .label { font: 650 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .body { font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .small { font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .line { stroke: #475569; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="560" fill="#ffffff"/>
+  <text x="44" y="48" class="title">一次请求中，LangChain 负责连接组件，LangGraph 负责管理流程状态</text>
+
+  <rect x="34" y="76" width="1132" height="234" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="54" y="94" width="158" height="36" rx="6" fill="#dbeafe"/>
+  <text x="133" y="119" text-anchor="middle" class="label">LangChain</text>
+
+  <rect x="60" y="164" width="150" height="82" rx="8" fill="#e0f2fe" stroke="#38bdf8"/>
+  <text x="135" y="197" text-anchor="middle" class="label">用户输入</text>
+  <text x="135" y="222" text-anchor="middle" class="body">问题与变量</text>
+
+  <rect x="270" y="164" width="150" height="82" rx="8" fill="#eef2ff" stroke="#818cf8"/>
+  <text x="345" y="197" text-anchor="middle" class="label">Prompt</text>
+  <text x="345" y="222" text-anchor="middle" class="body">组织消息</text>
+
+  <rect x="480" y="164" width="150" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="555" y="197" text-anchor="middle" class="label">模型</text>
+  <text x="555" y="222" text-anchor="middle" class="body">完成推理</text>
+
+  <rect x="690" y="164" width="164" height="82" rx="8" fill="#dcfce7" stroke="#22c55e"/>
+  <text x="772" y="197" text-anchor="middle" class="label">解析与校验</text>
+  <text x="772" y="222" text-anchor="middle" class="body">转换结构</text>
+
+  <rect x="914" y="164" width="190" height="82" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="1009" y="197" text-anchor="middle" class="label">答案或动作参数</text>
+  <text x="1009" y="222" text-anchor="middle" class="body">交回应用执行</text>
+
+  <path d="M 210 205 H 270" class="line"/>
+  <path d="M 420 205 H 480" class="line"/>
+  <path d="M 630 205 H 690" class="line"/>
+  <path d="M 854 205 H 914" class="line"/>
+
+  <rect x="250" y="266" width="190" height="32" rx="6" fill="#ede9fe"/>
+  <text x="345" y="288" text-anchor="middle" class="small">Retriever 提供资料</text>
+  <path d="M 345 266 V 247" class="dash"/>
+  <rect x="677" y="266" width="190" height="32" rx="6" fill="#fee2e2"/>
+  <text x="772" y="288" text-anchor="middle" class="small">Tool 提供受控能力</text>
+  <path d="M 772 266 V 247" class="dash"/>
+
+  <rect x="34" y="338" width="1132" height="186" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="54" y="356" width="158" height="36" rx="6" fill="#dcfce7"/>
+  <text x="133" y="381" text-anchor="middle" class="label">LangGraph</text>
+
+  <rect x="250" y="418" width="170" height="70" rx="8" fill="#ecfeff" stroke="#06b6d4"/>
+  <text x="335" y="447" text-anchor="middle" class="label">共享 State</text>
+  <text x="335" y="472" text-anchor="middle" class="body">保存当前进度</text>
+
+  <rect x="486" y="418" width="170" height="70" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="571" y="447" text-anchor="middle" class="label">节点与分支</text>
+  <text x="571" y="472" text-anchor="middle" class="body">决定下一步骤</text>
+
+  <rect x="722" y="418" width="170" height="70" rx="8" fill="#fee2e2" stroke="#ef4444"/>
+  <text x="807" y="447" text-anchor="middle" class="label">Tool / 人工确认</text>
+  <text x="807" y="472" text-anchor="middle" class="body">执行或暂停</text>
+
+  <path d="M 420 453 H 486" class="line"/>
+  <path d="M 656 453 H 722" class="line"/>
+  <path d="M 807 418 C 807 385, 335 385, 335 418" class="dash"/>
+  <text x="570" y="405" text-anchor="middle" class="small">结果写回状态，可继续、重试或恢复</text>
+
+  <text x="1090" y="498" text-anchor="end" class="small">权限、事务和业务规则仍由应用代码负责</text>
+</svg>

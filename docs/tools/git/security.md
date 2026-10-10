@@ -163,6 +163,77 @@ git lfs status
 
 注意：已经进入普通 Git 历史的大文件，不会因为新增 LFS 规则自动迁移，需要单独清理或迁移。
 
+## 凭据管理
+
+HTTPS 远端通常使用个人访问令牌或 OAuth 凭据，SSH 远端使用私钥。无论采用哪种方式，都不应把口令和令牌写进远端 URL、脚本、Shell 历史或仓库配置。
+
+查看凭据助手来源：
+
+```bash
+git config --show-origin --get-all credential.helper
+```
+
+常见选择：
+
+- macOS 使用系统钥匙串，例如 `osxkeychain`。
+- Windows 使用 Git Credential Manager。
+- Linux 使用桌面密钥环或组织提供的凭据助手。
+- CI 使用平台 Secret 和短期凭据，按环境限制权限。
+
+不建议长期使用 `credential.helper store`，它会把凭据以明文形式保存在用户目录。令牌应遵循最小权限、短有效期、可吊销和定期轮换原则。
+
+## 提交与标签签名
+
+签名用于证明提交或标签由持有相应私钥的人创建，常见格式包括 GPG、SSH 和 X.509。它不能替代平台权限、代码审查和分支保护。
+
+查看签名：
+
+```bash
+git log --show-signature
+git verify-commit <commit>
+git verify-tag <tag>
+```
+
+创建签名提交或带说明的签名标签：
+
+```bash
+git commit -S -m "fix(auth): reject expired token"
+git tag -s v1.4.0 -m "release v1.4.0"
+```
+
+组织需要同时维护可信公钥来源、密钥吊销流程、机器人签名规则和托管平台的 Verified 状态。签名验证成功只说明加密身份匹配，发布授权仍由组织策略决定。
+
+## 备份与灾难恢复
+
+Reflog 只记录当前 Clone 的本地引用移动，不是备份。可靠恢复应同时保护远端引用、标签、LFS 对象、发布制品和运行配置。
+
+创建可离线传输的 Git Bundle：
+
+```bash
+git bundle create repository-backup.bundle --all
+git bundle verify repository-backup.bundle
+git clone repository-backup.bundle recovered-repository
+```
+
+也可以维护独立镜像：
+
+```bash
+git clone --mirror <repository-url> repository.git
+git -C repository.git remote update --prune
+```
+
+镜像会同步删除远端已经删除的引用，因此不能作为唯一的时间点备份。备份需要版本保留、异地副本和定期恢复演练。
+
+发现对象损坏时：
+
+1. 停止在原仓库继续提交、维护或清理。
+2. 复制整个仓库和 `.git/` 保存现场。
+3. 运行 `git fsck --full` 记录缺失或损坏对象。
+4. 从可靠远端、其他完整 Clone 或时间点备份确认对象来源。
+5. 在副本中恢复并重新运行完整性检查与业务构建。
+
+Partial Clone、Shallow Clone 和未下载完整 LFS 对象的工作区不能直接当作完整备份。对象存储和完整性检查详见 [对象库与大型仓库](./internals-large-repositories.md)。
+
 ## 权限与保护
 
 托管平台上建议配置：
@@ -183,3 +254,6 @@ Git 本身负责版本历史，平台负责权限和流程治理。
 - `git ls-files <file>` 判断文件是否已被跟踪。
 - `git log --all -- <file>` 查看文件历史。
 - 发现密钥泄露后先吊销，再清理历史。
+- `git log --show-signature` 检查关键提交和发布标签的签名状态。
+- `git fsck --full` 检查对象与引用完整性。
+- 定期验证 Bundle、镜像和 LFS 备份能否真实恢复。

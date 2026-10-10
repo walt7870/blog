@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">同步阻塞函数必须隔离在边界外</title>
+  <desc id="desc">写了 async 不代表系统异步，关键看阻塞代码有没有占住事件循环。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">同步阻塞函数必须隔离在边界外</text>
+  <text class="sub" x="56" y="86">写了 async 不代表系统异步，关键看阻塞代码有没有占住事件循环。</text><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="70" y="190" width="280" height="300" rx="18"/>
+  <text class="tag" x="96" y="224">STEP 01</text>
+  <text class="h" x="96" y="260">异步主流程</text>
+  <text class="b" x="96" y="296">连接、超时、取消</text>
+<text class="b" x="96" y="324">保持事件循环可调度</text><rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="460" y="170" width="230" height="156" rx="18"/>
+  <text class="tag" x="486" y="204">STEP 02</text>
+  <text class="h" x="486" y="240">阻塞 I/O</text>
+  <text class="b" x="486" y="276">同步 SDK / 文件调用</text>
+<text class="b" x="486" y="304">to_thread 隔离等待</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="730" y="212" width="230" height="156" rx="18"/>
+  <text class="tag" x="756" y="246">STEP 03</text>
+  <text class="h" x="756" y="282">CPU 计算</text>
+  <text class="b" x="756" y="318">长时间不让出控制权</text>
+<text class="b" x="756" y="346">进程池或原生库</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="1000" y="254" width="230" height="156" rx="18"/>
+  <text class="tag" x="1026" y="288">STEP 04</text>
+  <text class="h" x="1026" y="324">模型推理</text>
+  <text class="b" x="1026" y="360">GPU/显存排队</text>
+<text class="b" x="1026" y="388">有界队列 + batch</text><path class="line" d="M350 300 H460"/>
+<path class="line" d="M350 334 H730"/>
+<path class="line" d="M350 368 H1000"/><rect class="chip" x="56" y="642" width="168" height="36"/><text class="chipText" x="74" y="665">asyncio.to_thread</text>
+<rect class="chip" x="246" y="642" width="168" height="36"/><text class="chipText" x="264" y="665">run_in_executor</text>
+<rect class="chip" x="436" y="642" width="168" height="36"/><text class="chipText" x="454" y="665">ProcessPoolExecutor</text>
+<rect class="chip" x="626" y="642" width="168" height="36"/><text class="chipText" x="644" y="665">Queue</text></svg>

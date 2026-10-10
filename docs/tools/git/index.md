@@ -10,9 +10,12 @@ Git 专题按使用路径拆分：
 - [协作流程](./workflow.md)：从接任务到提交合并的完整路径，以及 Git Flow、GitHub Flow、主干开发的差异。
 - [提交规范](./conventions.md)：提交粒度、提交信息、分支命名、Pull Request / Merge Request 规范。
 - [撤销与恢复](./recovery.md)：`restore`、`reset`、`revert`、`reflog`、`clean` 的适用场景。
+- [对象库与大型仓库](./internals-large-repositories.md)：对象、引用、Packfile、仓库维护，以及 Shallow、Partial、Sparse 和 LFS 的边界。
+- [仓库组织策略](./repository-strategies.md)：Monorepo、多仓库、Submodule、Subtree 和制品依赖的选型。
 - [安全与仓库治理](./security.md)：敏感信息、`.gitignore`、大文件、历史清理、权限边界。
 - [进阶操作](./advanced.md)：tag、bisect、worktree、submodule、sparse checkout 等低频但关键的能力。
 - [生态工具](./ecosystem.md)：托管平台、Hooks、LFS、GUI、命令行增强、CI/CD 与 GitOps。
+- [视频系列](./video-series.md)：18 集《Git 从原理到协作》完整目录与配套阅读路线。
 
 ![Git 心智模型](/git/git-mental-model.svg)
 
@@ -104,6 +107,18 @@ git lfs
 
 目标是能定位问题、维护发布版本、处理大文件和复杂协作场景。
 
+### 第四阶段：能设计与恢复
+
+继续理解对象库、仓库规模和组织边界，并完成一次故障恢复演练：
+
+```bash
+git count-objects -vH
+git fsck --full
+git bundle create repository-backup.bundle --all
+```
+
+目标是能解释仓库为何变慢、依赖为何选择特定组织方式，并在误删、远端不可用或对象损坏时保护现场和恢复关键引用。
+
 ## 团队使用规范
 
 一个可维护的 Git 工作方式通常包含这些约定：
@@ -134,4 +149,6 @@ git lfs
 
 如果需要处理线上回滚、误删、误提交密钥、大文件膨胀，直接读 [撤销与恢复](./recovery.md) 和 [安全与仓库治理](./security.md)。
 
-如果需要做版本发布、定位引入 bug 的提交、同时维护多个分支或处理外部仓库依赖，读 [进阶操作](./advanced.md)。
+如果需要做版本发布、定位引入 bug 的提交、同时维护多个分支或处理外部仓库依赖，读 [进阶操作](./advanced.md)、[对象库与大型仓库](./internals-large-repositories.md) 和 [仓库组织策略](./repository-strategies.md)。
+
+希望按一套连续课程建立完整能力，可以直接进入 [《Git 从原理到协作》视频系列](./video-series.md)。

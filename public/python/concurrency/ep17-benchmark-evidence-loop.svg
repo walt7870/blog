@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">并发优化必须用证据闭环</title>
+  <desc id="desc">平均耗时变好不等于系统变好，吞吐、尾延迟、错误率和成本要一起看。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">并发优化必须用证据闭环</text>
+  <text class="sub" x="56" y="86">平均耗时变好不等于系统变好，吞吐、尾延迟、错误率和成本要一起看。</text><path class="line" d="M755 214 C818 222 858 238 895 275"/>
+<path class="line" d="M955 384 C940 456 900 502 812 540"/>
+<path class="line" d="M700 574 H566"/>
+<path class="line" d="M316 540 C238 505 200 456 182 384"/>
+<path class="line" d="M305 275 C360 220 424 202 505 198"/><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="505" y="132" width="250" height="132" rx="18"/>
+  <text class="tag" x="531" y="166">STEP 01</text>
+  <text class="h" x="531" y="202">建立 baseline</text>
+  <text class="b" x="531" y="238">固定数据集</text>
+<text class="b" x="531" y="266">固定参数</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="830" y="252" width="250" height="132" rx="18"/>
+  <text class="tag" x="856" y="286">STEP 02</text>
+  <text class="h" x="856" y="322">单变量实验</text>
+  <text class="b" x="856" y="358">只改一个旋钮</text>
+<text class="b" x="856" y="386">max_workers / timeout</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="700" y="500" width="250" height="132" rx="18"/>
+  <text class="tag" x="726" y="534">STEP 03</text>
+  <text class="h" x="726" y="570">采集指标</text>
+  <text class="b" x="726" y="606">throughput</text>
+<text class="b" x="726" y="634">p95/p99 / error_rate</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="316" y="500" width="250" height="132" rx="18"/>
+  <text class="tag" x="342" y="534">STEP 04</text>
+  <text class="h" x="342" y="570">资源观察</text>
+  <text class="b" x="342" y="606">CPU / RSS / GPU</text>
+<text class="b" x="342" y="634">queue length</text>
+<rect class="card" style="stroke:#ec4899;fill:#ffffff" x="180" y="252" width="250" height="132" rx="18"/>
+  <text class="tag" x="206" y="286">STEP 05</text>
+  <text class="h" x="206" y="322">保留结论</text>
+  <text class="b" x="206" y="358">记录配置</text>
+<text class="b" x="206" y="386">可回滚和复现</text><rect class="hub" x="505" y="320" width="270" height="92" rx="22"/><text class="hubText" x="640" y="358" text-anchor="middle">证据闭环</text><text class="small" x="640" y="386" text-anchor="middle" fill="#cbd5e1">指标驱动下一轮调整</text><rect class="chip" x="56" y="642" width="168" height="36"/><text class="chipText" x="74" y="665">histogram</text>
+<rect class="chip" x="246" y="642" width="168" height="36"/><text class="chipText" x="264" y="665">p95/p99</text>
+<rect class="chip" x="436" y="642" width="168" height="36"/><text class="chipText" x="454" y="665">error_rate</text>
+<rect class="chip" x="626" y="642" width="168" height="36"/><text class="chipText" x="644" y="665">qsize</text>
+<rect class="chip" x="816" y="642" width="168" height="36"/><text class="chipText" x="834" y="665">resource util</text></svg>

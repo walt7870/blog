@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">批量文件处理要能恢复、跳过、定位</title>
+  <desc id="desc">长任务的核心不是跑得快一次，而是中断后能接着跑，坏文件不会拖垮全局。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">批量文件处理要能恢复、跳过、定位</text>
+  <text class="sub" x="56" y="86">长任务的核心不是跑得快一次，而是中断后能接着跑，坏文件不会拖垮全局。</text><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="70" y="180" width="178" height="178" rx="18"/>
+  <text class="tag" x="96" y="214">STEP 01</text>
+  <text class="h" x="96" y="250">DISCOVERED</text>
+  <text class="b" x="96" y="286">扫描得到文件</text>
+<text class="b" x="96" y="314">记录路径和摘要</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="315" y="180" width="178" height="178" rx="18"/>
+  <text class="tag" x="341" y="214">STEP 02</text>
+  <text class="h" x="341" y="250">PROCESSING</text>
+  <text class="b" x="341" y="286">分批处理</text>
+<text class="b" x="341" y="314">限制内存和并发</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="560" y="180" width="178" height="178" rx="18"/>
+  <text class="tag" x="586" y="214">STEP 03</text>
+  <text class="h" x="586" y="250">DONE</text>
+  <text class="b" x="586" y="286">结果落盘</text>
+<text class="b" x="586" y="314">写 checkpoint</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="805" y="180" width="178" height="178" rx="18"/>
+  <text class="tag" x="831" y="214">STEP 04</text>
+  <text class="h" x="831" y="250">FAILED</text>
+  <text class="b" x="831" y="286">错误归档</text>
+<text class="b" x="831" y="314">隔离坏文件</text>
+<rect class="card" style="stroke:#ec4899;fill:#ffffff" x="1050" y="180" width="178" height="178" rx="18"/>
+  <text class="tag" x="1076" y="214">STEP 05</text>
+  <text class="h" x="1076" y="250">SKIPPED</text>
+  <text class="b" x="1076" y="286">已处理跳过</text>
+<text class="b" x="1076" y="314">支持恢复运行</text><path class="blueLine" d="M248 266 H315"/>
+<path class="blueLine" d="M493 266 H560"/>
+<path class="blueLine" d="M738 266 H805"/>
+<path class="blueLine" d="M983 266 H1050"/><path class="dash" d="M1139 358 V474 Q1139 502 1110 502 H392 Q364 502 364 358"/><text class="small" x="538" y="488">失败或中断：回到状态表，根据原因重试、跳过或人工处理</text><rect class="chip" x="56" y="642" width="168" height="36"/><text class="chipText" x="74" y="665">manifest</text>
+<rect class="chip" x="246" y="642" width="168" height="36"/><text class="chipText" x="264" y="665">checkpoint</text>
+<rect class="chip" x="436" y="642" width="168" height="36"/><text class="chipText" x="454" y="665">failed_rate</text>
+<rect class="chip" x="626" y="642" width="168" height="36"/><text class="chipText" x="644" y="665">RSS</text>
+<rect class="chip" x="816" y="642" width="168" height="36"/><text class="chipText" x="834" y="665">last_checkpoint</text></svg>

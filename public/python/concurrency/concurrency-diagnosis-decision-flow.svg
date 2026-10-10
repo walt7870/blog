@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Python 并发诊断与选型流程图</title>
+  <desc id="desc">从真实任务出发，采集证据，识别资源瓶颈，选择并发模型，加入工程控制，并通过指标验证形成反馈闭环。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#334155"/>
+    </marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .label{font:700 13px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b;letter-spacing:.2px}
+      .h{font:700 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
+      .b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}
+      .tiny{font:11px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}
+      .input{fill:#ffffff;stroke:#cbd5e1;stroke-width:2;rx:16}
+      .probe{fill:#eff6ff;stroke:#60a5fa;stroke-width:2;rx:16}
+      .decision{fill:#1e293b;stroke:#0f172a;stroke-width:2;rx:18}
+      .decisionText{font:800 19px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#ffffff}
+      .io{fill:#ecfeff;stroke:#06b6d4;stroke-width:2;rx:14}
+      .cpu{fill:#fff7ed;stroke:#fb923c;stroke-width:2;rx:14}
+      .api{fill:#eef2ff;stroke:#6366f1;stroke-width:2;rx:14}
+      .gpu{fill:#f0fdf4;stroke:#22c55e;stroke-width:2;rx:14}
+      .pipe{fill:#fdf2f8;stroke:#ec4899;stroke-width:2;rx:14}
+      .control{fill:#ffffff;stroke:#94a3b8;stroke-width:1.6;rx:12}
+      .verify{fill:#ecfdf5;stroke:#059669;stroke-width:2;rx:16}
+      .warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2;rx:16}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
+      .blueLine{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#blueArrow)}
+      .softLine{stroke:#94a3b8;stroke-width:1.8;fill:none;marker-end:url(#arrow)}
+      .dash{stroke:#64748b;stroke-width:2;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}
+      .tag{fill:#e2e8f0;rx:8}
+      .tagText{font:700 11px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="760" rx="26"/>
+  <text class="title" x="56" y="58">Python 并发诊断与选型流程</text>
+  <text class="sub" x="56" y="86">不要先问“用线程还是异步”，先找到最先到上限的资源，再让模型、控制和指标闭环。</text>
+
+  <rect class="tag" x="1018" y="38" width="206" height="34"/>
+  <text class="tagText" x="1037" y="60">工程顺序：诊断 → 选型 → 控制 → 验证</text>
+
+  <rect class="input" x="56" y="126" width="238" height="146"/>
+  <text class="label" x="78" y="154">STEP 01</text>
+  <text class="h" x="78" y="184">把问题写成真实任务</text>
+  <text class="b" x="78" y="214">批量下载图片</text>
+  <text class="b" x="78" y="238">音频转码 / ASR 转写</text>
+  <text class="b" x="78" y="262">本地模型推理 / 实时语音</text>
+
+  <rect class="probe" x="360" y="126" width="270" height="146"/>
+  <text class="label" x="382" y="154">STEP 02</text>
+  <text class="h" x="382" y="184">先采集证据</text>
+  <text class="b" x="382" y="214">time.perf_counter / logs</text>
+  <text class="b" x="382" y="238">py-spy / cProfile / ffprobe</text>
+  <text class="b" x="382" y="262">队列长度 / p95 / 错误率</text>
+
+  <rect class="decision" x="710" y="126" width="260" height="146"/>
+  <text class="label" x="735" y="154" fill="#cbd5e1">STEP 03</text>
+  <text class="decisionText" x="840" y="198" text-anchor="middle">最先到上限的是谁？</text>
+  <text class="small" x="840" y="228" text-anchor="middle" fill="#cbd5e1">CPU / I/O / API / GPU / 内存</text>
+
+  <rect class="warn" x="1036" y="126" width="188" height="146"/>
+  <text class="label" x="1058" y="154">ANTI-PATTERN</text>
+  <text class="h" x="1058" y="184">不要盲目加并发数</text>
+  <text class="b" x="1058" y="214">吞吐可能不升反降</text>
+  <text class="b" x="1058" y="238">错误率、成本、排队</text>
+  <text class="b" x="1058" y="262">会先暴露出来</text>
+
+  <path class="blueLine" d="M294 199 H360"/>
+  <path class="blueLine" d="M630 199 H710"/>
+  <path class="softLine" d="M970 199 H1036"/>
+
+  <text class="label" x="56" y="334">STEP 04  按瓶颈选择模型，不按 API 名字排名</text>
+
+  <rect class="io" x="56" y="362" width="216" height="150"/>
+  <text class="h" x="78" y="394">网络 / 文件 I/O</text>
+  <text class="b" x="78" y="424">现象：CPU 低，等待多</text>
+  <text class="b" x="78" y="450">工具：ThreadPoolExecutor</text>
+  <text class="b" x="78" y="476">或 asyncio + aiohttp</text>
+  <text class="tiny" x="78" y="500">控制：连接池、超时、并发上限</text>
+
+  <rect class="api" x="312" y="362" width="216" height="150"/>
+  <text class="h" x="334" y="394">外部 API / 配额</text>
+  <text class="b" x="334" y="424">现象：429、超时上升</text>
+  <text class="b" x="334" y="450">工具：asyncio.Semaphore</text>
+  <text class="b" x="334" y="476">retry + backoff</text>
+  <text class="tiny" x="334" y="500">控制：QPS、令牌桶、熔断</text>
+
+  <rect class="cpu" x="568" y="362" width="216" height="150"/>
+  <text class="h" x="590" y="394">CPU / GIL</text>
+  <text class="b" x="590" y="424">现象：核心被打满</text>
+  <text class="b" x="590" y="450">工具：ProcessPoolExecutor</text>
+  <text class="b" x="590" y="476">C 扩展 / ffmpeg 命令池</text>
+  <text class="tiny" x="590" y="500">控制：批大小、序列化成本</text>
+
+  <rect class="gpu" x="824" y="362" width="216" height="150"/>
+  <text class="h" x="846" y="394">GPU / 本地模型</text>
+  <text class="b" x="846" y="424">现象：显存紧、利用率抖动</text>
+  <text class="b" x="846" y="450">工具：有界队列 + batch</text>
+  <text class="b" x="846" y="476">显存水位 / warmup</text>
+  <text class="tiny" x="846" y="500">控制：队列等待、批处理延迟</text>
+
+  <rect class="pipe" x="1080" y="362" width="144" height="150"/>
+  <text class="h" x="1102" y="394">流水线</text>
+  <text class="b" x="1102" y="424">多阶段任务</text>
+  <text class="b" x="1102" y="450">Queue / checkpoint</text>
+  <text class="b" x="1102" y="476">背压 / 幂等写入</text>
+  <text class="tiny" x="1102" y="500">控制：阶段容量</text>
+
+  <path class="line" d="M790 272 C760 322 190 312 164 362"/>
+  <path class="line" d="M820 272 C785 324 452 318 420 362"/>
+  <path class="line" d="M840 272 V362"/>
+  <path class="line" d="M872 272 C902 324 906 318 932 362"/>
+  <path class="line" d="M918 272 C1040 324 1130 318 1152 362"/>
+
+  <text class="label" x="56" y="568">STEP 05  工程控制层：让系统长期跑，而不是只跑一次 demo</text>
+
+  <rect class="control" x="56" y="594" width="124" height="58"/>
+  <text class="h" x="118" y="629" text-anchor="middle">超时</text>
+  <rect class="control" x="206" y="594" width="124" height="58"/>
+  <text class="h" x="268" y="629" text-anchor="middle">取消</text>
+  <rect class="control" x="356" y="594" width="124" height="58"/>
+  <text class="h" x="418" y="629" text-anchor="middle">重试退避</text>
+  <rect class="control" x="506" y="594" width="124" height="58"/>
+  <text class="h" x="568" y="629" text-anchor="middle">限流</text>
+  <rect class="control" x="656" y="594" width="124" height="58"/>
+  <text class="h" x="718" y="629" text-anchor="middle">背压</text>
+  <rect class="control" x="806" y="594" width="124" height="58"/>
+  <text class="h" x="868" y="629" text-anchor="middle">checkpoint</text>
+  <rect class="control" x="956" y="594" width="124" height="58"/>
+  <text class="h" x="1018" y="629" text-anchor="middle">幂等</text>
+
+  <rect class="verify" x="1120" y="574" width="104" height="98"/>
+  <text class="h" x="1172" y="608" text-anchor="middle">验证</text>
+  <text class="small" x="1172" y="634" text-anchor="middle">吞吐 / p95</text>
+  <text class="small" x="1172" y="656" text-anchor="middle">错误率 / 成本</text>
+
+  <path class="softLine" d="M164 512 V594"/>
+  <path class="softLine" d="M420 512 V594"/>
+  <path class="softLine" d="M676 512 V594"/>
+  <path class="softLine" d="M932 512 V594"/>
+  <path class="softLine" d="M1152 512 V574"/>
+  <path class="blueLine" d="M1080 623 H1120"/>
+
+  <path class="dash" d="M1172 574 V315 Q1172 300 1156 300 H880 Q856 300 840 272"/>
+  <text class="small" x="946" y="322">指标不达标：调并发数、批大小、队列容量和重试策略</text>
+</svg>

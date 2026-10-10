@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">限流、背压、重试是三层控制</title>
+  <desc id="desc">稳定推进不是压低速度，而是把配额、容量和失败恢复变成规则。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">限流、背压、重试是三层控制</text>
+  <text class="sub" x="56" y="86">稳定推进不是压低速度，而是把配额、容量和失败恢复变成规则。</text><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="120" y="160" width="1040" height="82" rx="18"/>
+  <text class="tag" x="146" y="194">STEP 01</text>
+  <text class="h" x="146" y="230">限流</text>
+  <text class="b" x="146" y="266">控制 in-flight / QPS</text>
+<text class="b" x="146" y="294">Semaphore / token bucket</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="120" y="272" width="1040" height="82" rx="18"/>
+  <text class="tag" x="146" y="306">STEP 02</text>
+  <text class="h" x="146" y="342">背压</text>
+  <text class="b" x="146" y="378">下游慢，上游停</text>
+<text class="b" x="146" y="406">有界 Queue 传递压力</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="120" y="384" width="1040" height="82" rx="18"/>
+  <text class="tag" x="146" y="418">STEP 03</text>
+  <text class="h" x="146" y="454">重试</text>
+  <text class="b" x="146" y="490">只处理可恢复错误</text>
+<text class="b" x="146" y="518">backoff + retry budget</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="120" y="496" width="1040" height="82" rx="18"/>
+  <text class="tag" x="146" y="530">STEP 04</text>
+  <text class="h" x="146" y="566">幂等</text>
+  <text class="b" x="146" y="602">避免重复副作用</text>
+<text class="b" x="146" y="630">idempotency_key / cache</text><path class="blueLine" d="M640 242 V272"/>
+<path class="blueLine" d="M640 354 V384"/>
+<path class="blueLine" d="M640 466 V496"/><rect class="chip" x="56" y="642" width="168" height="36"/><text class="chipText" x="74" y="665">429</text>
+<rect class="chip" x="246" y="642" width="168" height="36"/><text class="chipText" x="264" y="665">timeout</text>
+<rect class="chip" x="436" y="642" width="168" height="36"/><text class="chipText" x="454" y="665">qsize</text>
+<rect class="chip" x="626" y="642" width="168" height="36"/><text class="chipText" x="644" y="665">retry_count</text>
+<rect class="chip" x="816" y="642" width="168" height="36"/><text class="chipText" x="834" y="665">duplicate</text></svg>
