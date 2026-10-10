@@ -267,6 +267,38 @@ git push
 
 `-u` 会设置上游分支，以后可以直接 `git push` 和 `git pull`。
 
+### Refspec 与远程引用映射
+
+Refspec 描述“从哪条引用取数据，更新到哪条引用”。默认 Fetch 规则通常可以这样查看：
+
+```bash
+git config --get-all remote.origin.fetch
+```
+
+常见结果：
+
+```text
++refs/heads/*:refs/remotes/origin/*
+```
+
+冒号左侧是远端分支，右侧是本地远程跟踪引用。开头的 `+` 表示即使远端发生非快进更新，也允许刷新对应的远程跟踪引用；它不会直接改写当前本地分支。
+
+只获取特定分支或命名空间：
+
+```bash
+git fetch origin \
+  'refs/heads/release/*:refs/remotes/origin/release/*'
+```
+
+推送也可以显式写出来源和目标：
+
+```bash
+git push origin HEAD:refs/heads/feature/login
+git push origin :refs/heads/obsolete-branch
+```
+
+第二条命令会删除远端分支，执行前应确认分支保护、评审状态和团队约定。日常不需要手写 Refspec，但在同名分支、特殊命名空间、镜像仓库和“为什么 Fetch 后本地出现这条引用”的排查中，它是关键线索。
+
 ## 临时保存修改
 
 `stash` 用于临时收起工作区修改，适合“当前工作没做完，但需要切分支处理别的事”。

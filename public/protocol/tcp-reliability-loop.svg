@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">TCP 可靠传输闭环</title>
+  <desc id="desc">发送窗口、网络、接收重组、累计确认、丢包检测和重传之间的闭环。</desc>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#55c7b3"/></marker>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#e8b94b"/></marker>
+    <style>.bg{fill:#0f1d25}.box{fill:#172a33;stroke:#4b6b72;stroke-width:2}.hot{fill:#21383c;stroke:#e8b94b;stroke-width:3}.title{fill:#f5f7f7;font:700 34px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.label{fill:#f5f7f7;font:600 23px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.sub{fill:#9fb2b5;font:17px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.code{fill:#6ed5c0;font:17px ui-monospace,SFMono-Regular,monospace}.forward{stroke:#55c7b3;stroke-width:4;fill:none;marker-end:url(#a)}.feedback{stroke:#e8b94b;stroke-width:4;fill:none;marker-end:url(#b)}.dashed{stroke-dasharray:10 8}</style>
+  </defs>
+  <rect class="bg" width="1440" height="720" rx="18"/>
+  <text class="title" x="64" y="68">TCP 可靠传输不是单次确认，而是持续反馈闭环</text>
+  <g transform="translate(70 150)"><rect class="box" width="280" height="150" rx="10"/><text class="code" x="25" y="38">SENDER</text><text class="label" x="25" y="78">发送窗口</text><text class="sub" x="25" y="110">seq、cwnd、rwnd</text><text class="sub" x="25" y="135">重传队列与计时器</text></g>
+  <path class="forward" d="M350 225H530"/>
+  <g transform="translate(530 150)"><rect class="hot" width="280" height="150" rx="10"/><text class="code" x="25" y="38">NETWORK</text><text class="label" x="25" y="78">传输与排队</text><text class="sub" x="25" y="110">RTT、带宽、丢包</text><text class="sub" x="25" y="135">重排序与拥塞</text></g>
+  <path class="forward" d="M810 225H990"/>
+  <g transform="translate(990 150)"><rect class="box" width="280" height="150" rx="10"/><text class="code" x="25" y="38">RECEIVER</text><text class="label" x="25" y="78">接收与重组</text><text class="sub" x="25" y="110">按序列号放入队列</text><text class="sub" x="25" y="135">应用读取释放窗口</text></g>
+  <path class="feedback" d="M1130 300V395H280V300"/>
+  <text class="label" x="705" y="378" text-anchor="middle">累计 ACK、SACK 与接收窗口</text>
+  <g transform="translate(165 455)"><rect class="box" width="330" height="130" rx="10"/><text class="label" x="24" y="48">ACK 推进</text><text class="sub" x="24" y="80">释放已确认数据</text><text class="sub" x="24" y="106">允许窗口继续前进</text></g>
+  <g transform="translate(555 455)"><rect class="hot" width="330" height="130" rx="10"/><text class="label" x="24" y="48">发现丢失</text><text class="sub" x="24" y="80">RTO、重复 ACK、SACK</text><text class="sub" x="24" y="106">判断需要补发的字节范围</text></g>
+  <g transform="translate(945 455)"><rect class="box" width="330" height="130" rx="10"/><text class="label" x="24" y="48">调整发送速率</text><text class="sub" x="24" y="80">流量控制保护接收端</text><text class="sub" x="24" y="106">拥塞控制保护网络</text></g>
+  <path class="forward dashed" d="M720 455V420H230V300"/>
+  <path class="feedback dashed" d="M945 520H885"/>
+  <text class="sub" x="720" y="660" text-anchor="middle">实际可发送量 = min(接收窗口 rwnd, 拥塞窗口 cwnd)</text>
+</svg>

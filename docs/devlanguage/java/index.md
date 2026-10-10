@@ -11,11 +11,11 @@ Java 专题按“基础开发能力 -> 运行时机制 -> 依赖构建 -> 企业
 | 阶段 | 关注点 | 入口 |
 | --- | --- | --- |
 | Java 基础 | JDK、语法、基础 API、语言特性 | [Java 基础](./basic/) |
-| JVM | 运行时数据区、GC、JNI、内存和性能问题 | [JVM 概览](./jvm/) |
+| JVM | 运行时数据区、类加载、字节码、GC、内存和性能问题 | [JVM 概览](./jvm/) / [JVM 深入视频系列](./jvm/video-series.md) |
 | 依赖管理 | Maven、Gradle、依赖冲突、构建生命周期 | [依赖管理](./manager/) |
 | Java 框架 | Spring、MyBatis、Web 请求、容器、数据访问 | [Java 框架](./framework/) |
 
-建议先读 Java 基础，再读 JVM。JDK 版本会影响语法、标准库、GC、模块化和框架兼容性，所以项目选型和升级问题应回到基础部分统一处理。
+建议先读 Java 基础，再读 JVM。JDK 版本会影响语法、标准库、GC、模块化和框架兼容性，所以项目选型和升级问题应回到基础部分统一处理。进入 JVM 后，可以先从 [JVM 概览](./jvm/) 建立运行链路，再按 [JVM 深入视频系列](./jvm/video-series.md) 对照 Class 文件、类加载、运行时内存和 GC 的分集主题逐步展开。
 
 ## Java 发展历程
 

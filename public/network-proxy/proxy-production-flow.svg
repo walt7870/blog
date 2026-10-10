@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">网络代理生产实施流程</title>
+  <desc id="desc">展示从需求确认、协议选型、服务端部署、订阅生成、客户端验证到运行维护的生产实施流程。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06101f"/>
+      <stop offset=".52" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0H0V38" fill="none" stroke="#233e63" stroke-width="1" opacity=".32"/>
+    </pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#fb7185"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .stage { fill: rgba(15,23,42,.76); stroke: #1f9cbd; stroke-width: 1.4; rx: 26; }
+      .step { fill: rgba(8,47,73,.92); stroke: #38bdf8; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .step2 { fill: rgba(49,46,129,.86); stroke: #a78bfa; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .verify { fill: rgba(6,78,59,.86); stroke: #34d399; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .risk { fill: rgba(76,5,25,.78); stroke: #fb7185; stroke-width: 1.7; rx: 18; filter: url(#glow); }
+      .diamond { fill: rgba(88,28,135,.88); stroke: #c084fc; stroke-width: 2; filter: url(#glow); }
+      .lane { font: 800 21px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #cffafe; }
+      .text { font: 750 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; }
+      .label { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .line { stroke: #67e8f9; stroke-width: 2.4; fill: none; marker-end: url(#arrow); filter: url(#glow); }
+      .dash { stroke: #fb7185; stroke-width: 2.2; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow-red); }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="760"/>
+  <rect class="grid" width="1440" height="760"/>
+  <circle cx="1250" cy="120" r="230" fill="#2563eb" opacity=".16"/>
+  <circle cx="230" cy="670" r="260" fill="#14b8a6" opacity=".12"/>
+  <text class="title" x="64" y="72">网络代理生产实施流程</text>
+  <text class="sub" x="64" y="102">先设计链路，再部署组件；上线前分别验证控制面、节点连接和真实业务目标。</text>
+
+  <rect class="stage" x="64" y="150" width="1312" height="150"/>
+  <text class="lane" x="92" y="190">01 设计阶段</text>
+  <rect class="step" x="120" y="214" width="198" height="58"/>
+  <text class="text" x="150" y="248">确认访问目标</text>
+  <rect class="step" x="395" y="214" width="198" height="58"/>
+  <text class="text" x="425" y="248">选择代理协议</text>
+  <polygon class="diamond" points="740,199 832,243 740,287 648,243"/>
+  <text class="text" x="694" y="249">需要伪装</text>
+  <rect class="step2" x="918" y="214" width="220" height="58"/>
+  <text class="text" x="952" y="248">设计入口网关</text>
+  <rect class="step2" x="1192" y="214" width="136" height="58"/>
+  <text class="text" x="1223" y="248">参数冻结</text>
+
+  <rect class="stage" x="64" y="338" width="1312" height="150"/>
+  <text class="lane" x="92" y="378">02 服务端阶段</text>
+  <rect class="step" x="120" y="402" width="198" height="58"/>
+  <text class="text" x="150" y="436">部署代理服务</text>
+  <rect class="step" x="395" y="402" width="198" height="58"/>
+  <text class="text" x="425" y="436">配置 TLS / 入口</text>
+  <rect class="step2" x="670" y="402" width="198" height="58"/>
+  <text class="text" x="700" y="436">生成订阅模板</text>
+  <rect class="verify" x="945" y="402" width="198" height="58"/>
+  <text class="text" x="975" y="436">服务端自检</text>
+  <rect class="risk" x="1210" y="402" width="118" height="58"/>
+  <text class="text" x="1234" y="436">备份</text>
+
+  <rect class="stage" x="64" y="526" width="1312" height="150"/>
+  <text class="lane" x="92" y="566">03 客户端与运行阶段</text>
+  <rect class="step" x="120" y="590" width="198" height="58"/>
+  <text class="text" x="150" y="624">导入订阅</text>
+  <rect class="step" x="395" y="590" width="198" height="58"/>
+  <text class="text" x="425" y="624">手动选择节点</text>
+  <rect class="verify" x="670" y="590" width="198" height="58"/>
+  <text class="text" x="700" y="624">验证目标访问</text>
+  <polygon class="diamond" points="1044,574 1136,619 1044,664 952,619"/>
+  <text class="text" x="998" y="625">运行稳定</text>
+  <rect class="verify" x="1192" y="590" width="136" height="58"/>
+  <text class="text" x="1223" y="624">持续维护</text>
+
+  <path class="line" d="M318 243H395"/>
+  <path class="line" d="M593 243H648"/>
+  <path class="line" d="M832 243H918"/>
+  <path class="line" d="M1138 243H1192"/>
+  <path class="line" d="M1260 272V338C1260 376 218 364 218 402"/>
+  <path class="line" d="M318 431H395"/>
+  <path class="line" d="M593 431H670"/>
+  <path class="line" d="M868 431H945"/>
+  <path class="line" d="M1143 431H1210"/>
+  <path class="line" d="M1269 460V526C1269 564 218 552 218 590"/>
+  <path class="line" d="M318 619H395"/>
+  <path class="line" d="M593 619H670"/>
+  <path class="line" d="M868 619H952"/>
+  <path class="line" d="M1136 619H1192"/>
+  <path class="dash" d="M1044 664V708H770V648"/>
+  <text class="label" x="790" y="704">不稳定：回到分层排查</text>
+  <text class="label" x="846" y="228">是：TLS / WebSocket / gRPC</text>
+  <text class="label" x="720" y="305">否：直连协议入口</text>
+</svg>

@@ -1,13 +1,14 @@
 export const topicGroups = [
   {
     id: 'development', title: '开发与架构',
-    activeMatch: '^/docs/(devlanguage|design|algorithm)(/|$)',
+    activeMatch: '^/docs/(devlanguage|design|algorithm|embedded)(/|$)',
     topics: [
-      { text: '开发语言', description: 'Java、Rust、前端与跨端开发', link: '/docs/devlanguage/' },
+      { text: '开发语言', description: 'Java、Rust、Python、前端、Electron 与跨端开发', link: '/docs/devlanguage/' },
       { text: '架构设计', description: '领域建模、服务边界与系统演进', link: '/docs/design/architecture/' },
       { text: '设计模式', description: '设计原则与对象协作', link: '/docs/design/design-pattern/' },
       { text: '开发方法', description: '敏捷、迭代、DevOps 与工程协作', link: '/docs/design/develop-pattern/' },
       { text: '算法', description: '基础算法、数据结构与问题求解', link: '/docs/algorithm/' },
+      { text: '嵌入式开发', description: 'MCU、RTOS、外设与嵌入式 Linux', link: '/docs/embedded/' },
     ],
   },
   {
@@ -20,14 +21,14 @@ export const topicGroups = [
   },
   {
     id: 'systems-data', title: '系统与数据',
-    activeMatch: '^/docs/(database|container|linux|embedded|tools/mq|basic/protocol)(/|$)',
+    activeMatch: '^/docs/(database|container|linux|network-proxy|tools/mq|basic/protocol)(/|$)',
     topics: [
       { text: '数据库与数据工程', description: '关系数据库、缓存、检索与数据处理', link: '/docs/database/' },
       { text: '消息中间件', description: '消息传递、消费语义与异步链路', link: '/docs/tools/mq/' },
       { text: '容器与云原生', description: 'Docker、Kubernetes 与容器运行时', link: '/docs/container/' },
       { text: 'Linux 系统', description: '进程、网络、权限与服务运行', link: '/docs/linux/' },
       { text: '通信协议', description: '网络通信、实时传输与工业协议', link: '/docs/basic/protocol/' },
-      { text: '嵌入式开发', description: 'MCU、RTOS、外设与嵌入式 Linux', link: '/docs/embedded/' },
+      { text: '网络代理', description: '代理协议、控制与数据平面、部署与排错', link: '/docs/network-proxy/' },
     ],
   },
   {

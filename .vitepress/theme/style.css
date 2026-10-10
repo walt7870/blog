@@ -37,6 +37,113 @@
   box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
 }
 
+.vp-doc .mermaid-diagram {
+  box-sizing: border-box;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, transparent);
+  border-radius: 14px;
+  background: #f8fafc;
+  overflow-x: auto;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+}
+
+.vp-doc .mermaid-diagram__canvas {
+  min-width: 720px;
+}
+
+.vp-doc .mermaid-diagram__canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.vp-doc .mermaid-diagram__loading,
+.vp-doc .mermaid-diagram__error {
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+}
+
+.vp-doc .mermaid-diagram__error pre {
+  margin: 12px 0 0;
+  white-space: pre-wrap;
+}
+
+.vp-doc img.is-zoomable-doc-image {
+  cursor: zoom-in;
+}
+
+.vp-doc img.is-zoomable-doc-image:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--vp-c-brand-1) 72%, white);
+  outline-offset: 4px;
+}
+
+body.image-lightbox-open {
+  overflow: hidden;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px;
+  background: rgba(15, 23, 42, .82);
+  backdrop-filter: blur(8px);
+}
+
+.image-lightbox-frame {
+  display: grid;
+  gap: 12px;
+  width: min(1180px, calc(100vw - 72px));
+  max-height: calc(100vh - 72px);
+  margin: 0;
+}
+
+.image-lightbox-frame img {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: calc(100vh - 132px);
+  padding: 20px;
+  border-radius: 14px;
+  background: #f8fafc;
+  object-fit: contain;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .34);
+}
+
+.image-lightbox-frame figcaption {
+  color: #f8fafc;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.image-lightbox-close {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(248, 250, 252, .34);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, .74);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.image-lightbox-close:hover {
+  background: rgba(30, 41, 59, .92);
+}
+
 .dark .vp-doc {
   color: #d8dee9;
 }
@@ -98,6 +205,14 @@
     0 14px 34px rgba(0, 0, 0, .22),
     inset 0 0 0 1px rgba(255, 255, 255, .48);
   filter: brightness(.94) saturate(.95);
+}
+
+.dark .vp-doc .mermaid-diagram {
+  border-color: rgba(148, 163, 184, .32);
+  background: #0f172a;
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, .22),
+    inset 0 0 0 1px rgba(255, 255, 255, .08);
 }
 
 .pet-avatar,
@@ -235,6 +350,7 @@
   }
 
   .vp-doc p:has(> img[src*="/spring/"][src$=".svg"]),
+  .vp-doc p:has(> img[src*="/container/kubernetes-"][src$=".svg"]),
   .vp-doc p:has(> img[src*="/architecture/togaf/"][src$=".svg"]) {
     max-width: 100%;
     margin: 24px 0;
@@ -247,6 +363,7 @@
   }
 
   .vp-doc p > img[src*="/spring/"][src$=".svg"],
+  .vp-doc p > img[src*="/container/kubernetes-"][src$=".svg"],
   .vp-doc p > img[src*="/architecture/togaf/"][src$=".svg"] {
     width: 760px;
     max-width: none;
@@ -258,20 +375,20 @@
   }
 
   .global-pet {
-    right: 14px;
-    bottom: 16px;
+    display: none;
   }
 
-  .pet-avatar {
-    width: 58px;
-    height: 58px;
+  .image-lightbox {
+    padding: 18px;
   }
 
-  .pet-bubble span {
-    white-space: normal;
+  .image-lightbox-frame {
+    width: calc(100vw - 36px);
+    max-height: calc(100vh - 36px);
   }
 
-  .pet-bubble {
-    align-items: flex-start;
+  .image-lightbox-frame img {
+    max-height: calc(100vh - 96px);
+    padding: 10px;
   }
 }

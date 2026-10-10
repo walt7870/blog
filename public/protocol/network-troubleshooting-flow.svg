@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">网络分层排障流程</title>
+  <desc id="desc">从定义现象和分解时间，到 DNS、路径、连接、TLS、HTTP、服务资源和验证闭环。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#55c7b3"/></marker>
+    <style>.bg{fill:#0f1d25}.box{fill:#172a33;stroke:#476870;stroke-width:2}.hot{fill:#26363b;stroke:#e8b94b;stroke-width:3}.title{fill:#f3f7f6;font:700 34px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.label{fill:#f3f7f6;font:600 21px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.sub{fill:#9fb2b5;font:16px -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.num{fill:#67d2bd;font:700 17px ui-monospace,SFMono-Regular,monospace}.line{stroke:#55c7b3;stroke-width:4;fill:none;marker-end:url(#arrow)}.return{stroke:#e8b94b;stroke-width:3;stroke-dasharray:10 8;fill:none;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect class="bg" width="1440" height="760" rx="18"/>
+  <text class="title" x="64" y="64">网络故障按证据逐层收敛</text>
+  <g transform="translate(60 120)"><rect class="hot" width="280" height="120" rx="10"/><text class="num" x="22" y="32">01 / SCOPE</text><text class="label" x="22" y="68">定义现象与范围</text><text class="sub" x="22" y="96">对象、时间、错误、成功对照</text></g>
+  <path class="line" d="M340 180H390"/>
+  <g transform="translate(390 120)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">02 / TIMELINE</text><text class="label" x="22" y="68">拆分请求时间</text><text class="sub" x="22" y="96">DNS、Connect、TLS、TTFB</text></g>
+  <path class="line" d="M670 180H720"/>
+  <g transform="translate(720 120)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">03 / NAME</text><text class="label" x="22" y="68">验证 DNS</text><text class="sub" x="22" y="96">记录、TTL、解析器、地址族</text></g>
+  <path class="line" d="M1000 180H1050"/>
+  <g transform="translate(1050 120)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">04 / PATH</text><text class="label" x="22" y="68">地址与路由</text><text class="sub" x="22" y="96">源地址、下一跳、邻居、MTU</text></g>
+  <path class="line" d="M1190 240V300H200V350"/>
+  <g transform="translate(60 350)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">05 / CONNECT</text><text class="label" x="22" y="68">连接与双端抓包</text><text class="sub" x="22" y="96">SYN、RST、重传、回程路径</text></g>
+  <path class="line" d="M340 410H390"/>
+  <g transform="translate(390 350)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">06 / SECURITY</text><text class="label" x="22" y="68">验证 TLS</text><text class="sub" x="22" y="96">SNI、证书链、ALPN、Alert</text></g>
+  <path class="line" d="M670 410H720"/>
+  <g transform="translate(720 350)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">07 / PROTOCOL</text><text class="label" x="22" y="68">HTTP 与代理</text><text class="sub" x="22" y="96">状态、缓存、重试、上游实例</text></g>
+  <path class="line" d="M1000 410H1050"/>
+  <g transform="translate(1050 350)"><rect class="box" width="280" height="120" rx="10"/><text class="num" x="22" y="32">08 / RESOURCE</text><text class="label" x="22" y="68">服务资源与下游</text><text class="sub" x="22" y="96">队列、CPU、内存、fd、连接池</text></g>
+  <path class="line" d="M1190 470V540H860"/>
+  <g transform="translate(580 540)"><rect class="hot" width="560" height="120" rx="10"/><text class="num" x="24" y="34">09 / VERIFY AND PREVENT</text><text class="label" x="24" y="70">单变量验证 → 修复 → 回归 → 预防</text><text class="sub" x="24" y="98">结论必须解释全部现象，并能被日志、指标或报文支持</text></g>
+  <path class="return" d="M580 600H205V240"/>
+  <text class="sub" x="220" y="585">证据不支持假设时返回现象重新收敛</text>
+</svg>

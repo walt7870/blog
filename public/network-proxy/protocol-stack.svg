@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">协议、插件与传输关系</title>
+  <desc id="desc">展示 sing-box、Shadowsocks、v2ray-plugin、WebSocket、TLS 与入口网关之间的层级关系。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050b18"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#213b61" stroke-width="1" opacity=".28"/>
+    </pattern>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="proto" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="plugin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .layer { fill: rgba(15,23,42,.72); stroke: #1e3a8a; stroke-width: 1.5; rx: 26; }
+      .core { fill: rgba(8,47,73,.92); stroke: url(#core); stroke-width: 2; rx: 20; filter: url(#glow); }
+      .proto { fill: rgba(30,27,75,.92); stroke: url(#proto); stroke-width: 2; rx: 20; filter: url(#glow); }
+      .plug { fill: rgba(6,78,59,.88); stroke: url(#plugin); stroke-width: 2; rx: 20; filter: url(#glow); }
+      .text { font: 750 20px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; }
+      .label { font: 700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #a5f3fc; }
+      .line { stroke: #67e8f9; stroke-width: 2.4; fill: none; marker-end: url(#arrow); filter: url(#glow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="760"/>
+  <rect class="grid" width="1440" height="760"/>
+  <circle cx="1240" cy="118" r="230" fill="#2563eb" opacity=".16"/>
+  <circle cx="250" cy="652" r="250" fill="#14b8a6" opacity=".12"/>
+  <text class="title" x="64" y="72">协议、插件与传输关系</text>
+  <text class="sub" x="64" y="102">上面是工具层，中间是协议层，下面是传输与安全层；不要把它们混成一层。</text>
+
+  <rect class="layer" x="70" y="146" width="1300" height="142"/>
+  <text class="label" x="96" y="184">工具层</text>
+  <rect class="core" x="110" y="200" width="210" height="64"/>
+  <text class="text" x="142" y="237">sing-box</text>
+  <text class="small" x="142" y="258">代理核心 / 引擎</text>
+  <rect class="core" x="364" y="200" width="210" height="64"/>
+  <text class="text" x="396" y="237">Clash Verge</text>
+  <text class="small" x="396" y="258">图形客户端</text>
+  <rect class="core" x="618" y="200" width="210" height="64"/>
+  <text class="text" x="650" y="237">systemd / Docker</text>
+  <text class="small" x="650" y="258">进程托管</text>
+
+  <rect class="layer" x="70" y="320" width="1300" height="142"/>
+  <text class="label" x="96" y="358">协议层</text>
+  <rect class="proto" x="110" y="374" width="250" height="64"/>
+  <text class="text" x="142" y="411">Shadowsocks</text>
+  <text class="small" x="142" y="432">代理协议本身</text>
+  <rect class="proto" x="410" y="374" width="250" height="64"/>
+  <text class="text" x="442" y="411">Trojan</text>
+  <text class="small" x="442" y="432">协议 + TLS 绑定</text>
+  <rect class="plug" x="710" y="374" width="250" height="64"/>
+  <text class="text" x="742" y="411">v2ray-plugin</text>
+  <text class="small" x="742" y="432">Shadowsocks 的 SIP003 插件</text>
+
+  <rect class="layer" x="70" y="494" width="1300" height="176"/>
+  <text class="label" x="96" y="532">传输与安全层</text>
+  <rect class="proto" x="110" y="548" width="210" height="64"/>
+  <text class="text" x="142" y="585">WebSocket</text>
+  <text class="small" x="142" y="606">常见传输外壳</text>
+  <rect class="proto" x="364" y="548" width="210" height="64"/>
+  <text class="text" x="396" y="585">TLS</text>
+  <text class="small" x="396" y="606">证书与加密外壳</text>
+  <rect class="proto" x="618" y="548" width="210" height="64"/>
+  <text class="text" x="650" y="585">TCP / QUIC</text>
+  <text class="small" x="650" y="606">底层承载方式</text>
+  <rect class="proto" x="872" y="548" width="210" height="64"/>
+  <text class="text" x="904" y="585">Nginx / Caddy</text>
+  <text class="small" x="904" y="606">可选入口网关</text>
+
+  <path class="line" d="M320 232H364"/>
+  <path class="line" d="M574 232H618"/>
+  <path class="line" d="M235 438V548"/>
+  <path class="line" d="M489 438V548"/>
+  <path class="line" d="M835 438V548"/>
+  <path class="line" d="M950 612H872"/>
+  <text class="label" x="978" y="542">如果需要统一 443 入口</text>
+</svg>

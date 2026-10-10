@@ -17,6 +17,8 @@ Docker 是容器生态里最常见的开发者工具链之一。它把镜像构�
 | 文档 | 重点 | 使用场景 |
 | --- | --- | --- |
 | [常用命令](./command) | 镜像、容器、日志、网络、卷、清理 | 日常开发和排查 |
+| [镜像构建与供应链](./image-build-supply-chain) | Dockerfile、缓存、多阶段构建、摘要、Registry 和制品验证 | 建立可重复、可追踪的交付链 |
+| [存储、网络与 Compose](./storage-network-compose) | Volume、Bind Mount、端口、DNS、健康检查和多服务模型 | 运行带数据库的完整应用环境 |
 | [Java 应用镜像](./java-application) | Spring Boot / Jar 应用的 Dockerfile、构建和运行 | 后端服务容器化交付 |
 | [容器基础概念](../basic/concepts) | 容器、镜像、运行时、隔离机制 | 理解 Docker 背后的通用模型 |
 | [运行时与工具边界](../basic/runtimes) | Docker、containerd、CRI-O、runc、Podman | 分清 Docker 与其他容器实现的关系 |

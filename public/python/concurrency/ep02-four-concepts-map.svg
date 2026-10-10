@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">四个概念回答四类问题</title>
+  <desc id="desc">并发讲任务组织，并行讲算力，异步讲等待让出，流水线讲阶段协作。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#334155"/></marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/></marker>
+    <style>
+      .bg{fill:#f8fafc}.title{font:800 32px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.sub{font:15px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .tag{font:800 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.h{font:800 18px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.b{font:14px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#475569}
+      .small{font:12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#64748b}.card{stroke-width:2.2}.hub{fill:#1e293b;stroke:#0f172a;stroke-width:2.4}.hubText{font:800 22px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#fff}
+      .line{stroke:#334155;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.blueLine{stroke:#2563eb;stroke-width:2.6;fill:none;marker-end:url(#blueArrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+      .chip{fill:#e2e8f0;rx:10}.chipText{font:700 12px Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#334155}
+    </style>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="26"/>
+  <text class="title" x="56" y="58">四个概念回答四类问题</text>
+  <text class="sub" x="56" y="86">并发讲任务组织，并行讲算力，异步讲等待让出，流水线讲阶段协作。</text><path class="dash" d="M640 150 V598"/><path class="dash" d="M50 360 H1230"/><rect class="card" style="stroke:#06b6d4;fill:#ffffff" x="72" y="170" width="524" height="168" rx="18"/>
+  <text class="tag" x="98" y="204">STEP 01</text>
+  <text class="h" x="98" y="240">并发</text>
+  <text class="b" x="98" y="276">多个任务交错推进</text>
+<text class="b" x="98" y="304">重点：调度和等待</text>
+<text class="b" x="98" y="332">例：同时处理多个文件</text>
+<rect class="card" style="stroke:#6366f1;fill:#f8fbff" x="684" y="170" width="524" height="168" rx="18"/>
+  <text class="tag" x="710" y="204">STEP 02</text>
+  <text class="h" x="710" y="240">并行</text>
+  <text class="b" x="710" y="276">多个核心真正同时算</text>
+<text class="b" x="710" y="304">重点：CPU/GPU 资源</text>
+<text class="b" x="710" y="332">例：多进程特征提取</text>
+<rect class="card" style="stroke:#fb923c;fill:#ffffff" x="72" y="410" width="524" height="168" rx="18"/>
+  <text class="tag" x="98" y="444">STEP 03</text>
+  <text class="h" x="98" y="480">异步</text>
+  <text class="b" x="98" y="516">等待时让出控制权</text>
+<text class="b" x="98" y="544">重点：事件循环</text>
+<text class="b" x="98" y="572">例：高并发 API 请求</text>
+<rect class="card" style="stroke:#22c55e;fill:#f8fbff" x="684" y="410" width="524" height="168" rx="18"/>
+  <text class="tag" x="710" y="444">STEP 04</text>
+  <text class="h" x="710" y="480">流水线</text>
+  <text class="b" x="710" y="516">多阶段分工协作</text>
+<text class="b" x="710" y="544">重点：队列和背压</text>
+<text class="b" x="710" y="572">例：采集→VAD→ASR</text><rect class="hub" x="510" y="318" width="260" height="86" rx="22"/><text class="hubText" x="640" y="354" text-anchor="middle">不要混成一个词</text><text class="small" x="640" y="382" text-anchor="middle" fill="#cbd5e1">问题、工具、指标分别判断</text><rect class="chip" x="56" y="642" width="168" height="36"/><text class="chipText" x="74" y="665">问题不同</text>
+<rect class="chip" x="246" y="642" width="168" height="36"/><text class="chipText" x="264" y="665">工具不同</text>
+<rect class="chip" x="436" y="642" width="168" height="36"/><text class="chipText" x="454" y="665">指标不同</text>
+<rect class="chip" x="626" y="642" width="168" height="36"/><text class="chipText" x="644" y="665">不要混用词</text></svg>

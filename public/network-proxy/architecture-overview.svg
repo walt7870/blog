@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">网络代理整体架构</title>
+  <desc id="desc">展示本机侧、控制面和远端侧如何组成完整网络代理链路。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.48" stop-color="#0b1730"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#14b8a6"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#1f3b5c" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); opacity: .65; }
+      .panel { fill: rgba(15, 23, 42, .76); stroke: #2dd4bf; stroke-width: 1.4; rx: 28; }
+      .panel2 { fill: rgba(15, 23, 42, .74); stroke: #8b5cf6; stroke-width: 1.4; rx: 28; }
+      .panel3 { fill: rgba(15, 23, 42, .76); stroke: #38bdf8; stroke-width: 1.4; rx: 28; }
+      .node { fill: #0f172a; stroke: #67e8f9; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .node-v { fill: #111827; stroke: #a78bfa; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .node-g { fill: #082f2a; stroke: #34d399; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .lane { font: 750 21px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #cffafe; letter-spacing: .5px; }
+      .text { font: 700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #a5b4fc; }
+      .label { font: 700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #67e8f9; }
+      .line { stroke: #67e8f9; stroke-width: 2.4; fill: none; marker-end: url(#arrow); filter: url(#glow); }
+      .line2 { stroke: #a78bfa; stroke-width: 2.2; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow); }
+      .direct { stroke: #34d399; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="760"/>
+  <rect class="grid" width="1440" height="760"/>
+  <circle cx="1260" cy="110" r="190" fill="#2563eb" opacity=".16"/>
+  <circle cx="160" cy="660" r="230" fill="#14b8a6" opacity=".13"/>
+  <text class="title" x="64" y="72">网络代理整体架构</text>
+  <text class="sub" x="64" y="102">控制面下发配置，数据面转发真实流量；本机规则决定直连或进入远端出口。</text>
+
+  <rect class="panel" x="58" y="150" width="430" height="468"/>
+  <text class="lane" x="86" y="190">本机侧 Local</text>
+  <rect class="node" x="104" y="230" width="330" height="74"/>
+  <text class="text" x="132" y="262">浏览器 / 应用程序</text>
+  <text class="small" x="132" y="285">发起 HTTP、HTTPS、API 请求</text>
+  <rect class="node-v" x="104" y="342" width="330" height="74"/>
+  <text class="text" x="132" y="374">客户端界面</text>
+  <text class="small" x="132" y="397">Clash Verge：订阅、节点、模式</text>
+  <rect class="node" x="104" y="454" width="330" height="74"/>
+  <text class="text" x="132" y="486">代理内核</text>
+  <text class="small" x="132" y="509">Mihomo / sing-box：接流量、执行规则</text>
+  <rect class="node-g" x="104" y="566" width="330" height="74"/>
+  <text class="text" x="132" y="598">规则与 DNS</text>
+  <text class="small" x="132" y="621">决定 DIRECT / PROXY / REJECT</text>
+
+  <rect class="panel2" x="548" y="150" width="344" height="238"/>
+  <text class="lane" x="576" y="190">控制面 Control Plane</text>
+  <rect class="node-v" x="592" y="232" width="256" height="62"/>
+  <text class="text" x="620" y="267">订阅配置</text>
+  <rect class="node-v" x="592" y="314" width="256" height="62"/>
+  <text class="text" x="620" y="349">代理组 / 规则集</text>
+
+  <rect class="panel3" x="952" y="150" width="430" height="468"/>
+  <text class="lane" x="980" y="190">远端侧 Remote</text>
+  <rect class="node" x="998" y="230" width="330" height="74"/>
+  <text class="text" x="1026" y="262">入口网关</text>
+  <text class="small" x="1026" y="285">Nginx / Caddy / LB：TLS、路径、转发</text>
+  <rect class="node" x="998" y="342" width="330" height="74"/>
+  <text class="text" x="1026" y="374">远端代理服务</text>
+  <text class="small" x="1026" y="397">认证、解密、转发</text>
+  <rect class="node-g" x="998" y="454" width="330" height="74"/>
+  <text class="text" x="1026" y="486">出口网络</text>
+  <text class="small" x="1026" y="509">以出口节点身份访问目标</text>
+  <rect class="node-g" x="998" y="566" width="330" height="74"/>
+  <text class="text" x="1026" y="598">目标服务</text>
+  <text class="small" x="1026" y="621">网站、API、SaaS 服务</text>
+
+  <path class="line" d="M269 304V454"/>
+  <path class="line2" d="M434 379H592"/>
+  <path class="line2" d="M720 294V314"/>
+  <path class="line2" d="M592 345H434"/>
+  <path class="line" d="M269 528V566"/>
+  <path class="line" d="M434 602C570 602 660 606 770 598C870 590 910 560 998 267"/>
+  <text class="label" x="774" y="560">代理</text>
+  <path class="direct" d="M434 626C598 704 884 704 998 604"/>
+  <text class="label" x="684" y="700">直连</text>
+  <path class="line" d="M1163 304V342"/>
+  <path class="line" d="M1163 416V454"/>
+  <path class="line" d="M1163 528V566"/>
+</svg>

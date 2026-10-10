@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 升级验证链路</title>
+  <desc id="desc">展示从兼容矩阵、备份恢复、控制面、节点灰度到观察和清理的升级阶段。</desc>
+  <rect width="1280" height="520" fill="#f5f7fa"/>
+  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">升级完成的定义是整条依赖链重新通过验收</text>
+  <g font-family="sans-serif" text-anchor="middle" font-size="18">
+    <rect x="55" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="140" y="180" fill="#172033">兼容矩阵</text><text x="140" y="207" fill="#526078">API / CRD / 组件</text>
+    <rect x="255" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="340" y="180" fill="#172033">恢复预演</text><text x="340" y="207" fill="#526078">etcd / 平台 / 数据</text>
+    <rect x="455" y="145" width="170" height="88" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="540" y="180" fill="#172033">控制面灰度</text><text x="540" y="207" fill="#526078">API 与 Webhook</text>
+    <rect x="655" y="145" width="170" height="88" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="740" y="180" fill="#172033">节点池灰度</text><text x="740" y="207" fill="#526078">网络 / 卷 / 排空</text>
+    <rect x="855" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="940" y="180" fill="#172033">扩大范围</text><text x="940" y="207" fill="#526078">容量与业务 SLO</text>
+    <rect x="1055" y="145" width="170" height="88" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1140" y="180" fill="#172033">观察与清理</text><text x="1140" y="207" fill="#526078">旧 API / 节点池</text>
+  </g>
+  <g stroke="#326ce5" stroke-width="3"><path d="M225 189H245"/><path d="M425 189H445"/><path d="M625 189H645"/><path d="M825 189H845"/><path d="M1025 189H1045"/></g>
+  <g fill="#326ce5"><path d="M245 189l-11-7v14z"/><path d="M445 189l-11-7v14z"/><path d="M645 189l-11-7v14z"/><path d="M845 189l-11-7v14z"/><path d="M1045 189l-11-7v14z"/></g>
+  <rect x="80" y="310" width="1120" height="72" rx="8" fill="#fff4e5" stroke="#d88416" stroke-width="2"/>
+  <text x="640" y="340" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" fill="#7a4a00">任何阶段触发停止条件：暂停扩大范围，保存证据，判断前滚还是回退</text>
+  <text x="640" y="368" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#526078">API 5xx · Webhook P99 · Pending · 卷挂载失败 · 网络错误 · 业务尾延迟</text>
+  <rect x="80" y="414" width="1120" height="54" rx="8" fill="#fff" stroke="#b7c0ce"/>
+  <text x="640" y="448" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#526078">二进制可回退不等于状态可回退：存储版本、数据库和数据面切换必须单独验证</text>
+</svg>

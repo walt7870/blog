@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes API 写入与调谐链路</title>
+  <desc id="desc">展示客户端请求经过认证、授权、准入、存储，再由控制器异步调谐到工作节点的过程。</desc>
+  <rect width="1280" height="560" fill="#f5f7fa"/>
+  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">API 成功与运行成功之间隔着异步控制链</text>
+  <g font-family="sans-serif" font-size="20" text-anchor="middle">
+    <rect x="60" y="126" width="150" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="135" y="171" fill="#172033">客户端</text>
+    <rect x="260" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="340" y="157" fill="#172033">认证 / 授权</text><text x="340" y="184" fill="#526078">身份与权限</text>
+    <rect x="470" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="550" y="157" fill="#172033">准入 / 校验</text><text x="550" y="184" fill="#526078">最终对象</text>
+    <rect x="680" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="760" y="157" fill="#172033">kube-apiserver</text><text x="760" y="184" fill="#526078">resourceVersion</text>
+    <rect x="890" y="126" width="150" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="965" y="171" fill="#172033">etcd</text>
+  </g>
+  <g stroke="#326ce5" stroke-width="3" fill="none"><path d="M210 164H250"/><path d="M420 164H460"/><path d="M630 164H670"/><path d="M840 164H880"/></g>
+  <g fill="#326ce5"><path d="M250 164l-12-7v14z"/><path d="M460 164l-12-7v14z"/><path d="M670 164l-12-7v14z"/><path d="M880 164l-12-7v14z"/></g>
+  <path d="M965 212v58H270v42" stroke="#65738a" stroke-width="3" fill="none" stroke-dasharray="8 7"/>
+  <text x="620" y="258" font-family="sans-serif" font-size="18" fill="#526078">list / watch：变化只负责触发，当前事实决定动作</text>
+  <g font-family="sans-serif" font-size="20" text-anchor="middle">
+    <rect x="170" y="322" width="200" height="86" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="270" y="357" fill="#172033">控制器 / Operator</text><text x="270" y="386" fill="#526078">计算期望与差异</text>
+    <rect x="455" y="322" width="170" height="86" rx="8" fill="#ffffff" stroke="#5b677a" stroke-width="3"/><text x="540" y="357" fill="#172033">scheduler</text><text x="540" y="386" fill="#526078">选择节点</text>
+    <rect x="710" y="322" width="170" height="86" rx="8" fill="#ffffff" stroke="#5b677a" stroke-width="3"/><text x="795" y="357" fill="#172033">kubelet</text><text x="795" y="386" fill="#526078">落实 Pod</text>
+    <rect x="965" y="322" width="190" height="86" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1060" y="357" fill="#172033">Ready 后端</text><text x="1060" y="386" fill="#526078">开始接收流量</text>
+  </g>
+  <g stroke="#5b677a" stroke-width="3" fill="none"><path d="M370 365H445"/><path d="M625 365H700"/><path d="M880 365H955"/></g>
+  <g fill="#5b677a"><path d="M445 365l-12-7v14z"/><path d="M700 365l-12-7v14z"/><path d="M955 365l-12-7v14z"/></g>
+  <rect x="60" y="472" width="1160" height="50" rx="8" fill="#fff4e5" stroke="#d88416"/><text x="640" y="504" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#6e4300">排障证据：对象版本 + Conditions + Events + 组件日志 + 业务指标</text>
+</svg>

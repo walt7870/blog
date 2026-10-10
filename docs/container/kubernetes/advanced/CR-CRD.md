@@ -1,156 +1,160 @@
-# CR和CRD
+---
+title: Kubernetes CRD 设计与版本演进
+author: Walt
+date: 2026-07-18
+---
 
-## 基本定义
+# Kubernetes CRD 设计与版本演进
 
-在 Kubernetes 中，CR（Custom Resource） 和 CRD（CustomResourceDefinition） 是扩展 Kubernetes API 的核心机制，允许你添加自己的资源类型，就像 Pod、Service 等内建资源一样使用它们。
+CustomResourceDefinition（CRD）向 Kubernetes API 注册新的资源类型，Custom Resource（CR）是该类型的实例。CRD 解决的是 API 结构、校验、版本、存储和通用元数据，不会自动创建 Deployment，也不会凭空获得备份、升级或恢复逻辑；这些行为必须由控制器实现。
 
-| 概念      | 说明                                                       | 类比   |
-| ------- | -------------------------------------------------------- | ---- |
-| **CRD** | CustomResourceDefinition，自定义资源定义，用于注册新类型到 Kubernetes API | 类的定义 |
-| **CR**  | Custom Resource，自定义资源，是你基于 CRD 创建的对象                     | 类的实例 |
+## 先判断是否需要 CRD
 
-## 使用示例
+CRD 适合表达低频、声明式、需要被控制器观察的平台意图，例如 `DatabaseCluster`、`Application` 或 `Certificate`。以下内容通常不适合写进 CR：
 
-以创建一个MyApp的CRD为例子
+- 高频指标、日志、追踪或事件流。
+- 业务交易、用户数据或大体量应用状态。
+- 需要复杂自定义存储、子资源协议或非声明式交互的数据服务。
+- 只为减少几份 YAML 重复而创建、却没有稳定 API 契约的包装层。
+
+简单模板优先使用 Helm 或 Kustomize；需要更灵活 API 行为时再评估 Aggregated API。
+
+## 一个具备生产语义的最小 CRD
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: myapps.example.com
+  name: appreleases.platform.example.com
 spec:
-  group: example.com
+  group: platform.example.com
+  scope: Namespaced
+  names:
+    kind: AppRelease
+    plural: appreleases
+    singular: apprelease
+    shortNames: [ar]
   versions:
-    - name: v1
+    - name: v1alpha1
       served: true
       storage: true
       schema:
         openAPIV3Schema:
           type: object
+          required: [spec]
           properties:
             spec:
               type: object
+              required: [image, replicas]
               properties:
-                replicas:
-                  type: integer
                 image:
                   type: string
-  scope: Namespaced
-  names:
-    plural: myapps
-    singular: myapp
-    kind: MyApp
-    shortNames:
-      - ma
-
+                  minLength: 1
+                replicas:
+                  type: integer
+                  minimum: 1
+                  maximum: 20
+            status:
+              type: object
+              properties:
+                observedGeneration:
+                  type: integer
+                  format: int64
+                readyReplicas:
+                  type: integer
+                conditions:
+                  type: array
+                  x-kubernetes-list-type: map
+                  x-kubernetes-list-map-keys: [type]
+                  items:
+                    type: object
+                    required: [type, status, reason, message, lastTransitionTime]
+                    properties:
+                      type: { type: string }
+                      status: { type: string, enum: ["True", "False", "Unknown"] }
+                      reason: { type: string }
+                      message: { type: string }
+                      observedGeneration: { type: integer, format: int64 }
+                      lastTransitionTime: { type: string, format: date-time }
+      subresources:
+        status: {}
+        scale:
+          specReplicasPath: .spec.replicas
+          statusReplicasPath: .status.readyReplicas
 ```
 
-### 字段说明
+CRD 名称必须是 `<plural>.<group>`。schema 不只是文档，它在 API Server 端拒绝无效输入，并影响默认值、字段裁剪、Server-Side Apply 和客户端生成。
 
-| 字段路径                | 说明                                          |
-| ------------------- | ------------------------------------------- |
-| `apiVersion`        | `apiextensions.k8s.io/v1`，用于定义 CRD 的 API    |
-| `kind`              | 一定是 `CustomResourceDefinition`              |
-| `metadata.name`     | CRD 的名称，格式必须为 `<plural>.<group>`            |
-| `spec.group`        | 自定义资源所在的 API Group，例如 `example.com`         |
-| `spec.scope`        | `Namespaced` 或 `Cluster`（是否在命名空间下）          |
-| `spec.names.kind`   | 定义资源类型，如 `MyApp`                            |
-| `spec.names.plural` | 用于访问资源的 URL，如 `/apis/example.com/v1/myapps` |
-| `spec.versions`     | 版本列表，每个版本都可以有 schema、served、storage 等控制字段   |
-| `schema`            | 使用 OpenAPI v3 格式定义字段校验规则                    |
+## Spec、Status 和 Conditions
 
-### 具体使用
+`spec` 描述用户期望，`status` 描述控制器已经观察到的事实。控制器不应修改用户声明来表示执行结果。
 
-一旦你定义并部署了 CRD，Kubernetes 会自动为你注册一个新的 API 端点，比如：
+Conditions 适合表达多个可独立判断的方面，例如 `Ready`、`Progressing`、`Degraded`。每个 Condition 应包含稳定的 `type`、机器可判断的 `status` 和 `reason`、供人阅读的 `message`，并记录 `observedGeneration`。
 
-```bash
-#讲上面的文件命名为myapp-crd.yaml
-kubectl apply -f myapp-crd.yaml
+当 `status.observedGeneration` 小于 `metadata.generation` 时，现有 Ready 可能属于旧 spec。平台界面如果忽略这个差异，就会在新发布尚未处理时显示错误的绿色状态。
 
-#查看CRD资源
-kubectl get crd myapps.example.com
+## CEL 校验与不可变规则
 
-#接口获取
-GET /apis/example.com/v1/namespaces/default/myapps
-
-
-```
-
-#### 创建CR
-
-可以通过yaml
+OpenAPI schema 负责类型、必填、范围和格式；跨字段或更新前后比较可以使用 CRD 的 CEL validation rules。规则应快速、确定且不依赖外部网络。
 
 ```yaml
-apiVersion: example.com/v1
-kind: MyApp
-metadata:
-  name: myapp-sample
-spec:
-  image: nginx:1.20
-  replicas: 3
+x-kubernetes-validations:
+  - rule: "self.minReplicas <= self.maxReplicas"
+    message: "minReplicas 不能大于 maxReplicas"
+  - rule: "self.region == oldSelf.region"
+    message: "region 创建后不可修改"
 ```
 
-或者直接适用kubectl直接创建
+业务上允许但暂时无法执行的状态，不应伪装成 schema 错误。例如外部云配额不足应由控制器写入 Condition，而不是要求 API Server 调用外部服务校验。
+
+## served、storage 与版本转换
+
+一个 CRD 可以同时提供多个 API 版本，但任意时刻只能有一个 storage 版本。
+
+| 字段 | 含义 |
+| --- | --- |
+| `served: true` | 客户端可以通过该版本读写对象 |
+| `storage: true` | 新写入对象以该版本保存 |
+| `status.storedVersions` | 历史上仍可能存在于存储中的版本 |
+
+把 `storage` 从 `v1alpha1` 切到 `v1beta1` 不会自动重写旧对象。迁移应按以下顺序进行：
+
+1. 新版本先 `served: true`，保持旧版本可用。
+2. 部署并验证双向转换；无 schema 变化可以使用 `None`，复杂变化需要 Conversion Webhook。
+3. 切换 storage 版本，新写入开始使用新表示。
+4. 读取并重写历史对象，确认 `storedVersions` 已收敛。
+5. 检查所有客户端和控制器不再使用旧版本，再停止 served。
+
+Conversion Webhook 不可用可能阻断对应 CR 的读取、写入和删除。它需要高可用、短超时、证书轮换、监控和不依赖自身 CR 才能启动的部署路径。
+
+复杂版本转换宜采用 hub-and-spoke：所有 served 版本先转换到一个内部 hub，再由 hub 转到目标版本。这样新增版本只需实现与 hub 的双向转换，不必维护每两个版本之间的组合。转换必须保留当前版本无法表达但未来往返仍需要的数据，否则旧客户端读写一次就可能造成字段丢失。
+
+版本迁移实验至少包含：创建旧版本对象、通过新版本读取、修改后再用旧版本读取、切换 storage、重写历史对象、停用旧 served 版本，最后验证备份恢复。只测试“新对象能创建”无法证明兼容性。
+
+## 删除与 Finalizer
+
+Finalizer 把删除变成一个状态机。对象收到删除请求后出现 `deletionTimestamp`，控制器完成外部清理，再移除自己负责的 finalizer。
+
+可靠实现需要：
+
+- 清理动作可重复，外部资源不存在也视为成功。
+- 清理失败写入 Condition/Event，并进入限速重试。
+- 不阻塞与该对象无关的控制循环。
+- 提供人工接管步骤，但不把“强删 finalizer”当常规恢复手段。
+
+用户手工删除 finalizer 只会让 Kubernetes 忘记等待，不会自动清理云数据库、DNS 或密钥。
+
+## 验证清单
 
 ```bash
- 
-kubectl create myapp example.com --group=example.com --version=v1 --kind=MyApp --plural=myapps
+kubectl apply -f apprelease-crd.yaml
+kubectl explain apprelease.spec
+kubectl get crd appreleases.platform.example.com -o yaml
+kubectl get apprelease -A -o custom-columns='NS:.metadata.namespace,NAME:.metadata.name,GEN:.metadata.generation,OBS:.status.observedGeneration,READY:.status.conditions[?(@.type=="Ready")].status'
 ```
 
-#### CR字段说明
-
-| 字段           | 说明                                       |
-| ------------ | ---------------------------------------- |
-| `apiVersion` | 必须匹配 CRD 定义的 `group/version`             |
-| `kind`       | 必须是 CRD 定义的 `kind`                       |
-| `metadata`   | 常规 Kubernetes 对象元数据                      |
-| `spec`       | 自定义结构，内容由 CRD 的 schema 定义                |
-| `status`（可选） | 用于控制器反馈状态的字段，需显式开启 `subresources.status` |
-
-### 作用说明
-
-#### ✅1. 扩展 Kubernetes API 的官方方式
-
-Kubernetes 是以 API 为核心的系统，而 CRD 是一种“无需更改 Kubernetes 核心代码”就能添加新资源类型的机制。
-
-你可以像使用原生资源一样：
-
-```bash
-kubectl get myapp
-kubectl describe myapp myapp-sample
-```
-
-#### ✅ 2. 与 Operator 结合使用
-
-CRD 通常配合控制器（Operator）使用。控制器会监听某种 CR 的变化，并根据其内容操作 Kubernetes 资源：
-
-你创建了 MyApp，控制器就自动创建一个 Deployment
-
-你修改了 MyApp 的 spec.image，控制器自动更新镜像
-
-这就是 Operator 模式的本质。
-
-#### ✅ 3. 替代 ConfigMap/Annotation 的复杂逻辑
-
-以往一些系统会通过复杂的 ConfigMap 或注解组合进行配置管理，不直观也不安全。而 CR 可以显式表达结构，并且支持验证和补全。
-
-### 与原生资源对比
-
-| 项目                 | CRD      | CR          | 原生资源（如 Deployment） |
-| ------------------ | -------- | ----------- | ------------------ |
-| 是 Kubernetes 原生支持吗 | ✅        | ✅（由 CRD 定义） | ✅                  |
-| 可扩展性               | 无限扩展     | 无限扩展        | 受限于版本              |
-| 是否有控制器逻辑           | ❌（需要自定义） | ❌（除非搭配控制器）  | ✅ 内置控制器            |
-| 是否能定义字段结构          | ✅        | ✅（由 CRD 决定） | ✅                  |
-| 是否可用 kubectl 操作    | ✅        | ✅           | ✅                  |
-
-### 适用场景
-
-| 场景         | 举例                                  |
-| ---------- | ----------------------------------- |
-| 管理数据库      | `PostgresCluster`，一键部署主从 PostgreSQL |
-| 管理中间件      | `KafkaTopic`，自动为 Kafka 创建 topic     |
-| 管理 SaaS 应用 | `Website`，自动部署网站前后端                 |
-| 管理机器学习资源   | `ModelDeployment`，一键部署推理服务          |
-
-总之，整合部署一整套产品，包括多个前端或者多个后端，对于要私有化部署类独立产品提供整套产品包方案
+- 无效字段、越界值和跨字段错误会在 API Server 端被拒绝。
+- Status 子资源只能由具备对应权限的控制器更新。
+- 重复创建、修改、删除和控制器重启后对象仍能收敛。
+- 新旧版本往返转换不丢字段，历史对象完成存储迁移。
+- 删除外部依赖失败时对象保留证据，而不是永久无解释地 Terminating。

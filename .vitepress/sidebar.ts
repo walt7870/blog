@@ -2,13 +2,45 @@
 import type { DefaultTheme } from 'vitepress';
 
 export const sidebar: DefaultTheme.Sidebar = {
+  // 网络代理
+  '/docs/network-proxy/': [
+    {
+      text: '网络代理',
+      collapsed: false,
+      items: [
+        { text: '专题总览', link: '/docs/network-proxy/' },
+        { text: '基础原理', link: '/docs/network-proxy/fundamentals' },
+        { text: '组件链路', link: '/docs/network-proxy/components' },
+        { text: '协议、插件与传输', link: '/docs/network-proxy/protocol-stack' },
+        {
+          text: '实施部署',
+          collapsed: true,
+          items: [
+            { text: '实施总览', link: '/docs/network-proxy/implementation' },
+            { text: '证书申请与续期', link: '/docs/network-proxy/certificate' },
+            { text: '服务端部署（systemd）', link: '/docs/network-proxy/server-systemd' },
+            { text: '服务端部署（Docker）', link: '/docs/network-proxy/server-docker' },
+            { text: '新增用户与常用命令', link: '/docs/network-proxy/user-management' },
+            { text: 'Clash Verge 客户端', link: '/docs/network-proxy/clash-verge' },
+          ]
+        },
+        { text: '运维与排查', link: '/docs/network-proxy/operations' },
+      ]
+    }
+  ],
+
   // 基础知识 - 通信协议
   '/docs/basic/protocol/': [
     {
       text: '通信协议',
       collapsed: false,
       items: [
-        { text: '协议概览', link: '/docs/basic/protocol/' },
+        { text: '网络与协议总览', link: '/docs/basic/protocol/' },
+        { text: '分层、寻址与路由', link: '/docs/basic/protocol/network-foundations' },
+        { text: 'TCP、UDP 与 Socket', link: '/docs/basic/protocol/transport-socket' },
+        { text: '现代应用与实时协议', link: '/docs/basic/protocol/application-realtime' },
+        { text: '容量、并发与性能', link: '/docs/basic/protocol/capacity-performance' },
+        { text: '网络排障方法与案例', link: '/docs/basic/protocol/troubleshooting' },
         { text: 'HTTP vs WebSocket', link: '/docs/basic/protocol/http-vs-websocket' },
         { text: '嵌入式与工业协议', link: '/docs/basic/protocol/embedded-protocols' },
       ]
@@ -71,6 +103,27 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
+  // 算法
+  '/docs/algorithm/': [
+    {
+      text: '算法',
+      collapsed: false,
+      items: [
+        { text: '算法概览', link: '/docs/algorithm/' },
+        { text: '复杂度分析', link: '/docs/algorithm/complexity-analysis' },
+        { text: '排序算法', link: '/docs/algorithm/sorting-algorithms' },
+        { text: '搜索算法', link: '/docs/algorithm/search-algorithms' },
+        { text: '动态规划', link: '/docs/algorithm/dynamic-programming' },
+        { text: '回溯算法', link: '/docs/algorithm/backtracking' },
+        { text: '贪心算法', link: '/docs/algorithm/greedy-algorithms' },
+        { text: '分治算法', link: '/docs/algorithm/divide-and-conquer' },
+        { text: '图算法', link: '/docs/algorithm/graph-algorithms' },
+        { text: '字符串算法', link: '/docs/algorithm/string-algorithms' },
+        { text: '数学算法', link: '/docs/algorithm/mathematical-algorithms' },
+      ]
+    }
+  ],
+
   // 嵌入式开发
   '/docs/embedded/': [
     {
@@ -99,20 +152,59 @@ export const sidebar: DefaultTheme.Sidebar = {
       text: '人工智能',
       collapsed: false,
       items: [
-        { text: '概述', link: '/docs/ai/' },
         {
-          text: 'Agent Skill',
-          collapsed: true,
+          text: 'AI 全景',
+          collapsed: false,
           items: [
-            { text: 'Skill 概述', link: '/docs/ai/skill/' },
-            { text: '推荐与选型', link: '/docs/ai/skill/recommendations' },
-            { text: 'Claude Code 实践', link: '/docs/ai/skill/claude-code-best-practices' },
+            { text: '人工智能全景', link: '/docs/ai/' },
+            { text: '发展脉络', link: '/docs/ai/history' },
+            { text: '核心概念词典', link: '/docs/ai/glossary' },
+            { text: '学习与实践路线', link: '/docs/ai/learning-path' },
           ],
         },
-        { text: 'Vibe Coding', link: '/docs/ai/vibe-coding/' },
-        { text: '机器学习', link: '/docs/ai/ml' },
-        { text: 'MCP', link: '/docs/ai/mcp' },
-        { text: '智能体', link: '/docs/ai/agent' },
+        {
+          text: '基础原理',
+          collapsed: true,
+          items: [
+            { text: '基础原理概述', link: '/docs/ai/foundations/' },
+            { text: '数据与任务建模', link: '/docs/ai/foundations/data-and-tasks' },
+            { text: '数学直觉', link: '/docs/ai/foundations/math-intuition' },
+            { text: '训练与优化', link: '/docs/ai/foundations/training-optimization' },
+            { text: '泛化与评估', link: '/docs/ai/foundations/generalization-evaluation' },
+          ],
+        },
+        {
+          text: '机器学习',
+          collapsed: true,
+          items: [
+            { text: '机器学习概述', link: '/docs/ai/ml' },
+            { text: '项目：流失预测', link: '/docs/ai/practice/machine-learning-project' },
+          ],
+        },
+        {
+          text: '深度学习',
+          collapsed: true,
+          items: [
+            { text: '深度学习概述', link: '/docs/ai/deep-learning/' },
+            { text: '神经网络与反向传播', link: '/docs/ai/deep-learning/neural-networks' },
+            { text: '主要网络架构', link: '/docs/ai/deep-learning/architectures' },
+            { text: '工程实践', link: '/docs/ai/deep-learning/framework-practice' },
+          ],
+        },
+        {
+          text: '主要应用方向',
+          collapsed: true,
+          items: [
+            { text: '领域概览', link: '/docs/ai/domains/' },
+            { text: '自然语言处理', link: '/docs/ai/domains/nlp' },
+            { text: '计算机视觉', link: '/docs/ai/domains/computer-vision' },
+            { text: '语音技术', link: '/docs/ai/domains/speech' },
+            { text: '推荐系统', link: '/docs/ai/domains/recommendation' },
+            { text: '时间序列与预测', link: '/docs/ai/domains/time-series' },
+            { text: '强化学习', link: '/docs/ai/domains/reinforcement-learning' },
+            { text: '多模态模型', link: '/docs/ai/domains/multimodal' },
+          ],
+        },
         {
           text: '流式语音技术实践',
           collapsed: true,
@@ -140,6 +232,106 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: 'RAG 与工具调用', link: '/docs/ai/llm/rag-tools' }
           ]
         },
+        {
+          text: 'AI 应用开发',
+          collapsed: true,
+          items: [
+            { text: '应用开发概述', link: '/docs/ai/applications/' },
+            { text: '模型 API 与结构化输出', link: '/docs/ai/applications/model-api' },
+            { text: 'AI 应用架构', link: '/docs/ai/applications/application-architecture' },
+            { text: '知识库问答', link: '/docs/ai/first-ai-app' },
+            { text: 'MCP', link: '/docs/ai/mcp' },
+            { text: '智能体', link: '/docs/ai/agent' },
+          ],
+        },
+        {
+          text: 'RSI 递归自我改进',
+          collapsed: true,
+          items: [
+            { text: '专题导读', link: '/docs/ai/rsi/' },
+            { text: '01. 机制、实践与影响', link: '/docs/ai/rsi/01-recursive-self-improvement' },
+          ],
+        },
+        {
+          text: 'LangChain 实战',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/applications/langchain/' },
+            { text: '01. LangChain 到底是什么', link: '/docs/ai/applications/langchain/01-what-is-langchain' },
+            { text: '02. LangGraph 状态工作流', link: '/docs/ai/applications/langchain/02-langgraph-workflow' },
+            { text: '03. 完整 RAG 链路', link: '/docs/ai/applications/langchain/03-rag-from-zero' },
+            { text: '04. Tool、工作流与 Agent', link: '/docs/ai/applications/langchain/04-tools-workflows-agents' },
+            { text: '05. 生产化实践', link: '/docs/ai/applications/langchain/05-production-practices' },
+          ],
+        },
+        {
+          text: 'AI 工程化',
+          collapsed: true,
+          items: [
+            { text: '工程化概述', link: '/docs/ai/engineering/' },
+            { text: '模型服务与部署', link: '/docs/ai/engineering/serving-deployment' },
+            { text: 'MLOps 与 LLMOps', link: '/docs/ai/engineering/mlops-llmops' },
+            { text: '成本、容量与性能', link: '/docs/ai/engineering/cost-capacity' },
+            { text: '安全、隐私与治理', link: '/docs/ai/engineering/security-governance' },
+            { text: '评估与排错', link: '/docs/ai/evaluation-troubleshooting' },
+          ],
+        },
+        {
+          text: '项目实践',
+          collapsed: true,
+          items: [
+            { text: '实践路线', link: '/docs/ai/practice/' },
+            { text: '流失预测', link: '/docs/ai/practice/machine-learning-project' },
+            { text: '产品质量分类', link: '/docs/ai/practice/vision-project' },
+            { text: '知识库问答', link: '/docs/ai/first-ai-app' },
+            { text: '工单处理助手', link: '/docs/ai/practice/agent-project' },
+          ],
+        },
+        {
+          text: 'Agent Skill',
+          collapsed: true,
+          items: [
+            { text: 'Skill 概述', link: '/docs/ai/skill/' },
+            { text: '推荐与选型', link: '/docs/ai/skill/recommendations' },
+            { text: 'Claude Code 实践', link: '/docs/ai/skill/claude-code-best-practices' },
+          ]
+        },
+        {
+          text: 'AI 编程深度系列',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/coding-agent-series/' },
+            { text: '01. AI 编程进入 Agent 时代', link: '/docs/ai/coding-agent-series/01-ai-coding-agent-era' },
+            { text: '02. Coding Agent 怎样工作', link: '/docs/ai/coding-agent-series/02-coding-agent-internals' },
+            { text: '03. 2026 工具生态与选型', link: '/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026' },
+            { text: '04. Vibe、Agentic 与 Spec-Driven', link: '/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven' },
+            { text: '05. Agent 可执行的任务契约', link: '/docs/ai/coding-agent-series/05-executable-task-contract' },
+            { text: '06. Context Engineering', link: '/docs/ai/coding-agent-series/06-context-engineering' },
+            { text: '07. AGENTS.md、Rules、Skills、Hooks', link: '/docs/ai/coding-agent-series/07-agents-rules-skills-hooks' },
+            { text: '08. MCP 与 Agent 工具工程', link: '/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering' },
+            { text: '09. Brownfield：先理解再修改', link: '/docs/ai/coding-agent-series/09-brownfield-understand-before-edit' },
+            { text: '10. Brownfield：测试驱动实现', link: '/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change' },
+            { text: '11. Brownfield：验证与交付', link: '/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery' },
+            { text: '12. Cloud Agent 与多 Agent', link: '/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent' },
+            { text: '13. 安全与团队治理', link: '/docs/ai/coding-agent-series/13-ai-coding-security-governance' },
+            { text: '14. AI 编程是否提效', link: '/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity' },
+          ],
+        },
+        {
+          text: 'Vibe Coding',
+          collapsed: true,
+          items: [
+            { text: '概述', link: '/docs/ai/vibe-coding/' },
+            { text: '原型快速验证', link: '/docs/ai/vibe-coding/vibe-coding' },
+            { text: '提示词工程', link: '/docs/ai/vibe-coding/prompt-engineering' },
+            { text: '上下文工程', link: '/docs/ai/vibe-coding/context-engineering' },
+            { text: 'Spec Driven', link: '/docs/ai/vibe-coding/spec-driven' },
+            { text: '工具与 Agent 工程', link: '/docs/ai/vibe-coding/tool-agent-engineering' },
+            { text: 'Harness 工程', link: '/docs/ai/vibe-coding/harness-engineering' },
+            { text: '项目实战', link: '/docs/ai/vibe-coding/project-practice' },
+            { text: '组织流程工程', link: '/docs/ai/vibe-coding/organizational-engineering' },
+          ],
+        },
       ]
     }
   ],
@@ -150,6 +342,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       collapsed: false,
       items: [
         { text: '容器概览', link: '/docs/container/' },
+        { text: '视频学习系列', link: '/docs/container/video-series' },
         {
           text: 'Basic',
           collapsed: false,
@@ -166,6 +359,8 @@ export const sidebar: DefaultTheme.Sidebar = {
           items: [
             { text: 'Docker 导览', link: '/docs/container/docker/' },
             { text: '常用命令', link: '/docs/container/docker/command' },
+            { text: '镜像构建与供应链', link: '/docs/container/docker/image-build-supply-chain' },
+            { text: '存储、网络与 Compose', link: '/docs/container/docker/storage-network-compose' },
             { text: 'Java 应用镜像', link: '/docs/container/docker/java-application' },
           ],
         },
@@ -174,6 +369,20 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: false,
           items: [
             { text: 'Kubernetes 导览', link: '/docs/container/kubernetes/' },
+            { text: 'Kubernetes 进阶视频系列', link: '/docs/container/kubernetes/video-series' },
+            {
+              text: '核心机制',
+              collapsed: false,
+              items: [
+                { text: '控制面、API 与调谐', link: '/docs/container/kubernetes/control-plane' },
+                { text: '调度与节点生命周期', link: '/docs/container/kubernetes/scheduling-node-lifecycle' },
+                { text: '数据面、存储与可靠性', link: '/docs/container/kubernetes/data-plane-reliability' },
+                { text: '可靠性、弹性与容量', link: '/docs/container/kubernetes/reliability-capacity' },
+                { text: '可观测性与证据链', link: '/docs/container/kubernetes/observability' },
+                { text: '版本与升级', link: '/docs/container/kubernetes/version-upgrade' },
+                { text: '生产实践', link: '/docs/container/kubernetes/production-practice' },
+              ],
+            },
             {
               text: '资源对象',
               collapsed: true,
@@ -193,7 +402,7 @@ export const sidebar: DefaultTheme.Sidebar = {
                 { text: 'ServiceAccount', link: '/docs/container/kubernetes/resources/serviceaccount' },
                 { text: 'RBAC', link: '/docs/container/kubernetes/resources/rbac' },
                 { text: 'NetworkPolicy', link: '/docs/container/kubernetes/resources/networkpolicy' },
-                { text: 'Endpoint', link: '/docs/container/kubernetes/resources/endpoint' },
+                { text: 'EndpointSlice', link: '/docs/container/kubernetes/resources/endpoint' },
                 { text: 'HPA', link: '/docs/container/kubernetes/resources/hpa' },
                 { text: 'VPA', link: '/docs/container/kubernetes/resources/vpa' },
                 { text: 'PodDisruptionBudget', link: '/docs/container/kubernetes/resources/poddisruptionbudget' },
@@ -207,8 +416,13 @@ export const sidebar: DefaultTheme.Sidebar = {
               collapsed: true,
               items: [
                 { text: '进阶导览', link: '/docs/container/kubernetes/advanced/' },
+                { text: '扩展点与接口边界', link: '/docs/container/kubernetes/advanced/extension-points' },
                 { text: 'CR 和 CRD', link: '/docs/container/kubernetes/advanced/CR-CRD' },
                 { text: 'Operator', link: '/docs/container/kubernetes/advanced/operator' },
+                { text: '云原生扩展生态', link: '/docs/container/kubernetes/advanced/ecosystem' },
+                { text: 'Gateway、Cilium 与 Mesh', link: '/docs/container/kubernetes/advanced/traffic-engineering' },
+                { text: 'GitOps、策略与供应链', link: '/docs/container/kubernetes/advanced/delivery-security' },
+                { text: '平台工程', link: '/docs/container/kubernetes/advanced/platform-engineering' },
               ],
             },
           ],
@@ -251,7 +465,8 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '聚合根', link: '/docs/design/architecture/DDD/Aggregate' },
             { text: '事件风暴', link: '/docs/design/architecture/DDD/event-storming' },
             { text: '实践指南', link: '/docs/design/architecture/DDD/practice' },
-            { text: '学习笔记', link: '/docs/design/architecture/DDD/learn-note' }
+            { text: '学习笔记', link: '/docs/design/architecture/DDD/learn-note' },
+            { text: 'DDD 与 UML', link: '/docs/design/architecture/DDD/uml/uml' }
           ]
         },
         {
@@ -260,6 +475,18 @@ export const sidebar: DefaultTheme.Sidebar = {
           items: [
             { text: 'UML总览', link: '/docs/design/architecture/uml/' },
             { text: '类图关系', link: '/docs/design/architecture/uml/class-relationships' }
+          ]
+        },
+        {
+          text: '平台架构',
+          collapsed: true,
+          items: [
+            { text: '平台架构概览', link: '/docs/design/architecture/platform/' },
+            { text: 'Android 平台', link: '/docs/design/architecture/platform/android' },
+            { text: 'iOS 平台', link: '/docs/design/architecture/platform/ios' },
+            { text: 'Linux ARM 平台', link: '/docs/design/architecture/platform/linux-arm' },
+            { text: 'Linux x86/x64 平台', link: '/docs/design/architecture/platform/linux-x86' },
+            { text: 'Windows 平台', link: '/docs/design/architecture/platform/windows' },
           ]
         },
         {
@@ -406,6 +633,18 @@ export const sidebar: DefaultTheme.Sidebar = {
               collapsed: true,
               items: [
                 { text: 'JVM 概览', link: '/docs/devlanguage/java/jvm/' },
+                { text: 'JVM 深入视频系列', link: '/docs/devlanguage/java/jvm/video-series' },
+                { text: '动手入门路径', link: '/docs/devlanguage/java/jvm/hands-on' },
+                {
+                  text: '核心机制',
+                  collapsed: true,
+                  items: [
+                    { text: 'Class 文件与字节码', link: '/docs/devlanguage/java/jvm/class-file-bytecode' },
+                    { text: '类加载机制', link: '/docs/devlanguage/java/jvm/class-loading' },
+                    { text: '执行引擎与 JIT', link: '/docs/devlanguage/java/jvm/execution-engine-jit' },
+                    { text: '对象生命周期', link: '/docs/devlanguage/java/jvm/object-lifecycle' },
+                  ]
+                },
                 {
                   text: '运行时数据区',
                   collapsed: true,
@@ -434,6 +673,8 @@ export const sidebar: DefaultTheme.Sidebar = {
                     { text: 'Epsilon', link: '/docs/devlanguage/java/jvm/gc/epsilon' },
                   ]
                 },
+                { text: '诊断案例', link: '/docs/devlanguage/java/jvm/diagnostic-cases' },
+                { text: '现代 JVM 发展', link: '/docs/devlanguage/java/jvm/modern-jvm' },
                 { text: 'JNI', link: '/docs/devlanguage/java/jvm/jni' },
               ]
             },
@@ -534,14 +775,79 @@ export const sidebar: DefaultTheme.Sidebar = {
           ]
         },
         {
+          text: 'Python',
+          collapsed: true,
+          items: [
+            { text: 'Python 概览', link: '/docs/devlanguage/python/' },
+            {
+              text: 'Python 基础客户教程',
+              collapsed: true,
+              items: [
+                { text: '系列导读', link: '/docs/devlanguage/python/basics-series/' },
+                { text: '01. 客户名单数据检查', link: '/docs/devlanguage/python/basics-series/01-customer-list-data-cleaning' },
+                { text: '02. 安装、运行和脚本文件', link: '/docs/devlanguage/python/basics-series/02-run-python-script' },
+                { text: '03. 变量和字段类型', link: '/docs/devlanguage/python/basics-series/03-field-types' },
+                { text: '04. 列表、字典和表格行', link: '/docs/devlanguage/python/basics-series/04-customer-records-list-dict' },
+                { text: '05. 条件判断与业务规则', link: '/docs/devlanguage/python/basics-series/05-customer-rules-if' },
+                { text: '06. 循环与批量检查', link: '/docs/devlanguage/python/basics-series/06-batch-loop' },
+                { text: '07. 字符串清洗', link: '/docs/devlanguage/python/basics-series/07-string-cleaning' },
+                { text: '08. 数字、日期与超期', link: '/docs/devlanguage/python/basics-series/08-numbers-dates-overdue' },
+                { text: '09. 函数与规则复用', link: '/docs/devlanguage/python/basics-series/09-functions-reusable-rules' },
+                { text: '10. 模块与脚本拆分', link: '/docs/devlanguage/python/basics-series/10-modules-split-script' },
+                { text: '11. CSV 读写', link: '/docs/devlanguage/python/basics-series/11-csv-read-write' },
+                { text: '12. JSON 与接口数据', link: '/docs/devlanguage/python/basics-series/12-json-api-shape' },
+                { text: '13. 表格数据体检', link: '/docs/devlanguage/python/basics-series/13-table-health-check' },
+                { text: '14. 分组统计', link: '/docs/devlanguage/python/basics-series/14-group-summary' },
+                { text: '15. 订单检查', link: '/docs/devlanguage/python/basics-series/15-order-check' },
+                { text: '16. 生成日报', link: '/docs/devlanguage/python/basics-series/16-daily-report' },
+                { text: '17. 虚拟环境和依赖', link: '/docs/devlanguage/python/basics-series/17-venv-dependencies' },
+                { text: '18. 阅读报错信息', link: '/docs/devlanguage/python/basics-series/18-read-traceback' },
+                { text: '19. 异常处理', link: '/docs/devlanguage/python/basics-series/19-exception-handling' },
+                { text: '20. 日志', link: '/docs/devlanguage/python/basics-series/20-logging' },
+                { text: '21. 调用 API', link: '/docs/devlanguage/python/basics-series/21-api-fetch-customers' },
+                { text: '22. 批量文件自动化', link: '/docs/devlanguage/python/basics-series/22-batch-files' },
+                { text: '23. 参数配置', link: '/docs/devlanguage/python/basics-series/23-argparse-config' },
+                { text: '24. 交付可用小工具', link: '/docs/devlanguage/python/basics-series/24-delivery-package' },
+              ],
+            },
+            {
+              text: '并发实战系列',
+              collapsed: true,
+              items: [
+                { text: '系列导读', link: '/docs/devlanguage/python/concurrency-series/' },
+                { text: '00. 并发工程全景图', link: '/docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map' },
+                { text: '01. 先判断瓶颈', link: '/docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency' },
+                { text: '02. 并发、并行、异步、流水线', link: '/docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline' },
+                { text: '03. Python 并发工具地图', link: '/docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map' },
+                { text: '04. 线程与线程池实战', link: '/docs/devlanguage/python/concurrency-series/04-threadpool-practice' },
+                { text: '05. 线程安全与共享状态', link: '/docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state' },
+                { text: '06. asyncio 事件循环模型', link: '/docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model' },
+                { text: '07. 异步任务编排', link: '/docs/devlanguage/python/concurrency-series/07-async-task-orchestration' },
+                { text: '08. 同步库与异步系统边界', link: '/docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system' },
+                { text: '09. 进程池与 CPU 密集任务', link: '/docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work' },
+                { text: '10. 生产者-消费者与任务队列', link: '/docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue' },
+                { text: '11. 限流、背压、重试', link: '/docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry' },
+                { text: '12. 批量文件处理实战', link: '/docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint' },
+                { text: '13. 批量语音转码与预处理', link: '/docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess' },
+                { text: '14. ASR/TTS API 并发实战', link: '/docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency' },
+                { text: '15. 本地模型/GPU 推理并发', link: '/docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference' },
+                { text: '16. 实时语音流水线', link: '/docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline' },
+                { text: '17. 性能观测与压测', link: '/docs/devlanguage/python/concurrency-series/17-observability-benchmark' },
+                { text: '18. GIL 与未来选型', link: '/docs/devlanguage/python/concurrency-series/18-gil-free-threading-future' },
+              ],
+            },
+          ]
+        },
+        {
           text: 'Flutter',
           collapsed: true,
           items: [
             { text: 'Flutter 概览', link: '/docs/devlanguage/flutter/' },
-            { text: '视频学习系列', link: '/docs/devlanguage/flutter/video-series' },
+            { text: '学习路线', link: '/docs/devlanguage/flutter/video-series' },
             { text: '动手入门路径', link: '/docs/devlanguage/flutter/hands-on' },
             { text: '核心架构', link: '/docs/devlanguage/flutter/architecture' },
             { text: '项目实战路线', link: '/docs/devlanguage/flutter/project-practice' },
+            { text: '完整项目承接清单', link: '/docs/devlanguage/flutter/project-delivery' },
             { text: '排错手册', link: '/docs/devlanguage/flutter/troubleshooting' },
           ]
         },
@@ -556,38 +862,55 @@ export const sidebar: DefaultTheme.Sidebar = {
               items: [
                 { text: '系列导读', link: '/docs/devlanguage/front/frontend-foundations-series/' },
                 { text: '01. 现代前端技术全景：Web 平台、工程化与框架生态', link: '/docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview' },
-                { text: '02. 浏览器导航流程：URL、DNS、HTTP、DOM 与渲染管线', link: '/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline' },
-                { text: '03. Web 平台的三门语言：HTML、CSS 与 JavaScript', link: '/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities' },
-                { text: '04. 浏览器 DevTools 技术体系：DOM、网络、运行时与性能', link: '/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain' },
+                { text: '02. 浏览器导航流程：URL、DNS、HTTP、DOM 与', link: '/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline' },
+                { text: '03. Web 平台的三门语言：HTML、CSS 与 Jav', link: '/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities' },
+                { text: '04. 浏览器 DevTools 技术体系：DOM、网络、运', link: '/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain' },
                 { text: '05. 语义 HTML 与 DOM 结构', link: '/docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure' },
                 { text: '06. HTML 表单模型：label、输入控件与原生校验', link: '/docs/devlanguage/front/frontend-foundations-series/06-html-form-model' },
                 { text: '07. CSS 层叠、选择器与样式计算', link: '/docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity' },
                 { text: '08. CSS 布局系统：盒模型、Flex 与 Grid', link: '/docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid' },
                 { text: '09. 响应式设计：视口、媒体查询与容器查询', link: '/docs/devlanguage/front/frontend-foundations-series/09-responsive-design' },
                 { text: '10. Web 可访问性基础：语义、键盘与可感知界面', link: '/docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics' },
-                { text: '11. JavaScript 语言基础：值、函数、对象与作用域', link: '/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model' },
+                { text: '11. JavaScript 语言基础：值、函数、对象与作用', link: '/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model' },
                 { text: '12. DOM 编程：节点、查询、修改与渲染影响', link: '/docs/devlanguage/front/frontend-foundations-series/12-dom-programming' },
                 { text: '13. 浏览器事件系统：监听、冒泡、委托与默认行为', link: '/docs/devlanguage/front/frontend-foundations-series/13-browser-event-system' },
                 { text: '14. 事件循环：调用栈、任务队列、微任务与渲染', link: '/docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop' },
-                { text: '15. Fetch 与网络请求：Request、Response、CORS 与错误处理', link: '/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests' },
-                { text: '16. 浏览器存储：Cookie、localStorage、IndexedDB 与 Cache', link: '/docs/devlanguage/front/frontend-foundations-series/16-browser-storage' },
-                { text: '17. JavaScript 模块系统：import、export、依赖图与加载策略', link: '/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules' },
-                { text: '18. TypeScript 静态类型系统：推断、收窄、泛型与类型擦除', link: '/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types' },
-                { text: '19. Node.js 与包管理：npm、pnpm、依赖树和 Lockfile', link: '/docs/devlanguage/front/frontend-foundations-series/19-node-package-management' },
-                { text: '20. Vite 构建流水线：原生 ESM、HMR、转换与打包', link: '/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline' },
-                { text: '21. 前端代码质量工具链：Formatter、Lint、类型检查与测试', link: '/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain' },
+                { text: '15. Fetch 与网络请求：Request、Respon', link: '/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests' },
+                { text: '16. 浏览器存储：Cookie、localStorage、', link: '/docs/devlanguage/front/frontend-foundations-series/16-browser-storage' },
+                { text: '17. JavaScript 模块系统：import、exp', link: '/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules' },
+                { text: '18. TypeScript 静态类型系统：推断、收窄、泛型', link: '/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types' },
+                { text: '19. Node.js 与包管理：npm、pnpm、依赖树和', link: '/docs/devlanguage/front/frontend-foundations-series/19-node-package-management' },
+                { text: '20. Vite 构建流水线：原生 ESM、HMR、转换与打', link: '/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline' },
+                { text: '21. 前端代码质量工具链：Formatter、Lint、类', link: '/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain' },
                 { text: '22. 组件化 UI 与响应式更新模型', link: '/docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui' },
-                { text: '23. 前端框架架构比较：React、Vue、Angular 与 Svelte', link: '/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison' },
-                { text: '24. Web 渲染架构：CSR、SSR、SSG、Hydration 与 Islands', link: '/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture' },
+                { text: '23. 前端框架架构比较：React、Vue、Angular', link: '/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison' },
+                { text: '24. Web 渲染架构：CSR、SSR、SSG、Hydra', link: '/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture' },
                 { text: '25. 前端应用层架构：路由、数据获取、状态管理与表单', link: '/docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture' },
                 { text: '26. 前端测试分层：单元、组件、集成、E2E 与视觉回归', link: '/docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers' },
-                { text: '27. Web 性能工程：加载、渲染、交互与 Core Web Vitals', link: '/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering' },
-                { text: '28. Web 前端安全：XSS、CSRF、CSP 与依赖供应链', link: '/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security' },
-                { text: '29. 前端交付与可观测性：构建产物、CDN、缓存、Source Map 与监控', link: '/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability' },
+                { text: '27. Web 性能工程：加载、渲染、交互与 Core We', link: '/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering' },
+                { text: '28. Web 前端安全：XSS、CSRF、CSP 与依赖供', link: '/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security' },
+                { text: '29. 前端交付与可观测性：构建产物、CDN、缓存、Sour', link: '/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability' },
                 { text: '30. AI 辅助前端工程与学习路线：生成、验证与质量边界', link: '/docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path' },
-                { text: '31. React 深讲：组件函数、Hooks、状态更新与生态边界', link: '/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state' },
-                { text: '32. Vue 深讲：单文件组件、响应式系统、Composition API 与渐进式架构', link: '/docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition' },
-                { text: '33. Angular 深讲：完整框架、组件模板、依赖注入、Signals 与大型应用结构', link: '/docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure' },
+                { text: '31. React 深讲：组件函数、Hooks、状态更新与生', link: '/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state' },
+                { text: '32. Vue 深讲：单文件组件、响应式系统、Composi', link: '/docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition' },
+                { text: '33. Angular 深讲：完整框架、组件模板、依赖注入、', link: '/docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure' },
+              ],
+            },
+            {
+              text: 'Electron 深度科普',
+              collapsed: true,
+              items: [
+                { text: '系列导读', link: '/docs/devlanguage/front/electron-series/' },
+                { text: '01. 启动与运行时', link: '/docs/devlanguage/front/electron-series/01-electron-startup-runtime' },
+                { text: '02. 多进程模型', link: '/docs/devlanguage/front/electron-series/02-electron-process-model' },
+                { text: '03. Preload 与 IPC 安全', link: '/docs/devlanguage/front/electron-series/03-electron-preload-ipc-security' },
+                { text: '04. 生命周期与单实例', link: '/docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance' },
+                { text: '05. 构建与发布边界', link: '/docs/devlanguage/front/electron-series/05-electron-forge-build-release' },
+                { text: '06. ASAR、Unpack 与 Fuse', link: '/docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses' },
+                { text: '07. 原生模块与 ABI', link: '/docs/devlanguage/front/electron-series/07-electron-native-module-abi' },
+                { text: '08. 签名与平台信任', link: '/docs/devlanguage/front/electron-series/08-electron-signing-notarization' },
+                { text: '09. 自动更新状态机', link: '/docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine' },
+                { text: '10. 性能测量与优化', link: '/docs/devlanguage/front/electron-series/10-electron-performance-measurement' },
               ],
             },
             {
@@ -647,6 +970,39 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
+  // Android Studio
+  '/docs/tools/editor/andorid-studio/': [
+    {
+      text: 'Android Studio',
+      collapsed: false,
+      items: [
+        { text: 'JDK 选择与排错', link: '/docs/tools/editor/andorid-studio/' },
+      ]
+    }
+  ],
+
+  // SDKMAN
+  '/docs/tools/sdkman/': [
+    {
+      text: 'SDKMAN',
+      collapsed: false,
+      items: [
+        { text: 'SDKMAN 概览', link: '/docs/tools/sdkman/' },
+      ]
+    }
+  ],
+
+  // vfox
+  '/docs/tools/vfox/': [
+    {
+      text: 'vfox',
+      collapsed: false,
+      items: [
+        { text: 'vfox 概览', link: '/docs/tools/vfox/' },
+      ]
+    }
+  ],
+
   // git
   '/docs/tools/git/': [
     {
@@ -660,10 +1016,13 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: '协作流程', link: '/docs/tools/git/workflow' },
         { text: '提交规范', link: '/docs/tools/git/conventions' },
         { text: '撤销与恢复', link: '/docs/tools/git/recovery' },
+        { text: '对象库与大型仓库', link: '/docs/tools/git/internals-large-repositories' },
+        { text: '仓库组织策略', link: '/docs/tools/git/repository-strategies' },
         { text: '安全与治理', link: '/docs/tools/git/security' },
         { text: '进阶操作', link: '/docs/tools/git/advanced' },
         { text: '生态工具', link: '/docs/tools/git/ecosystem' },
         { text: 'GitLab CI/CD 搭建与发布', link: '/docs/tools/git/gitlab-cicd' },
+        { text: '视频系列', link: '/docs/tools/git/video-series' },
       ]
     }
   ],

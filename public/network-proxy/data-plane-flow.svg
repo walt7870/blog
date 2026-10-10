@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="680" viewBox="0 0 1440 680" role="img" aria-labelledby="title desc">
+  <title id="title">网络代理数据面链路</title>
+  <desc id="desc">展示应用请求进入本机代理内核后，根据规则分为直连或代理两条数据面路径。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#101827"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#244364" stroke-width="1" opacity=".32"/>
+    </pattern>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow-c" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+      <path d="M2 2L11 6.5L2 11Z" fill="#67e8f9"/>
+    </marker>
+    <marker id="arrow-g" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+      <path d="M2 2L11 6.5L2 11Z" fill="#34d399"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .node { fill: rgba(15,23,42,.88); stroke: #38bdf8; stroke-width: 1.8; rx: 20; filter: url(#glow); }
+      .node-g { fill: rgba(6,78,59,.72); stroke: #34d399; stroke-width: 1.8; rx: 20; filter: url(#glow); }
+      .decision { fill: rgba(49,46,129,.9); stroke: #a78bfa; stroke-width: 2; filter: url(#glow); }
+      .text { font: 750 20px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bae6fd; }
+      .label { font: 750 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .line { stroke: #67e8f9; stroke-width: 2.6; fill: none; marker-end: url(#arrow-c); filter: url(#glow); }
+      .line-g { stroke: #34d399; stroke-width: 2.6; fill: none; marker-end: url(#arrow-g); filter: url(#glow); }
+      .dash { stroke: #a78bfa; stroke-width: 2.2; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow-c); }
+      .pill { fill: rgba(14,165,233,.12); stroke: #38bdf8; stroke-width: 1; rx: 20; }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="680"/>
+  <rect class="grid" width="1440" height="680"/>
+  <circle cx="1160" cy="120" r="230" fill="#2563eb" opacity=".15"/>
+  <circle cx="270" cy="560" r="240" fill="#14b8a6" opacity=".12"/>
+  <text class="title" x="64" y="74">数据面链路：一条请求如何被分流</text>
+  <text class="sub" x="64" y="104">应用流量进入本机内核后，先经过 DNS 与规则判断，再选择直连或远端代理出口。</text>
+
+  <rect class="node" x="80" y="250" width="205" height="86"/>
+  <text class="text" x="116" y="284">应用程序</text>
+  <text class="small" x="116" y="309">浏览器 / CLI / App</text>
+
+  <rect class="node" x="360" y="250" width="235" height="86"/>
+  <text class="text" x="396" y="284">本机代理内核</text>
+  <text class="small" x="396" y="309">接入端口 / TUN</text>
+
+  <polygon class="decision" points="740,214 882,293 740,372 598,293"/>
+  <text class="text" x="681" y="286">DNS + 规则</text>
+  <text class="small" x="686" y="312">DIRECT / PROXY</text>
+
+  <rect class="node-g" x="1028" y="136" width="250" height="86"/>
+  <text class="text" x="1064" y="170">目标服务</text>
+  <text class="small" x="1064" y="195">直连路径</text>
+
+  <rect class="node" x="1018" y="286" width="270" height="86"/>
+  <text class="text" x="1054" y="320">远端代理服务</text>
+  <text class="small" x="1054" y="345">认证 / 解密 / 转发</text>
+
+  <rect class="node-g" x="1028" y="444" width="250" height="86"/>
+  <text class="text" x="1064" y="478">目标服务</text>
+  <text class="small" x="1064" y="503">代理出口路径</text>
+
+  <path class="line" d="M285 293H360"/>
+  <path class="line" d="M595 293H598"/>
+  <path class="line-g" d="M827 250C910 190 945 179 1028 179"/>
+  <text class="label" x="906" y="176">命中直连</text>
+  <path class="line" d="M882 293H1018"/>
+  <text class="label" x="912" y="278">命中代理</text>
+  <path class="line" d="M1153 372V444"/>
+  <path class="dash" d="M1028 487C810 596 516 568 190 338"/>
+  <text class="label" x="606" y="586">响应数据沿原链路返回</text>
+
+  <rect class="pill" x="112" y="420" width="365" height="58"/>
+  <text class="small" x="140" y="444">关键观察点：连接页是否有记录</text>
+  <text class="small" x="140" y="464">无记录通常说明流量没有进入客户端</text>
+  <rect class="pill" x="540" y="420" width="365" height="58"/>
+  <text class="small" x="568" y="444">关键观察点：规则命中是否正确</text>
+  <text class="small" x="568" y="464">命中错误通常来自规则顺序或 DNS</text>
+</svg>

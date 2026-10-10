@@ -1,61 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="520" viewBox="0 0 1080 520" role="img" aria-labelledby="title desc">
-  <title id="title">AI 模块关系图</title>
-  <desc id="desc">展示机器学习、大模型、智能体、MCP、Skill 与 AI 编程之间的关系</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">人工智能技术全景</title>
+  <desc id="desc">从问题数据、学习模型、领域能力、应用编排到生产治理的五层人工智能技术体系</desc>
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
-    </marker>
     <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
-      .core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}
-      .tool{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}
-      .work{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}
-      .title{font-size:21px;font-weight:700}.body{font-size:14px}.small{font-size:12px;fill:#475569}
-      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+      .bg{fill:#f8fafc}.band{fill:#fff;stroke:#cbd5e1;stroke-width:2}.label{fill:#0f766e}.label2{fill:#2563eb}.label3{fill:#7c3aed}.label4{fill:#c2410c}.label5{fill:#334155}
+      .card{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.5}.c1{fill:#ecfdf5;stroke:#5eead4}.c2{fill:#eff6ff;stroke:#93c5fd}.c3{fill:#f5f3ff;stroke:#c4b5fd}.c4{fill:#fff7ed;stroke:#fdba74}.c5{fill:#f1f5f9;stroke:#94a3b8}
+      text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.head{font-size:28px;font-weight:700}.layer{font-size:19px;font-weight:700;fill:#fff!important}.title{font-size:18px;font-weight:700}.body{font-size:14px;fill:#475569}.arrow{stroke:#94a3b8;stroke-width:2;fill:none}
     </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#94a3b8"/></marker>
   </defs>
-  <rect class="bg" width="1080" height="520"/>
-  <rect class="box" x="45" y="190" width="170" height="110"/>
-  <text class="text title" x="130" y="230" text-anchor="middle">机器学习</text>
-  <text class="text body" x="130" y="258" text-anchor="middle">从数据中学规律</text>
-  <text class="text small" x="130" y="282" text-anchor="middle">分类、预测、推荐</text>
+  <rect class="bg" width="1200" height="760"/>
+  <text class="head" x="60" y="52">人工智能不是一个模型，而是一套从问题到生产的完整系统</text>
+  <text class="body" x="60" y="80">每一层都有独立责任：下层提供事实和能力，上层负责组合、验证和承担业务结果。</text>
 
-  <rect class="core" x="285" y="120" width="190" height="110"/>
-  <text class="text title" x="380" y="160" text-anchor="middle">大语言模型</text>
-  <text class="text body" x="380" y="188" text-anchor="middle">把上下文续写成结果</text>
-  <text class="text small" x="380" y="212" text-anchor="middle">理解、生成、推理</text>
+  <g transform="translate(50 110)">
+    <rect class="band" width="1100" height="108" rx="12"/>
+    <rect class="label" width="150" height="108" rx="12"/><rect class="label" x="138" width="12" height="108"/>
+    <text class="layer" fill="#fff" x="75" y="46" text-anchor="middle">问题与数据</text><text class="layer" fill="#fff" x="75" y="74" text-anchor="middle">定义现实</text>
+    <g transform="translate(180 17)"><rect class="card c1" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">业务任务</text><text class="body" x="100" y="54" text-anchor="middle">输入、输出、错误成本</text></g>
+    <g transform="translate(400 17)"><rect class="card c1" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">数据资产</text><text class="body" x="100" y="54" text-anchor="middle">采集、清洗、标注、版本</text></g>
+    <g transform="translate(620 17)"><rect class="card c1" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">表示与特征</text><text class="body" x="100" y="54" text-anchor="middle">数值、向量、Token、Embedding</text></g>
+    <g transform="translate(840 17)"><rect class="card c1" width="230" height="74" rx="8"/><text class="title" x="115" y="31" text-anchor="middle">评估目标</text><text class="body" x="115" y="54" text-anchor="middle">指标、基线、验收边界</text></g>
+  </g>
 
-  <rect class="core" x="285" y="295" width="190" height="110"/>
-  <text class="text title" x="380" y="335" text-anchor="middle">SFT</text>
-  <text class="text body" x="380" y="363" text-anchor="middle">把模型调成会按格式答</text>
-  <text class="text small" x="380" y="387" text-anchor="middle">指令、风格、领域流程</text>
+  <path class="arrow" marker-end="url(#arrow)" d="M600 220 L600 240"/>
+  <g transform="translate(50 242)">
+    <rect class="band" width="1100" height="108" rx="12"/>
+    <rect class="label2" width="150" height="108" rx="12"/><rect class="label2" x="138" width="12" height="108"/>
+    <text class="layer" fill="#fff" x="75" y="46" text-anchor="middle">学习与模型</text><text class="layer" fill="#fff" x="75" y="74" text-anchor="middle">获得规律</text>
+    <g transform="translate(180 17)"><rect class="card c2" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">规则与搜索</text><text class="body" x="100" y="54" text-anchor="middle">逻辑、规划、知识推理</text></g>
+    <g transform="translate(400 17)"><rect class="card c2" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">机器学习</text><text class="body" x="100" y="54" text-anchor="middle">回归、分类、聚类、排序</text></g>
+    <g transform="translate(620 17)"><rect class="card c2" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">深度学习</text><text class="body" x="100" y="54" text-anchor="middle">CNN、Transformer、GNN</text></g>
+    <g transform="translate(840 17)"><rect class="card c2" width="230" height="74" rx="8"/><text class="title" x="115" y="31" text-anchor="middle">基础与生成模型</text><text class="body" x="115" y="54" text-anchor="middle">语言、多模态、Diffusion</text></g>
+  </g>
 
-  <rect class="tool" x="545" y="120" width="185" height="110"/>
-  <text class="text title" x="638" y="160" text-anchor="middle">智能体</text>
-  <text class="text body" x="638" y="188" text-anchor="middle">观察、计划、行动、反馈</text>
-  <text class="text small" x="638" y="212" text-anchor="middle">把模型接成工作循环</text>
+  <path class="arrow" marker-end="url(#arrow)" d="M600 352 L600 372"/>
+  <g transform="translate(50 374)">
+    <rect class="band" width="1100" height="108" rx="12"/>
+    <rect class="label3" width="150" height="108" rx="12"/><rect class="label3" x="138" width="12" height="108"/>
+    <text class="layer" fill="#fff" x="75" y="46" text-anchor="middle">领域能力</text><text class="layer" fill="#fff" x="75" y="74" text-anchor="middle">处理信息</text>
+    <g transform="translate(180 17)"><rect class="card c3" width="134" height="74" rx="8"/><text class="title" x="67" y="31" text-anchor="middle">语言</text><text class="body" x="67" y="54" text-anchor="middle">理解与生成</text></g>
+    <g transform="translate(330 17)"><rect class="card c3" width="134" height="74" rx="8"/><text class="title" x="67" y="31" text-anchor="middle">视觉</text><text class="body" x="67" y="54" text-anchor="middle">识别与生成</text></g>
+    <g transform="translate(480 17)"><rect class="card c3" width="134" height="74" rx="8"/><text class="title" x="67" y="31" text-anchor="middle">语音</text><text class="body" x="67" y="54" text-anchor="middle">识别与合成</text></g>
+    <g transform="translate(630 17)"><rect class="card c3" width="134" height="74" rx="8"/><text class="title" x="67" y="31" text-anchor="middle">推荐</text><text class="body" x="67" y="54" text-anchor="middle">召回与排序</text></g>
+    <g transform="translate(780 17)"><rect class="card c3" width="134" height="74" rx="8"/><text class="title" x="67" y="31" text-anchor="middle">时序</text><text class="body" x="67" y="54" text-anchor="middle">预测与异常</text></g>
+    <g transform="translate(930 17)"><rect class="card c3" width="140" height="74" rx="8"/><text class="title" x="70" y="31" text-anchor="middle">多模态</text><text class="body" x="70" y="54" text-anchor="middle">跨模态协同</text></g>
+  </g>
 
-  <rect class="tool" x="545" y="295" width="185" height="110"/>
-  <text class="text title" x="638" y="335" text-anchor="middle">MCP</text>
-  <text class="text body" x="638" y="363" text-anchor="middle">标准化接入外部工具</text>
-  <text class="text small" x="638" y="387" text-anchor="middle">文件、数据库、API</text>
+  <path class="arrow" marker-end="url(#arrow)" d="M600 484 L600 504"/>
+  <g transform="translate(50 506)">
+    <rect class="band" width="1100" height="108" rx="12"/>
+    <rect class="label4" width="150" height="108" rx="12"/><rect class="label4" x="138" width="12" height="108"/>
+    <text class="layer" fill="#fff" x="75" y="46" text-anchor="middle">应用与编排</text><text class="layer" fill="#fff" x="75" y="74" text-anchor="middle">连接业务</text>
+    <g transform="translate(180 17)"><rect class="card c4" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">模型 API</text><text class="body" x="100" y="54" text-anchor="middle">输入、输出、结构化协议</text></g>
+    <g transform="translate(400 17)"><rect class="card c4" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">知识与检索</text><text class="body" x="100" y="54" text-anchor="middle">搜索、RAG、数据库</text></g>
+    <g transform="translate(620 17)"><rect class="card c4" width="200" height="74" rx="8"/><text class="title" x="100" y="31" text-anchor="middle">工具与协议</text><text class="body" x="100" y="54" text-anchor="middle">函数调用、MCP、业务 API</text></g>
+    <g transform="translate(840 17)"><rect class="card c4" width="230" height="74" rx="8"/><text class="title" x="115" y="31" text-anchor="middle">工作流与 Agent</text><text class="body" x="115" y="54" text-anchor="middle">状态、步骤、反馈、验证</text></g>
+  </g>
 
-  <rect class="work" x="805" y="120" width="220" height="110"/>
-  <text class="text title" x="915" y="160" text-anchor="middle">Skill</text>
-  <text class="text body" x="915" y="188" text-anchor="middle">把人的流程写成规则</text>
-  <text class="text small" x="915" y="212" text-anchor="middle">触发条件、步骤、验收</text>
-
-  <rect class="work" x="805" y="295" width="220" height="110"/>
-  <text class="text title" x="915" y="335" text-anchor="middle">AI 编程工程化</text>
-  <text class="text body" x="915" y="363" text-anchor="middle">上下文、工具、验证闭环</text>
-  <text class="text small" x="915" y="387" text-anchor="middle">从 Vibe 到 Harness</text>
-
-  <path class="line" d="M215 245 C245 210 255 175 285 175"/>
-  <path class="line" d="M215 255 C245 305 255 350 285 350"/>
-  <path class="line" d="M475 175 L545 175"/>
-  <path class="line" d="M475 350 L545 350"/>
-  <path class="line" d="M730 175 L805 175"/>
-  <path class="line" d="M730 350 L805 350"/>
-  <path class="line" d="M638 230 C660 260 660 265 638 295"/>
+  <path class="arrow" marker-end="url(#arrow)" d="M600 616 L600 636"/>
+  <g transform="translate(50 638)">
+    <rect class="band" width="1100" height="92" rx="12"/>
+    <rect class="label5" width="150" height="92" rx="12"/><rect class="label5" x="138" width="12" height="92"/>
+    <text class="layer" fill="#fff" x="75" y="40" text-anchor="middle">生产与治理</text><text class="layer" fill="#fff" x="75" y="66" text-anchor="middle">稳定负责</text>
+    <g transform="translate(180 13)"><rect class="card c5" width="200" height="66" rx="8"/><text class="title" x="100" y="28" text-anchor="middle">部署与性能</text><text class="body" x="100" y="50" text-anchor="middle">延迟、吞吐、资源</text></g>
+    <g transform="translate(400 13)"><rect class="card c5" width="200" height="66" rx="8"/><text class="title" x="100" y="28" text-anchor="middle">评估与监控</text><text class="body" x="100" y="50" text-anchor="middle">质量、漂移、回归</text></g>
+    <g transform="translate(620 13)"><rect class="card c5" width="200" height="66" rx="8"/><text class="title" x="100" y="28" text-anchor="middle">安全与权限</text><text class="body" x="100" y="50" text-anchor="middle">隐私、审计、护栏</text></g>
+    <g transform="translate(840 13)"><rect class="card c5" width="230" height="66" rx="8"/><text class="title" x="115" y="28" text-anchor="middle">版本与反馈</text><text class="body" x="115" y="50" text-anchor="middle">MLOps、LLMOps、回滚</text></g>
+  </g>
 </svg>
