@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="cloud-domains-title cloud-domains-desc" data-layout="editorial">
+<title id="cloud-domains-title">五个服务，分别维护业务事实</title>
+<desc id="cloud-domains-desc">开发者商业域、企业控制面与模型执行域通过明确契约协作</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">五个服务，分别维护业务事实</text>
+<text x="48" y="76" class="subtitle">开发者商业域、企业控制面与模型执行域通过明确契约协作</text>
+<g class="cluster">
+<rect x="32" y="112" width="584" height="180" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="48" y="137" class="zone-title">开发者商业域</text>
+</g>
+<g class="cluster">
+<rect x="656" y="112" width="592" height="180" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="672" y="137" class="zone-title">企业控制面</text>
+</g>
+<g class="edge" data-from="web" data-to="portal">
+<path data-points="[[288,216],[360,216]]" d="M 288 216 L 360 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="enterprise" data-to="snapshot">
+<path data-points="[[912,216],[984,216]]" d="M 912 216 L 984 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="client" data-to="hub">
+<path data-points="[[288,504],[360,504]]" d="M 288 504 L 360 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="hub" data-to="portal">
+<path data-points="[[440,448],[440,272]]" d="M 440 448 L 440 272" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="snapshot" data-to="hub">
+<path data-points="[[1104,272],[1104,360],[520,360],[520,448]]" d="M 1104 272 L 1104 352 Q 1104 360 1096 360 L 528 360 Q 520 360 520 368 L 520 448" fill="none" stroke="#6c8379" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)">
+</path>
+</g>
+<g class="edge" data-from="hub" data-to="audio">
+<path data-points="[[600,488],[672,488]]" d="M 600 488 L 672 488" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="hub" data-to="audio">
+<path data-points="[[600,536],[672,536]]" d="M 600 536 L 672 536" fill="none" stroke="#6c8379" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)">
+</path>
+</g>
+<g class="edge" data-from="hub" data-to="provider">
+<path data-points="[[480,560],[480,616],[1104,616],[1104,560]]" d="M 480 560 L 480 608 Q 480 616 488 616 L 1096 616 Q 1104 616 1104 608 L 1104 560" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="303" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="196" text-anchor="middle" class="arrow-label">账号</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="927" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="948" y="196" text-anchor="middle" class="arrow-label">发布</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="303" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="484" text-anchor="middle" class="arrow-label">请求</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="462" y="297" width="68" height="22" fill="#fff">
+</rect>
+<text x="496" y="312" text-anchor="middle" class="arrow-label">预算预占</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="790" y="325" width="68" height="22" fill="#fff">
+</rect>
+<text x="824" y="340" text-anchor="middle" class="arrow-label">版本同步</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="615" y="453" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="468" text-anchor="middle" class="arrow-label">实时</text>
+</g>
+<g class="edge-label" data-edge="6">
+<rect x="617" y="501" width="38" height="22" fill="#fff">
+</rect>
+<text x="636" y="516" text-anchor="middle" class="arrow-label">MQ</text>
+</g>
+<g class="edge-label" data-edge="7">
+<rect x="738.5" y="581" width="107" height="22" fill="#fff">
+</rect>
+<text x="792" y="596" text-anchor="middle" class="arrow-label">第三方实时路由</text>
+</g>
+<g class="node" data-id="web">
+<title>Web</title>
+<rect class="node-box" x="48" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="182" class="tag">界面</text>
+<text x="64" y="210" class="node-title">Web</text>
+<text x="64" y="235" class="node-detail">开发者门户</text>
+<text x="64" y="256" class="node-detail">账号、Key 与消费入口</text>
+</g>
+<g class="node" data-id="portal">
+<title>Portal</title>
+<rect class="node-box" x="360" y="160" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="376" y="182" class="tag">商业事实</text>
+<text x="376" y="210" class="node-title">Portal</text>
+<text x="376" y="235" class="node-detail">账号 · 价格 · 预算预占</text>
+<text x="376" y="256" class="node-detail">最终结算与消费统计</text>
+</g>
+<g class="node" data-id="enterprise">
+<title>Enterprise</title>
+<rect class="node-box" x="672" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="182" class="tag">授权事实</text>
+<text x="688" y="210" class="node-title">Enterprise</text>
+<text x="688" y="235" class="node-detail">组织 · 权益 · 设备</text>
+<text x="688" y="256" class="node-detail">策略版本与签发计划</text>
+</g>
+<g class="node" data-id="snapshot">
+<title>Redis 策略快照</title>
+<rect class="node-box" x="984" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="182" class="tag">配置投影</text>
+<text x="1000" y="210" class="node-title">Redis 策略快照</text>
+<text x="1000" y="235" class="node-detail">不可变版本 · latest</text>
+<text x="1000" y="256" class="node-detail">Pub/Sub 通知与周期对账</text>
+</g>
+<g class="node" data-id="client">
+<title>业务客户端</title>
+<rect class="node-box" x="48" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="470" class="tag">调用方</text>
+<text x="64" y="498" class="node-title">业务客户端</text>
+<text x="64" y="523" class="node-detail">HTTP / WebSocket</text>
+<text x="64" y="544" class="node-detail">异步文件任务</text>
+</g>
+<g class="node" data-id="hub">
+<title>APIHub</title>
+<rect class="node-box" x="360" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="376" y="470" class="tag">接入</text>
+<text x="376" y="498" class="node-title">APIHub</text>
+<text x="376" y="523" class="node-detail">准入 · 限流 · 路由</text>
+<text x="376" y="544" class="node-detail">建连 / 首帧固定 Provider</text>
+</g>
+<g class="node" data-id="audio">
+<title>audiollm-go</title>
+<rect class="node-box" x="672" y="448" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="688" y="470" class="tag">执行事实</text>
+<text x="688" y="498" class="node-title">audiollm-go</text>
+<text x="688" y="523" class="node-detail">实时 Gateway / 异步 Worker</text>
+<text x="688" y="544" class="node-detail">模型编排 · 终态与实际用量</text>
+</g>
+<g class="node" data-id="provider">
+<title>第三方 Provider</title>
+<rect class="node-box" x="984" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="470" class="tag">外部服务</text>
+<text x="1000" y="498" class="node-title">第三方 Provider</text>
+<text x="1000" y="523" class="node-detail">独立模型协议</text>
+<text x="1000" y="544" class="node-detail">实时结果返回</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">实线：业务调用；虚线：配置同步或异步消息。实时结果沿原连接返回。</text>
+<text x="48" y="700" class="note">Worker 终态、task.done 与 Portal 结算见任务视图；独立签名权限见授权视图。</text>
+</svg>

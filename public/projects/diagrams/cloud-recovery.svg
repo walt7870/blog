@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="cloud-recovery-title cloud-recovery-desc" data-layout="editorial">
+<title id="cloud-recovery-title">发送确认丢失，预算继续保留</title>
+<desc id="cloud-recovery-desc">确认不确定不等于模型未执行；恢复始终围绕原 task_id 读取执行事实</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">发送确认丢失，预算继续保留</text>
+<text x="48" y="76" class="subtitle">确认不确定不等于模型未执行；恢复始终围绕原 task_id 读取执行事实</text>
+<g class="edge" data-from="uncertain" data-to="reserve">
+<path data-points="[[288,216],[360,216]]" d="M 288 216 L 360 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="reserve" data-to="reconcile">
+<path data-points="[[600,216],[672,216]]" d="M 600 216 L 672 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="reconcile" data-to="query">
+<path data-points="[[792,272],[792,448]]" d="M 792 272 L 792 448" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="query" data-to="facts">
+<path data-points="[[672,504],[600,504]]" d="M 672 504 L 600 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="facts" data-to="settle">
+<path data-points="[[360,504],[288,504]]" d="M 360 504 L 288 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="query" data-to="reconcile">
+<path data-points="[[912,504],[1008,504],[1008,216],[912,216]]" d="M 912 504 L 1000 504 Q 1008 504 1008 496 L 1008 224 Q 1008 216 1000 216 L 912 216" fill="none" stroke="#6c8379" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="303" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="196" text-anchor="middle" class="arrow-label">保留</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="615" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="196" text-anchor="middle" class="arrow-label">恢复</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="819" y="345" width="42" height="22" fill="#fff">
+</rect>
+<text x="840" y="360" text-anchor="middle" class="arrow-label">回查</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="615" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="484" text-anchor="middle" class="arrow-label">终态</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="303" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="484" text-anchor="middle" class="arrow-label">结算</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="1065" y="345" width="110" height="22" fill="#fff">
+</rect>
+<text x="1120" y="360" text-anchor="middle" class="arrow-label">非终态 / 待重试</text>
+</g>
+<g class="node" data-id="uncertain">
+<title>提交状态不确定</title>
+<rect class="node-box" x="48" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="182" class="tag">异常入口</text>
+<text x="64" y="210" class="node-title">提交状态不确定</text>
+<text x="64" y="235" class="node-detail">发送超时 / 确认丢失</text>
+<text x="64" y="256" class="node-detail">任务可能已经执行</text>
+</g>
+<g class="node" data-id="reserve">
+<title>保留原预算预占</title>
+<rect class="node-box" x="360" y="160" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="376" y="182" class="tag">账务保护</text>
+<text x="376" y="210" class="node-title">保留原预算预占</text>
+<text x="376" y="235" class="node-detail">保存原 task_id 与上下文</text>
+<text x="376" y="256" class="node-detail">不立即释放或再次计费</text>
+</g>
+<g class="node" data-id="reconcile">
+<title>重试与对账</title>
+<rect class="node-box" x="672" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="182" class="tag">恢复</text>
+<text x="688" y="210" class="node-title">重试与对账</text>
+<text x="688" y="235" class="node-detail">围绕原 task_id 恢复</text>
+<text x="688" y="256" class="node-detail">不创建第二次客户调用</text>
+</g>
+<g class="node" data-id="query">
+<title>查询执行端</title>
+<rect class="node-box" x="672" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="470" class="tag">查询接口</text>
+<text x="688" y="498" class="node-title">查询执行端</text>
+<text x="688" y="523" class="node-detail">读取任务终态与 usage</text>
+<text x="688" y="544" class="node-detail">非终态继续等待与对账</text>
+</g>
+<g class="node" data-id="facts">
+<title>取得持久终态</title>
+<rect class="node-box" x="360" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="376" y="470" class="tag">事实源</text>
+<text x="376" y="498" class="node-title">取得持久终态</text>
+<text x="376" y="523" class="node-detail">以执行事实决定结算</text>
+<text x="376" y="544" class="node-detail">消息不是用量事实源</text>
+</g>
+<g class="node" data-id="settle">
+<title>幂等结算与确认</title>
+<rect class="node-box" x="48" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="470" class="tag">终态</text>
+<text x="64" y="498" class="node-title">幂等结算与确认</text>
+<text x="64" y="523" class="node-detail">命中原 task_id 结算记录</text>
+<text x="64" y="544" class="node-detail">完成后 Ack</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">重复 task.done 通知命中已有结算记录；通知重投不会形成新的业务调用。</text>
+<text x="48" y="700" class="note">图示对应确认不确定与重复通知的恢复合同，不扩展为所有失败一律收费或释放预算。</text>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">sherpa-onnx 模型与部署选型流程</title>
+  <desc id="desc">从实时性、热词、语言和设备预算逐步缩小模型与部署方案</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .question { fill: #ffffff; stroke: #0f766e; stroke-width: 2.5; }
+      .result { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; }
+      .warn { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .test { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .label { font: 700 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .text { font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .yesno { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f766e; }
+      .arrow { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1280" height="720" rx="24" />
+  <text class="title" x="640" y="54" text-anchor="middle">先固定产品约束，再在目标设备上比较模型</text>
+
+  <rect class="question" x="500" y="88" width="280" height="76" rx="16" />
+  <text class="label" x="640" y="120" text-anchor="middle">是否必须边说边出字？</text>
+  <text class="text" x="640" y="145" text-anchor="middle">实时字幕、语音助手、电话转写</text>
+
+  <rect class="question" x="150" y="230" width="300" height="86" rx="16" />
+  <text class="label" x="300" y="264" text-anchor="middle">是否需要动态热词？</text>
+  <text class="text" x="300" y="291" text-anchor="middle">联系人、设备名、行业术语</text>
+
+  <rect class="question" x="830" y="230" width="300" height="86" rx="16" />
+  <text class="label" x="980" y="264" text-anchor="middle">何时拿到完整语音？</text>
+  <text class="text" x="980" y="291" text-anchor="middle">VAD 切段或完整文件</text>
+
+  <path class="arrow" d="M540 164 C470 190 390 200 330 222" />
+  <text class="yesno" x="431" y="192">是</text>
+  <path class="arrow" d="M740 164 C810 190 890 200 950 222" />
+  <text class="yesno" x="838" y="192">否</text>
+
+  <rect class="result" x="70" y="378" width="300" height="105" rx="16" />
+  <text class="label" x="220" y="414" text-anchor="middle">流式 Transducer</text>
+  <text class="text" x="220" y="442" text-anchor="middle">modified_beam_search</text>
+  <text class="text" x="220" y="467" text-anchor="middle">验证热词命中与误命中</text>
+
+  <rect class="result" x="420" y="378" width="300" height="105" rx="16" />
+  <text class="label" x="570" y="414" text-anchor="middle">流式模型候选</text>
+  <text class="text" x="570" y="442" text-anchor="middle">Zipformer / Paraformer 等</text>
+  <text class="text" x="570" y="467" text-anchor="middle">比较首字和终句延迟</text>
+
+  <rect class="result" x="770" y="378" width="200" height="105" rx="16" />
+  <text class="label" x="870" y="414" text-anchor="middle">VAD + 非流式</text>
+  <text class="text" x="870" y="442" text-anchor="middle">短句与长录音</text>
+  <text class="text" x="870" y="467" text-anchor="middle">恢复原始时间轴</text>
+
+  <rect class="result" x="1010" y="378" width="200" height="105" rx="16" />
+  <text class="label" x="1110" y="414" text-anchor="middle">文件批处理</text>
+  <text class="text" x="1110" y="442" text-anchor="middle">Whisper 等非流式</text>
+  <text class="text" x="1110" y="467" text-anchor="middle">吞吐与时间戳</text>
+
+  <path class="arrow" d="M250 316 C230 338 220 352 220 368" />
+  <text class="yesno" x="211" y="347">是</text>
+  <path class="arrow" d="M350 316 C430 338 510 350 550 368" />
+  <text class="yesno" x="457" y="347">否</text>
+  <path class="arrow" d="M930 316 C900 338 880 352 870 368" />
+  <text class="yesno" x="873" y="347">逐段</text>
+  <path class="arrow" d="M1030 316 C1080 338 1100 352 1110 368" />
+  <text class="yesno" x="1062" y="347">文件</text>
+
+  <rect class="warn" x="120" y="548" width="430" height="105" rx="16" />
+  <text class="label" x="335" y="584" text-anchor="middle">语言与结果能力复核</text>
+  <text class="text" x="335" y="612" text-anchor="middle">语言 · 时间戳 · 标点 · 情感 · 许可证</text>
+  <text class="text" x="335" y="637" text-anchor="middle">所有字段以具体模型和发布包为准</text>
+
+  <rect class="test" x="730" y="548" width="430" height="105" rx="16" />
+  <text class="label" x="945" y="584" text-anchor="middle">目标设备回归</text>
+  <text class="text" x="945" y="612" text-anchor="middle">CER/WER · RTF · 延迟 · 内存 · 功耗</text>
+  <text class="text" x="945" y="637" text-anchor="middle">CPU 基线 → INT8 → 必要时硬件加速</text>
+
+  <path class="arrow" d="M570 483 V510 H335 V538" />
+  <path class="arrow" d="M870 483 V510 H335 V538" />
+  <path class="arrow" d="M1110 483 V510 H945 V538" />
+  <path class="arrow" d="M550 600 H720" />
+  <text class="text" x="640" y="690" text-anchor="middle">交付结论必须来自真实录音、真实设备和完整包体，而不是单个模型榜单</text>
+</svg>

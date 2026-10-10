@@ -20,8 +20,10 @@ date: 2026-05-17
 | 声音与信号基础 | 如何把连续声音变成可计算的数据 | 频率、声压级、采样率、位深、频谱、时域与频域 | [声音与信号基础](./sound-fundamentals.md) |
 | 采集与播放链路 | 麦克风和扬声器在系统里怎么接入 | Mic、ADC、DAC、Codec、I2S、PCM、Buffer、延迟 | [采集与播放链路](./capture-playback.md) |
 | 降噪与前处理 | 让后续算法拿到更干净、更稳定的语音 | AEC、NS、AGC、VAD、波束形成、去混响 | [降噪与前处理](./noise-reduction.md) |
+| VAD 语音活动检测 | 如何从连续音频中稳定切出语音片段 | 流式状态、阈值、静音时长、前后缓存、Silero VAD | [VAD 总览](./vad/) |
 | 语音唤醒 | 设备如何在低功耗和低误唤醒之间取平衡 | KWS、唤醒词、阈值、误唤醒、漏唤醒、声纹 | [语音唤醒](./wake-word.md) |
 | 语音识别 | 如何把语音转成文本 | ASR、声学模型、语言模型、流式识别、热词、标点 | [语音识别](./speech-recognition.md) |
+| 端侧语音推理 | 如何把语音模型部署到本地设备 | sherpa-onnx、ONNX Runtime、Recognizer、Stream、模型选型 | [sherpa-onnx](./sherpa-onnx/) |
 | 语音合成 | 如何把文本转成可听的语音 | TTS、声学特征、声码器、音色、韵律、流式合成 | [语音合成](./speech-synthesis.md) |
 | 语音交互链路 | 一个可对话设备如何串起各模块 | 采集、前处理、唤醒、识别、理解、合成、播放 | [语音交互链路](./voice-interaction.md) |
 | 质量评估与排错 | 如何定位声学效果差的根因 | SNR、ERLE、WER、MOS、延迟、日志、录音回放 | [质量评估与排错](./quality-evaluation.md) |

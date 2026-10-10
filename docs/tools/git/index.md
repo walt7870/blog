@@ -13,6 +13,7 @@ Git 专题按使用路径拆分：
 - [安全与仓库治理](./security.md)：敏感信息、`.gitignore`、大文件、历史清理、权限边界。
 - [进阶操作](./advanced.md)：tag、bisect、worktree、submodule、sparse checkout 等低频但关键的能力。
 - [生态工具](./ecosystem.md)：托管平台、Hooks、LFS、GUI、命令行增强、CI/CD 与 GitOps。
+- [GitLab CI/CD 搭建与发布](./gitlab-cicd.md)：从自建 GitLab、Runner 和权限配置，到自动发布、通知、回滚与多仓库接入。
 
 ![Git 心智模型](/git/git-mental-model.svg)
 

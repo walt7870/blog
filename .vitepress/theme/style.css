@@ -1,3 +1,14 @@
+.VPNavBarMenuGroup .VPMenu {
+  max-height: calc(100dvh - 90px);
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .VPNavBarMenu, .VPNavBarExtra, .VPNavBarAppearance { display: none !important; }
+  .VPNavBarHamburger { display: flex !important; }
+  .VPNavScreen { display: block !important; }
+}
+
 .global-pet {
   position: fixed;
   right: 22px;

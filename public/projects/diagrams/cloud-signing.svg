@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="cloud-signing-title cloud-signing-desc" data-layout="editorial">
+<title id="cloud-signing-title">企业管理与密码学签名分权</title>
+<desc id="cloud-signing-desc">海外授权链路：管理 API 只产生签发任务，独立 Worker 持有 AWS KMS 签名权限</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">企业管理与密码学签名分权</text>
+<text x="48" y="76" class="subtitle">海外授权链路：管理 API 只产生签发任务，独立 Worker 持有 AWS KMS 签名权限</text>
+<g class="edge" data-from="enterprise" data-to="tasks">
+<path data-points="[[288,216],[360,216]]" d="M 288 216 L 360 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="tasks" data-to="worker">
+<path data-points="[[600,216],[672,216]]" d="M 600 216 L 672 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="worker" data-to="kms">
+<path data-points="[[912,216],[984,216]]" d="M 912 216 L 984 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="kms" data-to="verify">
+<path data-points="[[1104,272],[1104,448]]" d="M 1104 272 L 1104 448" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="verify" data-to="object">
+<path data-points="[[984,504],[912,504]]" d="M 984 504 L 912 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="object" data-to="gate">
+<path data-points="[[672,504],[600,504]]" d="M 672 504 L 600 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="gate" data-to="download">
+<path data-points="[[360,504],[288,504]]" d="M 360 504 L 288 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="303" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="196" text-anchor="middle" class="arrow-label">任务</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="615" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="196" text-anchor="middle" class="arrow-label">认领</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="927" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="948" y="196" text-anchor="middle" class="arrow-label">签名</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="1138" y="345" width="68" height="22" fill="#fff">
+</rect>
+<text x="1172" y="360" text-anchor="middle" class="arrow-label">签名结果</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="927" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="948" y="484" text-anchor="middle" class="arrow-label">保存</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="615" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="484" text-anchor="middle" class="arrow-label">读取</text>
+</g>
+<g class="edge-label" data-edge="6">
+<rect x="303" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="484" text-anchor="middle" class="arrow-label">放行</text>
+</g>
+<g class="node" data-id="enterprise">
+<title>Enterprise</title>
+<rect class="node-box" x="48" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="182" class="tag">控制面</text>
+<text x="64" y="210" class="node-title">Enterprise</text>
+<text x="64" y="235" class="node-detail">申请 · 权益 · 批准</text>
+<text x="64" y="256" class="node-detail">管理 API 无签名权限</text>
+</g>
+<g class="node" data-id="tasks">
+<title>签发任务表</title>
+<rect class="node-box" x="360" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="376" y="182" class="tag">PostgreSQL</text>
+<text x="376" y="210" class="node-title">签发任务表</text>
+<text x="376" y="235" class="node-detail">行锁认领 · 有界租约</text>
+<text x="376" y="256" class="node-detail">租约过期允许恢复</text>
+</g>
+<g class="node" data-id="worker">
+<title>License Worker</title>
+<rect class="node-box" x="672" y="160" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="688" y="182" class="tag">签名身份</text>
+<text x="688" y="210" class="node-title">License Worker</text>
+<text x="688" y="235" class="node-detail">独立身份调用 KMS</text>
+<text x="688" y="256" class="node-detail">worker-id fence 保护写入</text>
+</g>
+<g class="node" data-id="kms">
+<title>AWS KMS P-256</title>
+<rect class="node-box" x="984" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="182" class="tag">密码学边界</text>
+<text x="1000" y="210" class="node-title">AWS KMS P-256</text>
+<text x="1000" y="235" class="node-detail">私钥保留在 KMS</text>
+<text x="1000" y="256" class="node-detail">生成 ES256 签名</text>
+</g>
+<g class="node" data-id="verify">
+<title>Worker 公钥自验签</title>
+<rect class="node-box" x="984" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="470" class="tag">发布前校验</text>
+<text x="1000" y="498" class="node-title">Worker 公钥自验签</text>
+<text x="1000" y="523" class="node-detail">核对 ES256 签名</text>
+<text x="1000" y="544" class="node-detail">校验制品内容摘要</text>
+</g>
+<g class="node" data-id="object">
+<title>加密对象制品</title>
+<rect class="node-box" x="672" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="470" class="tag">制品</text>
+<text x="688" y="498" class="node-title">加密对象制品</text>
+<text x="688" y="523" class="node-detail">对象存储保存授权制品</text>
+<text x="688" y="544" class="node-detail">内容摘要关联签发结果</text>
+</g>
+<g class="node" data-id="gate">
+<title>下载授权复查</title>
+<rect class="node-box" x="360" y="448" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="376" y="470" class="tag">权限门</text>
+<text x="376" y="498" class="node-title">下载授权复查</text>
+<text x="376" y="523" class="node-detail">设备状态 + generation</text>
+<text x="376" y="544" class="node-detail">短期票据再次校验</text>
+</g>
+<g class="node" data-id="download">
+<title>设备制品下载</title>
+<rect class="node-box" x="48" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="470" class="tag">交付</text>
+<text x="64" y="498" class="node-title">设备制品下载</text>
+<text x="64" y="523" class="node-detail">取得匹配授权制品</text>
+<text x="64" y="544" class="node-detail">旧票据不能绕过新状态</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">租约恢复后，旧 Worker 不能覆盖新 Worker 的结果；签名私钥不进入 API 或业务数据库。</text>
+<text x="48" y="700" class="note">此图描述 AWS 授权链路；国内区域的对象存储与发布身份分别适配。</text>
+</svg>

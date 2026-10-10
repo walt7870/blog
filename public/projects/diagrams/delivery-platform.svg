@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="delivery-platform-title delivery-platform-desc" data-layout="editorial">
+<title id="delivery-platform-title">验证、测试与生产按信任区隔离</title>
+<desc id="delivery-platform-desc">源码 SHA 与镜像 digest 贯穿验收和回滚；模型底座与业务代码制品分别维护</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">验证、测试与生产按信任区隔离</text>
+<text x="48" y="76" class="subtitle">源码 SHA 与镜像 digest 贯穿验收和回滚；模型底座与业务代码制品分别维护</text>
+<g class="cluster">
+<rect x="32" y="96" width="792" height="168" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="48" y="121" class="zone-title">MR 验证区 · 无生产发布权限</text>
+</g>
+<g class="cluster">
+<rect x="32" y="280" width="1216" height="168" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="48" y="305" class="zone-title">制品与测试 Runner 信任区</text>
+</g>
+<g class="cluster">
+<rect x="32" y="464" width="1216" height="168" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="48" y="489" class="zone-title">受保护生产 Runner 信任区</text>
+</g>
+<g class="edge" data-from="mr" data-to="checks">
+<path data-points="[[348,196],[488,196]]" d="M 348 196 L 488 196" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="checks" data-to="build">
+<path data-points="[[788,196],[928,196]]" d="M 788 196 L 928 196" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="build" data-to="artifact">
+<path data-points="[[1078,252],[1078,324]]" d="M 1078 252 L 1078 324" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="artifact" data-to="test">
+<path data-points="[[928,380],[788,380]]" d="M 928 380 L 788 380" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="test" data-to="smoke">
+<path data-points="[[488,380],[348,380]]" d="M 488 380 L 348 380" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="smoke" data-to="release">
+<path data-points="[[320,436],[320,508]]" d="M 320 436 L 320 508" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="release" data-to="observe">
+<path data-points="[[348,564],[488,564]]" d="M 348 564 L 488 564" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="observe" data-to="rollback">
+<path data-points="[[788,564],[928,564]]" d="M 788 564 L 928 564" fill="none" stroke="#6c8379" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="397" y="161" width="42" height="22" fill="#fff">
+</rect>
+<text x="418" y="176" text-anchor="middle" class="arrow-label">提交</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="824" y="161" width="68" height="22" fill="#fff">
+</rect>
+<text x="858" y="176" text-anchor="middle" class="arrow-label">门禁通过</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="1099" y="273" width="42" height="22" fill="#fff">
+</rect>
+<text x="1120" y="288" text-anchor="middle" class="arrow-label">保存</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="816" y="345" width="84" height="22" fill="#fff">
+</rect>
+<text x="858" y="360" text-anchor="middle" class="arrow-label">固定 digest</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="384" y="345" width="68" height="22" fill="#fff">
+</rect>
+<text x="418" y="360" text-anchor="middle" class="arrow-label">实际调用</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="343" y="457" width="42" height="22" fill="#fff">
+</rect>
+<text x="364" y="472" text-anchor="middle" class="arrow-label">通过</text>
+</g>
+<g class="edge-label" data-edge="6">
+<rect x="397" y="529" width="42" height="22" fill="#fff">
+</rect>
+<text x="418" y="544" text-anchor="middle" class="arrow-label">检查</text>
+</g>
+<g class="edge-label" data-edge="7">
+<rect x="837" y="529" width="42" height="22" fill="#fff">
+</rect>
+<text x="858" y="544" text-anchor="middle" class="arrow-label">异常</text>
+</g>
+<g class="node" data-id="mr">
+<title>代码 / MR</title>
+<rect class="node-box" x="48" y="140" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="162" class="tag">代码入口</text>
+<text x="64" y="190" class="node-title">代码 / MR</text>
+<text x="64" y="215" class="node-detail">固定版本共享模板</text>
+<text x="64" y="236" class="node-detail">精确源码版本与人工审查</text>
+</g>
+<g class="node" data-id="checks">
+<title>验证门禁</title>
+<rect class="node-box" x="488" y="140" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="504" y="162" class="tag">验证 Runner</text>
+<text x="504" y="190" class="node-title">验证门禁</text>
+<text x="504" y="215" class="node-detail">静态检查 · 回归</text>
+<text x="504" y="236" class="node-detail">凭据与密钥扫描</text>
+</g>
+<g class="node" data-id="build">
+<title>构建制品</title>
+<rect class="node-box" x="928" y="140" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="944" y="162" class="tag">构建 Runner</text>
+<text x="944" y="190" class="node-title">构建制品</text>
+<text x="944" y="215" class="node-detail">Builder 身份</text>
+<text x="944" y="236" class="node-detail">模型底座 / 业务镜像分开</text>
+</g>
+<g class="node" data-id="artifact">
+<title>不可变制品</title>
+<rect class="node-box" x="928" y="324" width="300" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="944" y="346" class="tag">Registry</text>
+<text x="944" y="374" class="node-title">不可变制品</text>
+<text x="944" y="399" class="node-detail">源码 SHA + 镜像 digest</text>
+<text x="944" y="420" class="node-detail">晋级与回滚引用同一制品</text>
+</g>
+<g class="node" data-id="test">
+<title>测试环境 rollout</title>
+<rect class="node-box" x="488" y="324" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="504" y="346" class="tag">测试发布</text>
+<text x="504" y="374" class="node-title">测试环境 rollout</text>
+<text x="504" y="399" class="node-detail">受保护测试分支</text>
+<text x="504" y="420" class="node-detail">独立区域发布身份</text>
+</g>
+<g class="node" data-id="smoke">
+<title>真实业务验收</title>
+<rect class="node-box" x="48" y="324" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="346" class="tag">晋级门禁</text>
+<text x="64" y="374" class="node-title">真实业务验收</text>
+<text x="64" y="399" class="node-detail">就绪 + 实际 API / 账务</text>
+<text x="64" y="420" class="node-detail">测试证据绑定 digest</text>
+</g>
+<g class="node" data-id="release">
+<title>生产受控发布</title>
+<rect class="node-box" x="48" y="508" width="300" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="64" y="530" class="tag">生产发布</text>
+<text x="64" y="558" class="node-title">生产受控发布</text>
+<text x="64" y="583" class="node-detail">晋级已验收制品</text>
+<text x="64" y="604" class="node-detail">发布锁与环境配置</text>
+</g>
+<g class="node" data-id="observe">
+<title>运行观测</title>
+<rect class="node-box" x="488" y="508" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="504" y="530" class="tag">验收</text>
+<text x="504" y="558" class="node-title">运行观测</text>
+<text x="504" y="583" class="node-detail">日志 · 指标 · 业务请求</text>
+<text x="504" y="604" class="node-detail">区分 Ready 与业务成功</text>
+</g>
+<g class="node" data-id="rollback">
+<title>精确回滚</title>
+<rect class="node-box" x="928" y="508" width="300" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="944" y="530" class="tag">异常恢复</text>
+<text x="944" y="558" class="node-title">精确回滚</text>
+<text x="944" y="583" class="node-detail">旧 digest + 对应配置</text>
+<text x="944" y="604" class="node-detail">恢复后继续业务检查</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">区域、环境与 Runner 身份独立；图中验证门禁为当前静态检查、回归和密钥扫描。</text>
+<text x="48" y="700" class="note">回滚恢复旧版本不代表新版本验收通过；全服务生产发布仍按各项目证据分别确认。</text>
+</svg>

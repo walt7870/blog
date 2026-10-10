@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="cloud-control-title cloud-control-desc" data-layout="editorial">
+<title id="cloud-control-title">策略发布与请求执行解耦</title>
+<desc id="cloud-control-desc">事务记录是事实源，通知加周期对账驱动 APIHub 原子替换内存快照</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">策略发布与请求执行解耦</text>
+<text x="48" y="76" class="subtitle">事务记录是事实源，通知加周期对账驱动 APIHub 原子替换内存快照</text>
+<g class="edge" data-from="enterprise" data-to="pg">
+<path data-points="[[288,216],[360,216]]" d="M 288 216 L 360 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="pg" data-to="publish">
+<path data-points="[[600,216],[672,216]]" d="M 600 216 L 672 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="publish" data-to="redis">
+<path data-points="[[912,216],[984,216]]" d="M 912 216 L 984 216" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="redis" data-to="hub">
+<path data-points="[[1104,272],[1104,448]]" d="M 1104 272 L 1104 448" fill="none" stroke="#6c8379" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-muted)">
+</path>
+</g>
+<g class="edge" data-from="hub" data-to="session">
+<path data-points="[[984,504],[912,504]]" d="M 984 504 L 912 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="client" data-to="session">
+<path data-points="[[600,504],[672,504]]" d="M 600 504 L 672 504" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="303" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="324" y="196" text-anchor="middle" class="arrow-label">写入</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="615" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="196" text-anchor="middle" class="arrow-label">事件</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="927" y="181" width="42" height="22" fill="#fff">
+</rect>
+<text x="948" y="196" text-anchor="middle" class="arrow-label">版本</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="1130" y="345" width="84" height="22" fill="#fff">
+</rect>
+<text x="1172" y="360" text-anchor="middle" class="arrow-label">通知 / 对账</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="927" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="948" y="484" text-anchor="middle" class="arrow-label">读取</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="615" y="469" width="42" height="22" fill="#fff">
+</rect>
+<text x="636" y="484" text-anchor="middle" class="arrow-label">首帧</text>
+</g>
+<g class="node" data-id="enterprise">
+<title>Enterprise</title>
+<rect class="node-box" x="48" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="64" y="182" class="tag">管理 API</text>
+<text x="64" y="210" class="node-title">Enterprise</text>
+<text x="64" y="235" class="node-detail">修改权益与路由策略</text>
+<text x="64" y="256" class="node-detail">不进入逐请求查询路径</text>
+</g>
+<g class="node" data-id="pg">
+<title>PostgreSQL 事务</title>
+<rect class="node-box" x="360" y="160" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="376" y="182" class="tag">事实源</text>
+<text x="376" y="210" class="node-title">PostgreSQL 事务</text>
+<text x="376" y="235" class="node-detail">策略版本 + 审计 + Outbox</text>
+<text x="376" y="256" class="node-detail">同一事务提交</text>
+</g>
+<g class="node" data-id="publish">
+<title>Outbox Publisher</title>
+<rect class="node-box" x="672" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="182" class="tag">发布器</text>
+<text x="688" y="210" class="node-title">Outbox Publisher</text>
+<text x="688" y="235" class="node-detail">读取待发布记录</text>
+<text x="688" y="256" class="node-detail">发布版本化策略</text>
+</g>
+<g class="node" data-id="redis">
+<title>Redis</title>
+<rect class="node-box" x="984" y="160" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="182" class="tag">投影</text>
+<text x="1000" y="210" class="node-title">Redis</text>
+<text x="1000" y="235" class="node-detail">不可变快照 + latest</text>
+<text x="1000" y="256" class="node-detail">Pub/Sub 通知</text>
+</g>
+<g class="node" data-id="hub">
+<title>APIHub 内存快照</title>
+<rect class="node-box" x="984" y="448" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="1000" y="470" class="tag">热路径</text>
+<text x="1000" y="498" class="node-title">APIHub 内存快照</text>
+<text x="1000" y="523" class="node-detail">验证后原子替换</text>
+<text x="1000" y="544" class="node-detail">通知 + 周期对账 latest</text>
+</g>
+<g class="node" data-id="session">
+<title>固定会话路由</title>
+<rect class="node-box" x="672" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="470" class="tag">会话</text>
+<text x="688" y="498" class="node-title">固定会话路由</text>
+<text x="688" y="523" class="node-detail">建连 / 首帧固定 Provider</text>
+<text x="688" y="544" class="node-detail">后续发布只影响新会话</text>
+</g>
+<g class="node" data-id="client">
+<title>业务客户端</title>
+<rect class="node-box" x="360" y="448" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="376" y="470" class="tag">调用方</text>
+<text x="376" y="498" class="node-title">业务客户端</text>
+<text x="376" y="523" class="node-detail">持续音频与流式结果</text>
+<text x="376" y="544" class="node-detail">会话中途不切换模型</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">缺失、吊销或过期授权按拒绝规则处理；Redis 不承担权益事实的持久化。</text>
+<text x="48" y="700" class="note">管理端、快照发布与业务请求分别运行，版本号用于回溯与故障对账。</text>
+</svg>

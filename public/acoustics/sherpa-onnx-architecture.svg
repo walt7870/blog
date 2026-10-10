@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="660" viewBox="0 0 1280 660" role="img" aria-labelledby="title desc">
+  <title id="title">sherpa-onnx 架构与职责边界</title>
+  <desc id="desc">从训练导出、模型资产、sherpa-onnx 处理层到跨平台应用的关系图</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .accent { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; }
+      .runtime { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; }
+      .model { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .platform { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .label { font: 700 21px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .text { font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .small { font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .arrow { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1280" height="660" rx="24" />
+  <text class="title" x="640" y="52" text-anchor="middle">sherpa-onnx：模型与产品之间的本地语音推理层</text>
+
+  <rect class="panel" x="50" y="92" width="250" height="190" rx="18" />
+  <text class="label" x="175" y="128" text-anchor="middle">训练与导出</text>
+  <text class="text" x="78" y="166">• 数据与训练配置</text>
+  <text class="text" x="78" y="198">• PyTorch / icefall</text>
+  <text class="text" x="78" y="230">• FunASR / NeMo 等</text>
+  <text class="small" x="78" y="260">输出可部署的 ONNX 资产</text>
+
+  <rect class="model" x="360" y="92" width="260" height="190" rx="18" />
+  <text class="label" x="490" y="128" text-anchor="middle">模型资产</text>
+  <text class="text" x="390" y="166">model.onnx</text>
+  <text class="text" x="390" y="198">encoder / decoder / joiner</text>
+  <text class="text" x="390" y="230">tokens.txt / tokenizer</text>
+  <text class="small" x="390" y="260">决定语言、效果与资源消耗</text>
+
+  <rect class="accent" x="680" y="82" width="550" height="220" rx="18" />
+  <text class="label" x="955" y="122" text-anchor="middle">sherpa-onnx</text>
+  <rect class="panel" x="710" y="146" width="145" height="110" rx="12" />
+  <text class="text" x="782" y="180" text-anchor="middle">音频与特征</text>
+  <text class="small" x="782" y="210" text-anchor="middle">PCM / 重采样</text>
+  <text class="small" x="782" y="234" text-anchor="middle">Filterbank</text>
+  <rect class="runtime" x="883" y="146" width="145" height="110" rx="12" />
+  <text class="text" x="955" y="180" text-anchor="middle">推理运行时</text>
+  <text class="small" x="955" y="210" text-anchor="middle">ONNX Runtime</text>
+  <text class="small" x="955" y="234" text-anchor="middle">CPU / GPU / NPU</text>
+  <rect class="panel" x="1056" y="146" width="145" height="110" rx="12" />
+  <text class="text" x="1128" y="180" text-anchor="middle">语音流程</text>
+  <text class="small" x="1128" y="210" text-anchor="middle">解码 / VAD</text>
+  <text class="small" x="1128" y="234" text-anchor="middle">Stream / Endpoint</text>
+
+  <path class="arrow" d="M300 187 H350" />
+  <path class="arrow" d="M620 187 H670" />
+
+  <rect class="accent" x="50" y="370" width="520" height="210" rx="18" />
+  <text class="label" x="310" y="410" text-anchor="middle">统一 API 与对象生命周期</text>
+  <rect class="panel" x="82" y="447" width="106" height="74" rx="12" />
+  <text class="text" x="135" y="490" text-anchor="middle">Config</text>
+  <rect class="panel" x="222" y="447" width="126" height="74" rx="12" />
+  <text class="text" x="285" y="490" text-anchor="middle">Recognizer</text>
+  <rect class="panel" x="382" y="447" width="88" height="74" rx="12" />
+  <text class="text" x="426" y="490" text-anchor="middle">Stream</text>
+  <path class="arrow" d="M188 484 H212" />
+  <path class="arrow" d="M348 484 H372" />
+  <text class="small" x="310" y="553" text-anchor="middle">C++ 核心 · C API · 多语言绑定</text>
+
+  <rect class="platform" x="630" y="350" width="600" height="250" rx="18" />
+  <text class="label" x="930" y="392" text-anchor="middle">产品与平台</text>
+  <rect class="panel" x="666" y="430" width="150" height="74" rx="12" />
+  <text class="text" x="741" y="462" text-anchor="middle">桌面与服务</text>
+  <text class="small" x="741" y="487" text-anchor="middle">Linux / macOS / Win</text>
+  <rect class="panel" x="846" y="430" width="150" height="74" rx="12" />
+  <text class="text" x="921" y="462" text-anchor="middle">移动设备</text>
+  <text class="small" x="921" y="487" text-anchor="middle">Android / iOS / Harmony</text>
+  <rect class="panel" x="1026" y="430" width="168" height="74" rx="12" />
+  <text class="text" x="1110" y="462" text-anchor="middle">Web 与嵌入式</text>
+  <text class="small" x="1110" y="487" text-anchor="middle">WASM / ARM / RISC-V</text>
+  <text class="small" x="930" y="548" text-anchor="middle">ASR · TTS · VAD · KWS · 说话人 · 语音增强</text>
+
+  <path class="arrow" d="M955 302 V332 H570 V438" />
+  <path class="arrow" d="M570 484 H620" />
+</svg>

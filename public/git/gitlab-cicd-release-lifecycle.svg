@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="460" viewBox="0 0 1200 460" role="img" aria-labelledby="title desc">
+  <title id="title">发布、回滚与再次发布</title>
+  <desc id="desc">发布前保存版本 A 与待发布版本 B。发布并验收 B 后，回滚恢复 A，再次发布复用 B。操作都必须检查当前版本并持有同一个环境锁；如果线上已经是后续版本 C，拒绝旧流水线直接覆盖。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#64748b"/></marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b4d; }
+      .title { font-size: 26px; font-weight: 700; }
+      .label { font-size: 21px; font-weight: 600; }
+      .body { font-size: 17px; }
+      .small { font-size: 16px; fill: #475569; }
+      .arrow { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="460" rx="16" fill="#f8fafc"/>
+  <text x="34" y="45" class="title">一次发布保存两端版本，三种操作共享环境锁</text>
+  <text x="34" y="78" class="body">before = 发布前 A；after = 本次 B。重试不能覆盖原始 before，再次发布不重新构建。</text>
+  <rect x="34" y="148" width="262" height="110" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="56" y="185" class="label">当前运行 A</text>
+  <text x="56" y="215" class="body">读取并持久保存发布记录</text>
+  <text x="56" y="239" class="small">镜像 digest + 静态版本</text>
+  <rect x="469" y="148" width="262" height="110" rx="12" fill="#dcfce7" stroke="#86efac"/>
+  <text x="491" y="185" class="label">发布并验收 B</text>
+  <text x="491" y="215" class="body">实际运行版本与记录一致</text>
+  <text x="491" y="239" class="small">失败也保留已修改对象</text>
+  <rect x="902" y="148" width="262" height="110" rx="12" fill="#fef3c7" stroke="#fcd34d"/>
+  <text x="924" y="185" class="label">回滚并验收 A</text>
+  <text x="924" y="215" class="body">读取这次记录的 before</text>
+  <text x="924" y="239" class="small">独立记录回滚结果并通知</text>
+  <path d="M296 197 H459" class="arrow"/>
+  <text x="320" y="178" class="small">发布 after = B</text>
+  <path d="M731 197 H892" class="arrow"/>
+  <text x="753" y="178" class="small">回滚 before = A</text>
+  <path d="M1030 258 V310 H600 V268" class="arrow"/>
+  <text x="745" y="295" class="small">再次发布：复用 after = B</text>
+  <rect x="34" y="353" width="1130" height="76" rx="12" fill="#fff1f2" stroke="#fda4af"/>
+  <text x="56" y="383" class="label">每次操作前检查当前状态</text>
+  <text x="56" y="411" class="body">如果已有后续发布 C，拒绝旧流水线直接覆盖；数据库迁移与跨组件兼容性需要单独处理。</text>
+</svg>

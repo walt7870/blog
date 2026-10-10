@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="690" viewBox="0 0 1280 690" role="img" aria-labelledby="title desc">
+  <title id="title">sherpa-onnx 三种识别运行模式</title>
+  <desc id="desc">对比流式识别、VAD 加非流式识别和文件批处理的输入、输出时机与适用场景</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+      .online { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; }
+      .vad { fill: #f0fdf4; stroke: #16a34a; stroke-width: 2; }
+      .batch { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .label { font: 700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .text { font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .small { font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .arrow { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 8 7; fill: none; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+    </marker>
+  </defs>
+  <rect class="bg" width="1280" height="690" rx="24" />
+  <text class="title" x="640" y="54" text-anchor="middle">同样本地运行，结果时机和状态管理不同</text>
+
+  <rect class="online" x="50" y="92" width="1180" height="160" rx="18" />
+  <text class="label" x="82" y="130">流式识别 · OnlineRecognizer</text>
+  <rect class="card" x="82" y="157" width="155" height="62" rx="12" />
+  <text class="text" x="159" y="194" text-anchor="middle">麦克风音频块</text>
+  <rect class="card" x="300" y="157" width="170" height="62" rx="12" />
+  <text class="text" x="385" y="194" text-anchor="middle">accept_waveform</text>
+  <rect class="card" x="533" y="157" width="160" height="62" rx="12" />
+  <text class="text" x="613" y="194" text-anchor="middle">循环解码</text>
+  <rect class="card" x="756" y="157" width="170" height="62" rx="12" />
+  <text class="text" x="841" y="194" text-anchor="middle">临时结果</text>
+  <rect class="card" x="989" y="157" width="200" height="62" rx="12" />
+  <text class="text" x="1089" y="184" text-anchor="middle">端点 → 最终结果</text>
+  <text class="small" x="1089" y="207" text-anchor="middle">reset 后继续下一句</text>
+  <path class="arrow" d="M237 188 H290" />
+  <path class="arrow" d="M470 188 H523" />
+  <path class="arrow" d="M693 188 H746" />
+  <path class="arrow" d="M926 188 H979" />
+
+  <rect class="vad" x="50" y="282" width="1180" height="160" rx="18" />
+  <text class="label" x="82" y="320">接近实时 · VAD + OfflineRecognizer</text>
+  <rect class="card" x="82" y="347" width="155" height="62" rx="12" />
+  <text class="text" x="159" y="384" text-anchor="middle">持续麦克风</text>
+  <rect class="card" x="300" y="347" width="170" height="62" rx="12" />
+  <text class="text" x="385" y="384" text-anchor="middle">VAD 检测语音段</text>
+  <rect class="card" x="533" y="347" width="160" height="62" rx="12" />
+  <text class="text" x="613" y="384" text-anchor="middle">完整短句</text>
+  <rect class="card" x="756" y="347" width="170" height="62" rx="12" />
+  <text class="text" x="841" y="384" text-anchor="middle">一次解码</text>
+  <rect class="card" x="989" y="347" width="200" height="62" rx="12" />
+  <text class="text" x="1089" y="384" text-anchor="middle">稳定最终结果</text>
+  <path class="arrow" d="M237 378 H290" />
+  <path class="arrow" d="M470 378 H523" />
+  <path class="arrow" d="M693 378 H746" />
+  <path class="arrow" d="M926 378 H979" />
+
+  <rect class="batch" x="50" y="472" width="1180" height="160" rx="18" />
+  <text class="label" x="82" y="510">文件与批处理 · OfflineRecognizer</text>
+  <rect class="card" x="82" y="537" width="155" height="62" rx="12" />
+  <text class="text" x="159" y="574" text-anchor="middle">完整音频文件</text>
+  <rect class="card" x="300" y="537" width="170" height="62" rx="12" />
+  <text class="text" x="385" y="574" text-anchor="middle">每段创建 Stream</text>
+  <rect class="card" x="533" y="537" width="160" height="62" rx="12" />
+  <text class="text" x="613" y="574" text-anchor="middle">decode_streams</text>
+  <rect class="card" x="756" y="537" width="170" height="62" rx="12" />
+  <text class="text" x="841" y="574" text-anchor="middle">文本与时间戳</text>
+  <rect class="card" x="989" y="537" width="200" height="62" rx="12" />
+  <text class="text" x="1089" y="574" text-anchor="middle">字幕 / 质检 / 回归</text>
+  <path class="arrow" d="M237 568 H290" />
+  <path class="arrow" d="M470 568 H523" />
+  <path class="arrow" d="M693 568 H746" />
+  <path class="arrow" d="M926 568 H979" />
+
+  <path class="dash" d="M640 252 V282" />
+  <path class="dash" d="M640 442 V472" />
+  <text class="small" x="640" y="666" text-anchor="middle">选择依据：结果出现时间 · 模型结构 · 状态复杂度 · 目标场景</text>
+</svg>

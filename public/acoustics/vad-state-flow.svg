@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">VAD 状态与数据流</title>
+  <desc id="desc">连续音频经过预处理、逐帧概率和分段状态机，形成语音片段并交给识别等下游模块。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="560" rx="24" fill="url(#bg)"/>
+  <text x="56" y="62" fill="#0f172a" font-size="28" font-family="Arial, PingFang SC, sans-serif" font-weight="700">从连续音频到稳定语音片段</text>
+  <text x="56" y="92" fill="#64748b" font-size="17" font-family="Arial, PingFang SC, sans-serif">模型输出概率，分段状态机负责边界、缓冲与业务事件</text>
+
+  <g filter="url(#shadow)" font-family="Arial, PingFang SC, sans-serif">
+    <rect x="50" y="142" width="205" height="116" rx="16" fill="#fff" stroke="#94a3b8"/>
+    <text x="152" y="181" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">连续 PCM</text>
+    <text x="152" y="212" text-anchor="middle" font-size="15" fill="#475569">Mic / 文件 / 网络流</text>
+    <text x="152" y="237" text-anchor="middle" font-size="15" fill="#475569">采样点时间轴</text>
+
+    <rect x="310" y="142" width="205" height="116" rx="16" fill="#fff" stroke="#38bdf8"/>
+    <text x="412" y="181" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">音频前处理</text>
+    <text x="412" y="212" text-anchor="middle" font-size="15" fill="#475569">AEC / NS / AGC</text>
+    <text x="412" y="237" text-anchor="middle" font-size="15" fill="#475569">重采样与固定帧</text>
+
+    <rect x="570" y="142" width="205" height="116" rx="16" fill="#fff" stroke="#818cf8"/>
+    <text x="672" y="181" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">VAD 模型</text>
+    <text x="672" y="212" text-anchor="middle" font-size="15" fill="#475569">逐帧语音概率</text>
+    <text x="672" y="237" text-anchor="middle" font-size="15" fill="#475569">p(speech) = 0~1</text>
+
+    <rect x="830" y="142" width="205" height="116" rx="16" fill="#fff" stroke="#a78bfa"/>
+    <text x="932" y="181" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">分段状态机</text>
+    <text x="932" y="212" text-anchor="middle" font-size="15" fill="#475569">滞回阈值 / 连续帧</text>
+    <text x="932" y="237" text-anchor="middle" font-size="15" fill="#475569">前置缓存 / 尾部补偿</text>
+
+    <rect x="1090" y="142" width="140" height="116" rx="16" fill="#fff" stroke="#22c55e"/>
+    <text x="1160" y="181" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">语音片段</text>
+    <text x="1160" y="212" text-anchor="middle" font-size="15" fill="#475569">start / end</text>
+    <text x="1160" y="237" text-anchor="middle" font-size="15" fill="#475569">时间戳 + PCM</text>
+  </g>
+
+  <g stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M255 200 H300"/>
+    <path d="M515 200 H560"/>
+    <path d="M775 200 H820"/>
+    <path d="M1035 200 H1080"/>
+  </g>
+
+  <rect x="300" y="326" width="680" height="150" rx="20" fill="#fff" stroke="#cbd5e1"/>
+  <text x="640" y="360" text-anchor="middle" font-size="19" font-weight="700" fill="#334155" font-family="Arial, PingFang SC, sans-serif">分段状态</text>
+  <g font-family="Arial, PingFang SC, sans-serif" font-size="16" text-anchor="middle">
+    <rect x="337" y="389" width="130" height="52" rx="26" fill="#e2e8f0"/>
+    <text x="402" y="421" fill="#334155">未说话</text>
+    <rect x="510" y="389" width="130" height="52" rx="26" fill="#dbeafe"/>
+    <text x="575" y="421" fill="#1e40af">候选语音</text>
+    <rect x="683" y="389" width="130" height="52" rx="26" fill="#dcfce7"/>
+    <text x="748" y="421" fill="#166534">说话中</text>
+    <rect x="856" y="389" width="130" height="52" rx="26" fill="#fef3c7"/>
+    <text x="921" y="421" fill="#92400e">候选结束</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M467 415 H500"/>
+    <path d="M640 415 H673"/>
+    <path d="M813 415 H846"/>
+  </g>
+  <path d="M921 452 C921 505 402 505 402 451" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="640" y="526" text-anchor="middle" font-size="15" fill="#64748b" font-family="Arial, PingFang SC, sans-serif">连续高概率确认开始；连续低概率确认结束；概率恢复则取消候选结束</text>
+
+  <g font-family="Arial, PingFang SC, sans-serif" font-size="14" fill="#475569">
+    <text x="1090" y="326">下游使用</text>
+    <text x="1090" y="356">• 流式 / 非流式 ASR</text>
+    <text x="1090" y="384">• 唤醒后监听</text>
+    <text x="1090" y="412">• 录音切片与质检</text>
+    <text x="1090" y="440">• 功耗与增益控制</text>
+  </g>
+</svg>

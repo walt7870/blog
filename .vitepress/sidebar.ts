@@ -36,8 +36,25 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: true,
           items: [
             { text: '降噪与前处理', link: '/docs/basic/acoustics/noise-reduction' },
+            {
+              text: 'VAD',
+              collapsed: true,
+              items: [
+                { text: 'VAD 总览', link: '/docs/basic/acoustics/vad/' },
+                { text: 'Silero VAD', link: '/docs/basic/acoustics/vad/silero-vad' },
+              ],
+            },
             { text: '语音唤醒', link: '/docs/basic/acoustics/wake-word' },
             { text: '语音识别', link: '/docs/basic/acoustics/speech-recognition' },
+            {
+              text: 'sherpa-onnx',
+              collapsed: true,
+              items: [
+                { text: '框架总览', link: '/docs/basic/acoustics/sherpa-onnx/' },
+                { text: '识别运行模式', link: '/docs/basic/acoustics/sherpa-onnx/recognition-modes' },
+                { text: '模型与部署选型', link: '/docs/basic/acoustics/sherpa-onnx/model-selection-deployment' },
+              ],
+            },
             { text: '语音合成', link: '/docs/basic/acoustics/speech-synthesis' },
             { text: '语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
           ],
@@ -646,6 +663,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: '安全与治理', link: '/docs/tools/git/security' },
         { text: '进阶操作', link: '/docs/tools/git/advanced' },
         { text: '生态工具', link: '/docs/tools/git/ecosystem' },
+        { text: 'GitLab CI/CD 搭建与发布', link: '/docs/tools/git/gitlab-cicd' },
       ]
     }
   ],

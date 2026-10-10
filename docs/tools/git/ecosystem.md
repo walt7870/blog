@@ -190,6 +190,8 @@ tag v*           -> 构建 release、发布制品
 - 发布使用 tag 或 release 分支触发。
 - 密钥放平台 Secret，不写入仓库。
 
+自建平台的完整实践见 [GitLab CI/CD 搭建与发布](./gitlab-cicd.md)，覆盖 Runner 执行模型、受保护分支、构建与部署权限、静态站点和容器发布，以及通知和回滚。
+
 ## GitOps
 
 GitOps 把 Git 仓库作为系统期望状态来源。常见于 Kubernetes 部署。

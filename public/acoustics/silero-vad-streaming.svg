@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+  <title id="title">Silero VAD 流式推理</title>
+  <desc id="desc">16 kHz 音频按 512 样本顺序输入，模型维护上下文和状态并输出概率，分段器产生开始和结束事件。</desc>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#f0fdfa"/>
+    </linearGradient>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+    <filter id="shadow2" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="520" rx="24" fill="url(#bg2)"/>
+  <text x="56" y="60" fill="#0f172a" font-size="28" font-family="Arial, PingFang SC, sans-serif" font-weight="700">Silero VAD 的流式输入与状态</text>
+  <text x="56" y="91" fill="#64748b" font-size="17" font-family="Arial, PingFang SC, sans-serif">同一会话按序处理；新会话、采样率变化或音频中断时重置状态</text>
+
+  <g filter="url(#shadow2)" font-family="Arial, PingFang SC, sans-serif">
+    <rect x="54" y="150" width="210" height="118" rx="16" fill="#fff" stroke="#38bdf8"/>
+    <text x="159" y="187" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">16 kHz 单声道</text>
+    <text x="159" y="218" text-anchor="middle" font-size="15" fill="#475569">float32 PCM</text>
+    <text x="159" y="243" text-anchor="middle" font-size="15" fill="#475569">上层样本缓冲</text>
+
+    <rect x="326" y="150" width="210" height="118" rx="16" fill="#fff" stroke="#818cf8"/>
+    <text x="431" y="187" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">固定输入帧</text>
+    <text x="431" y="218" text-anchor="middle" font-size="15" fill="#475569">512 samples</text>
+    <text x="431" y="243" text-anchor="middle" font-size="15" fill="#475569">约 32 ms</text>
+
+    <rect x="598" y="132" width="280" height="154" rx="18" fill="#fff" stroke="#14b8a6" stroke-width="2"/>
+    <text x="738" y="174" text-anchor="middle" font-size="21" font-weight="700" fill="#0f172a">Silero VAD</text>
+    <text x="738" y="208" text-anchor="middle" font-size="15" fill="#475569">当前音频帧 + 历史上下文</text>
+    <text x="738" y="235" text-anchor="middle" font-size="15" fill="#475569">循环状态随下一帧继续传递</text>
+    <text x="738" y="262" text-anchor="middle" font-size="15" fill="#0f766e">输出 p(speech)</text>
+
+    <rect x="940" y="150" width="280" height="118" rx="16" fill="#fff" stroke="#a78bfa"/>
+    <text x="1080" y="187" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">VADIterator / 分段器</text>
+    <text x="1080" y="218" text-anchor="middle" font-size="15" fill="#475569">阈值、静音时长、padding</text>
+    <text x="1080" y="243" text-anchor="middle" font-size="15" fill="#475569">产生 start / end 事件</text>
+  </g>
+
+  <g stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow2)">
+    <path d="M264 209 H316"/>
+    <path d="M536 209 H588"/>
+    <path d="M878 209 H930"/>
+  </g>
+
+  <path d="M822 132 C822 86 654 86 654 125" fill="none" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <text x="738" y="113" text-anchor="middle" font-size="14" fill="#0f766e" font-family="Arial, PingFang SC, sans-serif">state + context</text>
+
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="54" y="338" width="1166" height="118" rx="18" fill="#fff" stroke="#cbd5e1"/>
+    <text x="82" y="374" font-size="18" font-weight="700" fill="#334155">会话隔离规则</text>
+    <circle cx="95" cy="409" r="6" fill="#14b8a6"/>
+    <text x="113" y="415" font-size="15" fill="#475569">Session A：独立模型状态、分段状态、样本缓冲和绝对时间戳</text>
+    <circle cx="670" cy="409" r="6" fill="#818cf8"/>
+    <text x="688" y="415" font-size="15" fill="#475569">Session B：不能与 A 交错使用同一个有状态迭代器</text>
+    <text x="82" y="443" font-size="14" fill="#64748b">reset：新文件 / 新通话 / 采样率变化 / 丢帧导致时间轴中断 / 会话结束</text>
+  </g>
+</svg>

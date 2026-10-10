@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-labelledby="cloud-deployment-title cloud-deployment-desc" data-layout="editorial">
+<title id="cloud-deployment-title">计算资源与签名权限分别部署</title>
+<desc id="cloud-deployment-desc">运行单元视图：CPU 接入、模型计算和签发身份独立；不表示具体主机或副本数量</desc>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0;fill:#203c31}.title{font-size:28px;font-weight:600}.subtitle{font-size:14px;fill:#53685f}.zone-title{font-size:14px;font-weight:600}.node-title{font-size:18px;font-weight:600}.node-detail{font-size:14px;fill:#53685f}.tag{font-size:11px;fill:#357457}.arrow-label{font-size:13px;fill:#4b718c}.note{font-size:13px;fill:#53685f}</style>
+<defs>
+<marker id="arrow-blue" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#4b718c">
+</path>
+</marker>
+<marker id="arrow-muted" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 8 4 L 0 8 Z" fill="#6c8379">
+</path>
+</marker>
+</defs>
+<rect width="1280" height="720" fill="#fff">
+</rect>
+<text x="48" y="48" class="title">计算资源与签名权限分别部署</text>
+<text x="48" y="76" class="subtitle">运行单元视图：CPU 接入、模型计算和签发身份独立；不表示具体主机或副本数量</text>
+<g class="cluster">
+<rect x="48" y="148" width="328" height="440" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="64" y="173" class="zone-title">CPU 业务运行单元</text>
+</g>
+<g class="cluster">
+<rect x="648" y="148" width="284" height="440" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="664" y="173" class="zone-title">模型计算运行单元</text>
+</g>
+<g class="cluster">
+<rect x="960" y="148" width="284" height="440" rx="6" fill="#f7f9f8" stroke="#b5c8be" stroke-dasharray="5 4">
+</rect>
+<text x="976" y="173" class="zone-title">签发权限与持久服务</text>
+</g>
+<g class="edge" data-from="ingress" data-to="business">
+<path data-points="[[408,252],[320,252]]" d="M 408 252 L 320 252" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="business" data-to="gateway">
+<path data-points="[[200,308],[200,424]]" d="M 200 308 L 200 424" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="gateway" data-to="gpu">
+<path data-points="[[320,464],[640,464],[640,252],[672,252]]" d="M 320 464 L 632 464 Q 640 464 640 456 L 640 260 Q 640 252 648 252 L 672 252" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="gateway" data-to="remote">
+<path data-points="[[320,512],[672,512]]" d="M 320 512 L 672 512" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="business" data-to="signer">
+<path data-points="[[272,196],[272,116],[1200,116],[1200,196]]" d="M 272 196 L 272 124 Q 272 116 280 116 L 1192 116 Q 1200 116 1200 124 L 1200 196" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge" data-from="signer" data-to="data">
+<path data-points="[[1104,308],[1104,424]]" d="M 1104 308 L 1104 424" fill="none" stroke="#4b718c" stroke-width="1.6" marker-end="url(#arrow-blue)">
+</path>
+</g>
+<g class="edge-label" data-edge="0">
+<rect x="334.5" y="217" width="59" height="22" fill="#fff">
+</rect>
+<text x="364" y="232" text-anchor="middle" class="arrow-label">HTTPS</text>
+</g>
+<g class="edge-label" data-edge="1">
+<rect x="230" y="353" width="68" height="22" fill="#fff">
+</rect>
+<text x="264" y="368" text-anchor="middle" class="arrow-label">实时请求</text>
+</g>
+<g class="edge-label" data-edge="2">
+<rect x="534" y="345" width="68" height="22" fill="#fff">
+</rect>
+<text x="568" y="360" text-anchor="middle" class="arrow-label">模型调用</text>
+</g>
+<g class="edge-label" data-edge="3">
+<rect x="462" y="477" width="68" height="22" fill="#fff">
+</rect>
+<text x="496" y="492" text-anchor="middle" class="arrow-label">远程执行</text>
+</g>
+<g class="edge-label" data-edge="4">
+<rect x="685" y="81" width="134" height="22" fill="#fff">
+</rect>
+<text x="752" y="96" text-anchor="middle" class="arrow-label">Enterprise 签发任务</text>
+</g>
+<g class="edge-label" data-edge="5">
+<rect x="1138" y="353" width="68" height="22" fill="#fff">
+</rect>
+<text x="1172" y="368" text-anchor="middle" class="arrow-label">授权制品</text>
+</g>
+<g class="node" data-id="business">
+<title>CPU 业务服务</title>
+<rect class="node-box" x="80" y="196" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="96" y="218" class="tag">独立服务</text>
+<text x="96" y="246" class="node-title">CPU 业务服务</text>
+<text x="96" y="271" class="node-detail">Web · APIHub</text>
+<text x="96" y="292" class="node-detail">Portal · Enterprise</text>
+</g>
+<g class="node" data-id="ingress">
+<title>边缘访问入口</title>
+<rect class="node-box" x="408" y="196" width="224" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="424" y="218" class="tag">公开入口</text>
+<text x="424" y="246" class="node-title">边缘访问入口</text>
+<text x="424" y="271" class="node-detail">CDN · TLS</text>
+<text x="424" y="292" class="node-detail">Load Balancer</text>
+</g>
+<g class="node" data-id="gateway">
+<title>CPU Gateway</title>
+<rect class="node-box" x="80" y="424" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="96" y="446" class="tag">执行入口</text>
+<text x="96" y="474" class="node-title">CPU Gateway</text>
+<text x="96" y="499" class="node-detail">协议接入与模型编排</text>
+<text x="96" y="520" class="node-detail">不承载 GPU 推理</text>
+</g>
+<g class="node" data-id="gpu">
+<title>共享 GPU Worker</title>
+<rect class="node-box" x="672" y="196" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="218" class="tag">模型进程</text>
+<text x="688" y="246" class="node-title">共享 GPU Worker</text>
+<text x="688" y="271" class="node-detail">ASR · TTS · 鉴伪等模型</text>
+<text x="688" y="292" class="node-detail">与 CPU 网关分开部署</text>
+</g>
+<g class="node" data-id="remote">
+<title>远程模型 Worker</title>
+<rect class="node-box" x="672" y="424" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="688" y="446" class="tag">远程计算</text>
+<text x="688" y="474" class="node-title">远程模型 Worker</text>
+<text x="688" y="499" class="node-detail">独立执行端</text>
+<text x="688" y="520" class="node-detail">按模型接入协议调用</text>
+</g>
+<g class="node" data-id="signer">
+<title>License Worker</title>
+<rect class="node-box" x="984" y="196" width="240" height="112" rx="6" fill="#eef6f1" stroke="#357457" stroke-width="1.6">
+</rect>
+<text x="1000" y="218" class="tag">权限隔离</text>
+<text x="1000" y="246" class="node-title">License Worker</text>
+<text x="1000" y="271" class="node-detail">独立签名身份</text>
+<text x="1000" y="292" class="node-detail">管理 API 无 KMS 签名权</text>
+</g>
+<g class="node" data-id="data">
+<title>持久化与消息组件</title>
+<rect class="node-box" x="984" y="424" width="240" height="112" rx="6" fill="#fff" stroke="#becdc5" stroke-width="1">
+</rect>
+<text x="1000" y="446" class="tag">独立基础设施</text>
+<text x="1000" y="474" class="node-title">持久化与消息组件</text>
+<text x="1000" y="499" class="node-detail">PostgreSQL · Redis</text>
+<text x="1000" y="520" class="node-detail">RocketMQ · 对象存储</text>
+</g>
+<line x1="48" x2="1232" y1="652" y2="652" stroke="#dce5df">
+</line>
+<text x="48" y="676" class="note">持久化区列出独立组件；对象存储承载输入、输出及授权制品，具体读写关系在细节视图中展开。</text>
+<text x="48" y="700" class="note">AWS：EKS / ECR / S3 / KMS；腾讯云：TKE / TCR / COS。区域发布身份与配置独立。</text>
+</svg>
