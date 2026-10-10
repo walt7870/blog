@@ -11,11 +11,36 @@ import { Buffer } from 'node:buffer';
 
 import { nav } from './navbar.ts';
 import { sidebar } from './sidebar.ts';
+import { pageHead, pageMetadata, publicRoute, siteDescription, siteUrl } from './seo.mts';
 
 // https://vitepress.dev/reference/site-config
 export default  defineConfig({
   base: '/blog/',
   title: '稻草小站',
+  lang: 'zh-CN',
+  description: siteDescription,
+  sitemap: {
+    hostname: siteUrl,
+    transformItems: items => items.filter(item => publicRoute(item.url)),
+  },
+  async transformPageData(pageData) {
+    const metadata = await pageMetadata(pageData);
+    const updated = { ...pageData, ...metadata };
+    return {
+      ...metadata,
+      frontmatter: {
+        ...pageData.frontmatter,
+        head: [...(pageData.frontmatter.head || []), ...pageHead(updated)],
+      },
+    };
+  },
+  transformHead({ pageData, description }) {
+    // Attribute serialization escapes quotes in excerpts before crawlers read the HTML.
+    return [
+      ['meta', { name: 'description', content: description }],
+      ...(pageData.relativePath === '404.md' ? pageHead(pageData) : []),
+    ];
+  },
   // logo: 'logo.png',)
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
