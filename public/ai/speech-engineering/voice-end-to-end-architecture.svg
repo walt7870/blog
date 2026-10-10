@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="title desc">
   <title id="title">流式语音处理链路</title>
-  <desc id="desc">连续 PCM 经 TEN-VAD 主分段，普通与多人模式使用普通 ASR，目标模式结合声纹门控和登记参考使用 TS-ASR。角色证据不等于登记身份，热词能力共享，结果冻结后输出。</desc>
+  <desc id="desc">连续 PCM 经 TEN-VAD 主分段，普通与多人模式使用普通 ASR，目标模式携带登记参考使用 TS-ASR，波形门控独立可选。角色证据不等于登记身份，热词能力共享，Final 冻结后输出。</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#52616b"/></marker>
     <style>.box{rx:6;stroke-width:1.5}.h{font:600 23px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.t{font:600 17px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.s{font:14px -apple-system,"PingFang SC",sans-serif;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}.d{stroke-dasharray:5 4}</style>
@@ -22,7 +22,7 @@
   <rect x="860" y="108" width="185" height="80" fill="#edf4fa" stroke="#4280a8" class="box"/>
   <text x="952" y="140" text-anchor="middle" class="t">普通 ASR</text><text x="952" y="166" text-anchor="middle" class="s">全量文字转写</text><path d="M795 148H860" class="e"/>
   <rect x="570" y="352" width="225" height="92" fill="#fff5e6" stroke="#ae8135" class="box"/>
-  <text x="682" y="382" text-anchor="middle" class="t">目标说话人模式</text><text x="682" y="408" text-anchor="middle" class="s">Speaker VAD 身份证据</text><text x="682" y="432" text-anchor="middle" class="s">保留混合语音上下文</text>
+  <text x="682" y="382" text-anchor="middle" class="t">目标说话人模式</text><text x="682" y="408" text-anchor="middle" class="s">可选波形门控（默认关）</text><text x="682" y="432" text-anchor="middle" class="s">保留混合语音上下文</text>
   <path d="M500 170H520V398H570" class="e"/>
   <rect x="280" y="352" width="220" height="92" fill="#f5eef2" stroke="#a46a84" class="box"/>
   <text x="390" y="386" text-anchor="middle" class="t">登记参考</text><text x="390" y="412" text-anchor="middle" class="s">参考波形 / 声纹证据</text><path d="M500 398H570" class="e d"/>

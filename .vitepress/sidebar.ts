@@ -105,6 +105,7 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '角色证据与目标说话人识别', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
             { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
             { text: '动态批处理与推理调度', link: '/docs/ai/speech-engineering/performance-and-capacity' },
+            { text: '推理输入合同与资源生命周期', link: '/docs/ai/speech-engineering/inference-contracts-and-lifecycle' },
             { text: '共享热词召回与请求隔离', link: '/docs/ai/speech-engineering/hotword-routing' },
             { text: '音频回放与质量回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
             { text: '离线推理容器与工件一致性', link: '/docs/ai/speech-engineering/delivery-and-handoff' },

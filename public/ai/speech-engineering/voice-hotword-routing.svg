@@ -10,5 +10,5 @@
   <rect x="345" y="310" width="240" height="92" fill="#eaf5ed" stroke="#488661" class="b"/><text x="465" y="343" text-anchor="middle" class="t">共享实时 RAG worker</text><text x="465" y="370" text-anchor="middle" class="s">音频召回 / 模型向量缓存</text><path d="M465 215V310" class="e"/>
   <rect x="665" y="310" width="205" height="92" fill="#f1f3f4" stroke="#748188" class="b"/><text x="767" y="343" text-anchor="middle" class="t">按池隔离的快照</text><text x="767" y="370" text-anchor="middle" class="s">更新成功后原子替换</text><path d="M665 356H585" class="e"/>
   <rect x="945" y="310" width="220" height="92" fill="#f1f3f4" stroke="#748188" class="b"/><text x="1055" y="343" text-anchor="middle" class="t">独立管理 worker</text><text x="1055" y="370" text-anchor="middle" class="s">文本编码 / 导入 / 重载</text><path d="M945 356H870" class="e"/>
-  <text x="35" y="454" class="s">空池跳过编码；召回失败保留显式词；管理更新不占实时 worker。</text><text x="35" y="483" class="s">目标参考不用于当前内容召回；角色子段使用自己的 PCM；身份约束不能随召回失败一起回退。</text>
+  <text x="35" y="454" class="s">按场景选择内置池与客户池；有效池为空跳过编码；召回失败保留显式词。</text><text x="35" y="483" class="s">目标路径：解析转写 → 受限同音纠正 → ITN；热词传入不等于正确字形必然命中。</text>
 </svg>
