@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="780" viewBox="0 0 1440 780" role="img" aria-labelledby="title desc">
+  <title id="title">跨境链路慢与不稳定的诊断流程</title>
+  <desc id="desc">从服务器资源、出口速度、客户端到服务器链路、请求体上传四个判断点逐级收敛，并列出测试时容易误判的陷阱。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06101f"/>
+      <stop offset=".52" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0H0V38" fill="none" stroke="#233e63" stroke-width="1" opacity=".32"/>
+    </pattern>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1440" height="780">
+      <feGaussianBlur stdDeviation="3.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrow-violet" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#a78bfa"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .stage { fill: rgba(15,23,42,.76); stroke: #1f9cbd; stroke-width: 1.4; rx: 26; }
+      .step { fill: rgba(8,47,73,.92); stroke: #38bdf8; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .step2 { fill: rgba(49,46,129,.86); stroke: #a78bfa; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .verify { fill: rgba(6,78,59,.86); stroke: #34d399; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .risk { fill: rgba(76,5,25,.78); stroke: #fb7185; stroke-width: 1.7; rx: 18; filter: url(#glow); }
+      .diamond { fill: rgba(88,28,135,.88); stroke: #c084fc; stroke-width: 2; filter: url(#glow); }
+      .lane { font: 800 21px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #cffafe; }
+      .text { font: 750 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; text-anchor: middle; }
+      .tl { font: 750 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; text-anchor: middle; }
+      .sl { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; }
+      .label { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; text-anchor: middle; }
+      .labelr { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #fecdd3; text-anchor: middle; }
+      .labelv { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #ddd6fe; text-anchor: middle; }
+      .line { stroke: #67e8f9; stroke-width: 2.4; fill: none; marker-end: url(#arrow); filter: url(#glow); }
+      .viol { stroke: #a78bfa; stroke-width: 2.4; fill: none; stroke-dasharray: 9 7; marker-end: url(#arrow-violet); }
+      .dash { stroke: #fb7185; stroke-width: 2.2; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow-red); }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="780"/>
+  <rect class="grid" width="1440" height="780"/>
+  <circle cx="1250" cy="120" r="230" fill="#2563eb" opacity=".16"/>
+  <circle cx="230" cy="690" r="260" fill="#14b8a6" opacity=".12"/>
+
+  <text class="title" x="64" y="72">跨境链路慢与不稳定：先排除，再收敛</text>
+  <text class="sub" x="64" y="102">每个判断点只回答一个问题，按结果决定下一步；证据不足时不继续往后猜。</text>
+  <polygon class="diamond" points="184,185.0 309.0,250 184,315.0 59.0,250"/>
+  <text class="text" x="184" y="244" style="font-size:16px">服务器资源</text>
+  <text class="text" x="184" y="268" style="font-size:16px">是否正常？</text>
+  <text class="small" x="184" y="332">负载 · 连接数 · 出口带宽</text>
+  <polygon class="diamond" points="504,185.0 629.0,250 504,315.0 379.0,250"/>
+  <text class="text" x="504" y="244" style="font-size:16px">服务器到目标</text>
+  <text class="text" x="504" y="268" style="font-size:16px">出口是否正常？</text>
+  <text class="small" x="504" y="332">直接下载测速 · 到目标首包</text>
+  <polygon class="diamond" points="824,185.0 949.0,250 824,315.0 699.0,250"/>
+  <text class="text" x="824" y="244" style="font-size:16px">客户端到服务器</text>
+  <text class="text" x="824" y="268" style="font-size:16px">链路是否异常？</text>
+  <text class="small" x="824" y="332">RTT 抖动 · TCP 重传率 · 丢包</text>
+  <polygon class="diamond" points="1144,185.0 1269.0,250 1144,315.0 1019.0,250"/>
+  <text class="text" x="1144" y="244" style="font-size:16px">失败是否集中在</text>
+  <text class="text" x="1144" y="268" style="font-size:16px">大请求体上传？</text>
+  <text class="small" x="1144" y="332">请求体停在初始窗口附近</text>
+  <path class="line" d="M309 250 H379"/>
+  <text class="label" x="344.0" y="236">是</text>
+  <path class="line" d="M629 250 H699"/>
+  <text class="label" x="664.0" y="236">是</text>
+  <path class="line" d="M949 250 H1019"/>
+  <text class="label" x="984.0" y="236">是</text>
+  <path class="dash" d="M184 345 V400"/>
+  <text class="labelr" x="204" y="378">否</text>
+  <rect class="risk" x="59" y="400" width="250" height="84"/>
+  <text class="text" x="184.0" y="435">扩容 / 调整限速</text>
+  <text class="text" x="184.0" y="459">日志与连接数治理</text>
+  <path class="dash" d="M504 345 V400"/>
+  <text class="labelr" x="524" y="378">否</text>
+  <rect class="risk" x="379" y="400" width="250" height="84"/>
+  <text class="text" x="504.0" y="435">检查出口网卡</text>
+  <text class="text" x="504.0" y="459">源地址策略路由</text>
+  <path class="line" d="M824 345 V400"/>
+  <text class="label" x="844" y="378">否</text>
+  <rect class="step" x="699" y="400" width="250" height="84"/>
+  <text class="text" x="824.0" y="435">回到分层排查</text>
+  <text class="text" x="824.0" y="459">规则 · DNS · 节点参数</text>
+  <path class="line" d="M1144 345 V400"/>
+  <text class="label" x="1164" y="378">否</text>
+  <rect class="step" x="1019" y="400" width="250" height="84"/>
+  <text class="text" x="1144.0" y="435">检查并发与超时</text>
+  <text class="text" x="1144.0" y="459">隧道 MTU 与分片</text>
+  <path class="line" d="M1269 250 H1340 V540"/>
+  <text class="label" x="1305" y="238">是</text>
+  <rect class="verify" x="700" y="540" width="676" height="170"/>
+  <text class="text" x="1038.0" y="611">结论：TCP 套 TCP 隧道在丢包链路上队头阻塞</text>
+  <text class="small" x="1038.0" y="633">处理：增加 QUIC 通道（Hysteria2），保留 TCP 通道作为故障切换兜底</text>
+  <text class="small" x="1038.0" y="652">验收：同一探针经两条通道各跑多轮，比较完成率与耗时，不比较单次峰值</text>
+  <rect class="risk" x="64" y="540" width="600" height="170"/>
+  <text class="text" x="364.0" y="592">测试陷阱（会让结论失真）</text>
+  <text class="small" x="364.0" y="614">环境变量 no_proxy=* 会让 curl 忽略 -x，请求根本没进代理</text>
+  <text class="small" x="364.0" y="633">TCP 握手耗时约 1 ms：本机或局域网有透明代理在接管连接</text>
+  <text class="small" x="364.0" y="652">zsh 不会按空格拆分变量，代理参数可能没有传给 curl</text>
+  <text class="small" x="364.0" y="671">只测一次、只看峰值：丢包链路的问题是波动，不是均值</text>
+</svg>

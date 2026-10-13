@@ -16,6 +16,8 @@
 | [生产实施](./implementation.md) | 从需求确认、协议选型、服务端部署、订阅生成到上线验证 |
 | [Clash Verge 使用](./clash-verge.md) | 解释 Clash Verge 各菜单怎么用、系统代理和 TUN 如何选择 |
 | [运维与排查](./operations.md) | 说明日志、容量、证书、凭据、版本和故障排查闭环 |
+| [跨境链路慢与不稳定的诊断](./cross-border-diagnosis.md) | 服务器正常但体验忽快忽慢时，如何用证据收敛到链路问题，并用固定探针验证 |
+| [Hysteria2 落地与订阅编排](./hysteria2-practice.md) | QUIC 优先、TCP 兜底的双通道方案，以及账号自动化、批量下发和事故复盘 |
 
 ## 整体架构
 
@@ -35,4 +37,4 @@
 
 ## 最小学习路线
 
-先读 [基础原理](./fundamentals.md)，把“应用流量如何进入客户端、为什么规则能决定直连或代理”搞清楚；再读 [组件链路](./components.md)，建立各组件边界；之后按 [生产实施](./implementation.md) 看服务端落地流程。日常使用 Clash Verge 时，可以直接跳到 [Clash Verge 使用](./clash-verge.md)。遇到问题时，从 [运维与排查](./operations.md) 的分层排查表开始。
+先读 [基础原理](./fundamentals.md)，把“应用流量如何进入客户端、为什么规则能决定直连或代理”搞清楚；再读 [组件链路](./components.md)，建立各组件边界；之后按 [生产实施](./implementation.md) 看服务端落地流程。日常使用 Clash Verge 时，可以直接跳到 [Clash Verge 使用](./clash-verge.md)。遇到问题时，从 [运维与排查](./operations.md) 的分层排查表开始；如果服务器指标都正常但体验忽快忽慢，转到 [跨境链路慢与不稳定的诊断](./cross-border-diagnosis.md)，再按 [Hysteria2 落地与订阅编排](./hysteria2-practice.md) 实施和验收。

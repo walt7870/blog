@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840" role="img" aria-labelledby="title desc">
+  <title id="title">Hysteria2 与 Shadowsocks 双通道代理架构</title>
+  <desc id="desc">客户端通过故障切换组优先使用 QUIC 通道，不可用时回落到 TLS 加 WebSocket 通道；服务端为单机双网卡，订阅由控制面统一生成。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06101f"/>
+      <stop offset=".52" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M38 0H0V38" fill="none" stroke="#233e63" stroke-width="1" opacity=".32"/>
+    </pattern>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="1440" height="840">
+      <feGaussianBlur stdDeviation="3.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrow-violet" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12Z" fill="#a78bfa"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { fill: url(#grid); }
+      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
+      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
+      .stage { fill: rgba(15,23,42,.76); stroke: #1f9cbd; stroke-width: 1.4; rx: 26; }
+      .step { fill: rgba(8,47,73,.92); stroke: #38bdf8; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .step2 { fill: rgba(49,46,129,.86); stroke: #a78bfa; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .verify { fill: rgba(6,78,59,.86); stroke: #34d399; stroke-width: 1.8; rx: 18; filter: url(#glow); }
+      .risk { fill: rgba(76,5,25,.78); stroke: #fb7185; stroke-width: 1.7; rx: 18; filter: url(#glow); }
+      .diamond { fill: rgba(88,28,135,.88); stroke: #c084fc; stroke-width: 2; filter: url(#glow); }
+      .lane { font: 800 21px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #cffafe; }
+      .text { font: 750 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; text-anchor: middle; }
+      .tl { font: 750 18px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; text-anchor: middle; }
+      .sl { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; }
+      .label { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; text-anchor: middle; }
+      .labelr { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #fecdd3; text-anchor: middle; }
+      .labelv { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #ddd6fe; text-anchor: middle; }
+      .line { stroke: #67e8f9; stroke-width: 2.4; fill: none; marker-end: url(#arrow); filter: url(#glow); }
+      .viol { stroke: #a78bfa; stroke-width: 2.4; fill: none; stroke-dasharray: 9 7; marker-end: url(#arrow-violet); }
+      .dash { stroke: #fb7185; stroke-width: 2.2; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow-red); }
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="840"/>
+  <rect class="grid" width="1440" height="840"/>
+  <circle cx="1250" cy="120" r="230" fill="#2563eb" opacity=".16"/>
+  <circle cx="230" cy="750" r="260" fill="#14b8a6" opacity=".12"/>
+
+  <text class="title" x="64" y="72">双通道代理架构：QUIC 优先，TCP 兜底</text>
+  <text class="sub" x="64" y="102">数据面按“应用 → 内核规则 → 故障切换组 → 服务端 → 出口”流转；控制面只负责生成和分发订阅。</text>
+  <rect class="stage" x="64" y="140" width="372" height="560"/>
+  <text class="lane" x="92" y="180">本机</text>
+  <rect class="step" x="160" y="200" width="180" height="70"/>
+  <text class="text" x="250.0" y="230">应用流量</text>
+  <text class="small" x="250.0" y="252">浏览器 · 开发工具 · 命令行</text>
+  <rect class="step2" x="160" y="330" width="180" height="90"/>
+  <text class="text" x="250.0" y="361">Mihomo 内核</text>
+  <text class="small" x="250.0" y="383">规则匹配 · DNS</text>
+  <text class="small" x="250.0" y="402">中转域名 → PROXY</text>
+  <rect class="diamond" rx="18" x="160" y="490" width="180" height="110"/>
+  <text class="text" x="250.0" y="522">PROXY 组</text>
+  <text class="small" x="250.0" y="544">fallback 故障切换</text>
+  <text class="small" x="250.0" y="562">每 60 秒探测</text>
+  <text class="small" x="250.0" y="582">切换时打断旧连接</text>
+  <path class="line" d="M250 270 V330"/>
+  <path class="line" d="M250 420 V490"/>
+  <text class="label" x="640" y="238">QUIC / UDP 443</text>
+  <text class="small" x="640" y="258">salamander 混淆 · 声明带宽</text>
+  <path class="line" d="M340 545 H440 V270 H858"/>
+  <text class="labelv" x="640" y="462">TLS + WebSocket / TCP 443</text>
+  <text class="small" x="640" y="482">v2ray-plugin · 兜底</text>
+  <path class="viol" d="M340 575 H858"/>
+  <rect class="stage" x="840" y="140" width="536" height="560"/>
+  <text class="lane" x="868" y="180">服务器（单机 · 双网卡）</text>
+  <rect class="step" x="870" y="210" width="250" height="120"/>
+  <text class="text" x="995.0" y="246">Hysteria2 服务</text>
+  <text class="small" x="995.0" y="268">按账号认证 · UDP 443</text>
+  <text class="small" x="995.0" y="288">绑定对外网卡内网地址</text>
+  <text class="small" x="995.0" y="306">关闭路径 MTU 探测</text>
+  <rect class="step2" x="870" y="470" width="250" height="150"/>
+  <text class="text" x="995.0" y="522">Nginx 入口 443</text>
+  <text class="small" x="995.0" y="544">→ v2ray-plugin</text>
+  <text class="small" x="995.0" y="562">→ ss-server（每账号一实例）</text>
+  <text class="small" x="995.0" y="582">单账号 16 Mbit/s 限速</text>
+  <rect class="verify" x="1170" y="330" width="176" height="150"/>
+  <text class="text" x="1258.0" y="382">出口</text>
+  <text class="small" x="1258.0" y="404">公网目标站点</text>
+  <text class="small" x="1258.0" y="422">本机中转服务</text>
+  <text class="small" x="1258.0" y="442">(Nginx → 上游 API)</text>
+  <path class="line" d="M1120 270 H1146 V370 H1170"/>
+  <path class="viol" d="M1120 545 H1146 V440 H1170"/>
+  <rect class="stage" x="64" y="724" width="1312" height="92"/>
+  <text class="lane" x="92" y="764"></text>
+  <rect class="step2" x="104" y="744" width="250" height="52"/>
+  <text class="text" x="229.0" y="775">开户 / 同步脚本</text>
+  <rect class="step" x="440" y="744" width="270" height="52"/>
+  <text class="text" x="575.0" y="775">个人订阅文件 · HTTPS 发布</text>
+  <rect class="verify" x="800" y="744" width="250" height="52"/>
+  <text class="text" x="925.0" y="775">校验 · 备份 · 回滚</text>
+  <path class="line" d="M354 770 H440"/>
+  <path class="line" d="M710 770 H800"/>
+  <path class="viol" d="M575 744 V716 H112 V375 H158"/>
+  <text class="sl" x="122" y="660" style="fill:#ddd6fe">客户端定期</text>
+  <text class="sl" x="122" y="680" style="fill:#ddd6fe">刷新订阅</text>
+  <text class="lane" x="1094" y="776" style="font-size:16px">控制面</text>
+</svg>

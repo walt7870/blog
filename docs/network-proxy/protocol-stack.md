@@ -96,6 +96,18 @@ Clash Verge / sing-box client
 
 特点是协议本身就已经和 TLS 绑定，部署通常比“Shadowsocks + 插件”更直接。
 
+### 4. Hysteria2 + QUIC
+
+```text
+Clash Verge / Mihomo client
+  -> Hysteria2
+  -> QUIC (UDP)
+  -> 远端代理服务
+  -> 目标站点
+```
+
+特点是传输层换成 UDP 上的 QUIC：一条连接里的多个请求各自成流，丢包只影响对应的流；客户端声明带宽后按固定速率发送，不会被丢包持续拉低。代价是需要放行 UDP 端口，客户端必须是 Mihomo 这类支持 `hysteria2` 的内核，并且在 UDP 受限的网络里要有 TCP 通道兜底。落地与排障见 [Hysteria2 落地与订阅编排](./hysteria2-practice.md)，选择依据见 [跨境链路慢与不稳定的诊断](./cross-border-diagnosis.md)。
+
 ## sing-box 在这里扮演什么
 
 `sing-box` 可以同时充当：
@@ -123,4 +135,4 @@ Clash Verge / sing-box client
 
 ## 总结
 
-如果只记一句话：`Shadowsocks` 负责“怎么代理”，`v2ray-plugin` 负责“怎么套一层外壳”，`WebSocket` 是那层外壳的常见形态，`sing-box` 是把这些能力运行起来的代理核心。
+归纳起来：`Shadowsocks` 负责“怎么代理”，`v2ray-plugin` 负责“怎么套一层外壳”，`WebSocket` 是那层外壳的常见形态，`sing-box` 是把这些能力运行起来的代理核心。

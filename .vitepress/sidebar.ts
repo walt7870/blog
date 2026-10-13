@@ -25,6 +25,8 @@ export const sidebar: DefaultTheme.Sidebar = {
           ]
         },
         { text: '运维与排查', link: '/docs/network-proxy/operations' },
+        { text: '跨境链路慢与不稳定的诊断', link: '/docs/network-proxy/cross-border-diagnosis' },
+        { text: 'Hysteria2 落地与订阅编排', link: '/docs/network-proxy/hysteria2-practice' },
       ]
     }
   ],
