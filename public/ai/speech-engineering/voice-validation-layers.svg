@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+  <title id="title">漏字与改字先定位首次差异</title><desc id="desc">采集与接收先比较同范围 PCM，接收与分段比较覆盖区间，分段与模型核对实际输入，模型原文与 Final 比较后处理变化，最后检查原始事件与页面。每条证据只解释对应层。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:24px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1000" height="500" fill="#fff"/><text x="30" y="42" class="h">不要从页面缺字直接跳到“模型不准”</text><text x="30" y="75" class="s">沿数据流找第一次变化；不同范围、不同格式的音频不能直接比较整体摘要</text>
+  <rect x="30" y="112" width="154" height="76" class="b"/><text x="107" y="144" text-anchor="middle" class="t">采集 / 接收</text><text x="107" y="171" text-anchor="middle" class="s">PCM 是否一致</text>
+  <path d="M184 150H222" class="e"/>
+  <rect x="222" y="112" width="154" height="76" class="b"/><text x="299" y="144" text-anchor="middle" class="t">分段 PCM</text><text x="299" y="171" text-anchor="middle" class="s">覆盖是否完整</text>
+  <path d="M376 150H414" class="e"/>
+  <rect x="414" y="112" width="154" height="76" class="b"/><text x="491" y="144" text-anchor="middle" class="t">模型原文</text><text x="491" y="171" text-anchor="middle" class="s">输入 / 输出对照</text>
+  <path d="M568 150H606" class="e"/>
+  <rect x="606" y="112" width="154" height="76" class="b"/><text x="683" y="144" text-anchor="middle" class="t">Final 事件</text><text x="683" y="171" text-anchor="middle" class="s">后处理是否改坏</text>
+  <path d="M760 150H798" class="e"/>
+  <rect x="798" y="112" width="172" height="76" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="884" y="144" text-anchor="middle" class="t">界面文字</text><text x="884" y="171" text-anchor="middle" class="s">消费 / 合并 / 渲染</text>
+  <text x="30" y="240" class="t">相同症状，四种根因</text>
+  <path d="M30 260H970M30 308H970M30 356H970M30 404H970" stroke="#d9e1e5"/>
+  <text x="30" y="291" class="s">接收就缺尾帧</text><text x="330" y="291" class="s">→ 先查采集、重采样、字节与样本单位、发送结束竞争</text>
+  <text x="30" y="339" class="s">接收完整，段输入缺尾字</text><text x="330" y="339" class="s">→ 查 VAD 边界、尾部保留、父子段与 EOF 所有权</text>
+  <text x="30" y="387" class="s">模型原文正确，Final 改字</text><text x="330" y="387" class="s">→ 查解析、同音纠正、ITN，保留每一步结果</text>
+  <text x="30" y="435" class="s">事件有字，页面没有</text><text x="330" y="435" class="s">→ 查去重、预览清理、句子 ID 和定稿后覆盖</text>
+  <text x="30" y="481" class="s">输入、参数、模型与证据身份固定后，再分别比较 CER/WER、DER、目标误输出和时延。</text>
+</svg>

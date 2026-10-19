@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="540" viewBox="0 0 1000 540" role="img" aria-labelledby="title desc">
+  <title id="title">逐句链路为什么不能直接换整段角色模型</title><desc id="desc">增量角色模型不断推进已覆盖音频时间轴，逐句 Final 等待必要区间后发布。整段模型只累积输入直到 EOF，角色覆盖不前进，Final 等待、回退和有界队列积压相继发生；worker 正常结束仍不能证明协议兼容。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:24px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1000" height="540" fill="#fff"/><text x="30" y="42" class="h">角色能力之外，还要核对“什么时候能给出结果”</text><text x="30" y="75" class="s">逐句协议要求：这句话定稿时，角色证据已覆盖到这句话的音频终点</text>
+  <text x="30" y="124" class="t">增量模型 · 当前兼容路径</text>
+  <rect x="30" y="149" width="240" height="94" class="b"/><text x="150" y="185" text-anchor="middle" class="t">连续 PCM → 窗口推理</text><text x="150" y="216" text-anchor="middle" class="s">持续更新活动区间</text>
+  <path d="M270 196H331" class="e"/>
+  <rect x="331" y="149" width="310" height="94" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="486" y="185" text-anchor="middle" class="t">角色覆盖向前推进</text><text x="486" y="216" text-anchor="middle" class="s">等待区间有机会在预算内满足</text>
+  <path d="M641 196H702" class="e"/>
+  <rect x="702" y="149" width="268" height="94" class="b"/><text x="836" y="185" text-anchor="middle" class="t">每句带角色发布 Final</text><text x="836" y="216" text-anchor="middle" class="s">证据不足仍需明确标未知</text>
+  <path d="M30 279H970" stroke="#d9e1e5"/>
+  <text x="30" y="318" class="t">整段模型 · 不能直接替换</text>
+  <rect x="30" y="344" width="240" height="94" class="b"/><text x="150" y="380" text-anchor="middle" class="t">持续累积，等待 EOF</text><text x="150" y="411" text-anchor="middle" class="s">中途没有角色区间</text>
+  <path d="M270 391H331" class="e"/>
+  <rect x="331" y="344" width="310" height="94" fill="#f5eef2" stroke="#a46a84" rx="6"/><text x="486" y="380" text-anchor="middle" class="t">逐句 Final 一直等覆盖</text><text x="486" y="411" text-anchor="middle" class="s">等待超时 / 回退为未知</text>
+  <path d="M641 391H702" class="e"/>
+  <rect x="702" y="344" width="268" height="94" fill="#f5eef2" stroke="#a46a84" rx="6"/><text x="836" y="380" text-anchor="middle" class="t">有界 PCM 队列填满</text><text x="836" y="411" text-anchor="middle" class="s">会话失败，文字也可能受损</text>
+  <text x="30" y="480" class="s">MOSS 独立模型能运行 ≠ 现有逐句链路可交付；候选已保留，但不作为正式兼容路径。</text>
+  <text x="30" y="511" class="s">若采用整段模型，需要重设离线任务、缓存和发布协议；单纯调大 timeout 不会产生中途证据。</text>
+</svg>

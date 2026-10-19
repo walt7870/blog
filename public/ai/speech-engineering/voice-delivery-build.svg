@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420" role="img" aria-labelledby="title desc">
+  <title id="title">构建到组包的工件依赖</title><desc id="desc">prepare 完成后 compile；compile 后 Android 与 image 并行。image 导出后扫描，package 同时等待 Android 和扫描。箭头表示前置阶段完成，不表示耗时。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:24px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1040" height="420" fill="#fff"/><text x="30" y="42" class="h">先让工件完整，再谈并行</text><text x="30" y="74" class="s">箭头表示前置完成；Android 与镜像链可并行，组包必须等两边</text>
+  <rect x="30" y="116" width="150" height="76" class="b"/><text x="105" y="148" text-anchor="middle" class="t">prepare</text><text x="105" y="175" text-anchor="middle" class="s">冻结构建输入</text>
+  <path d="M180 154H228" class="e"/><rect x="228" y="116" width="150" height="76" class="b"/><text x="303" y="148" text-anchor="middle" class="t">compile</text><text x="303" y="175" text-anchor="middle" class="s">编译与测试</text>
+  <path d="M378 154H426" class="e"/><rect x="426" y="116" width="150" height="76" class="b"/><text x="501" y="148" text-anchor="middle" class="t">image</text><text x="501" y="175" text-anchor="middle" class="s">构建镜像</text>
+  <path d="M576 154H624" class="e"/><rect x="624" y="116" width="150" height="76" class="b"/><text x="699" y="148" text-anchor="middle" class="t">export</text><text x="699" y="175" text-anchor="middle" class="s">导出 tar</text>
+  <path d="M774 154H822" class="e"/><rect x="822" y="116" width="188" height="76" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="916" y="148" text-anchor="middle" class="t">scan</text><text x="916" y="175" text-anchor="middle" class="s">全层与归档扫描</text>
+  <path d="M303 192V280" class="e"/><rect x="228" y="280" width="150" height="76" class="b"/><text x="303" y="312" text-anchor="middle" class="t">android</text><text x="303" y="339" text-anchor="middle" class="s">客户端工件</text>
+  <path d="M378 318H624" class="e"/><path d="M916 192V318H884" class="e"/>
+  <rect x="624" y="280" width="260" height="76" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="754" y="312" text-anchor="middle" class="t">package</text><text x="754" y="339" text-anchor="middle" class="s">随包脚本绑定实际镜像</text>
+  <text x="30" y="396" class="s">package 内部仍检查 scan 通过；不删除断言来换取并行。后续 load、verify 与 upload 见验收图。</text>
+</svg>

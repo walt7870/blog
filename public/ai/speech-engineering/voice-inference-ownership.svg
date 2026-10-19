@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="510" viewBox="0 0 1000 510" role="img" aria-labelledby="title desc">
+  <title id="title">客户端取消后，原生任务仍可能运行</title><desc id="desc">已运行任务的 HTTP 等待取消后结束，原生线程继续持有许可。线程真正退出后才能释放许可；服务关闭必须停止接收、排空任务，再释放模型上下文。排队取消不派发。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:24px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}.b{fill:#edf4fa;stroke:#4280a8;rx:6}.d{stroke:#a46a84;stroke-width:2;stroke-dasharray:5 5}</style></defs>
+  <rect width="1000" height="510" fill="#fff"/><text x="30" y="42" class="h">等待请求的生命周期 ≠ 原生线程的生命周期</text><text x="30" y="74" class="s">示意一项已开始执行的任务；横向表示先后，不表示耗时比例</text>
+  <text x="30" y="133" class="t">HTTP 等待</text><text x="30" y="266" class="t">原生任务</text>
+  <rect x="180" y="103" width="180" height="62" class="b"/><text x="270" y="141" text-anchor="middle" class="t">等待推理结果</text>
+  <path d="M360 134H475" class="e"/><text x="380" y="118" class="s">调用方取消</text>
+  <rect x="475" y="103" width="180" height="62" class="b"/><text x="565" y="141" text-anchor="middle" class="t">停止等待</text>
+  <path d="M565 177V224" class="d"/><rect x="493" y="183" width="144" height="28" fill="#fff"/><text x="565" y="204" text-anchor="middle" class="s">此处不归还许可</text>
+  <rect x="180" y="236" width="180" height="62" class="b"/><text x="270" y="274" text-anchor="middle" class="t">准备 / 编码</text>
+  <path d="M360 267H418" class="e"/>
+  <rect x="418" y="236" width="238" height="62" fill="#f5eef2" stroke="#a46a84" rx="6"/><text x="537" y="274" text-anchor="middle" class="t">生成仍运行，持有许可</text>
+  <path d="M656 267H714" class="e"/>
+  <rect x="714" y="236" width="256" height="62" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="842" y="274" text-anchor="middle" class="t">真实退出 → 归还许可</text>
+  <path d="M180 331H970" stroke="#4280a8" stroke-width="5"/><text x="180" y="363" class="s">这段时间始终占用执行预算；不能因 HTTP 已断开而额外放进新任务</text>
+  <path d="M30 390H970" stroke="#d9e1e5"/>
+  <text x="30" y="426" class="t">服务关闭</text><text x="180" y="426" class="s">停止接收 → 取消未派发队列 → 排空准备/编码/生成 → 释放模型与上下文</text>
+  <text x="30" y="476" class="s">排队任务取消：不派发、不占执行槽。整批输入预检失败：任何成员都不能进入原生调用。</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="530" viewBox="0 0 1040 530" role="img" aria-labelledby="title desc">
+  <title id="title">导入、随包验收与私有上传的发布条件</title><desc id="desc">扫描通过后 load，verify 同时等待 load 和 package；regression 等 verify，gate 等 regression 和 scan；upload 等 scan 和 package。对外发布需 gate 与上传回读均通过。图以表格说明直接依赖，冗余扫描依赖由标注保留。</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:24px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}</style></defs>
+  <rect width="1040" height="530" fill="#fff"/><text x="30" y="42" class="h">私有上传可以提前，发布必须等验收</text><text x="30" y="74" class="s">前置：scan 与 package 已通过；gate、upload 仍各自保留 scan 依赖</text>
+  <rect x="30" y="118" width="210" height="80" class="b"/><text x="135" y="151" text-anchor="middle" class="t">load</text><text x="135" y="179" text-anchor="middle" class="s">从扫描后的 tar 导入</text>
+  <path d="M240 158H292" class="e"/>
+  <rect x="292" y="118" width="230" height="80" class="b"/><text x="407" y="151" text-anchor="middle" class="t">verify</text><text x="407" y="179" text-anchor="middle" class="s">使用 package 随包脚本</text>
+  <path d="M522 158H574" class="e"/>
+  <rect x="574" y="118" width="210" height="80" class="b"/><text x="679" y="151" text-anchor="middle" class="t">regression</text><text x="679" y="179" text-anchor="middle" class="s">协议、质量、异常路径</text>
+  <path d="M784 158H836" class="e"/>
+  <rect x="836" y="118" width="174" height="80" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="923" y="151" text-anchor="middle" class="t">gate</text><text x="923" y="179" text-anchor="middle" class="s">汇总验收判据</text>
+  <rect x="30" y="278" width="270" height="90" class="b"/><text x="165" y="313" text-anchor="middle" class="t">upload + 回读校验</text><text x="165" y="343" text-anchor="middle" class="s">扫描并冻结的包 → 私有存储</text>
+  <path d="M300 323H700" class="e"/><text x="353" y="308" class="s">可与上方验收链重叠执行</text>
+  <path d="M923 198V278" class="e"/>
+  <rect x="700" y="278" width="310" height="90" fill="#eaf5ed" stroke="#488661" rx="6"/><text x="855" y="313" text-anchor="middle" class="t">对外发布条件满足</text><text x="855" y="343" text-anchor="middle" class="s">gate 通过 + 上传完整可用</text>
+  <path d="M30 410H1010" stroke="#d9e1e5"/><text x="30" y="446" class="t">两种典型竞态</text>
+  <text x="30" y="479" class="s">不等 package：脚本或镜像 ID 还未生成。　不等 load：旧标签刚移除，新镜像尚未导入。</text>
+  <text x="30" y="509" class="s">发布需要独立执行；上传完成不代表验收通过，也不自动触发对外可用。</text>
+</svg>

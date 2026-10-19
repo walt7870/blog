@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vitepress'
+import { Scan, ZoomIn } from '@lucide/vue'
 
 const route = useRoute()
 const isOpen = ref(false)
 const imageSrc = ref('')
 const imageAlt = ref('')
+const originalSize = ref(false)
+const imageWidth = ref(0)
 
 let cleanupImages: (() => void) | null = null
 
@@ -17,6 +20,8 @@ function closeLightbox() {
 }
 
 function openLightbox(img: HTMLImageElement) {
+  originalSize.value = false
+  imageWidth.value = img.naturalWidth
   imageSrc.value = img.currentSrc || img.src
   imageAlt.value = img.alt || '图片预览'
   isOpen.value = true
@@ -97,10 +102,46 @@ onBeforeUnmount(() => {
       <button class="image-lightbox-close" type="button" aria-label="关闭图片预览" @click="closeLightbox">
         ×
       </button>
-      <figure class="image-lightbox-frame">
-        <img :src="imageSrc" :alt="imageAlt" />
+      <button class="image-lightbox-size" type="button" :aria-label="originalSize ? '适应屏幕' : '原尺寸查看'" :title="originalSize ? '适应屏幕' : '原尺寸查看'" :aria-pressed="originalSize" @click="originalSize = !originalSize">
+        <Scan v-if="originalSize" :size="22" />
+        <ZoomIn v-else :size="22" />
+      </button>
+      <figure class="image-lightbox-frame" :class="{ 'is-original-size': originalSize }">
+        <img :src="imageSrc" :alt="imageAlt" :style="originalSize ? { width: `${imageWidth}px` } : undefined" />
         <figcaption v-if="imageAlt">{{ imageAlt }}</figcaption>
       </figure>
     </div>
   </Teleport>
 </template>
+
+<style scoped>
+.image-lightbox-size {
+  position: fixed;
+  top: 18px;
+  right: 76px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ffffff66;
+  border-radius: 6px;
+  color: white;
+  background: #17212dcc;
+}
+.image-lightbox-frame.is-original-size {
+  display: block;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 130px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.image-lightbox-frame.is-original-size img {
+  max-width: none;
+  max-height: none;
+  flex: none;
+}
+.image-lightbox-frame.is-original-size figcaption {
+  display: none;
+}
+</style>
