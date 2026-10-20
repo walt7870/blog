@@ -6,14 +6,14 @@
       "file": "AGENTS.md",
       "batch": "B001",
       "status": "verified",
-      "reviewedHash": "79d26cfbeff97077c1c8b2e371cfbb812bb9c3a14ac47400dc6eea4863a6e4a5",
+      "reviewedHash": "6e79f1ed4e06bc63c15c82eb3e2ed6358bfc0beb174d261225859ad2dca7624f",
       "pageType": "维护约束",
       "findings": [],
-      "decision": "完整核对导航、资源、写作、图示及部署约束，保留为仓库维护规则，无需知识图示。",
+      "decision": "全文核对原有约束，新增八项写作基本原则，并以内部维护文档提供页面职责、贯穿案例、图文组织、可复现步骤及发布检查清单；保留既有导航、资源和部署规范。",
       "validation": [
-        "24页96份四模式全文截图、图片加载与整页宽度检查通过；见evidence/closing。",
-        "23个作品集架构视图逐个切换及原尺寸预览，B站链接、筛选空态和列表/网格切换通过；两张新增图字体边界与双视口原尺寸通过。维护说明不外推为小程序真机测试。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "AGENTS.md全文及.maintenance/blog-writing.md逐条复核，无占位要求；明确对外文章与内部维护文档的验收边界，不按字数或图数判定质量。",
+        "npm run docs:build通过，耗时14.32秒；没有新增主题组件、图示或对外文章入口，未以旧截图声称新增视觉验收。",
+        "git diff --check通过；审查脚本核对本地引用，无失效目标。"
       ],
       "dependencyFiles": []
     },

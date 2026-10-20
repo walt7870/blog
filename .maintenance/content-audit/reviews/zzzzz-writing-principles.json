@@ -1,0 +1,19 @@
+{
+  "pages": [
+    {
+      "file": "AGENTS.md",
+      "batch": "B001",
+      "status": "verified",
+      "reviewedHash": "6e79f1ed4e06bc63c15c82eb3e2ed6358bfc0beb174d261225859ad2dca7624f",
+      "pageType": "维护约束",
+      "findings": [],
+      "decision": "全文核对原有约束，新增八项写作基本原则，并以内部维护文档提供页面职责、贯穿案例、图文组织、可复现步骤及发布检查清单；保留既有导航、资源和部署规范。",
+      "validation": [
+        "AGENTS.md全文及.maintenance/blog-writing.md逐条复核，无占位要求；明确对外文章与内部维护文档的验收边界，不按字数或图数判定质量。",
+        "npm run docs:build通过，耗时14.32秒；没有新增主题组件、图示或对外文章入口，未以旧截图声称新增视觉验收。",
+        "git diff --check通过；审查脚本核对本地引用，无失效目标。"
+      ],
+      "dependencyFiles": []
+    }
+  ]
+}

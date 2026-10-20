@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 603,
-    "bytes": 4104954,
+    "bytes": 4106951,
     "batches": 72,
     "scanned": 603,
     "reviewed": 603,
@@ -143,7 +143,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 41671
+      "bytes": 43668
     },
     {
       "id": "B002",
@@ -1237,13 +1237,13 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "0fccaa762460ef831726cf473fe985d3e965ff7e1ace46f8a9a43982bf3e4abe",
-      "reviewHash": "79d26cfbeff97077c1c8b2e371cfbb812bb9c3a14ac47400dc6eea4863a6e4a5",
+      "contentHash": "3c466a1c9a3d03459f3feba8f3d0e36539cff43169825d88647f8c3b9ab008b0",
+      "reviewHash": "6e79f1ed4e06bc63c15c82eb3e2ed6358bfc0beb174d261225859ad2dca7624f",
       "dependencies": [],
-      "bytes": 12500,
-      "lines": 79,
-      "proseChars": 4654,
-      "headings": 7,
+      "bytes": 14497,
+      "lines": 90,
+      "proseChars": 5332,
+      "headings": 8,
       "codeLines": 0,
       "visualCount": 0,
       "htmlComponents": false,
@@ -1256,17 +1256,17 @@
         },
         {
           "kind": "editorial-review",
-          "line": 23,
+          "line": 34,
           "detail": "需核对知识库口吻"
         },
         {
           "kind": "editorial-review",
-          "line": 24,
+          "line": 35,
           "detail": "需核对知识库口吻"
         },
         {
           "kind": "editorial-review",
-          "line": 25,
+          "line": 36,
           "detail": "需核对知识库口吻"
         }
       ]
