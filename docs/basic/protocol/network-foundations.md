@@ -12,15 +12,11 @@ date: 2026-07-12
 
 应用发送一段数据时，协议栈逐层增加控制信息：
 
-```text
-HTTP Message
-└── TLS Record
-    └── TCP Segment / QUIC Packet
-        └── IP Packet
-            └── Ethernet Frame
-```
+![HTTPS 两条封装路径与邻居寻址边界](/protocol/https-encapsulation.svg)
 
-接收端先校验 Frame，再根据 EtherType 交给 IPv4 或 IPv6；IP 根据 Protocol 或 Next Header 交给 TCP、UDP 或 ICMP；传输层根据端口和连接标识找到 Socket；应用最后解释 HTTP、DNS 或自定义消息。
+HTTP/1.1 和 HTTP/2 的 HTTPS 消息经 TLS Record 进入 TCP 字节流，再由 TCP 分段、IP 和链路帧承载。HTTP/3 的消息进入 QUIC Stream，由 QUIC 保护 Packet 后装入 UDP Datagram；QUIC 使用 TLS 1.3 派生密钥，但不会再把应用数据套成普通 TLS Record。
+
+接收端先校验 Frame，再根据 EtherType 交给 IPv4 或 IPv6；IP 根据 Protocol 或 Next Header 交给 TCP、UDP 或 ICMP。TCP/UDP 根据端口和连接信息分发到 Socket，QUIC 实现再使用 Connection ID 等信息定位连接；应用最后解释 HTTP、DNS 或自定义消息。
 
 一次 `send()` 不对应一个 TCP Segment，一次 `recv()` 也不对应一条应用消息。应用写入的是字节流，分段由 MSS、拥塞窗口、网卡卸载和调度共同决定。
 
@@ -147,12 +143,15 @@ TCP MSS 只计算 TCP Payload。常见 IPv4 路径中：
 路径 MTU 发现依赖 ICMP `Fragmentation Needed` 或 IPv6 `Packet Too Big`。如果中间设备屏蔽这些反馈，握手和小请求可能正常，大响应却反复重传，形成 PMTU 黑洞。
 
 ```bash
-ping -D -s 1472 203.0.113.20
+# Linux IPv4：1472 字节载荷 + 8 ICMP + 20 IP = 1500
+ping -4 -M do -c 3 -s 1472 203.0.113.20
 tracepath 203.0.113.20
-sudo tcpdump -nn 'icmp or icmp6'
+sudo tcpdump -nn -c 100 'icmp or icmp6'
 ```
 
 修复方向是允许必要 ICMP、修正隧道 MTU，或在明确边界上实施 MSS Clamping，而不是无限增加应用超时。
+
+macOS 对应的 IPv4 禁止分片选项是 `ping -D`；Linux 的 `-D` 是打印时间戳。上例使用保留地址，需换成被测目标；Ping 无响应也可能只是 ICMP Echo 被过滤，不能单独证明 MTU 上限。MSS Clamping 只影响 TCP，不修复 QUIC/UDP 的数据报尺寸问题。
 
 ## DNS：从名称到地址
 

@@ -12,7 +12,7 @@
 
 “对修改关闭”不是禁止修 bug、禁止重构、禁止演进，而是不要让新增同类能力时总要修改已经稳定的核心代码。
 
-例如支付服务每加一个支付渠道都修改 `if else`，说明变化点没有被隔离。更合理的做法是让支付服务依赖抽象支付策略，新增渠道时新增实现类并注册。
+例如优惠计算每加一种活动都修改同一个分支方法，且每种规则都独立演进时，可以让服务依赖优惠策略，新增规则时新增实现并注册。若规则数量少且长期稳定，直接条件判断仍然合理。
 
 ## 代码坏味道
 
@@ -32,7 +32,7 @@ public class DiscountService {
             return order.getAmount().multiply(new BigDecimal("0.8"));
         }
         if ("new_user".equals(type)) {
-            return order.getAmount().subtract(new BigDecimal("30"));
+            return order.getAmount().subtract(new BigDecimal("30")).max(BigDecimal.ZERO);
         }
         return order.getAmount();
     }
@@ -40,6 +40,8 @@ public class DiscountService {
 ```
 
 按扩展点改造：
+
+以下是结构片段，省略 `Order` 类型与 import。约定金额为非负元金额、统一币种，策略返回最终应付金额，舍入在结算边界统一处理。
 
 ```java
 public interface DiscountPolicy {
@@ -50,14 +52,27 @@ public interface DiscountPolicy {
 public class DiscountService {
     private final Map<String, DiscountPolicy> policies;
 
+    public DiscountService(List<DiscountPolicy> registered) {
+        this.policies = registered.stream().collect(
+                Collectors.toUnmodifiableMap(DiscountPolicy::type, policy -> policy));
+    }
+
     public BigDecimal discount(String type, Order order) {
         DiscountPolicy policy = policies.get(type);
-        return policy == null ? order.getAmount() : policy.apply(order);
+        if (policy == null) {
+            throw new IllegalArgumentException("未注册的优惠类型: " + type);
+        }
+        BigDecimal result = policy.apply(order);
+        if (result == null || result.signum() < 0
+                || result.compareTo(order.getAmount()) > 0) {
+            throw new IllegalStateException("优惠结果超出允许范围");
+        }
+        return result;
     }
 }
 ```
 
-新增学生优惠时，新建 `StudentDiscountPolicy` 即可。
+新增学生优惠时，新增 `StudentDiscountPolicy` 并加入装配列表；注册表构建时拒绝重复类型。不优惠也应是显式策略，避免配置拼错后悄悄按原价收费。这里没有展示优惠叠加、资格校验和币种转换，它们需要单独定义契约。
 
 ## 落地步骤
 
@@ -76,4 +91,4 @@ public class DiscountService {
 
 ## 判断标准
 
-新增一个同类能力时，是否只新增类和配置，而不修改核心流程。如果新增三个以上同类能力仍然稳定，开闭原则的收益就比较明确。
+新增一个同类能力时，是否主要修改实现与装配，而无需触碰稳定流程。用每个策略运行金额边界测试，并保留旧策略的回归结果；不能用实现类数量作为原则是否成立的阈值。

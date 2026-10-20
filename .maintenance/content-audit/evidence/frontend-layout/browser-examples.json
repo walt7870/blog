@@ -1,0 +1,88 @@
+[
+  {
+    "case": "cascade",
+    "color": "rgb(23, 99, 59)"
+  },
+  {
+    "case": "reversed",
+    "color": "rgb(102, 102, 102)"
+  },
+  {
+    "case": "unlayered",
+    "color": "rgb(255, 0, 0)"
+  },
+  {
+    "case": "container-wide-and-small",
+    "rows": [
+      {
+        "children": [
+          {
+            "x": 8,
+            "y": 27.9140625
+          },
+          {
+            "x": 237.328125,
+            "y": 24
+          }
+        ],
+        "columns": "213.328px 426.672px",
+        "containerWidth": 656
+      },
+      {
+        "children": [
+          {
+            "x": 8,
+            "y": 101.2421875
+          },
+          {
+            "x": 8,
+            "y": 186.65625
+          }
+        ],
+        "columns": "300px",
+        "containerWidth": 300
+      }
+    ]
+  },
+  {
+    "case": "grid-and-flex-390",
+    "button": {
+      "bottom": 54,
+      "height": 24.5,
+      "left": 339.3359375,
+      "right": 382,
+      "top": 29.5,
+      "width": 42.6640625,
+      "x": 339.3359375,
+      "y": 29.5
+    },
+    "items": [
+      {
+        "width": 374,
+        "x": 8,
+        "y": 75.5
+      },
+      {
+        "width": 374,
+        "x": 8,
+        "y": 237.328125
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "case": "a11y-empty-error",
+    "description": "email-help email-error",
+    "errorVisible": true,
+    "focused": true,
+    "invalid": "true"
+  },
+  {
+    "case": "a11y-recovered",
+    "description": "email-help",
+    "errorVisible": false,
+    "invalid": "false",
+    "status": "输入检查通过，尚未发送到服务器。"
+  }
+]

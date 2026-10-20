@@ -1,0 +1,22 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/09-responsive-design.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/09-responsive-design.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.html"
+  }
+]

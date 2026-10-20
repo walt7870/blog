@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="flink-cp-title flink-cp-desc">
+  <title id="flink-cp-title">Flink 检查点与下游提交边界</title>
+  <desc id="flink-cp-desc">可重放源进入TaskManager的去重和窗口算子后写外部系统，JobManager协调检查点，持久存储保留源位点与状态，恢复时重放；下游只有配套事务或幂等合同才能避免重复效果。</desc>
+  <defs><marker id="flink-cp-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#flink-cp-arrow)}</style></defs>
+  <rect width="1200" height="680" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">状态一致恢复与外部效果不重复，需要共同设计</text><text x="36" y="78" class="small">图示是机制边界；本地支付练习只验证去重与窗口金额，不运行持久化检查点和外部事务sink。</text>
+  <rect x="424" y="124" width="392" height="252" rx="8" fill="none" stroke="#9caab2" stroke-dasharray="6,4"/>
+  <rect x="440" y="108" width="268" height="32" fill="#f7f9fa"/><text x="456" y="130" class="head">TaskManager 并行子任务</text>
+  <path d="M320 252H452" class="line"/><path d="M788 252H936" class="line"/>
+  <path d="M544 344V456" class="line"/><path d="M696 456V344" class="line" stroke-dasharray="5,4"/>
+  <path d="M320 516H452" class="line"/>
+  <path d="M788 516H1044Q1052 516 1052 508V344" class="line" stroke-dasharray="5,4"/>
+  <rect x="36" y="172" width="284" height="172" class="box"/><text x="56" y="212" class="head">可重放输入源</text><text x="56" y="254">Kafka位点 / 文件位置</text><text x="56" y="294" class="small">保留时间须覆盖恢复需求</text><text x="56" y="326" class="small">源业务重复仍需按支付号去重</text>
+  <rect x="452" y="172" width="336" height="172" class="focus"/><text x="472" y="212" class="head">按键状态与窗口</text><text x="472" y="254">去重、聚合、定时器</text><text x="472" y="294" class="small">TaskManager之间直接交换数据</text><text x="472" y="326" class="small">运行状态后端 ≠ 快照存储</text>
+  <rect x="936" y="172" width="232" height="172" class="box"/><text x="956" y="212" class="head">外部结果与副作用</text><text x="956" y="254">数据库 / Kafka / HTTP</text><text x="956" y="294" class="small">事务sink或稳定键幂等</text><text x="956" y="326" class="small">普通HTTP效果不会自动撤销</text>
+  <rect x="36" y="456" width="284" height="124" class="box"/><text x="56" y="496" class="head">JobManager 协调</text><text x="56" y="538">触发、确认与失败恢复</text>
+  <rect x="452" y="456" width="336" height="124" class="focus"/><text x="472" y="496" class="head">持久化检查点</text><text x="472" y="534">源位点 + 算子与连接器状态</text><text x="472" y="566" class="small">远端可访问存储，保留完整恢复依赖</text>
+  <text x="452" y="400" class="small">一致快照</text><text x="708" y="400" class="small">恢复</text>
+  <rect x="836" y="464" width="216" height="28" fill="#f7f9fa"/><text x="848" y="484" class="small">配套sink在完成后提交</text>
+  <path d="M36 612H1168" stroke="#bac4c9"/><text x="36" y="646" class="small">实线：正常数据或检查点协调；虚线：恢复及配套提交。未参与提交协议的外部写入需要独立幂等与补偿。</text>
+</svg>

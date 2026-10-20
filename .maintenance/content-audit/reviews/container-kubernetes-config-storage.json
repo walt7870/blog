@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/configmap.md",
+      "status": "verified",
+      "reviewedHash": "6f08f9af01ea509ce7f775d2367719569c0e87eda3c3145d77b1489dde24c84f",
+      "pageType": "配置消费、生效与回滚边界",
+      "decision": "完整阅读后新增环境变量、目录投影和subPath三种生效路径图；用支付超时2秒改5秒贯穿对象/文件/进程验收，补字段位置、items、目录覆盖、旧文件描述符、不可变新名、Pod模板摘要和配置版本回滚。",
+      "validation": ["ConfigMap官方全文阅读，Volumes的subPath相关段核对。3段YAML解析并检查configMapKeyRef嵌套，1段Bash经bash -n/zsh -n通过。新SVG自检、原尺寸真实字体边界及截图通过。桌面1280×900/手机390×844双主题全页、两端图片1120原尺寸加载关闭通过；手机长代码scrollLeft37.5，页面宽390无横溢。桌面及手机分页进入Secret URL/H1正确。整站构建13.87秒通过；未运行集群配置热更新实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/secret.md",
+      "status": "verified",
+      "reviewedHash": "fa5d587370b2f7ad243738dd0161d0f1db1d4109d380bb9930a7b09571523c6a",
+      "pageType": "凭据注入、轮换时序与权限边界",
+      "decision": "完整阅读后修复创建命令namespace遗漏，补文件/管道前提、模板字段位置与subPath；新增双账号重叠轮换时序，解释新连接验收及撤销后的回滚合同；区分kubelet挂载与应用API读取、间接Secret访问、Token轮换重读、401认证和403授权。",
+      "validation": ["Secret官方存储/间接读取/最终一致投影相关段、Volumes的Secret subPath段、ServiceAccount投影短期Token段核对，未称三篇全文阅读。3段YAML解析和2段Bash双shell语法通过。时序SVG自检与原尺寸字体边界截图通过。桌面/手机双主题全页及两端图片1120原尺寸加载关闭通过；手机3处超宽代码scrollLeft40/4.5/40，无页面横溢。两端分页到PV/PVC URL/H1正确；整站构建通过，无真实凭据轮换或API授权实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/pv-pvc.md",
+      "status": "verified",
+      "reviewedHash": "ec40fd8f54992346cb4938ce66801bd3897a2b8b6f41b916c15523d78f2b9c2e",
+      "pageType": "声明、供应、挂载与数据生命周期",
+      "decision": "完整阅读并引用现有CSI真实链路图；补100GiB数据库场景、对象范围、占位provisioner前提、WaitForFirstConsumer/nodeName、默认类与空字符串、RWO和RWOP、Delete/Retain/Released及finalizer、既有PV回收策略、扩容分层验收和隔离快照恢复。",
+      "validation": ["PV官方访问模式、保护/回收、扩容与预绑定相关段，StorageClass默认类/等待消费者/nodeName/回收相关段核对。1段YAML含2对象解析，1段Bash双shell语法通过。引用图源码全读、桌面/手机双主题全页及两端原尺寸1120加载关闭通过；手机长代码scrollLeft15，无整页横溢，访问模式解释列可见。旧图手机760宽局部滚动列入最终共享UI复验。13.87秒构建通过，无CSI或数据库恢复实验。"]
+    }
+  ]
+}

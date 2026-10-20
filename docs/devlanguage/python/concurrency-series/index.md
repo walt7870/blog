@@ -4,8 +4,12 @@
 
 系列不从“线程、协程、进程谁更快”开始，而是先回到真实任务：批量文件处理、语音转码、ASR/TTS API、GPU 推理、实时语音链路和性能压测。每篇都按同一条工程链路展开：先看问题，再判断瓶颈，然后选择工具，最后用指标验证。
 
-> 对应视频合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)，19 集已通过审核并进入定时发布。
-> 最后核验：2026/08/09 08:26:33
+> 配套视频：[Python 并发实战合集](https://space.bilibili.com/181407346/lists/8787437?type=season)。
+> 示例运行环境：Python3.11及以上；运行时选型以Python3.14说明为准。
+
+![Python并发诊断与选型](/python/concurrency/concurrency-diagnosis-decision-flow.svg)
+
+以批量录音为例：转码占CPU，接口转写等待网络，结果写入需要可恢复的状态。三个阶段分别限容量，才能避免API变慢时把全部录音堆进内存。先沿总图定位瓶颈，再进入下表对应章节；代码中的sleep和fake_api均为本地模拟，不调用真实识别服务。
 
 ## 阅读路线
 

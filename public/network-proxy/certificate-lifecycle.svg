@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="certificate-title certificate-desc">
+  <title id="certificate-title">证书签发安装与服务加载闭环</title>
+  <desc id="certificate-desc">管理员配置DNS验证，CA签发，acme安装到固定目录，服务加载后由客户端验证。私钥只在服务器控制范围内，客户端不读取私钥。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="600" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="57" font-size="27" font-weight="700">签发成功之后，还要安装与加载</text>
+    <text x="48" y="91" font-size="17" fill="#536470">私钥留在服务器；客户端只校验信任链和服务器名称。</text>
+    <text x="60" y="158" font-size="17" fill="#536470">控制流程：CA 在外部签发；本机管理员安装，服务按运行身份读取</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M251 255H296"/><path d="M521 255H566"/><path d="M791 255H836"/>
+      <path d="M949 321V460H834"/>
+    </g>
+    <rect x="65" y="200" width="186" height="121" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="85" y="233" font-size="21" font-weight="700">1. 域名验证</text>
+    <text x="85" y="264" font-size="16">DNS TXT / HTTP 挑战</text>
+    <text x="85" y="291" font-size="16">证明域名控制权</text>
+    <rect x="296" y="200" width="225" height="121" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="316" y="233" font-size="21" font-weight="700">2. CA 签发</text>
+    <text x="316" y="264" font-size="16">acme.sh 维护内部材料</text>
+    <text x="316" y="291" font-size="16">内部路径不交给服务</text>
+    <rect x="566" y="200" width="225" height="121" rx="5" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="586" y="233" font-size="21" font-weight="700">3. 安装到固定路径</text>
+    <text x="586" y="264" font-size="16">证书链与私钥文件</text>
+    <text x="586" y="291" font-size="16">核对属主与父目录权限</text>
+    <rect x="836" y="200" width="225" height="121" rx="5" fill="#e9f5f0" stroke="#7caaa0"/>
+    <text x="856" y="233" font-size="21" font-weight="700">4. 服务加载</text>
+    <text x="856" y="264" font-size="16">检查成功后执行加载</text>
+    <text x="856" y="291" font-size="16">systemd 或 Compose</text>
+    <text x="67" y="366" font-size="17">DNS API：可自动处理挑战　　手工 TXT：每次续期需要人工参与</text>
+    <rect x="414" y="434" width="420" height="88" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="434" y="469" font-size="21" font-weight="700">客户端校验线上证书</text>
+    <text x="434" y="499" font-size="17">信任链、名称、指纹与到期时间</text>
+    <text x="48" y="566" font-size="17" fill="#536470">文件已更新、线上仍是旧证书：先检查读取路径、挂载与加载动作，不重复强制签发。</text>
+  </g>
+</svg>

@@ -33,7 +33,7 @@ sherpa-onnx 把这些工作收敛到统一配置和 API 中。推理阶段由 ON
 | --- | --- | --- |
 | 训练与导出 | 准备数据、训练模型、量化并导出 ONNX | icefall、FunASR、NeMo、Whisper 相关工具 |
 | 模型资产 | 定义语言、结构、词表、精度和资源消耗 | `model.onnx`、`tokens.txt`、encoder/decoder/joiner |
-| 推理运行时 | 执行 ONNX 计算图和算子 | ONNX Runtime、CUDA、特定 NPU 后端 |
+| 推理运行时 | 执行计算图和算子 | ONNX Runtime 及其 CPU/CUDA 等 Execution Provider；部分设备使用专用后端 |
 | sherpa-onnx | 特征、模型适配、解码、流、VAD、端点和多语言 API | Config、Recognizer、Stream、Result |
 
 准确率问题首先属于模型和数据，部署崩溃、输入格式、流状态、解码配置和跨平台封装问题才更可能属于框架集成。把这两类问题混在一起，会出现“换框架解决模型精度”或“换模型解决音频输入错误”的无效尝试。

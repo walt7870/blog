@@ -1,0 +1,322 @@
+[
+  {
+    "file": "index.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4159,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发实战：从基础模型到语音工程",
+    "width": 390
+  },
+  {
+    "file": "00-python-concurrency-engineering-map.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 10674,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发工程全景图：从任务瓶颈到工程流水线",
+    "width": 390
+  },
+  {
+    "file": "01-find-the-bottleneck-before-concurrency.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 11954,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep01-bottleneck-evidence-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "先判断瓶颈：I/O、CPU、API、GPU、内存",
+    "width": 390
+  },
+  {
+    "file": "02-concurrency-parallelism-async-pipeline.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3882,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep02-four-concepts-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "并发、并行、异步、流水线：四个词不要混着用",
+    "width": 390
+  },
+  {
+    "file": "03-python-concurrency-tool-map.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4363,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep03-tool-selection-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发工具地图：线程、协程、进程、队列怎么选",
+    "width": 390
+  },
+  {
+    "file": "04-threadpool-practice.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3964,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep04-threadpool-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "线程与线程池实战：把等待时间叠起来",
+    "width": 390
+  },
+  {
+    "file": "05-thread-safety-shared-state.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4261,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep05-shared-state-strategies.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "线程安全与共享状态：别让任务完成但结果写错",
+    "width": 390
+  },
+  {
+    "file": "06-asyncio-event-loop-model.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4238,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep06-event-loop-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "asyncio 的事件循环模型：速度来自让出控制权",
+    "width": 390
+  },
+  {
+    "file": "07-async-task-orchestration.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4410,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep07-async-task-state-machine.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "异步任务编排：成功、失败、超时和取消怎么收敛",
+    "width": 390
+  },
+  {
+    "file": "08-sync-blocking-in-async-system.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3938,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep08-sync-blocking-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "同步库与异步系统的边界：警惕伪异步",
+    "width": 390
+  },
+  {
+    "file": "09-processpool-cpu-bound-work.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4380,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep09-processpool-cost-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "进程池与 CPU 密集任务：什么时候绕开线程",
+    "width": 390
+  },
+  {
+    "file": "10-producer-consumer-task-queue.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 7440,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep10-bounded-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 队列与流水线：让多阶段任务稳定推进",
+    "width": 390
+  },
+  {
+    "file": "11-rate-limit-backpressure-retry.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3961,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep11-control-layer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "并发控制：限流、背压、重试：让系统稳定推进，而不是瞬间冲垮下游",
+    "width": 390
+  },
+  {
+    "file": "12-file-batch-checkpoint.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 4836,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep12-file-checkpoint-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "批量文件处理实战：跑几个小时，也要能恢复、能跳过、能定位坏文件",
+    "width": 390
+  },
+  {
+    "file": "13-audio-transcode-preprocess.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3838,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep13-ffmpeg-command-pool.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "批量语音转码与预处理：用 ffmpeg 有界命令池，把输入先标准化",
+    "width": 390
+  },
+  {
+    "file": "14-asr-tts-api-concurrency.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3888,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep14-api-quota-ledger.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "ASR/TTS API 并发实战：把服务端配额当成系统的一部分",
+    "width": 390
+  },
+  {
+    "file": "15-local-model-gpu-inference.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3697,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep15-gpu-batch-queue.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "本地模型/GPU 推理并发：管理 batch、显存和等待队列，而不是盲目多开 worker",
+    "width": 390
+  },
+  {
+    "file": "16-realtime-audio-pipeline.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3618,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep16-realtime-latency-budget.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "实时语音流水线：把录音、VAD、上传、识别放进延迟预算",
+    "width": 390
+  },
+  {
+    "file": "17-observability-benchmark.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3618,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep17-benchmark-evidence-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "性能观测与压测：别只看平均耗时，用证据证明并发真的变好",
+    "width": 390
+  },
+  {
+    "file": "18-gil-free-threading-future.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "height": 3318,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep18-runtime-selection-future.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "GIL、free-threading 与未来选型：运行时会变，工程判断顺序不会变",
+    "width": 390
+  }
+]

@@ -1,9 +1,7 @@
 # Excel/表格实战入口
 
 > 示例文件：`table_health_check.py`  
-> 最后核验：2026-08-02
-
-本文围绕“客户交来的 xlsx/csv 应该先检查什么”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
@@ -13,12 +11,11 @@
 
 ## 核心判断
 
-- `表头` 要服务于真实客户数据处理。
-- `空值` 要服务于真实客户数据处理。
-- `重复行` 要服务于真实客户数据处理。
-- `字段映射` 要服务于真实客户数据处理。
+先把外部表头映射为内部字段，再检查空值和重复。映射处理的是名称差异，不会恢复已经被 Excel 转坏的手机号。本课先使用内存行数据说明规则；CSV 入口见上一节，`.xlsx` 需要通过 `openpyxl` 等读取器转为记录，不能交给 `csv` 解析。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![表头映射成功后才进入记录检查](/python/table-health-gates.svg)
+
+示例用 `(姓名, 电话)` 作为疑似重复键，只输出供核对，不自动删除。家庭共享手机号、同名不同人都可能存在；生产去重应优先使用系统客户编号。表头缺失属于整批输入错误，应停止规则处理；空手机号则属于行级数据质量问题，可以继续检查其他行。
 
 ## 运行示例
 
@@ -26,11 +23,7 @@
 python3 table_health_check.py
 ```
 
-运行后检查三件事：
-
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+预期缺失表头“无”、空手机号 1 行、疑似重复 1 行。空列表应报告“无数据行”；把某行的“电话”改为“手机”，应先报该行缺少字段，不能在统计中途才抛 `KeyError`。若外部表头有多个别名，需先确认不会映射到同一个内部字段而覆盖值。
 
 ## 完整示例
 
@@ -50,48 +43,32 @@ required_headers = set(field_map)
 
 
 def main() -> None:
-    headers = set(rows[0])
-    missing_headers = required_headers - headers
-    empty_phone = [row for row in rows if not row["电话"]]
+    if not rows:
+        print("无数据行；文件表头应由读取器单独校验")
+        return
+    for number, row in enumerate(rows, start=1):
+        missing_headers = required_headers - set(row)
+        if missing_headers:
+            raise ValueError(f"第 {number} 行缺少字段：{sorted(missing_headers)}")
+    normalized = [{target: row[source] for source, target in field_map.items()} for row in rows]
+    empty_phone = [row for row in normalized if not row["phone"].strip()]
     seen = set()
     duplicates = []
 
-    for row in rows:
-        key = (row["姓名"], row["电话"])
+    for row in normalized:
+        key = (row["name"].strip(), row["phone"].strip())
         if key in seen:
             duplicates.append(row)
         seen.add(key)
 
-    print(f"缺失表头：{sorted(missing_headers) or '无'}")
+    print("缺失表头：无")
     print(f"空手机号：{len(empty_phone)} 行")
-    print(f"重复记录：{len(duplicates)} 行")
+    print(f"疑似重复：{len(duplicates)} 行")
 
 
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

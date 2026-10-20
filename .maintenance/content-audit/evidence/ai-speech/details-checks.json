@@ -1,0 +1,61 @@
+[
+  {
+    "page": "pipeline-boundaries.html",
+    "details": [
+      {
+        "label": "持久参考的密钥、删除与恢复约束",
+        "open": true
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "details": [
+      {
+        "label": "验证所有权竞争的最小组合",
+        "open": true
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "details": [
+      {
+        "label": "为什么固定输入还要固定执行形状",
+        "open": true
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "page": "hotword-routing.html",
+    "details": [
+      {
+        "label": "目标路径受限纠正的具体条件",
+        "open": true
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "details": [
+      {
+        "label": "可复核的目录与 manifest 示例",
+        "open": true
+      },
+      {
+        "label": "按绝对时间回放 PCM 的最小代码",
+        "open": true
+      }
+    ],
+    "scroll": 390,
+    "width": 390
+  }
+]

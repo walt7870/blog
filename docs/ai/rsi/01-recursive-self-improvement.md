@@ -4,7 +4,7 @@
 
 如果分析失败、修改工具、检查结果这些步骤也由 AI 参与，并且改好的工具能帮助它完成下一次自身修改，就出现了递归自我改进关心的反馈。理解这件事，需要同时回答三个问题：系统改了什么，收益由谁验证，改进怎样参与下一轮改进。
 
-对应视频：[EP01 RSI 递归自我改进](https://www.bilibili.com/video/BV1BXHe6nET2)；[B 站专题合集](https://space.bilibili.com/181407346/lists/9235646?type=season)。已核验的投稿记录设定公开时间为 2026-10-04 20:30（北京时间）；定时稿公开前可能不可访问。
+对应视频：[EP01 RSI 递归自我改进](https://www.bilibili.com/video/BV1BXHe6nET2)；[B 站专题合集](https://space.bilibili.com/181407346/lists/9235646?type=season)。
 
 ## RSI 是什么
 

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="title desc">
+  <title id="title">Docker 与 Kubernetes 的容器创建调用链</title>
+  <desc id="desc">Docker CLI 请求 Engine，再经 containerd、shim 和 OCI 运行时创建进程。Kubernetes 经控制面调谐、调度，再由 kubelet 通过 CRI 请求运行时。Linux 容器需要 Linux 内核，本地电脑可以通过虚拟机提供。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="630" fill="#f8fafc"/>
+  <text class="h" x="40" y="51">先找管理入口，再沿创建链路排错</text><text class="t muted" x="40" y="84">图中展示常见 Linux 路径；构建、网络与存储管理还有各自的调用。</text>
+  <text class="n" x="40" y="135">Docker 单机管理</text>
+  <path class="line" d="M230 222H275"/><path class="line" d="M485 222H530"/><path class="line" d="M740 222H785"/>
+  <rect class="box" x="40" y="164" width="190" height="116" rx="6"/><text class="n" x="58" y="201">Docker CLI</text><text class="t" x="58" y="234">context 决定端点</text><text class="t" x="58" y="260">通过 Engine API 请求</text>
+  <rect class="blue" x="275" y="164" width="210" height="116" rx="6"/><text class="n" x="293" y="201">Engine daemon</text><text class="t" x="293" y="234">管理镜像、容器</text><text class="t" x="293" y="260">网络与卷</text>
+  <rect class="blue" x="530" y="164" width="210" height="116" rx="6"/><text class="n" x="548" y="201">containerd</text><text class="t" x="548" y="234">生命周期与任务管理</text><text class="t" x="548" y="260">不等于 Docker CLI</text>
+  <rect class="green" x="785" y="164" width="295" height="116" rx="6"/><text class="n" x="803" y="201">shim → OCI 运行时 → 进程</text><text class="t" x="803" y="234">常用 OCI 运行时为 runc</text><text class="t" x="803" y="260">runc 不必长期驻留</text>
+  <text class="n" x="40" y="337">Kubernetes 声明式管理</text>
+  <path class="line" d="M315 422H360"/><path class="line" d="M535 422H580"/><path class="line" d="M790 422H835"/>
+  <rect class="box" x="40" y="364" width="275" height="116" rx="6"/><text class="n" x="58" y="401">API / 控制器 / 调度器</text><text class="t" x="58" y="434">保存、调谐与选择节点</text><text class="t" x="58" y="460">不直接创建节点进程</text>
+  <rect class="blue" x="360" y="364" width="175" height="116" rx="6"/><text class="n" x="378" y="401">节点 kubelet</text><text class="t" x="378" y="434">观察节点上的 Pod</text><text class="t" x="378" y="460">通过 CRI 发请求</text>
+  <rect class="blue" x="580" y="364" width="210" height="116" rx="6"/><text class="n" x="598" y="401">CRI 实现</text><text class="t" x="598" y="434">containerd CRI 插件</text><text class="t" x="598" y="460">或 CRI-O 等</text>
+  <rect class="green" x="835" y="364" width="245" height="116" rx="6"/><text class="n" x="853" y="401">OCI 运行时 → 进程</text><text class="t" x="853" y="434">底层创建与生命周期</text><text class="t" x="853" y="460">具体管理进程依实现</text>
+  <rect x="40" y="526" width="1040" height="64" rx="6" fill="#f0f5f8" stroke="#abbecb" stroke-dasharray="6 5"/>
+  <text class="t" x="60" y="553">Linux 内核由服务器或本地虚拟机提供。Colima / Lima 等负责本地 VM，CLI 负责发送管理请求。</text><text class="t muted" x="60" y="578">镜像兼容不等于 API 兼容；节点没有 Docker 命令，不代表不能运行 Docker 构建的兼容镜像。</text>
+</svg>

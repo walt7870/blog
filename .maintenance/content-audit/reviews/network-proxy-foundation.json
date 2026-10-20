@@ -1,0 +1,44 @@
+{
+  "pages": [
+    {
+      "file": "docs/network-proxy/index.md",
+      "status": "verified",
+      "reviewedHash": "de7d4932d90c4d4dbc4def88a9440e67702f3722cfbb50316ce2215b3804767a",
+      "pageType": "网络代理主题地图",
+      "decision": "全文核对十三页职责后补协议组合入口、内部制品库与外部API双路径案例；重画架构，GUI仅管理配置，DIRECT绕过远端，证书与业务凭据分层判断。",
+      "validation": ["整站最终构建13.94秒通过。1120宽SVG独立原尺寸字体及边界截图通过；桌面1280与手机390浅深色全页检查，图片原尺寸加载关闭、分页进入基础页均通过。未进行真实代理联调。"]
+    },
+    {
+      "file": "docs/network-proxy/fundamentals.md",
+      "status": "verified",
+      "reviewedHash": "4194e3035a819fa19fb114c43ed26169fa202b51aff487b5fe3554769011bda3",
+      "pageType": "本机接入与规则决策机制",
+      "decision": "全文核对后补TUN接管范围、路由环、企业VPN及DNS边界，明确Mihomo规则片段依赖与UDP继续匹配条件；用显式curl区分CONNECT、目标TLS与HTTP结果，重画分流图。",
+      "validation": ["Mihomo规则官方正文核对，Bash与YAML语法通过。1120宽SVG独立截图通过；桌面与手机双主题、原尺寸关闭、手机长代码scrollLeft25/22.5、分页均通过。整站构建通过，未运行网络curl或内核。"]
+    },
+    {
+      "file": "docs/network-proxy/components.md",
+      "status": "verified",
+      "reviewedHash": "a3dff41743ce0cc29b447bbe581bd9772704b52fbf7fb264bf603208128ca5c0",
+      "pageType": "代理组件与控制数据面关系",
+      "decision": "全文核对后校准VLESS加密、TLS层次、订阅并非必含完整规则、节点直接引用等边界；补节点重命名失败例与DIRECT/NO_PROXY区别，重画配置驱动与业务流图。",
+      "validation": ["YAML解析通过。1120宽图独立原尺寸截图与字体边界通过；桌面/手机浅深色全页、图片原尺寸加载关闭、分页进入协议页通过。整站构建通过，无真实客户端导入实验。"]
+    },
+    {
+      "file": "docs/network-proxy/protocol-stack.md",
+      "status": "verified",
+      "reviewedHash": "b7c4149e1633572ae2fe2959e42046a246afc04df9a8e60e6c9612b005a0714a",
+      "pageType": "实现与协议封装边界",
+      "decision": "全文核对后重画四种封装关系，限定sing-box内置SIP003为出站；补SNI与验证区别、TLS终止边界、Hysteria2共享拥塞及按方向算法选择，增加下载API逐层失败例。",
+      "validation": ["sing-box出站Shadowsocks与Hysteria官方完整客户端配置正文核对。1120宽图原尺寸截图通过；桌面/手机双主题全页、图片加载关闭与分页进入实施页通过。整站构建通过，未进行网络性能实验。"]
+    },
+    {
+      "file": "docs/network-proxy/implementation.md",
+      "status": "verified",
+      "reviewedHash": "533ff9ab2372173d0f6fe2e212097b96a05c66cfa0414cda91f116fe9e1e6dd9",
+      "pageType": "部署路径与验收导读",
+      "decision": "全文重写为Trojan加TLS主线，systemd与Docker二选一，证书从业务数据路径移出；补阶段停止条件、内外网案例、错误凭据和重启恢复验收、失败恢复及扩展入口。新增实施流程图。",
+      "validation": ["Bash语法通过；1120宽流程图原尺寸字体及边界截图通过。桌面/手机双主题全页、图片原尺寸关闭、手机代码scrollLeft19与分页进入证书页通过。整站构建13.94秒通过，未声称真实部署完成。"]
+    }
+  ]
+}

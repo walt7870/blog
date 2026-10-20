@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">Linux arm64 交叉编译与运行验证</title><desc id="desc">宿主机使用目标编译器与目标sysroot产生AArch64产物，然后在匹配系统库和CPU特性的机器上验证。模拟执行不能替代硬件验收。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="640" fill="#f8fafc"/><text class="title" x="56" y="58">从 x86-64 构建机到 arm64 运行环境</text><text class="note" x="56" y="91">交叉编译只是生成目标产物，兼容性与性能还需在目标环境验证</text>
+<path class="line" d="M346 225H414"/><path class="line" d="M706 225H774"/><path class="line" d="M560 345V280"/><path class="line" d="M920 280V345"/>
+<rect class="box" x="56" y="170" width="290" height="110" rx="5"/><text class="h" x="80" y="207">构建宿主</text><text class="t" x="80" y="243">构建系统与应用源码</text>
+<rect x="414" y="170" width="292" height="110" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="438" y="207">AArch64 编译器</text><text class="t" x="438" y="243">目标选项、链接与 CPU 基线</text>
+<rect class="box" x="774" y="170" width="290" height="110" rx="5"/><text class="h" x="798" y="207">目标 ELF 与原生库</text><text class="t" x="798" y="243">架构、加载器、依赖均匹配</text>
+<rect class="box" x="414" y="345" width="292" height="100" rx="5"/><text class="h" x="438" y="382">目标 sysroot / SDK</text><text class="t" x="438" y="416">头文件与库来自目标环境</text>
+<rect class="box" x="774" y="345" width="290" height="100" rx="5"/><text class="h" x="798" y="382">真实目标机器</text><text class="t" x="798" y="416">CPU、libc、驱动与资源限制</text>
+<text class="note" x="56" y="370">不要混入宿主机的库</text><text class="note" x="56" y="402">同叫 arm64 也要核对 ABI</text>
+<path d="M56 491H1064" stroke="#dce3df"/><text class="h" x="56" y="533">验收链</text><text class="t" x="190" y="533">产物格式 → 加载依赖 → 功能输出 → 性能与稳定性 → 回退兼容</text><text class="note" x="56" y="590">QEMU 可辅助执行部分程序；真实外设、CPU 扩展和时延需要目标硬件证据。</text>
+</svg>

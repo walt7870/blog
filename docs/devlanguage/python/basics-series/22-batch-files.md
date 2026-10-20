@@ -1,24 +1,21 @@
 # 批量文件自动化
 
 > 示例文件：`batch_files.py`  
-> 最后核验：2026-08-02
-
-本文围绕“一个文件夹里几十个文件怎样统一处理”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
 每天收到多个城市的日报文件，人工改名和汇总容易漏文件、覆盖文件。
 
-本集产物是：**批量改名/汇总脚本**。
+本集产物是：**保留原件的批量复制脚本**。示例不做内容汇总，也不重命名输入原件。
 
 ## 核心判断
 
-- `pathlib` 要服务于真实客户数据处理。
-- `glob` 要服务于真实客户数据处理。
-- `文件命名` 要服务于真实客户数据处理。
-- `输入输出隔离` 要服务于真实客户数据处理。
+输入目录只读，输出放到另一个目录；`glob("*.txt")` 只选当前层的文本文件，包含子目录的任务才考虑 `rglob`。排序让处理顺序稳定，但编号依赖集合顺序，新增文件后序号可能变化。本例用原文件名派生目标名，让同一输入始终映射到同一目标。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![输入原件保持不动，派生结果写入独立目录](/python/batch-file-boundaries.svg)
+
+使用排他创建模式 `x`，目标已存在就报错，防止重复运行静默覆盖旧结果。批次中断后可能已有部分输出；先检查已完成文件再决定重跑或换批次目录，更复杂的续跑见并发系列检查点章节。示例只支持 UTF-8 文本，不适合二进制文件。
 
 ## 运行示例
 
@@ -26,11 +23,7 @@
 python3 batch_files.py
 ```
 
-运行后检查三件事：
-
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+在脚本旁手动建立 `inputs/`，放入 `shanghai.txt` 和 `hangzhou.txt`，脚本会创建 `outputs/report-shanghai.txt` 等结果，内容应与原件一致。第二次运行应因目标已存在而失败，原件与已生成结果都不会被覆盖。没有匹配文件时明确报错，避免把空输入当成批量完成。
 
 ## 完整示例
 
@@ -44,45 +37,24 @@ from pathlib import Path
 base = Path(__file__).parent
 input_dir = base / "inputs"
 output_dir = base / "outputs"
-input_dir.mkdir(exist_ok=True)
-output_dir.mkdir(exist_ok=True)
-
-for city in ["shanghai", "hangzhou", "shenzhen"]:
-    (input_dir / f"{city}.txt").write_text(f"{city} daily report", encoding="utf-8")
 
 
 def main() -> None:
-    for index, file in enumerate(sorted(input_dir.glob("*.txt")), start=1):
-        target = output_dir / f"report-{index:02d}-{file.name}"
-        target.write_text(file.read_text(encoding="utf-8"), encoding="utf-8")
+    files = sorted(file for file in input_dir.glob("*.txt") if file.is_file())
+    if not files:
+        raise ValueError("inputs 中没有可处理的 txt 文件")
+    output_dir.mkdir(exist_ok=True)
+    for file in files:
+        target = output_dir / f"report-{file.name}"
+        content = file.read_text(encoding="utf-8")
+        with target.open("x", encoding="utf-8") as output:
+            output.write(content)
         print(f"{file.name} -> {target.name}")
 
 
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

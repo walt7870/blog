@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+<title id="title">Windows 桌面与服务进程边界</title><desc id="desc">交互桌面进程调用厂商DLL与驱动，有需要时通过认证授权的IPC提交给独立服务。服务以自己的身份持久化任务和执行上传，不直接显示用户界面。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="760" fill="#f8fafc"/><text class="title" x="56" y="58">收据扫描：交互桌面、系统服务与原生库分别核对</text><text class="note" x="56" y="91">独立服务是按需求选择的部署方式；进程内后台任务不会自动变成 Windows 服务</text>
+<rect x="56" y="130" width="430" height="385" rx="5" fill="none" stroke="#b7c9bf" stroke-dasharray="6 5"/><text class="h" x="80" y="165">登录用户与交互会话</text>
+<rect x="635" y="130" width="429" height="385" rx="5" fill="none" stroke="#b7c9bf" stroke-dasharray="6 5"/><text class="h" x="659" y="165">独立服务身份与会话</text>
+<path class="line" d="M456 248H665"/><path class="line" d="M271 295V385"/><path class="line" d="M850 295V385"/>
+<rect class="box" x="86" y="200" width="370" height="95" rx="5"/><text class="h" x="110" y="237">桌面 UI 与应用逻辑</text><text class="t" x="110" y="271">预览、确认、取消与状态展示</text>
+<rect x="665" y="200" width="369" height="95" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="689" y="237">服务端任务入口</text><text class="t" x="689" y="271">校验调用者、路径与操作范围</text>
+<text class="note" x="518" y="229">受控 IPC</text><text class="note" x="294" y="345">同进程 DLL 位数匹配</text><text class="note" x="873" y="345">使用服务账号权限</text>
+<rect class="box" x="86" y="385" width="370" height="100" rx="5"/><text class="h" x="110" y="423">厂商 SDK 与原生 DLL</text><text class="t" x="110" y="459">ABI、运行库与会话要求</text>
+<rect class="box" x="665" y="385" width="369" height="100" rx="5"/><text class="h" x="689" y="423">持久任务与上传</text><text class="t" x="689" y="459">稳定标识、幂等确认与停止恢复</text>
+<path class="line" d="M271 485V555"/><rect class="box" x="86" y="555" width="370" height="75" rx="5"/><text class="h" x="110" y="585">系统驱动与扫描设备</text><text class="t" x="110" y="614">独立于用户进程的系统边界</text><text class="note" x="505" y="590">驱动架构、签名与设备支持单独核对</text><text class="note" x="505" y="620">示例省略厂商内部调用细节</text>
+<path d="M56 666H1064" stroke="#dce3df"/><text class="t" x="56" y="700">服务不直接显示用户桌面；扫描 SDK 是否支持后台会话，需核对具体产品合同。</text><text class="note" x="56" y="735">AnyCPU 不会转换厂商 DLL；自包含部署也不会自动携带或适配所有设备驱动。</text>
+</svg>

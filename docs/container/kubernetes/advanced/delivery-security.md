@@ -8,16 +8,15 @@ date: 2026-07-18
 
 GitOps 解决“期望从哪里来、谁改变过”，Admission 解决“哪些对象允许进入”，运行时策略和供应链证据解决“进入后能否被信任”。三者是连续控制链，不能用“仓库有审批”替代集群准入，也不能用一个镜像扫描结果替代来源、签名和部署身份。
 
+例如订单镜像已签名，但新Deployment引用了错误Secret：签名校验可以通过，Pod仍会启动失败；GitOps显示Synced也不能替代Ready和业务请求验收。每个状态只回答它负责的问题。
+
+![从镜像构建到GitOps调谐、准入和业务验收的控制链](/container/gitops-admission-evidence.svg)
+
 ## GitOps 是双状态控制循环
 
 Argo CD 区分目标状态、集群 live state、sync status、sync operation 和 health；对象 Synced 只表示期望与实际清单一致，不代表应用健康。Flux 把 Git/OCI 等 Source 拉取为 artifact，再由 Kustomize、Helm 等控制器分别调谐。
 
-```text
-Git/OCI Source -> 拉取并校验 artifact -> 渲染/组合 -> Apply
-       ^                                      |
-       |                                      v
-  审批与晋级 <- 状态、漂移、Health、业务 SLI <- live cluster
-```
+Git/OCI提供期望，控制器拉取、渲染后向API提交；live state再用于比较漂移和健康。应用的运行状态不会自动反向改写Git，告警触发的新变更仍应走明确的评审或自动化流程。
 
 要明确四种策略：
 
@@ -45,6 +44,8 @@ Deployment RollingUpdate 只根据 Pod 数量和 Ready 推进，不理解业务�
 
 ValidatingAdmissionPolicy 使用 CEL 在 API Server 内完成声明式校验，避免一次额外网络调用。它需要 Policy 定义表达式，再由 Binding 选择资源、参数和 `validationActions`。适合镜像格式、标签、资源限制和字段组合等确定性规则。
 
+下面是部署在支持v1 Policy的集群中的试运行配置，只匹配带 `platform.example.com/digest-policy: enabled` 标签的namespace。先观察Warn/Audit，再对选定范围切Deny；Audit证据还依赖集群审计配置保留相应事件。
+
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
@@ -59,8 +60,10 @@ spec:
         operations: ["CREATE", "UPDATE"]
         resources: ["deployments"]
   validations:
-    - expression: "object.spec.template.spec.containers.all(c, c.image.contains('@sha256:'))"
+    - expression: "object.spec.template.spec.containers.all(c, c.image.matches('^.+@sha256:[a-f0-9]{64}$'))"
       message: "容器镜像必须使用 sha256 digest"
+    - expression: "!has(object.spec.template.spec.initContainers) || object.spec.template.spec.initContainers.all(c, c.image.matches('^.+@sha256:[a-f0-9]{64}$'))"
+      message: "初始化容器镜像必须使用 sha256 digest"
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
@@ -68,10 +71,16 @@ metadata:
   name: require-image-digest
 spec:
   policyName: require-image-digest
-  validationActions: [Deny]
+  validationActions: [Warn, Audit]
+  matchResources:
+    namespaceSelector:
+      matchLabels:
+        platform.example.com/digest-policy: enabled
 ```
 
-上线前先用 `Audit` 或 `Warn` 观察存量影响，再切 `Deny`。Webhook 只留给 CEL 无法表达的代码或外部验证，并限制 namespace/resource 匹配、超时和 failurePolicy；否则策略系统自身故障会阻断所有发布。
+这两条规则只检查Deployment中普通和初始化容器的digest字符串格式，不验证仓库、镜像存在、签名或构建来源，也没有覆盖其他工作负载及临时容器入口。包含 `@sha256:` 的任意字符串不是有效digest，因此不能只用contains检查。
+
+切换时将actions改为 `[Deny, Audit]`；Deny不能与Warn同时设置。策略只影响后续匹配请求，不会追溯终止已有Pod。Webhook只留给CEL无法表达的代码或外部验证，并限制namespace/resource匹配、超时和failurePolicy；否则策略系统自身故障会阻断发布。
 
 ## Pod Security 与运行边界
 
@@ -83,10 +92,12 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
     pod-security.kubernetes.io/enforce-version: v1.36
     pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/audit-version: v1.36
     pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/warn-version: v1.36
 ```
 
-生产环境通常不应永远使用 `latest`：先在测试中跟随最新标准验证，再把生产固定到明确版本，升级时主动迁移。Pod Security 只校验 Pod 安全上下文，不替代 RBAC、NetworkPolicy、节点隔离和 Secret 管理。
+这是已有Namespace的标签片段，不是可独立apply的完整对象；v1.36是固定标准版本示例，需先确认集群支持。生产环境通常不应永远使用latest：先在测试中验证，再固定明确版本，升级时主动迁移。Pod Security检查Pod spec中的安全限制，除securityContext也涉及host命名空间、卷等字段，不替代RBAC、NetworkPolicy、节点隔离和Secret管理。
 
 ## 镜像供应链证据
 
@@ -111,20 +122,15 @@ ServiceAccount token、RBAC、NetworkPolicy 和 Secret 构成运行时最小权�
 - Secret 不是加密保险箱；还要启用静态加密、外部密钥管理、轮换、审计和最小读取范围。
 
 ```bash
-kubectl auth can-i --as=system:serviceaccount:orders:order-api --list -n orders
+kubectl auth can-i --as=system:serviceaccount:orders:order-api --as-group=system:serviceaccounts --as-group=system:serviceaccounts:orders --as-group=system:authenticated --list -n orders
 kubectl get networkpolicy -n orders
 kubectl get pod -n orders -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.serviceAccountName}{"\t"}{.spec.automountServiceAccountToken}{"\n"}{end}'
 ```
+
+身份模拟需要操作者具备对应impersonate权限；带上ServiceAccount通常所属的组，避免漏掉组绑定授权。Pod未显式设置automount字段不等于最终不挂载，还需查ServiceAccount默认值和实际Pod卷，详见 [ServiceAccount](../resources/serviceaccount)。
 
 ## 失败演练
 
 至少验证：Git 源不可达时已有工作负载是否继续；渲染失败是否停止在 Apply 前；错误签名是否被拒绝；策略后端超时是否符合 failurePolicy；集群管理员紧急绕过后是否留下审计；回退到旧镜像时数据库和配置是否仍兼容。
 
 安全控制的质量不只看拦截率，还看误报、延迟、可解释性、紧急路径和恢复时间。无法解释“哪条规则、哪个证据、谁能修复”的拒绝，会诱导团队绕开控制链。
-
-## 官方资料
-
-- [Argo CD Core Concepts](https://argo-cd.readthedocs.io/en/stable/core_concepts/)
-- [Flux Concepts](https://fluxcd.io/flux/concepts/)
-- [ValidatingAdmissionPolicy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/)
-- [Pod Security Standards](https://kubernetes.io/docs/concepts/security/pod-security-standards/)

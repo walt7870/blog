@@ -1,0 +1,24 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/architecture/cloud-native-architecture.md",
+      "status": "verified",
+      "reviewedHash": "e087e7faac1b7813099157c4f7ab36515346c5a8240af55ec36164a115e5765b",
+      "pageType": "架构机制与选型",
+      "decision": "全文审查原 1590 行，删除重复 ASCII 和产品清单，以促销订单说明运行合同、探针、GitOps、弹性、状态管理和证据链；纠正 CNCF 定义、旧 Istio 组件和平台自动保证业务可靠性的误述，补两张请求/控制与交付图。",
+      "findings": [
+        {
+          "detail": "旧版控制平面、过时镜像示例及单体/HPC/合规一概不适用等断言已修正；替换为有运行前提的 Deployment。",
+          "status": "resolved"
+        }
+      ],
+      "validation": [
+        "原全文、代码与图阅读；核对 CNCF 定义 v1.1、Istio 当前架构与 Kubernetes probes 官方说明",
+        "Ruby Psych 解析 Deployment YAML，通过三类探针、命名端口检查；未执行集群部署",
+        "完整构建 27.81 秒通过；重启生产预览后客户端图片交互正常，文章 console 无 error/warn",
+        "桌面亮色全页及深色、手机亮/深色逐页核对，无全页横向溢出或破图；手机原尺寸 1120px 与关闭预览通过；两 SVG 独立放大、文字边界和连接避让通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    }
+  ]
+}

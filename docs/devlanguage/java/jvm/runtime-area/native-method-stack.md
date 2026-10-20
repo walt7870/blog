@@ -1,88 +1,46 @@
 # 本地方法栈
 
-本地方法栈服务于 native 方法调用。Java 代码通过 JNI 调用 C/C++ 或系统能力时，相关调用现场会进入本地方法栈。大多数 Java 应用不直接操作它，但涉及 JNI、Netty native transport、压缩库、图像处理、加密库时需要关注。
+本地方法栈是 native 调用现场的逻辑概念。HotSpot 的平台线程通常使用同一个 OS 栈承载 Java 和 native 帧，不能在容量预算里机械地为每个线程再加一份独立“本地栈”。JNI、压缩、图像、音视频和 native 存储库还会在栈之外分配堆外数据，那是另一条生命周期。
 
-## 概念边界
+![JNI 调用现场与 native 资源生命周期](/jvm/native-call-resources.svg)
 
-| 项目 | 说明 |
-| --- | --- |
-| 线程关系 | 线程私有 |
-| 服务对象 | native 方法、JNI 调用 |
-| 常见风险 | native 崩溃、堆外内存泄漏、线程栈压力 |
-| 常见信号 | `hs_err_pid*.log`、进程崩溃、RSS 增长 |
+## 调用结束不等于资源释放
 
-虚拟机栈服务 Java 方法，本地方法栈服务 native 方法。HotSpot 的具体实现可能把两者结合管理，但理解上可以分开。
+以音频解码为例：Java 方法调用 native `decode`，C/C++ 函数的临时变量随调用现场退出；但库创建的解码器句柄、模型缓存、native 工作线程可以跨多次调用保留。只有按库合同执行销毁、停止工作和释放，才能结束这些资源的生命周期。
 
-## 常见场景
+Java 包装对象不可达，不保证库立即销毁句柄。成熟封装一般提供 `close()` 等确定的释放入口；使用 `try-with-resources` 的前提是该类确实实现 `AutoCloseable`，不能给未知 SDK 凭空假设接口。Cleaner 只能按库设计承担兜底，不能替代请求成功、失败、取消和关闭路径的清理。
 
-- JNI 手写本地库。
-- Netty epoll/kqueue native transport。
-- RocksDB、LevelDB、SQLite 等本地存储库。
-- 压缩、加密、图像、音视频处理库。
-- JNA / Panama 等访问 native 能力的方式。
+JNI 回调还要遵守引用与线程合同：跨调用保留 Java 对象通常需要 global reference，并在结束时删除；native 创建的线程附加 JVM 后也要按合同分离。局部引用不是跨线程可随意缓存的句柄。详见[JNI](../jni.md)。JDK 22 正式提供的 Foreign Function & Memory API 使用不同的访问接口和 Arena 生命周期，也不能与 JNI 当作同一套释放协议。
 
-## 常见问题
+## 先区分三类故障
 
-### JVM 崩溃
+| 信号 | 先找什么 | 不足以证明什么 |
+| --- | --- | --- |
+| `UnsatisfiedLinkError` | 库名、加载路径、依赖库、CPU 架构、符号签名 | 不一定已经进入 native 方法，更不是必然栈溢出 |
+| 致命崩溃，产生 `hs_err_pid*.log` | Current thread、Problematic frame、native 库、完整栈 | 最后崩溃的库不一定是最早破坏内存的地方 |
+| RSS 上升但堆稳定 | 库的活动句柄、分配、映射、线程、OS 指标 | heap dump 或 NMT 稳定不能排除 native 泄漏 |
 
-如果进程直接崩溃并生成 `hs_err_pid*.log`，重点看：
+`hs_err` 是定位入口，可能需要 core、对应符号和相同版本库继续分析。记录 JDK、库版本、平台、架构、输入大小与并发条件，保留首次失败现场。完整日志常含路径、参数和环境信息，对外共享前应检查内容。
 
-- 当前线程。
-- Problematic frame。
-- native library 路径。
-- JVM 参数和系统信息。
+## NMT 能看什么
 
-示例入口：
+启动时加入 `-XX:NativeMemoryTracking=summary` 后，才能执行：
 
 ```bash
-ls hs_err_pid*.log
-```
-
-这类问题通常不是普通 Java 异常，可能是 native 库越界、非法内存访问、ABI 不兼容或 JDK bug。
-
-### RSS 增长但堆稳定
-
-native 库可能在堆外分配内存。heap dump 看不到完整 native 分配。
-
-排查：
-
-```bash
-jcmd <pid> VM.native_memory summary
+jcmd <pid> VM.native_memory baseline
+# 重复创建、使用、关闭 native 资源后比较
+jcmd <pid> VM.native_memory summary.diff scale=MB
 ps -o pid,rss,vsz,command -p <pid>
 ```
 
-NMT 需要启动时打开：
+NMT 记录 HotSpot 记账范围，不能完整跟踪第三方库直接调用的 `malloc`、`mmap` 等。若 RSS 增长而 NMT 没有对应增长，继续检查库 allocator、缓存保留和映射，必要时在复现环境使用 native 分配分析工具。RSS 没有立即下降也可能来自 allocator 缓存，不能只凭单个数认定泄漏。
 
-```bash
--XX:NativeMemoryTracking=summary
-```
+## 栈、线程与关闭验证
 
-### 线程栈压力
-
-大量线程会带来大量 Java 栈和 native 栈开销。线程数异常时，不要只看堆。
+`-Xss` 主要用于 JVM 创建的平台线程栈配置；native 库自己创建线程时，栈大小与数量可能由库和 OS 控制。深层 C/C++ 递归、越界写栈也可能使进程直接崩溃，不能承诺都转成可捕获的 Java `StackOverflowError`。
 
 ```bash
 jcmd <pid> Thread.print
 ```
 
-## 参数与限制
-
-`-Xss` 通常影响 Java 线程栈大小，也会影响线程可创建数量。native 调用很深或线程很多时，需要结合系统线程限制一起看。
-
-```bash
--Xss1m
-```
-
-系统层面还要看：
-
-```bash
-ulimit -a
-```
-
-## 使用建议
-
-- 能用成熟 Java 库解决的，不轻易引入 JNI。
-- 引入 native 库时记录版本、平台、架构和加载路径。
-- 对 native 库做压测和崩溃演练。
-- 容器内存预算包含 native 分配和线程栈。
-- 出现 `hs_err_pid` 时保留现场，不要只重启。
+线程 dump 能看到部分 JNI 边界和阻塞，完整 native 调用链可能还需要平台调试器及符号。对音频解码器，验收应覆盖重复创建/关闭、错误输入、超时取消、并发调用和进程退出：检查句柄是否归零、后台线程是否停止、内存是否在稳定池容量内。只跑一次成功调用，不能验证长期资源管理。

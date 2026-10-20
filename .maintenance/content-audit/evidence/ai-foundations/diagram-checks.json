@@ -1,0 +1,77 @@
+[
+  {
+    "name": "prediction-time-boundaries",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "gradient-update-example",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "classification-errors-example",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "customer-service-ai-map",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "network-architecture-relations",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "ai-training-loop",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "ai-learning-roadmap",
+    "boxOverflow": [],
+    "clip": []
+  },
+  {
+    "name": "prediction-time-boundaries",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "gradient-update-example",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "classification-errors-example",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "customer-service-ai-map",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "network-architecture-relations",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "ai-training-loop",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "ai-learning-roadmap",
+    "mode": "mobile",
+    "clip": []
+  },
+  {
+    "name": "ml-workflow",
+    "mode": "mobile",
+    "clip": []
+  }
+]

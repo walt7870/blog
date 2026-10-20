@@ -1,0 +1,310 @@
+[
+  {
+    "page": "engineering/",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/ai-engineering-lifecycle.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "AI 工程化 ​",
+    "width": 1280
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/inference-request-budget.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "模型服务与部署 ​",
+    "width": 1280
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/ai-engineering-lifecycle.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "MLOps 与 LLMOps ​",
+    "width": 1280
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/capacity-cost-accounting.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "成本、容量与性能 ​",
+    "width": 1280
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/tool-write-trust-boundary.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "AI 安全、隐私与治理 ​",
+    "width": 1280
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/rag-evidence-gate.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "AI 应用评估与排错 ​",
+    "width": 1280
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/rag-evidence-gate.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "第一个 AI 应用：知识库问答 ​",
+    "width": 1280
+  },
+  {
+    "page": "engineering/",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "engineering/",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  }
+]

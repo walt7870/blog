@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/partitioning.md",
+      "status": "verified",
+      "reviewedHash": "6dcc4190ef7a20f6d207b68aded1985a962579791b9628b9bdbc598e575a17dc",
+      "pageType": "分区边界、裁剪与维护",
+      "decision": "完整审查旧508行，改为日期日志贯穿的8.4实验。修自动并行/必提速、DECIMAL与ENUM表达式、CRC32子分区、MAXVALUE后ADD、旧EXPLAIN PARTITIONS、InnoDB REPAIR、跨年MONTH非等价改写、仅主键包含分区列、动态表名拼接与非幂等维护。补删除首分区后下界扩大SVG、迟到数据入口政策、DDL不可回滚、每唯一键限制及全局ID语义。",
+      "validation": [
+        "Oracle 8.4分区限制与唯一键规则核对；MySQL 8.4.11执行全部4个SQL围栏，十月返回2/3、EXPLAIN单分区与全分区、MAXVALUE拆分后5归位、删除旧数据0、迟到6进入十月后DML回滚通过；另验证有限分区ADD失败1493、单列全局唯一键1503、DECIMAL/ENUM表达式1659、跨日期重复ID可写、分区DDL在ROLLBACK后仍删除",
+        "双SVG独立浏览器中文布局/文字边界与xmllint通过；生产构建21.33秒；两页1280桌面/真实390×844手机亮深色、图片放大/原尺寸/关闭通过，无破图、横向溢出或本站console错误；未把小数据实验当性能或生产归档恢复验证"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/data-types-design.md",
+      "status": "verified",
+      "reviewedHash": "6c3902f5e4bbbbaaa3eca5c8b1e9dfe50f8b0e56b42e8b997f3f1509bee50ce2",
+      "pageType": "字段值域、精度、时区与约束",
+      "decision": "完整审查旧966行。修小数字面量浮点误差例、DECIMAL无舍入、VARCHAR字符/字节、TEXT固定行外与禁默认值、DATETIME固定8字节、NULL不进索引、WHERE条件唯一索引、无变化更新也刷新时间、单纯类型大小性能排名、重复索引与全量模板DDL。补订单列级合同SVG、真实时区往返、活跃用户名生成列唯一、NULL/CHECK、JSON形状、密码编码长度、UUID/ENUM边界、API大整数与金额精度、结构迁移及业务状态边界。",
+      "validation": [
+        "Oracle 8.4数值语法/默认值/存储需求/自动时间戳/CHECK/CHAR文档核对；8.4.11执行全部4个SQL围栏，精确/近似比较1/0与舍入20.00、时区00/08时、计数2/0与channel101、版本更新1/0通过；负金额/布尔域/孤儿外键/删用户/重复活跃及大小写/JSON数组与无效JSON/NULL金额/超界拒绝，最大金额、NULL通过CHECK、TEXT表达式默认、无变化更新时间保持、Unicode字符2/字节7均验证",
+        "双SVG独立中文布局/边界与XML通过；构建21.33秒；1280桌面和390×844手机亮深色、图片放大/原尺寸/关闭通过，无破图/横向溢出/本站console错误；未宣称支付业务集成、JavaScript驱动或生产迁移通过"
+      ]
+    }
+  ]
+}

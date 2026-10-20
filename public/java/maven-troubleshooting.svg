@@ -1,58 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
-  <title id="title">Maven 排错路径</title>
-  <desc id="desc">展示 Maven 构建失败时从命令阶段、项目模型、依赖树、插件配置和仓库网络逐步排查。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.start{fill:#fee2e2;stroke:#dc2626;stroke-width:2}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.ok{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:13px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.3;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1120" height="560" rx="22"/>
-  <text class="t" x="56" y="50">Maven 排错：先还原最终结果，再改配置</text>
-  <text class="s" x="56" y="80">不要只看最后一行错误，先确认失败发生在哪个阶段。</text>
-
-  <rect class="start" x="64" y="210" width="170" height="94" rx="14"/>
-  <text class="h" x="149" y="248" text-anchor="middle">构建失败</text>
-  <text class="m" x="149" y="278" text-anchor="middle">mvn clean package</text>
-
-  <rect class="core" x="304" y="84" width="190" height="92" rx="14"/>
-  <text class="h" x="399" y="120" text-anchor="middle">确认失败阶段</text>
-  <text class="s" x="399" y="150" text-anchor="middle">compile / test / package</text>
-
-  <rect class="box" x="304" y="218" width="190" height="92" rx="14"/>
-  <text class="h" x="399" y="254" text-anchor="middle">还原有效模型</text>
-  <text class="m" x="399" y="284" text-anchor="middle">help:effective-pom</text>
-
-  <rect class="box" x="304" y="352" width="190" height="92" rx="14"/>
-  <text class="h" x="399" y="388" text-anchor="middle">查看环境配置</text>
-  <text class="m" x="399" y="418" text-anchor="middle">help:effective-settings</text>
-
-  <rect class="warn" x="584" y="84" width="210" height="92" rx="14"/>
-  <text class="h" x="689" y="120" text-anchor="middle">依赖版本冲突</text>
-  <text class="m" x="689" y="150" text-anchor="middle">dependency:tree</text>
-
-  <rect class="warn" x="584" y="218" width="210" height="92" rx="14"/>
-  <text class="h" x="689" y="254" text-anchor="middle">插件或 JDK 不一致</text>
-  <text class="m" x="689" y="284" text-anchor="middle">mvn -version</text>
-
-  <rect class="warn" x="584" y="352" width="210" height="92" rx="14"/>
-  <text class="h" x="689" y="388" text-anchor="middle">仓库或认证问题</text>
-  <text class="m" x="689" y="418" text-anchor="middle">mvn -U dependency:resolve</text>
-
-  <rect class="ok" x="884" y="204" width="190" height="120" rx="14"/>
-  <text class="h" x="979" y="244" text-anchor="middle">收敛修复</text>
-  <text class="s" x="979" y="276" text-anchor="middle">统一版本、排除依赖</text>
-  <text class="s" x="979" y="302" text-anchor="middle">固定插件、修正私服</text>
-
-  <path class="line" d="M234 236C270 170 280 130 304 130"/>
-  <path class="line" d="M234 258H304"/>
-  <path class="line" d="M234 282C270 350 280 398 304 398"/>
-  <path class="line" d="M494 130H584"/>
-  <path class="line" d="M494 264H584"/>
-  <path class="line" d="M494 398H584"/>
-  <path class="line" d="M794 130C846 146 866 196 884 232"/>
-  <path class="line" d="M794 264H884"/>
-  <path class="line" d="M794 398C846 382 866 330 884 298"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="maven-troubleshooting-title maven-troubleshooting-desc">
+  <title id="maven-troubleshooting-title">先还原失败，再做可验证的修复</title><desc id="maven-troubleshooting-desc">失败后定位阶段、还原有效输入、针对性修改并用同一命令及最终产物复验。不同症状对应不同证据，而不是一律清空缓存。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="480" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">先还原失败，再做可验证的修复</text>
+  <text x="36" y="82" class="small">保留首个错误与完整异常；每次针对已定位原因改配置，然后复验相同输入。</text>
+  <path d="M246 200H306" class="line"/><path d="M526 200H586" class="line"/><path d="M806 200H866" class="line"/>
+  <rect x="36" y="140" width="210" height="122" rx="6" class="box"/><text x="54" y="175" class="head">定位失败阶段</text>
+  <text x="54" y="209" class="small">解析、编译、测试</text>
+  <text x="54" y="236" class="small">打包或运行链接</text>
+  <rect x="306" y="140" width="220" height="122" rx="6" class="blue"/><text x="324" y="175" class="head">还原有效输入</text>
+  <text x="324" y="209" class="small">生效模型、版本</text>
+  <text x="324" y="236" class="small">仓库与最终产物</text>
+  <rect x="586" y="140" width="220" height="122" rx="6" class="box"/><text x="604" y="175" class="head">修改已定位原因</text>
+  <text x="604" y="209" class="small">纠正绑定与配置</text>
+  <text x="604" y="236" class="small">避免整库清缓存</text>
+  <rect x="866" y="140" width="218" height="122" rx="6" class="focus"/><text x="884" y="175" class="head">同一入口复验</text>
+  <text x="884" y="209" class="small">测试数量与结果</text>
+  <text x="884" y="236" class="small">运行环境与包结构</text>
+  <path d="M36 307H1084" class="rule"/>
+  <text x="36" y="349" class="small">编译：Maven / JDK 版本、effective-pom</text>
+  <text x="36" y="390" class="small">下载：坐标、HTTP 状态、仓库或 mirror ID</text>
+  <text x="590" y="349" class="small">链接：依赖树、JAR 内容、运行 classpath</text>
+  <text x="590" y="390" class="small">测试：Surefire / Failsafe 报告与跳过参数</text>
+  <text x="36" y="450" class="small">退出码为 0 不证明测试已执行；编译依赖正确不证明最终部署包正确。</text>
 </svg>

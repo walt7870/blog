@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+  <title id="title">Colima 的宿主、虚拟机与容器边界</title>
+  <desc id="desc">macOS 的 Docker CLI 经 context 与 socket 请求 Linux VM 内的 Docker daemon；浏览器经本地端口转发进入容器。宿主目录先共享给 VM，再绑定挂载，命名卷保存在 profile 运行时数据盘。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="680" fill="#f8fafc"/>
+  <text class="h" x="40" y="51">同一台 Mac 中，也有不同的端点和数据边界</text>
+  <text class="t muted" x="40" y="84">Colima 管理 Lima / Linux VM；Docker runtime 路径示意，Kubernetes 另有控制循环。</text>
+  <rect x="40" y="112" width="304" height="468" rx="8" fill="#f0f5f8" stroke="#abbecb" stroke-dasharray="6 5"/>
+  <text class="n" x="60" y="145">macOS 宿主</text>
+  <rect x="576" y="112" width="504" height="468" rx="8" fill="#f0f5f8" stroke="#abbecb" stroke-dasharray="6 5"/>
+  <text class="n" x="596" y="145">一个 Colima profile 的 Linux VM</text>
+  <path class="line" d="M316 216H604"/>
+  <path class="line" d="M316 356H604"/>
+  <path class="line" d="M316 496H604"/>
+  <path class="line" d="M828 260V312"/>
+  <path class="line" d="M828 452V400"/>
+  <text class="t muted" x="368" y="198">context / socket API</text>
+  <text class="t muted" x="368" y="338">localhost 端口转发</text>
+  <text class="t muted" x="368" y="478">先共享到 VM</text>
+  <text class="t muted" x="846" y="292">创建与管理</text>
+  <text class="t muted" x="846" y="432">挂载文件</text>
+  <rect class="box" x="64" y="172" width="252" height="88" rx="6"/>
+  <text class="n" x="84" y="205">Docker CLI / IDE</text><text class="t" x="84" y="237">先确认实际管理目标</text>
+  <rect class="box" x="64" y="312" width="252" height="88" rx="6"/>
+  <text class="n" x="84" y="345">浏览器 / HTTP 客户端</text><text class="t" x="84" y="377">请求 127.0.0.1:8080</text>
+  <rect class="box" x="64" y="452" width="252" height="88" rx="6"/>
+  <text class="n" x="84" y="485">源码或外接盘目录</text><text class="t" x="84" y="517">共享路径与写入权限</text>
+  <rect class="blue" x="604" y="172" width="448" height="88" rx="6"/>
+  <text class="n" x="624" y="205">Docker daemon 与运行时</text><text class="t" x="624" y="237">管理本 profile 的镜像、容器、网络与卷</text>
+  <rect class="green" x="604" y="312" width="448" height="88" rx="6"/>
+  <text class="n" x="624" y="345">订单应用容器</text><text class="t" x="624" y="377">监听 0.0.0.0:8080，声明端口发布与挂载</text>
+  <rect class="blue" x="604" y="452" width="448" height="88" rx="6"/>
+  <text class="n" x="624" y="485">VM 可见路径 / 运行时数据盘</text><text class="t" x="624" y="517">共享路径用于 bind mount；命名卷由 Docker 管理</text>
+  <text class="t muted" x="40" y="620">换 context 不会搬迁镜像和卷；停止 VM 会影响其中全部工作负载。</text>
+  <text class="t muted" x="40" y="648">普通删除与 --data 删除范围依版本而异；重建前确认 profile、备份与恢复步骤。</text>
+</svg>

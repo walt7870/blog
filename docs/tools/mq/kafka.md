@@ -1,7 +1,13 @@
-# Kafka：事件流平台完整入门
+# Kafka：分区日志、消费进度与可靠处理
 
 Kafka 不只是消息队列，它更准确的定位是**分布式事件流平台**。  
 它把消息当作可持久化、可顺序读取、可回放的日志来管理，因此特别适合日志、埋点、实时数据管道、CDC 和事件驱动架构。
+
+## 分区日志模型
+
+Kafka 像一组可扩展的“分区日志文件”：生产者不断追加事件，消费者按自己的 offset 读取事件。消息不会因为某个消费者读过就立即消失，其他消费者组仍然可以继续读取。
+
+![Kafka Topic、Partition 与消费者组](/mq/kafka-topic-partition-consumers.svg)
 
 ## 视频讲解
 
@@ -25,12 +31,6 @@ Kafka 核心原理科普系列已经按单集发布，建议按下面顺序看�
 | 14 | 安全、治理与运维观测 | [B站](https://www.bilibili.com/video/BV1Fc7N6fEx8) |
 | 15 | Streams、Connect 与生态 | [B站](https://www.bilibili.com/video/BV1W97P6eEbG) |
 | 16 | Kafka 适合什么场景 | [B站](https://www.bilibili.com/video/BV1W97P6eEbT) |
-
-## 一句话理解
-
-Kafka 像一组可扩展的“分区日志文件”：生产者不断追加事件，消费者按自己的 offset 读取事件。消息不会因为某个消费者读过就立即消失，其他消费者组仍然可以继续读取。
-
-![Kafka Topic、Partition 与消费者组](/mq/kafka-topic-partition-consumers.svg)
 
 ## 适合与不适合
 
@@ -59,15 +59,15 @@ Kafka 像一组可扩展的“分区日志文件”：生产者不断追加事�
 | Consumer Group | 消费者组，同组内分摊分区 |
 | Broker | Kafka 服务节点 |
 | Controller | 管理元数据和分区领导者 |
-| KRaft | 新版 Kafka 元数据管理模式，逐步替代 ZooKeeper |
+| KRaft | 元数据 Raft 仲裁；Kafka 4.x 已移除 ZooKeeper 模式 |
 
 ## Topic、Partition 与顺序
 
 Kafka 的顺序保证是：**同一个 Partition 内有序，Topic 全局不保证有序**。
 
-![Kafka 分区顺序模型](/mq/kafka-topic-partition-order.svg)
-
 如果你希望同一个订单的事件有序，必须让相同 `orderId` 的消息进入同一个分区。
+
+这只是分区日志中的顺序，不自动等于业务完成顺序：多个生产者并发发送、消费者把任务扔到线程池并行处理，都可能改变业务观察顺序。同 key 放在不同 Topic 也不存在统一排序。Kafka 4.x 使用 KRaft，旧 ZooKeeper 集群要先按受支持版本完成迁移，不能直接套用 4.x 启动配置。
 
 分区设计要同时看吞吐、顺序、扩容和治理成本。分区数太少，消费并行度和写入吞吐上不去；分区数太多，会增加 Broker 文件句柄、元数据管理、Leader 选举和 Rebalance 成本。更重要的是，扩分区会改变 key 到分区的映射，可能破坏同一个 key 的长期顺序假设。
 
@@ -80,9 +80,7 @@ Kafka 的顺序保证是：**同一个 Partition 内有序，Topic 全局不保�
 
 ## Consumer Group 工作方式
 
-同一个 Consumer Group 内，一个分区同时只能分配给一个消费者；不同消费者组之间互不影响。
-
-![Kafka Consumer Group 工作方式](/mq/kafka-consumer-groups.svg)
+这里讨论经典 Consumer Group：同组内一个分区同时分配给一个消费者，不同组分别保存进度。新版本 Share Group 是不同的队列消费模型，不能将其能力混写到经典组的分区分配规则中。
 
 注意：
 
@@ -96,12 +94,14 @@ Kafka 的顺序保证是：**同一个 Partition 内有序，Topic 全局不保�
 
 生产可靠性关键参数：
 
-- `acks=all`：等待 ISR 副本确认。
+- `acks=all`：等待当前 ISR 集合完成所需复制，结合 `min.insync.replicas` 判断能否接受写入。
 - `enable.idempotence=true`：生产端幂等，减少重试重复。
 - `retries`：允许失败重试。
 - `min.insync.replicas`：最少同步副本数。
 
 如果追求可靠性，通常会组合使用 `acks=all`、`enable.idempotence=true` 和合理的 `min.insync.replicas`。如果追求吞吐，则会关注 batch、linger、compression、buffer memory 和分区并行。可靠性和吞吐不是绝对对立，但要明确业务更怕“丢”还是更怕“慢”。
+
+例如副本因子 3、`min.insync.replicas=2` 配合 `acks=all`，ISR 只剩 1 时拒绝此类写入，以可用性换取副本条件。`acks=all` 不表示每条消息都逐副本同步 `fsync`；仍需考虑故障域、电源和磁盘风险。幂等 Producer 解决其协议边界内的重试重复，应用重新构造一条新消息或跨实例重复发布仍需业务去重。
 
 ## 保留、压缩与回放
 
@@ -111,10 +111,12 @@ Kafka 消息保留不依赖消费者是否消费，而依赖 Topic 配置：
 | --- | --- | --- |
 | 时间保留 | 保留最近 N 小时/天消息 | 普通事件流 |
 | 大小保留 | 保留到指定磁盘大小 | 控制成本 |
-| Log Compaction | 按 key 保留最后一条记录 | 状态快照、配置变更 |
+| Log Compaction | 后台按 key 清理旧值，最终保留最新状态 | 状态恢复、配置变更 |
 | Tiered Storage | 历史数据下沉到低成本存储 | 长期保留和回放 |
 
 这也是 Kafka 和传统队列最大的差异之一：Kafka 天然支持“重复消费”和“历史回放”。
+
+回放只能覆盖仍在保留范围内的数据。大小限制按分区生效，清理按 segment 进行，并不是 Topic 达到某个总字节数就精确裁切。Compaction 不是即时唯一键表，旧值和 tombstone 可能暂存；离线消费者还要关注删除标记的保留期限，不能把压缩日志直接当作无限期的全量审计历史。
 
 ## 事务与 Exactly Once
 
@@ -130,21 +132,25 @@ Kafka 支持：
 - 数据库写入仍需业务幂等或 Outbox 模式。
 - “精确一次”更多是端到端设计结果，不只是一个配置。
 
+消费、计算、再写 Kafka 的事务链路需要事务 Producer，将输出与输入 offset 一起提交，并由下游使用 `read_committed` 排除未提交或已中止事务。外部订单库不属于这个事务。若消费者写库后才提交 offset，重启可能重做；应把去重记录和业务写入放在同一个数据库事务，成功后再提交进度。
+
 ## 常见架构模式
 
 ### 1) 日志与埋点管道
 
-![Kafka 日志与埋点管道](/mq/kafka-log-pipeline.svg)
+采集器把访问事件写入 Topic，实时任务计算分钟指标，离线任务按另一消费组归档。同一事件可多路处理，采集端仍需处理发送失败和本地缓冲上限；“日志场景”也不意味着所有日志都允许丢失。
 
 ### 2) CDC 数据同步
 
-![Kafka CDC 数据同步](/mq/kafka-cdc-pipeline.svg)
+CDC 读取数据库变更日志，向下游传播已提交变化。消费端按主键更新派生视图，启动快照和增量日志要衔接；它不允许搜索索引反向成为订单状态的权威来源。
 
 ### 3) Outbox 最终一致性
 
 业务服务先在同一个数据库事务里写业务表和 outbox 表，再由 outbox relay 投递 Kafka。
 
 ![Kafka Outbox 最终一致性](/mq/kafka-outbox-flow.svg)
+
+relay 发送成功后、标记 Outbox 完成前退出会重复发布，所以每条记录要有稳定 `eventId`。跨消费者或跨数据库的副作用不能靠“relay 已成功”证明完成，需要各自的幂等与对账。
 
 ## 统一案例：订单超时关闭 + 支付成功发券
 
@@ -170,6 +176,8 @@ Kafka 不直接等价于延迟队列，因此常见做法是加一个调度服�
 - 支付成功和超时关闭存在竞态，订单状态机必须限制非法流转。
 - 发券按 `orderId + couponTemplateId` 幂等。
 
+上述四个 Topic 的同 key 不提供跨 Topic 顺序。若需要完整订单事件序列，应在单一事件流内设计顺序与版本；超时指令仍以订单库条件更新仲裁，不能由消息到达顺序裁决是否已支付。
+
 ## 监控指标
 
 | 指标 | 含义 |
@@ -192,10 +200,13 @@ Kafka 不直接等价于延迟队列，因此常见做法是加一个调度服�
 5. 把大对象直接写 Kafka，导致网络和磁盘压力异常。
 6. 没有规划 schema 演进，字段变更导致下游消费失败。
 
-## 参考资料整理
+## 验证入口
 
-- [Apache Kafka Documentation](https://kafka.apache.org/documentation)：官方总文档。
-- [Kafka Design](https://kafka.apache.org/31/design/design/)：理解日志、分区、复制和顺序写设计。
-- [Producer Configs](https://kafka.apache.org/27/configuration/producer-configs/)：生产者可靠性与吞吐参数。
-- [Idempotent Producer](https://cwiki.apache.org/confluence/display/KAFKA/Idempotent+Producer)：生产端幂等机制。
-- [KIP-98 Exactly Once Semantics](https://cwiki.apache.org/confluence/display/KAFKA/KIP-98%2B-%2BExactly%2BOnce%2BDelivery%2Band%2BTransactional%2BMessaging)：事务与精确一次语义。
+在具备权限的测试集群，用与集群版本匹配的 CLI 查看分区和组进度，替换示例地址与名称：
+
+```bash
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic order.paid.v1
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group coupon-service
+```
+
+先核实每个分区 Leader、ISR 和 Lag，再定位慢分区的业务 key、处理耗时和下游依赖。消费提交失败要检查 rebalance、处理时长与 `max.poll.interval.ms`，不能只增加线程。回放必须使用隔离消费组或经过明确设计的 offset 调整，先评估是否会重复发券；记录消费者写库成功但未提交 offset 后退出的恢复结果，才能检验幂等是否有效。

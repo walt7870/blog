@@ -1,0 +1,36 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/reliability-capacity.md",
+      "status": "verified",
+      "reviewedHash": "d6036f02d3c52946eb7578d16e659c7ffab119f504ac0024ad1aede2e93c3058",
+      "pageType": "容量与故障预算机制",
+      "decision": "完整阅读后补按秒等比例的假设扩容时间线、900RPS订单故障域容量计算；校准PDB、QoS与驱逐判断、requests装箱下界；drain改为显式节点变量和dry-run，删除默认丢弃emptyDir选项并解释容量与存储验证边界。",
+      "validation": ["QoS及kubectl drain官方全文、node pressure eviction相关段核对；1段Bash经bash -n与zsh -n通过。新增SVG原尺寸实际字体边界及截图、正文桌面/手机浅深色全页检查通过；手机图原尺寸1120宽加载关闭、两处代码键盘scrollLeft40/28。整站构建通过，无集群扩容/排空运行实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/observability.md",
+      "status": "verified",
+      "reviewedHash": "652296a4ffa090aad24fdbc527b86db8fb50e8f3995b36ab77c14505f85925c7",
+      "pageType": "跨层观测与排查",
+      "decision": "完整阅读并保留证据链图，改正OTel receiver实际名称k8s_cluster，区分元数据处理与采集、节点Agent与集群receiver部署；503案例明确为构造演练并关联探针、端点条件、代理和应用时间，补相同负载修复回归。查询URL加引号并替换节点变量，避免head提前关闭管道。",
+      "validation": ["OTel官方组件目录相关receiver/processor/部署段核对；1段Bash经bash -n和zsh -n通过，未搭建Collector或故障注入。保留SVG原尺寸1280字体边界截图复核；桌面/手机双主题全页、图片原尺寸关闭、两处长代码键盘scrollLeft35.5/28.5通过；分页进入版本页URL/H1正确。整站构建通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/version-upgrade.md",
+      "status": "verified",
+      "reviewedHash": "b1305aceb63fb70e4aa1f27133606a07345b77f0df5456a204ce6863539277e0",
+      "pageType": "版本治理与迁移",
+      "decision": "完整阅读后校准维护分支与日期，删除过时补丁号，补HA客户端偏差交集、逐minor升级；区分CRD存储声明、历史对象重写和storedVersions状态；重画阶段及停止条件图。进一步核源码后撤销原地降级绝对断言，说明通过版本检查不等于完整恢复及外部副作用边界。",
+      "validation": ["Releases和Version Skew官方全文、CRD存储迁移与kubeadm upgrade相关段，以及v1.36.0 upgrade/policy.go全文核对；1段Bash经bash -n和zsh -n通过。SVG1120原尺寸边界截图复核；桌面/手机双主题全页通过，回退段修改后手机双主题再次复核；手机图片原尺寸关闭、代码scrollLeft31.5、到生产实践分页URL/H1正确。最终整站13.99秒构建通过；未执行集群升级降级或备份恢复实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/production-practice.md",
+      "status": "verified",
+      "reviewedHash": "bc434bbb4cb521746358b44e27595467f5893d144634c03478c0977618c6bf8b",
+      "pageType": "生产配置与排障入口",
+      "decision": "完整阅读后拆开Deployment策略和容器探针片段，明确每段YAML放置位置；补UID/GID、可写tmp与镜像兼容要求，校准toleration/PDB、EndpointSlice非转发、容量公式单位，替换有副作用的诊断Pod创建为现存对象查询。重画排查推进链，链接机制页承接细节。",
+      "validation": ["2段Bash经bash -n和zsh -n通过，4段YAML经Ruby安全解析并人工核字段归属；没有声称server schema或真实业务验证。1120宽SVG原尺寸实际字体边界截图及桌面/手机双主题全页通过，手机无整页横溢；图片原尺寸关闭及5处超宽代码键盘滚动通过。整站构建与本批git diff --check通过。"]
+    }
+  ]
+}

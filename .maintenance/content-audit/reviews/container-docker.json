@@ -1,0 +1,44 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/docker/index.md",
+      "status": "verified",
+      "reviewedHash": "2093c0757acb5308b27b49c04e669c8a819cd891532208f13d98b72cb02103ee",
+      "pageType": "Docker 阅读导览",
+      "decision": "完整阅读原69行并重写，围绕订单API交付、恢复验收与四篇职责组织导读，修正标签不可变的误解，复用交付关系图。",
+      "validation": ["构建13.81秒成功；1280×800与390×844浅深色逐页全页截图通过，图片加载、放大原尺寸与关闭正常；手机整页390px无横溢。正文到命令客户端跳转URL/H1正确。本页无独立可运行程序。"]
+    },
+    {
+      "file": "docs/container/docker/command.md",
+      "status": "verified",
+      "reviewedHash": "30857c8ffa24756e31334f19d44e2a63235d3c452e98e10c6b4427e62f239098",
+      "pageType": "Docker 排查命令",
+      "decision": "完整阅读原489行，按端点、实例证据、进程、协议、挂载与复验重构，删除容器内systemctl、HTTP探测数据库、明文密码与批量重启清理示范，补exec环境和shell重定向边界及排查图。",
+      "validation": ["官方exec、restart policies、system prune相关职责核对；从正文提取Alpine观察命令执行成功，核实exec局部环境、stop/start与删除重建文件差异，临时资源精准清理。四张新SVG原1120尺寸文字rect及截图通过；双视口浅深色、图片预览原尺寸关闭、全部超宽代码ArrowRight通过；命令到构建客户端链接正确，构建成功。"]
+    },
+    {
+      "file": "docs/container/docker/image-build-supply-chain.md",
+      "status": "verified",
+      "reviewedHash": "64b9edf1889485fe039c001a6eef04510f88ee4c4ac407d272ce43c85975cde0",
+      "pageType": "镜像构建与晋级机制",
+      "decision": "完整阅读原106行，区分COPY、COPY --from与ADD，固定app.jar避免通配符多产物；补多阶段模板、secret与cache边界、摘要平台与签名扫描职责及晋级回退图。",
+      "validation": ["核对官方Dockerfile reference的COPY/COPY --from/ADD段与Build secrets全文，截断外不计已读。未执行真实Maven项目多阶段构建、Registry推送晋级或签名验证。双视口浅深色与全部超宽代码键盘滚动、独立SVG文字及截图、图片原尺寸关闭、构建到存储客户端链接通过；完整站点构建成功。"]
+    },
+    {
+      "file": "docs/container/docker/storage-network-compose.md",
+      "status": "verified",
+      "reviewedHash": "b77b79144d38f64eef5030637e2857747d63cff8aab29588359e86a4dc7bcccc",
+      "pageType": "Compose 存储网络与恢复",
+      "decision": "完整阅读原129行，补密码初始化与_FILE实现前提、应用探针工具依赖、健康状态和重启区别、项目名卷边界；实验发现临时Unix socket提前就绪后，统一改为TCP pg_isready；新增网络与卷关系图。",
+      "validation": ["提取正文Compose YAML执行config --quiet，独立实验仅启动db；TCP就绪后用文件secret密码进行真实TCP SQL写入，down/up后记录保留。核对官方startup-order及PostgreSQL入口临时服务listen_addresses空字符串段；未运行真实订单API。双视口浅深色全页、SVG实际字体边界与截图、图片放大关闭、超宽代码键盘滚动及到Java相邻页客户端导航通过；构建成功。"]
+    },
+    {
+      "file": "docs/container/docker/java-application.md",
+      "status": "verified",
+      "reviewedHash": "d9715302da1df7277ef3f156321a33e5b9237507d567aaa74592f4c479714d12",
+      "pageType": "Java 容器运行合同",
+      "decision": "完整阅读原201行，固定可执行JAR、非root UID与JVM环境入口，说明堆外预算、JSON入口与exec信号及停止期限边界；补运行关系SVG和已有Maven Wrapper前提。",
+      "validation": ["JDK21.0.8编译最小HttpServer JAR，用正文原运行Dockerfile和Temurin21构建；验证UID10001、512MiB限制、原JAVA_TOOL_OPTIONS、HTTP200与停止钩子。测试初版错误要求最大堆精确256MiB，按GC布局改240–256MiB范围并单跑Java通过；不据此声称真实Spring在途请求优雅退出通过。双视口浅深色、图片预览原尺寸关闭、所有超宽代码键盘滚动、独立SVG截图与文字rect通过；构建13.81秒成功。"]
+    }
+  ]
+}

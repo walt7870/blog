@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>订单支付事务与事件投递</title>
+<style>body{margin:0;background:#fafcfb}.diagram{max-width:100%;min-width:0;overflow-x:auto}svg{display:block;width:100%;min-width:1280px}@media print{.diagram{overflow:visible}svg{min-width:0}}</style>
+<div class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="ddd-pay-title ddd-pay-desc">
+  <title id="ddd-pay-title">订单状态与 Outbox 同事务提交，投递和消费可以重试</title>
+  <desc id="ddd-pay-desc">应用核验支付并调用订单模型，将条件更新和 Outbox 记录同事务提交。投递器读取已提交事件并发送给消息系统，收到接收确认后标记投递。消息系统异步交给库存或营销消费者，去重与业务效果共同提交。投递确认不等于消费完成，确认或标记丢失可能重发。</desc>
+  <defs><marker id="ddd-pay-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#62786c"/></marker><marker id="ddd-pay-open" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m0 0 8 4-8 4" fill="none" stroke="#2b659b" stroke-width="1.4"/></marker></defs>
+  <rect width="1280" height="720" fill="#fafcfb"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#253c30">
+    <text x="32" y="48" font-size="28" font-weight="600">订单支付：先保护本地一致性，再恢复跨系统协作</text>
+    <text x="32" y="80" font-size="18" fill="#607568">时间从上到下；消息接收确认与消费业务完成是两个阶段</text>
+    <g stroke="#cbd8d0" stroke-dasharray="5 5"><path d="M128 176V604M384 176V604M640 176V604M896 176V604M1152 176V604"/></g>
+    <g fill="none" stroke="#62786c" stroke-width="2" marker-end="url(#ddd-pay-arrow)">
+      <path d="M128 216H384"/>
+      <path d="M384 268H128" stroke-dasharray="6 5"/>
+      <path d="M640 320H384"/>
+      <path d="M384 372H640" stroke-dasharray="6 5"/>
+      <path d="M640 424H896" stroke="#2b659b"/>
+      <path d="M896 476H640" stroke-dasharray="6 5"/>
+      <path d="M896 528H1152" stroke="#2b659b" stroke-dasharray="6 5" marker-end="url(#ddd-pay-open)"/>
+      <path d="M640 580H384"/>
+    </g>
+    <g font-size="18" text-anchor="middle">
+      <rect x="156" y="180" width="200" height="28" fill="#fafcfb"/><text x="256" y="200">条件更新 + 待发事件</text>
+      <rect x="180" y="232" width="152" height="28" fill="#fafcfb"/><text x="256" y="252">同事务提交成功</text>
+      <rect x="416" y="284" width="192" height="28" fill="#fafcfb"/><text x="512" y="304">拉取已提交事件</text>
+      <rect x="416" y="336" width="192" height="28" fill="#fafcfb"/><text x="512" y="356">事件与唯一编号</text>
+      <rect x="680" y="388" width="176" height="28" fill="#fafcfb"/><text x="768" y="408" fill="#2b659b">发送，可重试</text>
+      <rect x="680" y="440" width="176" height="28" fill="#fafcfb"/><text x="768" y="460">消息接收确认</text>
+      <rect x="928" y="492" width="192" height="28" fill="#fafcfb"/><text x="1024" y="512" fill="#2b659b">异步消费，可重投</text>
+      <rect x="416" y="544" width="192" height="28" fill="#fafcfb"/><text x="512" y="564">确认后标记已投递</text>
+    </g>
+    <g stroke="#c4d3c9" fill="#fff">
+      <rect data-node="application" x="24" y="112" width="208" height="64" rx="6"/>
+      <rect data-node="database" x="280" y="112" width="208" height="64" rx="6" fill="#e9f4ee" stroke="#397657"/>
+      <rect data-node="relay" x="536" y="112" width="208" height="64" rx="6"/>
+      <rect data-node="broker" x="792" y="112" width="208" height="64" rx="6"/>
+      <rect data-node="consumer" x="1048" y="112" width="208" height="64" rx="6" fill="#edf3fb" stroke="#97b6d3"/>
+    </g>
+    <g font-size="20" font-weight="600" text-anchor="middle"><text x="128" y="151">应用与订单模型</text><text x="384" y="151">订单库 + Outbox</text><text x="640" y="151">事件投递器</text><text x="896" y="151">消息系统</text><text x="1152" y="151">库存 / 营销消费者</text></g>
+    <rect x="32" y="624" width="1216" height="1" fill="#d7e1da"/>
+    <text x="32" y="656" font-size="18">事务内：订单状态与事件一起成功或回滚。</text>
+    <text x="656" y="656" font-size="18" fill="#2b659b">消费侧：去重记录与业务效果一起提交。</text>
+    <text x="32" y="692" font-size="18" fill="#607568">确认或投递标记丢失会重发；投递成功不等于消费成功，长期失败仍需告警和补偿。</text>
+  </g>
+</svg></div></html>

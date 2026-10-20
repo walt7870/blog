@@ -1,43 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
-  <title id="title">Linux 进程状态流转</title>
-  <desc id="desc">展示运行、睡眠、不可中断睡眠、停止、僵尸等状态和排查重点</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.run{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}.bad{fill:#fef2f2;stroke:#dc2626;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px}
-      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1080" height="430"/>
-  <rect class="box" x="50" y="170" width="130" height="80"/>
-  <text class="text title" x="115" y="202" text-anchor="middle">创建</text>
-  <text class="text body" x="115" y="228" text-anchor="middle">fork / exec</text>
-  <rect class="run" x="240" y="170" width="130" height="80"/>
-  <text class="text title" x="305" y="202" text-anchor="middle">R 运行</text>
-  <text class="text body" x="305" y="228" text-anchor="middle">占用或等待 CPU</text>
-  <rect class="box" x="450" y="70" width="150" height="80"/>
-  <text class="text title" x="525" y="102" text-anchor="middle">S 睡眠</text>
-  <text class="text body" x="525" y="128" text-anchor="middle">等待事件</text>
-  <rect class="warn" x="450" y="270" width="150" height="80"/>
-  <text class="text title" x="525" y="302" text-anchor="middle">D 不可中断</text>
-  <text class="text body" x="525" y="328" text-anchor="middle">多见 I/O 卡住</text>
-  <rect class="box" x="680" y="70" width="130" height="80"/>
-  <text class="text title" x="745" y="102" text-anchor="middle">T 停止</text>
-  <text class="text body" x="745" y="128" text-anchor="middle">暂停或调试</text>
-  <rect class="bad" x="680" y="270" width="130" height="80"/>
-  <text class="text title" x="745" y="302" text-anchor="middle">Z 僵尸</text>
-  <text class="text body" x="745" y="328" text-anchor="middle">等待父进程回收</text>
-  <rect class="box" x="875" y="170" width="130" height="80"/>
-  <text class="text title" x="940" y="202" text-anchor="middle">退出</text>
-  <text class="text body" x="940" y="228" text-anchor="middle">资源释放</text>
-  <path class="line" d="M180 210 L240 210"/>
-  <path class="line" d="M370 195 C410 160 420 115 450 110"/>
-  <path class="line" d="M370 225 C410 260 420 305 450 310"/>
-  <path class="line" d="M600 110 L680 110"/>
-  <path class="line" d="M600 310 L680 310"/>
-  <path class="line" d="M810 310 C850 285 870 245 875 220"/>
-  <path class="line" d="M810 110 C850 135 870 175 875 200"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="process-state-flow-title process-state-flow-desc">
+<title id="process-state-flow-title">运行、等待与退出回收是不同过程</title>
+<desc id="process-state-flow-desc">展示R与S或D之间的等待唤醒、停止恢复、退出到Z及wait回收，省略部分内核状态。</desc>
+<defs><marker id="process-state-flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.heading{font-size:25px;font-weight:700}.name{font-size:21px;font-weight:600}.body{font-size:17px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.focus{fill:#e7f3ef;stroke:#69978c;stroke-width:1.5}.blue{fill:#eff5fc;stroke:#a4b9cc;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#process-state-flow-arrow)}.label{font-size:16px;fill:#4d5d63}</style></defs>
+<rect width="1120" height="680" fill="#f7f9fa"/>
+<text class="heading" x="36" y="46">运行、等待与退出回收是不同过程</text>
+<text class="body" x="36" y="80">常见状态简图；唤醒只进入可运行集合，不保证立即获得CPU。</text><path class="edge" d="M260 188H420"/><path class="edge" d="M660 172H800"/><path class="edge" d="M800 224H660"/><path class="edge" d="M460 244V392"/><path class="edge" d="M580 392V244"/><path class="edge" d="M620 244V280Q620 288 628 288H740Q748 288 748 296V452Q748 460 756 460H800"/><path class="edge" d="M940 512V568"/><rect x="288" y="154" width="94" height="24" fill="#f7f9fa"/><text class="label" x="292" y="172">fork创建</text><rect x="692" y="136" width="100" height="24" fill="#f7f9fa"/><text class="label" x="696" y="154">等待事件</text><rect x="696" y="238" width="100" height="24" fill="#f7f9fa"/><text class="label" x="700" y="256">事件唤醒</text><rect x="368" y="306" width="88" height="24" fill="#f7f9fa"/><text class="label" x="372" y="324">停止信号</text><rect x="592" y="306" width="90" height="24" fill="#f7f9fa"/><text class="label" x="596" y="324">SIGCONT</text><rect x="696" y="426" width="88" height="24" fill="#f7f9fa"/><text class="label" x="700" y="444">终止退出</text><rect x="948" y="534" width="148" height="24" fill="#f7f9fa"/><text class="label" x="952" y="552">wait读取状态</text><rect class="box" x="40" y="136" width="220" height="108" rx="6"/><text class="name" x="58" y="168">创建</text><text class="body" x="58" y="198">新调度实体</text><text class="body" x="58" y="224">exec可替换映像</text><rect class="focus" x="420" y="136" width="240" height="108" rx="6"/><text class="name" x="438" y="168">R：运行或可运行</text><text class="body" x="438" y="198">执行计算、系统调用</text><text class="body" x="438" y="224">或正在等待CPU</text><rect class="blue" x="800" y="136" width="280" height="108" rx="6"/><text class="name" x="818" y="168">S / D：等待</text><text class="body" x="818" y="198">S可中断 / D不可中断类</text><text class="body" x="818" y="224">等待条件满足后可唤醒</text><rect class="box" x="420" y="392" width="240" height="120" rx="6"/><text class="name" x="438" y="424">T / t：停止</text><text class="body" x="438" y="454">作业控制或调试</text><text class="body" x="438" y="480">SIGCONT恢复作业停止</text><rect class="blue" x="800" y="392" width="280" height="120" rx="6"/><text class="name" x="818" y="424">Z：已退出</text><text class="body" x="818" y="454">通常保留退出状态</text><text class="body" x="818" y="480">已不是可运行任务</text><rect class="box" x="800" y="568" width="280" height="60" rx="6"/><text class="name" x="818" y="600">回收剩余状态</text><text class="body" x="36" y="576">退出箭头示意常见路径，S等状态也可因信号而退出。</text><text class="body" x="36" y="606">停止与睡眠不可串成一次性流水线；Z不能返回R。</text><text class="body" x="36" y="636">SIGCHLD处置等会改变是否保留僵尸；详见正文。</text>
 </svg>

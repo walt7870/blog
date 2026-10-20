@@ -1,0 +1,17 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/apache-kafka.md",
+      "status": "verified",
+      "reviewedHash": "868c7176009e22e555d96862b46489d7554644633bfecdd79f43c003a3af406f",
+      "pageType": "Kafka数据接入、业务身份与连续提交前沿",
+      "decision": "旧1491行全文阅读后重写，与工具专题Kafka机制页分工。修seekToEnd跳积压、吞异常提交、异步未完成提交、只提交最后分区、不同group重复全量消费、队列满丢消息、不存在producer.configs、提前close、手删日志段与伪备份。用4条订单版本变更解释业务去重和独立消费组，补接入身份与提交前沿双SVG。",
+      "validation": [
+        "CLI抓取官方资料失败后，浏览器读取4.1 quickstart全文、design的交付语义/事务章节及operations消费组章节。说明实验固定4.1.0，官方4.1文档现示例4.1.2，不称最新。",
+        "apache/kafka:4.1.0镜像digest bff074a5d0051dbc0bbbcd25b045bb1fe84833ec0d3c7c965d1797dd289ec88f，network none/hostname localhost/无宿主端口。正文两段完整CLI实际执行。首次59942退出1源于测试parser误判分隔符，仅修parser后复用原4条数据，两次新读逐记录相同，80377退出0；原始paid9990，按版本收敛2单6990。",
+        "Java17与镜像内Kafka客户端4.1.0编译运行KafkaFrontierCheck，P0缺口仅提交1，P1提交1，重建准确重放P0 offsets1/2，再确认后重建为空，47474退出0。inactive组describe为3/1、lag0，reset-offsets dry-run预览0/0后再次describe仍3/1，31511退出0。容器已停止且保留数据；未验证真实CDC/HA/TLS/事务sink/多节点重平衡。",
+        "17.97秒完整构建并重启preview。双SVG XML/结构/中文实际字体边界及截图通过，最后缩短接入标签后重新截图。桌面1280及真实390×844手机亮深色、双图放大/原尺寸/关闭、代码局部滚动通过，无破图/全页溢出/客户端error，viewport已reset。"
+      ]
+    }
+  ]
+}

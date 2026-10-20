@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="460" viewBox="0 0 1100 460" role="img" aria-labelledby="cms-cycle-title cms-cycle-desc">
+  <title id="cms-cycle-title">CMS 标记清除与应用执行关系</title>
+  <desc id="cms-cycle-desc">CMS关键阶段中初始标记和重新标记暂停应用，并发标记和并发清除与应用交错推进。简图省略预清理和重置，不表示没有ParNew等其他暂停。正常清除不整理碎片，空间耗尽可能导致更重回收。</desc>
+  <defs><marker id="cms-cycle-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.stop{fill:#fff7ed;stroke:#e4b68b}.run{fill:#f0fdf4;stroke:#86b49b}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#cms-cycle-arrow)}</style>
+  <rect width="1100" height="460" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">CMS：标记后清除，不在正常清除中压缩老年代</text>
+  <text class="body" x="32" y="76">JDK 14 已移除；用于解释旧日志。关键阶段示意，不按实际持续时间比例绘制。</text>
+  <path class="edge" d="M224 180H256"/><path class="edge" d="M524 180H556"/><path class="edge" d="M748 180H780"/>
+  <rect class="stop" x="32" y="124" width="192" height="112" rx="6"/><text class="name" x="52" y="163">初始标记</text><text class="body" x="52" y="200">建立标记起点</text>
+  <rect class="run" x="256" y="124" width="268" height="112" rx="6"/><text class="name" x="276" y="163">并发标记</text><text class="body" x="276" y="200">继续识别可达对象</text>
+  <rect class="stop" x="556" y="124" width="192" height="112" rx="6"/><text class="name" x="576" y="163">重新标记</text><text class="body" x="576" y="200">处理并发修改</text>
+  <rect class="run" x="780" y="124" width="288" height="112" rx="6"/><text class="name" x="800" y="163">并发清除</text><text class="body" x="800" y="200">释放不可达对象空间</text>
+  <text class="body" x="32" y="278">应用：暂停</text><text class="body" x="256" y="278">应用：可运行</text><text class="body" x="556" y="278">应用：暂停</text><text class="body" x="780" y="278">应用：可运行</text>
+  <path d="M32 308H1068" stroke="#cbd5e1"/>
+  <text class="name" x="32" y="348">观察两个不同的空间问题</text>
+  <text class="body" x="32" y="382">碎片：总空闲量够，连续空间仍可能不足。并发失败：空间先用尽，周期尚未完成。</text>
+  <text class="note" x="32" y="426">省略预清理、可中止预清理与重置；期间还可能发生 ParNew 暂停，不代表 JVM 全程只有两次暂停。</text>
+</svg>

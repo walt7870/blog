@@ -1,509 +1,122 @@
-# MySQL 分区表技术详解
+# MySQL 分区表
 
-## 什么是分区表？
+分区把一张逻辑表的记录放进多个物理分区。应用仍查询同一张表，优化器先判断哪些分区可能有结果，再在这些分区内选择索引和扫描方式。它适合按时间淘汰日志、按明确边界管理大量历史记录；不能把一台 MySQL 自动变成多机分片系统，也不保证查询会并行执行或一定变快。以下以 MySQL 8.4 LTS、InnoDB 为范围。
 
-分区表是 MySQL 提供的一种数据管理技术，它将一个大表在物理上分割成多个较小的、更易管理的部分（分区），但在逻辑上仍然是一个表。这种技术特别适用于处理大数据量的场景，能够显著提升查询性能和维护效率。
+例如客服只查某租户十月份的访问日志，按日期分区可以排除其他月份；如果客服只拿到一个请求编号，没有日期条件，就可能需要访问全部分区。分区解决的是访问范围与维护单位，分区内如何找记录仍取决于[索引](./index-system.md)。
 
-### 分区表的优势
+## 日期边界与分区裁剪
 
-1. **提升查询性能**：通过分区裁剪，只扫描相关分区
-2. **并行处理**：可以并行访问不同分区
-3. **维护便利**：可以独立维护各个分区
-4. **存储管理**：可以将不同分区存储在不同的存储设备上
-5. **数据归档**：便于删除历史数据
+![按月分区的边界、裁剪与删除后的下界变化](/database/mysql-partition-boundaries.svg)
 
-## 分区类型详解
+`VALUES LESS THAN` 只定义上界，不根据分区名称推断月份。图中的 `p202610` 起初覆盖十月，是因为前一个分区的上界为十月一日。删除前一个分区后，它也能接收九月的迟到数据；名称没有变，实际范围已经变了。保留窗口要在写入入口验证，不能只靠定时删除分区。
 
-### 1. 范围分区（RANGE Partitioning）
-
-范围分区根据列值的范围将数据分配到不同分区，常用于时间序列数据。
+下面是独立实验库，会新建表并删除其中的历史分区。只在本地测试实例按顺序执行，不要替换为生产库名。
 
 ```sql
--- 按年份分区的订单表
-CREATE TABLE orders_range (
-    id BIGINT AUTO_INCREMENT,
-    order_date DATE NOT NULL,
-    customer_id INT,
-    amount DECIMAL(10,2),
-    PRIMARY KEY (id, order_date)
-) ENGINE=InnoDB
-PARTITION BY RANGE (YEAR(order_date)) (
-    PARTITION p2020 VALUES LESS THAN (2021),
-    PARTITION p2021 VALUES LESS THAN (2022),
-    PARTITION p2022 VALUES LESS THAN (2023),
-    PARTITION p2023 VALUES LESS THAN (2024),
-    PARTITION p_future VALUES LESS THAN MAXVALUE
-);
+CREATE DATABASE partition_demo CHARACTER SET utf8mb4;
+USE partition_demo;
 
--- 按数值范围分区
-CREATE TABLE sales_range (
-    id INT AUTO_INCREMENT,
-    sale_amount DECIMAL(10,2),
-    sale_date DATE,
-    PRIMARY KEY (id, sale_amount)
-) ENGINE=InnoDB
-PARTITION BY RANGE (sale_amount) (
-    PARTITION p_small VALUES LESS THAN (1000),
-    PARTITION p_medium VALUES LESS THAN (10000),
-    PARTITION p_large VALUES LESS THAN (100000),
-    PARTITION p_huge VALUES LESS THAN MAXVALUE
-);
-```
-
-### 2. 列表分区（LIST Partitioning）
-
-列表分区根据预定义的值列表将数据分配到不同分区。
-
-```sql
--- 按地区分区的用户表
-CREATE TABLE users_list (
-    id INT AUTO_INCREMENT,
-    username VARCHAR(50),
-    region VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id, region)
-) ENGINE=InnoDB
-PARTITION BY LIST COLUMNS(region) (
-    PARTITION p_north VALUES IN ('北京', '天津', '河北', '山西', '内蒙古'),
-    PARTITION p_east VALUES IN ('上海', '江苏', '浙江', '安徽', '福建', '江西', '山东'),
-    PARTITION p_south VALUES IN ('河南', '湖北', '湖南', '广东', '广西', '海南'),
-    PARTITION p_west VALUES IN ('重庆', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆'),
-    PARTITION p_northeast VALUES IN ('辽宁', '吉林', '黑龙江')
-);
-
--- 按状态分区
-CREATE TABLE orders_status (
-    id INT AUTO_INCREMENT,
-    order_status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled'),
-    order_date DATE,
-    PRIMARY KEY (id, order_status)
-) ENGINE=InnoDB
-PARTITION BY LIST (order_status) (
-    PARTITION p_active VALUES IN (1, 2, 3), -- pending, processing, shipped
-    PARTITION p_completed VALUES IN (4),     -- delivered
-    PARTITION p_cancelled VALUES IN (5)      -- cancelled
-);
-```
-
-### 3. 哈希分区（HASH Partitioning）
-
-哈希分区使用哈希函数将数据均匀分布到指定数量的分区中。
-
-```sql
--- 线性哈希分区
-CREATE TABLE users_hash (
-    id INT AUTO_INCREMENT,
-    username VARCHAR(50),
-    email VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-) ENGINE=InnoDB
-PARTITION BY LINEAR HASH(id)
-PARTITIONS 8;
-
--- 基于表达式的哈希分区
-CREATE TABLE logs_hash (
-    id BIGINT AUTO_INCREMENT,
-    log_time TIMESTAMP,
-    user_id INT,
-    action VARCHAR(100),
-    PRIMARY KEY (id, log_time)
-) ENGINE=InnoDB
-PARTITION BY HASH(UNIX_TIMESTAMP(log_time))
-PARTITIONS 12;
-```
-
-### 4. 键分区（KEY Partitioning）
-
-键分区类似于哈希分区，但使用 MySQL 提供的哈希函数。
-
-```sql
--- 基于主键的键分区
-CREATE TABLE sessions (
-    session_id VARCHAR(128) PRIMARY KEY,
-    user_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data TEXT
-) ENGINE=InnoDB
-PARTITION BY KEY()
-PARTITIONS 16;
-
--- 基于指定列的键分区
-CREATE TABLE user_activities (
-    id BIGINT AUTO_INCREMENT,
-    user_id INT,
-    activity_type VARCHAR(50),
-    activity_time TIMESTAMP,
-    PRIMARY KEY (id, user_id)
-) ENGINE=InnoDB
-PARTITION BY KEY(user_id)
-PARTITIONS 32;
-```
-
-## 子分区（Subpartitioning）
-
-子分区允许对分区进行进一步细分，提供更精细的数据管理。
-
-```sql
--- 范围分区 + 哈希子分区
-CREATE TABLE sales_subpart (
-    id INT AUTO_INCREMENT,
-    sale_date DATE,
-    region VARCHAR(20),
-    amount DECIMAL(10,2),
-    PRIMARY KEY (id, sale_date, region)
-) ENGINE=InnoDB
-PARTITION BY RANGE (YEAR(sale_date))
-SUBPARTITION BY HASH(CRC32(region))
-SUBPARTITIONS 4 (
-    PARTITION p2022 VALUES LESS THAN (2023),
-    PARTITION p2023 VALUES LESS THAN (2024),
-    PARTITION p2024 VALUES LESS THAN (2025)
-);
-```
-
-## 分区表设计原则
-
-### 1. 分区键选择
-
-```sql
--- 好的分区键选择示例
--- 1. 基于查询模式的时间分区
 CREATE TABLE access_logs (
-    id BIGINT AUTO_INCREMENT,
-    access_time TIMESTAMP NOT NULL,
-    user_id INT,
-    ip_address VARCHAR(45),
-    url VARCHAR(500),
-    PRIMARY KEY (id, access_time)
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    log_date DATE NOT NULL,
+    tenant_id BIGINT UNSIGNED NOT NULL,
+    message VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id, log_date),
+    INDEX idx_tenant_date (tenant_id, log_date)
 ) ENGINE=InnoDB
-PARTITION BY RANGE (UNIX_TIMESTAMP(access_time)) (
-    PARTITION p202401 VALUES LESS THAN (UNIX_TIMESTAMP('2024-02-01')),
-    PARTITION p202402 VALUES LESS THAN (UNIX_TIMESTAMP('2024-03-01')),
-    PARTITION p202403 VALUES LESS THAN (UNIX_TIMESTAMP('2024-04-01'))
+PARTITION BY RANGE COLUMNS(log_date) (
+    PARTITION p_before VALUES LESS THAN ('2026-10-01'),
+    PARTITION p202610 VALUES LESS THAN ('2026-11-01'),
+    PARTITION p202611 VALUES LESS THAN ('2026-12-01'),
+    PARTITION p_future VALUES LESS THAN (MAXVALUE)
 );
 
--- 2. 基于业务逻辑的分区
-CREATE TABLE orders_by_type (
-    id BIGINT AUTO_INCREMENT,
-    order_type ENUM('retail', 'wholesale', 'online', 'offline'),
-    order_date DATE,
-    amount DECIMAL(10,2),
-    PRIMARY KEY (id, order_type)
-) ENGINE=InnoDB
-PARTITION BY LIST (order_type) (
-    PARTITION p_retail VALUES IN (1),
-    PARTITION p_wholesale VALUES IN (2),
-    PARTITION p_online VALUES IN (3),
-    PARTITION p_offline VALUES IN (4)
-);
+INSERT INTO access_logs (log_date, tenant_id, message) VALUES
+('2026-09-30', 10, '旧日志'),
+('2026-10-01', 10, '十月首日'),
+('2026-10-31', 10, '十月末日'),
+('2026-11-01', 10, '十一月首日'),
+('2026-12-01', 10, '未来日志');
+
+SELECT id, log_date FROM access_logs
+WHERE tenant_id = 10
+  AND log_date >= '2026-10-01' AND log_date < '2026-11-01'
+ORDER BY log_date, id;
 ```
 
-### 2. 分区数量规划
+结果是编号 `2、3`，十一月一日不在范围内。日期时间字段也优先使用这种左闭右开范围，避免把一天的末尾写成 `23:59:59` 而漏掉小数秒。这里选择 `DATE` 是因为日志按业务日期保留；真实日志若同时需要精确发生时间，应另存约定时区的时间列，并明确从哪个时区计算分区日期。
 
 ```sql
--- 查看分区信息
-SELECT 
-    TABLE_SCHEMA,
-    TABLE_NAME,
-    PARTITION_NAME,
-    PARTITION_ORDINAL_POSITION,
-    TABLE_ROWS,
-    DATA_LENGTH,
-    INDEX_LENGTH
-FROM INFORMATION_SCHEMA.PARTITIONS
-WHERE TABLE_NAME = 'orders_range'
-ORDER BY PARTITION_ORDINAL_POSITION;
+EXPLAIN SELECT id, log_date FROM partition_demo.access_logs
+WHERE tenant_id = 10
+  AND log_date >= '2026-10-01' AND log_date < '2026-11-01';
 
--- 分区大小监控
-SELECT 
-    PARTITION_NAME,
-    TABLE_ROWS,
-    ROUND(DATA_LENGTH/1024/1024, 2) AS 'Data Size (MB)',
-    ROUND(INDEX_LENGTH/1024/1024, 2) AS 'Index Size (MB)'
-FROM INFORMATION_SCHEMA.PARTITIONS
-WHERE TABLE_SCHEMA = 'your_database' 
-AND TABLE_NAME = 'your_table'
-AND PARTITION_NAME IS NOT NULL;
+EXPLAIN SELECT id, log_date FROM partition_demo.access_logs
+WHERE tenant_id = 10;
 ```
 
-## 分区维护操作
+8.4 直接查看 `EXPLAIN` 的 `partitions` 列，第一条只需 `p202610`，第二条会列出全部分区。分区裁剪与索引选择是两项判断：即使只剩一个分区，也可能在里面全扫描；小数据实验中的成本选择不能当作生产性能结论。
 
-### 1. 添加分区
+`MONTH(log_date) = 10` 表达“所有年份的十月”，不能随意改成“2026 年十月”并称为等价优化。先确认业务究竟要哪段时间，再检查计划；需要多个年份时保留原语义或明确列出相应范围。
 
-```sql
--- 为范围分区添加新分区
-ALTER TABLE orders_range 
-ADD PARTITION (
-    PARTITION p2024 VALUES LESS THAN (2025)
-);
+## 提前创建与删除历史分区
 
--- 为哈希分区增加分区数量
-ALTER TABLE users_hash 
-ADD PARTITION PARTITIONS 4;
-```
-
-### 2. 删除分区
+已有 `MAXVALUE` 时，不能在它后面直接 `ADD PARTITION` 加一个有限上界。应拆开兜底分区，让其中已有的数据重新归位。
 
 ```sql
--- 删除指定分区（数据也会被删除）
-ALTER TABLE orders_range 
-DROP PARTITION p2020;
-
--- 删除多个分区
-ALTER TABLE orders_range 
-DROP PARTITION p2020, p2021;
-```
-
-### 3. 重组分区
-
-```sql
--- 重新组织分区
-ALTER TABLE orders_range 
+ALTER TABLE partition_demo.access_logs
 REORGANIZE PARTITION p_future INTO (
-    PARTITION p2024 VALUES LESS THAN (2025),
-    PARTITION p2025 VALUES LESS THAN (2026),
-    PARTITION p_future VALUES LESS THAN MAXVALUE
-);
-```
-
-### 4. 分区表维护
-
-```sql
--- 分析分区表
-ANALYZE TABLE orders_range;
-
--- 检查分区表
-CHECK TABLE orders_range;
-
--- 优化分区表
-OPTIMIZE TABLE orders_range;
-
--- 修复分区表
-REPAIR TABLE orders_range;
-```
-
-## 分区裁剪优化
-
-### 1. 查看分区裁剪效果
-
-```sql
--- 使用 EXPLAIN PARTITIONS 查看分区裁剪
-EXPLAIN PARTITIONS 
-SELECT * FROM orders_range 
-WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31';
-
--- 查看分区裁剪统计
-SELECT 
-    TABLE_NAME,
-    PARTITION_NAME,
-    TABLE_ROWS
-FROM INFORMATION_SCHEMA.PARTITIONS
-WHERE TABLE_SCHEMA = 'your_database'
-AND TABLE_NAME = 'orders_range';
-```
-
-### 2. 优化查询以利用分区裁剪
-
-```sql
--- 好的查询：能够利用分区裁剪
-SELECT * FROM orders_range 
-WHERE order_date >= '2023-01-01' 
-AND order_date < '2024-01-01';
-
--- 不好的查询：无法利用分区裁剪
-SELECT * FROM orders_range 
-WHERE MONTH(order_date) = 6;
-
--- 改进后的查询
-SELECT * FROM orders_range 
-WHERE order_date >= '2023-06-01' 
-AND order_date < '2023-07-01';
-```
-
-## 性能监控与调优
-
-### 1. 分区性能监控
-
-```sql
--- 监控分区表的性能指标
-SELECT 
-    TABLE_SCHEMA,
-    TABLE_NAME,
-    PARTITION_NAME,
-    TABLE_ROWS,
-    AVG_ROW_LENGTH,
-    DATA_LENGTH,
-    MAX_DATA_LENGTH,
-    INDEX_LENGTH,
-    DATA_FREE
-FROM INFORMATION_SCHEMA.PARTITIONS
-WHERE TABLE_SCHEMA = 'your_database'
-AND PARTITION_NAME IS NOT NULL
-ORDER BY TABLE_NAME, PARTITION_ORDINAL_POSITION;
-
--- 查看分区表的查询性能
-SELECT 
-    OBJECT_SCHEMA,
-    OBJECT_NAME,
-    COUNT_STAR,
-    SUM_TIMER_WAIT/1000000000000 AS 'Total Time (s)',
-    AVG_TIMER_WAIT/1000000000000 AS 'Avg Time (s)'
-FROM performance_schema.table_io_waits_summary_by_table
-WHERE OBJECT_SCHEMA = 'your_database'
-AND OBJECT_NAME LIKE '%partition%'
-ORDER BY SUM_TIMER_WAIT DESC;
-```
-
-### 2. 分区表调优策略
-
-```sql
--- 创建分区表的最佳实践示例
-CREATE TABLE optimized_logs (
-    id BIGINT AUTO_INCREMENT,
-    log_time TIMESTAMP NOT NULL,
-    level ENUM('DEBUG', 'INFO', 'WARN', 'ERROR'),
-    message TEXT,
-    user_id INT,
-    -- 确保分区键包含在主键中
-    PRIMARY KEY (id, log_time),
-    -- 为常用查询创建索引
-    INDEX idx_user_time (user_id, log_time),
-    INDEX idx_level_time (level, log_time)
-) ENGINE=InnoDB
--- 按月分区，便于数据归档
-PARTITION BY RANGE (UNIX_TIMESTAMP(log_time)) (
-    PARTITION p202401 VALUES LESS THAN (UNIX_TIMESTAMP('2024-02-01')),
-    PARTITION p202402 VALUES LESS THAN (UNIX_TIMESTAMP('2024-03-01')),
-    PARTITION p202403 VALUES LESS THAN (UNIX_TIMESTAMP('2024-04-01'))
-);
-```
-
-## 分区表的限制和注意事项
-
-### 1. 主要限制
-
-- 分区键必须是主键或唯一键的一部分
-- 外键约束的限制
-- 某些存储引擎不支持分区
-- 分区表不支持全文索引
-
-### 2. 最佳实践
-
-```sql
--- 1. 合理设计分区键
--- 错误示例：分区键不在主键中
-/*
-CREATE TABLE bad_partition (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    created_date DATE
-) PARTITION BY RANGE (YEAR(created_date)) (
-    PARTITION p2023 VALUES LESS THAN (2024)
-);
-*/
-
--- 正确示例：分区键包含在主键中
-CREATE TABLE good_partition (
-    id INT AUTO_INCREMENT,
-    created_date DATE NOT NULL,
-    data VARCHAR(100),
-    PRIMARY KEY (id, created_date)
-) ENGINE=InnoDB
-PARTITION BY RANGE (YEAR(created_date)) (
-    PARTITION p2023 VALUES LESS THAN (2024),
-    PARTITION p2024 VALUES LESS THAN (2025)
+    PARTITION p202612 VALUES LESS THAN ('2027-01-01'),
+    PARTITION p_future VALUES LESS THAN (MAXVALUE)
 );
 
--- 2. 定期维护分区
--- 创建存储过程自动添加分区
-DELIMITER //
-CREATE PROCEDURE AddMonthlyPartition(
-    IN table_name VARCHAR(64),
-    IN months_ahead INT
-)
-BEGIN
-    DECLARE partition_name VARCHAR(64);
-    DECLARE partition_value VARCHAR(64);
-    DECLARE target_date DATE;
-    
-    SET target_date = DATE_ADD(CURDATE(), INTERVAL months_ahead MONTH);
-    SET partition_name = CONCAT('p', DATE_FORMAT(target_date, '%Y%m'));
-    SET partition_value = UNIX_TIMESTAMP(target_date);
-    
-    SET @sql = CONCAT(
-        'ALTER TABLE ', table_name, 
-        ' ADD PARTITION (PARTITION ', partition_name,
-        ' VALUES LESS THAN (', partition_value, '))'
-    );
-    
-    PREPARE stmt FROM @sql;
-    EXECUTE stmt;
-    DEALLOCATE PREPARE stmt;
-END //
-DELIMITER ;
+SELECT id, log_date FROM partition_demo.access_logs PARTITION (p202612);
+
+SELECT PARTITION_NAME, PARTITION_DESCRIPTION, TABLE_ROWS
+FROM information_schema.PARTITIONS
+WHERE TABLE_SCHEMA = 'partition_demo' AND TABLE_NAME = 'access_logs'
+ORDER BY PARTITION_ORDINAL_POSITION;
 ```
 
-## 实际应用案例
+十二月一日的编号 `5` 移入 `p202612`。`MAXVALUE` 能避免未来日期立刻写入失败，但也会掩盖漏建分区：应监控提前量、兜底分区是否积累数据，以及任务最近一次成功时间。`TABLE_ROWS` 对 InnoDB 是估算值，精确验收用限定范围的 `COUNT(*)`，并评估扫描成本。
 
-### 1. 日志系统分区设计
+删除分区会同时删除其中记录，属于 DDL，不能指望业务事务的 `ROLLBACK` 恢复。上线前先确认保留政策、归档是否可恢复、读写窗口、元数据锁等待和复制延迟。下面只删除实验表中的九月记录：
 
 ```sql
--- 高并发日志系统的分区表设计
-CREATE TABLE application_logs (
-    id BIGINT AUTO_INCREMENT,
-    log_time TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-    application VARCHAR(50) NOT NULL,
-    level ENUM('DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'),
-    message TEXT,
-    trace_id VARCHAR(32),
-    user_id BIGINT,
-    ip_address VARCHAR(45),
-    PRIMARY KEY (id, log_time),
-    INDEX idx_app_level_time (application, level, log_time),
-    INDEX idx_trace (trace_id),
-    INDEX idx_user_time (user_id, log_time)
-) ENGINE=InnoDB
-PARTITION BY RANGE (UNIX_TIMESTAMP(log_time)) (
-    PARTITION p202401 VALUES LESS THAN (UNIX_TIMESTAMP('2024-02-01')),
-    PARTITION p202402 VALUES LESS THAN (UNIX_TIMESTAMP('2024-03-01')),
-    PARTITION p202403 VALUES LESS THAN (UNIX_TIMESTAMP('2024-04-01'))
-);
+ALTER TABLE partition_demo.access_logs DROP PARTITION p_before;
+
+SELECT COUNT(*) FROM partition_demo.access_logs WHERE id = 1;
+
+START TRANSACTION;
+INSERT INTO partition_demo.access_logs (id, log_date, tenant_id, message)
+VALUES (6, '2026-09-30', 10, '模拟迟到日志');
+SELECT id FROM partition_demo.access_logs PARTITION (p202610)
+WHERE log_date < '2026-10-01';
+ROLLBACK;
 ```
 
-### 2. 电商订单分区设计
+两个结果依次为 `0` 和 `6`：旧记录确实删除，但新的九月记录能进入现在的第一个分区。这里回滚的只是后面的插入，不是前面的删除分区。若业务不允许迟到记录，应拒绝、隔离或送到专门归档链路，不要让它重新进入在线保留区。
 
-```sql
--- 电商订单表的分区设计
-CREATE TABLE ecommerce_orders (
-    order_id BIGINT AUTO_INCREMENT,
-    order_date DATE NOT NULL,
-    customer_id BIGINT NOT NULL,
-    order_status ENUM('pending', 'paid', 'shipped', 'delivered', 'cancelled'),
-    total_amount DECIMAL(12,2),
-    payment_method VARCHAR(20),
-    shipping_address TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (order_id, order_date),
-    INDEX idx_customer_date (customer_id, order_date),
-    INDEX idx_status_date (order_status, order_date),
-    INDEX idx_amount (total_amount)
-) ENGINE=InnoDB
-PARTITION BY RANGE (YEAR(order_date) * 100 + MONTH(order_date)) (
-    PARTITION p202401 VALUES LESS THAN (202402),
-    PARTITION p202402 VALUES LESS THAN (202403),
-    PARTITION p202403 VALUES LESS THAN (202404)
-);
-```
+自动维护任务应先读取实际边界，以月首计算目标上界，在固定库表白名单中生成 DDL，重复运行时跳过已经存在的目标。多个执行器要互斥；失败要告警并保留当前边界，不能盲目重试删除。标识符不能像普通查询参数一样绑定，不应直接拼接外部传入的表名。分区 DDL 的锁和重建行为需按具体操作核验，不能统称为无锁或瞬间完成。
 
-## 总结
+## 类型选择与限制
 
-分区表技术是 MySQL 处理大数据量的重要工具，通过合理的分区设计可以显著提升查询性能和维护效率。在实施分区表时，需要：
+| 类型 | 分配规则与典型用途 | 容易误用之处 |
+| --- | --- | --- |
+| `RANGE` | 整数表达式的上界，如整数金额单位或年份 | 不能直接以 `DECIMAL` 表达式代替整数分区表达式 |
+| `RANGE COLUMNS` | 直接比较整数、字符串、`DATE`、`DATETIME` 列；本例用日期 | 多列按元组比较，不是每列独立划一张网格 |
+| `LIST` / `LIST COLUMNS` | 明确枚举的整数或受支持列值，如固定业务区域 | 未列出的值会失败；不要把 `ENUM` 列直接当作 `LIST` 整数表达式 |
+| `HASH` | 对整数表达式取分布，如租户编号 | 同一热点租户仍落在一个分区，不保证请求负载均匀 |
+| `KEY` | 使用 MySQL 内部哈希，支持范围比普通 HASH 更广的列类型 | 不用于时间段淘汰；空列列表要满足可用主键或非空唯一键等推导规则 |
 
-1. **仔细分析业务需求**：选择合适的分区类型和分区键
-2. **考虑查询模式**：确保分区设计能够支持常用查询的分区裁剪
-3. **规划维护策略**：建立自动化的分区维护机制
-4. **监控性能表现**：定期检查分区表的性能指标
-5. **遵循最佳实践**：避免常见的分区设计陷阱
+子分区是在 RANGE/LIST 分区内再使用 HASH/KEY。只有在维护粒度和访问模式确有需求时才引入；分区总数、文件数、统计与 DDL 成本都会增加。不能把任意函数放进表达式，例如 `CRC32(region)` 不是可随意使用的 HASH 分区函数。8.4 普通非 NDB 表最多 8192 个分区（含子分区），这不是建议目标。
 
-正确使用分区表技术，能够为大规模数据处理提供强有力的支持，是构建高性能 MySQL 应用的重要技术手段。
+**每一个唯一键都必须包含分区表达式涉及的全部列**，主键也包括在内。本例主键是 `(id, log_date)`，同一 `id` 配不同日期不会被该主键拒绝；`AUTO_INCREMENT` 的正常分配不能替代全局唯一约束。给主键加日期以“让 DDL 通过”，可能已经改变订单号幂等或外部引用合同。需要单列全局唯一、外键和时间淘汰同时成立时，应先重新评估表结构或归档方案。
+
+在此版本范围内，用户分区 InnoDB 表不能定义外键，也不能被其他 InnoDB 外键引用；不支持分区表的 FULLTEXT 索引，空间列也有限制。不要把普通表的功能清单照搬过来。分区规则还会受 SQL mode 影响，主从及维护任务应保持一致的规则环境，避免边界计算发生变化。
+
+## 排查与验收
+
+“没有可用分区”先查实际值和上界，尤其是未提前建未来分区、LIST 新增业务值、日期转换和时区问题。主键/唯一键错误先列出所有唯一键，逐一核对分区列，不要只检查主键。查询变慢时，对比有无时间条件的 `partitions`、实际扫描行数和索引，再判断是未裁剪、分区内访问差，还是分区过多导致维护成本。
+
+维护后复核日期边界的前一条、第一条、最后一条和下一分区第一条；确认未来分区可写、兜底数据可见、迟到数据遵循保留政策。`ANALYZE TABLE` 更新统计，`CHECK TABLE` 检查表，不能把 `REPAIR TABLE` 当作 InnoDB 修复方案。备份与恢复流程见[备份与恢复](./backup-recovery.md)，涉及事务提交和回滚的行为见[事务系统](./transaction-system.md)。

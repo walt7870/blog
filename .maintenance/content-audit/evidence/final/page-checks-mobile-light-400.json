@@ -1,0 +1,1572 @@
+[
+  {
+    "file": "docs/devlanguage/java/framework/spring/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/spring-learning-map.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 1616,
+    "title": "Spring / Spring Boot",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/ioc.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/ioc-container-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/ioc-bean-lifecycle.svg",
+        "width": 1040
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/ioc-bean-creation-source-flow.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 7128,
+    "title": "Spring IoC 容器",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/mvc.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/mvc-request-dispatch-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/mvc-request-flow.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 7180,
+    "title": "Spring MVC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/runtime-model.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/runtime-model-overview.webp",
+        "width": 952
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/spring-runtime-chains.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 5536,
+    "title": "一个 Spring 请求从启动到响应的完整生命线",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/springboot.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-startup-source-chain.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-auto-config.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 5138,
+    "title": "Spring Boot",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/video-series.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-startup-source-chain.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 5646,
+    "title": "Spring Boot 源码全流程视频系列",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/java-delivery-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/framework-order-boundaries.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 3579,
+    "title": "Java",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/class-file-bytecode.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/bytecode-linkage-contract.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3908,
+    "title": "Class 文件与字节码",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/class-loading.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/class-loading-boundaries.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3481,
+    "title": "类加载机制",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/diagnostic-cases.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/diagnostic-path.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 4325,
+    "title": "JVM 诊断案例",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/execution-engine-jit.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/execution-tiering.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3396,
+    "title": "执行引擎与 JIT",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/cms.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/cms-cycle.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1325,
+    "title": "CMS GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/epsilon.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/epsilon-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1334,
+    "title": "Epsilon GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/g1.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/g1-regions.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1961,
+    "title": "G1 GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-reachability.svg",
+        "width": 1100
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-selection.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3085,
+    "title": "JVM GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/parallel.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1085,
+    "title": "Parallel GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/parnew.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1048,
+    "title": "ParNew GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/serial.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 982,
+    "title": "Serial GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/shenandoah.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/concurrent-gc-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1523,
+    "title": "Shenandoah GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/zgc.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/concurrent-gc-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1397,
+    "title": "ZGC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/hands-on.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jvm-overview.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 3097,
+    "title": "JVM 动手入门路径",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jvm-overview.svg",
+        "width": 1000
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/runtime-area-map.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2253,
+    "title": "JVM：Java 程序的运行系统",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/jni.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jni-data-boundary.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 4130,
+    "title": "JNI：Java 与 Native 能力的边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/modern-jvm.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/deployment-models.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 2668,
+    "title": "现代 JVM 发展",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/object-lifecycle.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/heap-export-retention.svg",
+        "width": 1000
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/threadlocal-retention.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3038,
+    "title": "对象生命周期：从 new 到回收",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/direct-memory.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/direct-memory.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2610,
+    "title": "直接内存",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/heap.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/heap-export-retention.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1849,
+    "title": "堆",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/runtime-area-map.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2248,
+    "title": "JVM 运行时数据区",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/method-area.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/metaspace-loader-retention.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1791,
+    "title": "方法区与元空间",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/native-method-stack.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/native-call-resources.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1726,
+    "title": "本地方法栈",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/program-counter.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/program-counter-frames.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1165,
+    "title": "程序计数器",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/vm-stack.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/stack-frame-order.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1659,
+    "title": "虚拟机栈",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/video-series.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jvm-overview.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1617,
+    "title": "JVM 深入视频系列",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/manager/gradle.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/gradle-task-graph.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/gradle-cache-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 8518,
+    "title": "Gradle",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/manager/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/build-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1307,
+    "title": "Java 构建与依赖管理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/manager/maven.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/maven-position.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/maven-dependency-resolution.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/maven-lifecycle.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/maven-multi-module.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/maven-troubleshooting.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 16372,
+    "title": "Maven",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-basics-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 703,
+    "title": "这套 Python 基础课会带你从哪里走到哪里",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-record-shape.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2221,
+    "title": "Python 第一课：把客户名单变成可检查的数据",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/script-path-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2013,
+    "title": "安装、运行和脚本文件：客户电脑上怎样确认 Python 能跑起来",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/03-field-types.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/field-conversion-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1969,
+    "title": "变量和类型怎么服务业务字段",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-record-shape.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2196,
+    "title": "列表、字典和表格行：一行、多行、字段名怎样在代码里对应",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-rule-branches.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1514,
+    "title": "条件判断：把业务规则写清楚",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/batch-classification.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1280,
+    "title": "循环：一条规则跑完整张表",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/source-normalization.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1189,
+    "title": "字符串清洗：空格、大小写和格式",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/contact-date-decision.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1768,
+    "title": "数字和日期：金额、天数和超期",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/function-rule-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1289,
+    "title": "函数：把重复规则变成可复用步骤",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/module-dependency.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1348,
+    "title": "模块：把脚本拆成几份文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/csv-validation-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1959,
+    "title": "读写 CSV 文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/json-response-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1741,
+    "title": "JSON：系统接口常见的数据形态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/table-health-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1802,
+    "title": "Excel/表格实战入口",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/group-summary-grain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1379,
+    "title": "分组统计：按来源、城市、销售汇总",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/order-amount-status.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1562,
+    "title": "订单检查：金额、状态和异常",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/daily-report-composition.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1379,
+    "title": "生成日报：把多个结果合成一个输出",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/venv-interpreter-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1409,
+    "title": "虚拟环境和依赖",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/traceback-reading-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1264,
+    "title": "常见报错怎么读",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/row-error-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1612,
+    "title": "异常处理：让脚本遇到坏数据不断掉",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/20-logging.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/run-log-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1495,
+    "title": "日志：给别人运行时留下线索",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/api-response-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2069,
+    "title": "调用 API：从系统拿客户数据",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/batch-file-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1374,
+    "title": "批量文件自动化",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/cli-path-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2245,
+    "title": "参数配置：不改代码也能换文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/delivery-validation-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1360,
+    "title": "交付一个客户可用小工具",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-object-ownership.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1401,
+    "title": "什么时候该用类，把数据和动作放进同一个对象",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-tool-delivery-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1097,
+    "title": "学完 Python 基础后，怎样从空目录做出第一个可用工具",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-basics-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1681,
+    "title": "Python 基础客户教程：从会运行到能交付",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 5389,
+    "title": "Python 并发工程全景图：从任务瓶颈到工程流水线",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep01-bottleneck-evidence-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 5537,
+    "title": "先判断瓶颈：I/O、CPU、API、GPU、内存",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep02-four-concepts-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1273,
+    "title": "并发、并行、异步、流水线：四个词不要混着用",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep03-tool-selection-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1441,
+    "title": "Python 并发工具地图：线程、协程、进程、队列怎么选",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/04-threadpool-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep04-threadpool-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2038,
+    "title": "线程与线程池实战：把等待时间叠起来",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep05-shared-state-strategies.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1774,
+    "title": "线程安全与共享状态：别让任务完成但结果写错",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep06-event-loop-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1621,
+    "title": "asyncio 的事件循环模型：速度来自让出控制权",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/07-async-task-orchestration.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep07-async-task-state-machine.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1942,
+    "title": "异步任务编排：成功、失败、超时和取消怎么收敛",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep08-sync-blocking-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1469,
+    "title": "同步库与异步系统的边界：警惕伪异步",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep09-processpool-cost-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1727,
+    "title": "进程池与 CPU 密集任务：什么时候绕开线程",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep10-bounded-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4290,
+    "title": "Python 队列与流水线：让多阶段任务稳定推进",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep11-control-layer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2514,
+    "title": "并发控制：限流、背压、重试：让系统稳定推进，而不是瞬间冲垮下游",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep12-file-checkpoint-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4203,
+    "title": "批量文件处理实战：跑几个小时，也要能恢复、能跳过、能定位坏文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep13-ffmpeg-command-pool.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2915,
+    "title": "批量语音转码与预处理：用 ffmpeg 有界命令池，把输入先标准化",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep14-api-quota-ledger.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2378,
+    "title": "ASR/TTS API 并发实战：把服务端配额当成系统的一部分",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep15-gpu-batch-queue.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2318,
+    "title": "本地模型/GPU 推理并发：管理 batch、显存和等待队列，而不是盲目多开 worker",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep16-realtime-latency-budget.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2187,
+    "title": "实时语音流水线：把录音、VAD、上传、识别放进延迟预算",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/17-observability-benchmark.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep17-benchmark-evidence-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2324,
+    "title": "性能观测与压测：别只看平均耗时，用证据证明并发真的变好",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep18-runtime-selection-future.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1870,
+    "title": "GIL、free-threading 与未来选型：运行时会变，工程判断顺序不会变",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1493,
+    "title": "Python 并发实战：从基础模型到语音工程",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-learning-routes.svg",
+        "width": 960
+      }
+    ],
+    "scroll": 390,
+    "text": 1102,
+    "title": "Python 工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/advantages.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/safety-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1203,
+    "title": "Rust 的优势与代价",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/basic.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/order-input-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2821,
+    "title": "Rust 基础概念",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/bounded-work-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2624,
+    "title": "并发、异步与运行时",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/ecosystem.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/ecosystem-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1515,
+    "title": "Rust 生态与运行边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/hands-on.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/cli-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2610,
+    "title": "Rust 动手入门",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/history.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/stability-timeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1288,
+    "title": "Rust 发展历程",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/resource-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1231,
+    "title": "Rust",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/learning-path.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/learning-delivery-route.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1157,
+    "title": "Rust 学习路线与选型",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/ownership.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/ownership-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2180,
+    "title": "所有权、借用与生命周期",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/project-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/project-adapters.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2537,
+    "title": "Rust 项目实战",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/tooling.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/toolchain-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2102,
+    "title": "工具链与工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/troubleshooting.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/diagnostic-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1845,
+    "title": "Rust 排错手册",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/type-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/type-validation-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2765,
+    "title": "类型系统、Trait 与错误处理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/video-series.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/learning-delivery-route.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1154,
+    "title": "Rust 视频学习系列",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/c-programming.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/c-memory-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3367,
+    "title": "嵌入式 C 编程",
+    "width": 390
+  }
+]

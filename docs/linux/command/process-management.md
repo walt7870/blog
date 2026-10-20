@@ -1,349 +1,47 @@
-# Linux 进程管理
+# 进程管理速查
 
-## 概述
+本页按“定位目标、确认范围、观察状态、请求退出、验证结果”组织入口。需要理解进程组、信号、后台任务与调度取舍时，先读[进程管理命令](./process.md)；状态与回收机制见[进程专题](/docs/linux/process/)。
 
-进程管理是 Linux 系统管理的核心技能之一。Linux 提供了丰富的进程管理工具，可以用于查看进程状态、控制进程执行、管理进程优先级等。
+![终端、进程组与服务管理器的控制范围](/linux/process-control-scope.svg)
 
-## 进程查看工具
+## 定位和观察
 
-### ps - 进程状态查看
+| 需求 | 使用边界 |
+| --- | --- |
+| 查候选名称 | 无匹配返回1；`-f`会扩大到完整命令行 |
+| 核对身份与启动 | 参数可能有秘密；PID可能复用 |
+| 查组与会话 | 父子树和进程组是不同关系 |
+| 查线程 | 先确认所在PID命名空间 |
+| 有限CPU采样 | 分清首样本、归一化方式与目标配额 |
 
-```bash
-# 显示所有进程
-ps aux
+下面依次对应上述五种需求；将“名称”和“进程号”替换为已确认的目标：
 
-# 显示所有进程（BSD 格式）
-ps -ef
-
-# 显示当前用户的进程
-ps ux
-
-# 自定义输出格式
-ps -eo pid,user,%cpu,%mem,comm
-
-# 查找特定进程
-ps aux | grep nginx
+```text
+pgrep -a -x 名称
+ps -p 进程号 -o pid,ppid,user,lstart,stat,args
+ps -eo pid,ppid,pgid,sid,stat,comm
+ps -L -p 进程号
+top -b -d 1 -n 3 -p 进程号
 ```
 
-### top - 实时进程监控
+订单接口有两个同名实例时，不能按名称直接终止。先核对服务归属、用户、启动时间与监听地址。`ps aux` 和 `ps -ef` 是不同选项风格，不把 `-ef` 称为BSD格式。CPU、内存、I/O的指标解释见[系统监控](./system-monitoring.md)。
 
-```bash
-# 启动 top
-top
+## 信号、作业与服务
 
-# 每 2 秒刷新一次
-top -d 2
+| 需求 | 入口 | 验收点 |
+| --- | --- | --- |
+| 请求目标退出 | `kill -TERM 进程号` | 发送成功后继续检查退出和业务状态 |
+| 恢复已确认的停止目标 | `kill -CONT 进程号` | 恢复运行不等于任务完成 |
+| 查看当前shell作业 | `jobs -l` | 新终端看不到另一个shell的作业表 |
+| 调整前后台 | `bg %作业号`、`fg %作业号` | 仅交互作业控制，编号不是PID |
+| 控制受管服务 | `systemctl stop order-api` | 还要核对触发器、重启策略与业务排空 |
 
-# 监控特定进程
-top -p 1234,5678
+HUP是否重载由程序实现决定；KILL不能执行应用清理逻辑，也不保证D状态立即消失。`pkill`、`killall`、`fuser -k`都可能一次作用多个对象，不能把“占用端口/文件”作为直接终止的充分理由。僵尸已经退出，要修复等待回收；孤儿未必异常，不做定时“清理”。
 
-# 批处理模式
-top -b -n 1
-```
+`systemctl enable`配置开机启用关系，`start`才是现在启动；`disable`不自动停止正在运行的服务。`reload`只在服务支持时要求重载，unit文件变动则先`daemon-reload`再按发布流程操作；完整示例见[systemd](/docs/linux/process/systemd.md)。
 
-### htop - 增强版进程监控
+## 文件、端口与调度
 
-```bash
-# 启动 htop
-htop
+`lsof -p 进程号`把进程与打开对象关联，结果包含映射、目录等，不等于文件描述符总数。`fuser -v 文件路径`提供使用者线索；两者都受权限和namespace影响。TCP监听可用`ss -lntp 'sport = :8080'`，`-p`可能因权限隐藏归属。端口排查应继续核对具体实例，不把输出直接接到终止命令。
 
-# 显示进程树
-htop -t
-```
-
-## 进程控制工具
-
-### kill - 发送信号给进程
-
-```bash
-# 正常终止进程
-kill 1234
-
-# 强制终止进程
-kill -9 1234
-
-# 发送 SIGHUP 信号
-kill -HUP 1234
-```
-
-### killall - 按名称终止进程
-
-```bash
-# 终止所有 nginx 进程
-killall nginx
-
-# 强制终止所有 python 进程
-killall -9 python
-```
-
-### pkill - 按模式终止进程
-
-```bash
-# 终止匹配模式的进程
-pkill python
-
-# 匹配完整命令行
-pkill -f "python script.py"
-```
-
-## 作业控制
-
-### jobs - 显示作业列表
-
-```bash
-# 显示所有作业
-jobs
-
-# 显示详细信息
-jobs -l
-```
-
-### bg/fg - 后台/前台作业
-
-```bash
-# 将当前作业放到后台
-bg
-
-# 将指定作业放到前台
-fg %1
-```
-
-### nohup - 忽略挂起信号
-
-```bash
-# 后台运行命令
-nohup command &
-
-# 指定输出文件
-nohup command > output.log 2>&1 &
-```
-
-## 进程优先级管理
-
-### nice - 设置进程优先级
-
-```bash
-# 以较低优先级运行命令
-nice -n 10 command
-
-# 以较高优先级运行命令
-nice -n -10 command
-```
-
-### renice - 修改运行中进程的优先级
-
-```bash
-# 修改进程优先级
-renice 10 1234
-
-# 修改用户所有进程的优先级
-renice 10 -u username
-```
-
-## 网络连接管理
-
-### ss - 查看网络连接
-
-```bash
-# 显示所有连接
-ss -a
-
-# 显示 TCP 连接
-ss -t
-
-# 显示 UDP 连接
-ss -u
-
-# 显示监听端口
-ss -l
-
-# 显示进程信息
-ss -p
-
-# 显示数字地址
-ss -n
-
-# 组合使用
-ss -tulpn
-```
-
-### netstat - 网络状态查看
-
-```bash
-# 显示所有连接
-netstat -a
-
-# 显示 TCP 连接
-netstat -t
-
-# 显示监听端口
-netstat -l
-
-# 显示进程信息
-netstat -p
-
-# 显示路由表
-netstat -r
-
-# 显示网络接口统计
-netstat -i
-
-# 组合使用
-netstat -tulpn
-```
-
-## 文件和进程关联
-
-### lsof - 列出打开的文件
-
-```bash
-# 显示所有打开的文件
-lsof
-
-# 显示特定进程打开的文件
-lsof -p 1234
-
-# 显示特定用户打开的文件
-lsof -u username
-
-# 显示特定文件被哪些进程打开
-lsof /path/to/file
-
-# 显示特定端口的进程
-lsof -i :80
-
-# 显示网络连接
-lsof -i
-
-# 显示 TCP 连接
-lsof -i tcp
-
-# 显示 UDP 连接
-lsof -i udp
-```
-
-### fuser - 显示使用文件的进程
-
-```bash
-# 显示使用文件的进程
-fuser /path/to/file
-
-# 显示使用端口的进程
-fuser 80/tcp
-
-# 终止使用文件的进程
-fuser -k /path/to/file
-
-# 显示详细信息
-fuser -v /path/to/file
-```
-
-## 系统资源监控
-
-### iostat - I/O 统计
-
-```bash
-# 显示 CPU 和 I/O 统计
-iostat
-
-# 每 2 秒刷新一次
-iostat 2
-
-# 显示扩展统计
-iostat -x
-
-# 显示设备统计
-iostat -d
-```
-
-### vmstat - 虚拟内存统计
-
-```bash
-# 显示系统统计
-vmstat
-
-# 每 2 秒刷新一次
-vmstat 2
-
-# 显示内存统计
-vmstat -s
-
-# 显示磁盘统计
-vmstat -d
-```
-
-### sar - 系统活动报告
-
-```bash
-# 显示 CPU 使用率
-sar -u
-
-# 显示内存使用率
-sar -r
-
-# 显示 I/O 统计
-sar -b
-
-# 显示网络统计
-sar -n DEV
-
-# 每 2 秒采样一次，共 5 次
-sar -u 2 5
-```
-
-## 系统服务管理
-
-### systemctl - 系统服务控制
-
-```bash
-# 启动服务
-sudo systemctl start nginx
-
-# 停止服务
-sudo systemctl stop nginx
-
-# 重启服务
-sudo systemctl restart nginx
-
-# 查看服务状态
-sudo systemctl status nginx
-
-# 启用服务
-sudo systemctl enable nginx
-
-# 禁用服务
-sudo systemctl disable nginx
-
-# 重新加载配置
-sudo systemctl reload nginx
-
-# 查看所有服务
-sudo systemctl list-units --type=service
-```
-
-## 常见问题
-
-```bash
-# 进程无法终止
-kill -9 进程ID
-
-# 查看系统负载
-uptime
-
-# 查看高 CPU 进程
-top -b -n 1 | head -20
-
-# 查看高内存进程
-ps aux --sort=-%mem | head -10
-```
-
-## 最佳实践
-
-1. **定期监控**：使用 top 或 htop 定期监控系统
-2. **合理设置优先级**：重要进程设置较高优先级
-3. **及时清理**：定期清理僵尸进程和孤儿进程
-4. **使用服务管理**：系统服务使用 systemctl 管理
-5. **系统监控**：定期使用 `iostat`、`vmstat`、`sar` 监控系统资源
-6. **网络诊断**：使用 `ss` 替代 `netstat` 获得更好的性能
-7. **文件追踪**：使用 `lsof` 诊断文件占用问题
-8. **端口检查**：使用 `lsof -i :端口号` 快速查找端口占用
+普通任务降低相对CPU优先级可用`nice -n 10 命令`，运行中目标用`renice -n 10 -p 进程号`。这不增加CPU配额，也不是内存或I/O限额。批处理挤占在线服务时，先限制并发和资源预算，再对比在线延迟、批任务耗时与结果正确性；详细边界见[进程管理命令](./process.md)。

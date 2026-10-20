@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="540" viewBox="0 0 1180 540" role="img" aria-labelledby="title desc">
   <title id="title">AI 项目交付闭环</title>
-  <desc id="desc">展示从需求、Spec Driven、AI Agent、Harness、CI/CD、PR Review 到部署的交付流程</desc>
+  <desc id="desc">需求形成规格，先配置 Harness 权限再让 Agent 行动，经过 CI 与人工评审后部署，运行问题反馈到下一轮需求与规则。</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/></marker>
     <style>
@@ -18,14 +18,14 @@
   <text class="text h" x="298" y="150" text-anchor="middle">Spec Driven</text>
   <text class="text b" x="298" y="177" text-anchor="middle">需求、设计</text>
   <text class="text b" x="298" y="198" text-anchor="middle">任务、验收</text>
-  <rect class="agent" x="410" y="115" width="145" height="100"/>
-  <text class="text h" x="482" y="150" text-anchor="middle">AI Agent</text>
-  <text class="text b" x="482" y="177" text-anchor="middle">读上下文</text>
-  <text class="text b" x="482" y="198" text-anchor="middle">写代码和测试</text>
-  <rect class="guard" x="590" y="115" width="145" height="100"/>
-  <text class="text h" x="662" y="150" text-anchor="middle">Harness</text>
-  <text class="text b" x="662" y="177" text-anchor="middle">权限限制</text>
-  <text class="text b" x="662" y="198" text-anchor="middle">风险检查</text>
+  <rect class="guard" x="410" y="115" width="145" height="100"/>
+  <text class="text h" x="482" y="150" text-anchor="middle">配置 Harness</text>
+  <text class="text b" x="482" y="177" text-anchor="middle">执行权限与隔离</text>
+  <text class="text b" x="482" y="198" text-anchor="middle">全程约束行动</text>
+  <rect class="agent" x="590" y="115" width="145" height="100"/>
+  <text class="text h" x="662" y="150" text-anchor="middle">AI Agent</text>
+  <text class="text b" x="662" y="177" text-anchor="middle">读上下文</text>
+  <text class="text b" x="662" y="198" text-anchor="middle">修改并验证</text>
   <rect class="box" x="770" y="115" width="145" height="100"/>
   <text class="text h" x="842" y="150" text-anchor="middle">CI/CD</text>
   <text class="text b" x="842" y="177" text-anchor="middle">编译、测试</text>
@@ -39,7 +39,7 @@
   <text class="text h" x="590" y="352" text-anchor="middle">部署</text>
   <text class="text b" x="590" y="380" text-anchor="middle">环境审批、发布记录、监控、回滚</text>
   <text class="text s" x="590" y="404" text-anchor="middle">上线后的问题回流到 Spec、Harness 和 Checklist</text>
-  <path class="line" d="M1022 215 C1022 290 735 330 730 360"/>
-  <path class="line" d="M450 365 C290 365 190 300 115 215"/>
-  <path class="line" d="M590 315 C590 270 662 250 662 215"/>
+  <path class="line" d="M1022 215V357Q1022 365 1014 365H730"/>
+  <path class="line" d="M450 365H123Q115 365 115 357V215"/>
+  <text class="text b" x="260" y="348" text-anchor="middle">运行反馈与规格调整</text>
 </svg>

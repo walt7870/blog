@@ -1,8 +1,16 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # 05. 从 Demo 到可上线的 LangChain 应用
 
 Demo 的成功标准通常是“能得到一个像样的答案”。生产系统的成功标准完全不同：错误是否被限制、行为是否可观察、敏感数据是否安全、修改后是否会回归。
 
 本篇用自然语言转 SQL 作为主线，因为它能清楚暴露模型应用的核心原则：**模型输出永远是不可信输入。**
+
+![SQL 生成、结构校验与数据库执行边界](/ai/sql-readonly-boundaries.svg)
+
+<a :href="withBase('/ai/examples/workflow_demo.py')" download="workflow_demo.py">完整离线示例</a>的 `validate_read_only_sql()` 与 `execute_demo_sql()` 可复现后面的限制。它只使用进程内 SQLite 教学表 `sales`，支持单条 SELECT 子集，主动拒绝 CTE；不是可直接接生产库的通用 SQL 网关。
 
 ## Demo 能跑不等于可以上线
 
@@ -47,15 +55,13 @@ inspect_schema -> generate_sql -> validate_sql -> execute -> explain
 
 ### 第一关：只提供允许的 Schema
 
-模型不应该看到整个数据库。`inspect_schema` 只读取：
+模型不应该看到整个数据库。教学例子只提供：
 
 ```text
-sales
-products
-customers
+sales(day TEXT, amount INTEGER)
 ```
 
-运行记录、工单和 SQLite 内部表不会进入 Prompt。减少上下文本身就是第一道权限边界。
+运行记录、工单和 SQLite 内部表不进入 Prompt。缩小上下文可减少误调用，但隐藏表名不是权限控制；真正的限制必须在执行端生效。
 
 ### 第二关：解析成单条 AST
 
@@ -71,7 +77,7 @@ if len(statements) != 1:
 
 ### 第三关：只允许查询和白名单表
 
-顶层必须是 `SELECT` 或 `WITH ... SELECT` 对应的查询结构，且 AST 中不能包含写入或管理节点：
+示例要求顶层是 `exp.Select`，拒绝 `WITH`、其他表、跨数据库引用和非整数字面量 LIMIT。下面的节点黑名单只能作为额外检查，不能单独证明任意 SELECT 安全：
 
 ```python
 forbidden = (
@@ -82,11 +88,13 @@ if any(statement.find(kind) is not None for kind in forbidden):
     raise UnsafeSqlError("查询包含写入或管理操作")
 ```
 
-随后遍历真正引用的表，排除合法 CTE 名称，再与分析表白名单比较。这样可以阻止模型查询 `runs`、`tickets` 或 `sqlite_master`，也避免有人用同名 CTE 掩盖内部表引用。
+教学示例直接不支持 CTE，避免演示代码错误地用名称排除真实表。需要 CTE、视图或多层子查询时，应做作用域解析，并核对数据库实际访问的表与列。不能把名为 `sales` 的 CTE 自动当成可信表。
 
 ### 第四关：只读连接与执行上限
 
-即使 AST 校验存在缺陷，数据库连接本身仍应是只读的。例如通过 SQLite 只读连接执行，并设置 progress handler 限制执行步数。
+即使 AST 校验存在缺陷，数据库层仍应独立限制权限。示例在初始化内存教学数据后开启 `PRAGMA query_only=ON`，并用 SQLite authorizer 只允许读取 `sales` 的指定列和少量聚合函数；`load_extension()` 等函数会被拒绝。它不是从磁盘以只读模式打开真实库；文件库还应使用只读连接和受控文件路径。
+
+示例 progress handler 最多允许约十万条虚拟机指令，限制的是执行工作量，不是严格墙钟超时。生产连接还需数据库语句超时、取消、并发和资源配额，且不能注册会产生外部副作用的任意函数。
 
 这是“纵深防御”：
 
@@ -107,7 +115,7 @@ LIMIT 200
 
 已有上限超过 200 时则压低到 200。非整数 `LIMIT` 直接拒绝。
 
-限制结果集既保护数据库和网络，也避免把大量数据再次交给模型造成成本和隐私风险。
+限制结果集可减少输出数据，但 `LIMIT 200` 不限制聚合、排序、关联计算量，也不限制单行大字段或 OFFSET 的扫描开销。生产系统还需列白名单、字节上限、租户行级权限和执行预算；只读账户仍可能读取敏感数据。
 
 ## 可观察性与失败轨迹
 
@@ -185,9 +193,9 @@ run_failed(validate_sql)
 
 ## 动手练习
 
-1. 运行 SQL 安全测试，找出多语句、内部表、写操作和超大 `LIMIT` 分别对应的测试样本。
-2. 在 Python REPL 中调用 `validate_read_only_sql("SELECT * FROM sales LIMIT 500")`，确认结果被限制为 200 行。
-3. 运行一次 SQL 分析，从事件存储中核对 `generate_sql`、`validate_sql` 和 `execute` 的顺序。
+1. 执行 `python workflow_demo.py check`，检查写入、多语句、内部表、负数 LIMIT、CTE 和扩展函数被拒绝。
+2. 执行 `python workflow_demo.py sql 'SELECT * FROM sales LIMIT 500'`，确认打印的 SQL 上限为 200。
+3. 执行 `python workflow_demo.py sql 'SELECT SUM(amount) FROM sales'`，确认总额为 300。示例不包含事件存储，真实应用需另行实现并检查节点事件与执行结果的对应关系。
 4. 为你自己的模型应用写一条“必须拒绝”的固定评测，并说明如果它失败会造成什么业务后果。
 
 ## 什么时候不该用 LangChain

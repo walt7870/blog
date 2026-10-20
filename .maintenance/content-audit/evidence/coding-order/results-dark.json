@@ -1,0 +1,300 @@
+[
+  {
+    "idx": 0,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html"
+  },
+  {
+    "idx": 0,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html"
+  },
+  {
+    "idx": 1,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html"
+  },
+  {
+    "idx": 1,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html"
+  },
+  {
+    "idx": 2,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html"
+  },
+  {
+    "idx": 2,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html"
+  },
+  {
+    "idx": 3,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html"
+  },
+  {
+    "idx": 3,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html"
+  },
+  {
+    "idx": 4,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html"
+  },
+  {
+    "idx": 4,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html"
+  },
+  {
+    "idx": 5,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html"
+  },
+  {
+    "idx": 5,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html"
+  },
+  {
+    "idx": 6,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html"
+  },
+  {
+    "idx": 6,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html"
+  },
+  {
+    "idx": 7,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html"
+  },
+  {
+    "idx": 7,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html"
+  },
+  {
+    "idx": 8,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html"
+  },
+  {
+    "idx": 8,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html"
+  },
+  {
+    "idx": 9,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html"
+  },
+  {
+    "idx": 9,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html"
+  },
+  {
+    "idx": 10,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html"
+  },
+  {
+    "idx": 10,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html"
+  },
+  {
+    "idx": 11,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html"
+  },
+  {
+    "idx": 11,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html"
+  },
+  {
+    "idx": 12,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html"
+  },
+  {
+    "idx": 12,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html"
+  },
+  {
+    "idx": 13,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+    "w": 1280,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html"
+  },
+  {
+    "idx": 13,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+    "w": 390,
+    "next": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html"
+  },
+  {
+    "idx": 14,
+    "label": "desktop",
+    "broken": [],
+    "dark": true,
+    "scroll": 1280,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html",
+    "w": 1280
+  },
+  {
+    "idx": 14,
+    "label": "mobile",
+    "broken": [],
+    "dark": true,
+    "scroll": 390,
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html",
+    "w": 390
+  }
+]

@@ -1,21 +1,16 @@
 # 消息中间件全景：选型、能力与落地
 
-消息中间件（MQ）不是简单的“队列工具”，它解决的是分布式系统里的**异步解耦、削峰填谷、事件分发、可靠投递、状态同步和流式处理**问题。
+订单支付成功后，用户需要及时看到支付结果，邮件和搜索索引可以稍后完成。消息中间件（MQ）保存待处理的事件，让这些下游各自消费和重试；支付主链路与邮件服务的快慢由此分开。
 
-一套业务系统从单体走向微服务或事件驱动时，最先遇到的通常不是“怎么发一条消息”，而是：
+选型要先回答：任务是否需要回放、失败能否重试、同一订单是否必须保序，以及多久必须处理完。下图先说明可靠事件链路，再对比 [Kafka](./kafka.md)、[RabbitMQ](./rabbitmq.md)、[RocketMQ](./rocketmq.md) 与 [Pulsar](./pulsar/) 的模型和适用边界。
 
-- 下游系统慢了，主链路要不要等？
-- 多个系统都关心一个业务事件，谁来通知？
-- 失败要重试几次？重复消费怎么办？
-- 消息要保留多久？能不能回放？
-- 是否需要顺序、事务、延时、广播、多租户？
+## MQ 在系统中的位置
 
-这篇是总览页，重点回答“为什么需要 MQ、怎么选、落地时要设计什么”。具体组件能力见：
+![MQ 在系统中的位置](/mq/mq-system-position.svg)
 
-- [Kafka](/docs/tools/mq/kafka)
-- [RabbitMQ](/docs/tools/mq/rabbitmq)
-- [RocketMQ](/docs/tools/mq/rocketmq)
-- [Pulsar](/docs/tools/mq/pulsar/)
+核心变化是：主链路只完成必要的业务提交，耗时或可异步的动作交给 MQ 后面的消费者处理。
+
+例如支付请求只需要确认支付流水与订单状态已经提交，发券、邮件与搜索索引可异步完成。不能先提交数据库、再随手发一条消息就宣称可靠：进程可能恰好在两步之间退出。需要同一数据库事务写业务记录与 Outbox，再由中继重试发布；中继可能重复发送，消费端仍要幂等。
 
 ## 视频学习入口
 
@@ -24,12 +19,6 @@
 | Kafka 核心原理科普 | [从第 01 集开始](https://www.bilibili.com/video/BV1fA7N64EiL) | 看完后阅读 [Kafka](./kafka.md)，重点补 Topic、Partition、Consumer Group、事务和容量规划 |
 | RocketMQ 核心原理科普 | [RocketMQ 01](https://www.bilibili.com/video/BV1DH7N65EF3) | 看完后阅读 [RocketMQ](./rocketmq.md)，重点补事务消息、延迟消息、顺序消息和存储结构 |
 | RabbitMQ | 暂无配套视频 | 先阅读 [RabbitMQ](./rabbitmq.md)，重点理解 Exchange、Queue、Binding、Confirm、Ack、TTL 与 DLX |
-
-## MQ 在系统中的位置
-
-![MQ 在系统中的位置](/mq/mq-system-position.svg)
-
-核心变化是：主链路只完成必要的业务提交，耗时或可异步的动作交给 MQ 后面的消费者处理。
 
 ## MQ 解决的典型问题
 
@@ -51,9 +40,11 @@
 | RocketMQ | Topic + Queue | 事务消息、顺序消息、延时消息 | 订单、支付、库存、交易链路 | 业务语义强 |
 | Pulsar | Topic + Subscription + BookKeeper | 多租户、存算分离、多订阅模型 | 云原生统一消息平台、跨地域 | 平台化、多租户 |
 
-## 选型流程图
+## 选型判断
 
 ![消息中间件选型流程](/mq/mq-selection-flow.svg)
+
+这些能力可以重叠，图中给出评估入口，不是互斥判定。已经有 Kafka 的团队，为订单发券再引入一套 MQ 未必划算；先确认延迟精度、恢复目标、协议和运维能力，再用实际消息大小、峰值和故障恢复场景做验证。
 
 ## 消息投递的基本语义
 
@@ -61,13 +52,17 @@
 | --- | --- | --- | --- |
 | 至多一次 | 最多投递一次 | 可能丢消息 | 只适合日志、指标等可丢场景 |
 | 至少一次 | 至少成功投递一次 | 可能重复 | 最常见，消费者必须幂等 |
-| 精确一次 | 业务结果看起来只发生一次 | 实现复杂 | 依赖事务、幂等、状态机组合 |
+| 精确一次 | 指定处理边界内，结果提交一次 | 越界副作用不自动覆盖 | 明确事务覆盖范围，再设计外部系统幂等 |
 
 现实工程里不要幻想“MQ 帮我保证业务绝对只执行一次”。更可靠的做法是：**MQ 至少一次 + 消费者幂等 + 业务状态机约束**。
+
+“至少一次”也有前提：生产成功被确认、消息未过期或被保留策略删除、消费者在可恢复期限内持续重试。MQ 不会在磁盘耗尽、保留期已过或死信无人处理时承诺业务最终完成。
 
 ## 一个标准消息处理链路
 
 ![标准消息处理链路](/mq/mq-delivery-semantics.svg)
+
+数据库提交后、消费确认前进程退出，是重复投递的典型窗口。发券记录和处理记录应在同一个本地事务提交，以业务唯一键限制重复。外部发券接口则需要支持幂等请求键或查询对账，仅在本地先写“已处理”会丢任务，先调用后写记录又可能重复调用。Kafka 的重试主题和死信需要应用或框架设计，并非 Broker 在“不提交 offset”后自动帮业务跳过失败消息。
 
 ## 落地前必须设计的 8 件事
 
@@ -97,14 +92,18 @@
 
 | 组件 | 推荐实现 |
 | --- | --- |
-| RabbitMQ | TTL + DLX 实现延时检查，失败进入重试/死信 |
+| RabbitMQ | 固定延时队列 TTL + DLX 触发检查，核对死信转发可靠性 |
 | Kafka | 事件流 + 调度服务，适合可回放和审计 |
 | RocketMQ | 延时消息 + 事务消息，最贴近交易业务语义 |
-| Pulsar | Delayed Delivery + Key_Shared，同订单保序并行消费 |
+| Pulsar | Delayed Delivery + Shared/Key_Shared，超时与支付竞态由数据库仲裁 |
 
-## 参考链接整理
+收到超时消息后执行“查询未支付，再无条件关闭”仍有竞争窗口：查询与更新之间，支付回调可能先提交。订单服务应使用类似下面的条件更新，并检查影响行数；支付流程也只能从允许的状态迁移。
 
-- RabbitMQ：官方 Tutorials、Publisher Confirms、Consumer Acknowledgements、Quorum Queues、Streams、Federation
-- Kafka：官方 Documentation、Design、Producer Configs、Exactly Once Semantics、Transactions
-- RocketMQ：官方 Message、Normal/FIFO/Delay/Transaction Message、Consumer Group、Retry Policy
-- Pulsar：官方 Architecture、Messaging、Schema、Tiered Storage、Geo-Replication、Functions、Connectors
+```sql
+UPDATE orders SET status = 'CLOSED'
+WHERE id = :order_id
+  AND status = 'PENDING'
+  AND expires_at <= CURRENT_TIMESTAMP;
+```
+
+这里是带命名参数的 SQL 逻辑片段，参数由数据库访问层绑定。影响 0 行表示没有取得关闭资格，需要检查是已支付、已关闭还是未到期；已经到账但订单已关闭的支付，要进入退款或人工对账策略。验收时至少覆盖消息重复、消费后确认前退出、超时和支付同时到达、下游停机后恢复四种情况。

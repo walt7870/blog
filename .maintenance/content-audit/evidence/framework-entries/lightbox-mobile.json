@@ -1,0 +1,58 @@
+[
+  {
+    "file": "docs/devlanguage/front/framework/react.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/vue.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/angular.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/svelte.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/meta-frameworks.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/lightweight-frameworks.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/cross-platform.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  }
+]

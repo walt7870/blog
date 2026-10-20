@@ -1,0 +1,50 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  }
+]

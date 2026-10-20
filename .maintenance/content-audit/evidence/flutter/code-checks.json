@@ -1,0 +1,80 @@
+{
+  "root": "/tmp/blog-flutter-oE4DCi",
+  "commands": [
+    {
+      "command": "flutter",
+      "args": [
+        "--version"
+      ],
+      "status": 0,
+      "output": "Flutter 3.47.1 • channel stable • https://github.com/flutter/flutter.git\nFramework • revision 6655482ec0 (9 weeks ago) • 2026-08-19 10:07:23 -0700\nEngine • hash 11d79658c444477b06513d32b52c8c4ccb7276b0 (revision 5d53178869) (2 months ago) • 2026-08-18 23:36:01.000Z\nTools • Dart 3.13.1 • DevTools 2.60.0\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "create",
+        "--platforms=web",
+        "--project-name",
+        "flutter_learning",
+        "."
+      ],
+      "status": 0,
+      "output": "Creating project ....\nResolving dependencies...\nDownloading packages...\nGot dependencies.\nWrote 19 files.\n\nAll done!\nYou can find general documentation for Flutter at: https://docs.flutter.dev/\nDetailed API documentation is available at: https://api.flutter.dev/\nIf you prefer video documentation, consider: https://www.youtube.com/c/flutterdev\n\nIn order to run your application, type:\n\n  $ flutter run\n\nYour application code is in ./lib/main.dart.\n\n"
+    },
+    {
+      "command": "dart",
+      "args": [
+        "format",
+        "lib",
+        "test"
+      ],
+      "status": 0,
+      "output": "Formatted lib/main.dart\nFormatted lib/task_page.dart\nFormatted test/task_page_test.dart\nFormatted 3 files (3 changed) in 0.01 seconds.\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "pub",
+        "get",
+        "--enforce-lockfile"
+      ],
+      "status": 0,
+      "output": "Resolving dependencies...\nDownloading packages...\n  cupertino_icons 1.0.9 (2.0.0 available)\n  material_color_utilities 0.13.0 (0.13.1 available)\n  meta 1.18.3 (1.19.0 available)\n  test_api 0.7.12 (0.7.15 available)\n  vector_math 2.4.0 (2.4.3 available)\nGot dependencies!\n5 packages have newer versions incompatible with dependency constraints.\nTry `flutter pub outdated` for more information.\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "analyze"
+      ],
+      "status": 0,
+      "output": "Analyzing blog-flutter-oE4DCi...                                \nNo issues found! (ran in 2.6s)\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "test"
+      ],
+      "status": 0,
+      "output": "00:00 +0: loading /private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart\n00:00 +0: 重建不重复加载，成功显示列表\n00:00 +1: 失败可重试并进入空状态\n00:00 +2: 旧Future不能覆盖新数据源，销毁后不更新\n00:00 +3: All tests passed!\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "test"
+      ],
+      "status": 1,
+      "output": "00:00 +0: loading /private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart\n00:00 +0: 重建不重复加载，成功显示列表\n══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════\nThe following TestFailure was thrown running a test:\nExpected: an object with length of <1>\n  Actual: [\n            Instance of '_AsyncCompleter<List<Task>>',\n            Instance of '_AsyncCompleter<List<Task>>',\n            Instance of '_AsyncCompleter<List<Task>>'\n          ]\n   Which: has length of <3>\n\nWhen the exception was thrown, this was the stack:\n#4      main.<anonymous closure> (file:///private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart:26:5)\n<asynchronous suspension>\n#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)\n<asynchronous suspension>\n#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)\n<asynchronous suspension>\n<asynchronous suspension>\n(elided one frame from package:stack_trace)\n\nThis was caught by the test expectation on the following line:\n  file:///private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart line 26\nThe test description was:\n  重建不重复加载，成功显示列表\n════════════════════════════════════════════════════════════════════════════════════════════════════\n00:00 +0 -1: 重建不重复加载，成功显示列表 [E]\n  Test failed. See exception logs above.\n  The test description was: 重建不重复加载，成功显示列表\n  \n00:00 +0 -1: 失败可重试并进入空状态\n══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════\nThe following StateError was thrown running a test:\nBad state: Too many elements\n\nWhen the exception was thrown, this was the stack:\n#0      List.single (dart:core-patch/growable_array.dart:363:5)\n#1      main.<anonymous closure> (file:///private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart:35:19)\n<asynchronous suspension>\n#2      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)\n<asynchronous suspension>\n#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)\n<asynchronous suspension>\n<asynchronous suspension>\n(elided one frame from package:stack_trace)\n\nThe test description was:\n  失败可重试并进入空状态\n════════════════════════════════════════════════════════════════════════════════════════════════════\n00:00 +0 -2: 失败可重试并进入空状态 [E]\n  Test failed. See exception logs above.\n  The test description was: 失败可重试并进入空状态\n  \n00:00 +0 -2: 旧Future不能覆盖新数据源，销毁后不更新\n══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════\nThe following StateError was thrown running a test:\nBad state: Too many elements\n\nWhen the exception was thrown, this was the stack:\n#0      List.single (dart:core-patch/growable_array.dart:363:5)\n#1      main.<anonymous closure> (file:///private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart:51:22)\n<asynchronous suspension>\n#2      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)\n<asynchronous suspension>\n#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)\n<asynchronous suspension>\n<asynchronous suspension>\n(elided one frame from package:stack_trace)\n\nThe test description was:\n  旧Future不能覆盖新数据源，销毁后不更新\n════════════════════════════════════════════════════════════════════════════════════════════════════\n00:00 +0 -3: 旧Future不能覆盖新数据源，销毁后不更新 [E]\n  Test failed. See exception logs above.\n  The test description was: 旧Future不能覆盖新数据源，销毁后不更新\n  \n00:00 +0 -3: Some tests failed.\n\nFailing tests:\n  /private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart: 失败可重试并进入空状态\n  /private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart: 旧Future不能覆盖新数据源，销毁后不更新\n  /private/tmp/blog-flutter-oE4DCi/test/task_page_test.dart: 重建不重复加载，成功显示列表\n"
+    },
+    {
+      "command": "flutter",
+      "args": [
+        "build",
+        "web",
+        "--release"
+      ],
+      "status": 0,
+      "output": "Compiling lib/main.dart for the Web...                          \nFont asset \"CupertinoIcons.ttf\" was tree-shaken, reducing it from 257628 to 1472 bytes (99.4% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.\nFont asset \"MaterialIcons-Regular.otf\" was tree-shaken, reducing it from 1645184 to 7836 bytes (99.5% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.\nCompiling lib/main.dart for the Web...                             14.2s\n✓ Built build/web\nWasm dry run succeeded. Consider building and testing your application with the `--wasm` flag. See docs for more info: https://docs.flutter.dev/platform-integration/web/wasm\nUse --no-wasm-dry-run to disable these warnings.\n"
+    }
+  ],
+  "passed": true
+}

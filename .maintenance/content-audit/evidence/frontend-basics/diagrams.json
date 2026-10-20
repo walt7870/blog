@@ -1,0 +1,44 @@
+[
+  {
+    "ep": 1,
+    "errors": [],
+    "height": 624,
+    "texts": 22,
+    "width": 1120
+  },
+  {
+    "ep": 2,
+    "errors": [],
+    "height": 752,
+    "texts": 20,
+    "width": 1120
+  },
+  {
+    "ep": 3,
+    "errors": [],
+    "height": 592,
+    "texts": 17,
+    "width": 1120
+  },
+  {
+    "ep": 4,
+    "errors": [],
+    "height": 608,
+    "texts": 15,
+    "width": 1120
+  },
+  {
+    "ep": 5,
+    "errors": [],
+    "height": 608,
+    "texts": 15,
+    "width": 1120
+  },
+  {
+    "ep": 6,
+    "errors": [],
+    "height": 696,
+    "texts": 17,
+    "width": 1120
+  }
+]

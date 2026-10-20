@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/process.md",
+      "status": "verified",
+      "reviewedHash": "2432682bf87987c8dd79fd1167753db9308c6bc623484af088180fae5a79a644",
+      "pageType": "进程操作范围与退出验证",
+      "decision": "完整审查旧约720行，按身份、状态、信号、作业会话、服务和调度重组。修ps选项风格、HUP重载、实时优先级、SIGCHLD回收及亲和性性能保证等错误；删除批量终止与清缓存建议，补进程控制范围SVG。",
+      "validation": ["全部Bash片段在Debian12容器执行，自己的sleep子进程经历S、STOP后T、CONT和TERM，wait状态143。桌面1280×800、手机390×844浅深色全页、代码键盘横滚、图片原尺寸关闭及客户端跳转通过；独立SVG实际字体边界和截图通过。构建14.47秒成功。不外推交互作业、真实systemd与profiler验收。"]
+    },
+    {
+      "file": "docs/linux/command/process-management.md",
+      "status": "verified",
+      "reviewedHash": "148ca8dae4ccab03825558eb81d7ef741560d3250d596cdb4acf9190bfadbb41",
+      "pageType": "进程工具速查",
+      "decision": "完整审查旧348行，保留按需求选择的入口，补目标身份、作用域和验收点，链接详细机制。手机长CSV命令挤压说明列，改为两列表格与独立代码块后复验。",
+      "validation": ["1280×800、390×844浅深色全页复验，最终手机两张表均342px且无整页溢出；图片预览原尺寸关闭、代码键盘横滚和速查到详细页键盘客户端跳转通过。复用已核对范围图。构建成功，无新增本地死链；占位命令未作为真实服务操作执行。"]
+    }
+  ]
+}

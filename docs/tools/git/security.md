@@ -7,9 +7,9 @@ Git 会把提交历史长期保存。敏感信息、大文件、生成物和错�
 常见禁止提交：
 
 - `.env`、本地配置、数据库密码。
-- 私钥、证书、token、访问密钥。
+- 私钥、token、访问密钥，以及含私钥的证书容器。
 - 构建产物、缓存、日志。
-- 本地 IDE 用户配置。
+- 本地 IDE 用户配置；团队共享的格式化和调试配置可按约定提交。
 - 大型二进制文件，除非使用 Git LFS。
 - 用户数据、生产数据、脱敏不完整的数据样本。
 
@@ -37,19 +37,20 @@ dist/
 build/
 node_modules/
 
-# IDE
-.idea/
-.vscode/
+# 本机 IDE 状态（团队配置按项目约定保留）
+.idea/workspace.xml
 ```
 
 如果文件已经被跟踪，需要先从索引移除：
 
 ```bash
 git rm --cached .env
-git commit -m "chore: stop tracking local env file"
+git commit -m "chore: 停止跟踪本地环境配置"
 ```
 
 本地文件会保留，但 Git 不再跟踪。
+
+`.pem` 可能保存私钥，也可能只包含公开证书，扩展名无法判断敏感性。忽略规则用于减少误提交，不能代替内容检查；公开根证书是否入库由发布与更新策略决定。`rm --cached` 后文件仍在旧提交中，也可能在其他分支继续被跟踪。
 
 ## .gitattributes
 
@@ -82,7 +83,7 @@ git commit -m "chore: stop tracking local env file"
 git rm --cached .env
 echo ".env" >> .gitignore
 git add .gitignore
-git commit -m "chore: remove local env from repository"
+git commit -m "chore: 从仓库移除本地环境配置"
 ```
 
 这不会清理历史中的敏感内容。历史清理会改写提交历史，应在团队确认后执行。
@@ -96,12 +97,17 @@ git commit -m "chore: remove local env from repository"
 - `git filter-repo`
 - BFG Repo-Cleaner
 
-清理后通常需要强推：
+清理应在专用的新 Clone 中进行，先冻结受影响引用的写入、保存原始完整对象标识，再使用工具按明确路径或内容规则重写。例如以下只展示清理一个路径的本地步骤：
 
 ```bash
-git push --force-with-lease --all
-git push --force-with-lease --tags
+git filter-repo --path .env --invert-paths
+git log --all -- .env
+git fsck --full
 ```
+
+空日志只说明该路径不在当前引用可见历史中，还要检查重命名前路径、其他文件中的同一凭据及需要保留的标签。构建与依赖验收通过后，核对重写前后每条受影响引用的映射。`filter-repo` 通常会移除 `origin`，应在本地验证后再恢复已核实的远端地址。
+
+向远端发布时逐条使用明确租约，例如 `git push --force-with-lease=refs/heads/main:<清理前远端完整OID> origin refs/heads/main:refs/heads/main`。租约不匹配就停止调查，不能重新读取最新值后盲目覆盖。其他分支和标签分别评估、审批与更新；禁止把全量 `--all`、`--tags` 强推当成清理模板。平台隐藏的 MR 引用和缓存可能需要管理员按平台机制处理，单次 Push 不会清除所有副本。
 
 风险：
 
@@ -116,7 +122,7 @@ Git 不适合直接存储频繁变化的大二进制文件。
 检查仓库大小：
 
 ```bash
-du -sh .git
+du -sh "$(git rev-parse --git-common-dir)"
 git count-objects -vH
 ```
 
@@ -125,8 +131,8 @@ git count-objects -vH
 ```bash
 git rev-list --objects --all |
   git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
-  awk '/^blob/ {print $3, $4}' |
-  sort -nr |
+  awk '$1 == "blob"' |
+  sort -k3 -nr |
   head
 ```
 
@@ -151,7 +157,7 @@ git lfs track "*.psd"
 git lfs track "*.zip"
 git lfs track "*.mp4"
 git add .gitattributes
-git commit -m "chore: track large assets with lfs"
+git commit -m "chore: 使用 LFS 跟踪大型资源"
 ```
 
 查看 LFS 文件：
@@ -184,7 +190,7 @@ git config --show-origin --get-all credential.helper
 
 ## 提交与标签签名
 
-签名用于证明提交或标签由持有相应私钥的人创建，常见格式包括 GPG、SSH 和 X.509。它不能替代平台权限、代码审查和分支保护。
+签名验证提交或标签的内容与签名一致，并证明签名时有人持有相应私钥，常见格式包括 GPG、SSH 和 X.509。提交中的作者字段仍可任意填写，签名者也可能是机器人；真实身份还需可信公钥映射，授权仍需平台策略。它不能替代代码审查和分支保护。
 
 查看签名：
 
@@ -197,8 +203,8 @@ git verify-tag <tag>
 创建签名提交或带说明的签名标签：
 
 ```bash
-git commit -S -m "fix(auth): reject expired token"
-git tag -s v1.4.0 -m "release v1.4.0"
+git commit -S -m "fix(auth): 拒绝过期令牌"
+git tag -s v1.4.0 -m "发布 v1.4.0"
 ```
 
 组织需要同时维护可信公钥来源、密钥吊销流程、机器人签名规则和托管平台的 Verified 状态。签名验证成功只说明加密身份匹配，发布授权仍由组织策略决定。
@@ -214,6 +220,10 @@ git bundle create repository-backup.bundle --all
 git bundle verify repository-backup.bundle
 git clone repository-backup.bundle recovered-repository
 ```
+
+Bundle 保护所选引用可达的 Git 对象，不包含未提交工作区、独立 LFS 正文、子模块仓库、平台 Issue/MR、CI Secret 或运行数据库。恢复订单项目时，先恢复 Git 快照，再取对应 LFS 与依赖制品，重建配置并执行构建；仅能 `git log` 不算业务恢复成功。
+
+![Git 泄露处置与备份边界](/git/security-recovery-boundaries.svg)
 
 也可以维护独立镜像：
 

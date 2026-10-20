@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/jvm/gc/index.md",
+      "status": "verified",
+      "reviewedHash": "2ff9d7ffb05c7994186eec3ce60d12864bfea70f0a78ae68608bf2527e34edd5",
+      "pageType": "机制总览与有限实验",
+      "decision": "完整阅读后重写可达性、暂停与并发边界及选型，增加导出任务持有链和候选选择SVG；统一GcLoad实验入口，区分堆用量、容量与RSS，补低成本诊断到采集和同负载复验闭环。",
+      "validation": ["Temurin17实际编译GcLoad；Serial/Parallel/G1/ZGC/Shenandoah以128m堆和20000轮正常结束，checksum=2546416、last=31；日志确认实际回收器。命令为有限实验，不是性能对比结论。", "构建15.55秒成功；七张相关SVG XML、自检、实际字体边界及逐图截图通过；九页均逐页完成1280×800及390×844浅深色完整截图，无整页溢出，所有引用图放大/原尺寸/关闭通过；手机超宽代码键盘局部滚动通过；客户端实验锚点和JDK升级跳转通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/serial.md",
+      "status": "verified",
+      "reviewedHash": "27658b20612a3b84f4bcb67980aca80e6b936ec3eec74113db441c784675c0fe",
+      "pageType": "回收器机制与实验",
+      "decision": "重写单GC工作线程与STW关系，增加共享线程对比图及逐页导出场景，避免把小堆和短任务当自动选型条件；链接统一实验并补迁移验收。",
+      "validation": ["Temurin17实跑UseSerialGC，输出正确且日志Using Serial；32m、5000轮对照也正常结束。", "1280/390浅深色完整截图、手机命令局部滚动、图示预览与构建通过，证据范围同本批总览。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/parallel.md",
+      "status": "verified",
+      "reviewedHash": "b45339ad2eb4ba88654c26883ae2d03581b198d22321c17196fdedddb8bb25b0",
+      "pageType": "吞吐目标与暂停机制",
+      "decision": "以夜间对账解释STW并行，不固定8线程；按Oracle25核对GCTimeRatio目标为1/(N+1)，说明暂停与吞吐目标均非硬保证，补CPU限额和任务总时长验证。",
+      "validation": ["Temurin17实跑UseParallelGC，输出正确、日志Using Parallel；未宣称该短实验可比较最终吞吐。", "1280/390浅深色完整截图、手机命令局部滚动、共享图预览与构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/parnew.md",
+      "status": "verified",
+      "reviewedHash": "1d6541a5e5da9487bea7fb3593208ba57786b77b7b31e9dea6d05601cc7cff8f",
+      "pageType": "历史组合与迁移",
+      "decision": "限定ParNew在CMS组合中的年轻代角色，解释晋升、存活量和promotion failed，旧参数仅供识别；补历史日志与升级后指标不能直接翻译的边界。",
+      "validation": ["JEP363核对CMS在14移除；当前无JDK8，历史参数和CMS/ParNew未实跑。", "1280/390浅深色完整截图、图预览、客户端JDK升级链接及构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/cms.md",
+      "status": "verified",
+      "reviewedHash": "c8b406a871279d67f46517c25bf6086b64ba023f34a22b17a18276cfd2a39236",
+      "pageType": "历史并发回收机制",
+      "decision": "新增CMS阶段SVG，明确简图省略预清理与重置且期间仍可能暂停；以大数组和并发导出区分碎片、晋升与并发失败，旧阈值不机械映射G1，补迁移证据要求。",
+      "validation": ["官方核对弃用与移除版本；无JDK8，未实测CMS，正文不声称复现历史故障。", "独立SVG实际中文边界、1280/390浅深色完整截图、图预览与构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/g1.md",
+      "status": "verified",
+      "reviewedHash": "02e3cc4d657afcf149ef19838cb25432207f53fc38c1ad7eb7fb3516a7fabb47",
+      "pageType": "分区与复制机制",
+      "decision": "重写Region逻辑分代、区外指入、SATB与Mixed暂停，新增跨区引用及复制空间图；区分自适应IHOP、Humongous与转移失败，按JDK25文档限定半Region阈值与pinning表述。",
+      "validation": ["实际读取Oracle25 G1文档；Temurin17实跑G1并确认输出和日志。JDK25 pinning相关行为未在本机复现。", "SVG字体边界、1280/390浅深色完整截图、命令局部滚动、图预览与构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/zgc.md",
+      "status": "verified",
+      "reviewedHash": "52ae56fa23730baf85a7698c1f90b8fcfcc4b2f2633026292a275519f00f6e10",
+      "pageType": "版本模式与并发预算",
+      "decision": "核对17至25的分代切换，24起不再添加ZGenerational；解释屏障及短暂停不排除分配等待，新增共享并发空间预算图，补端到端指标与监控迁移边界。",
+      "validation": ["JEP377/439/474/490核对版本和屏障；Temurin17实跑非分代ZGC，输出正确并观察Allocation Stall (main) 3.806ms与微秒级Mark暂停；21/24/25模式未本机实测。", "1280/390浅深色完整截图、命令局部滚动、图预览及构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/shenandoah.md",
+      "status": "verified",
+      "reviewedHash": "05840742d0bf4c4fc7cf773ba6a416c39d12c4b8efb8e3228fe6af6f8e26e15b",
+      "pageType": "并发转移与退化边界",
+      "decision": "重写发行版支持、24实验分代与25产品化但仍非默认的边界；区分并发引用更新、pacing、Degenerated及Full，以导出峰值解释并发空间与CPU预算。",
+      "validation": ["JEP189/521核对支持与版本；Temurin17实跑正常输出，日志记录pacing约2.594s、0次Degenerated，不宣称复现退化或Full；24/25模式未本机实测。", "1280/390浅深色完整截图、两处手机命令局部滚动、图预览与构建通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/epsilon.md",
+      "status": "verified",
+      "reviewedHash": "265b8695f7afc6007a379b11ac9a103e5913935e8e862cc625746c5795603759",
+      "pageType": "有限分配对照实验",
+      "decision": "以逐页导出和预算SVG解释累计分配不等于存活峰值，加入正常完成与预期耗尽对照，限定实验和经过预算的短任务用途，避免无GC即无抖动的误解。",
+      "validation": ["JEP318核对；Temurin17 Epsilon32m 100轮exit0输出4950/99，5000轮exit3并报告Java heap space；同32m Serial5000轮exit0输出629340/-121，支持空间复用对照。", "独立SVG字体边界、1280/390浅深色完整截图、手机代码局部滚动、图预览、实验锚点及构建通过。"]
+    }
+  ]
+}

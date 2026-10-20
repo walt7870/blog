@@ -1,1448 +1,173 @@
 # MySQL 高可用与扩展
 
-## 高可用概述
+买家支付后看到“订单不存在”，不一定是写入失败：请求可能刚写完主库，下一次查询却被分到尚未追平的副本。另一个更严重的场景是旧主只与监控失联，却仍接受部分应用写入；此时直接提升副本，会出现两个写入历史。
 
-高可用性（High Availability，HA）是指系统在面对各种故障时仍能持续提供服务的能力。对于数据库系统而言，高可用不仅要求系统能够快速从故障中恢复，还要确保数据的一致性和完整性。MySQL 高可用架构的设计需要综合考虑业务需求、技术复杂度、成本投入和运维能力等多个因素。
+高可用需要一起解决数据复制、故障判定、写入隔离、入口切换和业务重试。增加副本能提供恢复候选和读取容量，但不会自动完成这些工作。本文以 MySQL 8.4、InnoDB 为基线；备份及误操作恢复见[备份恢复](./backup-recovery.md)，复制状态的长期采集见[监控与运维](./monitoring-operations.md)。
 
-### 高可用的重要性
+## 先确定业务允许怎样恢复
 
-#### 业务连续性需求
+订单创建接口应明确：成功响应的订单能否丢失，故障后多久恢复受理，客户端超时后如何确认结果。RPO 描述允许损失的数据窗口，RTO 描述恢复服务的时间目标；它们是需要演练验证的业务目标，不是“开启复制”后自然获得的保证。
 
-**服务可用性要求**：
-- 现代业务对系统可用性要求越来越高
-- 7×24 小时不间断服务成为标准
-- 任何停机都可能造成重大经济损失
-- 用户体验直接影响业务竞争力
+可用性也要明确观察入口。数据库端口可连接，但所有订单请求都超时，仍属于业务不可用。99.99% 按 365 天计算约对应全年 52.56 分钟不可用预算；是否计入计划维护、部分失败以及统计窗口，必须先约定。同机运行的多个容器可以练习复制，不能证明机器、电源、磁盘或可用区故障下的可用性。
 
-**数据价值保护**：
-- 数据是企业最重要的资产之一
-- 数据丢失可能导致不可挽回的损失
-- 数据一致性关系到业务逻辑正确性
-- 合规性要求对数据保护提出更高标准
+| 故障 | 复制能做什么 | 仍需解决什么 |
+| --- | --- | --- |
+| 主库进程或主机故障 | 提供保存了部分或全部事务的候选副本 | 旧主隔离、数据缺口、提升和入口切换 |
+| 网络分区 | 部分节点可能仍能服务 | 谁拥有写权限，少数派是否停止写入 |
+| 误删订单或错误批量更新 | 通常会把错误继续复制 | 隔离恢复、时间点回放、业务对账 |
+| 副本追不上写入 | 可观察积压并扩充合适资源 | 慢事务、锁、I/O、应用并行度和读取降级 |
+| 客户端提交后断线 | 事务可能已经提交 | 业务幂等键和结果查询，避免重复扣款 |
 
-**成本效益考量**：
-- 停机成本远超高可用投入成本
-- 声誉损失难以量化但影响深远
-- 客户流失可能带来长期负面影响
-- 监管处罚和法律风险不容忽视
+## 日志收到与数据可见是两个阶段
 
-#### 可用性指标
+异步复制时，主库提交不等待副本确认。副本接收线程拉取 binlog 并写入 relay log，应用线程再执行事务。因此，接收线程正常不等于应用正常，日志已落到副本也不等于查询已经能看见它。
 
-**可用性等级**：
-- **99%**：年停机时间约 3.65 天
-- **99.9%**：年停机时间约 8.77 小时
-- **99.99%**：年停机时间约 52.6 分钟
-- **99.999%**：年停机时间约 5.26 分钟
-- **99.9999%**：年停机时间约 31.6 秒
+![主库提交、接收日志与副本应用的三个进度边界](/database/mysql-replication-progress.svg)
 
-**关键指标定义**：
+假设订单 1001 在主库已经提交。副本可能连日志都没收到，也可能已收到但被前面的大事务或行锁阻塞，尚未应用 1001。`Seconds_Behind_Source=0` 不是对任意请求的追平证明；它有状态、计时和拓扑边界，不能替代针对目标事务的检查。
 
-**MTBF（平均故障间隔时间）**：
-- 系统正常运行的平均时间
-- 反映系统的可靠性水平
-- 影响维护计划和资源配置
-- 用于评估硬件和软件质量
+| 方案 | 成功提交时等待什么 | 适用边界 |
+| --- | --- | --- |
+| 异步复制 | 不等待副本确认 | 写入延迟较低；切换可能丢失尚未传出的已提交事务 |
+| 半同步复制 | 启用且正常工作时，等待配置数量副本将事务日志接收并刷入 relay log；等待点可配置 | 不代表副本已经应用；超时可退回异步，必须监控实际状态与降级 |
+| Group Replication | 组内事务排序、认证等协调 | 依赖多数派及成员状态；读取可见性还受一致性级别和应用进度约束 |
 
-**MTTR（平均恢复时间）**：
-- 从故障发生到系统恢复的平均时间
-- 包括故障检测、诊断和修复时间
-- 直接影响系统可用性指标
-- 是运维能力的重要体现
+MySQL 8.4 默认 binlog 格式为 ROW。不要把 MIXED 写成当前默认；8.4 中格式选择等旧配置还有弃用边界，应围绕当前版本维护配置。GTID 为事务提供跨日志文件的标识，便于自动定位，但不会自动发现故障、选主、解决冲突或保护旧主写入。
 
-**RTO（恢复时间目标）**：
-- 业务可接受的最大停机时间
-- 用于指导技术方案选择
-- 影响投资决策和架构设计
-- 需要与业务部门协商确定
+## 建立一个有边界的 GTID 复制练习
 
-**RPO（恢复点目标）**：
-- 业务可接受的最大数据丢失量
-- 通常以时间为单位衡量
-- 决定备份和复制策略
-- 影响存储和网络投入
+以下配置用于两个**全新、可丢弃的练习实例**，不是在已有生产库直接开启 GTID 的迁移步骤。每个实例必须有独立数据目录和唯一 `server_id`、`server_uuid`；从备份初始化副本时，要保持数据快照与 GTID 历史一致。不能只改复制起点，让空副本跳过已有数据。
 
-### 故障类型分析
+先按所用安装方式完成两个实例的初始化及管理账号创建，再配置复制。官方容器的首次初始化也需要写入系统表，不能在这一步就强制 `super_read_only`。初始化完成后，两台实例的配置入口是各自实际加载的 `my.cnf` 的 `[mysqld]` 段：
 
-#### 硬件故障
-
-**服务器硬件故障**：
-- **CPU 故障**：处理器损坏或过热
-- **内存故障**：内存条损坏或不兼容
-- **主板故障**：主板元件损坏
-- **电源故障**：电源模块失效
-- **风扇故障**：散热系统失效
-
-**存储系统故障**：
-- **硬盘故障**：机械硬盘或 SSD 损坏
-- **RAID 控制器故障**：RAID 卡损坏
-- **存储网络故障**：SAN/NAS 连接问题
-- **文件系统损坏**：文件系统元数据损坏
-
-**网络设备故障**：
-- **网卡故障**：网络接口卡损坏
-- **交换机故障**：网络交换设备失效
-- **路由器故障**：网络路由设备问题
-- **网络线路故障**：物理连接中断
-
-#### 软件故障
-
-**操作系统故障**：
-- **系统崩溃**：内核 panic 或蓝屏
-- **资源耗尽**：内存、文件描述符耗尽
-- **配置错误**：系统参数配置不当
-- **驱动程序问题**：设备驱动故障
-
-**数据库软件故障**：
-- **MySQL 进程崩溃**：mysqld 进程异常退出
-- **死锁和阻塞**：事务处理异常
-- **内存泄漏**：长期运行导致内存耗尽
-- **配置错误**：参数配置不当导致故障
-
-**应用程序故障**：
-- **连接池耗尽**：数据库连接数超限
-- **SQL 注入攻击**：恶意 SQL 执行
-- **业务逻辑错误**：应用程序 Bug
-- **性能问题**：慢查询导致系统响应缓慢
-
-#### 人为因素
-
-**操作错误**：
-- **误删除数据**：错误的 DELETE 或 DROP 操作
-- **配置错误**：参数配置不当
-- **权限误操作**：错误的权限分配
-- **维护操作失误**：升级或维护过程中的错误
-
-**安全威胁**：
-- **恶意攻击**：外部入侵和攻击
-- **内部威胁**：内部人员的恶意操作
-- **权限滥用**：超出职责范围的操作
-- **数据泄露**：敏感数据的非授权访问
-
-#### 环境因素
-
-**电力问题**：
-- **停电**：市电中断
-- **电压不稳**：电压波动影响设备
-- **UPS 故障**：不间断电源失效
-- **发电机故障**：备用电源系统问题
-
-**环境条件**：
-- **温度异常**：机房温度过高或过低
-- **湿度问题**：湿度过高或过低
-- **空调故障**：制冷系统失效
-- **消防系统误触发**：消防设备误动作
-
-**自然灾害**：
-- **地震**：地震导致设备损坏
-- **火灾**：火灾烧毁设备和数据
-- **洪水**：洪水淹没机房设备
-- **台风**：强风暴雨影响设施
-
-## 主从复制架构
-
-主从复制是 MySQL 最基础也是最重要的高可用技术之一。通过将主服务器的数据变更实时同步到一个或多个从服务器，实现数据的冗余存储和读写分离，提高系统的可用性和性能。
-
-### 复制原理
-
-#### 复制机制详解
-
-**二进制日志（Binary Log）**：
-- 主服务器将所有数据变更操作记录到二进制日志中
-- 日志以事件（Event）的形式存储
-- 包括 DDL、DML 和事务控制语句
-- 支持基于语句、行和混合模式的复制
-
-**复制过程**：
-1. **主服务器写入**：数据变更写入二进制日志
-2. **从服务器请求**：从服务器的 I/O 线程连接主服务器
-3. **日志传输**：主服务器的 Dump 线程发送日志事件
-4. **中继日志**：从服务器将接收到的事件写入中继日志
-5. **SQL 执行**：从服务器的 SQL 线程读取中继日志并执行
-
-**复制线程**：
-
-**主服务器端**：
-- **Dump 线程**：负责向从服务器发送二进制日志事件
-- 每个从服务器连接对应一个 Dump 线程
-- 维护发送位置信息
-- 处理从服务器的请求
-
-**从服务器端**：
-- **I/O 线程**：连接主服务器并请求二进制日志
-- **SQL 线程**：执行中继日志中的 SQL 语句
-- 两个线程独立工作，提高复制效率
-
-#### 复制模式
-
-**基于语句的复制（SBR）**：
-- 复制实际执行的 SQL 语句
-- 日志文件相对较小
-- 某些函数可能导致数据不一致
-- 适合大部分 OLTP 场景
-
-**基于行的复制（RBR）**：
-- 复制数据行的实际变更
-- 数据一致性更好
-- 日志文件可能较大
-- 适合包含不确定函数的场景
-
-**混合模式复制（MBR）**：
-- 根据语句类型自动选择复制模式
-- 平衡一致性和效率
-- MySQL 5.7+ 的默认模式
-- 提供最佳的兼容性
-
-### 复制配置
-
-#### 主服务器配置
-
-**基本配置参数**：
 ```ini
-# my.cnf 主服务器配置
 [mysqld]
-# 启用二进制日志
-log-bin=mysql-bin
+# 主库为 101，副本改为 102
+server_id=101
+log_bin=binlog
+gtid_mode=ON
+enforce_gtid_consistency=ON
+log_replica_updates=ON
+sync_binlog=1
+innodb_flush_log_at_trx_commit=1
 
-# 服务器唯一标识
-server-id=1
-
-# 二进制日志格式
-binlog-format=ROW
-
-# 同步二进制日志到磁盘
-sync-binlog=1
-
-# InnoDB 事务日志刷新策略
-innodb-flush-log-at-trx-commit=1
-
-# 二进制日志过期时间（天）
-expire-logs-days=7
-
-# 最大二进制日志文件大小
-max-binlog-size=1G
-
-# 二进制日志缓存大小
-binlog-cache-size=1M
-
-# 启用 GTID
-gtid-mode=ON
-enforce-gtid-consistency=ON
+# 以下只放在副本配置中
+# read_only=ON
+# super_read_only=ON
+# skip_replica_start=ON
 ```
 
-**创建复制用户**：
+副本持久化只读配置，避免重启后误开写入。`super_read_only` 限制普通客户端及有管理能力的客户端写入，但复制应用线程仍可执行日志；有足够权限的人也能关闭它，因此它不能代替网络隔离和账号治理。双 1 持久性配置仍依赖文件系统、存储和硬件正确兑现刷盘语义，不等于整套系统不会丢数据。
+
+主库上创建只用于复制的账号，来源应限定为实际副本地址或受控网段。下面 `192.0.2.12` 是保留示例地址，密码由受控秘密配置替换，不能原样使用。8.4 的复制通道密码最多 32 个字符，应使用满足此限制的高熵随机值，而不是将超长密码直接填入通道：
+
 ```sql
--- 创建专用的复制用户
-CREATE USER 'repl_user'@'%' IDENTIFIED BY 'strong_password';
-
--- 授予复制权限
-GRANT REPLICATION SLAVE ON *.* TO 'repl_user'@'%';
-
--- 刷新权限
-FLUSH PRIVILEGES;
-
--- 查看主服务器状态
-SHOW MASTER STATUS;
+CREATE USER 'repl'@'192.0.2.12'
+  IDENTIFIED BY '<替换为随机复制密码>' REQUIRE SSL;
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.0.2.12';
 ```
 
-#### 从服务器配置
+`REPLICATION SLAVE` 是 8.4 中仍使用的权限标识。启用 TLS 后，还要给副本配置可信 CA，并让主库证书的身份与连接主机名匹配；只加密、不核验身份不足以证明连的是预期主库。
 
-**基本配置参数**：
-```ini
-# my.cnf 从服务器配置
-[mysqld]
-# 服务器唯一标识（必须不同于主服务器）
-server-id=2
+在副本配置复制通道；这是需替换地址、路径及凭据的配置模板。主库 DNS 与证书应由部署环境准备，CA 文件必须能被 mysqld 读取。执行前检查通道确实属于本次练习，已有通道不能直接覆盖：
 
-# 启用中继日志
-relay-log=relay-bin
-
-# 从服务器只读模式
-read-only=1
-
-# 超级用户只读模式
-super-read-only=1
-
-# 跳过复制错误（谨慎使用）
-# slave-skip-errors=1062,1032
-
-# 并行复制线程数
-slave-parallel-workers=4
-
-# 并行复制类型
-slave-parallel-type=LOGICAL_CLOCK
-
-# 启用 GTID
-gtid-mode=ON
-enforce-gtid-consistency=ON
-```
-
-**配置复制连接**：
 ```sql
--- 配置主服务器连接信息
-CHANGE MASTER TO
-    MASTER_HOST='192.168.1.100',
-    MASTER_PORT=3306,
-    MASTER_USER='repl_user',
-    MASTER_PASSWORD='strong_password',
-    MASTER_AUTO_POSITION=1;  -- 使用 GTID 自动定位
-
--- 启动复制
-START SLAVE;
-
--- 查看复制状态
-SHOW SLAVE STATUS\G
+CHANGE REPLICATION SOURCE TO
+  SOURCE_HOST='mysql-source.example.internal',
+  SOURCE_PORT=3306,
+  SOURCE_USER='repl',
+  SOURCE_PASSWORD='<替换为随机复制密码>',
+  SOURCE_AUTO_POSITION=1,
+  SOURCE_SSL=1,
+  SOURCE_SSL_CA='/etc/mysql/tls/ca.pem',
+  SOURCE_SSL_VERIFY_SERVER_CERT=1;
+START REPLICA;
+SHOW REPLICA STATUS\G
 ```
 
-#### 复制监控
+检查 `Replica_IO_Running`、`Replica_SQL_Running`、`Last_IO_Error` 和 `Last_SQL_Error`。I/O 失败先查网络、证书、账号来源及认证；SQL 失败先保留错误、GTID 和冲突行证据，不通过“跳过一个事务”掩盖数据分叉。MySQL 8.4 使用 `CHANGE REPLICATION SOURCE TO`、`START/STOP REPLICA`，不再复制旧 `CHANGE MASTER` 配置。
 
-**关键状态指标**：
+主库创建订单并提交后，记录一个包含该订单的 GTID 集合：
+
 ```sql
--- 查看复制状态
-SHOW SLAVE STATUS\G
-
--- 重要字段说明：
--- Slave_IO_Running: I/O 线程运行状态
--- Slave_SQL_Running: SQL 线程运行状态
--- Seconds_Behind_Master: 复制延迟（秒）
--- Last_IO_Error: I/O 线程最后错误
--- Last_SQL_Error: SQL 线程最后错误
--- Master_Log_File: 当前读取的主日志文件
--- Read_Master_Log_Pos: 当前读取位置
--- Relay_Master_Log_File: 中继日志对应的主日志文件
--- Exec_Master_Log_Pos: 已执行的主日志位置
+CREATE DATABASE ha_demo;
+CREATE TABLE ha_demo.orders (
+  id BIGINT UNSIGNED PRIMARY KEY,
+  request_key VARCHAR(64) NOT NULL UNIQUE,
+  amount DECIMAL(12,2) NOT NULL
+) ENGINE=InnoDB;
+INSERT INTO ha_demo.orders VALUES (1001, 'checkout-1001', 39.90);
+SELECT @@GLOBAL.gtid_executed AS required_gtids;
 ```
 
-**性能监控查询**：
+把上一步实际返回的字符串放入副本的当前会话，先等待，再读取：
+
 ```sql
--- 查看复制延迟
-SELECT 
-    CHANNEL_NAME,
-    SERVICE_STATE,
-    LAST_ERROR_MESSAGE,
-    LAST_ERROR_TIMESTAMP
-FROM performance_schema.replication_connection_status;
-
--- 查看复制应用状态
-SELECT 
-    CHANNEL_NAME,
-    SERVICE_STATE,
-    APPLYING_TRANSACTION,
-    LAST_APPLIED_TRANSACTION
-FROM performance_schema.replication_applier_status_by_coordinator;
-
--- 查看复制工作线程状态
-SELECT 
-    CHANNEL_NAME,
-    WORKER_ID,
-    SERVICE_STATE,
-    LAST_ERROR_MESSAGE
-FROM performance_schema.replication_applier_status_by_worker;
+SET @required_gtids='<替换为主库返回的完整GTID集合>';
+SELECT WAIT_FOR_EXECUTED_GTID_SET(@required_gtids, 3) AS wait_result;
+SELECT * FROM ha_demo.orders WHERE id=1001;
 ```
 
-### 读写分离
+应用必须检查等待结果：`0` 表示集合已执行，`1` 表示超时，错误或 NULL 也不能按成功继续。超时后应按业务约定回主库或返回可重试结果，不能继续从同一滞后副本读并谎称满足写后读。等待和后续读取应固定到同一副本、同一连接；已有 Repeatable Read 快照也可能继续看到旧数据，应在合适的新事务中读取。
 
-读写分离是利用主从复制架构实现的一种负载均衡策略，将读操作分发到从服务器，写操作保留在主服务器，从而提高系统的整体性能和可扩展性。
+该练习捕获全局集合，可能包含其他会话事务，等待范围偏大。生产可在连接协议与驱动支持的条件下取得本次事务的 GTID；业务还需安全地携带、校验和限时等待。不能把“写后固定读主库 5 秒”当成副本已经追平的证明，也不能在另一个线程里清理原请求的 ThreadLocal 状态。
 
-#### 读写分离原理
+## 读写路由先服从事务与一致性
 
-**流量分发策略**：
-- **写操作路由**：所有写操作（INSERT、UPDATE、DELETE）路由到主服务器
-- **读操作路由**：读操作（SELECT）路由到从服务器
-- **事务处理**：事务内的所有操作路由到同一服务器
-- **一致性要求**：根据业务需求选择强一致性或最终一致性
+订单创建、支付结果确认、库存校验和锁定读取通常需要主库，或经过明确的一致性等待。运营报表、历史检索等容许短暂陈旧的读取，可以使用符合延迟和健康条件的副本。读取范围、租户授权和事务连接不能在路由时丢失。
 
-**负载均衡算法**：
-- **轮询（Round Robin）**：按顺序分发请求
-- **加权轮询**：根据服务器性能分配权重
-- **最少连接**：选择连接数最少的服务器
-- **响应时间**：选择响应时间最短的服务器
-- **哈希算法**：根据请求特征进行哈希分发
+用 `^SELECT` 正则把所有查询送到副本会误处理 `SELECT ... FOR UPDATE`、事务内查询、会话变量、临时表和写后读。路由必须理解事务和会话约束，或由应用明确标注允许陈旧的查询。同一事务固定连接，不能“写去主库、事务里的读去副本”。
 
-#### 实现方案
+ProxySQL、MySQL Router 等工具的职责和能力不同。Router 可配合 InnoDB Cluster 的元数据提供角色入口，但仍需部署自身冗余；ProxySQL 的查询规则、监控和事务保持也要按所用版本验证。TCP `SELECT 1` 只证明能查询，不证明节点拥有正确角色、复制已应用、仍在多数派或有能力承受流量。
 
-**应用层实现**：
-```java
-// Java 应用层读写分离示例
-public class DatabaseRouter {
-    private DataSource masterDataSource;
-    private List<DataSource> slaveDataSources;
-    private LoadBalancer loadBalancer;
-    
-    public DataSource getDataSource(boolean isWrite) {
-        if (isWrite || TransactionSynchronizationManager.isCurrentTransactionReadOnly() == false) {
-            return masterDataSource;
-        } else {
-            return loadBalancer.select(slaveDataSources);
-        }
-    }
-    
-    @Transactional(readOnly = true)
-    public List<User> findUsers() {
-        // 自动路由到从库
-        return userRepository.findAll();
-    }
-    
-    @Transactional
-    public void saveUser(User user) {
-        // 自动路由到主库
-        userRepository.save(user);
-    }
-}
-```
+## 切换必须先阻止双写
 
-**中间件实现**：
+计划维护可以先停止新写入、等待在途事务结束、记录最终 GTID，再确认候选已执行完整集合。故障切换时旧主可能无法提供最终位置，异步拓扑便不能证明“没有遗漏已提交订单”；此时应记录缺口判断与业务恢复决策，而不是用 `Seconds_Behind_Source=0` 代替证明。
 
-**ProxySQL 配置**：
+![主库切换前隔离旧主、核对候选并重新开放写入口的流程](/database/mysql-failover-fence.svg)
+
+1. **冻结写入口并隔离旧主。** 覆盖现有连接、直连任务、定时器和重试，不只修改 DNS。按环境使用实例断电、网络隔离或经过验证的租约与 fencing；只在监控侧删节点不构成隔离。
+2. **保留并比较候选历史。** 检查所有可用副本的已执行及已接收集合、应用错误、过滤配置和异常本地写入。GTID 集合是偏序关系，不能按字符串大小或事务数量选择“最新”；候选各有独有事务时要先调查分叉。
+3. **完成可用日志的应用。** 候选已收到但未应用的事务也要纳入判断，等待目标集合并检查冲突；缺少的源日志已经清除时，可能需要从可信备份重新初始化。
+4. **提升一个候选并切换入口。** 旧主隔离已确认、候选数据验收通过后，才调整复制与只读状态。更新路由并处理连接池旧连接，恢复小范围流量后确认订单读写、幂等结果与错误率。
+5. **旧主按恢复节点重新接入。** 先保持隔离，核对分叉和未复制事务，必要时从新主重新克隆/还原。禁止把旧主直接改为可写并自动抢回主角色。
+
+这是一套决策顺序，不是可对任意集群执行的提升脚本。未确认旧主隔离、候选历史或数据缺口时，保留写入冻结并修复证据链；不能用 `RESET BINARY LOGS AND GTIDS`、盲改 GTID、跳过错误事务或重新 bootstrap 来“清掉报警”。
+
+客户端在提交后失联时，重试需携带同一个 `request_key`，并查询原订单结果。唯一约束能防止同键重复插入，但完整幂等还要核对同键请求参数、结果状态和事务边界。不能生成一个新键后再次扣款。
+
+## Group Replication 与 InnoDB Cluster
+
+Group Replication 提供组成员管理、事务排序与认证等机制，常见部署是三个成员的单主组，分布在合适的独立故障域。多数派用于维持组内决策；三个成员容忍一个成员失效，不等于在任意双机故障、跨区隔离和路由故障下仍可写。单主简化写冲突，通常是业务首先评估的模式。
+
+InnoDB Cluster 将 Group Replication、MySQL Shell AdminAPI 与 Router 组合为管理和路由体系；InnoDB ReplicaSet 是异步复制的另一种管理方案，不能把二者写成同一种自动选主能力。多主也不会把单个热点订单变成可无限并行写入：事务可能认证冲突，业务仍要处理回滚、重试与唯一约束。
+
+组内事务排好顺序，不代表任意成员在任意时刻都已应用完。MySQL 8.4 的默认 `group_replication_consistency` 是 `BEFORE_ON_PRIMARY_FAILOVER`，新主在切换后处理积压期间阻塞新事务，避免直接在尚未应用完的状态服务；这不等于所有副本读取都自动强一致。`BEFORE`、`AFTER`、`BEFORE_AND_AFTER` 会在不同位置增加等待，要按读写合同和延迟要求选用。
+
+可用以下入口观察角色与积压；只在实际运行 Group Replication 的实例上解释成员结果，普通异步副本表为空不构成故障：
+
 ```sql
--- 配置后端服务器
-INSERT INTO mysql_servers(hostgroup_id, hostname, port, weight) VALUES
-(0, '192.168.1.100', 3306, 1000),  -- 主服务器
-(1, '192.168.1.101', 3306, 900),   -- 从服务器1
-(1, '192.168.1.102', 3306, 900);   -- 从服务器2
-
--- 配置用户
-INSERT INTO mysql_users(username, password, default_hostgroup) VALUES
-('app_user', 'password', 0);
-
--- 配置查询路由规则
-INSERT INTO mysql_query_rules(rule_id, active, match_pattern, destination_hostgroup, apply) VALUES
-(1, 1, '^SELECT.*', 1, 1),  -- 读操作路由到从库
-(2, 1, '^INSERT|UPDATE|DELETE.*', 0, 1);  -- 写操作路由到主库
-
--- 加载配置
-LOAD MYSQL SERVERS TO RUNTIME;
-LOAD MYSQL USERS TO RUNTIME;
-LOAD MYSQL QUERY RULES TO RUNTIME;
-
--- 保存配置
-SAVE MYSQL SERVERS TO DISK;
-SAVE MYSQL USERS TO DISK;
-SAVE MYSQL QUERY RULES TO DISK;
-```
-
-**MaxScale 配置**：
-```ini
-# maxscale.cnf
-[maxscale]
-threads=auto
-
-# 定义服务器
-[master]
-type=server
-address=192.168.1.100
-port=3306
-protocol=MariaDBBackend
-
-[slave1]
-type=server
-address=192.168.1.101
-port=3306
-protocol=MariaDBBackend
-
-[slave2]
-type=server
-address=192.168.1.102
-port=3306
-protocol=MariaDBBackend
-
-# 定义监控
-[MySQL-Monitor]
-type=monitor
-module=mariadbmon
-servers=master,slave1,slave2
-user=monitor_user
-password=monitor_password
-monitor_interval=2000
-
-# 定义读写分离服务
-[Read-Write-Service]
-type=service
-router=readwritesplit
-servers=master,slave1,slave2
-user=maxscale_user
-password=maxscale_password
-max_slave_connections=100%
-max_slave_replication_lag=30
-
-# 定义监听器
-[Read-Write-Listener]
-type=listener
-service=Read-Write-Service
-protocol=MariaDBClient
-port=4006
-```
-
-#### 一致性处理
-
-**数据一致性挑战**：
-- **复制延迟**：从库数据可能滞后于主库
-- **读写时序**：写入后立即读取可能读到旧数据
-- **事务一致性**：事务内的读写操作需要保持一致
-- **会话一致性**：同一会话内的操作需要保持一致
-
-**一致性解决方案**：
-
-**强制主库读取**：
-```java
-@Service
-public class UserService {
-    
-    @Transactional
-    public void updateUserAndRead(Long userId, String newName) {
-        // 更新操作，路由到主库
-        userRepository.updateName(userId, newName);
-        
-        // 强制从主库读取最新数据
-        User user = userRepository.findByIdFromMaster(userId);
-        
-        // 后续业务逻辑
-        processUser(user);
-    }
-}
-```
-
-**延迟补偿机制**：
-```java
-public class ConsistencyManager {
-    private static final int MAX_RETRY = 3;
-    private static final long RETRY_INTERVAL = 100; // ms
-    
-    public <T> T readWithConsistency(Supplier<T> readOperation, 
-                                   Predicate<T> consistencyCheck) {
-        for (int i = 0; i < MAX_RETRY; i++) {
-            T result = readOperation.get();
-            if (consistencyCheck.test(result)) {
-                return result;
-            }
-            
-            if (i < MAX_RETRY - 1) {
-                try {
-                    Thread.sleep(RETRY_INTERVAL);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-            }
-        }
-        
-        // 最后尝试从主库读取
-        return readFromMaster();
-    }
-}
-```
-
-**会话粘性**：
-```java
-public class SessionStickyRouter {
-    private ThreadLocal<Boolean> forcemaster = new ThreadLocal<>();
-    private long stickyDuration = 5000; // 5秒
-    
-    public void markWriteOperation() {
-        forcemaster.set(true);
-        // 设置定时器，一段时间后允许读从库
-        scheduleResetSticky();
-    }
-    
-    public DataSource getDataSource(boolean isWrite) {
-        if (isWrite || Boolean.TRUE.equals(forcemaster.get())) {
-            return masterDataSource;
-        } else {
-            return selectSlaveDataSource();
-        }
-    }
-}
-```
-
-## 集群技术
-
-### MySQL Cluster (NDB)
-
-MySQL Cluster 是 MySQL 的分布式计算环境，提供了高可用性、高性能和可扩展性。它使用 NDB 存储引擎，支持实时的、内存中的、冗余的、事务性的数据库操作。
-
-#### NDB 架构
-
-**组件构成**：
-
-**管理节点（Management Node）**：
-- 负责集群的配置和管理
-- 监控其他节点的状态
-- 处理集群的启动和关闭
-- 通常部署 1-2 个节点以提供冗余
-
-**数据节点（Data Node）**：
-- 存储实际的数据
-- 处理数据的读写操作
-- 提供数据的冗余和分片
-- 通常部署偶数个节点以支持复制
-
-**SQL 节点（SQL Node）**：
-- 提供标准的 MySQL 接口
-- 处理 SQL 查询和事务
-- 可以有多个节点以提供负载均衡
-- 无状态设计，可以动态添加或删除
-
-**数据分布**：
-- **分片（Sharding）**：数据按主键哈希分布到不同节点
-- **复制（Replication）**：每个分片有多个副本
-- **节点组（Node Group）**：包含相同数据副本的节点集合
-- **分区（Partition）**：数据的逻辑分割单位
-
-#### 配置部署
-
-**管理节点配置**：
-```ini
-# config.ini - 集群配置文件
-[ndbd default]
-NoOfReplicas=2
-DataMemory=80M
-IndexMemory=18M
-
-[ndbd]
-Hostname=192.168.1.10
-DataDir=/var/lib/mysql-cluster
-
-[ndbd]
-Hostname=192.168.1.11
-DataDir=/var/lib/mysql-cluster
-
-[ndbd]
-Hostname=192.168.1.12
-DataDir=/var/lib/mysql-cluster
-
-[ndbd]
-Hostname=192.168.1.13
-DataDir=/var/lib/mysql-cluster
-
-[ndb_mgmd]
-Hostname=192.168.1.20
-DataDir=/var/lib/mysql-cluster
-
-[mysqld]
-Hostname=192.168.1.30
-
-[mysqld]
-Hostname=192.168.1.31
-```
-
-**数据节点配置**：
-```ini
-# my.cnf - 数据节点配置
-[mysql_cluster]
-ndb-connectstring=192.168.1.20
-
-[ndbd]
-datadir=/var/lib/mysql-cluster
-```
-
-**SQL 节点配置**：
-```ini
-# my.cnf - SQL 节点配置
-[mysqld]
-ndbcluster
-ndb-connectstring=192.168.1.20
-
-[mysql_cluster]
-ndb-connectstring=192.168.1.20
-```
-
-#### 集群管理
-
-**启动集群**：
-```bash
-# 1. 启动管理节点
-ndb_mgmd -f /var/lib/mysql-cluster/config.ini
-
-# 2. 启动数据节点
-ndbd --initial  # 首次启动使用 --initial
-
-# 3. 启动 SQL 节点
-mysqld_safe &
-```
-
-**集群监控**：
-```bash
-# 连接到管理节点
-ndb_mgm
-
-# 查看集群状态
-ndb_mgm> SHOW
-
-# 查看详细状态
-ndb_mgm> ALL STATUS
-
-# 查看报告
-ndb_mgm> ALL REPORT MEMORY
-```
-
-**在线维护**：
-```bash
-# 滚动重启节点
-ndb_mgm> 2 RESTART
-
-# 停止节点
-ndb_mgm> 2 STOP
-
-# 启动节点
-ndb_mgm> 2 START
-
-# 在线备份
-ndb_mgm> START BACKUP
-```
-
-### Galera Cluster
-
-Galera Cluster 是基于 Galera 复制库的 MySQL 集群解决方案，提供同步多主复制，确保数据的强一致性。
-
-#### Galera 原理
-
-**同步复制机制**：
-- **写集复制**：事务在所有节点上同步执行
-- **认证机制**：确保事务在所有节点上的一致性
-- **冲突检测**：检测并解决并发事务冲突
-- **自动故障转移**：节点故障时自动切换
-
-**复制流程**：
-1. **事务执行**：在本地节点执行事务
-2. **写集生成**：生成事务的写集（Write Set）
-3. **全局排序**：通过 GCS 进行全局排序
-4. **认证检查**：检查是否与其他事务冲突
-5. **应用事务**：在所有节点应用事务
-6. **提交确认**：确认事务在所有节点提交
-
-#### 配置部署
-
-**基本配置**：
-```ini
-# my.cnf - Galera 配置
-[mysqld]
-# 基本设置
-bind-address=0.0.0.0
-default-storage-engine=innodb
-innodb-autoinc-lock-mode=2
-innodb-doublewrite=1
-query-cache-size=0
-query-cache-type=0
-
-# Galera 设置
-wsrep_on=ON
-wsrep_provider=/usr/lib/galera/libgalera_smm.so
-wsrep_cluster_name="my_galera_cluster"
-wsrep_cluster_address="gcomm://192.168.1.10,192.168.1.11,192.168.1.12"
-wsrep_node_name="node1"
-wsrep_node_address="192.168.1.10"
-wsrep_sst_method=rsync
-wsrep_sst_auth=sst_user:sst_password
-
-# 复制设置
-wsrep_slave_threads=4
-wsrep_certify_nonPK=1
-wsrep_max_ws_rows=131072
-wsrep_max_ws_size=1073741824
-wsrep_debug=0
-wsrep_convert_LOCK_to_trx=0
-wsrep_retry_autocommit=1
-wsrep_auto_increment_control=1
-```
-
-**集群初始化**：
-```bash
-# 第一个节点启动（引导集群）
-mysqld_safe --wsrep-new-cluster &
-
-# 其他节点正常启动
-mysqld_safe &
-```
-
-**状态监控**：
-```sql
--- 查看集群状态
-SHOW STATUS LIKE 'wsrep_%';
-
--- 重要状态变量
--- wsrep_cluster_size: 集群节点数
--- wsrep_cluster_status: 集群状态
--- wsrep_connected: 是否连接到集群
--- wsrep_ready: 是否准备接受查询
--- wsrep_local_state_comment: 本地节点状态
-```
-
-#### 故障处理
-
-**脑裂处理**：
-```bash
-# 检查集群状态
-mysql -e "SHOW STATUS LIKE 'wsrep_cluster_size';"
-
-# 如果出现脑裂，选择一个节点作为主节点
-mysql -e "SET GLOBAL wsrep_provider_options='pc.bootstrap=YES';"
-
-# 重新启动其他节点
-systemctl restart mysql
-```
-
-**节点恢复**：
-```bash
-# 检查节点状态
-mysql -e "SHOW STATUS LIKE 'wsrep_local_state_comment';"
-
-# 如果节点状态异常，重新同步
-mysql -e "SET GLOBAL wsrep_desync=ON;"
-mysql -e "SET GLOBAL wsrep_desync=OFF;"
-```
-
-### Group Replication
-
-MySQL Group Replication 是 MySQL 5.7 引入的原生集群解决方案，提供自动故障检测、故障转移和弹性扩展能力。
-
-#### Group Replication 原理
-
-**组复制机制**：
-- **分布式状态机**：所有节点维护相同的状态
-- **原子广播**：确保消息在所有节点的一致性传递
-- **冲突检测**：基于认证数据库检测事务冲突
-- **自动故障检测**：通过心跳机制检测节点故障
-
-**一致性保证**：
-- **最终一致性**：异步模式下的最终一致性
-- **强一致性**：同步模式下的强一致性
-- **读写一致性**：读操作可以在任意节点执行
-- **因果一致性**：保证操作的因果关系
-
-#### 配置部署
-
-**基本配置**：
-```ini
-# my.cnf - Group Replication 配置
-[mysqld]
-# 基本设置
-server-id=1
-gtid-mode=ON
-enforce-gtid-consistency=ON
-master-info-repository=TABLE
-relay-log-info-repository=TABLE
-binlog-checksum=NONE
-log-slave-updates=ON
-log-bin=binlog
-binlog-format=ROW
-
-# Group Replication 设置
-plugin-load-add='group_replication.so'
-group_replication_group_name="aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
-group_replication_start_on_boot=off
-group_replication_local_address="192.168.1.10:33061"
-group_replication_group_seeds="192.168.1.10:33061,192.168.1.11:33061,192.168.1.12:33061"
-group_replication_bootstrap_group=off
-
-# 单主模式设置
-group_replication_single_primary_mode=ON
-group_replication_enforce_update_everywhere_checks=OFF
-```
-
-**启动组复制**：
-```sql
--- 在第一个节点上启动组复制
-SET GLOBAL group_replication_bootstrap_group=ON;
-START GROUP_REPLICATION;
-SET GLOBAL group_replication_bootstrap_group=OFF;
-
--- 在其他节点上加入组
-START GROUP_REPLICATION;
-
--- 查看组成员
-SELECT * FROM performance_schema.replication_group_members;
-```
-
-**监控管理**：
-```sql
--- 查看组复制状态
-SELECT 
-    MEMBER_ID,
-    MEMBER_HOST,
-    MEMBER_PORT,
-    MEMBER_STATE,
-    MEMBER_ROLE
+SELECT MEMBER_ID, MEMBER_HOST, MEMBER_PORT, MEMBER_STATE, MEMBER_ROLE
 FROM performance_schema.replication_group_members;
 
--- 查看复制延迟
-SELECT 
-    COUNT_TRANSACTIONS_IN_QUEUE,
-    COUNT_TRANSACTIONS_CHECKED,
-    COUNT_CONFLICTS_DETECTED,
-    COUNT_TRANSACTIONS_ROWS_VALIDATING
+SELECT MEMBER_ID, COUNT_TRANSACTIONS_IN_QUEUE,
+       COUNT_TRANSACTIONS_REMOTE_IN_APPLIER_QUEUE,
+       COUNT_CONFLICTS_DETECTED
 FROM performance_schema.replication_group_member_stats;
 ```
 
-## 扩展策略
+生产组应通过匹配版本的 Shell/AdminAPI 检查实例配置、TLS、恢复账号、数据一致性及路由；不把几行 `bootstrap_group=ON` 当成完整安装方法。多数派丢失后，需要确认哪些实例存活、谁有最完整历史并隔离其他分区，再按灾难恢复流程处理。错误地在两个分区重新引导，可能创建两个互不知情的写入组。
 
-### 垂直扩展
+Galera 应按实际采用的 PXC 或 MariaDB Galera 发行版部署，不能当成任意原生 MySQL 都能安装的通用插件；写集认证、应用队列与因果读取也有各自边界。NDB Cluster 则把数据节点与 SQL 节点分开，存储引擎、数据模型和限制不同；SQL 节点还可能包含本地非 NDB 对象，不能笼统视为绝对无状态。这些方案不能混用配置和恢复命令。
 
-垂直扩展（Scale Up）是通过增加单个服务器的硬件资源来提高系统性能的方法。这是最直接的扩展方式，但存在硬件限制和成本效益问题。
+## 扩容与高可用分别验证
 
-#### 硬件升级策略
+增加读副本主要扩充可分流的读取，不扩充单主写入容量；副本仍需承受完整复制写入。升级 CPU、内存或存储应针对瓶颈，不能用增大连接数替代排队治理，也不能为了跑分降低 `sync_binlog` 或刷盘配置后继续宣称原有恢复保证。
 
-**CPU 升级**：
-- **核心数增加**：提高并发处理能力
-- **频率提升**：提高单线程性能
-- **缓存增大**：减少内存访问延迟
-- **架构优化**：选择更先进的 CPU 架构
+分片把不同订单放在不同写入节点，带来路由、跨片查询、事务和迁移成本。例如按买家分片能使“买家订单列表”落在单片，却使“全站十月销售额”需要跨片汇总；每个分片仍需自己的备份与高可用。简单 `user_id % N` 在 N 改变时会移动大量数据，不能直接加节点而省略迁移、双读/双写策略、对账和切流。ShardingSphere、Vitess 等应按实际版本和拓扑建立配置，不把旧 YAML 当作通用部署文件。
 
-**内存扩展**：
-- **容量增加**：支持更大的数据集和缓存
-- **速度提升**：使用更快的内存类型
-- **通道增加**：提高内存带宽
-- **NUMA 优化**：优化多 CPU 系统的内存访问
+## 演练与验收
 
-**存储优化**：
-- **SSD 替换**：使用 SSD 替换机械硬盘
-- **NVMe 升级**：使用 NVMe SSD 提高 I/O 性能
-- **RAID 配置**：优化 RAID 级别和配置
-- **存储网络**：使用高速存储网络
+在隔离环境先制造可观测的小故障：暂停副本应用线程，主库新增一笔订单，确认等待超时而读取降级；恢复应用后，目标 GTID 等待成功且订单可见。再演练主机失效、网络分区、候选追不上、路由进程故障，以及客户端在提交前后断线，分别记录数据缺口、冻结时长、重复请求和恢复步骤。
 
-**网络升级**：
-- **带宽增加**：升级到更高带宽的网络
-- **延迟优化**：使用低延迟网络设备
-- **多网卡**：使用多个网卡提高吞吐量
-- **网络优化**：优化网络协议栈参数
-
-#### 性能调优
-
-**MySQL 参数优化**：
-```ini
-# 高性能配置示例
-[mysqld]
-# 内存相关
-innodb_buffer_pool_size=32G  # 设置为物理内存的 70-80%
-innodb_buffer_pool_instances=8
-innodb_log_buffer_size=64M
-key_buffer_size=256M
-query_cache_size=0  # 禁用查询缓存
-
-# I/O 相关
-innodb_io_capacity=2000
-innodb_io_capacity_max=4000
-innodb_read_io_threads=8
-innodb_write_io_threads=8
-innodb_flush_method=O_DIRECT
-
-# 连接相关
-max_connections=1000
-max_connect_errors=100000
-back_log=500
-thread_cache_size=100
-
-# 事务相关
-innodb_flush_log_at_trx_commit=2
-sync_binlog=0
-innodb_support_xa=0
-```
-
-**操作系统优化**：
-```bash
-# 内核参数优化
-echo 'vm.swappiness=1' >> /etc/sysctl.conf
-echo 'vm.dirty_ratio=15' >> /etc/sysctl.conf
-echo 'vm.dirty_background_ratio=5' >> /etc/sysctl.conf
-echo 'net.core.somaxconn=65535' >> /etc/sysctl.conf
-echo 'net.ipv4.tcp_max_syn_backlog=65535' >> /etc/sysctl.conf
-
-# 文件系统优化
-mount -o noatime,nodiratime /dev/sdb1 /var/lib/mysql
-
-# I/O 调度器优化
-echo noop > /sys/block/sdb/queue/scheduler
-```
-
-#### 垂直扩展限制
-
-**硬件限制**：
-- **物理极限**：单机硬件性能存在上限
-- **成本效益**：高端硬件成本呈指数增长
-- **可用性风险**：单点故障风险增加
-- **扩展性差**：难以应对突发负载
-
-**软件限制**：
-- **架构瓶颈**：软件架构可能成为瓶颈
-- **锁竞争**：高并发下锁竞争加剧
-- **内存管理**：大内存管理复杂度增加
-- **垃圾回收**：大堆内存的垃圾回收影响
-
-### 水平扩展
-
-水平扩展（Scale Out）是通过增加服务器数量来提高系统性能和容量的方法。这种方式具有更好的可扩展性和成本效益，但增加了系统复杂度。
-
-#### 分库分表
-
-**分库策略**：
-
-**按业务分库**：
-- 将不同业务模块的数据存储在不同数据库中
-- 减少单库的数据量和访问压力
-- 便于业务模块的独立开发和维护
-- 需要处理跨库事务和查询问题
-
-**按数据特征分库**：
-- 根据数据的访问模式进行分库
-- 如按地理位置、时间范围等分库
-- 提高查询效率和数据局部性
-- 需要合理设计分库规则
-
-**分表策略**：
-
-**水平分表**：
-```sql
--- 按用户 ID 分表示例
-CREATE TABLE user_0 (
-    id BIGINT PRIMARY KEY,
-    username VARCHAR(50),
-    email VARCHAR(100),
-    created_at TIMESTAMP
-);
-
-CREATE TABLE user_1 (
-    id BIGINT PRIMARY KEY,
-    username VARCHAR(50),
-    email VARCHAR(100),
-    created_at TIMESTAMP
-);
-
--- 分表路由逻辑
--- table_index = user_id % table_count
-```
-
-**垂直分表**：
-```sql
--- 将大表按字段拆分
-CREATE TABLE user_basic (
-    id BIGINT PRIMARY KEY,
-    username VARCHAR(50),
-    email VARCHAR(100),
-    created_at TIMESTAMP
-);
-
-CREATE TABLE user_profile (
-    user_id BIGINT PRIMARY KEY,
-    avatar VARCHAR(200),
-    bio TEXT,
-    preferences JSON,
-    FOREIGN KEY (user_id) REFERENCES user_basic(id)
-);
-```
-
-**分片算法**：
-
-**哈希分片**：
-```java
-public class HashSharding {
-    private int shardCount;
-    
-    public int getShardIndex(Object shardKey) {
-        return Math.abs(shardKey.hashCode()) % shardCount;
-    }
-    
-    public String getTableName(String baseTableName, Object shardKey) {
-        int shardIndex = getShardIndex(shardKey);
-        return baseTableName + "_" + shardIndex;
-    }
-}
-```
-
-**范围分片**：
-```java
-public class RangeSharding {
-    private List<ShardRange> shardRanges;
-    
-    public int getShardIndex(long shardKey) {
-        for (int i = 0; i < shardRanges.size(); i++) {
-            ShardRange range = shardRanges.get(i);
-            if (shardKey >= range.getStart() && shardKey < range.getEnd()) {
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("Invalid shard key: " + shardKey);
-    }
-}
-```
-
-**一致性哈希**：
-```java
-public class ConsistentHashing {
-    private TreeMap<Long, String> ring = new TreeMap<>();
-    private int virtualNodes = 150;
-    
-    public void addNode(String node) {
-        for (int i = 0; i < virtualNodes; i++) {
-            long hash = hash(node + ":" + i);
-            ring.put(hash, node);
-        }
-    }
-    
-    public String getNode(String key) {
-        long hash = hash(key);
-        Map.Entry<Long, String> entry = ring.ceilingEntry(hash);
-        if (entry == null) {
-            entry = ring.firstEntry();
-        }
-        return entry.getValue();
-    }
-}
-```
-
-#### 中间件解决方案
-
-**ShardingSphere**：
-```yaml
-# sharding-jdbc 配置
-dataSources:
-  ds0:
-    url: jdbc:mysql://192.168.1.10:3306/demo_ds_0
-    username: root
-    password: password
-  ds1:
-    url: jdbc:mysql://192.168.1.11:3306/demo_ds_1
-    username: root
-    password: password
-
-shardingRule:
-  tables:
-    t_order:
-      actualDataNodes: ds${0..1}.t_order_${0..1}
-      tableStrategy:
-        inline:
-          shardingColumn: order_id
-          algorithmExpression: t_order_${order_id % 2}
-      keyGenerator:
-        type: SNOWFLAKE
-        column: order_id
-  defaultDatabaseStrategy:
-    inline:
-      shardingColumn: user_id
-      algorithmExpression: ds${user_id % 2}
-```
-
-**Vitess**：
-```yaml
-# Vitess 配置示例
-topology:
-  cells:
-    - name: zone1
-      keyspaces:
-        - name: commerce
-          shards:
-            - name: "-80"
-              tablets:
-                - type: master
-                  host: tablet1
-                - type: replica
-                  host: tablet2
-            - name: "80-"
-              tablets:
-                - type: master
-                  host: tablet3
-                - type: replica
-                  host: tablet4
-```
-
-#### 跨分片查询
-
-**分布式查询处理**：
-```java
-public class DistributedQueryProcessor {
-    
-    public List<Order> queryOrdersByUserId(Long userId) {
-        // 确定分片
-        String shardKey = getShardKey(userId);
-        
-        // 单分片查询
-        return queryFromShard(shardKey, userId);
-    }
-    
-    public List<Order> queryOrdersByDateRange(Date start, Date end) {
-        List<Order> results = new ArrayList<>();
-        
-        // 跨分片查询
-        for (String shard : getAllShards()) {
-            List<Order> shardResults = queryFromShard(shard, start, end);
-            results.addAll(shardResults);
-        }
-        
-        // 合并排序
-        return mergeAndSort(results);
-    }
-    
-    public long countOrdersByStatus(String status) {
-        long totalCount = 0;
-        
-        // 并行查询所有分片
-        List<CompletableFuture<Long>> futures = getAllShards().stream()
-            .map(shard -> CompletableFuture.supplyAsync(() -> 
-                countFromShard(shard, status)))
-            .collect(Collectors.toList());
-        
-        // 汇总结果
-        for (CompletableFuture<Long> future : futures) {
-            totalCount += future.join();
-        }
-        
-        return totalCount;
-    }
-}
-```
-
-**分布式事务处理**：
-```java
-@Service
-public class DistributedTransactionService {
-    
-    @GlobalTransactional
-    public void transferMoney(Long fromUserId, Long toUserId, BigDecimal amount) {
-        // 可能涉及不同分片的操作
-        accountService.debit(fromUserId, amount);
-        accountService.credit(toUserId, amount);
-        
-        // 记录转账日志
-        transactionLogService.log(fromUserId, toUserId, amount);
-    }
-    
-    @Compensable
-    public void processOrder(Order order) {
-        try {
-            // 减库存
-            inventoryService.decreaseStock(order.getProductId(), order.getQuantity());
-            
-            // 创建订单
-            orderService.createOrder(order);
-            
-            // 扣款
-            paymentService.charge(order.getUserId(), order.getAmount());
-            
-        } catch (Exception e) {
-            // 自动补偿
-            compensate(order);
-            throw e;
-        }
-    }
-}
-```
-
-### 负载均衡
-
-负载均衡是将工作负载分布到多个服务器上的技术，以提高系统的性能、可用性和可扩展性。
-
-#### 负载均衡算法
-
-**轮询（Round Robin）**：
-```java
-public class RoundRobinLoadBalancer {
-    private List<Server> servers;
-    private AtomicInteger currentIndex = new AtomicInteger(0);
-    
-    public Server selectServer() {
-        if (servers.isEmpty()) {
-            return null;
-        }
-        
-        int index = currentIndex.getAndIncrement() % servers.size();
-        return servers.get(index);
-    }
-}
-```
-
-**加权轮询（Weighted Round Robin）**：
-```java
-public class WeightedRoundRobinLoadBalancer {
-    private List<WeightedServer> servers;
-    private int totalWeight;
-    private AtomicInteger currentWeight = new AtomicInteger(0);
-    
-    public Server selectServer() {
-        int weight = currentWeight.getAndIncrement() % totalWeight;
-        int currentSum = 0;
-        
-        for (WeightedServer server : servers) {
-            currentSum += server.getWeight();
-            if (weight < currentSum) {
-                return server.getServer();
-            }
-        }
-        
-        return null;
-    }
-}
-```
-
-**最少连接（Least Connections）**：
-```java
-public class LeastConnectionsLoadBalancer {
-    private List<Server> servers;
-    private Map<Server, AtomicInteger> connectionCounts;
-    
-    public Server selectServer() {
-        Server selectedServer = null;
-        int minConnections = Integer.MAX_VALUE;
-        
-        for (Server server : servers) {
-            int connections = connectionCounts.get(server).get();
-            if (connections < minConnections) {
-                minConnections = connections;
-                selectedServer = server;
-            }
-        }
-        
-        return selectedServer;
-    }
-    
-    public void onConnectionEstablished(Server server) {
-        connectionCounts.get(server).incrementAndGet();
-    }
-    
-    public void onConnectionClosed(Server server) {
-        connectionCounts.get(server).decrementAndGet();
-    }
-}
-```
-
-**响应时间加权**：
-```java
-public class ResponseTimeWeightedLoadBalancer {
-    private Map<Server, ResponseTimeTracker> responseTrackers;
-    
-    public Server selectServer() {
-        Server bestServer = null;
-        double bestScore = Double.MAX_VALUE;
-        
-        for (Server server : responseTrackers.keySet()) {
-            ResponseTimeTracker tracker = responseTrackers.get(server);
-            double avgResponseTime = tracker.getAverageResponseTime();
-            int activeConnections = tracker.getActiveConnections();
-            
-            // 计算综合得分（响应时间 * 活跃连接数）
-            double score = avgResponseTime * (activeConnections + 1);
-            
-            if (score < bestScore) {
-                bestScore = score;
-                bestServer = server;
-            }
-        }
-        
-        return bestServer;
-    }
-}
-```
-
-#### 健康检查
-
-**主动健康检查**：
-```java
-public class HealthChecker {
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
-    private Map<Server, Boolean> serverHealth = new ConcurrentHashMap<>();
-    
-    public void startHealthCheck() {
-        scheduler.scheduleAtFixedRate(() -> {
-            for (Server server : servers) {
-                checkServerHealth(server);
-            }
-        }, 0, 30, TimeUnit.SECONDS);
-    }
-    
-    private void checkServerHealth(Server server) {
-        try {
-            // 执行健康检查查询
-            Connection conn = DriverManager.getConnection(
-                server.getJdbcUrl(), server.getUsername(), server.getPassword());
-            
-            Statement stmt = conn.createStatement();
-            stmt.setQueryTimeout(5); // 5秒超时
-            
-            ResultSet rs = stmt.executeQuery("SELECT 1");
-            
-            if (rs.next() && rs.getInt(1) == 1) {
-                markServerHealthy(server);
-            } else {
-                markServerUnhealthy(server);
-            }
-            
-            conn.close();
-            
-        } catch (Exception e) {
-            markServerUnhealthy(server);
-            logger.warn("Health check failed for server: " + server, e);
-        }
-    }
-    
-    private void markServerHealthy(Server server) {
-        Boolean wasHealthy = serverHealth.put(server, true);
-        if (wasHealthy == null || !wasHealthy) {
-            logger.info("Server {} is now healthy", server);
-            notifyServerHealthy(server);
-        }
-    }
-    
-    private void markServerUnhealthy(Server server) {
-        Boolean wasHealthy = serverHealth.put(server, false);
-        if (wasHealthy == null || wasHealthy) {
-            logger.warn("Server {} is now unhealthy", server);
-            notifyServerUnhealthy(server);
-        }
-    }
-}
-```
-
-**被动健康检查**：
-```java
-public class PassiveHealthChecker {
-    private Map<Server, FailureCounter> failureCounters = new ConcurrentHashMap<>();
-    private int maxFailures = 3;
-    private long recoveryTime = 60000; // 1分钟
-    
-    public void recordSuccess(Server server) {
-        FailureCounter counter = failureCounters.get(server);
-        if (counter != null) {
-            counter.reset();
-        }
-    }
-    
-    public void recordFailure(Server server) {
-        FailureCounter counter = failureCounters.computeIfAbsent(
-            server, k -> new FailureCounter());
-        
-        counter.increment();
-        
-        if (counter.getCount() >= maxFailures) {
-            markServerUnhealthy(server);
-            scheduleRecoveryCheck(server);
-        }
-    }
-    
-    private void scheduleRecoveryCheck(Server server) {
-        scheduler.schedule(() -> {
-            // 尝试恢复服务器
-            if (checkServerRecovery(server)) {
-                markServerHealthy(server);
-                failureCounters.get(server).reset();
-            } else {
-                scheduleRecoveryCheck(server); // 继续检查
-            }
-        }, recoveryTime, TimeUnit.MILLISECONDS);
-    }
-}
-```
-
-## 总结
-
-MySQL 高可用与扩展是构建可靠数据库系统的关键技术，需要综合考虑多个方面：
-
-1. **高可用设计**：通过冗余、故障检测和自动切换确保服务连续性
-2. **复制技术**：利用主从复制、集群技术实现数据冗余和负载分担
-3. **扩展策略**：根据业务需求选择垂直扩展或水平扩展方案
-4. **负载均衡**：通过智能路由和健康检查优化资源利用
-5. **监控运维**：建立完善的监控体系和运维流程
-
-**关键要点**：
-- 根据业务需求选择合适的高可用方案
-- 平衡一致性、可用性和分区容错性
-- 考虑系统复杂度和运维成本
-- 建立完善的测试和演练机制
-- 持续优化和改进架构设计
-
-通过合理的高可用和扩展设计，可以构建出既稳定可靠又能灵活扩展的 MySQL 数据库系统，为业务发展提供坚实的技术支撑。
+验收必须从业务入口完成。检查成功响应的订单是否仍存在、同一请求是否只产生一笔订单、旧主是否确实无法再写，以及重启后只读和路由配置是否保持。恢复时间要覆盖检测、隔离、应用积压、角色提升、连接池重连和业务对账；只量 `START REPLICA` 的耗时，无法证明系统达到 RTO。

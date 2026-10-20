@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="text-compare-title text-compare-desc">
+<title id="text-compare-title">先定义比较合同，再选择工具</title>
+<desc id="text-compare-desc">保留输入后，按字节、行、排序集合或关联键选择cmp、diff、comm或join。各工具对差异的退出码含义不同，修改仍需语法和业务复验。</desc>
+<defs><marker id="text-compare-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#738288"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.heading{font-size:25px;font-weight:600}.name{font-size:21px;font-weight:600}.body{font-size:18px}.note{font-size:17px;fill:#52656c}.line{fill:none;stroke:#738288;stroke-width:1.8;marker-end:url(#text-compare-arrow)}.box{fill:#fff;stroke:#bac6cc;stroke-width:1.3}.focus{fill:#e8f4ef;stroke:#67877b;stroke-width:1.5}.soft{fill:#f0f5fc;stroke:#a8bacd;stroke-width:1.3}</style></defs>
+<rect width="1120" height="560" fill="#f8fafb"/><text class="heading" x="52" y="54">比较前先明确允许忽略什么</text><text class="note" x="52" y="88">排序会丢失顺序，去重会丢失次数；命令正常退出不一定表示两份输入相同。</text>
+<path class="line" d="M316 224H396"/><path class="line" d="M724 224H804"/><path class="line" d="M936 292V368"/>
+<rect data-node="保留原件" class="box" x="52" y="164" width="264" height="124" rx="6"/><text class="name" x="72" y="200">保留两份原始输入</text><text class="body" x="72" y="234">路径、编码、时间与属性</text><text class="body" x="72" y="264">正规化另写候选文件</text>
+<rect data-node="定义合同" class="focus" x="396" y="144" width="328" height="188" rx="6"/><text class="name" x="416" y="180">按比较对象选工具</text><text class="body" x="416" y="216">字节：cmp；行变化：diff</text><text class="body" x="416" y="248">排序记录：comm</text><text class="body" x="416" y="280">关联键：join；行号：paste</text><text class="note" x="416" y="310">结构化数据先用对应解析器</text>
+<rect data-node="解释结果" class="soft" x="804" y="164" width="264" height="128" rx="6"/><text class="name" x="824" y="200">解释输出与退出码</text><text class="body" x="824" y="234">diff：1 表示有差异</text><text class="body" x="824" y="264">comm：0 也可能有差异</text>
+<rect data-node="修改后复验" class="box" x="684" y="368" width="384" height="104" rx="6"/><text class="name" x="704" y="404">需修改时：预演 → 应用 → 复验</text><text class="body" x="704" y="438">补丁成功后仍核对语法和真实业务结果</text>
+<text class="note" x="52" y="522">同名归档成员不代表内容相同；同一订单编号不代表金额和状态一致。</text>
+</svg>

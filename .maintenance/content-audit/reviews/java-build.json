@@ -1,0 +1,88 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/index.md",
+      "status": "verified",
+      "reviewedHash": "9c818402649a72ab86d62ee951f007d5db4997213cc591df421f841d9094f545",
+      "pageType": "语言阅读地图与有限实验",
+      "decision": "删去过时版本长表及未闭合代码，围绕订单源码到运行串联语言、JDK、构建、框架与JVM，补两张边界图和完整金额程序。",
+      "dependencyFiles": [
+        "public/java/examples/order-build-lab/pom.xml",
+        "public/java/examples/order-build-lab/settings.gradle.kts",
+        "public/java/examples/order-build-lab/build.gradle.kts",
+        "public/java/examples/order-build-lab/README.txt",
+        "public/java/examples/order-build-lab/.gitignore",
+        "public/java/examples/order-build-lab/src/main/java/example/orders/OrderTotal.java",
+        "public/java/examples/order-build-lab/src/test/java/example/orders/OrderTotalTest.java"
+      ],
+      "validation": [
+        "完整阅读正文与图示；Java总览程序javac17通过，正常/非法数量/溢出输出符合预期。Maven3.9.16 clean verify及Gradle8.11.1 clean build各4测试全通过，两个普通JAR均不含JUnit且运行输出5970。Gradle实际观察UP-TO-DATE、FROM-CACHE与配置缓存复用，变更输入后资源更新。未执行私服发布，Maven4/Gradle9/JDK25未本机实跑。",
+        "四页1280×800及390×844浅深色完整截图、长页关键段正常字号截图检查通过。所有图片加载、10处图片放大/原尺寸/关闭、所有超宽代码与表格键盘局部滚动通过，无整页横向溢出；客户端总览至Gradle至Maven跳转与ZIP下载通过。9图XML、自检、字体边界与逐图截图通过，最终3张修订已复核。",
+        "构建15.55秒成功，仅既有语法高亮回退与chunk提示；diff检查及口吻扫描通过。MarkdownIt机械比对Gradle三个代码片段与公开源码逐字一致，ZIP全部7个文件与公开目录一致。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/index.md",
+      "status": "verified",
+      "reviewedHash": "6a815631c5b539ee593e121f22cca709f142483862de07329c4a064828ad6170",
+      "pageType": "构建专题总览",
+      "decision": "以NoSuchMethodError说明项目模型、解析结果、任务与产物边界，补五种版本、工具选择和测试数量验收，链接共享实验。",
+      "dependencyFiles": [
+        "public/java/examples/order-build-lab/pom.xml",
+        "public/java/examples/order-build-lab/settings.gradle.kts",
+        "public/java/examples/order-build-lab/build.gradle.kts",
+        "public/java/examples/order-build-lab/README.txt",
+        "public/java/examples/order-build-lab/.gitignore",
+        "public/java/examples/order-build-lab/src/main/java/example/orders/OrderTotal.java",
+        "public/java/examples/order-build-lab/src/test/java/example/orders/OrderTotalTest.java"
+      ],
+      "validation": [
+        "完整阅读正文与图示；Java总览程序javac17通过，正常/非法数量/溢出输出符合预期。Maven3.9.16 clean verify及Gradle8.11.1 clean build各4测试全通过，两个普通JAR均不含JUnit且运行输出5970。Gradle实际观察UP-TO-DATE、FROM-CACHE与配置缓存复用，变更输入后资源更新。未执行私服发布，Maven4/Gradle9/JDK25未本机实跑。",
+        "四页1280×800及390×844浅深色完整截图、长页关键段正常字号截图检查通过。所有图片加载、10处图片放大/原尺寸/关闭、所有超宽代码与表格键盘局部滚动通过，无整页横向溢出；客户端总览至Gradle至Maven跳转与ZIP下载通过。9图XML、自检、字体边界与逐图截图通过，最终3张修订已复核。",
+        "构建15.55秒成功，仅既有语法高亮回退与chunk提示；diff检查及口吻扫描通过。MarkdownIt机械比对Gradle三个代码片段与公开源码逐字一致，ZIP全部7个文件与公开目录一致。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/maven.md",
+      "status": "verified",
+      "reviewedHash": "54a33907fd3c20bee0e359a555e4d5f93c60d20660b80fbcddd8a0862d577091",
+      "pageType": "构建机制与实操",
+      "decision": "保留视频目录并修复镜像认证ID、生命周期与插件绑定、scope与组包、Reactor恢复、Profile和Boot repackage边界；固定实验插件，重绘五图，提供共享订单测试。",
+      "dependencyFiles": [
+        "public/java/examples/order-build-lab/pom.xml",
+        "public/java/examples/order-build-lab/settings.gradle.kts",
+        "public/java/examples/order-build-lab/build.gradle.kts",
+        "public/java/examples/order-build-lab/README.txt",
+        "public/java/examples/order-build-lab/.gitignore",
+        "public/java/examples/order-build-lab/src/main/java/example/orders/OrderTotal.java",
+        "public/java/examples/order-build-lab/src/test/java/example/orders/OrderTotalTest.java"
+      ],
+      "validation": [
+        "完整阅读正文与图示；Java总览程序javac17通过，正常/非法数量/溢出输出符合预期。Maven3.9.16 clean verify及Gradle8.11.1 clean build各4测试全通过，两个普通JAR均不含JUnit且运行输出5970。Gradle实际观察UP-TO-DATE、FROM-CACHE与配置缓存复用，变更输入后资源更新。未执行私服发布，Maven4/Gradle9/JDK25未本机实跑。",
+        "四页1280×800及390×844浅深色完整截图、长页关键段正常字号截图检查通过。所有图片加载、10处图片放大/原尺寸/关闭、所有超宽代码与表格键盘局部滚动通过，无整页横向溢出；客户端总览至Gradle至Maven跳转与ZIP下载通过。9图XML、自检、字体边界与逐图截图通过，最终3张修订已复核。",
+        "构建15.55秒成功，仅既有语法高亮回退与chunk提示；diff检查及口吻扫描通过。MarkdownIt机械比对Gradle三个代码片段与公开源码逐字一致，ZIP全部7个文件与公开目录一致。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/gradle.md",
+      "status": "verified",
+      "reviewedHash": "38518c98b09dc8f5b5c44334c88ddff2cd2d58f12baa08740e5d2dac8f77d5f6",
+      "pageType": "构建机制与有限实验",
+      "decision": "移除无效DSL，限定8.11.1/JDK17实验基线，串联Settings、仓库与任务图，提供声明输入输出的生成任务；区分任务缓存与配置缓存、依赖变体与发布边界，补两图。",
+      "dependencyFiles": [
+        "public/java/examples/order-build-lab/pom.xml",
+        "public/java/examples/order-build-lab/settings.gradle.kts",
+        "public/java/examples/order-build-lab/build.gradle.kts",
+        "public/java/examples/order-build-lab/README.txt",
+        "public/java/examples/order-build-lab/.gitignore",
+        "public/java/examples/order-build-lab/src/main/java/example/orders/OrderTotal.java",
+        "public/java/examples/order-build-lab/src/test/java/example/orders/OrderTotalTest.java"
+      ],
+      "validation": [
+        "完整阅读正文与图示；Java总览程序javac17通过，正常/非法数量/溢出输出符合预期。Maven3.9.16 clean verify及Gradle8.11.1 clean build各4测试全通过，两个普通JAR均不含JUnit且运行输出5970。Gradle实际观察UP-TO-DATE、FROM-CACHE与配置缓存复用，变更输入后资源更新。未执行私服发布，Maven4/Gradle9/JDK25未本机实跑。",
+        "四页1280×800及390×844浅深色完整截图、长页关键段正常字号截图检查通过。所有图片加载、10处图片放大/原尺寸/关闭、所有超宽代码与表格键盘局部滚动通过，无整页横向溢出；客户端总览至Gradle至Maven跳转与ZIP下载通过。9图XML、自检、字体边界与逐图截图通过，最终3张修订已复核。",
+        "构建15.55秒成功，仅既有语法高亮回退与chunk提示；diff检查及口吻扫描通过。MarkdownIt机械比对Gradle三个代码片段与公开源码逐字一致，ZIP全部7个文件与公开目录一致。"
+      ]
+    }
+  ]
+}

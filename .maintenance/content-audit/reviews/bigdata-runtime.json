@@ -1,0 +1,40 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/index.md",
+      "status": "verified",
+      "reviewedHash": "be969f1e4bb7c667ce47f8257d74b8c2f931fc4bd5a0855ed19a3085a5820535",
+      "pageType": "大数据主题地图与订单批流入口",
+      "decision": "旧79行全文阅读，保留已有处理模式和业务场景，替换ASCII链路为独立SVG，补八个子专题入口含原来遗漏的NoSQL。以102版本重复和迟到、日报指标时间口径、补数与候选结果发布解释全链路，并说明Kafka/HDFS不是所有批任务前提。",
+      "validation": [
+        "核对本专题全部9页及侧边栏，正文八个TopicDirectory链接在生产构建中均含/blog/且可达。SVG组件和箭头与CDC/存储/批流/调度/发布职责一致，XML、结构与实际中文字体边界检查通过",
+        "18.14秒根目录完整构建并重启preview。1280桌面与390×844手机亮深色、图示预览/原尺寸/关闭、主题入口换行与全页溢出检查通过；无破图或客户端error"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/apache-spark.md",
+      "status": "verified",
+      "reviewedHash": "44dd703a747b9a62193f7bb5690e33e714d319a9cd8e87accb404a2a6516077c",
+      "pageType": "Spark执行边界、订单版本去重与日报发布",
+      "decision": "旧466行全文阅读后重写。修Driver经集群管理器转发Task的错图、Mesos/start-slave/Log4j1、过时内存参数、随机加盐缺二次聚合、无界mapPartitions、累加器结算和流式语义混淆。用7行订单变更贯穿版本冲突、取消、跨日、Parquet回读与候选发布，补执行及Shuffle双SVG。",
+      "validation": [
+        "Spark4.0.1官方cluster-overview、sql-performance-tuning与streaming/index核对。独立/tmp venv安装PySpark4.0.1/py4j0.10.9.9，用Java17.0.20.1与Python3.14.7执行/tmp/blog-spark-check.mjs退出0。正文完整Python块及重放两次均通过：4单最新状态、3单paid、19日8000与20日3990，写新目录Parquet回读断言2行11990分",
+        "同键同版本金额冲突、非法时间ANSI解析与负金额三组真实运行均按预期失败。explain输出含Exchange与聚合，不外推多节点吞吐、集群失败、生产连接器或并发发布。双SVG XML/结构/真实中文边界/截图通过，资源分配箭头末次调整已重新截图复核",
+        "18.14秒完整构建并重启preview。桌面1280及真实390×844手机亮深色、两图放大/原尺寸/关闭通过，长代码仅局部滚动，无破图/全页溢出/客户端error；viewport已reset"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/apache-flink.md",
+      "status": "verified",
+      "reviewedHash": "63a67c47b4e46ab14f691c866371150fcada48fa04d62b687856488987cf0722",
+      "dependencyFiles": ["public/bigdata/examples/flink-payment-lab/PaymentWindowLab.java"],
+      "pageType": "Flink事件时间、按键状态与端到端恢复边界",
+      "decision": "旧701行全文阅读后重写。修TimeCharacteristic/旧KafkaSource/Sink/Time和未初始化BufferingSink、取消保存点旧选项、unaligned当增量、RocksDB当持久存储、异步副作用恰好一次、Spark比较表与空泛调优。支付流水例子与订单状态例子分工，补窗口迟到时序和检查点边界双SVG、完整可下载Java及pom。",
+      "validation": [
+        "官方1.20 time、process_function、checkpointing与checkpoints_vs_savepoints核对；windows抓取失败后浏览器读取默认触发器、Allowed Lateness、侧输出和窗口结果段。Flink1.20.3/Java17/Maven3.9.16独立/tmp工程编译并运行原文件退出0，去重后两个窗口2笔8000与1笔3990，共11990；集群正常结束出现CollectResultFetcher状态警告，最终行数与完整集合断言通过",
+        "/tmp/blog-flink-audit内PaymentNegativeChecks复用正文Deduplicate并重放原程序；金额冲突、时间冲突、负金额与空支付号四组均捕获预期根因，退出0。未测生产Kafka、实时迟到、周期检查点、失败恢复、外部事务sink与2.x迁移，不把有界源最终Watermark视作这些验证",
+        "新增java Markdown下载链接首次构建死链，改原生下载并用withBase修复/blog/前缀；最终18.14秒完整构建通过。浏览器真实href与download属性正确，HTTP下载与源文件cmp逐字节一致。双SVG XML/结构/实际中文边界/截图通过；1280桌面与390×844手机亮深色、双图放大/原尺寸/关闭与局部代码滚动通过，无破图/全页溢出/客户端error，视口切换过渡帧不计验收"
+      ]
+    }
+  ]
+}

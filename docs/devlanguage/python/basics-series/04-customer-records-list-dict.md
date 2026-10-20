@@ -1,7 +1,7 @@
 # 列表、字典和表格行：一行、多行、字段名怎样在代码里对应
 
 > 示例文件：`customer_records.py`  
-> 最后核验：2026-08-02
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 这篇文章解释客户表进入 Python 后最常见的结构：一位客户用字典，多位客户用列表。
 
@@ -9,12 +9,7 @@
 
 表格看起来是一整块，但脚本处理时通常拆成：
 
-```text
-一行客户 -> 一个字典
-多行客户 -> 一个列表
-字段名 -> 字典里的 key
-字段值 -> key 对应的 value
-```
+![客户列表、单条字典与字段值的对应关系](/python/customer-record-shape.svg)
 
 理解这个结构，后面的条件判断、循环、统计和文件输出都会更自然。
 
@@ -63,6 +58,8 @@ level = customer.get("level", "普通")
 
 默认值要谨慎使用。手机号、姓名这类关键字段缺失时，通常应该记录到异常名单，而不是直接默认。
 
+`get` 只在键不存在时使用第二个参数；`{"level": None}.get("level", "普通")` 仍是 `None`。如果业务允许把空值也归为普通等级，需要额外写清规则。`customer["phone"]` 在缺键时抛出 `KeyError`，适合已经校验过的必填字段；默认值不能代替输入合同。
+
 ## 运行示例
 
 ```bash
@@ -94,9 +91,18 @@ customers = [
         "source": "展会",
     },
 ]
+
+print("第一位客户：", customers[0]["name"])
+for item in customers:
+    print(f"{item['name']}｜{item.get('phone') or '手机号待补'}")
+    last_order = item.get("last_order")
+    if last_order is not None:
+        print("最近订单：", last_order["order_id"], last_order["status"])
 ```
 
 这里 `last_order` 是一个嵌套字典。它表示一位客户内部还有一组订单信息。
+
+列表里的元素是对象引用：`first = customers[0]` 后修改 `first["city"]`，也会改变列表中的同一条记录。`dict(item)` 只做浅拷贝，里面的 `last_order` 仍共享；需要保留原始输入时，应另建结果记录，嵌套结构则按实际需求复制。
 
 ## 客户结构模板
 

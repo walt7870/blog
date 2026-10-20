@@ -1,1422 +1,180 @@
-# 模板方法模式 (Template Method Pattern)
+# 模板方法模式
 
-## 历史脉络
+模板方法（Template Method）由父类安排稳定的步骤顺序，子类实现其中的差异。可以把它理解为同一条报表生产线：检查订单数据、打开输出、生成内容、关闭输出；明细报表逐行写订单，汇总报表只写总数和合计，生命周期由同一个入口控制。
 
-模板方法模式是 GoF 行为型模式之一，常用于框架扩展点、导入导出流程、生命周期钩子、测试框架、Servlet 请求处理等场景。框架定义稳定流程，子类实现可变步骤，是它最典型的应用方式。
+![报表模板的固定顺序、扩展点与失败收尾](/design-pattern/patterns/template-method.svg)
 
-![模板方法模式结构图](/design-pattern/patterns/template-method.svg)
+## 固定顺序不是固定所有实现
 
-## 准确理解
+模板入口通常使用 `final` 防止子类重排，稳定的校验和收尾保持私有，只把真正变化的 `render()` 开放为扩展点。默认可选行为可以做钩子，例如选择是否输出附加说明；必须执行的权限检查、关闭资源、提交结果不应成为可随意跳过的钩子。
 
-模板方法由父类定义算法骨架，子类覆盖其中某些步骤。它适合流程顺序稳定、局部步骤变化的场景。模板方法依赖继承，因此要谨慎控制父类暴露的扩展点。
+“先检查，再生成，成功后再返回”是合同的一部分。父类即使固定了方法调用顺序，也无法阻止子类在自己的代码中写错格式、关闭不属于它的资源或触发外部副作用。它约束的是协作入口，仍然需要扩展点文档和子类合同测试。
 
-## 问题识别
+若两条业务流程只有方法名相似，先后关系却不同，强行抽成父类会产生大量布尔开关和空实现。只有一段算法需要替换时，用[策略](./strategy)组合通常更直接；流程顺序经常变化时，应考虑显式编排，而不是继续加深继承层次。
 
-适合使用模板方法的信号：
+## 完整的报表生成示例
 
-- 多个流程整体顺序一致，但部分步骤不同。
-- 不希望子类改变流程骨架。
-- 框架需要开放少量扩展点。
-- 重复代码主要集中在流程编排上。
-
-不适合的情况：
-
-- 流程顺序本身经常变化。
-- 需要运行时灵活替换算法，策略模式更合适。
-- 继承层次过深，子类理解成本高。
-
-## 落地要点
-
-- 模板方法通常设为 `final`，避免子类破坏流程。
-- 可变步骤用抽象方法或钩子方法表达。
-- 父类只放稳定流程，不应塞入过多业务细节。
-- 子类只实现差异步骤，避免反向依赖父类内部状态。
-
-## 概述
-
-模板方法模式是一种行为型设计模式，它在超类中定义了一个算法的骨架，允许子类在不改变算法整体结构的情况下重写算法的特定步骤。这个模式体现了"好莱坞原则"："别调用我们，我们会调用你"。
-
-### 核心思想
-
-- **算法骨架固定**：在抽象类中定义算法的基本结构
-- **步骤可变**：允许子类重写算法中的某些步骤
-- **控制反转**：由父类控制算法的执行流程，子类只负责实现具体步骤
-- **代码复用**：公共逻辑在父类中实现，避免重复代码
-
-## 使用场景
-
-### 适用情况
-
-1. **算法结构固定，步骤可变**：多个类有相似的算法结构，但某些步骤的实现不同
-2. **代码复用需求**：希望避免重复代码，将公共行为提取到父类
-3. **扩展控制**：希望控制子类的扩展点，只允许在特定位置进行定制
-4. **框架设计**：设计框架时，定义处理流程的骨架，让用户实现具体步骤
-
-### 典型应用
-
-- **数据处理流程**：数据读取→处理→输出的固定流程
-- **测试框架**：setUp→test→tearDown的测试流程
-- **Web框架**：请求处理的生命周期管理
-- **编译器设计**：词法分析→语法分析→代码生成的编译流程
-
-## UML类图
-
-```
-┌─────────────────────────────────┐
-│        AbstractClass            │
-├─────────────────────────────────┤
-│ + templateMethod(): void        │
-│ # primitiveOperation1(): void   │
-│ # primitiveOperation2(): void   │
-│ # hook(): void                  │
-└─────────────────────────────────┘
-                 △
-                 │
-    ┌────────────┴────────────┐
-    │                         │
-┌───▽──────────┐    ┌────────▽─────────┐
-│ ConcreteClassA│    │ ConcreteClassB   │
-├───────────────┤    ├──────────────────┤
-│ + primitive   │    │ + primitive      │
-│   Operation1()│    │   Operation1()   │
-│ + primitive   │    │ + primitive      │
-│   Operation2()│    │   Operation2()   │
-│ + hook()      │    │ + hook()         │
-└───────────────┘    └──────────────────┘
-```
-
-## 核心组件
-
-### 1. 抽象类 (Abstract Class)
-- **职责**：定义模板方法和抽象的原语操作
-- **特点**：包含算法骨架，控制执行流程
-
-### 2. 具体类 (Concrete Class)
-- **职责**：实现抽象类中的抽象方法
-- **特点**：提供算法步骤的具体实现
-
-### 3. 模板方法 (Template Method)
-- **职责**：定义算法的骨架
-- **特点**：调用抽象方法和钩子方法
-
-### 4. 钩子方法 (Hook Method)
-- **职责**：提供默认行为，子类可选择性重写
-- **特点**：增加算法的灵活性
-
-## 实践示例
-
-### 示例1：数据处理框架
+下面仅输出 UTF-8 文本，不解析 CSV/XML、不连接数据库、不上传文件。输入是不可变订单行快照；模板拥有工厂新建的输出流，负责关闭，子类只写内容。保存为 `TemplateDemo.java`，使用 Java 17+ 编译运行：
 
 ```java
-// 抽象数据处理器
-abstract class DataProcessor {
-    
-    // 模板方法：定义数据处理的完整流程
-    public final void processData() {
-        System.out.println("=== 开始数据处理 ===");
-        
-        // 1. 数据读取
-        Data data = readData();
-        if (data == null) {
-            System.out.println("数据读取失败，处理终止");
-            return;
-        }
-        
-        // 2. 数据验证
-        if (!validateData(data)) {
-            System.out.println("数据验证失败，处理终止");
-            return;
-        }
-        
-        // 3. 数据转换
-        Data transformedData = transformData(data);
-        
-        // 4. 数据处理
-        Data processedData = processBusinessLogic(transformedData);
-        
-        // 5. 数据输出
-        outputData(processedData);
-        
-        // 6. 清理资源（钩子方法）
-        cleanup();
-        
-        System.out.println("=== 数据处理完成 ===");
-    }
-    
-    // 抽象方法：子类必须实现
-    protected abstract Data readData();
-    protected abstract boolean validateData(Data data);
-    protected abstract Data transformData(Data data);
-    protected abstract Data processBusinessLogic(Data data);
-    protected abstract void outputData(Data data);
-    
-    // 钩子方法：子类可选择性重写
-    protected void cleanup() {
-        System.out.println("执行默认清理操作");
-    }
-    
-    // 辅助方法
-    protected void logStep(String step) {
-        System.out.println("[" + getClass().getSimpleName() + "] " + step);
-    }
-}
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-// 数据实体类
-class Data {
-    private String content;
-    private String type;
-    private long timestamp;
-    
-    public Data(String content, String type) {
-        this.content = content;
-        this.type = type;
-        this.timestamp = System.currentTimeMillis();
-    }
-    
-    // Getters and Setters
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public long getTimestamp() { return timestamp; }
-    
-    @Override
-    public String toString() {
-        return String.format("Data{type='%s', content='%s', timestamp=%d}", 
-                           type, content, timestamp);
-    }
-}
-
-// 具体实现：CSV文件处理器
-class CsvDataProcessor extends DataProcessor {
-    private String filePath;
-    
-    public CsvDataProcessor(String filePath) {
-        this.filePath = filePath;
-    }
-    
-    @Override
-    protected Data readData() {
-        logStep("从CSV文件读取数据: " + filePath);
-        // 模拟从CSV文件读取数据
-        return new Data("name,age,city\nJohn,25,NYC\nJane,30,LA", "CSV");
-    }
-    
-    @Override
-    protected boolean validateData(Data data) {
-        logStep("验证CSV数据格式");
-        // 验证CSV格式
-        return data.getContent() != null && 
-               data.getContent().contains(",") && 
-               data.getType().equals("CSV");
-    }
-    
-    @Override
-    protected Data transformData(Data data) {
-        logStep("转换CSV数据为标准格式");
-        // 将CSV转换为JSON格式
-        String[] lines = data.getContent().split("\n");
-        StringBuilder json = new StringBuilder("[\n");
-        
-        if (lines.length > 1) {
-            String[] headers = lines[0].split(",");
-            for (int i = 1; i < lines.length; i++) {
-                String[] values = lines[i].split(",");
-                json.append("  {");
-                for (int j = 0; j < headers.length && j < values.length; j++) {
-                    json.append(String.format("\"%s\":\"%s\"", headers[j], values[j]));
-                    if (j < headers.length - 1) json.append(",");
-                }
-                json.append("}");
-                if (i < lines.length - 1) json.append(",");
-                json.append("\n");
-            }
-        }
-        json.append("]");
-        
-        return new Data(json.toString(), "JSON");
-    }
-    
-    @Override
-    protected Data processBusinessLogic(Data data) {
-        logStep("执行CSV数据业务逻辑处理");
-        // 添加处理时间戳
-        String processedContent = data.getContent().replace(
-            "]", 
-            ",\n  {\"processed_at\":\"" + new java.util.Date() + "\"}\n]"
-        );
-        return new Data(processedContent, data.getType());
-    }
-    
-    @Override
-    protected void outputData(Data data) {
-        logStep("输出处理后的数据");
-        System.out.println("处理结果:");
-        System.out.println(data.getContent());
-    }
-    
-    @Override
-    protected void cleanup() {
-        logStep("清理CSV处理器资源");
-        // 清理临时文件、关闭文件流等
-        super.cleanup();
-    }
-}
-
-// 具体实现：XML文件处理器
-class XmlDataProcessor extends DataProcessor {
-    private String xmlContent;
-    
-    public XmlDataProcessor(String xmlContent) {
-        this.xmlContent = xmlContent;
-    }
-    
-    @Override
-    protected Data readData() {
-        logStep("读取XML数据");
-        return new Data(xmlContent, "XML");
-    }
-    
-    @Override
-    protected boolean validateData(Data data) {
-        logStep("验证XML数据格式");
-        // 简单的XML格式验证
-        return data.getContent() != null && 
-               data.getContent().contains("<") && 
-               data.getContent().contains(">") &&
-               data.getType().equals("XML");
-    }
-    
-    @Override
-    protected Data transformData(Data data) {
-        logStep("转换XML数据");
-        // 简化的XML到JSON转换
-        String content = data.getContent()
-            .replaceAll("<([^>]+)>([^<]+)</[^>]+>", "\"$1\":\"$2\"")
-            .replaceAll(",\s*$", "");
-        return new Data("{" + content + "}", "JSON");
-    }
-    
-    @Override
-    protected Data processBusinessLogic(Data data) {
-        logStep("执行XML数据业务逻辑处理");
-        // 添加元数据
-        String processedContent = data.getContent().replace(
-            "}", 
-            ",\"metadata\":{\"source\":\"XML\",\"processed_at\":\"" + 
-            System.currentTimeMillis() + "\"}}"
-        );
-        return new Data(processedContent, data.getType());
-    }
-    
-    @Override
-    protected void outputData(Data data) {
-        logStep("输出XML处理结果");
-        System.out.println("XML处理结果:");
-        System.out.println(data.getContent());
-    }
-}
-```
-
-### 示例2：游戏AI行为框架
-
-```java
-// 抽象游戏AI
-abstract class GameAI {
-    
-    // 模板方法：定义AI的完整行为流程
-    public final void takeTurn() {
-        System.out.println("=== " + getAIName() + " 开始回合 ===");
-        
-        // 1. 收集信息
-        GameState gameState = collectInformation();
-        
-        // 2. 分析局势
-        AnalysisResult analysis = analyzeGameState(gameState);
-        
-        // 3. 制定策略
-        Strategy strategy = planStrategy(analysis);
-        
-        // 4. 执行行动
-        Action action = executeAction(strategy);
-        
-        // 5. 评估结果（钩子方法）
-        evaluateResult(action);
-        
-        // 6. 学习优化（钩子方法）
-        if (shouldLearn()) {
-            learn(action, gameState);
-        }
-        
-        System.out.println("=== " + getAIName() + " 回合结束 ===");
-    }
-    
-    // 抽象方法：子类必须实现
-    protected abstract String getAIName();
-    protected abstract GameState collectInformation();
-    protected abstract AnalysisResult analyzeGameState(GameState state);
-    protected abstract Strategy planStrategy(AnalysisResult analysis);
-    protected abstract Action executeAction(Strategy strategy);
-    
-    // 钩子方法：子类可选择性重写
-    protected void evaluateResult(Action action) {
-        System.out.println("[" + getAIName() + "] 执行了行动: " + action.getDescription());
-    }
-    
-    protected boolean shouldLearn() {
-        return false; // 默认不学习
-    }
-    
-    protected void learn(Action action, GameState state) {
-        System.out.println("[" + getAIName() + "] 进行学习优化");
-    }
-    
-    // 辅助方法
-    protected void logDecision(String decision) {
-        System.out.println("[" + getAIName() + "] 决策: " + decision);
-    }
-}
-
-// 游戏状态类
-class GameState {
-    private int playerHealth;
-    private int enemyHealth;
-    private int resources;
-    private String[] availableActions;
-    
-    public GameState(int playerHealth, int enemyHealth, int resources, String[] actions) {
-        this.playerHealth = playerHealth;
-        this.enemyHealth = enemyHealth;
-        this.resources = resources;
-        this.availableActions = actions;
-    }
-    
-    // Getters
-    public int getPlayerHealth() { return playerHealth; }
-    public int getEnemyHealth() { return enemyHealth; }
-    public int getResources() { return resources; }
-    public String[] getAvailableActions() { return availableActions; }
-}
-
-// 分析结果类
-class AnalysisResult {
-    private String situation;
-    private double winProbability;
-    private String[] threats;
-    private String[] opportunities;
-    
-    public AnalysisResult(String situation, double winProbability, 
-                         String[] threats, String[] opportunities) {
-        this.situation = situation;
-        this.winProbability = winProbability;
-        this.threats = threats;
-        this.opportunities = opportunities;
-    }
-    
-    // Getters
-    public String getSituation() { return situation; }
-    public double getWinProbability() { return winProbability; }
-    public String[] getThreats() { return threats; }
-    public String[] getOpportunities() { return opportunities; }
-}
-
-// 策略类
-class Strategy {
-    private String name;
-    private String description;
-    private int priority;
-    
-    public Strategy(String name, String description, int priority) {
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-    }
-    
-    // Getters
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public int getPriority() { return priority; }
-}
-
-// 行动类
-class Action {
-    private String type;
-    private String description;
-    private boolean success;
-    
-    public Action(String type, String description) {
-        this.type = type;
-        this.description = description;
-        this.success = true;
-    }
-    
-    // Getters and Setters
-    public String getType() { return type; }
-    public String getDescription() { return description; }
-    public boolean isSuccess() { return success; }
-    public void setSuccess(boolean success) { this.success = success; }
-}
-
-// 具体实现：攻击型AI
-class AggressiveAI extends GameAI {
-    
-    @Override
-    protected String getAIName() {
-        return "攻击型AI";
-    }
-    
-    @Override
-    protected GameState collectInformation() {
-        logDecision("收集战场信息，重点关注攻击机会");
-        return new GameState(80, 60, 100, 
-            new String[]{"攻击", "强化攻击", "防御", "技能"});
-    }
-    
-    @Override
-    protected AnalysisResult analyzeGameState(GameState state) {
-        logDecision("分析局势：优先考虑攻击策略");
-        
-        double winProb = state.getPlayerHealth() > state.getEnemyHealth() ? 0.7 : 0.4;
-        String situation = state.getEnemyHealth() < 30 ? "敌人血量较低" : "正常对战";
-        
-        return new AnalysisResult(situation, winProb,
-            new String[]{"敌人可能反击"},
-            new String[]{"可以发动强攻", "敌人防御较弱"});
-    }
-    
-    @Override
-    protected Strategy planStrategy(AnalysisResult analysis) {
-        if (analysis.getWinProbability() > 0.6) {
-            logDecision("制定全面攻击策略");
-            return new Strategy("全面攻击", "集中火力攻击敌人", 9);
-        } else {
-            logDecision("制定谨慎攻击策略");
-            return new Strategy("谨慎攻击", "寻找机会进行攻击", 6);
-        }
-    }
-    
-    @Override
-    protected Action executeAction(Strategy strategy) {
-        if (strategy.getPriority() >= 8) {
-            return new Action("强化攻击", "发动强化攻击，造成大量伤害");
-        } else {
-            return new Action("普通攻击", "进行普通攻击");
-        }
-    }
-    
-    @Override
-    protected void evaluateResult(Action action) {
-        super.evaluateResult(action);
-        System.out.println("[" + getAIName() + "] 攻击效果评估: " + 
-                         (action.isSuccess() ? "成功" : "失败"));
-    }
-}
-
-// 具体实现：防御型AI
-class DefensiveAI extends GameAI {
-    
-    @Override
-    protected String getAIName() {
-        return "防御型AI";
-    }
-    
-    @Override
-    protected GameState collectInformation() {
-        logDecision("收集信息，重点关注威胁和防御机会");
-        return new GameState(50, 80, 120, 
-            new String[]{"防御", "治疗", "攻击", "逃跑"});
-    }
-    
-    @Override
-    protected AnalysisResult analyzeGameState(GameState state) {
-        logDecision("分析局势：优先考虑生存策略");
-        
-        double winProb = state.getPlayerHealth() < 30 ? 0.2 : 0.5;
-        String situation = state.getPlayerHealth() < 30 ? "血量危险" : "相对安全";
-        
-        return new AnalysisResult(situation, winProb,
-            new String[]{"敌人攻击力强", "血量不足"},
-            new String[]{"可以防御反击", "有治疗机会"});
-    }
-    
-    @Override
-    protected Strategy planStrategy(AnalysisResult analysis) {
-        if (analysis.getSituation().contains("危险")) {
-            logDecision("制定紧急防御策略");
-            return new Strategy("紧急防御", "优先保命和治疗", 10);
-        } else {
-            logDecision("制定稳健防御策略");
-            return new Strategy("稳健防御", "防御为主，伺机反击", 7);
-        }
-    }
-    
-    @Override
-    protected Action executeAction(Strategy strategy) {
-        if (strategy.getName().contains("紧急")) {
-            return new Action("治疗", "使用治疗技能恢复生命值");
-        } else {
-            return new Action("防御", "提高防御力，减少受到的伤害");
-        }
-    }
-    
-    @Override
-    protected boolean shouldLearn() {
-        return true; // 防御型AI会学习
-    }
-    
-    @Override
-    protected void learn(Action action, GameState state) {
-        System.out.println("[" + getAIName() + "] 学习防御策略的有效性");
-        System.out.println("[" + getAIName() + "] 更新防御优先级算法");
-    }
-}
-```
-
-## 优缺点分析
-
-### 优点
-
-1. **代码复用**：公共算法逻辑在父类中实现，避免重复代码
-2. **控制反转**：父类控制算法流程，子类只需实现具体步骤
-3. **扩展性好**：新增算法变种只需继承并实现抽象方法
-4. **符合开闭原则**：对扩展开放，对修改封闭
-5. **易于维护**：算法结构集中管理，修改影响范围可控
-
-### 缺点
-
-1. **继承限制**：必须通过继承实现，增加了类的层次结构
-2. **调试困难**：算法流程分散在父类和子类中，调试相对复杂
-3. **灵活性受限**：算法骨架固定，难以进行大幅度的流程调整
-4. **子类数量增加**：每种算法变种都需要一个子类
-5. **理解成本**：需要理解整个继承体系才能掌握完整逻辑
-
-## 与其他模式的对比
-
-### 与策略模式的对比
-
-| 特性 | 模板方法模式 | 策略模式 |
-|------|-------------|----------|
-| **结构** | 继承关系 | 组合关系 |
-| **控制** | 父类控制流程 | 客户端选择策略 |
-| **变化点** | 算法步骤 | 整个算法 |
-| **扩展** | 继承扩展 | 组合扩展 |
-| **复用** | 代码复用好 | 策略可复用 |
-
-### 与工厂方法模式的对比
-
-| 特性 | 模板方法模式 | 工厂方法模式 |
-|------|-------------|-------------|
-| **目的** | 定义算法骨架 | 创建对象 |
-| **关注点** | 行为的变化 | 对象的创建 |
-| **方法类型** | 多个抽象方法 | 单个工厂方法 |
-| **应用场景** | 算法流程 | 对象实例化 |
-
-### 与命令模式的对比
-
-| 特性 | 模板方法模式 | 命令模式 |
-|------|-------------|----------|
-| **封装** | 封装算法骨架 | 封装请求 |
-| **执行** | 立即执行 | 延迟执行 |
-| **撤销** | 不支持 | 支持撤销 |
-| **队列** | 不支持 | 支持队列 |
-
-## 实际应用场景
-
-### 1. Web框架中的请求处理
-
-```java
-// Spring MVC中的HandlerInterceptor就是模板方法模式的应用
-abstract class RequestProcessor {
-    
-    public final void processRequest(HttpRequest request, HttpResponse response) {
-        // 1. 预处理
-        if (!preHandle(request, response)) {
-            return;
-        }
-        
-        try {
-            // 2. 处理请求
-            handleRequest(request, response);
-        } catch (Exception e) {
-            // 3. 异常处理
-            handleException(request, response, e);
-        } finally {
-            // 4. 后处理
-            postHandle(request, response);
-        }
-    }
-    
-    protected abstract void handleRequest(HttpRequest request, HttpResponse response);
-    
-    protected boolean preHandle(HttpRequest request, HttpResponse response) {
-        return true; // 默认允许处理
-    }
-    
-    protected void postHandle(HttpRequest request, HttpResponse response) {
-        // 默认空实现
-    }
-    
-    protected void handleException(HttpRequest request, HttpResponse response, Exception e) {
-        response.setStatus(500);
-        response.setBody("Internal Server Error");
-    }
-}
-```
-
-### 2. 测试框架中的测试流程
-
-```java
-// JUnit风格的测试框架
-abstract class TestCase {
-    
-    public final void runTest() {
-        System.out.println("开始测试: " + getTestName());
-        
-        try {
-            // 1. 测试准备
-            setUp();
-            
-            // 2. 执行测试
-            executeTest();
-            
-            System.out.println("测试通过: " + getTestName());
-        } catch (AssertionError e) {
-            System.out.println("测试失败: " + getTestName() + " - " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("测试错误: " + getTestName() + " - " + e.getMessage());
-        } finally {
-            // 3. 清理资源
-            tearDown();
-        }
-    }
-    
-    protected abstract String getTestName();
-    protected abstract void executeTest() throws Exception;
-    
-    protected void setUp() {
-        // 默认空实现
-    }
-    
-    protected void tearDown() {
-        // 默认空实现
-    }
-    
-    // 断言方法
-    protected void assertEquals(Object expected, Object actual) {
-        if (!Objects.equals(expected, actual)) {
-            throw new AssertionError("Expected: " + expected + ", but was: " + actual);
-        }
-    }
-    
-    protected void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("Expected true, but was false");
-        }
-    }
-}
-```
-
-### 3. 数据库连接管理
-
-```java
-// 数据库操作模板
-abstract class DatabaseTemplate {
-    
-    public final <T> T execute(String sql, Object... params) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        
-        try {
-            // 1. 获取连接
-            connection = getConnection();
-            
-            // 2. 准备语句
-            statement = prepareStatement(connection, sql, params);
-            
-            // 3. 执行操作
-            return executeOperation(statement);
-            
-        } catch (SQLException e) {
-            // 4. 异常处理
-            handleException(e);
-            return null;
-        } finally {
-            // 5. 清理资源
-            cleanup(statement, connection);
-        }
-    }
-    
-    protected abstract Connection getConnection() throws SQLException;
-    protected abstract <T> T executeOperation(PreparedStatement statement) throws SQLException;
-    
-    protected PreparedStatement prepareStatement(Connection conn, String sql, Object... params) 
-            throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        for (int i = 0; i < params.length; i++) {
-            stmt.setObject(i + 1, params[i]);
-        }
-        return stmt;
-    }
-    
-    protected void handleException(SQLException e) {
-        System.err.println("数据库操作异常: " + e.getMessage());
-    }
-    
-    protected void cleanup(PreparedStatement statement, Connection connection) {
-        try {
-            if (statement != null) statement.close();
-            if (connection != null) connection.close();
-        } catch (SQLException e) {
-            System.err.println("资源清理异常: " + e.getMessage());
-        }
-    }
-}
-```
-
-## 模式变种和扩展
-
-### 1. 带参数的模板方法
-
-```java
-// 支持参数配置的模板方法
-abstract class ConfigurableProcessor<T> {
-    
-    public final ProcessResult process(T input, ProcessConfig config) {
-        ProcessContext context = createContext(input, config);
-        
-        try {
-            // 1. 验证输入
-            if (!validateInput(input, config)) {
-                return ProcessResult.failure("输入验证失败");
-            }
-            
-            // 2. 预处理
-            T preprocessed = preProcess(input, context);
-            
-            // 3. 核心处理
-            T processed = coreProcess(preprocessed, context);
-            
-            // 4. 后处理
-            T postprocessed = postProcess(processed, context);
-            
-            return ProcessResult.success(postprocessed);
-            
-        } catch (Exception e) {
-            return handleProcessException(e, context);
-        }
-    }
-    
-    protected abstract boolean validateInput(T input, ProcessConfig config);
-    protected abstract T coreProcess(T input, ProcessContext context);
-    
-    protected ProcessContext createContext(T input, ProcessConfig config) {
-        return new ProcessContext(config);
-    }
-    
-    protected T preProcess(T input, ProcessContext context) {
-        return input; // 默认不处理
-    }
-    
-    protected T postProcess(T input, ProcessContext context) {
-        return input; // 默认不处理
-    }
-    
-    protected ProcessResult handleProcessException(Exception e, ProcessContext context) {
-        return ProcessResult.failure("处理异常: " + e.getMessage());
-    }
-}
-
-// 配置类
-class ProcessConfig {
-    private boolean enableLogging;
-    private int timeout;
-    private Map<String, Object> properties;
-    
-    // 构造函数和getter/setter
-}
-
-// 上下文类
-class ProcessContext {
-    private ProcessConfig config;
-    private long startTime;
-    private Map<String, Object> attributes;
-    
-    public ProcessContext(ProcessConfig config) {
-        this.config = config;
-        this.startTime = System.currentTimeMillis();
-        this.attributes = new HashMap<>();
-    }
-    
-    // getter/setter方法
-}
-
-// 结果类
-class ProcessResult {
-    private boolean success;
-    private Object data;
-    private String message;
-    
-    public static ProcessResult success(Object data) {
-        return new ProcessResult(true, data, "成功");
-    }
-    
-    public static ProcessResult failure(String message) {
-        return new ProcessResult(false, null, message);
-    }
-    
-    // 构造函数和getter方法
-}
-```
-
-### 2. 异步模板方法
-
-```java
-// 异步处理模板
-abstract class AsyncProcessor {
-    private final ExecutorService executor;
-    
-    public AsyncProcessor() {
-        this.executor = Executors.newFixedThreadPool(4);
-    }
-    
-    public CompletableFuture<ProcessResult> processAsync(Object input) {
-        return CompletableFuture
-            .supplyAsync(() -> preProcess(input), executor)
-            .thenCompose(this::coreProcessAsync)
-            .thenApply(this::postProcess)
-            .exceptionally(this::handleException);
-    }
-    
-    protected abstract Object preProcess(Object input);
-    protected abstract CompletableFuture<Object> coreProcessAsync(Object input);
-    protected abstract ProcessResult postProcess(Object input);
-    
-    protected ProcessResult handleException(Throwable throwable) {
-        return ProcessResult.failure("异步处理异常: " + throwable.getMessage());
-    }
-    
-    public void shutdown() {
-        executor.shutdown();
-    }
-}
-```
-
-### 3. 多阶段模板方法
-
-```java
-// 多阶段处理模板
-abstract class MultiStageProcessor {
-    
-    public final ProcessResult process(Object input) {
-        ProcessResult result = new ProcessResult();
-        
-        // 阶段1：准备阶段
-        if (!executeStage("PREPARE", () -> prepareStage(input, result))) {
-            return result;
-        }
-        
-        // 阶段2：验证阶段
-        if (!executeStage("VALIDATE", () -> validateStage(input, result))) {
-            return result;
-        }
-        
-        // 阶段3：处理阶段
-        if (!executeStage("PROCESS", () -> processStage(input, result))) {
-            return result;
-        }
-        
-        // 阶段4：完成阶段
-        executeStage("COMPLETE", () -> completeStage(input, result));
-        
-        return result;
-    }
-    
-    private boolean executeStage(String stageName, Supplier<Boolean> stageLogic) {
-        try {
-            System.out.println("开始执行阶段: " + stageName);
-            boolean success = stageLogic.get();
-            System.out.println("阶段 " + stageName + (success ? " 成功" : " 失败"));
-            return success;
-        } catch (Exception e) {
-            System.err.println("阶段 " + stageName + " 异常: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    protected abstract boolean prepareStage(Object input, ProcessResult result);
-    protected abstract boolean validateStage(Object input, ProcessResult result);
-    protected abstract boolean processStage(Object input, ProcessResult result);
-    protected abstract boolean completeStage(Object input, ProcessResult result);
-}
-```
-
-## 最佳实践
-
-### 1. 模板方法设计原则
-
-```java
-// 良好的模板方法设计
-abstract class WellDesignedTemplate {
-    
-    // 1. 模板方法应该是final的，防止子类重写
-    public final Result executeTemplate(Input input) {
-        // 2. 提供清晰的执行流程
-        validateInput(input);
-        
-        Context context = initializeContext(input);
-        
-        try {
-            Result result = performOperation(input, context);
-            return finalizeResult(result, context);
-        } catch (Exception e) {
-            return handleError(e, context);
-        } finally {
-            cleanup(context);
-        }
-    }
-    
-    // 3. 抽象方法应该有清晰的职责
-    protected abstract void validateInput(Input input);
-    protected abstract Result performOperation(Input input, Context context);
-    
-    // 4. 钩子方法提供默认实现
-    protected Context initializeContext(Input input) {
-        return new Context();
-    }
-    
-    protected Result finalizeResult(Result result, Context context) {
-        return result;
-    }
-    
-    protected Result handleError(Exception e, Context context) {
-        return Result.error(e.getMessage());
-    }
-    
-    protected void cleanup(Context context) {
-        // 默认清理逻辑
-    }
-    
-    // 5. 提供辅助方法
-    protected void logStep(String step) {
-        System.out.println("[" + getClass().getSimpleName() + "] " + step);
-    }
-}
-```
-
-### 2. 错误处理策略
-
-```java
-// 完善的错误处理
-abstract class RobustTemplate {
-    
-    public final ProcessResult process(Object input) {
-        ProcessResult result = new ProcessResult();
-        
-        try {
-            // 执行各个步骤
-            executeStep("validation", () -> validateInput(input), result);
-            executeStep("preparation", () -> prepareData(input), result);
-            executeStep("processing", () -> processData(input), result);
-            executeStep("finalization", () -> finalizeData(input), result);
-            
-        } catch (CriticalException e) {
-            // 关键异常，停止处理
-            result.addError("关键错误: " + e.getMessage());
-            result.setStatus(ProcessStatus.FAILED);
-        } catch (RecoverableException e) {
-            // 可恢复异常，尝试恢复
-            if (attemptRecovery(e, result)) {
-                result.setStatus(ProcessStatus.RECOVERED);
-            } else {
-                result.setStatus(ProcessStatus.FAILED);
-            }
-        }
-        
-        return result;
-    }
-    
-    private void executeStep(String stepName, Runnable step, ProcessResult result) {
-        try {
-            step.run();
-            result.addStep(stepName, true);
-        } catch (Exception e) {
-            result.addStep(stepName, false);
-            result.addError(stepName + "失败: " + e.getMessage());
-            
-            // 根据异常类型决定是否继续
-            if (e instanceof CriticalException) {
-                throw e;
-            } else if (e instanceof RecoverableException) {
-                throw e;
-            } else {
-                // 一般异常，记录但继续执行
-                logWarning("步骤 " + stepName + " 出现异常，但继续执行: " + e.getMessage());
+public class TemplateDemo {
+    record Row(String orderId, long amountFen) {
+        Row {
+            if (orderId == null || !orderId.matches("[A-Z0-9-]{1,32}")
+                    || amountFen < 0) {
+                throw new IllegalArgumentException("订单标识或金额非法");
             }
         }
     }
-    
-    protected abstract void validateInput(Object input);
-    protected abstract void prepareData(Object input);
-    protected abstract void processData(Object input);
-    protected abstract void finalizeData(Object input);
-    
-    protected boolean attemptRecovery(RecoverableException e, ProcessResult result) {
-        // 默认不尝试恢复
-        return false;
-    }
-    
-    protected void logWarning(String message) {
-        System.out.println("WARNING: " + message);
-    }
-}
 
-// 自定义异常类
-class CriticalException extends RuntimeException {
-    public CriticalException(String message) {
-        super(message);
+    @FunctionalInterface
+    interface SinkFactory {
+        OutputStream open() throws IOException;
     }
-}
 
-class RecoverableException extends RuntimeException {
-    public RecoverableException(String message) {
-        super(message);
+    abstract static class ReportTemplate {
+        public final int generate(List<Row> input, SinkFactory factory)
+                throws IOException {
+            List<Row> rows = List.copyOf(input);
+            Objects.requireNonNull(factory);
+            if (rows.isEmpty()) throw new IllegalArgumentException("至少一行订单");
+            try (Writer writer = new OutputStreamWriter(
+                    Objects.requireNonNull(factory.open()), StandardCharsets.UTF_8)) {
+                render(rows, writer);
+            }
+            return rows.size();
+        }
+
+        protected abstract void render(List<Row> rows, Writer writer)
+                throws IOException;
     }
-}
-```
 
-### 3. 性能优化策略
+    static final class DetailReport extends ReportTemplate {
+        @Override
+        protected void render(List<Row> rows, Writer writer) throws IOException {
+            for (Row row : rows) {
+                writer.write(row.orderId() + " 金额分=" + row.amountFen() + "\n");
+            }
+        }
+    }
 
-```java
-// 性能优化的模板方法
-abstract class OptimizedTemplate {
-    private final Map<String, Object> cache = new ConcurrentHashMap<>();
-    private final AtomicLong executionCount = new AtomicLong(0);
-    
-    public final Result execute(Input input) {
-        long startTime = System.nanoTime();
-        String cacheKey = generateCacheKey(input);
-        
+    static final class SummaryReport extends ReportTemplate {
+        @Override
+        protected void render(List<Row> rows, Writer writer) throws IOException {
+            long total = 0;
+            for (Row row : rows) total = Math.addExact(total, row.amountFen());
+            writer.write("订单数=" + rows.size() + " 合计分=" + total + "\n");
+        }
+    }
+
+    static final class TrackingSink extends ByteArrayOutputStream {
+        final List<String> events;
+        final boolean failOnClose;
+
+        TrackingSink(List<String> events, boolean failOnClose) {
+            this.events = events;
+            this.failOnClose = failOnClose;
+        }
+
+        @Override
+        public void close() throws IOException {
+            events.add("关闭输出");
+            super.close();
+            if (failOnClose) throw new IOException("关闭失败");
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        List<Row> rows = List.of(new Row("O-1", 1200), new Row("O-2", 800));
+        for (ReportTemplate report : List.of(new DetailReport(), new SummaryReport())) {
+            List<String> events = new ArrayList<>();
+            TrackingSink sink = new TrackingSink(events, false);
+            int count = report.generate(rows, () -> {
+                events.add("打开输出");
+                return sink;
+            });
+            if (count != 2 || !events.equals(List.of("打开输出", "关闭输出"))) {
+                throw new AssertionError("生命周期错误");
+            }
+            String expected = report instanceof DetailReport
+                    ? "O-1 金额分=1200\nO-2 金额分=800\n"
+                    : "订单数=2 合计分=2000\n";
+            if (!sink.toString(StandardCharsets.UTF_8).equals(expected)) {
+                throw new AssertionError("报表内容错误");
+            }
+            System.out.print(expected);
+        }
+        List<String> invalidEvents = new ArrayList<>();
         try {
-            // 1. 检查缓存
-            if (isCacheable(input)) {
-                Result cached = getCachedResult(cacheKey);
-                if (cached != null) {
-                    return cached;
-                }
-            }
-            
-            // 2. 执行处理
-            Result result = performExecution(input);
-            
-            // 3. 缓存结果
-            if (isCacheable(input) && result.isSuccessful()) {
-                cacheResult(cacheKey, result);
-            }
-            
-            return result;
-            
-        } finally {
-            // 4. 性能统计
-            long duration = System.nanoTime() - startTime;
-            recordPerformance(duration);
+            new DetailReport().generate(List.of(), () -> {
+                invalidEvents.add("不应打开");
+                return new TrackingSink(invalidEvents, false);
+            });
+            throw new AssertionError("空数据应当拒绝");
+        } catch (IllegalArgumentException expected) {
+            if (!invalidEvents.isEmpty()) throw new AssertionError("校验前打开了输出");
         }
-    }
-    
-    protected abstract Result performExecution(Input input);
-    protected abstract String generateCacheKey(Input input);
-    
-    protected boolean isCacheable(Input input) {
-        return true; // 默认可缓存
-    }
-    
-    @SuppressWarnings("unchecked")
-    protected Result getCachedResult(String cacheKey) {
-        return (Result) cache.get(cacheKey);
-    }
-    
-    protected void cacheResult(String cacheKey, Result result) {
-        // 简单的LRU策略
-        if (cache.size() > 1000) {
-            cache.clear(); // 简化的清理策略
-        }
-        cache.put(cacheKey, result);
-    }
-    
-    protected void recordPerformance(long durationNanos) {
-        long count = executionCount.incrementAndGet();
-        if (count % 100 == 0) {
-            System.out.println("执行次数: " + count + ", 最近执行时间: " + 
-                             (durationNanos / 1_000_000) + "ms");
-        }
-    }
-    
-    // 性能统计方法
-    public long getExecutionCount() {
-        return executionCount.get();
-    }
-    
-    public void clearCache() {
-        cache.clear();
-    }
-}
-```
 
-### 4. 监控和调试支持
-
-```java
-// 支持监控和调试的模板方法
-abstract class MonitorableTemplate {
-    private final List<TemplateListener> listeners = new ArrayList<>();
-    private final ThreadLocal<ExecutionContext> contextHolder = new ThreadLocal<>();
-    
-    public final Result execute(Input input) {
-        ExecutionContext context = new ExecutionContext(input);
-        contextHolder.set(context);
-        
+        ReportTemplate failing = new ReportTemplate() {
+            @Override
+            protected void render(List<Row> ignored, Writer writer) throws IOException {
+                throw new IOException("生成失败");
+            }
+        };
+        List<String> failureEvents = new ArrayList<>();
         try {
-            notifyListeners(l -> l.onExecutionStart(context));
-            
-            Result result = doExecute(input, context);
-            
-            context.setResult(result);
-            notifyListeners(l -> l.onExecutionComplete(context));
-            
-            return result;
-            
-        } catch (Exception e) {
-            context.setException(e);
-            notifyListeners(l -> l.onExecutionError(context));
-            throw e;
-        } finally {
-            contextHolder.remove();
-        }
-    }
-    
-    protected abstract Result doExecute(Input input, ExecutionContext context);
-    
-    // 监听器管理
-    public void addListener(TemplateListener listener) {
-        listeners.add(listener);
-    }
-    
-    public void removeListener(TemplateListener listener) {
-        listeners.remove(listener);
-    }
-    
-    private void notifyListeners(Consumer<TemplateListener> action) {
-        for (TemplateListener listener : listeners) {
-            try {
-                action.accept(listener);
-            } catch (Exception e) {
-                System.err.println("监听器异常: " + e.getMessage());
+            failing.generate(rows, () -> new TrackingSink(failureEvents, true));
+            throw new AssertionError("失败不能返回成功");
+        } catch (IOException expected) {
+            if (!expected.getMessage().equals("生成失败")
+                    || expected.getSuppressed().length != 1
+                    || !failureEvents.equals(List.of("关闭输出"))) {
+                throw new AssertionError("原异常或清理异常丢失", expected);
             }
+            System.out.println("生成失败仍关闭输出，关闭异常作为suppressed保留");
         }
     }
-    
-    // 调试支持
-    protected void debugStep(String stepName) {
-        ExecutionContext context = contextHolder.get();
-        if (context != null && context.isDebugEnabled()) {
-            System.out.println("[DEBUG] " + stepName + " at " + new Date());
-            context.addDebugInfo(stepName, System.currentTimeMillis());
-        }
-    }
-    
-    protected ExecutionContext getCurrentContext() {
-        return contextHolder.get();
-    }
-}
-
-// 监听器接口
-interface TemplateListener {
-    default void onExecutionStart(ExecutionContext context) {}
-    default void onExecutionComplete(ExecutionContext context) {}
-    default void onExecutionError(ExecutionContext context) {}
-}
-
-// 执行上下文
-class ExecutionContext {
-    private final Input input;
-    private final long startTime;
-    private final Map<String, Object> attributes;
-    private final Map<String, Long> debugInfo;
-    private Result result;
-    private Exception exception;
-    private boolean debugEnabled;
-    
-    public ExecutionContext(Input input) {
-        this.input = input;
-        this.startTime = System.currentTimeMillis();
-        this.attributes = new HashMap<>();
-        this.debugInfo = new HashMap<>();
-        this.debugEnabled = Boolean.getBoolean("template.debug");
-    }
-    
-    // getter/setter方法
-    public long getDuration() {
-        return System.currentTimeMillis() - startTime;
-    }
-    
-    public void addDebugInfo(String step, long timestamp) {
-        debugInfo.put(step, timestamp);
-    }
-    
-    // 其他方法...
 }
 ```
 
-## 总结
+正常结果为两条明细，或订单数 2、合计 2000 分。成功返回位于资源关闭之后，关闭失败会向调用者传播；生成与关闭同时失败时，生成异常保留为主异常，关闭异常附在 `suppressed` 中。不能用普通 `finally` 再抛一个关闭异常覆盖最先失败的原因。
 
-模板方法模式是一种非常实用的行为型设计模式，它通过在父类中定义算法骨架，让子类实现具体步骤，实现了代码复用和控制反转。这个模式在框架设计、流程控制、算法变种等场景中有着广泛的应用。
+`List.copyOf()` 拒绝空元素并冻结列表，本例的 `Row` 也不可变。若列表内是可变实体，仅复制列表仍不能冻结订单数据。汇总使用 `Math.addExact()` 检测溢出，发生溢出时也会走资源关闭。`TrackingSink` 只记录内存演示行为，不能证明文件系统、远程上传或数据库提交已经可靠完成。
 
-### 关键要点
+## 资源与结果必须分开判断
 
-1. **算法骨架固定**：模板方法定义了算法的基本结构和执行顺序
-2. **步骤可定制**：子类可以重写抽象方法来实现不同的算法步骤
-3. **控制反转**：父类控制算法流程，子类只负责实现具体逻辑
-4. **钩子方法**：提供可选的扩展点，增加算法的灵活性
-5. **代码复用**：公共逻辑在父类中实现，避免重复代码
+| 失败位置 | 后续行为 | 不能误判的结果 |
+| --- | --- | --- |
+| 输入校验 | 不打开输出 | 不属于生成成功 |
+| 打开输出 | 由工厂处理其尚未交出的部分资源 | 模板不能关闭从未拿到的句柄 |
+| 生成内容 | 关闭已交给模板的输出并传播失败 | 可能已有部分字节写出 |
+| 刷新或关闭 | 传播失败 | 方法体执行完不代表最终输出成功 |
+| 远端已接收但响应丢失 | 查询状态或按幂等协议恢复 | 不可直接重试并创建重复文件 |
 
-### 适用建议
+对于文件报表，常用临时文件完成生成和关闭，再用符合目标文件系统合同的方式发布正式路径，失败时清理临时文件。关闭并不等于磁盘持久化；如需崩溃一致性，还要明确同步与发布保证。对于调用方拥有的 HTTP 响应流，则不能直接套用本例关闭合同，应提供只写入而不关闭的另一种接口。
 
-- **适合使用**：算法结构稳定但步骤实现多样的场景
-- **谨慎使用**：需要频繁修改算法流程的场景
-- **最佳实践**：合理设计抽象方法和钩子方法，提供完善的错误处理和监控机制
+“任何异常都记录后继续”不是健壮的模板。校验失败后仍生成、生成失败后仍发布，都会让流程对外报告错误成功。可恢复异常也必须定义重试边界、次数及幂等性，不能只设置一个 `RECOVERED` 字段就视为恢复完成。
 
----
+## 框架中的边界
 
-## 补充示例：饮品制作流程与模板方法模式实践
+Servlet的 `HttpServlet.service()` 根据请求方法分派到 `doGet()`、`doPost()` 等扩展点，可帮助理解父类编排和子类定制；它并不要求所有框架入口都是 `final`。Spring MVC 的 `HandlerInterceptor` 是拦截回调接口，不能把自定义的抽象 `RequestProcessor` 称为其源码或直接等同模板方法。
 
-下面以“饮品制作”为例，演示如何从传统实现重构为模板方法模式，场景步骤包括：准备原料、煮沸水/牛奶、冲泡（咖啡粉/茶叶）、添加配料（糖、奶泡、柠檬等）、装杯，属于“整体流程稳定而步骤细节不同”的典型场景。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>
+同样，Spring 的 `JdbcTemplate` 主要通过回调提供变化点，虽有模板化流程，却不是“必须继承后覆盖步骤”的同一种使用方式。自行实现 JDBC 模板时还需遵守连接池、事务绑定、异常转换与资源释放合同，不能吞掉 `SQLException` 并返回 `null` 冒充正常空结果。
 
-### 传统实现的问题（示意）
+测试框架的准备、执行、收尾有各自版本与生命周期约定，不能用一个打印通过/失败的示例替代真实测试结果。线程池和异步流水线也要在异步完成后收尾；在提交任务的外层 `finally` 关闭资源，任务可能尚未开始使用它。
 
-- 每种饮品（如美式、拿铁、绿茶）都实现完整流程，导致大量重复代码（如加热、倒杯等）。
-- 相似步骤实现分散在多个类中，维护成本高，易出现不一致行为。
-- 流程顺序难以统一约束，扩展新饮品需要复制粘贴并重新组织流程。
+## 失败与验收
 
-以上问题与参考文章中的分析结论一致，适合采用模板方法进行重构。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>
+对所有子类运行同一组合同检查：正常生成、校验拒绝、打开失败、生成失败、刷新或关闭失败、生成与关闭同时失败，再核对输出内容与调用顺序。检查重复调用是否继承了上次的可变字段，子类是否关闭了借用资源，以及大金额汇总是否溢出。
 
-### 模板方法重构
-
-定义抽象基类，固定流程（煮水 → 冲泡 → 倒杯 → 可选加配料），把“可变步骤”延迟到子类实现：
-
-```java
-// 抽象饮品
-abstract class HotBeverage {
-    // 模板方法：固定整体流程
-    public final void prepareRecipe() {
-        boilWater();
-        brew();
-        pourInCup();
-        if (wantCondiments()) {
-            addCondiments();
-        }
-    }
-
-    // 变化点：由子类实现
-    protected abstract void brew();
-    protected abstract void addCondiments();
-
-    // 不变点：基类给出默认实现
-    protected void boilWater() {
-        System.out.println("将水加热至合适温度");
-    }
-
-    protected void pourInCup() {
-        System.out.println("倒入杯中");
-    }
-
-    // 钩子：子类可选择性覆盖
-    protected boolean wantCondiments() { return true; }
-}
-
-// 具体饮品：美式咖啡
-class Americano extends HotBeverage {
-    @Override
-    protected void brew() {
-        System.out.println("冲泡咖啡粉");
-    }
-
-    @Override
-    protected void addCondiments() {
-        System.out.println("按需添加糖或牛奶");
-    }
-}
-
-// 具体饮品：拿铁
-class Latte extends HotBeverage {
-    @Override
-    protected void brew() {
-        System.out.println("萃取浓缩咖啡");
-    }
-
-    @Override
-    protected void addCondiments() {
-        System.out.println("加入蒸煮牛奶与奶泡");
-    }
-}
-
-// 具体饮品：绿茶
-class GreenTea extends HotBeverage {
-    @Override
-    protected void brew() {
-        System.out.println("浸泡绿茶茶叶");
-    }
-
-    @Override
-    protected void addCondiments() {
-        System.out.println("按需添加柠檬");
-    }
-
-    // 示例：不加配料
-    @Override
-    protected boolean wantCondiments() { return false; }
-}
-
-// 演示
-class BeverageDemo {
-    public static void main(String[] args) {
-        HotBeverage a = new Americano();
-        HotBeverage l = new Latte();
-        HotBeverage t = new GreenTea();
-
-        System.out.println("=== 美式 ===");
-        a.prepareRecipe();
-        System.out.println("\n=== 拿铁 ===");
-        l.prepareRecipe();
-        System.out.println("\n=== 绿茶 ===");
-        t.prepareRecipe();
-    }
-}
-```
-
-输出（示意）：
-
-```
-=== 美式 ===
-将水加热至合适温度
-冲泡咖啡粉
-倒入杯中
-按需添加糖或牛奶
-
-=== 拿铁 ===
-将水加热至合适温度
-萃取浓缩咖啡
-倒入杯中
-加入蒸煮牛奶与奶泡
-
-=== 绿茶 ===
-将水加热至合适温度
-浸泡绿茶茶叶
-倒入杯中
-```
-
-### 要点提炼与实践建议
-
-- 用“模板方法 + 钩子”平衡“统一流程与个性化步骤”，避免子类必须实现所有步骤。
-- 把可复用的“不变逻辑”（如加热、倒杯、流程顺序）放在父类，减少重复。
-- 子类只关注“变化点”，新增饮品只需最小化改动，符合开闭原则。
-- 如果未来流程有分支或可配置步骤，可结合策略/职责链将“步骤实现”外置化，以增强灵活性。
-
-附：本文饮品示例的设计动机与步骤划分参考了这篇文章，内容有所改写与扩展以适配本项目风格。<mcreference link="https://mp.weixin.qq.com/s/DYt-xxDfUn9IP43QAhDw2w?click_id=1" index="0">0</mcreference>
+若父类越来越依赖 `skipValidate`、`skipClose`、`useLegacyOrder` 等开关，说明稳定骨架已经分裂。应重新划分模板或改用组合，把变化留在明确的扩展点，而不是让子类猜测父类内部状态。

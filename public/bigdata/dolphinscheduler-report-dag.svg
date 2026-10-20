@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="660" viewBox="0 0 1240 660" role="img" aria-labelledby="ds-dag-title ds-dag-desc">
+  <title id="ds-dag-title">订单日报候选数据校验发布流程</title>
+  <desc id="ds-dag-desc">等待源数据完整后构建候选日报，质量通过才原子发布并通知。质量失败保留诊断并阻断发布，修复后使用明确的输入版本重跑。业务日和发布身份用于幂等与并发仲裁。</desc>
+  <defs><marker id="ds-dag-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#ds-dag-arrow)}.mask{fill:#f7f9fa}</style></defs>
+  <rect width="1240" height="660" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">候选可以重算，发布必须受质量与并发约束</text><text x="36" y="80" class="small">业务日：2026-10-19；示例口径：两笔已支付订单5000分＋3000分＝2单、8000分。</text>
+  <path d="M220 228H280" class="line"/><path d="M464 228H524" class="line"/><path d="M708 228H768" class="line"/><path d="M952 228H1012" class="line"/>
+  <path d="M616 292V408" class="line"/>
+  <rect x="716" y="188" width="44" height="28" class="mask"/><text x="738" y="208" class="small" text-anchor="middle">通过</text>
+  <rect x="632" y="336" width="152" height="28" class="mask"/><text x="644" y="356" class="small">失败：阻断发布</text>
+  <rect x="36" y="164" width="184" height="128" class="box"/><text x="56" y="208" class="head">等待数据到齐</text><text x="56" y="248" class="small">快照、分区与水位</text><text x="56" y="276" class="small">固定输入版本</text>
+  <rect x="280" y="164" width="184" height="128" class="box"/><text x="300" y="208" class="head">构建候选</text><text x="300" y="248" class="small">本次运行独立产物</text><text x="300" y="276" class="small">不覆盖已发布结果</text>
+  <rect x="524" y="164" width="184" height="128" class="focus"/><text x="544" y="208" class="head">质量校验</text><text x="544" y="248" class="small">唯一性、行数、总额</text><text x="544" y="276" class="small">失败返回非零</text>
+  <rect x="768" y="164" width="184" height="128" class="focus"/><text x="788" y="208" class="head">原子发布</text><text x="788" y="248" class="small">切换目标业务日版本</text><text x="788" y="276" class="small">重复与并发需仲裁</text>
+  <rect x="1012" y="164" width="192" height="128" class="box"/><text x="1032" y="208" class="head">通知订阅者</text><text x="1032" y="248" class="small">关联已发布版本</text><text x="1032" y="276" class="small">单独重试与去重</text>
+  <rect x="484" y="408" width="264" height="104" class="box"/><text x="504" y="452" class="head">保留候选与差异证据</text><text x="504" y="488" class="small">修复后重建并再次校验</text>
+  <text x="36" y="392" class="head">重跑不等于再次累加</text><text x="36" y="432" class="small">同一输入重跑仍为8000分。</text><text x="36" y="464" class="small">订单取消后按口径重算，</text><text x="36" y="496" class="small">不直接追加旧结果。</text>
+  <text x="848" y="392" class="head">发布成功，状态回报丢失</text><text x="848" y="432" class="small">恢复时先查固定发布身份。</text><text x="848" y="464" class="small">不能因为节点失败就假定</text><text x="848" y="496" class="small">业务写入从未发生。</text>
+  <path d="M36 584H1204" stroke="#bac4c9"/><text x="36" y="620" class="small">横向箭头：正常成功依赖；向下箭头：质量失败后的处置，不代表DAG默认会自动运行一个失败分支。</text>
+</svg>

@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/postgresql.md",
+      "status": "verified",
+      "reviewedHash": "51b02f72cc92556f689cd9a3c134aad4371ef84aa50346752d0c3c37db4a6697",
+      "pageType": "关系建模、JSONB查询、MVCC维护与恢复入口",
+      "decision": "完整阅读旧679行，重写为订单连续练习。修开放端口/弱口令模板、监控relname/indexrelname字段、按名称误关联跨schema对象、死元组等于膨胀率、递归类型/环路、一次UPDATE维护全文向量、POINT经纬度当距离、pg_stat_statements缺预加载、无效pg_promote命令/删除signal提升、覆盖式归档及忽略恢复错误等。补identity导入/空洞、时区、部分索引谓词、EXPLAIN真实执行、VACUUM强锁/空间、配置重载和连接池边界，双SVG呈现组件关系与双会话快照。",
+      "validation": [
+        "官方16全文搜索章节完整核对，routine-vacuuming前12500字及warm-standby前10000/后15000字核对相关维护、复制与提升内容，其余未冒称完整阅读。/tmp/blog-pg-check.mjs在独立postgres:16-alpine实际16.15执行全部10SQL围栏，支付89.90/最新103与104、快照50到55、全文更新1/2、环路终止、分区及真实锁阻塞/释放通过；约束23514/23503、序列空洞、监控/配置入口、pg_stat_statements未预加载失败与重启后成功验证",
+        "custom dump/restore至新库4单139.90元，dump10385字节；未运行复制、提升、PITR、远端TLS或PostGIS。双SVG XML、中文实际字体边界/节点越框与截图通过。19.28秒生产构建后重启preview，1280桌面及实际390×844手机亮深色、双图放大/原尺寸/关闭、代码局部滚动检查通过，无破图/全页溢出/客户端error，viewport reset"
+      ]
+    }
+  ]
+}

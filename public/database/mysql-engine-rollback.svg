@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="440" viewBox="0 0 1040 440" role="img" aria-labelledby="title desc">
+  <title id="title">事务表与非事务表的回滚边界</title>
+  <desc id="desc">同一会话START TRANSACTION后分别把InnoDB和MyISAM的值从10改为9。ROLLBACK后InnoDB恢复到10，MyISAM保持9，因此混合非事务表不能形成统一原子事务。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1040" height="440" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">SQL 事务块不能替非事务表补上回滚能力</text>
+  <text x="36" y="78" class="small">同一会话依次执行两次 UPDATE，然后 ROLLBACK；不是并行分支。</text>
+  <text x="36" y="124" class="head">开始事务</text><text x="360" y="124" class="head">分别修改：10 → 9</text><text x="766" y="124" class="head">回滚后的值</text>
+  <path class="line" d="M264 204H352"/><path class="line" d="M264 240H300Q308 240 308 248V292Q308 300 316 300H352"/>
+  <path class="line" d="M624 190H764"/><path class="line" d="M624 300H764"/>
+  <rect x="36" y="172" width="228" height="100" class="box"/><text x="56" y="208" class="head">START TRANSACTION</text><text x="56" y="246" class="small">会话内的业务操作</text>
+  <rect x="352" y="148" width="272" height="84" class="box"/><text x="372" y="182" class="head">InnoDB 表</text><text x="372" y="214" class="small">更新受事务回滚保护</text>
+  <rect x="352" y="258" width="272" height="84" class="box"/><text x="372" y="292" class="head">MyISAM 表</text><text x="372" y="324" class="small">更新不受事务回滚保护</text>
+  <rect x="764" y="148" width="240" height="84" rx="6" fill="#eaf5ef" stroke="#638d7d" stroke-width="1.3"/><text x="784" y="182" class="head">value = 10</text><text x="784" y="214" class="small">恢复原值</text>
+  <rect x="764" y="258" width="240" height="84" class="box"/><text x="784" y="292" class="head">value = 9</text><text x="784" y="324" class="small">修改仍然存在</text>
+  <text x="650" y="178" class="small">ROLLBACK</text><text x="650" y="288" class="small">ROLLBACK</text>
+  <text x="36" y="398" class="small">事务边界要覆盖全部业务写入；回滚命令返回，不代表混用引擎的修改已全部撤销。</text>
+</svg>

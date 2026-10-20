@@ -1,0 +1,26 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  }
+]

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="652" viewBox="0 0 1200 652" role="img" aria-labelledby="redis-cache-title redis-cache-desc">
+  <title id="redis-cache-title">订单缓存读取与旧回填竞态</title>
+  <desc id="redis-cache-desc">普通查询先读缓存，命中返回，未命中读权威数据库并带TTL回填。下方按时间展示竞态：读者A读取旧值后暂停，写者B提交新值并删除缓存，A随后仍把旧值写回。TTL和重试用于收敛，不等于强一致。</desc>
+  <defs>
+    <marker id="redis-cache-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:17px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#redis-cache-arrow)}</style>
+  </defs>
+  <rect width="1200" height="652" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">缓存返回快，不代表总能读到刚提交的订单状态</text>
+  <text x="36" y="78" class="small">上方为常规读路径；下方按从左到右的时间顺序展示一次旧回填。</text>
+  <path d="M296 208H436" class="line"/><path d="M756 208H900" class="line"/>
+  <path d="M1032 272V304Q1032 312 1024 312H604Q596 312 596 304V272" class="line" stroke-dasharray="5,4"/>
+  <path d="M280 460H324" class="line"/><path d="M568 460H612" class="line"/><path d="M856 460H900" class="line"/>
+  <rect x="328" y="166" width="76" height="28" fill="#f7f9fa"/><text x="366" y="187" text-anchor="middle" class="small">GET</text>
+  <rect x="784" y="166" width="88" height="28" fill="#f7f9fa"/><text x="828" y="187" text-anchor="middle" class="small">未命中</text>
+  <rect x="704" y="272" width="224" height="28" fill="#f7f9fa"/><text x="816" y="293" text-anchor="middle" class="small">带有限 TTL 回填</text>
+  <rect x="36" y="144" width="260" height="128" class="box"/>
+  <text x="56" y="180" class="head">订单详情请求</text><text x="56" y="216">需要当前可接受的状态</text><text x="56" y="252" class="small">先定义可容忍的旧值窗口</text>
+  <rect x="436" y="144" width="320" height="128" class="focus"/>
+  <text x="456" y="180" class="head">Redis 缓存</text><text x="456" y="216">命中直接返回，未命中回源</text><text x="456" y="252" class="small">不可用时限制回源，避免压垮数据库</text>
+  <rect x="900" y="144" width="264" height="128" class="box"/>
+  <text x="920" y="180" class="head">权威数据库</text><text x="920" y="216">支付事务提交后使缓存失效</text><text x="920" y="252" class="small">删失败需要可靠补偿</text>
+  <text x="36" y="374" class="head">所有步骤都成功，仍可能发生的交错</text>
+  <rect x="36" y="408" width="244" height="112" class="box"/>
+  <text x="56" y="444" class="head">1. A 回源读到旧值</text><text x="56" y="482">pending，随后暂停</text>
+  <rect x="324" y="408" width="244" height="112" class="box"/>
+  <text x="344" y="444" class="head">2. B 提交数据库</text><text x="344" y="482">订单更新为 paid</text>
+  <rect x="612" y="408" width="244" height="112" class="box"/>
+  <text x="632" y="444" class="head">3. B 删除缓存</text><text x="632" y="482">此刻缓存为空</text>
+  <rect x="900" y="408" width="264" height="112" class="focus"/>
+  <text x="920" y="444" class="head">4. A 恢复并回填旧值</text><text x="920" y="482">后续请求又读到 pending</text>
+  <text x="36" y="576">TTL 限制旧值存活时间；版本比较需完整协议；支付后的关键读取可直接访问权威数据。</text>
+  <text x="36" y="616" class="small">若回源来自滞后副本，还会引入另一层旧值来源。延迟双删也依赖延迟假设，不能证明强一致。</text>
+</svg>

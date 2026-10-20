@@ -1,64 +1,49 @@
 ---
-title: 容器标准
+title: 容器标准与接口边界
 author: Walt
 date: 2026-05-17
 ---
 
-# 容器标准
+# 容器标准与接口边界
 
-容器生态能互通，关键在于标准把职责拆开：镜像如何表达、镜像如何分发、容器如何启动、Kubernetes 如何调用运行时、网络和存储如何插件化。标准让 Docker 构建的镜像可以被 containerd 拉取，也让 Kubernetes 能替换底层运行时。
+同一个订单镜像能在不同平台运行，依赖镜像格式与运行约定的兼容；Pod 能拿到 IP、挂载数据卷，则需要网络和存储接口配合。OCI、CRI、CNI、CSI 描述不同对象的合同，不能用一个“容器标准”替代它们的具体职责。
 
-## 标准分层
+![镜像、进程、网络与存储分别采用的接口合同](/container/container-interface-contracts.svg)
 
-| 标准或接口 | 关注点 | 典型实现或使用方 |
-| --- | --- | --- |
-| OCI Image | 镜像格式、层、清单、配置 | Docker、BuildKit、containerd、Podman |
-| OCI Runtime | 如何根据 bundle 启动容器 | runc、crun、gVisor |
-| OCI Distribution | 镜像仓库的拉取和推送协议 | Docker Registry、Harbor |
-| CRI | kubelet 调用容器运行时的接口 | containerd、CRI-O |
-| CNI | 容器或 Pod 网络插件接口 | Calico、Cilium、Flannel |
-| CSI | 存储系统接入编排平台的接口 | 云盘、Ceph、NFS、各类存储插件 |
+## OCI：内容、分发与启动
 
-## OCI：镜像和运行时的共同语言
+OCI Image Specification 描述清单、配置、文件系统层及镜像索引等内容对象；Distribution Specification 描述客户端与仓库之间的内容分发协议；Runtime Specification 描述运行 bundle 的配置和容器生命周期。镜像需要经过解包、准备根文件系统与运行配置，才能由运行时启动进程。
 
-OCI 主要解决两个问题：
+因此 OCI 运行时本身不承担 Dockerfile 构建，也不能仅凭支持 Runtime Specification 就推断它会访问镜像仓库。不同实现兼容这些规范，还需要在平台、可选能力和安全配置上匹配。校验摘要用于识别内容，验证发布者与供应链信任还需要另外的签名和策略机制。
 
-- 镜像怎么表达：层、清单、平台架构、启动配置。
-- 容器怎么启动：文件系统 bundle、命名空间、cgroup、挂载、生命周期钩子。
+## CRI：kubelet 与运行时
 
-对日常使用者来说，最重要的影响是：镜像不再只属于 Docker，镜像已经成为云原生交付中的通用制品。
+CRI 通过 gRPC 为 kubelet 提供镜像和运行时服务，包括镜像拉取、Pod sandbox 与容器生命周期等操作。kubelet 面对的是节点 CRI 端点，背后可以是 containerd 的 CRI 插件或其他实现，而非直接发送 Docker CLI 命令。
 
-## CRI：Kubernetes 与运行时的边界
+镜像拉取和 sandbox 准备属于不同阶段。订单 Pod 出现 `ImagePullBackOff`，先查镜像名、凭据、平台及仓库连接；出现 `FailedCreatePodSandBox`，应查看具体事件与运行时日志，继续区分网络、sandbox 配置及底层启动错误。不能把全部启动失败都归因于镜像。
 
-CRI 是 kubelet 调用容器运行时的接口。kubelet 不需要知道底层是 containerd 还是 CRI-O，只要运行时实现 CRI，就可以接入 Kubernetes。
+## CNI：网络接入
 
-这解释了一个常见现象：Kubernetes 集群中可以没有 Docker Engine，但仍然能运行 Dockerfile 构建出来的镜像。因为 Kubernetes 真正需要的是符合镜像标准和 CRI 接口的运行时。
+CNI 约定运行时与网络插件的配置和调用，常见操作包括 ADD、DEL；插件可以结合 IPAM 分配地址。在 Kubernetes 的常见实现中，CRI 运行时准备 sandbox 时调用网络插件，失败或删除时还需要回收对应网络资源。实际调用与清理方式以所用实现为准。
 
-## CNI：Pod 网络的插件化
+CNI 接口并不承诺自动具备 NetworkPolicy、Service 转发或 Ingress 功能。具体网络方案可能组合实现其中多项能力，Service 流量转发则可由 kube-proxy 或替代数据面负责。排查 Pod 有 IP 却不能访问 Service 时，应继续检查端点、转发与策略，不能只验证地址分配。
 
-CNI 负责给容器或 Pod 配置网络。Kubernetes 创建 Pod 时，会让网络插件为 Pod 分配 IP、配置路由和网络策略能力。
+## CSI：存储供给与挂载
 
-不同 CNI 插件侧重点不同：
+CSI 定义身份、控制器和节点侧的存储 RPC；Kubernetes 通过相应组件及 sidecar 把存储对象操作衔接到驱动。不同驱动支持的能力不同，动态创建卷、控制器侧附加、节点挂载、扩容和快照不能一概视为必选能力。
 
-| 插件方向 | 关注点 |
+应用通过 PVC 表达需求，PV 表示可用卷，StorageClass 可以描述动态供给策略；静态供给则可能直接使用已有 PV。PVC 处于 Pending 不一定是故障，采用 `WaitForFirstConsumer` 时可能在等待工作负载调度。PVC 已 Bound 只说明完成绑定，节点权限、附加或挂载仍可能失败，应用也未必已经可写。
+
+例如订单导出 Pod 调度到新节点后，应分别核查卷供给、附加、节点挂载和应用目录权限。更换 StorageClass 不会自动把旧卷的数据搬到新卷；迁移要独立制定复制、一致性和回退方案。对象关系和配置见 [PV、PVC 与 StorageClass](../kubernetes/resources/pv-pvc)。
+
+## 按失败对象排查
+
+| 失败对象 | 先检查的合同与证据 |
 | --- | --- |
-| 基础连通 | Pod 跨节点互通、Service 转发 |
-| 网络策略 | 控制 Pod 间访问关系 |
-| 可观测性 | 连接追踪、流量分析、故障定位 |
-| 高性能 | eBPF、直连路由、减少封包开销 |
+| 镜像无法获取 | 分发协议、认证、内容摘要和目标平台 |
+| 进程无法创建 | 运行配置、根文件系统、内核与 OCI 运行时错误 |
+| kubelet 无法管理容器 | CRI 端点、协议版本和运行时健康状态 |
+| sandbox 网络失败 | CNI 配置、插件日志、IPAM 和回收状态 |
+| 卷已绑定但无法写入 | CSI 阶段事件、节点挂载、文件系统与用户权限 |
 
-## CSI：存储的插件化
-
-CSI 让 Kubernetes 能以统一方式接入不同存储系统。应用通过 PVC 申请存储，具体由哪个云盘、分布式存储或本地存储提供，由 StorageClass 和 CSI 插件决定。
-
-这个分层让业务 YAML 不需要直接绑定某个云厂商 API。迁移环境时，通常可以保持 PVC 使用方式不变，只替换底层 StorageClass。
-
-## 选型时怎么看
-
-| 问题 | 关注点 |
-| --- | --- |
-| 镜像能不能在不同环境运行 | 是否符合 OCI 镜像格式，架构是否匹配 |
-| Kubernetes 节点用什么运行时 | 是否实现 CRI，运维生态是否成熟 |
-| Pod 网络怎么排查 | 当前使用的 CNI 插件、网络策略、路由模式 |
-| PVC 为什么绑定失败 | StorageClass、CSI 插件、存储容量和权限 |
-| 镜像仓库如何治理 | 镜像签名、漏洞扫描、保留策略、访问控制 |
+这些标准减少接口差异，并不意味着所有实现和插件都能无条件互换。变更运行时、网络或存储驱动前，需要明确旧对象如何退出、新对象如何接管，以及业务如何验收和恢复。

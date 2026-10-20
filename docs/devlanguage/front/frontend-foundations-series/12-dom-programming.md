@@ -1,197 +1,55 @@
 # DOM 编程：节点、查询、修改与渲染影响
 
-&gt; 视频入口：B站合集《前端全链路：从浏览器基础到现代生态》上传并核验后回填正式链接。
-&gt; 本文是 EP12 的博客深讲版，包含视频主线，但比视频补充更多机制、流程图、边界判断和排查清单。
+商品接口返回了一组名称，页面需要新增列表项。脚本操作的是浏览器中的节点对象，HTML字符串只是创建结构的其中一种输入。分清节点身份、属性与当前状态，才能避免更新时丢监听器、重置表单或把用户文本当成标记解析。
 
-![DOM 编程：节点、查询、修改与渲染影响 技术流程图](/front/frontend-foundations-series/ep12-flow.svg)
+![数据到DOM节点再到渲染更新的路径](/front/frontend-foundations-series/ep12-flow.svg)
 
-## 这篇文章解决什么问题
+## 查询结果与节点身份
 
-这期解释 DOM 编程怎样让 JavaScript 读取和修改页面结构，以及这些修改怎样影响浏览器渲染。
+document是当前文档入口，元素、文本和注释都是节点。`children` 只取元素子节点，`childNodes` 还包含空白文本等节点。querySelector返回第一个匹配元素或null，querySelectorAll返回静态NodeList；getElementsByClassName等返回的集合则可以随DOM变化实时更新，迭代删除时要注意集合变化。
 
-这一篇的中心问题可以概括成：DOM 编程怎样让 JavaScript 读取、修改页面结构并影响渲染？
+查询发生在脚本执行时。若经典脚本位于节点之前，应调整加载时机或使用defer，而不是用任意setTimeout等待。文档查询也不会自动穿过iframe文档或Shadow DOM边界。
 
-关键词：DOM、document、node、element、querySelector、data attribute、textContent、setAttribute、classList、innerHTML
+## 文本、特性与属性各有用途
 
-## 视频主线回顾
+textContent用于文本，设置它会替换子节点；innerText关注渲染文本，读取时可能涉及样式和布局。setAttribute修改HTML特性，DOM属性则可能表达当前状态：文本框的value属性与初始value特性不同，checkbox.checked与初始checked特性也不能混为一谈。
 
-### 1. DOM 是节点树
+classList适合切换样式类。innerHTML解析字符串并替换子树，原节点上的监听器和节点身份不会自动转移。用户输入应按文本写入；创建a元素后还要验证href协议，不能因为使用createElement就认为所有属性都安全。
 
-浏览器把 HTML 解析成 document 入口下的节点树，JavaScript 操作的是这些节点对象。
+## 可运行的列表更新
 
-### 2. 查询要稳定
-
-`querySelector` 很方便，但选择器应该基于稳定语义或 data 属性，避免依赖脆弱层级。
-
-### 3. 修改要明确
-
-文本用 `textContent`，属性用 `setAttribute`，样式状态用 `classList`，结构用 `createElement` 和 `append`。
-
-### 4. DOM 修改会影响渲染
-
-节点变化可能触发样式计算、布局和绘制。批量修改通常比读写交错更稳。
-
-## 技术流程图
-
-先用一张图把本期内容串起来。它不是背诵路线，而是排查问题时可以顺着走的证据路线。
-
-```mermaid
-flowchart TD
-    s1["本期内容：DOM 是 JavaScript 操作页面的结构接口"]
-    s2["节点树：HTML 会被解析成 DOM 节点树"]
-    s3["查询节点：querySelector 用 CSS 选择器找到元素"]
-    s4["修改内容：修改 DOM 要分清文本、属性和结构"]
-    s5["创建节点：创建节点比拼字符串更可控"]
-    s6["渲染影响：DOM 修改可能触发样式、布局和绘制"]
-    s7["整体总结：DOM 是页面结构的可编程入口"]
-    s1 --> s2
-    s2 --> s3
-    s3 --> s4
-    s4 --> s5
-    s5 --> s6
-    s6 --> s7
-    s7 --> check{"能否解释当前页面现象？"}
-    check -->|能| action["记录证据并进入下一步"]
-    check -.->|不能| back["回到上一层重新定位"]
-    back -.-> s1
+```html
+<ul id="products"></ul>
+<button id="refresh" type="button">更新商品</button>
+<script>
+  const productList = document.querySelector('#products');
+  const productNames = ['桌面收纳盒', '<img src=x onerror=alert(1)>'];
+  function renderProducts() {
+    const fragment = document.createDocumentFragment();
+    for (const title of productNames) {
+      const item = document.createElement('li');
+      item.textContent = title;
+      fragment.append(item);
+    }
+    productList.replaceChildren(fragment);
+  }
+  document.querySelector('#refresh').addEventListener('click', renderProducts);
+  renderProducts();
+</script>
 ```
 
+第二项会显示尖括号文本，不生成图片或事件处理器。replaceChildren有意替换整组列表，适合此处没有字段焦点和子项状态的展示列表；编辑中的复杂列表应考虑保留节点身份，避免每次更新都重建所有控件。
 
-## 深入展开
+DocumentFragment主要用于在离线子树组织结构，插入后其子节点移动到目标位置，fragment本身不留在树中。它不保证总比直接append更快；性能应在实际数据量下测量，不能把“一次插入”直接等同于“一次重排”。
 
-### 1. DOM 是 JavaScript 操作页面的结构接口
+## DOM写入与屏幕更新不是同一时刻
 
-这一期看 DOM 编程。我们会讲 document、节点树、querySelector 查询、文本和属性修改、classList 切换样式、创建和插入节点，以及 DOM 修改对样式计算、布局和绘制的影响。理解 DOM，才能知道为什么框架最后还是要把组件结果落到真实页面上。
+节点和属性修改立即改变DOM，但浏览器可以延后并合并样式、布局和绘制。写入尺寸后马上读取offsetWidth等几何信息，可能要求浏览器同步计算前面的变化；循环中反复这样做容易造成布局抖动。读取纯业务数据则不等同于读取布局。
 
-这里可以多看一层：先找输入，再看处理过程，最后确认输出。前端很多问题之所以绕，是因为现象出现在页面上，原因却可能藏在网络、样式计算、运行时或构建结果里。
+先集中读取必要尺寸，再批量写入样式，可以减少强制同步布局。requestAnimationFrame用于在渲染更新机会执行回调，并不会把耗时计算移到后台。大量列表还要考虑分页或虚拟化，不能仅靠换API消除DOM规模成本。
 
-```mermaid
-flowchart LR
-    v1["查询：找到节点"]
-    v2["读取：拿到文本和属性"]
-    v3["修改：更新结构和样式入口"]
-    v4["渲染：触发后续计算"]
-    v1 --> v2
-    v2 --> v3
-    v3 --> v4
-```
+## 验收结构、安全与操作连续性
 
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
+运行示例后检查列表有两个li、没有img节点；重复点击更新仍为两个li，不能重复累加。再检查按钮键盘激活和焦点保持。需要测性能时，用同一数据量录制更新过程，比较脚本、布局和绘制，而不是把DOM操作次数当成用户耗时。
 
-### 2. HTML 会被解析成 DOM 节点树
-
-浏览器解析 HTML 后，会得到一棵 DOM 节点树。document 是入口，html、body、div、button 是元素节点，文字内容是文本节点。我们在 JavaScript 里操作的不是 HTML 字符串本身，而是这棵树上的对象。节点有父子、兄弟和属性关系，页面结构也因此能被脚本遍历和修改。
-
-把这段机制放到工程里看，最实用的切口是证据。不要急着猜是哪一行代码错了，先确认浏览器或工具实际拿到了什么、计算了什么、丢出了什么结果。
-
-| 维度 | 含义 |
-| --- | --- |
-| document | 整棵树的入口。 |
-| element | 标签对应的节点对象。 |
-| text | 标签之间的文字节点。 |
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 3. querySelector 用 CSS 选择器找到元素
-
-querySelector 和 querySelectorAll 可以用 CSS 选择器查找元素。比如 document.querySelector("[data-submit]") 找到提交按钮。实际项目里，不建议依赖很脆的层级路径；更稳的是用语义元素、id、class 或 data 属性作为查询入口。查到节点以后，才能读取文本、绑定事件或修改状态。
-
-这个点在真实项目里常常不是孤立问题。它会和状态、缓存、布局、依赖或团队约束连在一起，所以博客版更强调边界：什么归它管，什么应该交给下一层机制判断。
-
-```js
-const button = document.querySelector("[data-submit]");
-const items = document.querySelectorAll(".todo-item");
-```
-
-- querySelector 返回第一个匹配元素。
-- querySelectorAll 返回静态列表。
-- data-* 适合做行为标记。
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 4. 修改 DOM 要分清文本、属性和结构
-
-修改 DOM 时，要分清修改的是文本、属性、样式类名还是结构。textContent 改文本，setAttribute 改属性，classList 切换类名，append 可以插入新节点。innerHTML 虽然方便，但会重新解析字符串，并带来安全风险。日常优先用明确 API 表达意图。
-
-如果要把它讲给别人听，可以按“现象—证据—机制—边界”的顺序。先让对方看到问题，再解释浏览器或工具为什么会给出这样的结果。
-
-| 维度 | 含义 |
-| --- | --- |
-| textContent | 更新可见文字。 |
-| setAttribute | 更新属性和语义信息。 |
-| classList | 切换 CSS 状态。 |
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 5. 创建节点比拼字符串更可控
-
-创建结构可以用 document.createElement，再设置文本、属性和类名，最后 append 到目标容器。这样做比拼接 HTML 字符串更可控，也更容易避免把用户输入当成 HTML 解析。大量插入时，可以先用 DocumentFragment 组装，再一次性放进页面，减少中间状态带来的开销。
-
-这里可以多看一层：先找输入，再看处理过程，最后确认输出。前端很多问题之所以绕，是因为现象出现在页面上，原因却可能藏在网络、样式计算、运行时或构建结果里。
-
-```js
-const li = document.createElement("li");
-li.textContent = title;
-li.classList.add("todo-item");
-list.append(li);
-```
-
-- 创建元素节点。
-- 用 textContent 放文本。
-- 最后插入目标容器。
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 6. DOM 修改可能触发样式、布局和绘制
-
-DOM 修改之后，浏览器可能重新计算样式、布局和绘制。改 class 可能影响样式，插入节点可能影响布局，读取 offsetWidth 这类布局信息时，浏览器可能被迫先把前面的修改计算完。性能优化不是不改 DOM，而是避免频繁读写交错，尽量把修改批量处理。
-
-把这段机制放到工程里看，最实用的切口是证据。不要急着猜是哪一行代码错了，先确认浏览器或工具实际拿到了什么、计算了什么、丢出了什么结果。
-
-```mermaid
-flowchart LR
-    v1["DOM 变化：节点或属性改变"]
-    v2["样式计算：规则重新匹配"]
-    v3["布局：尺寸和位置更新"]
-    v4["绘制：画到屏幕上"]
-    v1 --> v2
-    v2 --> v3
-    v3 --> v4
-```
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-## 常见误区与边界
-
-- 不要把 DOM 当成字符串拼接目标。
-- 不要忽略 innerHTML 的安全风险。
-- 不要频繁交错读写布局信息。
-- 这一篇不展开：虚拟 DOM diff 细节，留到框架批次。
-- 这一篇不展开：复杂渲染性能剖析，留到性能单集。
-- 这一篇不展开：Web Components 深度实践。
-
-## 排查和验证清单
-
-- 先确认问题发生在哪一层：页面结构、样式计算、JavaScript 运行、网络请求、构建产物还是线上交付。
-- 用浏览器或工具拿到证据，不只凭肉眼判断。能截图、能看到日志、能看到请求和产物，结论才稳。
-- 把最小例子缩到只剩一个变量。变量越少，越容易看清机制。
-- 记录输入、处理过程和输出。前端问题往往不是“某个 API 错了”，而是链路中某一步的假设不成立。
-- 如果准备把结论放到项目里，再补一层测试、类型检查、可访问性或性能验证。
-
-## 动手练习
-
-1. 用一个最小 HTML 页面复现 DOM 编程 里的核心现象。
-2. 打开 DevTools，分别记录结构、样式、控制台、网络或性能面板里的一个证据点。
-3. 改一个变量，再观察结果是否符合这篇文章里的流程图；如果不符合，把差异写下来。
-
-## 参考来源与本系列依据
-
-- 标准：DOM Standard：节点、文档和 API 基线
-- 浏览器文档：MDN DOM / Document APIs：开发者解释
-- 工具：Chrome DevTools Elements / Performance：验证修改和渲染影响
-
-## 总结
-
-DOM 是 JavaScript 操作页面的结构接口。查到节点、明确修改、理解渲染影响，是写可靠交互的基础。
-
-博客版到这里就把视频主线扩成了可复习的技术笔记：先知道它在链路里的位置，再知道它怎么运行，最后知道遇到问题该从哪里查。
+事件监听与动态子项关系继续看[浏览器事件系统](./13-browser-event-system.md)，异步更新时机见[事件循环](./14-javascript-event-loop.md)。

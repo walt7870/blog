@@ -1,351 +1,61 @@
-# 前端性能优化指南
+# 前端性能优化
 
-## 性能优化的重要性
+订单列表打开慢、输入筛选条件时卡顿、图片加载后把按钮挤走，分别涉及加载、交互和布局稳定性。先定位用户正在等待哪一段，再选择优化动作；压缩包体积并不能解决所有问题。
 
-在现代 Web 应用中，性能直接影响用户体验和业务指标。研究表明，页面加载时间每增加1秒，转化率就会下降7%。
+![从用户现象定位前端性能瓶颈](/front/engineering/performance-evidence.svg)
 
-## 性能指标
+## 指标与观察口径
 
-### 核心 Web 指标 (Core Web Vitals)
-- **LCP (Largest Contentful Paint)**: 最大内容绘制时间 < 2.5s
-- **FID (First Input Delay)**: 首次输入延迟 < 100ms  
-- **CLS (Cumulative Layout Shift)**: 累积布局偏移 < 0.1
+截至2026年10月，Core Web Vitals使用LCP、INP和CLS。INP已在2024年替代FID；它反映页面访问期间交互到下一次绘制的响应情况，不只看第一次输入。
 
-### 其他重要指标
-- **FCP (First Contentful Paint)**: 首次内容绘制
-- **TTI (Time to Interactive)**: 可交互时间
-- **TBT (Total Blocking Time)**: 总阻塞时间
+| 指标 | 良好阈值 | 订单页面中的现象 |
+| --- | --- | --- |
+| LCP | 不超过2.5秒 | 主要内容迟迟没有出现 |
+| INP | 不超过200毫秒 | 点击筛选后，界面长时间没有反馈 |
+| CLS | 不超过0.1 | 图片、字体或提示区出现后，内容突然移动 |
 
-## 加载性能优化
+页面质量按真实访问的第75百分位评估，并分别观察桌面和移动端。一次本地Lighthouse高分不能代表真实用户全部达标；没有交互的实验室加载不能直接产生真实INP，TBT只能提供主线程阻塞的排查线索。接口耗时、列表首次可用时间和导出完成时间仍需业务指标补充。
 
-### 代码分割 (Code Splitting)
+例如LCP较慢时，在Network确认HTML响应、关键CSS、主图和脚本时间，再在Performance中查看主内容的实际绘制。服务器首字节已经慢了两秒，就不该只反复调整图片质量；资源很早到达但渲染迟，才重点检查脚本、样式和主线程。
 
-#### 路由级别的代码分割
-```javascript
-// React Router 示例
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Settings = lazy(() => import('./pages/Settings'));
+## 加载：让当前任务先可用
 
-function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </Suspense>
-  );
-}
-```
+把订单页需要的表格和筛选先交付，图表、编辑器和导出模块按需加载。路由级拆包减少首次传输，但用户点击后才下载的大模块也会增加等待，应提供加载、失败和重试状态。拆包前后对比同设备、同网络、同缓存状态的请求瀑布和可用时间，不能只比较压缩前文件大小。
 
-#### 组件级别的代码分割
-```javascript
-// 动态导入组件
-const HeavyComponent = lazy(() => 
-  import('./components/HeavyComponent')
-);
+首屏关键图通常不应懒加载；列表下方图片可以使用`loading="lazy"`，并保留尺寸。下例是普通列表缩略图，不是LCP主图：
 
-function MyComponent() {
-  const [show, setShow] = useState(false);
-  
-  return (
-    <>
-      <button onClick={() => setShow(true)}>Show</button>
-      {show && (
-        <Suspense fallback={<div>Loading...</div>}>
-          <HeavyComponent />
-        </Suspense>
-      )}
-    </>
-  );
-}
-```
-
-### 懒加载 (Lazy Loading)
-
-#### 图片懒加载
 ```html
-<!-- 原生懒加载 -->
-<img src="image.jpg" loading="lazy" alt="Description">
-
-<!-- Intersection Observer API -->
-<script>
-const images = document.querySelectorAll('img[data-src]');
-const imageObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;
-      imageObserver.unobserve(img);
-    }
-  });
-});
-
-images.forEach(img => imageObserver.observe(img));
-</script>
+<img src="/products/keyboard.webp"
+     alt="黑色机械键盘" width="320" height="240"
+     loading="lazy" decoding="async">
 ```
 
-#### 组件懒加载
-```javascript
-// Vue 异步组件
-const AsyncComp = defineAsyncComponent(() =>
-  import('./components/MyComp.vue')
-);
+图片格式、质量和尺寸需要用实际内容比较。AVIF/WebP并非每张图片都有固定压缩收益；截图、文字边缘和透明区域各有不同要求。`preload`只留给已确认的关键资源，预加载所有模块会争抢带宽，反而拖慢当前页面。
 
-// 带加载状态的异步组件
-const AsyncCompWithLoading = defineAsyncComponent({
-  loader: () => import('./components/MyComp.vue'),
-  loadingComponent: LoadingComp,
-  delay: 200,
-  timeout: 3000
-});
-```
+## 交互：先找到主线程长任务
 
-### 预加载和预获取
+筛选一万行订单时，卡顿可能来自每次按键重新排序、反复计算金额或创建大量DOM。先记录一次实际输入，查看脚本、布局和绘制分别占用多少，再决定移走计算、分页或采用成熟的虚拟列表。虚拟列表还要处理可变行高、键盘焦点和辅助技术，不能只隐藏屏幕外内容。
 
-#### 资源预加载
-```html
-<!-- 预加载关键资源 -->
-<link rel="preload" href="critical-font.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="main.css" as="style">
+计算密集且能序列化的数据处理可交给Web Worker；它不能直接操作DOM，并有消息复制与线程启动成本。防抖适合减少搜索请求次数，但会增加等待，不会自动缩短单次同步计算。网络响应还应取消旧请求或比较请求标识，防止旧结果覆盖新筛选条件。
 
-<!-- 预获取下一页资源 -->
-<link rel="prefetch" href="next-page-bundle.js">
+对于布局抖动，避免在循环里交替读取几何尺寸、修改样式。先集中读取，再写入；移动动画可评估`transform`，但不能保证每个元素都独立合成。过多图层也有显存成本，应看实际浏览器记录。
 
-<!-- DNS预解析 -->
-<link rel="dns-prefetch" href="//example-cdn.com">
-```
+## 缓存：区分资源和业务事实
 
-## 网络优化
+带内容hash的JS/CSS可长缓存，HTML入口和运行时配置需及时再验证。库存、权限、支付结果不能照搬静态资源的长期缓存策略。Service Worker会增加另一层更新与失效机制，只有确实需要离线能力且能处理版本迁移时再引入，不能当作通用性能开关。
 
-### CDN使用
-```javascript
-// Webpack配置CDN
-module.exports = {
-  output: {
-    publicPath: 'https://cdn.example.com/'
-  },
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM'
-  }
-};
-```
+Tree shaking依赖模块结构与副作用声明。把有初始化或CSS导入的模块错误声明为`sideEffects: false`，可能直接删掉必要行为。包分析只能指出组成；是否可删、是否能按需加载，还要回到模块用途判断。
 
-### 缓存策略
-```javascript
-// Service Worker缓存策略
-const CACHE_NAME = 'app-v1';
-const urlsToCache = [
-  '/',
-  '/styles/main.css',
-  '/scripts/app.js'
-];
+## 验证闭环
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
-});
+先保存同一路由的基线：构建版本、设备、网络、缓存冷热、数据量和操作步骤。一次只调整一个主要原因，比较多次运行的分布，并检查功能和可访问性。上线后按页面、版本和设备聚合真实指标，避免平均数掩盖低端设备问题。
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      })
-  );
-});
-```
+| 现象 | 证据入口 | 修复后验证 |
+| --- | --- | --- |
+| HTML迟到 | Network中的TTFB与服务端日志 | 同区域、同缓存条件的响应分布 |
+| 主内容绘制迟 | LCP元素、请求链和主线程 | 关键资源提前且LCP改善 |
+| 输入卡顿 | Performance交互和长任务 | 实际输入仍正确，交互延迟降低 |
+| 按钮被挤走 | Layout Shift轨迹、尺寸缺失 | 慢网、字体切换及错误提示不跳动 |
+| 发布后旧资源404 | HTML引用与缓存响应头 | 旧标签页和新页面同时可用 |
 
-## 渲染性能优化
-
-### 减少重排和重绘
-```javascript
-// 批量DOM操作
-const fragment = document.createDocumentFragment();
-for (let i = 0; i < 1000; i++) {
-  const div = document.createElement('div');
-  div.textContent = `Item ${i}`;
-  fragment.appendChild(div);
-}
-document.body.appendChild(fragment);
-
-// 使用transform替代top/left
-// 不推荐
-// element.style.top = '100px';
-
-// 推荐
-element.style.transform = 'translateY(100px)';
-```
-
-### 虚拟滚动
-```javascript
-// React虚拟滚动示例
-import { FixedSizeList } from 'react-window';
-
-function LargeList({ items }) {
-  return (
-    <FixedSizeList
-      height={400}
-      itemCount={items.length}
-      itemSize={35}
-      width={300}
-    >
-      {({ index, style }) => (
-        <div style={style}>
-          {items[index]}
-        </div>
-      )}
-    </FixedSizeList>
-  );
-}
-```
-
-## 图片优化
-
-### 响应式图片
-```html
-<picture>
-  <source media="(min-width: 1200px)" srcset="hero-large.webp" type="image/webp">
-  <source media="(min-width: 768px)" srcset="hero-medium.webp" type="image/webp">
-  <img src="hero-small.jpg" alt="Hero image" loading="lazy">
-</picture>
-```
-
-### 现代图片格式
-- **WebP**: 比JPEG小25-35%
-- **AVIF**: 比WebP小20-50%
-- **JPEG XL**: 下一代图片格式
-
-### 图片压缩
-```javascript
-// 使用Sharp进行图片压缩
-const sharp = require('sharp');
-
-sharp('input.jpg')
-  .resize(800, 600)
-  .jpeg({ quality: 85 })
-  .toFile('output.jpg');
-```
-
-## 代码优化
-
-### Tree Shaking
-```javascript
-// 确保使用ES6模块
-// package.json
-{
-  "sideEffects": ["*.css"],
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js"
-}
-
-// Webpack配置
-module.exports = {
-  optimization: {
-    usedExports: true,
-    sideEffects: false
-  }
-};
-```
-
-### 压缩和混淆
-```javascript
-// Terser配置
-module.exports = {
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: true,
-            drop_debugger: true
-          }
-        }
-      })
-    ]
-  }
-};
-```
-
-## 性能监控
-
-### 使用Performance API
-```javascript
-// 监控关键指标
-window.addEventListener('load', () => {
-  const perfData = performance.getEntriesByType('navigation')[0];
-  
-  console.log('DNS查询时间:', perfData.domainLookupEnd - perfData.domainLookupStart);
-  console.log('TCP连接时间:', perfData.connectEnd - perfData.connectStart);
-  console.log('页面加载时间:', perfData.loadEventEnd - perfData.loadEventStart);
-});
-
-// 监控资源加载
-performance.getEntriesByType('resource').forEach(resource => {
-  console.log(`${resource.name}: ${resource.duration}ms`);
-});
-```
-
-### 使用Lighthouse CI
-```yaml
-# .github/workflows/lighthouse.yml
-name: Lighthouse CI
-on: [push]
-jobs:
-  lighthouse:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli
-          lhci autorun
-```
-
-## 性能优化清单
-
-### 开发阶段
-- [ ] 启用代码分割
-- [ ] 配置懒加载
-- [ ] 优化图片资源
-- [ ] 使用CDN
-- [ ] 配置缓存策略
-
-### 构建阶段
-- [ ] 启用Tree Shaking
-- [ ] 压缩代码
-- [ ] 优化打包大小
-- [ ] 生成source map
-- [ ] 检查bundle分析
-
-### 部署阶段
-- [ ] 配置gzip压缩
-- [ ] 设置缓存头
-- [ ] 使用Service Worker
-- [ ] 监控性能指标
-- [ ] 设置性能预算
-
-## 性能工具推荐
-
-### 分析工具
-- **Lighthouse**: Google的性能分析工具
-- **WebPageTest**: 详细的性能测试
-- **Chrome DevTools**: 内置开发者工具
-- **Bundle Analyzer**: 包大小分析
-
-### 监控工具
-- **Core Web Vitals**: 核心Web指标监控
-- **Performance Observer**: 性能观察API
-- **Google Analytics**: 用户行为分析
-- **Sentry**: 错误和性能监控
-
-## 总结
-
-前端性能优化是一个持续的过程，需要从开发、构建到部署的全流程考虑。通过合理的代码分割、资源优化、网络优化和监控，可以显著提升用户体验和应用性能。
+性能预算应来源于产品目标与实测基线，不能把任意包大小或固定分数当作全项目标准。资源发布细节见[前端部署](../deployment/)，构建边界见[构建工具](../framework/)与[前端全链路系列](../frontend-foundations-series/)。

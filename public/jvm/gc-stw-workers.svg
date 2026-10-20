@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img" aria-labelledby="gc-stw-title gc-stw-desc">
+  <title id="gc-stw-title">Serial 与 Parallel 的暂停工作方式</title>
+  <desc id="gc-stw-desc">Serial与Parallel主要回收工作期间均暂停应用。Serial用单个GC工作线程，Parallel用多个线程分担工作。图仅比较工作方式，不按实际时间比例绘制；ParNew的年轻代也属于多线程STW，但老年代组合不同。</desc>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.run{fill:#f0fdf4;stroke:#86b49b}.stop{fill:#fff7ed;stroke:#e4b68b}.work{fill:#eff6ff;stroke:#93c5fd}</style>
+  <rect width="1100" height="560" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">多线程回收，仍然可能暂停应用</text>
+  <text class="body" x="32" y="76">仅比较执行方式，不按时长比例绘制；线程更多不代表线性加速。</text>
+  <text class="name" x="32" y="126">Serial</text>
+  <text class="body" x="32" y="166">应用线程</text>
+  <rect class="run" x="220" y="140" width="140" height="40" rx="6"/><text class="body" x="252" y="166">运行</text>
+  <rect class="stop" x="380" y="140" width="504" height="40" rx="6"/><text class="body" x="588" y="166">STW 暂停</text>
+  <rect class="run" x="904" y="140" width="164" height="40" rx="6"/><text class="body" x="948" y="166">恢复运行</text>
+  <text class="body" x="32" y="218">GC 工作线程</text>
+  <rect class="work" x="380" y="192" width="504" height="40" rx="6"/><text class="body" x="536" y="218">一个工作线程执行回收</text>
+  <path d="M32 260H1068" stroke="#cbd5e1"/>
+  <text class="name" x="32" y="300">Parallel</text>
+  <text class="body" x="32" y="340">应用线程</text>
+  <rect class="run" x="220" y="314" width="140" height="40" rx="6"/><text class="body" x="252" y="340">运行</text>
+  <rect class="stop" x="380" y="314" width="504" height="40" rx="6"/><text class="body" x="588" y="340">STW 暂停</text>
+  <rect class="run" x="904" y="314" width="164" height="40" rx="6"/><text class="body" x="948" y="340">恢复运行</text>
+  <text class="body" x="32" y="392">GC 工作线程 1</text><text class="body" x="32" y="432">GC 工作线程 2</text><text class="body" x="32" y="472">其他工作线程</text>
+  <rect class="work" x="380" y="366" width="504" height="32" rx="6"/><text class="body" x="560" y="389">分担扫描与移动</text>
+  <rect class="work" x="380" y="406" width="504" height="32" rx="6"/><text class="body" x="560" y="429">分担扫描与移动</text>
+  <rect class="work" x="380" y="446" width="504" height="32" rx="6"/><text class="body" x="560" y="469">分担扫描与移动</text>
+  <text class="note" x="32" y="526">ParNew 的年轻代也是多线程 STW；它通常与 CMS 配合，不等于 Parallel 的整套组合。</text>
+</svg>

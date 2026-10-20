@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/tools/index.md",
+      "status": "verified",
+      "reviewedHash": "b81b64943447d37671e3715ce03f84b044c3afd50b8d3e9988c400a8bc0578e6",
+      "pageType": "容器工具阅读导览",
+      "decision": "完整阅读原37行，改按VM、构建、管理、分发、集群和排查任务组织入口，用切换context后看不到旧卷解释工具与数据边界，复用已审运行时图。",
+      "validation": ["整站构建14.22秒通过；确认preview真正指向该次临时构建后，重新查看1280×800及390×844浅深色全部页面截图，无整页横溢，图加载和原尺寸预览关闭通过；正文工具到Colima客户端导航URL/H1正确。"]
+    },
+    {
+      "file": "docs/container/tools/colima.md",
+      "status": "verified",
+      "reviewedHash": "c692fb8d7d261bec5f68585f886383e086fed11ab0c743465024eea0983dc5ef",
+      "pageType": "Colima 配置与排错",
+      "decision": "完整阅读原1186行，按0.10.3重构宿主VM、profile、端点、两级挂载与端口边界，删除不存在的template子命令及端口参数，纠正network.address类型、单VM高可用和delete数据盘范围，新增实际关系SVG。",
+      "validation": ["官方稳定0.10.3配置、start相关参数、delete/status/ssh源码及FAQ校准；5段Bash通过bash -n，2段YAML经Ruby安全解析和官方键核对。主机未安装Colima，没有声称VM或网络集成实测。新SVG原1120尺寸实际字体rect与截图检查通过；新产物双视口浅深色逐页截图、图片原尺寸关闭及4处超宽代码键盘滚动通过；正文到Docker命令客户端导航URL/H1正确，构建通过。"]
+    },
+    {
+      "file": "docs/container/video-series.md",
+      "status": "verified",
+      "reviewedHash": "24dfba12ba16500f90e7198e84091d793db5ed7740c4d56f0652a522e1d0bbb1",
+      "pageType": "容器视频与正文映射",
+      "decision": "完整阅读视频导读，补交付关系图及CSV重建练习，区分发布对象链和网络配置证据；手机表格保持播放单行并提供可聚焦滚动区域。",
+      "validation": ["B站官方view API code0，系列标题和14个分P标题逐项匹配；此证据不等于视频播放测试。构建14.22秒成功；新产物1280×800/390×844浅深色全页截图、图加载和原尺寸关闭通过；手机342px表格区域容纳620px表格，ArrowRight后scrollLeft15，无整页横溢。"]
+    }
+  ]
+}

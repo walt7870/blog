@@ -1,0 +1,172 @@
+{
+  "pages": [
+    {
+      "file": "docs/embedded/c-programming.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正指针、volatile同步、const位置、对齐与寄存器副作用；补可测字段/字节/tick边界和启动链接合同。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "303920b1e1e68eaa7e34f9fdaba9c556cccb952a8c837d3435992994f4921164"
+    },
+    {
+      "file": "docs/embedded/career.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "去掉年限分级与面试口吻，按模块、系统和决策证据及供电复位故障闭环验证能力。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "5364201eca2c1b53721ac2bae4aa1125c70d76048b9e6889da024d783443afc1"
+    },
+    {
+      "file": "docs/embedded/communication.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正CAN公式、Modbus回调地址与边界、BLE/MQTT分片、业务确认及LoRaWAN地区/计数合同。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "7b6722f5b90bc06f57592dcf8ff772b7f0585e9236dc6fd54725291633ec49a8"
+    },
+    {
+      "file": "docs/embedded/electronics.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正接地按键上拉、固定I2C电阻、MOS阈值与通用电平表，用数值计算和测量顺序闭环。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "870e03c24caee29b7cafc451da801ce70159776e920cf07ea577a0ffa92ac853"
+    },
+    {
+      "file": "docs/embedded/hardware-design.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正固定载流和LDO分界、常亮LED与Y电容泛用建议，补瞬态供电、回流、合规和实板追溯。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "981bf81a6ba42d09266e2f08f5beed16068c53ad76119bf5e4f708f6a5051312"
+    },
+    {
+      "file": "docs/embedded/index.md",
+      "pageType": "专题导读",
+      "status": "verified",
+      "findings": [],
+      "decision": "改为可信采样、联网隔离和恢复三个交付物，补十二篇问题入口与平台约束地图。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "3cd1bb09d452fc471f4f007906470c9ccf38fe815d2796b04b266707786e5862"
+    },
+    {
+      "file": "docs/embedded/linux-embedded.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "区分启动与运行、BSP/DT与子系统，补libgpiod2生命周期；移除不安全伪完整驱动与串口。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "8bc9ca51b492834df9668dcfa20bf13822cdc84e502b041ad7e7990e8041fae4"
+    },
+    {
+      "file": "docs/embedded/mcu.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正芯片分类、nRF52810、可选FPU、ISA费用、地址容量和时钟/低功耗泛化。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "4c8762d2a6ef3c6367b861958057715ac8d595164629b558555f74f290c34183"
+    },
+    {
+      "file": "docs/embedded/peripherals.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "按事务、缓冲区归属与故障恢复组织，修正HAL错误、ADC/NTC、PWM、Cache方向和看门狗。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "009951d452868bd659be57e2521d03f4a7453cb5a3490755d798c859459ecd0a"
+    },
+    {
+      "file": "docs/embedded/platforms.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "固定IDF5.4.2与C3基线，修正系列无线差异、树莓派用户/Pi5/PWM与RISC-V兼容。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "029f7bc85a691f8d54dec3f29affa86b57d067c74e87827ba6d9853b2f917052"
+    },
+    {
+      "file": "docs/embedded/projects.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "五项目补故障验收，修正PI时间与抗饱和、F407扇区/OTA链接/签名/确认及两年能耗。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "fa0c1a223b855d6f3bc538f8fcea1488ee3a57bc5e02430acb40edfd60e454de"
+    },
+    {
+      "file": "docs/embedded/rtos.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正上游/IDF栈单位、临界区/FromISR、队列归属、栈水位、工具归属和安全认证。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "b0f1a7fbbb967c0efb5101c5b88d0bf9c9cf077f5f76e4459c22a6adaeb7a343"
+    },
+    {
+      "file": "docs/embedded/toolchain.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "建立目标ABI、完整启动链接、同ELF符号合同，修正Cube生成、CMake探测、EDU授权和编译器评价。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "a4ea43546a9b1a3cd2401db0b5d8fc781afa158f823945e20ebf3b3adb15f192"
+    },
+    {
+      "file": "docs/devlanguage/index.md",
+      "pageType": "专题导读",
+      "status": "verified",
+      "findings": [],
+      "decision": "补Python/Electron入口，用订单解释不同运行位置，修正单文件交付和跨平台边界。",
+      "validation": [
+        "13组正文提取命令、故意变异、主机Sanitizer及Arm对象编译通过。SPI只测桩函数错误传播；不声称目标板、射频、电气、掉电和能耗硬件实测。",
+        "构建14.00秒；14页56份四模式全文、30组图示原尺寸与退出、14次分页、15图中文边界和8份联系表通过；见batches/embedded.md。"
+      ],
+      "reviewedHash": "7bc8e9f1e8f821d40c8e7bc7176497821f8edcc8adc1c0efa3fe4e0347b4dbbe"
+    }
+  ]
+}

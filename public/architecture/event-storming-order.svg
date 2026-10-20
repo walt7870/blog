@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="es-order-title es-order-desc">
+  <title id="es-order-title">订单支付的命令事件与策略协作</title><desc id="es-order-desc">可信支付事实触发接受支付命令，订单聚合接受后产生订单已支付事件，确认库存策略触发确认预占命令，库存聚合验证状态；订单不接受则核对，库存过期或重复则进入对应恢复，不是跨系统原子事务。</desc>
+  <defs><marker id="es-order-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="600" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="40" y="48" font-size="26" font-weight="600">从支付事实到库存确认：命令可以被拒绝</text>
+    <text x="40" y="80" font-size="16" fill="#5d6f64">输入前提：支付适配器已核验签名、商户、金额和流水</text>
+    <g fill="none" stroke="#657768" stroke-width="2" marker-end="url(#es-order-arrow)"><path d="M192 224H224"/><path d="M368 224H400"/><path d="M544 224H576" stroke-dasharray="6 5"/><path d="M720 224H752"/><path d="M896 224H928"/><path d="M296 288V376"/><path d="M1000 288V376"/></g>
+    <g stroke="#c4cdd5"><rect x="48" y="160" width="144" height="128" rx="6" fill="#e6f0fc"/><rect x="224" y="160" width="144" height="128" rx="6" fill="#fff5ce"/><rect x="400" y="160" width="144" height="128" rx="6" fill="#fde8cd"/><rect x="576" y="160" width="144" height="128" rx="6" fill="#f0eaf9"/><rect x="752" y="160" width="144" height="128" rx="6" fill="#e6f0fc"/><rect x="928" y="160" width="144" height="128" rx="6" fill="#fff5ce"/><rect x="224" y="376" width="320" height="100" rx="6" fill="#fff"/><rect x="752" y="376" width="320" height="100" rx="6" fill="#fff"/></g>
+    <g font-size="15" fill="#5d6f64"><text x="64" y="192">命令</text><text x="240" y="192">聚合</text><text x="416" y="192">事件</text><text x="592" y="192">策略</text><text x="768" y="192">命令</text><text x="944" y="192">聚合</text></g>
+    <g font-size="19" font-weight="600"><text x="64" y="228">接受支付</text><text x="240" y="228">订单</text><text x="416" y="228">订单已支付</text><text x="592" y="228">确认库存</text><text x="768" y="228">确认预占</text><text x="944" y="228">库存</text><text x="248" y="412">不接受支付：核对任务</text><text x="776" y="412">状态不符：拒绝或幂等</text></g>
+    <g font-size="14" fill="#5d6f64"><text x="64" y="260">请求，非事实</text><text x="240" y="260">校验状态与金额</text><text x="416" y="260">接受支付的事实</text><text x="592" y="260">事件触发规则</text><text x="768" y="260">请求，非事实</text><text x="944" y="260">校验预占状态</text></g>
+    <g font-size="16"><text x="320" y="336">已关闭 / 金额不符</text><text x="776" y="336">重复 / 已过期</text><text x="248" y="448">记录资金事实，按规则退款或处理</text><text x="776" y="448">核对预占，必要时补偿与告警</text></g>
+    <text x="40" y="532" font-size="17">虚线：已提交事件通过可靠投递进入策略，可能重复；消费者不能跳过状态检查。</text>
+    <text x="40" y="568" font-size="17" fill="#5d6f64">聚合保护规则；事务、版本条件、Outbox 和业务去重仍需分别实现与验证。</text>
+  </g>
+</svg>

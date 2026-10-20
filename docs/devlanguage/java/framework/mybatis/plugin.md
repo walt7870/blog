@@ -1,531 +1,110 @@
-# MyBatis 插件机制详解
+# MyBatis 插件的拦截边界
 
-## 概述
+订单查询偶尔变慢，可以先观察哪个 Mapper statement 耗时长，再到数据库核对执行计划、锁和连接等待。MyBatis 插件能在执行器、语句准备、参数绑定或结果映射等位置加入观测逻辑，但这些位置看到的时间和调用次数不同。先确定观测对象，才能解释日志。
 
-MyBatis 插件（Plugin）是一个强大的扩展机制，允许开发者在 SQL 执行的关键节点进行拦截和自定义处理。通过插件机制，我们可以实现诸如分页、数据库方言适配、SQL 性能监控、数据加密等功能。
+本页以 MyBatis 3.5.19 为练习版本，沿用 [映射、会话与事务](./index.md) 的 H2 订单例子。示例只记录调用标识、成功标志和经过时间，不修改 SQL，也不承担支付重试。
 
-## 插件原理
+## 四类扩展点如何经过缓存
 
-MyBatis 插件基于 JDK 动态代理和责任链模式实现，可以拦截以下四个核心对象的方法调用：
+![MyBatis插件与缓存的拦截边界](/java/mybatis-plugin-boundaries.svg)
 
-1. **Executor** - 执行器，负责 SQL 的执行和缓存维护
-2. **StatementHandler** - 语句处理器，负责 SQL 语句的预编译和参数设置
-3. **ParameterHandler** - 参数处理器，负责参数的设置
-4. **ResultSetHandler** - 结果集处理器，负责结果集的映射
+`Interceptor` 通过 `@Intercepts`、`@Signature` 声明接口、方法名和参数类型，框架用 JDK 动态代理包装匹配的目标。常见扩展点是 `Executor`、`StatementHandler`、`ParameterHandler` 和 `ResultSetHandler`。签名必须精确匹配；只写同名方法不表示拦截了所有重载。
 
-## 插件接口
+| 位置 | 适合观察什么 | 不能直接推出什么 |
+| --- | --- | --- |
+| `Executor.query` | 一次执行器查询调用的总耗时，包含所经过的缓存和映射 | 不能当成数据库服务端执行耗时 |
+| `Executor.update` | 一次更新调用是否返回、执行器耗时 | 不能证明事务最终提交；BATCH 模式还可能尚未发送到数据库 |
+| `StatementHandler.prepare` | 实际准备 JDBC Statement 的路径 | 缓存命中、Statement 复用时不一定进入 |
+| `ParameterHandler.setParameters` | 参数向 JDBC 语句绑定的过程 | 不等于可以把敏感参数原值写日志 |
+| `ResultSetHandler.handleResultSets` | 结果集读取和对象映射 | 不能独立覆盖连接等待、执行和提交 |
 
-所有插件都必须实现 `Interceptor` 接口：
+图画的是普通查询主路径，其他执行器模式、游标、嵌套查询和插件组合需要分别验证。代理只拦截经过它的调用；目标对象内部自调用不会自动再经过同一代理。例如只拦截四参数 `query`，不能据此宣称覆盖了所有六参数调用或内部嵌套查询。
 
-```java
-public interface Interceptor {
-    // 拦截方法，包含核心逻辑
-    Object intercept(Invocation invocation) throws Throwable;
-    
-    // 生成代理对象
-    default Object plugin(Object target) {
-        return Plugin.wrap(target, this);
-    }
-    
-    // 设置插件属性
-    default void setProperties(Properties properties) {
-        // 默认空实现
-    }
-}
-```
+## 可编译的耗时观测插件
 
-## 数据库方言适配插件示例
-
-以下是一个完整的数据库方言适配插件示例，支持 MySQL、PostgreSQL、Oracle 等不同数据库的分页语法：
-
-### 1. 数据库方言枚举
+以下是完整 `MapperTimingPlugin.java`，与上一页的 `MyBatisOrder.java` 放在同一练习目录。每次拦截只有一处 `invocation.proceed()`。目标失败时记录失败标志并把原异常继续向外传递，不再执行原 SQL。
 
 ```java
-public enum DatabaseDialect {
-    MYSQL("mysql") {
-        @Override
-        public String buildPaginationSql(String originalSql, int offset, int limit) {
-            return originalSql + " LIMIT " + offset + ", " + limit;
-        }
-    },
-    
-    POSTGRESQL("postgresql") {
-        @Override
-        public String buildPaginationSql(String originalSql, int offset, int limit) {
-            return originalSql + " LIMIT " + limit + " OFFSET " + offset;
-        }
-    },
-    
-    ORACLE("oracle") {
-        @Override
-        public String buildPaginationSql(String originalSql, int offset, int limit) {
-            return "SELECT * FROM (" +
-                   "SELECT ROWNUM rn, t.* FROM (" + originalSql + ") t " +
-                   "WHERE ROWNUM <= " + (offset + limit) + ") " +
-                   "WHERE rn > " + offset;
-        }
-    },
-    
-    SQLSERVER("sqlserver") {
-        @Override
-        public String buildPaginationSql(String originalSql, int offset, int limit) {
-            return originalSql + " OFFSET " + offset + " ROWS FETCH NEXT " + limit + " ROWS ONLY";
-        }
-    };
-    
-    private final String dialectName;
-    
-    DatabaseDialect(String dialectName) {
-        this.dialectName = dialectName;
-    }
-    
-    public abstract String buildPaginationSql(String originalSql, int offset, int limit);
-    
-    public static DatabaseDialect fromUrl(String url) {
-        if (url.contains("mysql")) {
-            return MYSQL;
-        } else if (url.contains("postgresql")) {
-            return POSTGRESQL;
-        } else if (url.contains("oracle")) {
-            return ORACLE;
-        } else if (url.contains("sqlserver")) {
-            return SQLSERVER;
-        }
-        throw new IllegalArgumentException("Unsupported database: " + url);
-    }
-}
-```
+import java.util.concurrent.TimeUnit;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 
-### 2. 分页参数对象
-
-```java
-public class PageInfo {
-    private int pageNum = 1;
-    private int pageSize = 10;
-    private boolean enablePagination = false;
-    
-    public PageInfo() {}
-    
-    public PageInfo(int pageNum, int pageSize) {
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-        this.enablePagination = true;
-    }
-    
-    public int getOffset() {
-        return (pageNum - 1) * pageSize;
-    }
-    
-    // getter and setter methods
-    public int getPageNum() { return pageNum; }
-    public void setPageNum(int pageNum) { this.pageNum = pageNum; }
-    
-    public int getPageSize() { return pageSize; }
-    public void setPageSize(int pageSize) { this.pageSize = pageSize; }
-    
-    public boolean isEnablePagination() { return enablePagination; }
-    public void setEnablePagination(boolean enablePagination) { this.enablePagination = enablePagination; }
-}
-```
-
-### 3. 线程本地存储工具
-
-```java
-public class PageHelper {
-    private static final ThreadLocal<PageInfo> PAGE_INFO = new ThreadLocal<>();
-    
-    public static void startPage(int pageNum, int pageSize) {
-        PAGE_INFO.set(new PageInfo(pageNum, pageSize));
-    }
-    
-    public static PageInfo getPageInfo() {
-        return PAGE_INFO.get();
-    }
-    
-    public static void clearPage() {
-        PAGE_INFO.remove();
-    }
-}
-```
-
-### 4. 数据库方言适配插件
-
-```java
 @Intercepts({
-    @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
+    @Signature(type = Executor.class, method = "query",
+        args = {MappedStatement.class, Object.class,
+                RowBounds.class, ResultHandler.class}),
+    @Signature(type = Executor.class, method = "update",
+        args = {MappedStatement.class, Object.class})
 })
-public class DatabaseDialectPlugin implements Interceptor {
-    
-    private DatabaseDialect dialect;
-    private String dialectProperty;
-    
+public final class MapperTimingPlugin implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
-        
-        // 获取分页信息
-        PageInfo pageInfo = PageHelper.getPageInfo();
-        if (pageInfo == null || !pageInfo.isEnablePagination()) {
-            return invocation.proceed();
-        }
-        
-        try {
-            // 获取 BoundSql
-            BoundSql boundSql = statementHandler.getBoundSql();
-            String originalSql = boundSql.getSql();
-            
-            // 检测数据库类型
-            if (dialect == null) {
-                Connection connection = (Connection) invocation.getArgs()[0];
-                detectDatabaseDialect(connection);
-            }
-            
-            // 构建分页 SQL
-            String paginationSql = dialect.buildPaginationSql(
-                originalSql, 
-                pageInfo.getOffset(), 
-                pageInfo.getPageSize()
-            );
-            
-            // 通过反射修改 SQL
-            Field sqlField = BoundSql.class.getDeclaredField("sql");
-            sqlField.setAccessible(true);
-            sqlField.set(boundSql, paginationSql);
-            
-            return invocation.proceed();
-        } finally {
-            // 清理线程本地变量
-            PageHelper.clearPage();
-        }
-    }
-    
-    private void detectDatabaseDialect(Connection connection) throws SQLException {
-        if (dialectProperty != null && !dialectProperty.trim().isEmpty()) {
-            // 使用配置的方言
-            dialect = DatabaseDialect.valueOf(dialectProperty.toUpperCase());
-        } else {
-            // 自动检测数据库类型
-            String url = connection.getMetaData().getURL();
-            dialect = DatabaseDialect.fromUrl(url);
-        }
-    }
-    
-    @Override
-    public Object plugin(Object target) {
-        if (target instanceof StatementHandler) {
-            return Plugin.wrap(target, this);
-        }
-        return target;
-    }
-    
-    @Override
-    public void setProperties(Properties properties) {
-        this.dialectProperty = properties.getProperty("dialect");
-    }
-}
-```
-
-### 5. SQL 性能监控插件
-
-```java
-@Intercepts({
-    @Signature(type = Executor.class, method = "query", 
-               args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-    @Signature(type = Executor.class, method = "update", 
-               args = {MappedStatement.class, Object.class})
-})
-public class SqlPerformancePlugin implements Interceptor {
-    
-    private long slowSqlThreshold = 1000; // 慢SQL阈值，单位毫秒
-    
-    @Override
-    public Object intercept(Invocation invocation) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        
+        MappedStatement statement = (MappedStatement) invocation.getArgs()[0];
+        long started = System.nanoTime();
+        boolean success = false;
         try {
             Object result = invocation.proceed();
-            
-            long endTime = System.currentTimeMillis();
-            long executionTime = endTime - startTime;
-            
-            // 记录SQL执行信息
-            logSqlExecution(invocation, executionTime);
-            
+            success = true;
             return result;
-        } catch (Exception e) {
-            long endTime = System.currentTimeMillis();
-            long executionTime = endTime - startTime;
-            
-            // 记录异常SQL
-            logSqlError(invocation, executionTime, e);
-            throw e;
-        }
-    }
-    
-    private void logSqlExecution(Invocation invocation, long executionTime) {
-        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        String sqlId = mappedStatement.getId();
-        
-        if (executionTime > slowSqlThreshold) {
-            System.err.println(String.format(
-                "[SLOW SQL] ID: %s, Execution Time: %d ms", 
-                sqlId, executionTime
-            ));
-        } else {
-            System.out.println(String.format(
-                "[SQL] ID: %s, Execution Time: %d ms", 
-                sqlId, executionTime
-            ));
-        }
-    }
-    
-    private void logSqlError(Invocation invocation, long executionTime, Exception e) {
-        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        String sqlId = mappedStatement.getId();
-        
-        System.err.println(String.format(
-            "[SQL ERROR] ID: %s, Execution Time: %d ms, Error: %s", 
-            sqlId, executionTime, e.getMessage()
-        ));
-    }
-    
-    @Override
-    public void setProperties(Properties properties) {
-        String threshold = properties.getProperty("slowSqlThreshold");
-        if (threshold != null) {
-            this.slowSqlThreshold = Long.parseLong(threshold);
+        } finally {
+            long micros = TimeUnit.NANOSECONDS.toMicros(System.nanoTime() - started);
+            try {
+                System.err.printf("statement=%s success=%s elapsedMicros=%d%n",
+                        statement.getId(), success, micros);
+            } catch (RuntimeException loggingFailure) {
+                // 观测写出失败不能覆盖数据库调用的结果或原始异常。
+            }
         }
     }
 }
 ```
 
-## 插件配置
+`nanoTime` 用于测量同一 JVM 内的经过时间，不是日志事件的墙上时钟。`success=true` 只表示这个被拦截调用正常返回；外层业务仍可能失败或回滚。不要把它显示成“订单支付成功”。示例的标准错误输出适合练习，生产应接入有容量上限的指标或日志通道，避免同步输出阻塞请求。
 
-### 1. XML 配置方式
-
-```xml
-<!-- mybatis-config.xml -->
-<configuration>
-    <plugins>
-        <!-- 数据库方言适配插件 -->
-        <plugin interceptor="com.example.plugin.DatabaseDialectPlugin">
-            <property name="dialect" value="mysql"/>
-        </plugin>
-        
-        <!-- SQL性能监控插件 -->
-        <plugin interceptor="com.example.plugin.SqlPerformancePlugin">
-            <property name="slowSqlThreshold" value="2000"/>
-        </plugin>
-    </plugins>
-</configuration>
-```
-
-### 2. Spring Boot 配置方式
+在上一页 `factory` 方法中，放在 `build` 之前注册插件：
 
 ```java
-@Configuration
-public class MyBatisConfig {
-    
-    @Bean
-    public ConfigurationCustomizer configurationCustomizer() {
-        return configuration -> {
-            // 添加数据库方言插件
-            DatabaseDialectPlugin dialectPlugin = new DatabaseDialectPlugin();
-            Properties dialectProps = new Properties();
-            dialectProps.setProperty("dialect", "mysql");
-            dialectPlugin.setProperties(dialectProps);
-            configuration.addInterceptor(dialectPlugin);
-            
-            // 添加性能监控插件
-            SqlPerformancePlugin performancePlugin = new SqlPerformancePlugin();
-            Properties perfProps = new Properties();
-            perfProps.setProperty("slowSqlThreshold", "1500");
-            performancePlugin.setProperties(perfProps);
-            configuration.addInterceptor(performancePlugin);
-        };
-    }
-}
+configuration.addInterceptor(new MapperTimingPlugin());
+return new SqlSessionFactoryBuilder().build(configuration);
 ```
 
-## 使用示例
-
-### 1. 分页查询示例
-
-```java
-@Service
-public class UserService {
-    
-    @Autowired
-    private UserMapper userMapper;
-    
-    public List<User> getUsersByPage(int pageNum, int pageSize) {
-        // 设置分页参数
-        PageHelper.startPage(pageNum, pageSize);
-        
-        // 执行查询，插件会自动添加分页SQL
-        return userMapper.selectAllUsers();
-    }
-    
-    public List<User> getUsersByName(String name) {
-        // 不设置分页参数，正常查询
-        return userMapper.selectUsersByName(name);
-    }
-}
+```bash
+javac --release 17 -encoding UTF-8 -cp 'lib/*' MyBatisOrder.java MapperTimingPlugin.java
+java -cp '.:lib/*' MyBatisOrder
 ```
 
-### 2. Mapper 接口
+Windows 的运行 classpath 改为 `.;lib/*`。输出仍应保持订单 102 已支付、103 金额 3000 分、总额 8000 分；额外日志按调用记录 statement 标识。插件没有记录 SQL 参数、连接 URL、密码或异常消息，避免把业务数据带到观测系统。真实日志还需要访问控制、保留周期和请求关联标识。
 
-```java
-public interface UserMapper {
-    List<User> selectAllUsers();
-    List<User> selectUsersByName(@Param("name") String name);
-}
-```
+## 注册顺序与共享状态
 
-### 3. Mapper XML
+同一目标先注册 A，再注册 B，后注册的代理位于外层。正常调用的顺序为 `B进入 → A进入 → 目标 → A退出 → B退出`；发生异常时则按各层的 `catch/finally` 逻辑退出。这条规则只适用于都匹配该对象和签名的插件，不代表所有 MyBatis 扩展点形成一条全局线性链。
 
-```xml
-<mapper namespace="com.example.mapper.UserMapper">
-    <select id="selectAllUsers" resultType="com.example.model.User">
-        SELECT id, name, email, age FROM users ORDER BY id
-    </select>
-    
-    <select id="selectUsersByName" resultType="com.example.model.User">
-        SELECT id, name, email, age FROM users 
-        WHERE name LIKE CONCAT('%', #{name}, '%')
-        ORDER BY id
-    </select>
-</mapper>
-```
+原生 MyBatis 可在构建前 `configuration.addInterceptor(...)`，也可在配置文件的 `<plugins>` 中注册。Spring Boot 集成应使用所选 starter 支持的插件 Bean 或配置定制入口；先检查实际配置中的拦截器列表，避免自动扫描与手动注册各加一次。`org.apache.ibatis.session.Configuration` 与 Spring 的 `@Configuration` 不是同一个类型。
 
-## 高级特性
+插件实例可被多个会话和请求共享。当前示例把开始时间和成功标志放在局部变量里，没有用实例字段保存“当前订单”“当前连接方言”或“当前分页参数”。配置值应在启动阶段固定，不能在首次请求时猜出数据库方言后让所有数据源共用它。
 
-### 1. 多数据源支持
+## 分页改写为什么需要更多合同
 
-```java
-@Intercepts({
-    @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
-})
-public class MultiDataSourceDialectPlugin implements Interceptor {
-    
-    private Map<String, DatabaseDialect> dialectMap = new HashMap<>();
-    
-    @Override
-    public Object intercept(Invocation invocation) throws Throwable {
-        Connection connection = (Connection) invocation.getArgs()[0];
-        String url = connection.getMetaData().getURL();
-        
-        // 根据连接URL获取对应的方言
-        DatabaseDialect dialect = dialectMap.computeIfAbsent(url, 
-            key -> DatabaseDialect.fromUrl(key));
-        
-        // 处理分页逻辑
-        return handlePagination(invocation, dialect);
-    }
-    
-    private Object handlePagination(Invocation invocation, DatabaseDialect dialect) 
-            throws Throwable {
-        // 分页处理逻辑
-        return invocation.proceed();
-    }
-}
-```
+分页不是给任意 SQL 末尾添加 `LIMIT` 就结束。原 SQL 可能有 CTE、子查询、已有分页、锁语句、末尾分号或数据库特有语法；SQL Server 等方言还要求相应排序规则。查询结果由 SQL、绑定参数、分页条件和缓存键共同决定，若在生成缓存键后只改 SQL，可能把不同页混进同一缓存身份。
 
-### 2. 插件链执行顺序
+需要通用分页时，应评估项目已有、维护中的分页组件及其具体版本兼容范围；只有少数固定查询时，明确数据库方言的 SQL 通常更容易验证。两者都应检查页码/页大小边界、偏移量溢出、稳定唯一排序、空页、总数统计语义、缓存和其他插件顺序。不要通过反射写入 `BoundSql` 私有字段来绕过这些合同。
 
-插件的执行顺序与配置顺序相反（类似洋葱模型）：
+`ThreadLocal` 的清理范围也必须覆盖业务调用的完整生命周期。在 `prepare` 的 finally 中清理，无法覆盖缓存命中或进入 prepare 前已经抛错的路径；线程池复用时可能污染下一个请求。优先显式传递分页参数；必须使用线程上下文时，应由建立上下文的边界负责 `try/finally` 清理，嵌套调用还要有恢复策略。
 
-```
-配置顺序: Plugin1 -> Plugin2 -> Plugin3
-执行顺序: Plugin3 -> Plugin2 -> Plugin1 -> 目标方法 -> Plugin1 -> Plugin2 -> Plugin3
-```
+## 验收与排错
 
-### 3. 条件拦截
+| 验证场景 | 应看到什么 | 失败意味着什么 |
+| --- | --- | --- |
+| 同一会话连续执行相同查询 | 执行器观测可能两次，数据库准备次数更少 | 不应把日志条数直接当 SQL 请求数 |
+| 更新违反数据库约束 | 原异常向外传播，一次调用不自动再写 | 捕获后重调 proceed 会形成隐式重试 |
+| 更新正常返回后业务回滚 | 观测可为 success=true，新会话仍读到旧值 | 需要区分调用成功和事务提交 |
+| A、B 都匹配同一方法 | B进入、A进入、A退出、B退出 | 检查注册顺序、重复注册和实际代理链 |
+| 并发请求使用不同参数 | 每次观测只关联自身调用 | 检查共享字段与线程上下文泄漏 |
 
-```java
-@Override
-public Object intercept(Invocation invocation) throws Throwable {
-    MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-    
-    // 只拦截特定的SQL语句
-    if (mappedStatement.getId().contains("selectByPage")) {
-        // 执行分页逻辑
-        return handlePagination(invocation);
-    }
-    
-    // 其他情况直接执行
-    return invocation.proceed();
-}
-```
-
-## 最佳实践
-
-### 1. 性能考虑
-- 避免在插件中执行耗时操作
-- 合理使用缓存减少重复计算
-- 只在必要时进行拦截
-
-### 2. 异常处理
-```java
-@Override
-public Object intercept(Invocation invocation) throws Throwable {
-    try {
-        // 插件逻辑
-        return processInvocation(invocation);
-    } catch (Exception e) {
-        // 记录错误日志
-        logger.error("Plugin execution failed", e);
-        // 继续执行原方法
-        return invocation.proceed();
-    }
-}
-```
-
-### 3. 线程安全
-- 插件实例是单例的，需要考虑线程安全
-- 使用 ThreadLocal 存储线程相关数据
-- 避免使用实例变量存储状态
-
-### 4. 资源清理
-```java
-@Override
-public Object intercept(Invocation invocation) throws Throwable {
-    try {
-        // 插件逻辑
-        return invocation.proceed();
-    } finally {
-        // 清理资源
-        ThreadLocalHelper.clear();
-    }
-}
-```
-
-## 常见问题
-
-### 1. 插件不生效
-- 检查 @Intercepts 注解配置
-- 确认插件已正确注册
-- 验证拦截的方法签名是否正确
-
-### 2. 性能问题
-- 避免在插件中执行复杂逻辑
-- 使用条件判断减少不必要的处理
-- 合理使用缓存
-
-### 3. 兼容性问题
-- 不同版本的 MyBatis 可能有 API 变化
-- 注意与其他插件的兼容性
-- 测试多种数据库环境
-
-## 总结
-
-MyBatis 插件机制提供了强大的扩展能力，通过合理使用插件可以实现：
-
-- **数据库方言适配** - 支持多种数据库的语法差异
-- **分页功能** - 自动添加分页SQL
-- **性能监控** - 监控SQL执行时间和性能
-- **数据加密** - 自动加密敏感数据
-- **审计日志** - 记录数据变更历史
-- **缓存增强** - 实现更复杂的缓存策略
-
-在使用插件时，需要注意性能影响、线程安全和异常处理，确保插件的稳定性和可靠性。通过本文的示例，你可以根据实际需求开发适合的 MyBatis 插件。
+插件没生效时，先核对最终配置里是否已注册，再核对接口方法签名和本次路径是否真的经过该位置。慢查询排查应把执行器耗时、连接池等待、数据库执行计划与锁等待放在同一请求上下文中分析；单个插件不能代替这些证据。

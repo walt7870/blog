@@ -1,12 +1,16 @@
 ---
 title: Kubernetes 资源对象导览
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes 资源对象导览
 
 Kubernetes 的资源对象可以按职责分成工作负载、网络、配置、安全、存储、调度和治理几类。理解资源之间的关系，比单独记每个 YAML 字段更重要。
+
+![资源配置怎样变成订单服务的请求路径](/container/kubernetes-request-data-path.svg)
+
+以订单 API 为例：Deployment 经 ReplicaSet 补齐 Pod，Service 的 selector 让控制器整理 EndpointSlice，网络实现再把这些配置落实到转发规则。请求经过入口代理和数据面到达应用；EndpointSlice 保存的是后端信息，不是转发流量的中间服务。图中的配置传播和请求箭头要分开阅读，具体机制见[数据面、存储与可靠性](../data-plane-reliability)。
 
 ## 资源地图
 
@@ -25,12 +29,12 @@ Kubernetes 的资源对象可以按职责分成工作负载、网络、配置、
 
 典型无状态服务通常从这几类资源开始：
 
-1. Namespace：确定应用所在环境。
+1. Namespace：确定命名与策略作用域；它本身不提供完整网络或租户隔离。
 2. ConfigMap 和 Secret：准备配置和敏感信息。
 3. Deployment：声明镜像、副本数、探针和资源限制。
 4. Service：为 Pod 提供稳定访问入口。
-5. Ingress：需要外部 HTTP/HTTPS 访问时再配置。
-6. HPA 和 PDB：根据生产可用性要求补齐扩缩容和维护保护。
+5. Ingress 或 Gateway/HTTPRoute：需要外部 HTTP/HTTPS 访问时，配合已部署的控制器配置入口。
+6. HPA 和 PDB：分别处理负载驱动扩容和通过 Eviction API 发起的维护中断；PDB 不控制 Deployment 自身滚动删除。
 
 有状态服务还要增加 PVC 或 StatefulSet。需要节点级常驻进程时，优先看 DaemonSet。需要批处理或定时任务时，看 Job 和 CronJob。
 

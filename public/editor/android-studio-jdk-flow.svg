@@ -1,56 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
-  <title id="title">Android Studio JDK selection flow</title>
-  <desc id="desc">A diagram showing which JDK setting to check for build, editor, and IDE runtime issues.</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
-    </marker>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.12"/>
-    </filter>
-    <style>
-      .bg { fill: #f8fafc; }
-      .card { fill: #ffffff; stroke: #dbe3ef; stroke-width: 1.5; filter: url(#shadow); }
-      .head { font: 700 22px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
-      .title { font: 700 17px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
-      .body { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
-      .small { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #475569; }
-      .pill { fill: #eff6ff; stroke: #bfdbfe; }
-      .line { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
-      .muted { fill: #64748b; }
-    </style>
-  </defs>
-
-  <rect class="bg" width="920" height="420" rx="18"/>
-  <text class="head" x="36" y="44">Android Studio 里先判断问题属于哪一层</text>
-  <text class="body" x="36" y="72">构建、编辑器索引、IDE 本体运行时是三条不同链路，排查时不要混在一起改。</text>
-
-  <rect class="card" x="36" y="112" width="248" height="206" rx="14"/>
-  <rect class="pill" x="58" y="136" width="112" height="30" rx="15"/>
-  <text class="small" x="76" y="156">Build fails</text>
-  <text class="title" x="58" y="196">Gradle JDK</text>
-  <text class="body" x="58" y="224">Gradle Daemon 和 AGP</text>
-  <text class="body" x="58" y="246">实际运行使用的 JDK</text>
-  <text class="small" x="58" y="282">Settings -> Build Tools -> Gradle</text>
-
-  <rect class="card" x="336" y="112" width="248" height="206" rx="14"/>
-  <rect class="pill" x="358" y="136" width="132" height="30" rx="15"/>
-  <text class="small" x="376" y="156">Code is red</text>
-  <text class="title" x="358" y="196">Project SDK</text>
-  <text class="body" x="358" y="224">影响代码分析、索引、</text>
-  <text class="body" x="358" y="246">跳转和编辑器提示</text>
-  <text class="small" x="358" y="282">Project Structure -> Project</text>
-
-  <rect class="card" x="636" y="112" width="248" height="206" rx="14"/>
-  <rect class="pill" x="658" y="136" width="124" height="30" rx="15"/>
-  <text class="small" x="676" y="156">IDE issue</text>
-  <text class="title" x="658" y="196">IDE Runtime</text>
-  <text class="body" x="658" y="224">Android Studio 本体</text>
-  <text class="body" x="658" y="246">运行使用的 Runtime</text>
-  <text class="small" x="658" y="282">Help -> Change IDE Boot Runtime</text>
-
-  <path class="line" d="M 284 215 C 304 215, 314 215, 336 215"/>
-  <path class="line" d="M 584 215 C 604 215, 614 215, 636 215"/>
-
-  <text class="body muted" x="86" y="364">优先级：构建错误先看 Gradle JDK；构建通过但 IDE 飘红再看 Project SDK；IDE 本体异常才改 Runtime。</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="android-jdk-title android-jdk-desc"><title id="android-jdk-title">Android 构建：运行环境、编译与设备 API</title><desc id="android-jdk-desc">IDE 的 JBR 运行 Studio，Gradle JVM 运行 AGP，toolchain 编译源代码；Android SDK 提供符号，minSdk 与脱糖限制设备可用能力。</desc><defs><marker id="android-jdk-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#54778a"/></marker></defs><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#183248}.h{font-size:28px;font-weight:700}.n{font-size:21px;font-weight:700}.b{font-size:18px}.s{font-size:16px;fill:#526877}.box{fill:#fff;stroke:#b8cad5;stroke-width:1.5}.focus{fill:#e5f4ef;stroke:#27846b;stroke-width:2}.edge{fill:none;stroke:#54778a;stroke-width:2;marker-end:url(#android-jdk-arrow)}</style><rect width="1120" height="520" fill="#f4f8fa"/><text class="h" x="36" y="50">Android 构建：运行环境、编译与设备 API</text>
+<text class="b" x="36" y="84">先找失败环节；切换 IDE 的 Runtime 不等于切换 Gradle 或目标设备能力。</text>
+<path class="edge" d="M240 192H304"/><path class="edge" d="M580 192H644"/><path class="edge" d="M900 192H964"/>
+<path class="edge" d="M772 350V258"/>
+<rect class="box" x="36" y="130" width="204" height="128" rx="6"/><text class="n" x="56" y="168">IDE / 终端入口</text><text class="b" x="56" y="204">JBR 运行 Studio</text><text class="s" x="56" y="235">启动构建，不是编译目标</text>
+<rect class="focus" x="304" y="130" width="276" height="128" rx="6"/><text class="n" x="324" y="168">Gradle Daemon JVM</text><text class="b" x="324" y="204">运行 Gradle 与 AGP</text><text class="s" x="324" y="235">criteria 或 JDK 设置选定</text>
+<rect class="box" x="644" y="130" width="256" height="128" rx="6"/><text class="n" x="664" y="168">Java toolchain</text><text class="b" x="664" y="204">编译源代码 → class</text><text class="s" x="664" y="235">source / target 约束格式</text>
+<rect class="box" x="964" y="130" width="120" height="128" rx="6"/><text class="n" x="984" y="168">D8 / R8</text><text class="b" x="984" y="204">DEX</text><text class="s" x="984" y="235">设备执行</text>
+<rect class="box" x="644" y="350" width="440" height="100" rx="6"/><text class="n" x="664" y="387">Android SDK / compileSdk</text><text class="b" x="664" y="423">提供编译符号；设备可用性另看 minSdk / 脱糖</text>
+<text class="n" x="36" y="337">订单应用的排错顺序</text><text class="b" x="36" y="375">Sync 失败：查 JVM、AGP 与 Wrapper</text><text class="b" x="36" y="411">API 飘红：查 Sync 模型、SDK 与依赖</text><text class="s" x="36" y="485">编译通过不代表低版本设备支持新 API；目标设备运行验证仍然必要。</text></svg>

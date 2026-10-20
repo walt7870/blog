@@ -1,0 +1,88 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/flutter/architecture.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "补Widget/Element/RenderObject与约束两图，修正一一映射、Key、const、线程与Web compute的泛化，说明mounted不防旧请求。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "dfa371df978d829fc367027b3e97d1d1859af938f9987424b22acf7e02a2a82d"
+    },
+    {
+      "file": "docs/devlanguage/flutter/hands-on.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修复FutureBuilder在build创建请求的真实错误，提供完整页面、入口、Completer控制的三项Widget测试及故意变异。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "b2007441d39179307257888402f176da5f4c9c2347a7782ec69e23d40ca3bd41"
+    },
+    {
+      "file": "docs/devlanguage/flutter/index.md",
+      "pageType": "专题导读",
+      "status": "verified",
+      "findings": [],
+      "decision": "全文阅读后压缩重复总述，改为待办操作责任地图与六篇导读，说明平台、权限和性能验证边界。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "d94c7ee8e2295183948053da521f9c46c20de4ef60c00c1968ed8046a7f8c353"
+    },
+    {
+      "file": "docs/devlanguage/flutter/project-delivery.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正dart-define保密误区、锁文件验证、非修改格式检查、IPA分发与商店回退边界，补同产物、符号与灰度合同。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "bbb03a360e6fe6a42113612388a995b8fcc7cad3da92876aba0fe949003399c5"
+    },
+    {
+      "file": "docs/devlanguage/flutter/project-practice.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "以账号A离线修改待办42贯穿本地事务、操作ID、版本冲突、未知结果、缓存隔离与进程恢复，替代重复框架清单。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "daa5d33f2b0fd82e9c9a840f6f6ba1f53f3a86ca91cdb2810dfa5036cc9e9366"
+    },
+    {
+      "file": "docs/devlanguage/flutter/troubleshooting.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "重组失败阶段到证据与回归，补重复请求计数、异步代次、布局约束、profile与发布符号，减少无操作价值列表。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "cd4d7842f93d624b08cd6fccb255b842e58af3852566a37233a7ff68938f4caa"
+    },
+    {
+      "file": "docs/devlanguage/flutter/video-series.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整保留18主题文章索引，明确无逐集视频链接，改引用已核验主题责任图并补实操验收入口。",
+      "validation": [
+        "Flutter3.47.1/Dart3.13.1实际提取正文：锁文件强制检查、格式、analyze、3项Widget测试、故意build发请求失败反例及Web release通过；不声称Android/iOS、真机、网络和权限已验证。",
+        "构建13.82秒；7页28份四模式全文、16组图示原尺寸与退出、7次分页、7图中文边界及联系表检查通过，见batches/flutter.md。"
+      ],
+      "reviewedHash": "229ebda051c2ef62d3600faf8f3e85b107f94134822dc085d0aca396151249a4"
+    }
+  ]
+}

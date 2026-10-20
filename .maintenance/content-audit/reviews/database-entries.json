@@ -1,0 +1,38 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/index.md",
+      "status": "verified",
+      "reviewedHash": "b6fb968a7ded20bf723df84efd2b78e75eb08dd99e91f139c6139948a64272fd",
+      "pageType": "数据库与数据链路主题地图",
+      "decision": "全文审查旧88行与原SVG。修权威源必为关系库、图时序必为派生源、Kafka/Spark/Flink混称数据库及数据库日志直接到Kafka的错误简化。以订单、库存、商品检索贯穿事实责任、CDC/outbox、位点、重放版本与缓存一致性，保留全部8入口；重画选型合同并补异步视图SVG。",
+      "validation": [
+        "4张SVG独立中文浏览器布局/文本边界与xmllint通过；三页桌面和390×844手机亮深色、全部4图手机原尺寸/关闭通过，无破图/横向溢出/console错误，未做全页截图",
+        "全站生产构建21.07秒通过，机器扫描无失效本地引用；没有声称验证真实CDC/Kafka/搜索集成"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/index.md",
+      "status": "verified",
+      "reviewedHash": "23cfda3cd3d904e42dde9ff4a80be737dd2b5c37e6cce8bd4be074827bd9ef18",
+      "pageType": "MySQL主题地图与库存实验",
+      "decision": "全文审查旧792行。修Query Cache、旧认证/监控/复制接口、JSON版本、固定内存/连接数和弱持久性万能调参、负库存量/未查更新行数等问题；入口保留全部12细节页，聚焦8.4 LTS、受限本机实例、条件更新与幂等、复制/备份/恢复边界SVG。",
+      "validation": [
+        "Oracle官方8.4 LTS/认证与5.7 Query Cache移除说明核对；官方mysql:8.4镜像摘要24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70，实际8.4.11隔离实例，5个SQL围栏全部执行通过",
+        "回滚后5、库存不足0行、负数量反例加库存、CHECK拒负库存通过；20个并发条件扣减初始5，5成功15不足最终0；Query Cache变量空、AHI默认OFF通过",
+        "4张SVG独立中文布局/边界与xmllint通过；构建21.07秒通过；三页桌面/390×844手机亮深色及4图放大通过，无破图/溢出/console错误，未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/service-modules.md",
+      "status": "verified",
+      "reviewedHash": "e590009a616d8beb32455e3859fc309f4b4153466d87a8cb5317011e5d3f17be",
+      "pageType": "SQL执行与InnoDB职责",
+      "decision": "全文审查旧441行。修客户端池/服务端线程缓存/企业线程池混淆、万能解析缓存、优化器绝对最优、现行Query Cache、Buffer Pool归文件系统、哈希索引文件与计时单位等；以主键SELECT和条件UPDATE解释服务层/引擎边界、MVCC/锁、两阶段提交、异步刷页与响应丢失，补请求/记录返回图。",
+      "validation": [
+        "Oracle官方线程池、InnoDB索引/架构、AHI及Performance Schema皮秒计时核对；8.4.11执行全部SQL/EXPLAIN/EXPLAIN ANALYZE通过，回滚与并发条件扣减通过",
+        "4张SVG独立中文布局/边界与xmllint通过；构建21.07秒通过；三页桌面/390×844手机亮深色及4图放大通过，无破图/溢出/console错误，未做全页截图"
+      ]
+    }
+  ]
+}

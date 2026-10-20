@@ -1,286 +1,108 @@
 # Rust 基础概念
 
-Rust 的语法表面看起来接近 C、C++、JavaScript、Swift 等现代语言，但它的底层思维更强调“值的归属”和“编译期约束”。入门时不需要一次掌握所有细节，先建立语言基本形状即可。
+先用一个订单计算建立语言的基本形状：命令行收到数量字符串，程序把它转换为整数，拒绝零和过大数量，再用整数分计算总价。变量、函数、枚举和错误处理在同一条链路中配合。
 
-## 程序入口
+![订单数量从字符串到金额的处理过程](/rust/order-input-flow.svg)
 
-Rust 程序从 `main` 函数开始：
+## 从输入得到明确结果
+
+把下面内容放进 `cargo new order-basics` 生成的 `src/main.rs`，执行 `cargo run`：
 
 ```rust
+#[derive(Debug, PartialEq, Eq)]
+enum OrderError {
+    InvalidQuantity,
+    AmountOverflow,
+}
+
+fn total_cents(input: &str, unit_cents: u64) -> Result<u64, OrderError> {
+    let quantity: u64 = input.parse().map_err(|_| OrderError::InvalidQuantity)?;
+    if !(1..=99).contains(&quantity) {
+        return Err(OrderError::InvalidQuantity);
+    }
+    unit_cents.checked_mul(quantity).ok_or(OrderError::AmountOverflow)
+}
+
 fn main() {
-    println!("Hello, Rust!");
+    match total_cents("2", 1990) {
+        Ok(cents) => println!("总价 {cents} 分"),
+        Err(error) => eprintln!("计算失败：{error:?}"),
+    }
 }
 ```
 
-`println!` 后面的感叹号表示它是一个宏。宏可以在编译期展开代码，常用于格式化输出、派生实现、声明路由等场景。
+输出为 `总价 3980 分`。`parse` 负责文本到数字的转换，不接受空串或负数；区间检查负责业务上限。`checked_mul` 将溢出转换为 `None`，再用 `ok_or` 变成领域错误，不依赖不同构建配置下普通乘法的溢出行为。整数分适合这里的固定最小货币单位；汇率、税率、舍入与多币种还要另建规则。
 
-## 变量与可变性
+`Result<u64, OrderError>` 表示成功得到整数金额，失败得到可枚举的原因。`?` 在成功时取出值，在错误时提前返回；它没有吞掉错误，也不会自动重试。`println!` 与 `eprintln!` 的感叹号表示宏，分别写标准输出和标准错误。
 
-Rust 默认变量不可变：
+## 变量、类型与表达式
+
+`let` 默认不可重新赋值，确实需要更新才写 `mut`。例如累计行数可以可变，原始单价通常保持不可变。不可变绑定不等于底层对象永远不能变化：内部可变性另见[所有权](./ownership.md)。
 
 ```rust
-let name = "Rust";
-// name = "Go"; // 编译错误
-
-let mut count = 1;
-count += 1;
+let unit_cents: u64 = 1990;
+let mut quantity = 1u64;
+quantity += 1;
+let label = if quantity > 1 { "多件" } else { "单件" };
+println!("{label}，单价 {unit_cents} 分");
 ```
 
-默认不可变不是为了制造麻烦，而是为了减少大型程序中“谁改了这个值”的不确定性。只有确实需要改变时才写 `mut`。
+函数末尾不带分号的表达式可作为返回值，`if`、`match` 和代码块也能产生值，各分支必须满足相容的类型。加分号会把表达式语句的结果丢弃，函数可能因此得到 `()` 而不是预期金额。
 
-## 基本类型
-
-常见标量类型：
-
-| 类型 | 示例 | 说明 |
+| 数据 | 适合的类型 | 需要注意 |
 | --- | --- | --- |
-| 整数 | `i32`、`u64`、`usize` | 有符号、无符号、平台相关大小 |
-| 浮点数 | `f32`、`f64` | 默认常用 `f64` |
-| 布尔 | `bool` | `true` 或 `false` |
-| 字符 | `char` | Unicode 标量值，不等同于 1 字节 |
+| 金额、标识 | `u64` 或有校验的领域类型 | 不把所有数字都默认当 `i32` |
+| 内存索引、集合长度 | `usize` | 位宽随目标平台变化 |
+| 数值计算 | `f32`、`f64` | 浮点舍入不适合直接表达该例的分 |
+| UTF-8 文本 | `String`、`&str` | 字节长度与字符数量不同 |
+| 固定数组、可增长集合 | `[T; N]`、`Vec<T>` | 数组长度是类型的一部分 |
 
-复合类型：
+`char` 是 Unicode 标量值，既不等于一个字节，也不一定是一个用户眼中的完整字符。`"订单".len()` 是 UTF-8 字节数，不能直接拿它当显示宽度；字符串不能用整数下标随意截取字符。
 
-```rust
-let pair: (i32, &str) = (1, "one");
-let numbers: [i32; 3] = [1, 2, 3];
-```
+## 用结构体与枚举组织业务
 
-Rust 类型通常可以推断，但在函数签名、公共 API 和复杂泛型场景下，明确类型会让代码更清晰。
-
-## 函数
+结构体聚合同时存在的字段，枚举描述互斥的情况。`Paid { transaction_id }` 把支付流水和已支付状态放在同一个分支，避免“状态已支付但忘填流水”的松散组合。
 
 ```rust
-fn add(left: i32, right: i32) -> i32 {
-    left + right
-}
-```
-
-Rust 中没有分号的最后一行表达式会作为返回值。下面两种写法等价：
-
-```rust
-fn add(left: i32, right: i32) -> i32 {
-    return left + right;
+enum Payment {
+    Pending,
+    Paid { transaction_id: String },
+    Failed { reason: String },
 }
 
-fn add_short(left: i32, right: i32) -> i32 {
-    left + right
-}
-```
-
-## 表达式与语句
-
-Rust 是表达式导向语言，`if`、`match`、代码块都可以产生值：
-
-```rust
-let level = 8;
-let label = if level >= 10 { "high" } else { "normal" };
-```
-
-这会让很多逻辑可以写得更直接，但要求每个分支返回兼容的类型。
-
-## 控制流
-
-### if
-
-```rust
-let score = 90;
-
-if score >= 90 {
-    println!("excellent");
-} else if score >= 60 {
-    println!("passed");
-} else {
-    println!("failed");
-}
-```
-
-### loop、while、for
-
-```rust
-let mut count = 0;
-
-loop {
-    count += 1;
-    if count == 3 {
-        break;
-    }
-}
-
-while count < 5 {
-    count += 1;
-}
-
-for item in [1, 2, 3] {
-    println!("{item}");
-}
-```
-
-`for` 循环通常配合集合、迭代器使用，是 Rust 中最常见的遍历方式。
-
-## 结构体
-
-结构体用于组织相关数据：
-
-```rust
-struct User {
+struct Order {
     id: u64,
-    name: String,
-    active: bool,
+    payment: Payment,
 }
 
-fn main() {
-    let user = User {
-        id: 1,
-        name: String::from("Alice"),
-        active: true,
-    };
-
-    println!("{}", user.name);
-}
-```
-
-可以用 `impl` 为结构体定义方法：
-
-```rust
-impl User {
-    fn is_active(&self) -> bool {
-        self.active
+impl Order {
+    fn is_paid(&self) -> bool {
+        matches!(&self.payment, Payment::Paid { .. })
     }
 }
 ```
 
-`&self` 表示方法只借用当前对象，不取得所有权。
+`&self` 借用订单，不消费它。`match` 应穷尽分支；如果始终使用 `_` 吞掉其他情况，后续新增状态也可能不再触发遗漏提醒。具体领域校验与 Trait 见[类型系统](./type-system.md)。
 
-## 枚举
+## 遍历、缺失与失败
 
-Rust 的枚举比很多语言更强，可以携带数据：
-
-```rust
-enum Command {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-}
-```
-
-这让枚举非常适合表达“有限状态集合”，例如协议消息、业务状态、错误类型、语法树节点。
-
-## 模式匹配
-
-`match` 要求穷尽所有可能情况：
+`for item in &items` 借用集合，`for item in items` 通常消费集合。`Option<T>` 表达正常的缺失，例如没有第二行；`Result<T, E>` 表达需要说明原因的失败，例如第二行数量非法。二者不要机械互换，否则排错时只剩“没有结果”。
 
 ```rust
-fn handle(command: Command) {
-    match command {
-        Command::Quit => println!("quit"),
-        Command::Move { x, y } => println!("move to {x}, {y}"),
-        Command::Write(text) => println!("write {text}"),
+let rows = ["2", "0", "three"];
+for row in &rows {
+    match total_cents(row, 1990) {
+        Ok(total) => println!("{row}: {total}"),
+        Err(error) => eprintln!("{row}: {error:?}"),
     }
 }
+assert_eq!(rows.get(3), None);
 ```
 
-穷尽检查可以避免新增状态后遗漏处理逻辑。对复杂系统来说，这是 Rust 类型系统带来的重要收益。
+这是逐行处理的示例，不是事务：一行失败不会撤销前面已打印的行，更不会撤销真实数据库中的变更。批处理需要另定“全部拒绝”还是“部分成功”的合同。
 
-## Option
+## 代码放在哪里
 
-Rust 没有空指针作为默认值，而是用 `Option<T>` 表达“可能有，也可能没有”：
+Package 由 `Cargo.toml` 描述；crate 是编译单元；module 是 crate 内的命名与可见性边界；workspace 管理多个 package。一个 package 可以同时有 `src/lib.rs` 库 crate 和 `src/main.rs` 二进制 crate，也可有多个二进制目标。
 
-```rust
-fn find_name(id: u64) -> Option<String> {
-    if id == 1 {
-        Some(String::from("Alice"))
-    } else {
-        None
-    }
-}
-```
-
-使用时必须处理两种情况：
-
-```rust
-match find_name(1) {
-    Some(name) => println!("{name}"),
-    None => println!("not found"),
-}
-```
-
-这避免了大量运行时空值错误。
-
-## Result
-
-可恢复错误通常用 `Result<T, E>`：
-
-```rust
-use std::fs;
-
-fn read_config() -> Result<String, std::io::Error> {
-    fs::read_to_string("config.toml")
-}
-```
-
-调用方可以用 `?` 快速传播错误：
-
-```rust
-fn load() -> Result<String, std::io::Error> {
-    let content = fs::read_to_string("config.toml")?;
-    Ok(content)
-}
-```
-
-`?` 的含义是：成功则取出值，失败则提前返回错误。
-
-## 模块系统
-
-Rust 用模块组织代码：
-
-```rust
-mod user {
-    pub struct User {
-        pub name: String,
-    }
-}
-
-fn main() {
-    let user = user::User {
-        name: String::from("Alice"),
-    };
-}
-```
-
-默认私有，显式 `pub` 才公开。这种设计鼓励模块边界清晰。
-
-## 包、Crate 与模块
-
-几个概念容易混淆：
-
-| 概念 | 说明 |
-| --- | --- |
-| Package | 一个包含 `Cargo.toml` 的工程包 |
-| Crate | 编译单元，可以是库或可执行文件 |
-| Module | 代码内部的命名空间 |
-| Workspace | 多个 Package 的工程集合 |
-
-一个典型 Rust 项目结构：
-
-```text
-my-app/
-├── Cargo.toml
-└── src/
-    ├── main.rs
-    └── lib.rs
-```
-
-## 入门阶段最重要的习惯
-
-- 默认使用不可变变量，确实需要修改时再加 `mut`。
-- 不急着到处使用引用，先理解值的移动和借用。
-- 优先用 `Result` 和 `Option` 表达失败和缺失。
-- 多用 `match` 把状态处理完整。
-- 遇到编译错误先读错误信息，Rust 编译器通常会给出可操作建议。
-
-## 参考资料
-
-- The Rust Programming Language：https://doc.rust-lang.org/book/
-- Rust by Example：https://doc.rust-lang.org/rust-by-example/
-- Rust Reference：https://doc.rust-lang.org/reference/
+入门项目把计算放进库，把参数、输出与退出码放进入口。`pub` 只公开确实需要的接口，字段保持私有以便集中校验。后续在[动手实践](./hands-on.md)完成命令行闭环，在[工程工具](./tooling.md)了解构建、测试和锁文件。

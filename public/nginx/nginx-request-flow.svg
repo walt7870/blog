@@ -1,47 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
-  <title id="title">Nginx 请求处理链路</title>
-  <desc id="desc">展示客户端请求进入 Nginx 后经过 server、location、静态文件或反向代理并记录日志的流程</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}
-      .core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.app{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
-      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1080" height="460"/>
-  <rect class="box" x="35" y="180" width="130" height="80"/>
-  <text class="text title" x="100" y="212" text-anchor="middle">客户端</text>
-  <text class="text body" x="100" y="238" text-anchor="middle">域名、端口、URI</text>
-  <rect class="core" x="215" y="165" width="150" height="110"/>
-  <text class="text title" x="290" y="202" text-anchor="middle">server</text>
-  <text class="text body" x="290" y="230" text-anchor="middle">listen + server_name</text>
-  <text class="text small" x="290" y="252" text-anchor="middle">先选站点</text>
-  <rect class="core" x="415" y="165" width="150" height="110"/>
-  <text class="text title" x="490" y="202" text-anchor="middle">location</text>
-  <text class="text body" x="490" y="230" text-anchor="middle">按 URI 匹配规则</text>
-  <text class="text small" x="490" y="252" text-anchor="middle">再选处理方式</text>
-  <rect class="app" x="640" y="70" width="155" height="90"/>
-  <text class="text title" x="718" y="105" text-anchor="middle">静态资源</text>
-  <text class="text body" x="718" y="132" text-anchor="middle">root / try_files</text>
-  <rect class="app" x="640" y="200" width="155" height="90"/>
-  <text class="text title" x="718" y="235" text-anchor="middle">反向代理</text>
-  <text class="text body" x="718" y="262" text-anchor="middle">proxy_pass</text>
-  <rect class="app" x="640" y="330" width="155" height="90"/>
-  <text class="text title" x="718" y="365" text-anchor="middle">重定向/改写</text>
-  <text class="text body" x="718" y="392" text-anchor="middle">return / rewrite</text>
-  <rect class="warn" x="875" y="180" width="160" height="80"/>
-  <text class="text title" x="955" y="212" text-anchor="middle">日志与响应</text>
-  <text class="text body" x="955" y="238" text-anchor="middle">access / error</text>
-  <path class="line" d="M165 220 L215 220"/>
-  <path class="line" d="M365 220 L415 220"/>
-  <path class="line" d="M565 205 C600 165 610 115 640 115"/>
-  <path class="line" d="M565 220 L640 245"/>
-  <path class="line" d="M565 235 C600 305 610 375 640 375"/>
-  <path class="line" d="M795 115 C845 140 860 185 875 205"/>
-  <path class="line" d="M795 245 L875 225"/>
-  <path class="line" d="M795 375 C845 340 860 265 875 240"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="request-title request-desc">
+<title id="request-title">订单网站的Nginx请求路径</title>
+<desc id="request-desc">请求按监听组、TLS SNI和HTTP名称进入站点，再按规范化URI选择location，静态资源读文件，API代理到订单服务，响应产生访问和错误证据；内部跳转可能重新选择location。</desc>
+<defs><marker id="request-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#request-arrow)}</style></defs>
+<rect width="1120" height="630" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">同一个订单域名，文件与业务接口走不同处理路径</text>
+<text class="b" x="36" y="82">先确认流量实际经过的入口，再区分站点选择、URI选择和上游业务结果。</text>
+<path class="edge" d="M230 284H280"/><path class="edge" d="M508 284H558"/>
+<path class="edge" d="M786 258H814Q822 258 822 250V194Q822 186 830 186H858"/>
+<path class="edge" d="M786 310H838Q846 310 846 318V378Q846 386 854 386H858"/>
+<rect class="box" x="36" y="216" width="194" height="136" rx="6"/>
+<text class="n" x="54" y="254">客户端请求</text><text class="b" x="54" y="292">端口 / 名称 / URI</text><text class="b" x="54" y="328">可能先经CDN或LB</text>
+<rect class="box" x="280" y="216" width="228" height="136" rx="6"/>
+<text class="n" x="298" y="254">server选择</text><text class="b" x="298" y="292">监听组 / SNI / Host</text><text class="b" x="298" y="328">未匹配时用默认站点</text>
+<rect x="558" y="216" width="228" height="136" rx="6" fill="#eff5fc" stroke="#a4b9cc" stroke-width="1.5"/>
+<text class="n" x="576" y="254">location选择</text><text class="b" x="576" y="292">规范化URI / 匹配规则</text><text class="b" x="576" y="328">内部跳转可能重新选择</text>
+<rect class="box" x="858" y="118" width="226" height="136" rx="6"/>
+<text class="n" x="876" y="156">静态资源与页面</text><text class="b" x="876" y="194">root / alias / try_files</text><text class="b" x="876" y="230">资源404，页面路由回退</text>
+<rect x="858" y="318" width="226" height="136" rx="6" fill="#e7f3ef" stroke="#69978c" stroke-width="1.5"/>
+<text class="n" x="876" y="356">订单服务</text><text class="b" x="876" y="394">proxy_pass / 路径合同</text><text class="b" x="876" y="430">接口状态与业务结果</text>
+<path d="M36 500H1084" stroke="#c7d0d3"/>
+<text class="n" x="36" y="542">响应证据</text><text class="b" x="180" y="542">访问状态、请求耗时、上游地址与状态，结合error log定位失败阶段。</text>
+<text class="b" x="36" y="586">配置测试通过不代表已生效；reload后用新请求验证，旧连接可能仍由旧worker处理。</text>
 </svg>

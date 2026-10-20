@@ -1,0 +1,82 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/index.md",
+      "status": "verified",
+      "reviewedHash": "2b21ae9d6de76ace5ad1d827fed39409b3f10400ecef9cc4edbdade12286cdaf",
+      "pageType": "系统总览与阅读地图",
+      "decision": "精简发行版与目录名词堆叠，以订单服务资源边界、环境识别、libc兼容和故障证据组织内容，补运行边界图。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    },
+    {
+      "file": "docs/linux/process/index.md",
+      "status": "verified",
+      "reviewedHash": "d9564266d032cb78ee2e30a22cc1520c9057db51f91cc8380c66eff09775eae3",
+      "pageType": "进程机制总览",
+      "decision": "区分PPID、TID和cgroup，修复错误父子图与状态路径，以订单故障串联采样和回收入口。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    },
+    {
+      "file": "docs/linux/process/init-process.md",
+      "status": "verified",
+      "reviewedHash": "faf69a397b4a30d5e583234a2984e3f15ce8b65b30b2f69e52d45e19167a14a2",
+      "pageType": "启动与子进程回收机制",
+      "decision": "补initramfs、命名空间PID1、最近祖先subreaper、孤儿与僵尸差异、容器信号与启动分析边界。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    },
+    {
+      "file": "docs/linux/process/kernel-threads.md",
+      "status": "verified",
+      "reviewedHash": "5f2dfe14a7ad44645e6f4d52810efc42dacfa7b7e097cd6b20b33f7686812b9a",
+      "pageType": "内核后台机制与排障",
+      "decision": "修正方括号判型、软中断全部由ksoftirqd承担及kswapd只负责交换等错误，补压力证据图与有限采样解释。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    },
+    {
+      "file": "docs/linux/process/systemd.md",
+      "status": "verified",
+      "reviewedHash": "c2f2c9ff974f35cdbf38c2143d5cbcb06bb6f7eac9c14eff5024ef6efaa6de20",
+      "pageType": "服务配置与排障",
+      "decision": "区分配置加载、启用、执行与业务就绪，修订Type、依赖、network-online、启动限流与停止，补可校验unit及验收路径。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    },
+    {
+      "file": "docs/linux/process/user-processes.md",
+      "status": "verified",
+      "reviewedHash": "d85f8e8b5fe6e55fe17df041a9d5479c6ac5b369cd146f253d1a2624b2e5dbd9",
+      "pageType": "用户进程机制与有限实验",
+      "decision": "提供fork、退出7、Z与waitpid的完整有限C实验，修正信号默认行为与D状态边界，串联业务任务结果与资源限制。",
+      "validation": [
+        "完整阅读六页与全部图示。核对man7 subreaper/PID命名空间及systemd官方Type、依赖、network-online和启动限流规则。有限C实验GCC严格告警编译通过，实际观察Z并读取child_exit=7；父程序退出0。",
+        "Debian12/systemd252环境安装OpenJDK17.0.20.1后systemd-analyze verify通过，实际执行环境、进程树、线程、cgroup、PID命名空间、vmstat、PSI、softirqs、free、limits及ss过滤命令。容器interrupts为空，未验证宿主驱动故障、完整systemd PID1启停、真实订单JAR与容器信号集成。",
+        "六页1280×800与390×844浅深色全页截图检查通过，所有图加载且无整页横向溢出。7处图片预览/原尺寸/关闭、所有超宽代码与表格键盘局部滚动、用户进程到Init到systemd到进程总览到内核线程客户端跳转通过。六图XML、自检、实际字体与独立截图通过，状态图最终R到Z路径已复核。",
+        "构建15.32秒成功，仅既有高亮回退及chunk提示；正确regex口吻扫描无命中，diff检查通过。初次unit校验正确发现未装Java，随后两次包安装受HTTP502/基础镜像缺CA影响，最终在带CA镜像中HTTPS安装与校验成功。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+[
+  {
+    "page": "",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+    "natural": 1320,
+    "rendered": 1320,
+    "escapeClosed": true
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+    "natural": 1320,
+    "rendered": 1320,
+    "escapeClosed": true
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-role-model-contract.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-target-input-contract.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-decoder-queue.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-inference-ownership.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "hotword-routing.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-hotword-routing.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-validation-layers.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-offline-runtime.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-delivery-build.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 390,
+    "src": "/blog/ai/speech-engineering/voice-delivery-validation.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  },
+  {
+    "page": "",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+    "natural": 1320,
+    "rendered": 1320,
+    "escapeClosed": true
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+    "natural": 1320,
+    "rendered": 1320,
+    "escapeClosed": true
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-role-model-contract.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-target-input-contract.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-decoder-queue.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-inference-ownership.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "hotword-routing.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-hotword-routing.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-validation-layers.svg",
+    "natural": 1000,
+    "rendered": 1000,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-offline-runtime.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-delivery-build.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "width": 1280,
+    "src": "/blog/ai/speech-engineering/voice-delivery-validation.svg",
+    "natural": 1040,
+    "rendered": 1040,
+    "escapeClosed": true
+  }
+]

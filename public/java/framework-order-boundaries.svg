@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760" role="img" aria-labelledby="framework-title framework-desc">
+  <title id="framework-title">Spring与MyBatis在订单请求中的职责</title>
+  <desc id="framework-desc">常见组合中，HTTP请求经Spring MVC进入事务代理与Service，再调用Mapper代理，经SqlSessionTemplate、MyBatis执行器与JDBC访问数据库。Spring在启动时配置对象，事务代理在满足规则的调用边界发起事务并在方法结束时提交或回滚；Mapper返回不代表最终提交完成。图省略返回箭头，不表示单向完成业务。</desc>
+  <defs><marker id="framework-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#framework-arrow)}.mask{fill:#f7f9fa}</style></defs>
+  <rect width="1240" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">对象装配、请求处理、业务事务与SQL执行分别负责什么</text>
+  <text x="36" y="80" class="small">Spring Boot组织启动与配置，IoC形成对象关系；下图是启用Spring事务、使用MyBatis-Spring后的请求调用示意。</text>
+  <path d="M316 236H420" class="line"/><path d="M780 236H940" class="line"/>
+  <path d="M1072 312V460" class="line"/>
+  <path d="M940 536H780" class="line"/><path d="M420 536H316" class="line"/>
+  <rect x="328" y="192" width="80" height="28" class="mask"/><text x="368" y="212" class="small" text-anchor="middle">调用</text>
+  <rect x="804" y="192" width="112" height="28" class="mask"/><text x="860" y="212" class="small" text-anchor="middle">业务方法</text>
+  <text x="1092" y="392" class="small">执行映射</text>
+  <rect x="804" y="492" width="112" height="28" class="mask"/><text x="860" y="512" class="small" text-anchor="middle">会话委托</text>
+  <rect x="328" y="492" width="80" height="28" class="mask"/><text x="368" y="512" class="small" text-anchor="middle">SQL</text>
+  <rect x="36" y="160" width="280" height="152" class="box"/><text x="56" y="204" class="head">Spring MVC</text><text x="56" y="244" class="small">路由、参数绑定、响应转换</text><text x="56" y="280" class="small">接收HTTP订单请求</text>
+  <rect x="420" y="160" width="360" height="152" class="focus"/><text x="440" y="204" class="head">事务代理与Service</text><text x="440" y="244" class="small">代理协调事务；Service执行业务规则</text><text x="440" y="280" class="small">同对象自调用不会重新经过代理</text>
+  <rect x="940" y="160" width="264" height="152" class="box"/><text x="960" y="204" class="head">Mapper代理</text><text x="960" y="244" class="small">方法绑定statement</text><text x="960" y="280" class="small">组织参数与返回合同</text>
+  <rect x="940" y="460" width="264" height="152" class="box"/><text x="960" y="504" class="head">SqlSessionTemplate</text><text x="960" y="544" class="small">接入Spring管理的会话</text><text x="960" y="580" class="small">参与对应的数据源事务</text>
+  <rect x="420" y="460" width="360" height="152" class="box"/><text x="440" y="504" class="head">MyBatis执行器与JDBC</text><text x="440" y="544" class="small">缓存、参数绑定、SQL、结果映射</text><text x="440" y="580" class="small">数据库访问沿当前事务连接执行</text>
+  <rect x="36" y="460" width="280" height="152" class="focus"/><text x="56" y="504" class="head">数据库</text><text x="56" y="544" class="small">执行语句、约束与锁</text><text x="56" y="580" class="small">最终提交或回滚事务</text>
+  <path d="M36 680H1204" stroke="#bac4c9"/><text x="36" y="714" class="small">箭头只画调用方向，返回未画出。Mapper返回后事务仍可能回滚；只有满足事务规则的代理边界才按配置协调提交。</text><text x="36" y="744" class="small">示意不包含异步、跨数据源和分布式事务；这些场景需要单独核对传播、资源与一致性合同。</text>
+</svg>

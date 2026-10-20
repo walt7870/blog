@@ -1,0 +1,32 @@
+[
+  {
+    "id": "install-contract",
+    "nodeOverflow": [],
+    "outside": [],
+    "viewBox": "0 0 1120 688"
+  },
+  {
+    "id": "dependency-layout",
+    "nodeOverflow": [],
+    "outside": [],
+    "viewBox": "0 0 1120 688"
+  },
+  {
+    "id": "yarn-resolution",
+    "nodeOverflow": [],
+    "outside": [],
+    "viewBox": "0 0 1120 688"
+  },
+  {
+    "id": "bun-script-trust",
+    "nodeOverflow": [],
+    "outside": [],
+    "viewBox": "0 0 1120 688"
+  },
+  {
+    "id": "registry-scope",
+    "nodeOverflow": [],
+    "outside": [],
+    "viewBox": "0 0 1120 688"
+  }
+]

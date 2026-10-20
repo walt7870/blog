@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "23-framework-architecture-comparison.md",
+    "24-web-rendering-architecture.md",
+    "25-frontend-application-architecture.md",
+    "26-frontend-testing-layers.md",
+    "27-web-performance-engineering.md",
+    "28-web-frontend-security.md",
+    "29-frontend-delivery-observability.md",
+    "30-ai-assisted-frontend-learning-path.md"
+  ],
+  "routeCases": 8,
+  "routeTests": 2,
+  "mutationCaught": true,
+  "saveCases": 4,
+  "conditionalHttp": {
+    "requests": 2,
+    "current": {
+      "name": "新名称",
+      "version": 2
+    }
+  },
+  "cacheHeaders": true,
+  "csp": "default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+}

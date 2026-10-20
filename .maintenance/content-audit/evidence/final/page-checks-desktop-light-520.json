@@ -1,0 +1,588 @@
+[
+  {
+    "file": "docs/linux/command/network-basic.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/network-request-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1774,
+    "title": "网络工具速查",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/network-config.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/network-config-ownership.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3272,
+    "title": "网络配置与回退",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/network.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/network-request-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4072,
+    "title": "网络请求排查",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/package.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/package-transaction-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3578,
+    "title": "软件包来源、依赖与升级验收",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/permissions.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/access-check-layers.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3112,
+    "title": "访问权限诊断与 ACL",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/process-management.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/process-control-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1287,
+    "title": "进程管理速查",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/process.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/process-control-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3109,
+    "title": "进程定位、信号与后台任务",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/system-info.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/system-observation-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2533,
+    "title": "系统信息与观察范围",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/system-monitoring.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/monitoring-evidence-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2930,
+    "title": "系统监控与瓶颈定位",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/text-compare.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/text-comparison-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4115,
+    "title": "文本比较与合并",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/text-processing.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/text-record-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3545,
+    "title": "文本处理命令",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/user-management.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/identity-group-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2431,
+    "title": "用户、用户组与运行身份",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/linux-runtime-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2065,
+    "title": "Linux 系统概览",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/nginx/auto-renew-cert.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/nginx/cert-renewal-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3709,
+    "title": "Nginx 证书续期与生效验证",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/nginx/location.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/nginx/location-priority.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3089,
+    "title": "location 匹配与路径映射",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/nginx/nginx.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/nginx/nginx-request-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3732,
+    "title": "Nginx 请求入口与配置验收",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/process/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/process-model.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/process-state-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1582,
+    "title": "Linux 进程管理",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/process/init-process.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/orphan-reaping.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1697,
+    "title": "Init 进程与 PID 1",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/process/kernel-threads.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/kernel-pressure-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1819,
+    "title": "内核线程",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/process/systemd.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/systemd-unit-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2990,
+    "title": "systemd 服务管理",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/process/user-processes.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/process-state-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2994,
+    "title": "用户进程",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/certificate.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/certificate-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4603,
+    "title": "证书申请与续期",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/clash-verge.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/data-plane-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2517,
+    "title": "Clash Verge 客户端",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/components.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/control-data-plane.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3148,
+    "title": "网络代理组件链路",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/cross-border-diagnosis.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/cross-border-diagnosis.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4089,
+    "title": "跨境链路慢与不稳定的诊断",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/fundamentals.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/data-plane-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2958,
+    "title": "网络代理基础原理",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/hysteria2-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/hysteria2-architecture.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/subscription-rollout.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6318,
+    "title": "Hysteria2 落地与订阅编排",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/implementation.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/implementation-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1511,
+    "title": "网络代理实施总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/architecture-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1263,
+    "title": "网络代理",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/operations.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/troubleshooting-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2793,
+    "title": "网络代理运维与排查",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/protocol-stack.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/protocol-stack.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3106,
+    "title": "协议、插件与传输",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/server-docker.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/docker-deployment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3717,
+    "title": "服务端部署（Docker）",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/server-systemd.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/systemd-deployment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3287,
+    "title": "服务端部署（systemd）",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/user-management.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/credential-change.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2786,
+    "title": "用户管理与常用变更",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/2022-07-31/高效能人士的7个习惯.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/reading/seven-habits-action.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1301,
+    "title": "高效能人士的七个习惯",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/index.md",
+    "dark": false,
+    "images": [],
+    "scroll": 1280,
+    "text": 305,
+    "title": "阅读记录",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
+    "dark": false,
+    "images": [],
+    "scroll": 1280,
+    "text": 7040,
+    "title": "TOGAF 营销系统流程图历史计划",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/specs/2026-07-26-togaf-marketing-flow-visuals-design.md",
+    "dark": false,
+    "images": [],
+    "scroll": 1280,
+    "text": 1461,
+    "title": "TOGAF 营销系统流程图历史设计",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/editor/andorid-studio/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/editor/android-studio-jdk-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3440,
+    "title": "Android Studio：JDK、构建与编辑器排错",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/advanced.md",
+    "dark": false,
+    "images": [],
+    "scroll": 1280,
+    "text": 3421,
+    "title": "Git 进阶操作",
+    "width": 1280
+  }
+]

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="worktree-integration-title worktree-integration-desc">
+  <title id="worktree-integration-title">Worktree 并行与集成验证</title><desc id="worktree-integration-desc">同一基线扇出两个独立工作目录，再汇合到集成分支检查契约和组合行为；端口、数据库、凭据和外部系统仍需单独隔离。</desc>
+  <defs><marker id="worktree-integration-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#64748b"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a;letter-spacing:0}.title{font-size:26px;font-weight:700}.h{font-size:20px;font-weight:700}.b{font-size:17px;fill:#475569}.box{fill:white;stroke:#cbd5e1;stroke-width:1.5}.core{fill:#ecfdf5;stroke:#0f766e;stroke-width:2}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#worktree-integration-arrow)}</style></defs>
+  <rect width="1120" height="500" fill="#f8fafc"/><text class="title" x="40" y="48">文件树独立，业务契约仍需在合并后验证</text>
+  <path class="line" d="M270 190H310Q320 190 320 180V155Q320 145 330 145H400"/>
+  <path class="line" d="M270 240H300Q310 240 310 250V300Q310 310 320 310H400"/>
+  <path class="line" d="M680 145H730Q740 145 740 155V180Q740 190 750 190H800"/>
+  <path class="line" d="M680 310H720Q730 310 730 300V250Q730 240 740 240H800"/>
+  <rect class="box" x="40" y="160" width="230" height="120" rx="6"/><text class="h" x="155" y="201" text-anchor="middle">统一基线</text><text class="b" x="155" y="234" text-anchor="middle">提交、规则、共享接口</text>
+  <rect class="box" x="400" y="95" width="280" height="110" rx="6"/><text class="h" x="540" y="135" text-anchor="middle">Worktree A / 分支 A</text><text class="b" x="540" y="170" text-anchor="middle">任务 A、聚焦测试、提交</text>
+  <rect class="box" x="400" y="260" width="280" height="110" rx="6"/><text class="h" x="540" y="300" text-anchor="middle">Worktree B / 分支 B</text><text class="b" x="540" y="335" text-anchor="middle">任务 B、聚焦测试、提交</text>
+  <rect class="core" x="800" y="150" width="280" height="140" rx="6"/><text class="h" x="940" y="191" text-anchor="middle">集成分支</text><text class="b" x="940" y="226" text-anchor="middle">核对接口与状态语义</text><text class="b" x="940" y="258" text-anchor="middle">重新运行组合测试</text>
+  <path d="M40 413H1080" stroke="#cbd5e1"/><text class="b" x="40" y="452">运行时还要隔离：端口、Docker Volume、数据库、外部账号与凭据；Worktree 不提供安全沙箱。</text>
+</svg>

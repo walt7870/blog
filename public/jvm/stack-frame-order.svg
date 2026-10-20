@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="stack-frame-order-title stack-frame-order-desc">
+  <title id="stack-frame-order-title">订单调用中的栈帧与堆对象</title>
+  <desc id="stack-frame-order-desc">Controller、Service、Repository 形成线程内的逻辑调用链，Service 和 Repository 的参数引用同一个堆订单对象，当前帧的操作数栈保存临时计算值。</desc>
+  <defs><marker id="stack-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.link{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#stack-arrow)}</style>
+  <rect width="1000" height="480" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">一次方法调用，一份逻辑现场</text>
+  <text class="body" x="32" y="76">参数传引用值，不复制订单本体；JIT 内联后，物理栈帧不必与源码一一对应。</text>
+  <rect x="32" y="104" width="488" height="284" rx="8" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="note" x="52" y="132">同一个线程的逻辑调用链（上方是当前帧）</text>
+  <rect x="684" y="104" width="284" height="284" rx="8" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="note" x="704" y="132">Java 堆</text>
+  <path class="link" d="M500 188H704"/><path class="link" d="M500 268H600Q608 268 608 260V244Q608 236 616 236H704"/>
+  <rect x="52" y="152" width="448" height="72" rx="6" fill="#dbeafe" stroke="#2563eb"/><text class="name" x="68" y="182">Repository.save(order)</text><text class="note" x="68" y="208">参数引用 · 操作数栈 · 运行时常量池关联</text>
+  <rect class="node" x="52" y="244" width="448" height="48" rx="6"/><text class="name" x="68" y="276">Service.create(order)</text>
+  <rect class="node" x="52" y="312" width="448" height="48" rx="6"/><text class="name" x="68" y="344">Controller.create(request)</text>
+  <rect class="node" x="704" y="168" width="244" height="116" rx="6"/><text class="name" x="724" y="204">同一笔 Order</text><text class="body" x="724" y="236">amount = 199</text><text class="note" x="724" y="264">对象不属于某一个栈帧</text>
+  <text class="note" x="704" y="336">箭头：对象引用</text>
+  <text class="body" x="32" y="428">返回或异常展开：销毁退出的逻辑帧，恢复调用者；其他引用仍可保留堆对象。</text>
+  <text class="note" x="32" y="460">线程调用栈 ≠ 当前帧的操作数栈。平台线程通常用 OS 栈；虚拟线程可用堆内 stack chunk。</text>
+</svg>

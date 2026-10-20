@@ -1,10 +1,8 @@
 # Python 并发工具地图：线程、协程、进程、队列怎么选
 
 > 对应视频：EP03《Python 并发工具地图》  
-> 视频入口：[B站 EP03 定时稿](https://www.bilibili.com/video/BV1Sju76oERy)（计划公开：2026-08-10 19:42）。
+> 视频入口：[B站 EP03](https://www.bilibili.com/video/BV1Sju76oERy)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
 
 视频把主要工具放到同一张地图上。文章补充选型矩阵和边界条件，后面每一集都会回到这张表。
 
@@ -46,36 +44,11 @@ GPU 推理 → 有界队列 + batch
 | 本地模型推理 | 有界队列 + batch | GPU/显存需要调度 |
 | 实时语音 | 线程 + 协程 + 队列 | 采集、网络、回写并存 |
 
+## 同一个业务的两种实现入口
 
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
+若现有ASR SDK只提供同步transcribe函数，先用受限线程池包住它，保留SDK内部网络超时。若客户端原生支持async，则由事件循环管理连接与超时，两者都必须另外遵守服务端速率配额。
 
-**读图方式**
-
-- `ThreadPoolExecutor` 适合把阻塞等待叠起来，但要限制提交量和收敛异常。
-- `asyncio` 适合高并发网络等待，但前提是调用链真的非阻塞。
-- `ProcessPoolExecutor` 适合 CPU 密集大任务，队列和外部命令池适合多阶段工程流程。
-
-**排查路径**
-
-- 先用顺序版本确认正确性，再对不同工具跑小规模对比，不要从生产规模直接试。
-- 线程池实验看吞吐、连接数、错误率；异步实验看 in-flight、timeout、取消；进程池实验看序列化和 RSS。
-- 工具选型完成后必须再加控制层：并发上限、超时、重试、状态表和压测。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 阻塞 SDK 不能换成异步库 | 调用栈、响应耗时、CPU 低 | `ThreadPoolExecutor` 或 `asyncio.to_thread` |
-| HTTP 客户端支持 async | 连接池、QPS、timeout | `asyncio` + `Semaphore` + timeout |
-| 纯 Python 计算占满 CPU | `py-spy`、`cProfile`、CPU util | 进程池或原生扩展 |
-| 任务有扫描、转码、识别、落盘 | 阶段耗时、qsize、失败状态 | 生产者-消费者流水线 |
-
-**落地边界**
-
-- 工具越强，工程约束越不能少；没有边界的并发工具就是更快的失控入口。
-- 不要混用太多模型解决同一个阶段，复杂度通常会超过收益。
-<!-- concurrency-series-engineering-supplement:end -->
+ffmpeg已在独立进程中计算，Python线程只负责等待子进程，并不需要为等待动作再套一层进程池。queue.Queue用于线程协作；asyncio.Queue用于同一事件循环中的协程，不可直接从录音线程调用put_nowait。跨线程通知应通过loop.call_soon_threadsafe等桥接方式，并且在桥接入口本身限制积压。
 
 ## 常见失败模式
 

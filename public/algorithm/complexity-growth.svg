@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="complexity-title complexity-desc">
+  <title id="complexity-title">订单总额统计：重复扫描与先汇总后查询</title>
+  <desc id="complexity-desc">扫描法为每位客户完整遍历一次订单，编号比较次数为客户数乘订单数。索引法先遍历订单构建汇总字典，再逐个客户查表，在哈希操作平均常数的假设下，期望时间与两种记录数之和成正比，同时需要额外汇总空间。</desc>
+  <defs><marker id="complexity-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#62786c"/></marker></defs>
+  <rect width="960" height="560" fill="#fafcfb"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#253c30">
+    <text x="40" y="48" font-size="28" font-weight="600">同一份日报，重复工作发生在哪里？</text>
+    <text x="40" y="80" font-size="18" fill="#607568">n 位客户，m 笔订单；比较输出一致后，再比较增长速度</text>
+    <g fill="none" stroke="#62786c" stroke-width="2" marker-end="url(#complexity-arrow)"><path d="M264 188H364M596 188H696M264 372H364M596 372H696"/></g>
+    <g font-size="16" text-anchor="middle" fill="#607568">
+      <rect x="272" y="152" width="84" height="28" fill="#fafcfb"/><text x="314" y="172">逐位处理</text>
+      <rect x="604" y="152" width="84" height="28" fill="#fafcfb"/><text x="646" y="172">每次 m 笔</text>
+      <rect x="272" y="336" width="84" height="28" fill="#fafcfb"/><text x="314" y="356">一遍汇总</text>
+      <rect x="604" y="336" width="84" height="28" fill="#fafcfb"/><text x="646" y="356">直接查表</text>
+    </g>
+    <g fill="#fff" stroke="#c4d3c9"><rect data-node="customers" x="40" y="144" width="224" height="88" rx="6"/><rect data-node="orders-scan" x="364" y="144" width="232" height="88" rx="6"/><rect data-node="comparison" x="696" y="144" width="224" height="88" rx="6" fill="#fcf0eb" stroke="#d6a18e"/>
+      <rect data-node="orders-index" x="40" y="328" width="224" height="88" rx="6"/><rect data-node="index" x="364" y="328" width="232" height="88" rx="6" fill="#edf3fb" stroke="#97b6d3"/><rect data-node="lookup" x="696" y="328" width="224" height="88" rx="6" fill="#e9f4ee" stroke="#397657"/></g>
+    <g font-size="20" font-weight="600" text-anchor="middle"><text x="152" y="179">客户列表</text><text x="480" y="179">完整扫描订单</text><text x="808" y="179">n × m 次比较</text><text x="152" y="363">订单列表</text><text x="480" y="363">按客户编号汇总</text><text x="808" y="363">遍历客户并查询</text></g>
+    <g font-size="18" text-anchor="middle" fill="#607568"><text x="152" y="211">外层 n 次</text><text x="480" y="211">内层 m 次</text><text x="808" y="211">时间 Θ(nm)</text><text x="152" y="395">遍历 m 次</text><text x="480" y="395">额外空间 O(k)</text><text x="808" y="395">查询 n 次</text></g>
+    <text x="40" y="272" font-size="18" fill="#9b5147">100 位 / 1,000 笔：10 万次比较；两者翻倍：40 万次比较。</text>
+    <text x="40" y="456" font-size="18" fill="#276b52">索引法：约 1,100 次记录处理 → 2,200 次；期望时间 Θ(n + m)。</text>
+    <path d="M40 488H920" stroke="#d7e1da"/>
+    <text x="40" y="522" font-size="17" fill="#607568">k 是订单中的不同客户数；索引法依赖哈希操作平均常数的假设，并付出内存成本。</text>
+  </g>
+</svg>

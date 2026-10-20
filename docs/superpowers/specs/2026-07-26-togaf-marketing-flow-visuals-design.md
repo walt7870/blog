@@ -1,4 +1,10 @@
-# TOGAF 营销系统流程图优化设计
+---
+search: false
+---
+
+# TOGAF 营销系统流程图历史设计
+
+这是 2026-07-26 的图示设计归档，用于解释当时的表达取舍。当前知识正文与图示见[营销系统实践](../../design/architecture/togaf/marketing-system-practice.md)，后续修订与验收以当前实现为准；此处的七图规划不代表需要再次执行的任务。
 
 ## 目标
 

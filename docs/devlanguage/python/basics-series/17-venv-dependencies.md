@@ -1,9 +1,7 @@
 # 虚拟环境和依赖
 
 > 示例文件：`env_check.py`  
-> 最后核验：2026-08-02
-
-本文围绕“为什么客户电脑和开发电脑结果不同”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
@@ -13,12 +11,29 @@
 
 ## 核心判断
 
-- `venv` 要服务于真实客户数据处理。
-- `pip` 要服务于真实客户数据处理。
-- `requirements.txt` 要服务于真实客户数据处理。
-- `复现环境` 要服务于真实客户数据处理。
+虚拟环境为项目提供独立的 Python 包目录，防止两个工具需要不同版本时互相影响；它不是容器，不会固定操作系统、系统动态库或驱动。`python -m pip` 明确使用该解释器对应的 pip，比单独敲 `pip` 更不容易装到别处。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![系统解释器创建项目环境，安装与运行使用同一解释器](/python/venv-interpreter-contract.svg)
+
+本基础系列的示例只使用标准库，Python 3.10 或更高版本即可运行，不需要安装 `csv`、`json`、`logging`。使用第三方包时，记录经过验证的版本和 Python 版本，在新环境重新安装验证；仅复制 `.venv` 目录通常不能跨电脑复用。
+
+macOS/Linux 在项目目录执行：
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip --version
+.venv/bin/python env_check.py
+```
+
+Windows PowerShell 对应执行：
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip --version
+.\.venv\Scripts\python.exe env_check.py
+```
+
+不激活也能直接运行环境内解释器。项目已有第三方依赖清单时，再执行环境解释器的 `-m pip install -r requirements.txt`。`pip freeze` 可记录当前环境已装版本，但不是跨平台依赖求解器，也不保证所有下载工件长期可用。
 
 ## 运行示例
 
@@ -26,11 +41,7 @@
 python3 env_check.py
 ```
 
-运行后检查三件事：
-
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+检查输出的解释器路径位于当前项目 `.venv` 中，`sys.prefix != sys.base_prefix` 为 `True`。依赖文件存在只说明有文件，不代表包已安装；还应实际启动工具。标准库项目没有 `requirements.txt` 可以正常运行，应在 README 写明无需第三方包。
 
 ## 完整示例
 
@@ -46,34 +57,13 @@ from pathlib import Path
 def main() -> None:
     print(f"Python 版本：{sys.version.split()[0]}")
     print(f"解释器路径：{sys.executable}")
+    print(f"是否虚拟环境：{sys.prefix != sys.base_prefix}")
     print(f"requirements 是否存在：{Path(__file__).with_name('requirements.txt').exists()}")
 
 
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

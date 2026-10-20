@@ -1,0 +1,140 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/agent.md",
+      "status": "verified",
+      "reviewedHash": "122321f95a3a0ebcf59450c680cf78da5ffd66ac6af33f7c5eb613a6244a7c12",
+      "pageType": "智能体机制与边界",
+      "decision": "用订单通知超时后按ID回读解释反馈循环，明确模型、运行时、权限与停止条件职责；重画执行闭环图。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；1280×720及390×844浅深色全文截图、图片加载、站内分页均通过，页面无整体横溢出。",
+        "独立原尺寸图示检查及双视口键盘放大、原尺寸1120px与关闭通过；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/application-architecture.md",
+      "status": "verified",
+      "reviewedHash": "da9f27eab625648a32d3538fd1a1b9a8cc5546779a301343b3b560d2d9a57486",
+      "pageType": "应用架构与失败恢复",
+      "decision": "区分退款政策、真实状态与工单写入，补缓存身份隔离、检查点和业务事务边界及超时按幂等键回读；重画请求链路。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；双视口浅深色截图、资源加载、站内分页通过；原尺寸1120px操作通过。",
+        "失败恢复为机制说明，未调用真实订单服务；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/index.md",
+      "status": "verified",
+      "reviewedHash": "88a1d28acb20c5fef92235c456db436fe97e9f2de26118fc80e6a31befc1ff23",
+      "pageType": "专题总览",
+      "decision": "以退款助手三类请求串联模型、RAG和业务工具，提前展示架构图并补离线示例入口。",
+      "findings": [],
+      "validation": [
+        "全文及全部入口核对；双视口浅深色全文截图、图片加载与客户端分页通过。",
+        "共享架构图独立原尺寸检查与双视口放大通过；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/01-what-is-langchain.md",
+      "status": "verified",
+      "reviewedHash": "3fb5fa877b278845ddc62811055e140b99207fae6d8fc0577ac5f86ad89b28a2",
+      "pageType": "编排模型与运行入口",
+      "decision": "明确解析器不校验事实、框架不代替权限；替换本机环境依赖为系列运行准备，修正图中业务校验与恢复边界。",
+      "findings": [],
+      "validation": [
+        "全文及图示已审；双视口浅深色截图和客户端分页通过，原尺寸1200px操作通过。",
+        "Python片段语法、正文Tool和最小LangGraph等离线检查通过；未运行真实模型调用；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/02-langgraph-workflow.md",
+      "status": "verified",
+      "reviewedHash": "f13559e343c3d685f9e8ef0f2be4960b1b3003303f0d279d7570d691287bffa4",
+      "pageType": "状态图与业务路由",
+      "dependencyFiles": [
+        "public/ai/examples/workflow_demo.py"
+      ],
+      "decision": "把客服输入与风险检查移到工具执行前；补覆盖/reducer、TypedDict与运行校验、检查点持久化及副作用幂等边界；提供可复现源码。",
+      "findings": [],
+      "validation": [
+        "全文已审；正文最小图实际运行、完整源码15组行为断言通过。",
+        "双视口浅深色截图、资源加载、站内分页与图示原尺寸1120px操作通过；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/03-rag-from-zero.md",
+      "status": "verified",
+      "reviewedHash": "3fa7a1c471651eb10386a88d9d2b0e74cd62739cfa371e51229a7949b8cc74ce",
+      "pageType": "检索证据与拒答流程",
+      "dependencyFiles": [
+        "public/ai/examples/workflow_demo.py"
+      ],
+      "decision": "重写为可复现离线闭环与真实集成入口，解释小词表替身的同义失败、字符切分、权限过滤、分数方向、引用支持性和版本切换。",
+      "findings": [],
+      "validation": [
+        "全文与新图已审；离线命中/拒答和正文Chroma固定向量替身索引/过滤断言通过，不代表真实Embedding或模型质量。",
+        "双视口浅深色截图、客户端分页和原尺寸1120px图示操作通过；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/04-tools-workflows-agents.md",
+      "status": "verified",
+      "reviewedHash": "d73a0c6ee914e50d7e4edf4eb5f172d16519c37737d9ee4d95dba32b6c33cdc7",
+      "pageType": "工具与决策权边界",
+      "dependencyFiles": [
+        "public/ai/examples/workflow_demo.py"
+      ],
+      "decision": "明确Tool注册不提供鉴权，订单归属来自服务端；工单超时按幂等键回读，补可运行注册与离线升级示例。",
+      "findings": [],
+      "validation": [
+        "全文已审；正文StructuredTool实际注册与调用通过，离线升级不执行真实写入断言通过。",
+        "双视口浅深色截图、资源加载及客户端分页通过；复用Agent图已独立与双视口放大检查；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/05-production-practices.md",
+      "status": "verified",
+      "reviewedHash": "8cca261e18cc71528852c32da2c8066ef5a3b4ea198b4abd5b48b79e0b9192a5",
+      "pageType": "SQL执行边界与生产验证",
+      "dependencyFiles": [
+        "public/ai/examples/workflow_demo.py"
+      ],
+      "decision": "补完整SQLite教学网关，单SELECT并拒CTE，使用AST、表列函数白名单、query_only与执行预算；明确LIMIT、日志和真实生产安全的边界。",
+      "findings": [],
+      "validation": [
+        "全文与新图已审；SQL汇总300、LIMIT500改200、危险语句与扩展函数拒绝等15组离线断言通过。",
+        "双视口浅深色截图、客户端分页与图示原尺寸1120px操作通过；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/index.md",
+      "status": "verified",
+      "reviewedHash": "8e23a920e51e09274180a6965aba3ec9316508d043d06895397d324df118cca4",
+      "pageType": "系列导读与环境准备",
+      "dependencyFiles": [
+        "public/ai/examples/workflow_demo.py",
+        "public/ai/examples/requirements-lock.txt"
+      ],
+      "decision": "补Python3.11独立环境和实际安装固定版本，提供源码与全依赖锁；区分流程替身、Chroma集成和真实模型能力。",
+      "findings": [],
+      "validation": [
+        "全文及安装版本已核；独立Python3.11环境运行全部离线检查通过。",
+        "双视口浅深色截图、客户端分页通过；浏览器真实下载源码SHA256与public源文件一致，下载URL保留/blog前缀；完整构建14.19秒。"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/model-api.md",
+      "status": "verified",
+      "reviewedHash": "32060b42d4611761b96fe50125359ab1a2a713308ab05ebd6ea84a43cd6dbc43",
+      "pageType": "模型输出合同",
+      "decision": "增加本地Pydantic校验与响应分流图，明确confidence非校准概率、temperature0非复现保证、流式半成品不得执行与取消非事务回滚。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；正文Pydantic非法值实际返回invalid_output，全部Python片段语法通过。",
+        "双视口浅深色截图、客户端分页与图示原尺寸1120px操作通过；未请求付费模型API；完整构建14.19秒。"
+      ]
+    }
+  ]
+}

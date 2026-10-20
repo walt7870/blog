@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
+      "pageType": "层叠机制",
+      "decision": "补layer、重要性反转、作用域邻近、继承和解析值边界，按钮覆盖实验可运行。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图标签审查，重绘四图；构建15.10秒通过，16份四模式全文截图全部查看，4次分页、8组图片键盘交互及中文字体边界通过，见batches/frontend-layout.md。",
+        "正文提取夹具7项浏览器检查通过：层叠颜色、双容器、390布局与错误恢复。桌面1280/iframe390严格断言主题和宽度；未执行物理手机或真实读屏测试。"
+      ],
+      "reviewedHash": "5e384aae5b3a1e692fd7a4e3ea19420672cdda8082652af4536efe05c0d14e7c"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
+      "pageType": "空间布局",
+      "decision": "补实际盒宽计算、Flex自动最小尺寸、Grid代码及定位包含块与sticky限制。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图标签审查，重绘四图；构建15.10秒通过，16份四模式全文截图全部查看，4次分页、8组图片键盘交互及中文字体边界通过，见batches/frontend-layout.md。",
+        "正文提取夹具7项浏览器检查通过：层叠颜色、双容器、390布局与错误恢复。桌面1280/iframe390严格断言主题和宽度；未执行物理手机或真实读屏测试。"
+      ],
+      "reviewedHash": "d54acc73dc34c07ffb8e01d8f1efb9c161249208cc7df523c0004ac8d5bbb1e0"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
+      "pageType": "响应式机制",
+      "decision": "区分CSS/物理像素、布局/可见视口、容器查询和输入能力，补真实宽度断言与夹具边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图标签审查，重绘四图；构建15.10秒通过，16份四模式全文截图全部查看，4次分页、8组图片键盘交互及中文字体边界通过，见batches/frontend-layout.md。",
+        "正文提取夹具7项浏览器检查通过：层叠颜色、双容器、390布局与错误恢复。桌面1280/iframe390严格断言主题和宽度；未执行物理手机或真实读屏测试。"
+      ],
+      "reviewedHash": "e9b9db510bdf78f5fadf46eacdff233f482956726fb000ba958eaf42e812884c"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
+      "pageType": "可访问交互",
+      "decision": "补错误字段关联与焦点恢复完整示例，限定键盘模式、ARIA、对比度和读屏验证范围。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图标签审查，重绘四图；构建15.10秒通过，16份四模式全文截图全部查看，4次分页、8组图片键盘交互及中文字体边界通过，见batches/frontend-layout.md。",
+        "正文提取夹具7项浏览器检查通过：层叠颜色、双容器、390布局与错误恢复。桌面1280/iframe390严格断言主题和宽度；未执行物理手机或真实读屏测试。"
+      ],
+      "reviewedHash": "965ee4a15e7def9e39e80350956e9329000467709911a554c6e1c34058ce3b71"
+    }
+  ]
+}

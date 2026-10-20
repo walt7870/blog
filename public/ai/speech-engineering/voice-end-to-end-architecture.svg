@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="title desc">
-  <title id="title">流式语音处理链路</title>
-  <desc id="desc">连续 PCM 经 TEN-VAD 主分段，普通与多人模式使用普通 ASR，目标模式携带登记参考使用 TS-ASR，波形门控独立可选。角色证据不等于登记身份，热词能力共享，Final 冻结后输出。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="voice-end-to-end-architecture-title voice-end-to-end-architecture-desc">
+  <title id="voice-end-to-end-architecture-title">流式语音处理链路</title>
+  <desc id="voice-end-to-end-architecture-desc">连续 PCM 经 TEN-VAD 主分段，普通与多人模式使用普通 ASR，目标模式携带登记参考使用 TS-ASR，波形门控独立可选。角色证据不等于登记身份，热词能力共享，Final 冻结后输出。</desc>
   <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#52616b"/></marker>
-    <style>.box{rx:6;stroke-width:1.5}.h{font:600 23px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.t{font:600 17px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.s{font:14px -apple-system,"PingFang SC",sans-serif;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}.d{stroke-dasharray:5 4}</style>
+    <marker id="voice-end-to-end-architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#52616b"/></marker>
+    <style>.box{rx:6;stroke-width:1.5}.h{font:600 23px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.t{font:600 17px -apple-system,"PingFang SC",sans-serif;fill:#17252a}.s{font:14px -apple-system,"PingFang SC",sans-serif;fill:#43545b}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#voice-end-to-end-architecture-arrow)}.d{stroke-dasharray:5 4}</style>
   </defs>
   <rect width="1320" height="640" fill="#fff"/>
   <text x="36" y="42" class="h">连续收音、分模式识别与结果定稿</text>

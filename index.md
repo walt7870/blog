@@ -24,7 +24,7 @@ aside: false
     <div class="hero-board" aria-label="站点专题地图">
       <div class="board-top">
         <span>TOPIC RADAR</span>
-        <b>13</b>
+        <b>8</b>
       </div>
       <div class="radar-map" role="img" aria-label="技术知识库结构图">
         <span class="radar-line line-v"></span>
@@ -348,6 +348,11 @@ aside: false
 
 .radar-map {
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(104px, 1fr));
+  gap: 10px;
+  padding: 18px;
   min-height: 388px;
   border-block: 2px solid var(--home-border);
   background:
@@ -369,9 +374,7 @@ aside: false
 }
 
 .radar-line {
-  position: absolute;
-  display: block;
-  background: var(--home-map-line);
+  display: none;
 }
 
 .line-v {
@@ -390,27 +393,25 @@ aside: false
 
 .radar-core,
 .radar-node {
-  position: absolute;
   display: grid;
   place-items: center;
   text-align: center;
-  border-radius: 14px;
-  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .radar-core {
-  left: 50%;
-  top: 50%;
-  width: 250px;
+  grid-area: 2 / 2;
   min-height: 104px;
-  padding: 18px;
+  padding: 12px 8px;
   background: var(--home-ink);
   color: var(--home-bg);
   box-shadow: 0 16px 32px rgba(0, 0, 0, .18);
 }
 
 .radar-core strong {
-  font-size: 23px;
+  font-size: 19px;
 }
 
 .radar-core span {
@@ -420,9 +421,8 @@ aside: false
 }
 
 .radar-node {
-  width: 190px;
   min-height: 82px;
-  padding: 12px;
+  padding: 12px 8px;
   border: 2px solid var(--node-color);
   background: color-mix(in srgb, var(--home-map-card) 92%, var(--node-color));
   color: var(--home-ink);
@@ -439,14 +439,14 @@ aside: false
   font-weight: 700;
 }
 
-.node-ai { --node-color: #2563eb; left: 16%; top: 25%; }
-.node-arch { --node-color: #16a34a; left: 50%; top: 16%; }
-.node-lang { --node-color: #ea580c; left: 84%; top: 25%; }
-.node-basic { --node-color: #0f766e; left: 16%; top: 50%; }
-.node-tools { --node-color: #64748b; left: 84%; top: 50%; }
-.node-data { --node-color: #0891b2; left: 16%; top: 75%; }
-.node-container { --node-color: #dc2626; left: 50%; top: 84%; }
-.node-embedded { --node-color: #7c3aed; left: 84%; top: 75%; }
+.node-ai { --node-color: #2563eb; grid-area: 1 / 1; }
+.node-arch { --node-color: #16a34a; grid-area: 1 / 2; }
+.node-lang { --node-color: #ea580c; grid-area: 1 / 3; }
+.node-basic { --node-color: #0f766e; grid-area: 2 / 1; }
+.node-tools { --node-color: #64748b; grid-area: 2 / 3; }
+.node-data { --node-color: #0891b2; grid-area: 3 / 1; }
+.node-container { --node-color: #dc2626; grid-area: 3 / 2; }
+.node-embedded { --node-color: #7c3aed; grid-area: 3 / 3; }
 
 .dark .radar-node {
   background: color-mix(in srgb, var(--home-map-card) 78%, var(--node-color));
@@ -688,23 +688,18 @@ aside: false
   }
 
   .radar-map {
-    min-height: 760px;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
   }
 
   .radar-core,
   .radar-node {
-    width: min(210px, calc(100% - 42px));
+    grid-area: auto;
+    width: auto;
   }
 
-  .radar-core { top: 50%; }
-  .node-ai { left: 50%; top: 9%; }
-  .node-arch { left: 50%; top: 20%; }
-  .node-lang { left: 50%; top: 31%; }
-  .node-basic { left: 50%; top: 42%; }
-  .node-tools { left: 50%; top: 58%; }
-  .node-data { left: 50%; top: 69%; }
-  .node-container { left: 50%; top: 80%; }
-  .node-embedded { left: 50%; top: 91%; }
+  .radar-core { grid-column: 1 / -1; }
 
   .quick-lanes,
   .catalog-grid,

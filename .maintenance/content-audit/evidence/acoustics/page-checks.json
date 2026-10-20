@@ -1,0 +1,1010 @@
+[
+  {
+    "index": 0,
+    "page": "",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/acoustic-system-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声学概览 ​",
+    "width": 1280
+  },
+  {
+    "index": 1,
+    "page": "structure.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/structure-sound-paths.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声学结构 ​",
+    "width": 1280
+  },
+  {
+    "index": 2,
+    "page": "sound-fundamentals.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/wave-sampling.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声音与信号基础 ​",
+    "width": 1280
+  },
+  {
+    "index": 3,
+    "page": "capture-playback.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/capture-playback-reference.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "采集与播放链路 ​",
+    "width": 1280
+  },
+  {
+    "index": 4,
+    "page": "noise-reduction.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/three-a-chain.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/aec-adaptive-filter.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "降噪与前处理 ​",
+    "width": 1280
+  },
+  {
+    "index": 5,
+    "page": "wake-word.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-ai-modules.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/kws-threshold.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音唤醒 ​",
+    "width": 1280
+  },
+  {
+    "index": 6,
+    "page": "speech-recognition.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/asr-decoding.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音识别 ​",
+    "width": 1280
+  },
+  {
+    "index": 7,
+    "page": "speech-synthesis.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/tts-acoustic-vocoder.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音合成 ​",
+    "width": 1280
+  },
+  {
+    "index": 8,
+    "page": "voice-interaction.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音交互链路 ​",
+    "width": 1280
+  },
+  {
+    "index": 9,
+    "page": "quality-evaluation.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/troubleshooting-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "质量评估与排错 ​",
+    "width": 1280
+  },
+  {
+    "index": 10,
+    "page": "engineering.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/engineering-deployment-choice.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "工程选型 ​",
+    "width": 1280
+  },
+  {
+    "index": 11,
+    "page": "vad/",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/vad-state-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "VAD 语音活动检测 ​",
+    "width": 1280
+  },
+  {
+    "index": 12,
+    "page": "vad/silero-vad.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/silero-vad-streaming.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Silero VAD 工程实践 ​",
+    "width": 1280
+  },
+  {
+    "index": 13,
+    "page": "sherpa-onnx/",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-architecture.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 端侧语音推理框架 ​",
+    "width": 1280
+  },
+  {
+    "index": 14,
+    "page": "sherpa-onnx/recognition-modes.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-recognition-modes.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 识别运行模式 ​",
+    "width": 1280
+  },
+  {
+    "index": 15,
+    "page": "sherpa-onnx/model-selection-deployment.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-selection-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 模型与部署选型 ​",
+    "width": 1280
+  },
+  {
+    "index": 0,
+    "page": "",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/acoustic-system-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声学概览 ​",
+    "width": 390
+  },
+  {
+    "index": 1,
+    "page": "structure.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/structure-sound-paths.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声学结构 ​",
+    "width": 390
+  },
+  {
+    "index": 2,
+    "page": "sound-fundamentals.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/wave-sampling.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声音与信号基础 ​",
+    "width": 390
+  },
+  {
+    "index": 3,
+    "page": "capture-playback.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/capture-playback-reference.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "采集与播放链路 ​",
+    "width": 390
+  },
+  {
+    "index": 4,
+    "page": "noise-reduction.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/three-a-chain.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/aec-adaptive-filter.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "降噪与前处理 ​",
+    "width": 390
+  },
+  {
+    "index": 5,
+    "page": "wake-word.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-ai-modules.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/kws-threshold.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音唤醒 ​",
+    "width": 390
+  },
+  {
+    "index": 6,
+    "page": "speech-recognition.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/asr-decoding.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音识别 ​",
+    "width": 390
+  },
+  {
+    "index": 7,
+    "page": "speech-synthesis.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/tts-acoustic-vocoder.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音合成 ​",
+    "width": 390
+  },
+  {
+    "index": 8,
+    "page": "voice-interaction.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音交互链路 ​",
+    "width": 390
+  },
+  {
+    "index": 9,
+    "page": "quality-evaluation.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/troubleshooting-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "质量评估与排错 ​",
+    "width": 390
+  },
+  {
+    "index": 10,
+    "page": "engineering.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/engineering-deployment-choice.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "工程选型 ​",
+    "width": 390
+  },
+  {
+    "index": 11,
+    "page": "vad/",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/vad-state-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "VAD 语音活动检测 ​",
+    "width": 390
+  },
+  {
+    "index": 12,
+    "page": "vad/silero-vad.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/silero-vad-streaming.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "Silero VAD 工程实践 ​",
+    "width": 390
+  },
+  {
+    "index": 13,
+    "page": "sherpa-onnx/",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-architecture.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 端侧语音推理框架 ​",
+    "width": 390
+  },
+  {
+    "index": 14,
+    "page": "sherpa-onnx/recognition-modes.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-recognition-modes.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 识别运行模式 ​",
+    "width": 390
+  },
+  {
+    "index": 15,
+    "page": "sherpa-onnx/model-selection-deployment.html",
+    "mode": "mobile-light",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-selection-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 模型与部署选型 ​",
+    "width": 390
+  },
+  {
+    "index": 0,
+    "page": "",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/acoustic-system-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声学概览 ​",
+    "width": 390
+  },
+  {
+    "index": 1,
+    "page": "structure.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/structure-sound-paths.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声学结构 ​",
+    "width": 390
+  },
+  {
+    "index": 2,
+    "page": "sound-fundamentals.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/wave-sampling.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "声音与信号基础 ​",
+    "width": 390
+  },
+  {
+    "index": 3,
+    "page": "capture-playback.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/capture-playback-reference.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "采集与播放链路 ​",
+    "width": 390
+  },
+  {
+    "index": 4,
+    "page": "noise-reduction.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/three-a-chain.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/aec-adaptive-filter.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "降噪与前处理 ​",
+    "width": 390
+  },
+  {
+    "index": 5,
+    "page": "wake-word.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-ai-modules.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/kws-threshold.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音唤醒 ​",
+    "width": 390
+  },
+  {
+    "index": 6,
+    "page": "speech-recognition.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/asr-decoding.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音识别 ​",
+    "width": 390
+  },
+  {
+    "index": 7,
+    "page": "speech-synthesis.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/tts-acoustic-vocoder.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音合成 ​",
+    "width": 390
+  },
+  {
+    "index": 8,
+    "page": "voice-interaction.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "语音交互链路 ​",
+    "width": 390
+  },
+  {
+    "index": 9,
+    "page": "quality-evaluation.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/troubleshooting-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "质量评估与排错 ​",
+    "width": 390
+  },
+  {
+    "index": 10,
+    "page": "engineering.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/engineering-deployment-choice.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "工程选型 ​",
+    "width": 390
+  },
+  {
+    "index": 11,
+    "page": "vad/",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/vad-state-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "VAD 语音活动检测 ​",
+    "width": 390
+  },
+  {
+    "index": 12,
+    "page": "vad/silero-vad.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/silero-vad-streaming.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "Silero VAD 工程实践 ​",
+    "width": 390
+  },
+  {
+    "index": 13,
+    "page": "sherpa-onnx/",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-architecture.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 端侧语音推理框架 ​",
+    "width": 390
+  },
+  {
+    "index": 14,
+    "page": "sherpa-onnx/recognition-modes.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-recognition-modes.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 识别运行模式 ​",
+    "width": 390
+  },
+  {
+    "index": 15,
+    "page": "sherpa-onnx/model-selection-deployment.html",
+    "mode": "mobile-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-selection-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 390,
+    "title": "sherpa-onnx 模型与部署选型 ​",
+    "width": 390
+  },
+  {
+    "index": 0,
+    "page": "",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/acoustic-system-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声学概览 ​",
+    "width": 1280
+  },
+  {
+    "index": 1,
+    "page": "structure.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/structure-sound-paths.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声学结构 ​",
+    "width": 1280
+  },
+  {
+    "index": 2,
+    "page": "sound-fundamentals.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/wave-sampling.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "声音与信号基础 ​",
+    "width": 1280
+  },
+  {
+    "index": 3,
+    "page": "capture-playback.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/capture-playback-reference.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "采集与播放链路 ​",
+    "width": 1280
+  },
+  {
+    "index": 4,
+    "page": "noise-reduction.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/three-a-chain.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/aec-adaptive-filter.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "降噪与前处理 ​",
+    "width": 1280
+  },
+  {
+    "index": 5,
+    "page": "wake-word.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-ai-modules.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/kws-threshold.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音唤醒 ​",
+    "width": 1280
+  },
+  {
+    "index": 6,
+    "page": "speech-recognition.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/asr-decoding.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音识别 ​",
+    "width": 1280
+  },
+  {
+    "index": 7,
+    "page": "speech-synthesis.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/tts-acoustic-vocoder.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音合成 ​",
+    "width": 1280
+  },
+  {
+    "index": 8,
+    "page": "voice-interaction.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/speech-pipeline.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "语音交互链路 ​",
+    "width": 1280
+  },
+  {
+    "index": 9,
+    "page": "quality-evaluation.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/troubleshooting-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "质量评估与排错 ​",
+    "width": 1280
+  },
+  {
+    "index": 10,
+    "page": "engineering.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/engineering-deployment-choice.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "工程选型 ​",
+    "width": 1280
+  },
+  {
+    "index": 11,
+    "page": "vad/",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/vad-state-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "VAD 语音活动检测 ​",
+    "width": 1280
+  },
+  {
+    "index": 12,
+    "page": "vad/silero-vad.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/silero-vad-streaming.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Silero VAD 工程实践 ​",
+    "width": 1280
+  },
+  {
+    "index": 13,
+    "page": "sherpa-onnx/",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-architecture.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 端侧语音推理框架 ​",
+    "width": 1280
+  },
+  {
+    "index": 14,
+    "page": "sherpa-onnx/recognition-modes.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-recognition-modes.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 识别运行模式 ​",
+    "width": 1280
+  },
+  {
+    "index": 15,
+    "page": "sherpa-onnx/model-selection-deployment.html",
+    "mode": "desktop-dark",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/acoustics/sherpa-onnx-selection-flow.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "sherpa-onnx 模型与部署选型 ​",
+    "width": 1280
+  }
+]

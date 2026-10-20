@@ -1,0 +1,7389 @@
+{
+  "schemaVersion": 1,
+  "note": "指标只用于筛选候选，不代表质量评分；目录、迁移页、代码速查须人工分类。图片统计包含 Markdown 图片、HTML img/svg 和 Mermaid，不展开 Vue 组件或代码围栏中的图片示例。字符数排除 frontmatter 和代码围栏，保留标题、列表及行内代码。",
+  "totals": {
+    "pages": 569,
+    "withoutVisual": 315,
+    "withSvg": 231,
+    "shortText": 51
+  },
+  "topics": {
+    "docs/ai": {
+      "pages": 90,
+      "withoutVisual": 36,
+      "withSvg": 32,
+      "shortText": 6
+    },
+    "docs/algorithm": {
+      "pages": 11,
+      "withoutVisual": 11,
+      "withSvg": 0,
+      "shortText": 0
+    },
+    "docs/basic/acoustics": {
+      "pages": 16,
+      "withoutVisual": 3,
+      "withSvg": 13,
+      "shortText": 0
+    },
+    "docs/basic/protocol": {
+      "pages": 8,
+      "withoutVisual": 3,
+      "withSvg": 5,
+      "shortText": 0
+    },
+    "docs/container": {
+      "pages": 52,
+      "withoutVisual": 39,
+      "withSvg": 13,
+      "shortText": 2
+    },
+    "docs/database": {
+      "pages": 29,
+      "withoutVisual": 28,
+      "withSvg": 1,
+      "shortText": 0
+    },
+    "docs/design/architecture": {
+      "pages": 40,
+      "withoutVisual": 13,
+      "withSvg": 26,
+      "shortText": 4
+    },
+    "docs/design/design-pattern": {
+      "pages": 35,
+      "withoutVisual": 1,
+      "withSvg": 34,
+      "shortText": 2
+    },
+    "docs/design/develop-pattern": {
+      "pages": 10,
+      "withoutVisual": 0,
+      "withSvg": 10,
+      "shortText": 1
+    },
+    "docs/devlanguage/flutter": {
+      "pages": 7,
+      "withoutVisual": 5,
+      "withSvg": 2,
+      "shortText": 0
+    },
+    "docs/devlanguage/front": {
+      "pages": 70,
+      "withoutVisual": 36,
+      "withSvg": 34,
+      "shortText": 2
+    },
+    "docs/devlanguage": {
+      "pages": 1,
+      "withoutVisual": 1,
+      "withSvg": 0,
+      "shortText": 0
+    },
+    "docs/devlanguage/java": {
+      "pages": 52,
+      "withoutVisual": 36,
+      "withSvg": 16,
+      "shortText": 8
+    },
+    "docs/devlanguage/python": {
+      "pages": 49,
+      "withoutVisual": 30,
+      "withSvg": 19,
+      "shortText": 18
+    },
+    "docs/devlanguage/rust": {
+      "pages": 14,
+      "withoutVisual": 13,
+      "withSvg": 1,
+      "shortText": 0
+    },
+    "docs/embedded": {
+      "pages": 13,
+      "withoutVisual": 12,
+      "withSvg": 1,
+      "shortText": 0
+    },
+    "docs/linux": {
+      "pages": 29,
+      "withoutVisual": 23,
+      "withSvg": 6,
+      "shortText": 6
+    },
+    "docs/network-proxy": {
+      "pages": 13,
+      "withoutVisual": 7,
+      "withSvg": 6,
+      "shortText": 0
+    },
+    "docs/reading": {
+      "pages": 2,
+      "withoutVisual": 2,
+      "withSvg": 0,
+      "shortText": 2
+    },
+    "docs/superpowers": {
+      "pages": 2,
+      "withoutVisual": 2,
+      "withSvg": 0,
+      "shortText": 0
+    },
+    "docs/tools/editor": {
+      "pages": 1,
+      "withoutVisual": 0,
+      "withSvg": 1,
+      "shortText": 0
+    },
+    "docs/tools/git": {
+      "pages": 14,
+      "withoutVisual": 8,
+      "withSvg": 6,
+      "shortText": 0
+    },
+    "docs/tools/mq": {
+      "pages": 5,
+      "withoutVisual": 0,
+      "withSvg": 5,
+      "shortText": 0
+    },
+    "docs/tools/sdkman": {
+      "pages": 1,
+      "withoutVisual": 1,
+      "withSvg": 0,
+      "shortText": 0
+    },
+    "docs/tools/vfox": {
+      "pages": 1,
+      "withoutVisual": 1,
+      "withSvg": 0,
+      "shortText": 0
+    },
+    "docs/tools/vim": {
+      "pages": 4,
+      "withoutVisual": 4,
+      "withSvg": 0,
+      "shortText": 0
+    }
+  },
+  "pages": [
+    {
+      "file": "docs/ai/agent.md",
+      "inlineTextChars": 2131,
+      "headings": 14,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/applications/application-architecture.md",
+      "inlineTextChars": 757,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/index.md",
+      "inlineTextChars": 712,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/applications/langchain/01-what-is-langchain.md",
+      "inlineTextChars": 2115,
+      "headings": 14,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/02-langgraph-workflow.md",
+      "inlineTextChars": 1844,
+      "headings": 14,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/03-rag-from-zero.md",
+      "inlineTextChars": 2215,
+      "headings": 20,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/04-tools-workflows-agents.md",
+      "inlineTextChars": 2018,
+      "headings": 17,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/05-production-practices.md",
+      "inlineTextChars": 2851,
+      "headings": 16,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/applications/langchain/index.md",
+      "inlineTextChars": 1202,
+      "headings": 7,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/applications/model-api.md",
+      "inlineTextChars": 938,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/coding-agent-series/01-ai-coding-agent-era.md",
+      "inlineTextChars": 5599,
+      "headings": 24,
+      "codeBlocks": 1,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/02-coding-agent-internals.md",
+      "inlineTextChars": 5609,
+      "headings": 24,
+      "codeBlocks": 3,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.md",
+      "inlineTextChars": 6186,
+      "headings": 27,
+      "codeBlocks": 0,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.md",
+      "inlineTextChars": 6146,
+      "headings": 28,
+      "codeBlocks": 0,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/05-executable-task-contract.md",
+      "inlineTextChars": 5063,
+      "headings": 29,
+      "codeBlocks": 5,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/06-context-engineering.md",
+      "inlineTextChars": 5743,
+      "headings": 29,
+      "codeBlocks": 1,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/07-agents-rules-skills-hooks.md",
+      "inlineTextChars": 5642,
+      "headings": 25,
+      "codeBlocks": 3,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.md",
+      "inlineTextChars": 6250,
+      "headings": 26,
+      "codeBlocks": 0,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/09-brownfield-understand-before-edit.md",
+      "inlineTextChars": 5816,
+      "headings": 26,
+      "codeBlocks": 3,
+      "images": 11,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.md",
+      "inlineTextChars": 6074,
+      "headings": 26,
+      "codeBlocks": 3,
+      "images": 11,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.md",
+      "inlineTextChars": 5880,
+      "headings": 27,
+      "codeBlocks": 2,
+      "images": 11,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.md",
+      "inlineTextChars": 5905,
+      "headings": 27,
+      "codeBlocks": 2,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/13-ai-coding-security-governance.md",
+      "inlineTextChars": 5883,
+      "headings": 26,
+      "codeBlocks": 0,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.md",
+      "inlineTextChars": 5852,
+      "headings": 25,
+      "codeBlocks": 1,
+      "images": 9,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/index.md",
+      "inlineTextChars": 1874,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/deep-learning/architectures.md",
+      "inlineTextChars": 1305,
+      "headings": 9,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/deep-learning/framework-practice.md",
+      "inlineTextChars": 920,
+      "headings": 9,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/deep-learning/index.md",
+      "inlineTextChars": 877,
+      "headings": 7,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/deep-learning/neural-networks.md",
+      "inlineTextChars": 1133,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/domains/computer-vision.md",
+      "inlineTextChars": 998,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/index.md",
+      "inlineTextChars": 673,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/domains/multimodal.md",
+      "inlineTextChars": 735,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/nlp.md",
+      "inlineTextChars": 1063,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/recommendation.md",
+      "inlineTextChars": 725,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/reinforcement-learning.md",
+      "inlineTextChars": 799,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/speech.md",
+      "inlineTextChars": 717,
+      "headings": 7,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/domains/time-series.md",
+      "inlineTextChars": 736,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/engineering/cost-capacity.md",
+      "inlineTextChars": 879,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/engineering/index.md",
+      "inlineTextChars": 364,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/ai/engineering/mlops-llmops.md",
+      "inlineTextChars": 877,
+      "headings": 7,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/engineering/security-governance.md",
+      "inlineTextChars": 961,
+      "headings": 9,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/engineering/serving-deployment.md",
+      "inlineTextChars": 948,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/evaluation-troubleshooting.md",
+      "inlineTextChars": 1987,
+      "headings": 14,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/first-ai-app.md",
+      "inlineTextChars": 1954,
+      "headings": 12,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/foundations/data-and-tasks.md",
+      "inlineTextChars": 1279,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/foundations/generalization-evaluation.md",
+      "inlineTextChars": 1318,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/foundations/index.md",
+      "inlineTextChars": 852,
+      "headings": 7,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/foundations/math-intuition.md",
+      "inlineTextChars": 1220,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/foundations/training-optimization.md",
+      "inlineTextChars": 1322,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/glossary.md",
+      "inlineTextChars": 2213,
+      "headings": 13,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/history.md",
+      "inlineTextChars": 1613,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/index.md",
+      "inlineTextChars": 2147,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/learning-path.md",
+      "inlineTextChars": 1947,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/llm/concepts.md",
+      "inlineTextChars": 2445,
+      "headings": 31,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/llm/index.md",
+      "inlineTextChars": 2082,
+      "headings": 14,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/llm/inference.md",
+      "inlineTextChars": 1219,
+      "headings": 11,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/llm/rag-tools.md",
+      "inlineTextChars": 1574,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/llm/sft.md",
+      "inlineTextChars": 1887,
+      "headings": 15,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/llm/training.md",
+      "inlineTextChars": 1151,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/mcp.md",
+      "inlineTextChars": 2095,
+      "headings": 15,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/ml.md",
+      "inlineTextChars": 2058,
+      "headings": 15,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/practice/agent-project.md",
+      "inlineTextChars": 704,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/practice/index.md",
+      "inlineTextChars": 386,
+      "headings": 4,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/ai/practice/machine-learning-project.md",
+      "inlineTextChars": 759,
+      "headings": 9,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/practice/vision-project.md",
+      "inlineTextChars": 633,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/rsi/01-recursive-self-improvement.md",
+      "inlineTextChars": 4822,
+      "headings": 16,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/rsi/index.md",
+      "inlineTextChars": 342,
+      "headings": 1,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/ai/skill/claude-code-best-practices.md",
+      "inlineTextChars": 1164,
+      "headings": 13,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/ai/skill/index.md",
+      "inlineTextChars": 1169,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/skill/recommendations.md",
+      "inlineTextChars": 1369,
+      "headings": 13,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/speech-engineering/architecture-and-workflow.md",
+      "inlineTextChars": 1876,
+      "headings": 7,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/delivery-and-handoff.md",
+      "inlineTextChars": 2474,
+      "headings": 9,
+      "codeBlocks": 3,
+      "images": 3,
+      "svgImages": 3,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/evidence-driven-validation.md",
+      "inlineTextChars": 2819,
+      "headings": 12,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/hotword-routing.md",
+      "inlineTextChars": 2709,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/incident-playbook.md",
+      "inlineTextChars": 135,
+      "headings": 1,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/ai/speech-engineering/index.md",
+      "inlineTextChars": 1222,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
+      "inlineTextChars": 1883,
+      "headings": 6,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/latency-and-finalization.md",
+      "inlineTextChars": 2269,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/performance-and-capacity.md",
+      "inlineTextChars": 2289,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/ai/speech-engineering/pipeline-boundaries.md",
+      "inlineTextChars": 2956,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/speech-engineering/release-and-collaboration.md",
+      "inlineTextChars": 83,
+      "headings": 1,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/ai/vibe-coding/context-engineering.md",
+      "inlineTextChars": 1876,
+      "headings": 9,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/harness-engineering.md",
+      "inlineTextChars": 1880,
+      "headings": 11,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/index.md",
+      "inlineTextChars": 2371,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/organizational-engineering.md",
+      "inlineTextChars": 1736,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/project-practice.md",
+      "inlineTextChars": 3063,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/prompt-engineering.md",
+      "inlineTextChars": 1732,
+      "headings": 13,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/spec-driven.md",
+      "inlineTextChars": 1956,
+      "headings": 10,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/tool-agent-engineering.md",
+      "inlineTextChars": 1654,
+      "headings": 10,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/vibe-coding.md",
+      "inlineTextChars": 1663,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/algorithm/backtracking.md",
+      "inlineTextChars": 1097,
+      "headings": 40,
+      "codeBlocks": 14,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/complexity-analysis.md",
+      "inlineTextChars": 685,
+      "headings": 21,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/divide-and-conquer.md",
+      "inlineTextChars": 1595,
+      "headings": 48,
+      "codeBlocks": 12,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/dynamic-programming.md",
+      "inlineTextChars": 3394,
+      "headings": 48,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/graph-algorithms.md",
+      "inlineTextChars": 1145,
+      "headings": 47,
+      "codeBlocks": 14,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/greedy-algorithms.md",
+      "inlineTextChars": 1275,
+      "headings": 51,
+      "codeBlocks": 14,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/index.md",
+      "inlineTextChars": 1907,
+      "headings": 34,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/mathematical-algorithms.md",
+      "inlineTextChars": 724,
+      "headings": 28,
+      "codeBlocks": 13,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/search-algorithms.md",
+      "inlineTextChars": 1490,
+      "headings": 49,
+      "codeBlocks": 11,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/sorting-algorithms.md",
+      "inlineTextChars": 2306,
+      "headings": 75,
+      "codeBlocks": 13,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/algorithm/string-algorithms.md",
+      "inlineTextChars": 1251,
+      "headings": 49,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/basic/acoustics/capture-playback.md",
+      "inlineTextChars": 1833,
+      "headings": 11,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/acoustics/engineering.md",
+      "inlineTextChars": 1392,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/acoustics/index.md",
+      "inlineTextChars": 1869,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/noise-reduction.md",
+      "inlineTextChars": 3933,
+      "headings": 23,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/quality-evaluation.md",
+      "inlineTextChars": 1473,
+      "headings": 18,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/index.md",
+      "inlineTextChars": 2765,
+      "headings": 16,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+      "inlineTextChars": 3403,
+      "headings": 21,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
+      "inlineTextChars": 2666,
+      "headings": 18,
+      "codeBlocks": 8,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/sound-fundamentals.md",
+      "inlineTextChars": 1851,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/speech-recognition.md",
+      "inlineTextChars": 2294,
+      "headings": 14,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/speech-synthesis.md",
+      "inlineTextChars": 1885,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/structure.md",
+      "inlineTextChars": 1776,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/acoustics/vad/index.md",
+      "inlineTextChars": 2701,
+      "headings": 13,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/vad/silero-vad.md",
+      "inlineTextChars": 3037,
+      "headings": 11,
+      "codeBlocks": 7,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/voice-interaction.md",
+      "inlineTextChars": 1470,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/acoustics/wake-word.md",
+      "inlineTextChars": 1630,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/protocol/application-realtime.md",
+      "inlineTextChars": 4244,
+      "headings": 20,
+      "codeBlocks": 8,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/protocol/capacity-performance.md",
+      "inlineTextChars": 1658,
+      "headings": 11,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/protocol/embedded-protocols.md",
+      "inlineTextChars": 5988,
+      "headings": 58,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/protocol/http-vs-websocket.md",
+      "inlineTextChars": 2033,
+      "headings": 9,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/protocol/index.md",
+      "inlineTextChars": 2024,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/protocol/network-foundations.md",
+      "inlineTextChars": 2925,
+      "headings": 13,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/basic/protocol/transport-socket.md",
+      "inlineTextChars": 2537,
+      "headings": 14,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/basic/protocol/troubleshooting.md",
+      "inlineTextChars": 2754,
+      "headings": 33,
+      "codeBlocks": 11,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/container/basic/concepts.md",
+      "inlineTextChars": 1417,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/basic/index.md",
+      "inlineTextChars": 499,
+      "headings": 3,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/container/basic/runtimes.md",
+      "inlineTextChars": 1675,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/basic/standards.md",
+      "inlineTextChars": 1306,
+      "headings": 7,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/docker/command.md",
+      "inlineTextChars": 1186,
+      "headings": 34,
+      "codeBlocks": 30,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/container/docker/image-build-supply-chain.md",
+      "inlineTextChars": 1333,
+      "headings": 7,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/docker/index.md",
+      "inlineTextChars": 1518,
+      "headings": 7,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/docker/java-application.md",
+      "inlineTextChars": 1899,
+      "headings": 10,
+      "codeBlocks": 12,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/docker/storage-network-compose.md",
+      "inlineTextChars": 1359,
+      "headings": 6,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/index.md",
+      "inlineTextChars": 2389,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/CR-CRD.md",
+      "inlineTextChars": 2169,
+      "headings": 8,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/delivery-security.md",
+      "inlineTextChars": 2231,
+      "headings": 9,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/ecosystem.md",
+      "inlineTextChars": 2092,
+      "headings": 7,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/extension-points.md",
+      "inlineTextChars": 2726,
+      "headings": 9,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/index.md",
+      "inlineTextChars": 992,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/operator.md",
+      "inlineTextChars": 3111,
+      "headings": 11,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/platform-engineering.md",
+      "inlineTextChars": 2046,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/traffic-engineering.md",
+      "inlineTextChars": 2381,
+      "headings": 7,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/control-plane.md",
+      "inlineTextChars": 2858,
+      "headings": 10,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/data-plane-reliability.md",
+      "inlineTextChars": 2668,
+      "headings": 8,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/index.md",
+      "inlineTextChars": 2251,
+      "headings": 7,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/observability.md",
+      "inlineTextChars": 2799,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/production-practice.md",
+      "inlineTextChars": 2836,
+      "headings": 11,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/reliability-capacity.md",
+      "inlineTextChars": 2297,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/configmap.md",
+      "inlineTextChars": 866,
+      "headings": 6,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/customresource.md",
+      "inlineTextChars": 317,
+      "headings": 1,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/daemonset.md",
+      "inlineTextChars": 875,
+      "headings": 5,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/deployment.md",
+      "inlineTextChars": 1132,
+      "headings": 7,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/endpoint.md",
+      "inlineTextChars": 1033,
+      "headings": 5,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/hpa.md",
+      "inlineTextChars": 1190,
+      "headings": 7,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/index.md",
+      "inlineTextChars": 1076,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/ingress.md",
+      "inlineTextChars": 1449,
+      "headings": 7,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/job-cronjob.md",
+      "inlineTextChars": 928,
+      "headings": 5,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/limitrange.md",
+      "inlineTextChars": 837,
+      "headings": 5,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/namespace.md",
+      "inlineTextChars": 1223,
+      "headings": 6,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/networkpolicy.md",
+      "inlineTextChars": 1071,
+      "headings": 7,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/pod.md",
+      "inlineTextChars": 1323,
+      "headings": 6,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/poddisruptionbudget.md",
+      "inlineTextChars": 1100,
+      "headings": 6,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/pv-pvc.md",
+      "inlineTextChars": 1238,
+      "headings": 7,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/rbac.md",
+      "inlineTextChars": 1326,
+      "headings": 7,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/resourcequota.md",
+      "inlineTextChars": 1091,
+      "headings": 6,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/secret.md",
+      "inlineTextChars": 1211,
+      "headings": 6,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/service.md",
+      "inlineTextChars": 1605,
+      "headings": 7,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/serviceaccount.md",
+      "inlineTextChars": 1015,
+      "headings": 6,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/statefulset.md",
+      "inlineTextChars": 980,
+      "headings": 6,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/vpa.md",
+      "inlineTextChars": 1302,
+      "headings": 7,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/kubernetes/scheduling-node-lifecycle.md",
+      "inlineTextChars": 2546,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/version-upgrade.md",
+      "inlineTextChars": 2272,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/container/kubernetes/video-series.md",
+      "inlineTextChars": 1522,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/tools/colima.md",
+      "inlineTextChars": 1722,
+      "headings": 65,
+      "codeBlocks": 49,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/container/tools/index.md",
+      "inlineTextChars": 790,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/container/video-series.md",
+      "inlineTextChars": 1327,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/apache-flink.md",
+      "inlineTextChars": 1493,
+      "headings": 38,
+      "codeBlocks": 35,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/apache-kafka.md",
+      "inlineTextChars": 1028,
+      "headings": 23,
+      "codeBlocks": 10,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/apache-spark.md",
+      "inlineTextChars": 1664,
+      "headings": 32,
+      "codeBlocks": 23,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/data-layering.md",
+      "inlineTextChars": 1033,
+      "headings": 31,
+      "codeBlocks": 22,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/data-warehouse-lake.md",
+      "inlineTextChars": 1044,
+      "headings": 23,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/dolphinscheduler.md",
+      "inlineTextChars": 1508,
+      "headings": 49,
+      "codeBlocks": 32,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/hdfs.md",
+      "inlineTextChars": 896,
+      "headings": 20,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/index.md",
+      "inlineTextChars": 1836,
+      "headings": 11,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/bigdata/nosql-databases.md",
+      "inlineTextChars": 1445,
+      "headings": 23,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/elasticsearch.md",
+      "inlineTextChars": 1344,
+      "headings": 53,
+      "codeBlocks": 29,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/graph-database.md",
+      "inlineTextChars": 1923,
+      "headings": 13,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/index.md",
+      "inlineTextChars": 1673,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/database/influxdb.md",
+      "inlineTextChars": 1661,
+      "headings": 61,
+      "codeBlocks": 34,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mongodb.md",
+      "inlineTextChars": 1057,
+      "headings": 51,
+      "codeBlocks": 25,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/backup-recovery.md",
+      "inlineTextChars": 3845,
+      "headings": 50,
+      "codeBlocks": 30,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/basic-syntax.md",
+      "inlineTextChars": 3576,
+      "headings": 114,
+      "codeBlocks": 117,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/data-types-design.md",
+      "inlineTextChars": 7960,
+      "headings": 36,
+      "codeBlocks": 15,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/high-availability.md",
+      "inlineTextChars": 4862,
+      "headings": 47,
+      "codeBlocks": 43,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/index-system.md",
+      "inlineTextChars": 5570,
+      "headings": 59,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/index.md",
+      "inlineTextChars": 5609,
+      "headings": 39,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/monitoring-operations.md",
+      "inlineTextChars": 3105,
+      "headings": 49,
+      "codeBlocks": 53,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/partitioning.md",
+      "inlineTextChars": 914,
+      "headings": 30,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/query-optimization.md",
+      "inlineTextChars": 9599,
+      "headings": 70,
+      "codeBlocks": 78,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/security-permissions.md",
+      "inlineTextChars": 4976,
+      "headings": 69,
+      "codeBlocks": 33,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/service-modules.md",
+      "inlineTextChars": 3438,
+      "headings": 45,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/storage-engines.md",
+      "inlineTextChars": 5099,
+      "headings": 60,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/transaction-system.md",
+      "inlineTextChars": 5352,
+      "headings": 63,
+      "codeBlocks": 55,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/postgresql.md",
+      "inlineTextChars": 1080,
+      "headings": 50,
+      "codeBlocks": 27,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/database/redis.md",
+      "inlineTextChars": 1158,
+      "headings": 63,
+      "codeBlocks": 41,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/cloud-native-architecture.md",
+      "inlineTextChars": 2161,
+      "headings": 57,
+      "codeBlocks": 35,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/cqrs-architecture.md",
+      "inlineTextChars": 3842,
+      "headings": 62,
+      "codeBlocks": 20,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/Aggregate.md",
+      "inlineTextChars": 1471,
+      "headings": 17,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/basic-concept.md",
+      "inlineTextChars": 877,
+      "headings": 3,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/domain-driven-design.md",
+      "inlineTextChars": 1633,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/DDD/event-storming.md",
+      "inlineTextChars": 19060,
+      "headings": 101,
+      "codeBlocks": 76,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/index.md",
+      "inlineTextChars": 2148,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/DDD/learn-note.md",
+      "inlineTextChars": 645,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/model.md",
+      "inlineTextChars": 3134,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/DDD/practice.md",
+      "inlineTextChars": 321,
+      "headings": 2,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/DDD/uml/uml.md",
+      "inlineTextChars": 133,
+      "headings": 1,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/event-driven-architecture.md",
+      "inlineTextChars": 3532,
+      "headings": 69,
+      "codeBlocks": 25,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/hexagonal-architecture.md",
+      "inlineTextChars": 2942,
+      "headings": 54,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/index.md",
+      "inlineTextChars": 2628,
+      "headings": 23,
+      "codeBlocks": 0,
+      "images": 4,
+      "svgImages": 4,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/layered-architecture.md",
+      "inlineTextChars": 2015,
+      "headings": 45,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/microservices-architecture.md",
+      "inlineTextChars": 3015,
+      "headings": 73,
+      "codeBlocks": 21,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/android.md",
+      "inlineTextChars": 268,
+      "headings": 2,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/index.md",
+      "inlineTextChars": 2159,
+      "headings": 31,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/ios.md",
+      "inlineTextChars": 4926,
+      "headings": 41,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/linux-arm.md",
+      "inlineTextChars": 3190,
+      "headings": 16,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/linux-x86.md",
+      "inlineTextChars": 2490,
+      "headings": 57,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/platform/windows.md",
+      "inlineTextChars": 1764,
+      "headings": 39,
+      "codeBlocks": 16,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/serverless-architecture.md",
+      "inlineTextChars": 3877,
+      "headings": 63,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/soa.md",
+      "inlineTextChars": 3873,
+      "headings": 62,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/togaf/adm-method.md",
+      "inlineTextChars": 4015,
+      "headings": 16,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/application-architecture.md",
+      "inlineTextChars": 2712,
+      "headings": 14,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/architecture-content-repository.md",
+      "inlineTextChars": 3391,
+      "headings": 16,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/architecture-governance.md",
+      "inlineTextChars": 2829,
+      "headings": 17,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/baseline-target-gap.md",
+      "inlineTextChars": 3576,
+      "headings": 16,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/business-architecture.md",
+      "inlineTextChars": 3370,
+      "headings": 15,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/core-questions.md",
+      "inlineTextChars": 6293,
+      "headings": 40,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/data-architecture.md",
+      "inlineTextChars": 3534,
+      "headings": 16,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/deep-practice.md",
+      "inlineTextChars": 9579,
+      "headings": 30,
+      "codeBlocks": 4,
+      "images": 3,
+      "svgImages": 3,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/index.md",
+      "inlineTextChars": 3659,
+      "headings": 13,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/architecture/togaf/marketing-system-practice.md",
+      "inlineTextChars": 19355,
+      "headings": 58,
+      "codeBlocks": 15,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/stakeholders-principles.md",
+      "inlineTextChars": 3085,
+      "headings": 14,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/technology-architecture.md",
+      "inlineTextChars": 3137,
+      "headings": 14,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/togaf/transition-migration-planning.md",
+      "inlineTextChars": 3548,
+      "headings": 19,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/uml/class-relationships.md",
+      "inlineTextChars": 1664,
+      "headings": 8,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/architecture/uml/index.md",
+      "inlineTextChars": 1416,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/chain-of-responsibility.md",
+      "inlineTextChars": 2257,
+      "headings": 43,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/command.md",
+      "inlineTextChars": 2406,
+      "headings": 45,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/index.md",
+      "inlineTextChars": 1552,
+      "headings": 18,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/interpreter.md",
+      "inlineTextChars": 3083,
+      "headings": 40,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/iterator.md",
+      "inlineTextChars": 2453,
+      "headings": 43,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/mediator.md",
+      "inlineTextChars": 2288,
+      "headings": 42,
+      "codeBlocks": 12,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/memento.md",
+      "inlineTextChars": 2243,
+      "headings": 43,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/observer.md",
+      "inlineTextChars": 2502,
+      "headings": 44,
+      "codeBlocks": 16,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/state.md",
+      "inlineTextChars": 2177,
+      "headings": 41,
+      "codeBlocks": 12,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/strategy.md",
+      "inlineTextChars": 1780,
+      "headings": 37,
+      "codeBlocks": 15,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/template-method.md",
+      "inlineTextChars": 2474,
+      "headings": 46,
+      "codeBlocks": 15,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/visitor.md",
+      "inlineTextChars": 2518,
+      "headings": 45,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/abstract-method.md",
+      "inlineTextChars": 1441,
+      "headings": 12,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/creational/builder.md",
+      "inlineTextChars": 961,
+      "headings": 10,
+      "codeBlocks": 6,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/factory-method.md",
+      "inlineTextChars": 889,
+      "headings": 10,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/index.md",
+      "inlineTextChars": 1268,
+      "headings": 15,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/prototype.md",
+      "inlineTextChars": 1503,
+      "headings": 11,
+      "codeBlocks": 8,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/creational/singleton.md",
+      "inlineTextChars": 1510,
+      "headings": 11,
+      "codeBlocks": 12,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/index.md",
+      "inlineTextChars": 3935,
+      "headings": 25,
+      "codeBlocks": 6,
+      "images": 6,
+      "svgImages": 6,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/principles/composite-reuse.md",
+      "inlineTextChars": 624,
+      "headings": 8,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/dependency-inversion.md",
+      "inlineTextChars": 665,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/index.md",
+      "inlineTextChars": 794,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/interface-segregation.md",
+      "inlineTextChars": 656,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/law-of-demeter.md",
+      "inlineTextChars": 638,
+      "headings": 8,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/liskov-substitution.md",
+      "inlineTextChars": 779,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/open-closed.md",
+      "inlineTextChars": 707,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/single-responsibility.md",
+      "inlineTextChars": 900,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/design-pattern/structural/adapter.md",
+      "inlineTextChars": 1897,
+      "headings": 25,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/bridge.md",
+      "inlineTextChars": 2033,
+      "headings": 25,
+      "codeBlocks": 12,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/composite.md",
+      "inlineTextChars": 1778,
+      "headings": 23,
+      "codeBlocks": 10,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/decorator.md",
+      "inlineTextChars": 1905,
+      "headings": 40,
+      "codeBlocks": 14,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/facade.md",
+      "inlineTextChars": 2058,
+      "headings": 28,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/flyweight.md",
+      "inlineTextChars": 1953,
+      "headings": 29,
+      "codeBlocks": 14,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/index.md",
+      "inlineTextChars": 1376,
+      "headings": 17,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/proxy.md",
+      "inlineTextChars": 2498,
+      "headings": 32,
+      "codeBlocks": 13,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/agile.md",
+      "inlineTextChars": 1653,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/ai-coding.md",
+      "inlineTextChars": 2394,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/devops.md",
+      "inlineTextChars": 1434,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/engineering-practices.md",
+      "inlineTextChars": 1619,
+      "headings": 6,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/index.md",
+      "inlineTextChars": 493,
+      "headings": 3,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/iterative.md",
+      "inlineTextChars": 1168,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/lean.md",
+      "inlineTextChars": 1299,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/selection-practice.md",
+      "inlineTextChars": 1773,
+      "headings": 6,
+      "codeBlocks": 0,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/spiral.md",
+      "inlineTextChars": 1123,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/design/develop-pattern/waterfall.md",
+      "inlineTextChars": 1436,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/flutter/architecture.md",
+      "inlineTextChars": 4577,
+      "headings": 11,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/flutter/hands-on.md",
+      "inlineTextChars": 3436,
+      "headings": 11,
+      "codeBlocks": 12,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/flutter/index.md",
+      "inlineTextChars": 4099,
+      "headings": 12,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/flutter/project-delivery.md",
+      "inlineTextChars": 4429,
+      "headings": 14,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/flutter/project-practice.md",
+      "inlineTextChars": 4047,
+      "headings": 14,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/flutter/troubleshooting.md",
+      "inlineTextChars": 4025,
+      "headings": 15,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/flutter/video-series.md",
+      "inlineTextChars": 2144,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/deployment/index.md",
+      "inlineTextChars": 2574,
+      "headings": 10,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+      "inlineTextChars": 1078,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+      "inlineTextChars": 1085,
+      "headings": 6,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+      "inlineTextChars": 813,
+      "headings": 6,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+      "inlineTextChars": 1000,
+      "headings": 6,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+      "inlineTextChars": 1293,
+      "headings": 6,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+      "inlineTextChars": 1096,
+      "headings": 5,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+      "inlineTextChars": 1080,
+      "headings": 5,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+      "inlineTextChars": 894,
+      "headings": 5,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+      "inlineTextChars": 905,
+      "headings": 5,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+      "inlineTextChars": 1035,
+      "headings": 4,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/index.md",
+      "inlineTextChars": 1055,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/angular.md",
+      "inlineTextChars": 1292,
+      "headings": 52,
+      "codeBlocks": 33,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/cross-platform.md",
+      "inlineTextChars": 718,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/index.md",
+      "inlineTextChars": 1177,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/lightweight-frameworks.md",
+      "inlineTextChars": 761,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/meta-frameworks.md",
+      "inlineTextChars": 928,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/parcel.md",
+      "inlineTextChars": 689,
+      "headings": 34,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/react.md",
+      "inlineTextChars": 1421,
+      "headings": 51,
+      "codeBlocks": 27,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/rollup.md",
+      "inlineTextChars": 825,
+      "headings": 22,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/svelte.md",
+      "inlineTextChars": 601,
+      "headings": 36,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/vite.md",
+      "inlineTextChars": 817,
+      "headings": 50,
+      "codeBlocks": 39,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/vue.md",
+      "inlineTextChars": 1170,
+      "headings": 48,
+      "codeBlocks": 26,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/framework/webpack.md",
+      "inlineTextChars": 1116,
+      "headings": 53,
+      "codeBlocks": 33,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
+      "inlineTextChars": 3068,
+      "headings": 21,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
+      "inlineTextChars": 3292,
+      "headings": 21,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
+      "inlineTextChars": 6046,
+      "headings": 23,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
+      "inlineTextChars": 4886,
+      "headings": 23,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 1,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
+      "inlineTextChars": 3670,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
+      "inlineTextChars": 3485,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
+      "inlineTextChars": 3449,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
+      "inlineTextChars": 3424,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
+      "inlineTextChars": 3268,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
+      "inlineTextChars": 3177,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+      "inlineTextChars": 3199,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+      "inlineTextChars": 3378,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+      "inlineTextChars": 3252,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+      "inlineTextChars": 3162,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+      "inlineTextChars": 3584,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+      "inlineTextChars": 3437,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 2,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+      "inlineTextChars": 3231,
+      "headings": 20,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+      "inlineTextChars": 3039,
+      "headings": 20,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 3,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+      "inlineTextChars": 3109,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 4,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+      "inlineTextChars": 2829,
+      "headings": 21,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 6,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+      "inlineTextChars": 2865,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 4,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+      "inlineTextChars": 2868,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 4,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
+      "inlineTextChars": 2930,
+      "headings": 21,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 4,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
+      "inlineTextChars": 3017,
+      "headings": 21,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 6,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
+      "inlineTextChars": 2742,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
+      "inlineTextChars": 2777,
+      "headings": 20,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 4,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
+      "inlineTextChars": 2816,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
+      "inlineTextChars": 2990,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
+      "inlineTextChars": 2888,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
+      "inlineTextChars": 2917,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 5,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
+      "inlineTextChars": 6728,
+      "headings": 28,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 9,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
+      "inlineTextChars": 6561,
+      "headings": 28,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 9,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
+      "inlineTextChars": 6827,
+      "headings": 28,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 8,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
+      "inlineTextChars": 1729,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/front/index.md",
+      "inlineTextChars": 1273,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/bun.md",
+      "inlineTextChars": 600,
+      "headings": 6,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/corepack.md",
+      "inlineTextChars": 673,
+      "headings": 6,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/index.md",
+      "inlineTextChars": 1899,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/npm.md",
+      "inlineTextChars": 805,
+      "headings": 7,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/pnpm.md",
+      "inlineTextChars": 739,
+      "headings": 7,
+      "codeBlocks": 8,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/registry.md",
+      "inlineTextChars": 837,
+      "headings": 7,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/package-managers/yarn.md",
+      "inlineTextChars": 790,
+      "headings": 7,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/performance/index.md",
+      "inlineTextChars": 1046,
+      "headings": 38,
+      "codeBlocks": 15,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/quality-tools/index.md",
+      "inlineTextChars": 821,
+      "headings": 57,
+      "codeBlocks": 35,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/state-management/index.md",
+      "inlineTextChars": 1420,
+      "headings": 59,
+      "codeBlocks": 33,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/front/testing/index.md",
+      "inlineTextChars": 836,
+      "headings": 36,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/index.md",
+      "inlineTextChars": 929,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/base-class.md",
+      "inlineTextChars": 1580,
+      "headings": 40,
+      "codeBlocks": 21,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/index.md",
+      "inlineTextChars": 1139,
+      "headings": 39,
+      "codeBlocks": 21,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/jdk/index.md",
+      "inlineTextChars": 4948,
+      "headings": 89,
+      "codeBlocks": 16,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/jdk/upgrade.md",
+      "inlineTextChars": 3362,
+      "headings": 138,
+      "codeBlocks": 75,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/special.md",
+      "inlineTextChars": 1027,
+      "headings": 57,
+      "codeBlocks": 39,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/index.md",
+      "inlineTextChars": 447,
+      "headings": 3,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/mybatis/index.md",
+      "inlineTextChars": 1029,
+      "headings": 39,
+      "codeBlocks": 21,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/mybatis/plugin.md",
+      "inlineTextChars": 1063,
+      "headings": 31,
+      "codeBlocks": 16,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/annotations.md",
+      "inlineTextChars": 7248,
+      "headings": 63,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/aop.md",
+      "inlineTextChars": 5099,
+      "headings": 23,
+      "codeBlocks": 2,
+      "images": 3,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-autoconfiguration.md",
+      "inlineTextChars": 6126,
+      "headings": 27,
+      "codeBlocks": 8,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-config-data.md",
+      "inlineTextChars": 5740,
+      "headings": 24,
+      "codeBlocks": 15,
+      "images": 2,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-production.md",
+      "inlineTextChars": 4300,
+      "headings": 20,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-startup.md",
+      "inlineTextChars": 7008,
+      "headings": 24,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
+      "inlineTextChars": 8752,
+      "headings": 31,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/foundation/why-spring.md",
+      "inlineTextChars": 10419,
+      "headings": 31,
+      "codeBlocks": 11,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/index.md",
+      "inlineTextChars": 2158,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/ioc.md",
+      "inlineTextChars": 5984,
+      "headings": 25,
+      "codeBlocks": 2,
+      "images": 3,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/mvc.md",
+      "inlineTextChars": 5812,
+      "headings": 24,
+      "codeBlocks": 2,
+      "images": 3,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/runtime-model.md",
+      "inlineTextChars": 4305,
+      "headings": 16,
+      "codeBlocks": 2,
+      "images": 2,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/springboot.md",
+      "inlineTextChars": 4699,
+      "headings": 17,
+      "codeBlocks": 1,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/video-series.md",
+      "inlineTextChars": 5478,
+      "headings": 10,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/index.md",
+      "inlineTextChars": 2240,
+      "headings": 98,
+      "codeBlocks": 53,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/class-file-bytecode.md",
+      "inlineTextChars": 1859,
+      "headings": 10,
+      "codeBlocks": 10,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/class-loading.md",
+      "inlineTextChars": 1576,
+      "headings": 14,
+      "codeBlocks": 10,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/diagnostic-cases.md",
+      "inlineTextChars": 1353,
+      "headings": 8,
+      "codeBlocks": 13,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/execution-engine-jit.md",
+      "inlineTextChars": 1440,
+      "headings": 16,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/cms.md",
+      "inlineTextChars": 803,
+      "headings": 13,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/epsilon.md",
+      "inlineTextChars": 438,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/g1.md",
+      "inlineTextChars": 985,
+      "headings": 14,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/index.md",
+      "inlineTextChars": 1504,
+      "headings": 16,
+      "codeBlocks": 7,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/parallel.md",
+      "inlineTextChars": 471,
+      "headings": 6,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/parnew.md",
+      "inlineTextChars": 535,
+      "headings": 8,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/serial.md",
+      "inlineTextChars": 427,
+      "headings": 6,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/shenandoah.md",
+      "inlineTextChars": 454,
+      "headings": 6,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/gc/zgc.md",
+      "inlineTextChars": 550,
+      "headings": 6,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/hands-on.md",
+      "inlineTextChars": 1258,
+      "headings": 7,
+      "codeBlocks": 11,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/index.md",
+      "inlineTextChars": 4622,
+      "headings": 13,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/jni.md",
+      "inlineTextChars": 1170,
+      "headings": 11,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/modern-jvm.md",
+      "inlineTextChars": 1709,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/object-lifecycle.md",
+      "inlineTextChars": 1423,
+      "headings": 12,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/direct-memory.md",
+      "inlineTextChars": 1577,
+      "headings": 15,
+      "codeBlocks": 10,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/heap.md",
+      "inlineTextChars": 995,
+      "headings": 10,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/index.md",
+      "inlineTextChars": 1252,
+      "headings": 7,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/method-area.md",
+      "inlineTextChars": 1027,
+      "headings": 9,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/native-method-stack.md",
+      "inlineTextChars": 899,
+      "headings": 9,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/program-counter.md",
+      "inlineTextChars": 588,
+      "headings": 9,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/vm-stack.md",
+      "inlineTextChars": 747,
+      "headings": 8,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/video-series.md",
+      "inlineTextChars": 1312,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/gradle.md",
+      "inlineTextChars": 3554,
+      "headings": 69,
+      "codeBlocks": 51,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/index.md",
+      "inlineTextChars": 925,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/manager/maven.md",
+      "inlineTextChars": 6684,
+      "headings": 25,
+      "codeBlocks": 29,
+      "images": 5,
+      "svgImages": 5,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+      "inlineTextChars": 504,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+      "inlineTextChars": 1074,
+      "headings": 11,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+      "inlineTextChars": 858,
+      "headings": 10,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/03-field-types.md",
+      "inlineTextChars": 721,
+      "headings": 10,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+      "inlineTextChars": 770,
+      "headings": 11,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+      "inlineTextChars": 648,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+      "inlineTextChars": 632,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+      "inlineTextChars": 670,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+      "inlineTextChars": 660,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+      "inlineTextChars": 636,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+      "inlineTextChars": 666,
+      "headings": 12,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+      "inlineTextChars": 641,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+      "inlineTextChars": 646,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+      "inlineTextChars": 660,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+      "inlineTextChars": 639,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+      "inlineTextChars": 631,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+      "inlineTextChars": 625,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+      "inlineTextChars": 628,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+      "inlineTextChars": 634,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+      "inlineTextChars": 627,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/20-logging.md",
+      "inlineTextChars": 668,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+      "inlineTextChars": 672,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+      "inlineTextChars": 635,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+      "inlineTextChars": 616,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+      "inlineTextChars": 644,
+      "headings": 10,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+      "inlineTextChars": 487,
+      "headings": 4,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+      "inlineTextChars": 559,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/index.md",
+      "inlineTextChars": 1345,
+      "headings": 11,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map.md",
+      "inlineTextChars": 4259,
+      "headings": 17,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency.md",
+      "inlineTextChars": 3883,
+      "headings": 17,
+      "codeBlocks": 8,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline.md",
+      "inlineTextChars": 1397,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map.md",
+      "inlineTextChars": 1567,
+      "headings": 8,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/04-threadpool-practice.md",
+      "inlineTextChars": 1352,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state.md",
+      "inlineTextChars": 1151,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model.md",
+      "inlineTextChars": 1490,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/07-async-task-orchestration.md",
+      "inlineTextChars": 1362,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
+      "inlineTextChars": 1322,
+      "headings": 8,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work.md",
+      "inlineTextChars": 1394,
+      "headings": 9,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue.md",
+      "inlineTextChars": 2425,
+      "headings": 12,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry.md",
+      "inlineTextChars": 1770,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint.md",
+      "inlineTextChars": 1695,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess.md",
+      "inlineTextChars": 1724,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency.md",
+      "inlineTextChars": 1722,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference.md",
+      "inlineTextChars": 1707,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline.md",
+      "inlineTextChars": 1638,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/17-observability-benchmark.md",
+      "inlineTextChars": 1574,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
+      "inlineTextChars": 1819,
+      "headings": 10,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/index.md",
+      "inlineTextChars": 1308,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/python/index.md",
+      "inlineTextChars": 96,
+      "headings": 2,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/advantages.md",
+      "inlineTextChars": 1907,
+      "headings": 13,
+      "codeBlocks": 2,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/basic.md",
+      "inlineTextChars": 1399,
+      "headings": 18,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/concurrency.md",
+      "inlineTextChars": 1618,
+      "headings": 15,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/ecosystem.md",
+      "inlineTextChars": 2308,
+      "headings": 13,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/hands-on.md",
+      "inlineTextChars": 1122,
+      "headings": 8,
+      "codeBlocks": 8,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/history.md",
+      "inlineTextChars": 2229,
+      "headings": 12,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/index.md",
+      "inlineTextChars": 2882,
+      "headings": 12,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/learning-path.md",
+      "inlineTextChars": 2611,
+      "headings": 16,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/ownership.md",
+      "inlineTextChars": 1833,
+      "headings": 16,
+      "codeBlocks": 11,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/project-practice.md",
+      "inlineTextChars": 1434,
+      "headings": 7,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/tooling.md",
+      "inlineTextChars": 1728,
+      "headings": 16,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/troubleshooting.md",
+      "inlineTextChars": 1632,
+      "headings": 10,
+      "codeBlocks": 10,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/type-system.md",
+      "inlineTextChars": 1317,
+      "headings": 15,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/rust/video-series.md",
+      "inlineTextChars": 1336,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/embedded/c-programming.md",
+      "inlineTextChars": 1192,
+      "headings": 20,
+      "codeBlocks": 15,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/career.md",
+      "inlineTextChars": 1916,
+      "headings": 14,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/embedded/communication.md",
+      "inlineTextChars": 1161,
+      "headings": 17,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/electronics.md",
+      "inlineTextChars": 2331,
+      "headings": 22,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/embedded/hardware-design.md",
+      "inlineTextChars": 1721,
+      "headings": 21,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/index.md",
+      "inlineTextChars": 3043,
+      "headings": 16,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/embedded/linux-embedded.md",
+      "inlineTextChars": 1454,
+      "headings": 22,
+      "codeBlocks": 12,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/mcu.md",
+      "inlineTextChars": 2849,
+      "headings": 19,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/embedded/peripherals.md",
+      "inlineTextChars": 1195,
+      "headings": 16,
+      "codeBlocks": 14,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/platforms.md",
+      "inlineTextChars": 1632,
+      "headings": 21,
+      "codeBlocks": 7,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/projects.md",
+      "inlineTextChars": 1441,
+      "headings": 7,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/embedded/rtos.md",
+      "inlineTextChars": 1511,
+      "headings": 20,
+      "codeBlocks": 10,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/embedded/toolchain.md",
+      "inlineTextChars": 1421,
+      "headings": 17,
+      "codeBlocks": 11,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/archive-compress.md",
+      "inlineTextChars": 977,
+      "headings": 56,
+      "codeBlocks": 27,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/archive.md",
+      "inlineTextChars": 1270,
+      "headings": 48,
+      "codeBlocks": 26,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/environment.md",
+      "inlineTextChars": 800,
+      "headings": 19,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/file-basic.md",
+      "inlineTextChars": 1970,
+      "headings": 27,
+      "codeBlocks": 29,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/file-permissions.md",
+      "inlineTextChars": 1073,
+      "headings": 49,
+      "codeBlocks": 25,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/file-search.md",
+      "inlineTextChars": 910,
+      "headings": 55,
+      "codeBlocks": 30,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/file-view-edit.md",
+      "inlineTextChars": 172,
+      "headings": 4,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/linux/command/index.md",
+      "inlineTextChars": 2100,
+      "headings": 17,
+      "codeBlocks": 3,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/linux/command/network-basic.md",
+      "inlineTextChars": 480,
+      "headings": 29,
+      "codeBlocks": 19,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/network-config.md",
+      "inlineTextChars": 546,
+      "headings": 38,
+      "codeBlocks": 24,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/network.md",
+      "inlineTextChars": 1235,
+      "headings": 39,
+      "codeBlocks": 27,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/package.md",
+      "inlineTextChars": 1456,
+      "headings": 43,
+      "codeBlocks": 24,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/permissions.md",
+      "inlineTextChars": 2608,
+      "headings": 41,
+      "codeBlocks": 38,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/process-management.md",
+      "inlineTextChars": 616,
+      "headings": 31,
+      "codeBlocks": 20,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/process.md",
+      "inlineTextChars": 1167,
+      "headings": 37,
+      "codeBlocks": 26,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/system-info.md",
+      "inlineTextChars": 2766,
+      "headings": 43,
+      "codeBlocks": 49,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/system-monitoring.md",
+      "inlineTextChars": 527,
+      "headings": 35,
+      "codeBlocks": 24,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/text-compare.md",
+      "inlineTextChars": 988,
+      "headings": 60,
+      "codeBlocks": 32,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/text-processing.md",
+      "inlineTextChars": 2157,
+      "headings": 29,
+      "codeBlocks": 31,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/command/user-management.md",
+      "inlineTextChars": 497,
+      "headings": 28,
+      "codeBlocks": 19,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/index.md",
+      "inlineTextChars": 8925,
+      "headings": 117,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/nginx/auto-renew-cert.md",
+      "inlineTextChars": 2130,
+      "headings": 18,
+      "codeBlocks": 17,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/linux/nginx/location.md",
+      "inlineTextChars": 1659,
+      "headings": 17,
+      "codeBlocks": 11,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/nginx/nginx.md",
+      "inlineTextChars": 1935,
+      "headings": 16,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/linux/process/index.md",
+      "inlineTextChars": 1563,
+      "headings": 12,
+      "codeBlocks": 1,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/linux/process/init-process.md",
+      "inlineTextChars": 1060,
+      "headings": 12,
+      "codeBlocks": 4,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/linux/process/kernel-threads.md",
+      "inlineTextChars": 1122,
+      "headings": 8,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/linux/process/systemd.md",
+      "inlineTextChars": 1412,
+      "headings": 14,
+      "codeBlocks": 7,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/linux/process/user-processes.md",
+      "inlineTextChars": 1277,
+      "headings": 13,
+      "codeBlocks": 5,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/certificate.md",
+      "inlineTextChars": 1015,
+      "headings": 10,
+      "codeBlocks": 9,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/clash-verge.md",
+      "inlineTextChars": 1559,
+      "headings": 19,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/components.md",
+      "inlineTextChars": 2182,
+      "headings": 11,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/cross-border-diagnosis.md",
+      "inlineTextChars": 2622,
+      "headings": 9,
+      "codeBlocks": 1,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/fundamentals.md",
+      "inlineTextChars": 1762,
+      "headings": 12,
+      "codeBlocks": 2,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/hysteria2-practice.md",
+      "inlineTextChars": 3655,
+      "headings": 17,
+      "codeBlocks": 6,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/implementation.md",
+      "inlineTextChars": 716,
+      "headings": 5,
+      "codeBlocks": 1,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/index.md",
+      "inlineTextChars": 1011,
+      "headings": 5,
+      "codeBlocks": 0,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/operations.md",
+      "inlineTextChars": 2239,
+      "headings": 20,
+      "codeBlocks": 3,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/protocol-stack.md",
+      "inlineTextChars": 1942,
+      "headings": 17,
+      "codeBlocks": 4,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/network-proxy/server-docker.md",
+      "inlineTextChars": 1455,
+      "headings": 11,
+      "codeBlocks": 12,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/server-systemd.md",
+      "inlineTextChars": 1981,
+      "headings": 17,
+      "codeBlocks": 20,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/network-proxy/user-management.md",
+      "inlineTextChars": 2218,
+      "headings": 26,
+      "codeBlocks": 16,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/reading/2022-07-31/高效能人士的7个习惯.md",
+      "inlineTextChars": 256,
+      "headings": 0,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/reading/index.md",
+      "inlineTextChars": 0,
+      "headings": 0,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "短正文待分类"
+      ]
+    },
+    {
+      "file": "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
+      "inlineTextChars": 5974,
+      "headings": 12,
+      "codeBlocks": 6,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/superpowers/specs/2026-07-26-togaf-marketing-flow-visuals-design.md",
+      "inlineTextChars": 1323,
+      "headings": 13,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/tools/editor/andorid-studio/index.md",
+      "inlineTextChars": 3019,
+      "headings": 19,
+      "codeBlocks": 17,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/git/advanced.md",
+      "inlineTextChars": 937,
+      "headings": 18,
+      "codeBlocks": 29,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/branching.md",
+      "inlineTextChars": 1020,
+      "headings": 17,
+      "codeBlocks": 18,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/concepts.md",
+      "inlineTextChars": 1036,
+      "headings": 14,
+      "codeBlocks": 12,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/conventions.md",
+      "inlineTextChars": 818,
+      "headings": 12,
+      "codeBlocks": 17,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/ecosystem.md",
+      "inlineTextChars": 1713,
+      "headings": 15,
+      "codeBlocks": 14,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/tools/git/git.md",
+      "inlineTextChars": 1636,
+      "headings": 35,
+      "codeBlocks": 39,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/gitlab-cicd.md",
+      "inlineTextChars": 12708,
+      "headings": 24,
+      "codeBlocks": 23,
+      "images": 2,
+      "svgImages": 2,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/git/index.md",
+      "inlineTextChars": 2097,
+      "headings": 11,
+      "codeBlocks": 5,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/git/internals-large-repositories.md",
+      "inlineTextChars": 2454,
+      "headings": 13,
+      "codeBlocks": 15,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/git/recovery.md",
+      "inlineTextChars": 988,
+      "headings": 18,
+      "codeBlocks": 25,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/git/repository-strategies.md",
+      "inlineTextChars": 1815,
+      "headings": 14,
+      "codeBlocks": 9,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/git/security.md",
+      "inlineTextChars": 2057,
+      "headings": 13,
+      "codeBlocks": 15,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/tools/git/video-series.md",
+      "inlineTextChars": 1249,
+      "headings": 4,
+      "codeBlocks": 0,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/tools/git/workflow.md",
+      "inlineTextChars": 1140,
+      "headings": 16,
+      "codeBlocks": 14,
+      "images": 1,
+      "svgImages": 1,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": [
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/index.md",
+      "inlineTextChars": 2053,
+      "headings": 11,
+      "codeBlocks": 0,
+      "images": 4,
+      "svgImages": 4,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/mq/kafka.md",
+      "inlineTextChars": 3195,
+      "headings": 20,
+      "codeBlocks": 0,
+      "images": 8,
+      "svgImages": 8,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/mq/pulsar/index.md",
+      "inlineTextChars": 2437,
+      "headings": 21,
+      "codeBlocks": 1,
+      "images": 7,
+      "svgImages": 7,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/mq/rabbitmq.md",
+      "inlineTextChars": 3999,
+      "headings": 19,
+      "codeBlocks": 2,
+      "images": 5,
+      "svgImages": 5,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/mq/rocketmq.md",
+      "inlineTextChars": 5385,
+      "headings": 21,
+      "codeBlocks": 0,
+      "images": 8,
+      "svgImages": 8,
+      "mermaid": 0,
+      "hasVisual": true,
+      "flags": []
+    },
+    {
+      "file": "docs/tools/sdkman/index.md",
+      "inlineTextChars": 1554,
+      "headings": 12,
+      "codeBlocks": 13,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示"
+      ]
+    },
+    {
+      "file": "docs/tools/vfox/index.md",
+      "inlineTextChars": 1139,
+      "headings": 45,
+      "codeBlocks": 36,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "代码集中待抽查",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/index.md",
+      "inlineTextChars": 1526,
+      "headings": 19,
+      "codeBlocks": 19,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/plugin.md",
+      "inlineTextChars": 2294,
+      "headings": 26,
+      "codeBlocks": 30,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/register.md",
+      "inlineTextChars": 1707,
+      "headings": 25,
+      "codeBlocks": 31,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/special.md",
+      "inlineTextChars": 1231,
+      "headings": 25,
+      "codeBlocks": 35,
+      "images": 0,
+      "svgImages": 0,
+      "mermaid": 0,
+      "hasVisual": false,
+      "flags": [
+        "未检测到图示",
+        "标题密集待抽查"
+      ]
+    }
+  ]
+}

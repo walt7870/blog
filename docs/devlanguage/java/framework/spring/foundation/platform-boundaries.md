@@ -102,7 +102,7 @@ Servlet 栈通常使用 Tomcat 或 Jetty 这类 Servlet 容器。Spring WebFlux 
 判断应用属于哪条链，不要只看服务器名称，应检查：
 
 1. 应用类型是 `SERVLET` 还是 `REACTIVE`。
-2. 使用 `spring-boot-starter-web` 还是 `spring-boot-starter-webflux`。
+2. 使用 Servlet MVC 还是 WebFlux Starter：Boot 3.5 常见 `spring-boot-starter-web`，Boot 4 推荐 `spring-boot-starter-webmvc`；响应式入口为 `spring-boot-starter-webflux`。
 3. 运行 Context 是 Servlet Web Context 还是 Reactive Web Context。
 4. 请求入口是 `DispatcherServlet` 还是 `DispatcherHandler`。
 
@@ -156,7 +156,7 @@ Spring Boot 建立在 Spring Framework 之上。它通过依赖管理、Starter�
 
 ### Starter 不创建 Bean
 
-`spring-boot-starter-web` 是一组依赖坐标。它让 Spring MVC、JSON 库和默认服务器实现进入 classpath，但“依赖存在”不等于“对象已经创建”。真正过程是：
+Servlet Web Starter（Boot 3.5 的 `spring-boot-starter-web`、Boot 4 的 `spring-boot-starter-webmvc`）是一组依赖坐标。它让 Spring MVC、JSON 库和默认服务器实现进入 classpath，但“依赖存在”不等于“对象已经创建”。真正过程是：
 
 1. Starter 把类和自动配置模块带入运行时。
 2. 自动配置候选在配置解析阶段被导入。

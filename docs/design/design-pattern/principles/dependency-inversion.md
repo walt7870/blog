@@ -29,6 +29,10 @@
 public class OrderService {
     private final AliyunSmsClient smsClient;
 
+    public OrderService(AliyunSmsClient smsClient) {
+        this.smsClient = smsClient;
+    }
+
     public void create(Order order) {
         // 创建订单
         smsClient.sendSms(order.getPhone(), "ORDER_CREATED");
@@ -38,6 +42,8 @@ public class OrderService {
 
 倒置依赖：
 
+以下是结构片段，`AliyunSmsClient` 是示意 SDK 包装类型，非真实厂商调用签名；订单持久化和通知重试省略。
+
 ```java
 public interface OrderMessagePort {
     void sendOrderCreated(Order order);
@@ -45,6 +51,10 @@ public interface OrderMessagePort {
 
 public class OrderService {
     private final OrderMessagePort messagePort;
+
+    public OrderService(OrderMessagePort messagePort) {
+        this.messagePort = messagePort;
+    }
 
     public void create(Order order) {
         // 创建订单
@@ -55,6 +65,10 @@ public class OrderService {
 public class AliyunSmsAdapter implements OrderMessagePort {
     private final AliyunSmsClient smsClient;
 
+    public AliyunSmsAdapter(AliyunSmsClient smsClient) {
+        this.smsClient = smsClient;
+    }
+
     public void sendOrderCreated(Order order) {
         smsClient.sendSms(order.getPhone(), "ORDER_CREATED");
     }
@@ -62,6 +76,8 @@ public class AliyunSmsAdapter implements OrderMessagePort {
 ```
 
 业务只依赖 `OrderMessagePort`，短信厂商细节被放到适配器里。
+
+端口由业务需要决定，并约定发送成功、失败和结果未知的语义。组装入口负责创建 SDK、适配器与业务服务，运行时业务仍会调用适配器；倒置的是源码依赖方向。仅用构造器传入一个具体 SDK 属于依赖注入，并不自动满足依赖倒置。
 
 ## 落地步骤
 

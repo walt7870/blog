@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc"><title id="title">解释器模式结构图</title><desc id="desc">展示表达式树根据上下文解释执行规则。</desc><style>.bg{fill:#f8fafc}.expr{fill:#e0f2fe;stroke:#0284c7}.term{fill:#dcfce7;stroke:#22c55e}.ctx{fill:#fff7ed;stroke:#f97316}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}</style><rect class="bg" width="1040" height="520" rx="22"/><text class="t" x="48" y="52">解释器：把规则表达式解析成可执行的表达式树</text><rect class="box ctx" x="80" y="190" width="190" height="90" rx="14"/><text class="t" x="132" y="228">Context</text><text class="s" x="116" y="255">变量和输入数据</text><rect class="box expr" x="420" y="90" width="220" height="80" rx="14"/><text class="t" x="482" y="138">Expression</text><rect class="box term" x="260" y="280" width="210" height="76" rx="14"/><text class="s" x="320" y="324">Terminal</text><rect class="box term" x="590" y="280" width="210" height="76" rx="14"/><text class="s" x="640" y="324">NonTerminal</text><line class="line" x1="530" y1="170" x2="365" y2="280"/><line class="line" x1="530" y1="170" x2="695" y2="280"/><line class="line" x1="270" y1="235" x2="420" y2="130"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="510" viewBox="0 0 1040 510" role="img" aria-labelledby="title desc">
+<title id="title">订单优惠规则的表达式树和执行边界</title>
+<desc id="desc">规则为会员且满100元，或满500元。Or和And组合叶子条件，解释器用不可变订单事实求布尔值，不执行发券。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7" fill="none" stroke="#64748b"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:18px;font-weight:600}.sub{font-size:15px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.line{fill:none;stroke:#71838c;stroke-width:1.4}.call{fill:none;stroke:#64748b;stroke-width:1.4;marker-end:url(#arrow)}</style>
+<rect width="1040" height="510" fill="#f8fafb"/>
+<text class="title" x="38" y="44">解释器：同一规则树，逐单传入事实</text>
+<text class="sub" x="38" y="73">本例直接装配对象；文本解析与配置校验属于独立入口。</text>
+<path class="line" d="M430 176 V194 Q430 202 422 202 H318 Q310 202 310 210 V244"/>
+<path class="line" d="M470 176 V216 Q470 224 478 224 H605 Q613 224 613 232 V244"/>
+<path class="line" d="M275 302 V322 Q275 330 267 330 H150 Q142 330 142 338 V365"/>
+<path class="line" d="M345 302 V342 Q345 350 353 350 H405 Q413 350 413 358 V365"/>
+<path class="call" d="M534 146 H782"/>
+<rect x="605" y="115" width="102" height="23" fill="#f8fafb"/><text class="sub" x="617" y="132">解释求值</text>
+<path class="call" d="M887 300 V192"/>
+<rect class="focus" x="366" y="116" width="168" height="60" rx="6"/><text class="name" x="390" y="143">Or：任一满足</text><text class="sub" x="390" y="165">短路求值</text>
+<rect class="box" x="226" y="244" width="168" height="58" rx="6"/><text class="name" x="246" y="269">And：全部满足</text><text class="sub" x="246" y="291">会员与金额门槛</text>
+<rect class="box" x="529" y="244" width="168" height="58" rx="6"/><text class="name" x="549" y="269">AtLeast</text><text class="sub" x="549" y="291">金额 ≥ 50,000 分</text>
+<rect class="box" x="58" y="365" width="168" height="58" rx="6"/><text class="name" x="78" y="391">Vip</text><text class="sub" x="78" y="412">订单会员身份</text>
+<rect class="box" x="329" y="365" width="168" height="58" rx="6"/><text class="name" x="349" y="391">AtLeast</text><text class="sub" x="349" y="412">金额 ≥ 10,000 分</text>
+<rect class="box" x="782" y="110" width="210" height="82" rx="6"/><text class="name" x="802" y="139">rule.test(order)</text><text class="sub" x="802" y="165">返回 true / false</text>
+<rect class="box" x="782" y="300" width="210" height="86" rx="6"/><text class="name" x="802" y="329">Order：本次事实</text><text class="sub" x="802" y="355">vip、amountFen</text><text class="sub" x="802" y="376">不在判断中修改</text>
+<text class="sub" x="38" y="466">会员 100 元：左支通过；普通用户 500 元：右支通过。</text>
+<text class="sub" x="38" y="490">判断通过只是具备资格；发券的额度、幂等与事务由业务流程处理。</text>
+</svg>

@@ -1,886 +1,151 @@
-# 大数据分层架构详解
-
-## 概述
-
-数据分层是大数据架构设计中的核心概念，通过将数据按照不同的处理阶段和业务需求进行分层管理，实现数据的有序流转、质量控制和价值挖掘。合理的数据分层架构能够提高数据处理效率、保证数据质量、降低维护成本。
-
-## 数据分层架构模型
-
-### 经典三层架构
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                  经典三层架构                            │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  应用层 (Application Layer)                             │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  BI报表   数据分析   机器学习   实时监控         │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据仓库层 (Data Warehouse Layer)                      │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  维度表   事实表   聚合表   主题域               │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据集成层 (Data Integration Layer)                    │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  ETL处理   数据清洗   数据转换   数据加载        │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据源层 (Data Source Layer)                          │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  业务系统   日志文件   外部数据   实时流数据      │   │
-│  └─────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
-
-### 现代五层架构
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                  现代五层架构                            │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  应用服务层 (Application Service Layer)                 │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  API服务   报表系统   分析工具   ML平台          │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据集市层 (Data Mart Layer) - DM                     │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  主题集市   部门集市   个性化视图   轻度聚合      │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据仓库层 (Data Warehouse Layer) - DW                │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  维度建模   事实表   维度表   历史数据           │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  数据中台层 (Data Middle Layer) - DWD/DWS              │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  明细数据   汇总数据   公共维度   业务主题        │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  操作数据层 (Operational Data Layer) - ODS             │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  原始数据   增量数据   全量数据   数据快照        │   │
-│  └─────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
-
-## 详细分层说明
-
-### 1. ODS 层 (Operational Data Store)
-
-**定义：** 操作数据存储层，存储原始数据的副本
-
-**特点：**
-- 数据结构与源系统保持一致
-- 最小化的数据转换
-- 保留数据的原始状态
-- 支持增量和全量数据
-
-**数据处理：**
-```sql
--- ODS层数据加载示例
--- 全量加载
-INSERT OVERWRITE TABLE ods_user_info
-SELECT 
-    user_id,
-    user_name,
-    email,
-    phone,
-    create_time,
-    update_time,
-    '${bizdate}' as etl_date
-FROM source_user_info;
-
--- 增量加载
-INSERT INTO TABLE ods_user_info
-SELECT 
-    user_id,
-    user_name,
-    email,
-    phone,
-    create_time,
-    update_time,
-    '${bizdate}' as etl_date
-FROM source_user_info
-WHERE update_time >= '${start_time}' 
-  AND update_time < '${end_time}';
-```
-
-**表设计规范：**
-```sql
--- ODS表结构示例
-CREATE TABLE ods_order_info (
-    order_id STRING COMMENT '订单ID',
-    user_id STRING COMMENT '用户ID',
-    product_id STRING COMMENT '商品ID',
-    order_amount DECIMAL(10,2) COMMENT '订单金额',
-    order_status STRING COMMENT '订单状态',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间',
-    etl_date STRING COMMENT 'ETL日期'
-) COMMENT 'ODS层-订单信息表'
-PARTITIONED BY (dt STRING COMMENT '分区日期')
-STORED AS PARQUET;
-```
-
-### 2. DWD 层 (Data Warehouse Detail)
-
-**定义：** 数据仓库明细层，清洗和标准化后的明细数据
-
-**特点：**
-- 数据清洗和质量控制
-- 统一数据标准和格式
-- 建立业务主键
-- 保留明细粒度
-
-**数据处理：**
-```sql
--- DWD层数据处理示例
-INSERT OVERWRITE TABLE dwd_order_info
-SELECT 
-    order_id,
-    user_id,
-    product_id,
-    CASE 
-        WHEN order_amount IS NULL OR order_amount < 0 THEN 0
-        ELSE order_amount 
-    END as order_amount,
-    CASE 
-        WHEN order_status IN ('created', 'pending') THEN '待支付'
-        WHEN order_status = 'paid' THEN '已支付'
-        WHEN order_status = 'shipped' THEN '已发货'
-        WHEN order_status = 'delivered' THEN '已送达'
-        WHEN order_status = 'cancelled' THEN '已取消'
-        ELSE '未知状态'
-    END as order_status_desc,
-    create_time,
-    update_time,
-    '${bizdate}' as etl_date
-FROM ods_order_info
-WHERE dt = '${bizdate}'
-  AND order_id IS NOT NULL
-  AND user_id IS NOT NULL;
-```
-
-**数据质量检查：**
-```sql
--- 数据质量检查脚本
--- 检查空值
-SELECT 
-    COUNT(*) as total_count,
-    COUNT(CASE WHEN order_id IS NULL THEN 1 END) as null_order_id,
-    COUNT(CASE WHEN user_id IS NULL THEN 1 END) as null_user_id,
-    COUNT(CASE WHEN order_amount < 0 THEN 1 END) as negative_amount
-FROM dwd_order_info
-WHERE dt = '${bizdate}';
-
--- 检查重复数据
-SELECT 
-    order_id,
-    COUNT(*) as cnt
-FROM dwd_order_info
-WHERE dt = '${bizdate}'
-GROUP BY order_id
-HAVING COUNT(*) > 1;
-```
-
-### 3. DWS 层 (Data Warehouse Summary)
-
-**定义：** 数据仓库汇总层，基于业务需求的轻度汇总数据
-
-**特点：**
-- 按业务主题汇总
-- 多维度预聚合
-- 提高查询性能
-- 支持不同时间粒度
-
-**汇总维度设计：**
-```sql
--- 用户维度汇总
-INSERT OVERWRITE TABLE dws_user_order_1d
-SELECT 
-    user_id,
-    COUNT(DISTINCT order_id) as order_count,
-    SUM(order_amount) as total_amount,
-    AVG(order_amount) as avg_amount,
-    MAX(order_amount) as max_amount,
-    MIN(order_amount) as min_amount,
-    COUNT(DISTINCT product_id) as product_count,
-    '${bizdate}' as stat_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}'
-  AND order_status_desc = '已支付'
-GROUP BY user_id;
-
--- 商品维度汇总
-INSERT OVERWRITE TABLE dws_product_order_1d
-SELECT 
-    product_id,
-    COUNT(DISTINCT order_id) as order_count,
-    COUNT(DISTINCT user_id) as user_count,
-    SUM(order_amount) as total_amount,
-    AVG(order_amount) as avg_amount,
-    '${bizdate}' as stat_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}'
-  AND order_status_desc = '已支付'
-GROUP BY product_id;
-```
-
-**时间维度汇总：**
-```sql
--- 周汇总
-INSERT OVERWRITE TABLE dws_user_order_1w
-SELECT 
-    user_id,
-    SUM(order_count) as order_count,
-    SUM(total_amount) as total_amount,
-    AVG(avg_amount) as avg_amount,
-    MAX(max_amount) as max_amount,
-    MIN(min_amount) as min_amount,
-    '${week_start}' as week_start,
-    '${week_end}' as week_end
-FROM dws_user_order_1d
-WHERE stat_date >= '${week_start}'
-  AND stat_date <= '${week_end}'
-GROUP BY user_id;
-```
-
-### 4. DM 层 (Data Mart)
-
-**定义：** 数据集市层，面向特定业务主题的数据集合
-
-**特点：**
-- 业务导向的数据组织
-- 高度聚合的数据
-- 直接支持业务分析
-- 针对性的性能优化
-
-**业务主题设计：**
-```sql
--- 用户画像主题
-CREATE TABLE dm_user_profile AS
-SELECT 
-    u.user_id,
-    u.user_name,
-    u.age_group,
-    u.gender,
-    u.city,
-    o.total_orders,
-    o.total_amount,
-    o.avg_order_amount,
-    o.first_order_date,
-    o.last_order_date,
-    DATEDIFF(CURRENT_DATE, o.last_order_date) as days_since_last_order,
-    CASE 
-        WHEN o.total_amount >= 10000 THEN '高价值用户'
-        WHEN o.total_amount >= 5000 THEN '中价值用户'
-        WHEN o.total_amount >= 1000 THEN '普通用户'
-        ELSE '低价值用户'
-    END as user_value_level
-FROM dim_user u
-LEFT JOIN (
-    SELECT 
-        user_id,
-        COUNT(order_id) as total_orders,
-        SUM(order_amount) as total_amount,
-        AVG(order_amount) as avg_order_amount,
-        MIN(create_time) as first_order_date,
-        MAX(create_time) as last_order_date
-    FROM dwd_order_info
-    WHERE order_status_desc = '已支付'
-    GROUP BY user_id
-) o ON u.user_id = o.user_id;
-
--- 商品销售分析主题
-CREATE TABLE dm_product_sales_analysis AS
-SELECT 
-    p.product_id,
-    p.product_name,
-    p.category_name,
-    p.brand_name,
-    s.sales_amount_30d,
-    s.sales_count_30d,
-    s.user_count_30d,
-    s.avg_price,
-    RANK() OVER (PARTITION BY p.category_name ORDER BY s.sales_amount_30d DESC) as category_rank,
-    RANK() OVER (ORDER BY s.sales_amount_30d DESC) as overall_rank
-FROM dim_product p
-LEFT JOIN (
-    SELECT 
-        product_id,
-        SUM(order_amount) as sales_amount_30d,
-        COUNT(order_id) as sales_count_30d,
-        COUNT(DISTINCT user_id) as user_count_30d,
-        AVG(order_amount) as avg_price
-    FROM dwd_order_info
-    WHERE dt >= DATE_SUB(CURRENT_DATE, 30)
-      AND order_status_desc = '已支付'
-    GROUP BY product_id
-) s ON p.product_id = s.product_id;
-```
-
-### 5. APP 层 (Application)
-
-**定义：** 应用层，直接支撑业务应用的数据
-
-**特点：**
-- 面向具体应用场景
-- 高度定制化
-- 性能优化到极致
-- 直接对接前端系统
-
-**应用场景示例：**
-```sql
--- 实时大屏数据
-CREATE TABLE app_realtime_dashboard AS
-SELECT 
-    CURRENT_TIMESTAMP as update_time,
-    SUM(CASE WHEN DATE(create_time) = CURRENT_DATE THEN order_amount ELSE 0 END) as today_sales,
-    SUM(CASE WHEN DATE(create_time) = DATE_SUB(CURRENT_DATE, 1) THEN order_amount ELSE 0 END) as yesterday_sales,
-    COUNT(CASE WHEN DATE(create_time) = CURRENT_DATE THEN order_id END) as today_orders,
-    COUNT(CASE WHEN DATE(create_time) = DATE_SUB(CURRENT_DATE, 1) THEN order_id END) as yesterday_orders,
-    COUNT(DISTINCT CASE WHEN DATE(create_time) = CURRENT_DATE THEN user_id END) as today_users,
-    COUNT(DISTINCT CASE WHEN DATE(create_time) = DATE_SUB(CURRENT_DATE, 1) THEN user_id END) as yesterday_users
-FROM dwd_order_info
-WHERE dt >= DATE_SUB(CURRENT_DATE, 1)
-  AND order_status_desc = '已支付';
-
--- 推荐系统特征表
-CREATE TABLE app_recommendation_features AS
-SELECT 
-    user_id,
-    COLLECT_LIST(product_id) as purchased_products,
-    COLLECT_LIST(category_id) as preferred_categories,
-    AVG(order_amount) as avg_spending,
-    COUNT(DISTINCT DATE(create_time)) as active_days,
-    MAX(create_time) as last_purchase_time
-FROM dwd_order_info
-WHERE dt >= DATE_SUB(CURRENT_DATE, 90)
-  AND order_status_desc = '已支付'
-GROUP BY user_id;
-```
-
-## 维度建模
-
-### 星型模型
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    星型模型                              │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│              维度表 (Dimension Tables)                  │
-│                                                         │
-│  ┌─────────────┐                    ┌─────────────┐   │
-│  │  dim_user   │                    │ dim_product │   │
-│  │             │                    │             │   │
-│  │ user_id(PK) │                    │product_id(PK)│   │
-│  │ user_name   │                    │product_name │   │
-│  │ age         │                    │ category    │   │
-│  │ gender      │                    │ brand       │   │
-│  │ city        │                    │ price       │   │
-│  └─────────────┘                    └─────────────┘   │
-│         │                                    │         │
-│         │              ┌─────────────┐       │         │
-│         │              │             │       │         │
-│         └──────────────│ fact_order  │───────┘         │
-│                        │             │                 │
-│                        │ order_id(PK)│                 │
-│                        │ user_id(FK) │                 │
-│                        │product_id(FK)│                │
-│                        │ date_id(FK) │                 │
-│                        │order_amount │                 │
-│                        │ quantity    │                 │
-│                        │create_time  │                 │
-│                        └─────────────┘                 │
-│                               │                         │
-│                               │                         │
-│                        ┌─────────────┐                 │
-│                        │  dim_date   │                 │
-│                        │             │                 │
-│                        │ date_id(PK) │                 │
-│                        │ date_value  │                 │
-│                        │ year        │                 │
-│                        │ month       │                 │
-│                        │ day         │                 │
-│                        │ quarter     │                 │
-│                        │ week        │                 │
-│                        └─────────────┘                 │
-└─────────────────────────────────────────────────────────┘
-```
-
-### 雪花模型
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    雪花模型                              │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐ │
-│  │ dim_brand   │    │ dim_category│    │  dim_city   │ │
-│  │             │    │             │    │             │ │
-│  │ brand_id(PK)│    │category_id  │    │ city_id(PK) │ │
-│  │ brand_name  │    │category_name│    │ city_name   │ │
-│  └─────────────┘    └─────────────┘    └─────────────┘ │
-│         │                    │                    │     │
-│         │                    │                    │     │
-│  ┌─────────────┐              │            ┌─────────────┐ │
-│  │ dim_product │              │            │  dim_user   │ │
-│  │             │              │            │             │ │
-│  │product_id(PK)│              │            │ user_id(PK) │ │
-│  │product_name │              │            │ user_name   │ │
-│  │category_id(FK)──────────────┘            │ age         │ │
-│  │ brand_id(FK)│                           │ gender      │ │
-│  │ price       │                           │ city_id(FK) │ │
-│  └─────────────┘                           └─────────────┘ │
-│         │                                          │       │
-│         │              ┌─────────────┐             │       │
-│         │              │             │             │       │
-│         └──────────────│ fact_order  │─────────────┘       │
-│                        │             │                     │
-│                        │ order_id(PK)│                     │
-│                        │ user_id(FK) │                     │
-│                        │product_id(FK)│                    │
-│                        │ date_id(FK) │                     │
-│                        │order_amount │                     │
-│                        │ quantity    │                     │
-│                        │create_time  │                     │
-│                        └─────────────┘                     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 维度表设计
-
-```sql
--- 用户维度表
-CREATE TABLE dim_user (
-    user_id STRING COMMENT '用户ID',
-    user_name STRING COMMENT '用户姓名',
-    gender STRING COMMENT '性别',
-    age INT COMMENT '年龄',
-    age_group STRING COMMENT '年龄段',
-    city STRING COMMENT '城市',
-    province STRING COMMENT '省份',
-    register_date DATE COMMENT '注册日期',
-    user_level STRING COMMENT '用户等级',
-    is_active STRING COMMENT '是否活跃',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间'
-) COMMENT '用户维度表'
-STORED AS PARQUET;
-
--- 商品维度表
-CREATE TABLE dim_product (
-    product_id STRING COMMENT '商品ID',
-    product_name STRING COMMENT '商品名称',
-    category_id STRING COMMENT '类目ID',
-    category_name STRING COMMENT '类目名称',
-    brand_id STRING COMMENT '品牌ID',
-    brand_name STRING COMMENT '品牌名称',
-    price DECIMAL(10,2) COMMENT '商品价格',
-    status STRING COMMENT '商品状态',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间'
-) COMMENT '商品维度表'
-STORED AS PARQUET;
-
--- 时间维度表
-CREATE TABLE dim_date (
-    date_id STRING COMMENT '日期ID',
-    date_value DATE COMMENT '日期值',
-    year INT COMMENT '年',
-    month INT COMMENT '月',
-    day INT COMMENT '日',
-    quarter INT COMMENT '季度',
-    week INT COMMENT '周',
-    weekday INT COMMENT '星期几',
-    is_weekend STRING COMMENT '是否周末',
-    is_holiday STRING COMMENT '是否节假日',
-    holiday_name STRING COMMENT '节假日名称'
-) COMMENT '时间维度表'
-STORED AS PARQUET;
-```
-
-## 数据治理
-
-### 数据质量管理
-
-**质量检查规则：**
-```sql
--- 完整性检查
-CREATE VIEW data_quality_completeness AS
-SELECT 
-    'dwd_order_info' as table_name,
-    'order_id' as column_name,
-    COUNT(*) as total_count,
-    COUNT(order_id) as non_null_count,
-    ROUND((COUNT(order_id) * 100.0 / COUNT(*)), 2) as completeness_rate,
-    '${bizdate}' as check_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}'
-UNION ALL
-SELECT 
-    'dwd_order_info' as table_name,
-    'user_id' as column_name,
-    COUNT(*) as total_count,
-    COUNT(user_id) as non_null_count,
-    ROUND((COUNT(user_id) * 100.0 / COUNT(*)), 2) as completeness_rate,
-    '${bizdate}' as check_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}';
-
--- 准确性检查
-CREATE VIEW data_quality_accuracy AS
-SELECT 
-    'dwd_order_info' as table_name,
-    'order_amount' as column_name,
-    COUNT(*) as total_count,
-    COUNT(CASE WHEN order_amount >= 0 THEN 1 END) as valid_count,
-    ROUND((COUNT(CASE WHEN order_amount >= 0 THEN 1 END) * 100.0 / COUNT(*)), 2) as accuracy_rate,
-    '${bizdate}' as check_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}';
-
--- 唯一性检查
-CREATE VIEW data_quality_uniqueness AS
-SELECT 
-    'dwd_order_info' as table_name,
-    'order_id' as column_name,
-    COUNT(*) as total_count,
-    COUNT(DISTINCT order_id) as unique_count,
-    ROUND((COUNT(DISTINCT order_id) * 100.0 / COUNT(*)), 2) as uniqueness_rate,
-    '${bizdate}' as check_date
-FROM dwd_order_info
-WHERE dt = '${bizdate}';
-```
-
-### 元数据管理
-
-**表元数据：**
-```sql
--- 表元数据管理
-CREATE TABLE metadata_table_info (
-    table_name STRING COMMENT '表名',
-    table_comment STRING COMMENT '表注释',
-    database_name STRING COMMENT '数据库名',
-    table_type STRING COMMENT '表类型',
-    storage_format STRING COMMENT '存储格式',
-    partition_columns STRING COMMENT '分区字段',
-    owner STRING COMMENT '负责人',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间'
-) COMMENT '表元数据信息';
-
--- 字段元数据
-CREATE TABLE metadata_column_info (
-    table_name STRING COMMENT '表名',
-    column_name STRING COMMENT '字段名',
-    column_type STRING COMMENT '字段类型',
-    column_comment STRING COMMENT '字段注释',
-    is_nullable STRING COMMENT '是否可空',
-    is_primary_key STRING COMMENT '是否主键',
-    default_value STRING COMMENT '默认值',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间'
-) COMMENT '字段元数据信息';
-
--- 血缘关系
-CREATE TABLE metadata_lineage (
-    source_table STRING COMMENT '源表',
-    target_table STRING COMMENT '目标表',
-    dependency_type STRING COMMENT '依赖类型',
-    transform_logic STRING COMMENT '转换逻辑',
-    create_time TIMESTAMP COMMENT '创建时间',
-    update_time TIMESTAMP COMMENT '更新时间'
-) COMMENT '数据血缘关系';
-```
-
-### 数据安全
-
-**权限管理：**
-```sql
--- 角色权限管理
-CREATE TABLE security_role (
-    role_id STRING COMMENT '角色ID',
-    role_name STRING COMMENT '角色名称',
-    role_desc STRING COMMENT '角色描述',
-    create_time TIMESTAMP COMMENT '创建时间'
-) COMMENT '角色信息表';
-
--- 用户角色关系
-CREATE TABLE security_user_role (
-    user_id STRING COMMENT '用户ID',
-    role_id STRING COMMENT '角色ID',
-    grant_time TIMESTAMP COMMENT '授权时间',
-    expire_time TIMESTAMP COMMENT '过期时间'
-) COMMENT '用户角色关系表';
-
--- 表权限管理
-CREATE TABLE security_table_permission (
-    role_id STRING COMMENT '角色ID',
-    table_name STRING COMMENT '表名',
-    permission_type STRING COMMENT '权限类型(SELECT/INSERT/UPDATE/DELETE)',
-    grant_time TIMESTAMP COMMENT '授权时间'
-) COMMENT '表权限管理';
-```
-
-## 性能优化
-
-### 分区策略
-
-```sql
--- 按日期分区
-CREATE TABLE fact_order_daily (
-    order_id STRING,
-    user_id STRING,
-    product_id STRING,
-    order_amount DECIMAL(10,2),
-    create_time TIMESTAMP
-) COMMENT '订单事实表-按日分区'
-PARTITIONED BY (dt STRING COMMENT '日期分区')
-STORED AS PARQUET;
-
--- 多级分区
-CREATE TABLE fact_order_multi_partition (
-    order_id STRING,
-    user_id STRING,
-    product_id STRING,
-    order_amount DECIMAL(10,2),
-    create_time TIMESTAMP
-) COMMENT '订单事实表-多级分区'
-PARTITIONED BY (
-    year STRING COMMENT '年分区',
-    month STRING COMMENT '月分区',
-    day STRING COMMENT '日分区'
-)
-STORED AS PARQUET;
-```
-
-### 索引优化
-
-```sql
--- 创建索引
-CREATE INDEX idx_user_id ON dwd_order_info (user_id);
-CREATE INDEX idx_product_id ON dwd_order_info (product_id);
-CREATE INDEX idx_create_time ON dwd_order_info (create_time);
-
--- 复合索引
-CREATE INDEX idx_user_product ON dwd_order_info (user_id, product_id);
-```
-
-### 存储优化
-
-```sql
--- 列式存储优化
-CREATE TABLE fact_order_optimized (
-    order_id STRING,
-    user_id STRING,
-    product_id STRING,
-    order_amount DECIMAL(10,2),
-    create_time TIMESTAMP
-) 
-STORED AS PARQUET
-TBLPROPERTIES (
-    'parquet.compression'='SNAPPY',
-    'parquet.block.size'='134217728',
-    'parquet.page.size'='1048576'
+# 数据分层与指标口径
+
+运营看到昨天有三笔已支付订单，财务导出的却只有两笔，未必是谁的 SQL 写错：一边数的是支付流水，一边查的是订单当前状态，还可能使用了不同的日期。数据分层首先要固定这些含义，再决定存几张表。把同一份数据复制到五个目录，并不会自动产生五层治理能力。
+
+本页以订单变更生成日报为例，讲清原始记录、明细状态、公共汇总与应用报表之间的合同。存储和表格式的选型见[数据仓库与数据湖](./data-warehouse-lake.md)，分布式执行见 [Spark](./apache-spark.md)，持续到达的支付流水见 [Flink](./apache-flink.md)。
+
+## 从七条变更到三笔订单
+
+订单 102 从待支付变为已支付，支付后的版本被投递两次；订单 104 曾经支付，后来取消。原始接入共七条变更，按订单收敛后是四个当前状态，其中三笔仍为已支付。若直接筛原始记录的 `paid` 并累加，会同时计入重复版本和已经取消的旧状态。
+
+![订单数据分层与发布边界](/bigdata/order-layer-contracts.svg)
+
+这里的指标叫“截至输入截点，当前仍处于已支付状态的订单金额，按订单创建业务日归属”。金额是订单金额，既不是支付成功流水额，也不是扣除退款后的净收入。订单取消会改变历史创建日的结果；如果要看“当日发生了多少支付”，应另建支付事实表，而不是修改这个指标的名称。
+
+| 层 | 本例一行代表什么 | 输入与输出合同 |
+| --- | --- | --- |
+| ODS 原始层 | 一次接收到的订单变更 | 保留原文、来源、接入批次及源位置；业务重复允许存在 |
+| DWD 明细层 | 截点内一个租户的一张订单的最新状态 | 业务键唯一，版本可比较，同版本内容冲突阻断；保留取消状态 |
+| DWS 汇总层 | 一个租户、一个订单业务日的已支付统计 | 先从最新状态筛选，再保存金额总和与订单数 |
+| ADS 应用层 | 某报表版本下的一日指标 | 明确输入截点、口径版本与发布日期，读者只读取已发布版本 |
+
+ODS、DWD、DWS、ADS 是常见命名约定，不是必须实现的行业标准。DIM 通常表示共享维度，DM 表示业务集市；APP、ADS 的含义要在团队内统一。小项目可以先用原始表、明细视图和报表视图，出现复用或成本问题后再物化。数据中台是组织和服务能力的安排，不能简单插成 DWD、DWS 之间的一层。
+
+## 先确定粒度，再关联维度
+
+一张订单可以买两件商品。订单头存 8,000 分，关联两行商品明细后，这个订单金额会出现两次。此时 `SUM(order_amount)` 得到 16,000 分，`COUNT(DISTINCT order_id)` 虽然能修订单数，却不能同时修金额。`SUM(DISTINCT order_amount)` 也不成立，因为两张订单可能恰好同价。
+
+订单头事实使用 `(tenant_id, order_id)`；订单明细事实使用 `(tenant_id, order_id, line_id)`，保存每行的成交金额。按商品汇总要从明细事实出发，订单级优惠、运费和退款必须制定分摊与尾差规则，再核对“各明细分摊金额之和等于订单对应金额”。本页只处理订单头，不假装它能直接产出商品销量。
+
+维度说明“按什么看”：客户、商品、门店、日期等。星型模型把常用属性放在各维度表，事实表关联这些维度；雪花模型进一步拆分类目、品牌等层级，减少重复，也增加查询关联。两者都不能代替粒度定义。历史销售按成交时的客户城市统计时，需要保留维度版本和有效区间；使用客户当前城市会把过去的销售重新归属。区间通常采用左闭右开，同一业务键的版本区间不能重叠，缺失维度进入明确的未知成员或待补状态。
+
+## 可运行的本地分层练习
+
+下面使用 SQLite 3.25 及以上的窗口函数演示逻辑合同，无需启动数据平台。它不提供 Spark、Hive 或湖表的生产 DDL。安装好 `sqlite3` 后在终端执行整个代码块，所有表只存在于本次内存数据库。`.bail on` 和质量断言会在异常时退出。
+
+日期已由接入合同规范为上海时区的 `YYYY-MM-DD` 订单创建日，避免把接入日期当业务日期。生产环境还要校验原始时间、时区转换和日期合法性；本例的 SQL 长度检查不承担完整日期解析。版本为源系统为每张订单生成的递增整数，不使用接入时间猜先后。
+
+```bash
+sqlite3 ':memory:' <<'SQL'
+.bail on
+.headers on
+.mode column
+CREATE TABLE ods_order_change (
+  event_no INTEGER PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  order_id INTEGER NOT NULL,
+  version INTEGER NOT NULL,
+  status TEXT NOT NULL,
+  amount_cent INTEGER NOT NULL,
+  business_day TEXT NOT NULL
+);
+INSERT INTO ods_order_change VALUES
+  (1,'t1',101,1,'paid',     5000,'2026-10-19'),
+  (2,'t1',102,1,'pending',  3000,'2026-10-19'),
+  (3,'t1',102,2,'paid',     3000,'2026-10-19'),
+  (4,'t1',102,2,'paid',     3000,'2026-10-19'),
+  (5,'t1',103,1,'paid',     3990,'2026-10-20'),
+  (6,'t1',104,1,'paid',     2000,'2026-10-19'),
+  (7,'t1',104,2,'cancelled',2000,'2026-10-19');
+
+-- 质量门禁先于版本收敛，不能让任意一条冲突记录获胜。
+CREATE TEMP TABLE quality_gate (ok INTEGER NOT NULL CHECK (ok = 1));
+INSERT INTO quality_gate
+SELECT CASE WHEN COUNT(*) = 0 THEN 1 ELSE 0 END
+FROM ods_order_change
+WHERE trim(tenant_id) = '' OR order_id <= 0 OR version <= 0
+   OR amount_cent < 0 OR typeof(amount_cent) <> 'integer'
+   OR status NOT IN ('pending','paid','cancelled')
+   OR length(business_day) <> 10;
+INSERT INTO quality_gate
+SELECT CASE WHEN COUNT(*) = 0 THEN 1 ELSE 0 END
+FROM (
+  SELECT tenant_id, order_id, version
+  FROM ods_order_change
+  GROUP BY tenant_id, order_id, version
+  HAVING MIN(status) <> MAX(status)
+      OR MIN(amount_cent) <> MAX(amount_cent)
+      OR MIN(business_day) <> MAX(business_day)
 );
 
--- 数据压缩
-SET hive.exec.compress.output=true;
-SET mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
-```
-
-## 监控和运维
-
-### 数据监控
-
-```sql
--- 数据量监控
-CREATE VIEW monitor_data_volume AS
-SELECT 
-    table_name,
-    partition_date,
-    record_count,
-    file_size_mb,
-    avg_record_size,
-    check_time
+CREATE TEMP VIEW dwd_order_current AS
+SELECT tenant_id, order_id, version, status, amount_cent, business_day
 FROM (
-    SELECT 
-        'dwd_order_info' as table_name,
-        dt as partition_date,
-        COUNT(*) as record_count,
-        ROUND(SUM(input_file_size) / 1024 / 1024, 2) as file_size_mb,
-        ROUND(SUM(input_file_size) / COUNT(*), 2) as avg_record_size,
-        CURRENT_TIMESTAMP as check_time
-    FROM dwd_order_info
-    WHERE dt >= DATE_SUB(CURRENT_DATE, 7)
-    GROUP BY dt
-) t;
+  SELECT *, ROW_NUMBER() OVER (
+    PARTITION BY tenant_id, order_id
+    ORDER BY version DESC, event_no DESC
+  ) AS rn
+  FROM ods_order_change
+)
+WHERE rn = 1;
 
--- 数据延迟监控
-CREATE VIEW monitor_data_latency AS
-SELECT 
-    table_name,
-    partition_date,
-    expected_time,
-    actual_time,
-    delay_minutes,
-    status
-FROM (
-    SELECT 
-        'dwd_order_info' as table_name,
-        dt as partition_date,
-        CONCAT(dt, ' 08:00:00') as expected_time,
-        MAX(etl_time) as actual_time,
-        ROUND((UNIX_TIMESTAMP(MAX(etl_time)) - UNIX_TIMESTAMP(CONCAT(dt, ' 08:00:00'))) / 60, 2) as delay_minutes,
-        CASE 
-            WHEN MAX(etl_time) <= CONCAT(dt, ' 08:30:00') THEN '正常'
-            WHEN MAX(etl_time) <= CONCAT(dt, ' 09:00:00') THEN '轻微延迟'
-            ELSE '严重延迟'
-        END as status
-    FROM dwd_order_info
-    WHERE dt >= DATE_SUB(CURRENT_DATE, 7)
-    GROUP BY dt
-) t;
+CREATE TEMP VIEW dws_order_day AS
+SELECT tenant_id, business_day,
+       COUNT(*) AS paid_orders, SUM(amount_cent) AS paid_amount_cent
+FROM dwd_order_current
+WHERE status = 'paid'
+GROUP BY tenant_id, business_day;
+
+CREATE TEMP VIEW ads_order_day AS
+SELECT *, ROUND(paid_amount_cent * 1.0 / paid_orders, 2) AS avg_cent
+FROM dws_order_day;
+SELECT * FROM ads_order_day ORDER BY tenant_id, business_day;
+SELECT SUM(paid_orders) AS paid_orders,
+       SUM(paid_amount_cent) AS amount_cent,
+       ROUND(SUM(paid_amount_cent) * 1.0 / NULLIF(SUM(paid_orders),0),2)
+         AS weighted_avg_cent
+FROM dws_order_day;
+
+INSERT INTO quality_gate
+SELECT CASE WHEN (SELECT COUNT(*) FROM dwd_order_current) = 4
+  AND (SELECT SUM(paid_orders) FROM dws_order_day) = 3
+  AND (SELECT SUM(paid_amount_cent) FROM dws_order_day) = 11990
+  THEN 1 ELSE 0 END;
+SQL
 ```
 
-### 任务调度
+预期 10 月 19 日为 2 单、8,000 分，20 日为 1 单、3,990 分；两日共 3 单、11,990 分，平均每单 3,996.67 分。两个日均值分别为 4,000 和 3,990，直接平均得到 3,995，已经改变了订单的权重。因此 DWS 保留可组合的分子、分母，跨日再计算比率。用户数去重、分位数等指标也不能直接把每天的最终值相加或平均，需要相应的集合或可合并状态。
 
-```python
-# Airflow DAG 示例
-from airflow import DAG
-from airflow.operators.bash_operator import BashOperator
-from airflow.operators.python_operator import PythonOperator
-from datetime import datetime, timedelta
+可以在质量门禁之前增加一条 `102 v2 paid 3100` 的输入，确认同版本冲突导致非零退出；增加负金额也应失败，而不是变为零继续入仓。相同内容的重复版本可以再加一条，日报应保持不变。用全新内存库重跑会得到同一结果，这是本例的确定性验证；它不等于分布式写入或故障恢复验证。
 
-default_args = {
-    'owner': 'data_team',
-    'depends_on_past': False,
-    'start_date': datetime(2023, 1, 1),
-    'email_on_failure': True,
-    'email_on_retry': False,
-    'retries': 2,
-    'retry_delay': timedelta(minutes=5)
-}
+这段练习把七条变更视为一个完整输入截点，每次都从头收敛。如果生产任务只读“今日接入分区”，它看不到昨日的最新版本，就不能直接替换整张当前状态表。增量处理必须将变更与已有状态按业务键和版本合并；低版本迟到不得覆盖高版本。源端删除用明确的删除事件或墓碑表达，保留版本以阻止旧记录复活，不能将“本批未出现”当作删除。
 
-dag = DAG(
-    'data_warehouse_etl',
-    default_args=default_args,
-    description='数据仓库ETL流程',
-    schedule_interval='0 2 * * *',  # 每天凌晨2点执行
-    catchup=False
-)
+## 补数和发布：历史结果怎样改变
 
-# ODS层数据加载
-ods_task = BashOperator(
-    task_id='load_ods_data',
-    bash_command='hive -f /path/to/ods_load.sql',
-    dag=dag
-)
+假设正式日报已经发布，随后订单 101 的 `v2 cancelled` 才到达。它属于新接入批次，但影响的是 10 月 19 日：该日从 2 单、8,000 分改为 1 单、3,000 分。只重算接入当天会漏修历史；对旧汇总简单再加一遍又会重复。
 
-# DWD层数据处理
-dwd_task = BashOperator(
-    task_id='process_dwd_data',
-    bash_command='hive -f /path/to/dwd_process.sql',
-    dag=dag
-)
+稳妥的批处理方式是记录本批受影响的业务键，合并前后状态，并取旧、新两侧涉及的业务日期作为重算范围。日期字段被纠正时，两天都要处理。按该范围从完整明细状态重新生成候选汇总，比散落在多处的加减补丁更容易核对。数据量很大而需要增量聚合时，也必须维护前后值和幂等变更身份。
 
-# DWS层数据汇总
-dws_task = BashOperator(
-    task_id='aggregate_dws_data',
-    bash_command='hive -f /path/to/dws_aggregate.sql',
-    dag=dag
-)
+| 发布步骤 | 检查内容 | 失败时的处理 |
+| --- | --- | --- |
+| 固定输入 | 快照或源位置、接入批次集合、业务截点、代码及口径版本 | 输入不完整时不生成正式结果 |
+| 生成候选 | 新的任务运行 ID；包含受影响日期，即使结果为零 | 独立目录或暂存表保留失败产物以排查 |
+| 校验 | 业务键唯一、无版本冲突、行数与金额对账、受影响范围完整 | 阻断切换，保留上一正式版本 |
+| 发布 | 使用存储引擎支持的事务或可原子切换的版本指针 | 并发发布校验预期前版本，冲突后重新读取 |
+| 复验与清理 | 读者读取同一完整版本；记录旧版本及回退位置 | 按保留期回收，不能立即删除仍在读取的文件 |
 
-# 数据质量检查
-quality_check = PythonOperator(
-    task_id='data_quality_check',
-    python_callable=check_data_quality,
-    dag=dag
-)
+特别注意零结果：如果某日最后一笔订单取消，候选查询可能不再返回这一日。发布逻辑仍要显式替换或清空该日；只把有行结果做 upsert，会留下旧的非零值。多个分区分批 `overwrite` 也不天然构成一次原子报表发布，读者可能看到新旧日期混在一起；具体保证取决于表格式、目录提交和读取方式。
 
-# 任务依赖关系
-ods_task >> dwd_task >> dws_task >> quality_check
-```
+## 治理落到哪里
 
-## 最佳实践
+ODS 保存原始值并不表示所有人都能读取。姓名、联系方式和访问令牌等需要在接入、存储、查询引擎各自控制：敏感字段可使用受控原始区、脱敏派生表和列级权限。只建立一张 `security_table_permission` 元数据表不会自动拦截查询，授权必须由实际执行引擎或存储策略强制实施。
 
-### 1. 设计原则
+质量失败需要保留来源身份、失败字段、规则版本和受影响范围。对可独立隔离的坏记录，写入受限隔离区并核对缺失影响；如果会改变财务口径，应阻断对应批次发布。不能先把负金额改零，再用“没有负金额”证明数据质量通过。合法退款应建模为退款事实，并明确定义如何与订单指标衔接。
 
-1. **分层清晰**
-   - 每层职责明确
-   - 避免跨层访问
-   - 保持数据流向单一
+每个输出至少能查到负责人、粒度、业务键、时间口径、上游快照、转换版本和发布运行 ID。监控既看作业是否成功，也看输入是否齐全、业务日期覆盖、隔离数量、源端与目标对账和发布延迟；一张空分区无法仅凭 `MAX(etl_time)` 证明已按时产出。文件大小从文件或表元数据读取，不假设每行有 `input_file_size` 字段。
 
-2. **标准统一**
-   - 命名规范统一
-   - 数据类型标准化
-   - 编码格式一致
+## 查询慢或数字不对时怎么查
 
-3. **可扩展性**
-   - 支持业务变化
-   - 易于添加新数据源
-   - 支持水平扩展
+先复现同一个报表版本和输入截点，避免拿今天的当前状态与昨天的历史报表对比。检查原始事件是否完整，再看同业务键的版本、明细粒度及关联后的行数，最后核对时间归属、状态筛选与汇总公式。对订单 102 能追到原始两次 `v2`、一个最终状态和一次汇总贡献，才说明这条链路可解释。
 
-### 2. 开发规范
-
-```sql
--- 表命名规范
--- ODS层：ods_[业务域]_[表名]
--- DWD层：dwd_[业务域]_[表名]
--- DWS层：dws_[业务域]_[聚合维度]_[时间粒度]
--- DM层：dm_[主题域]_[表名]
--- APP层：app_[应用场景]_[表名]
-
--- 字段命名规范
--- 主键：[表名]_id
--- 外键：[关联表名]_id
--- 时间字段：create_time, update_time, etl_time
--- 状态字段：[业务含义]_status
--- 金额字段：[业务含义]_amount
-```
-
-### 3. 运维建议
-
-1. **监控告警**
-   - 数据量异常监控
-   - 数据延迟监控
-   - 数据质量监控
-   - 任务执行监控
-
-2. **备份策略**
-   - 重要数据定期备份
-   - 多地域备份
-   - 备份数据验证
-
-3. **性能调优**
-   - 定期分析查询性能
-   - 优化分区策略
-   - 调整存储格式
-   - 更新统计信息
-
-## 总结
-
-数据分层架构是大数据平台的核心设计理念，通过合理的分层设计可以实现：
-
-1. **数据治理**：清晰的数据流转和质量控制
-2. **性能优化**：针对不同层次的性能优化策略
-3. **业务支撑**：快速响应业务需求变化
-4. **成本控制**：合理的资源分配和使用
-5. **团队协作**：明确的开发和维护职责
-
-随着业务的发展和技术的演进，数据分层架构也需要持续优化和完善，以适应不断变化的业务需求和技术环境。
+性能问题再看分区裁剪、文件大小分布、连接基数和执行计划。按订单创建日分区与按接入日分区解决不同扫描问题，不能靠多加 `year/month/day` 三列自动加速。Parquet 文件不是关系数据库索引表，不能直接套用通用 `CREATE INDEX` 示例；是否支持索引、聚簇、数据跳过和统计信息，需要检查实际查询引擎与表格式。调度的任务依赖、重试和补数入口见 [DolphinScheduler](./dolphinscheduler.md)。

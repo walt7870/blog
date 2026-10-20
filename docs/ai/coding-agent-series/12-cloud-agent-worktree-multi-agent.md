@@ -2,23 +2,17 @@
 
 > 系列第 12 篇  
 > 核心问题：什么时候适合异步委托，怎样隔离并行工作，并把结果重新整合为一个可信交付  
-> 最后核验：2026-07-20  
-> 对应视频：第 09 集《Cloud Agent、Worktree 与多 Agent：并行不是复制任务》  
 
 本地同步 Agent 的节奏接近结对编程：人提出任务，看到搜索和 Diff，快速纠偏。Cloud Agent 把任务放到隔离环境后台执行，用户可以同时处理其他工作；本地 Worktree 允许多个任务共享 Git 对象但拥有独立文件树；多 Agent 再进一步，将研究、实现、验证或不同模块分给不同执行者。
 
 它们最吸引人的指标是墙钟时间：原来串行三小时的工作似乎可以由三个 Agent 一小时完成。但并行系统还增加任务拆分、环境启动、Token、冲突、集成测试、审查和交接成本。Agent 数量只提高潜在吞吐，任务独立性和验证能力决定收益能否兑现。
 
-## 阅读路线：先看全局，再进入机制
-
-视频版先展示整章地图，再逐层展开。博客沿用同一判断顺序，但保留更多机制、案例、失败模式和生产边界：
+## 阅读路线
 
 1. **云端与隔离**：拆开临时环境、分支、工具、Secret 与可重建前提。
 2. **任务与角色**：按输入输出契约设计协调、研究、实现、验证和整合角色。
 3. **冲突与成本**：同时计算语义冲突、协调、排队、Review 和失败重跑。
 4. **集成与交接**：让每个异步结果可接手，并在整合状态重新验证。
-
-这四步不是目录装饰，而是一条决策链：云端与隔离 → 任务与角色 → 冲突与成本 → 集成与交接。阅读后面的案例时，可以随时回到这条链判断当前问题发生在哪一层。
 
 ## 真实问题：为什么三个 Agent 各自测试通过，合并后仍然失败
 
@@ -28,7 +22,7 @@ Agent A 修改后端 DTO，Agent B 根据旧 DTO 修改前端，Agent C 更新�
 
 ## 机制：Cloud Agent 是一个受控的远程开发环境
 
-![任务入口、临时环境、仓库、工具、输出和审批构成云端拓扑](/ai/coding-agent-series/ep12/fig-01.png)
+![不同运行入口的数据与环境边界](/ai/coding-agent-series/runtime-selection.svg)
 
 典型 Cloud Agent 从 Issue、Chat 或 API 接收任务，在临时 VM/Container 中检出仓库和专用分支，安装依赖，使用受限工具与 Secrets，运行测试，最后返回提交、Diff、日志、截图或 PR 草稿。人类审核后才进入主干。
 
@@ -38,13 +32,13 @@ Agent A 修改后端 DTO，Agent B 根据旧 DTO 修改前端，Agent C 更新�
 
 ### 1. Git Worktree 隔离文件系统，不隔离语义
 
-![主仓库与多个 Worktree 的分支和集成关系](/ai/coding-agent-series/ep12/fig-02.png)
+![统一基线扇出独立Worktree并重新汇合集成](/ai/coding-agent-series/worktree-integration.svg)
 
 `git worktree` 让一个仓库对象库关联多个独立工作目录，每个目录检出不同分支。Agent A 不会覆盖 Agent B 的未提交文件，各自可以运行构建和保留日志。相比在同一目录频繁切分支，它特别适合同时进行长测试、修复与文档任务。
 
 ```bash
-git worktree add ../orders-cancel -b feature/cancel
-git worktree add ../orders-review -b review/cancel baseline
+git worktree add ../orders-cancel -b feature/cancel HEAD
+git worktree add ../orders-review -b review/cancel HEAD
 git worktree list
 ```
 
@@ -64,7 +58,6 @@ Worktree 不解决公共接口冲突。两个分支修改不同文件仍可能�
 
 ## 多 Agent 编排需要角色契约
 
-![协调、研究、实现、验证和整合角色](/ai/coding-agent-series/ep12/fig-04.png)
 
 多 Agent 不一定按角色拆，也可以按模块或备选方案拆。角色式结构中，协调者定义目标、子任务、接口和完成条件；研究 Agent 只读收集事实；实现 Agent 在隔离分支修改；验证 Agent 以新上下文尝试反驳；整合者处理冲突、运行全量验证并准备交付。
 
@@ -94,7 +87,6 @@ Worktree 不解决公共接口冲突。两个分支修改不同文件仍可能�
 
 ## 多 Agent 的总成本模型
 
-![模型、云环境、工具、人工审查和排队构成总成本](/ai/coding-agent-series/ep12/fig-07.png)
 
 并行主要优化墙钟时间，不一定减少总工程成本。可以用一个简单模型思考：
 
@@ -145,11 +137,11 @@ Cloud Agent 不能依赖“先手动点开 IDE，再从某个聊天窗口复制 
 
 ## 一个订单服务并行示例
 
-取消订单的 Domain、Service 和 HTTP 强耦合，不适合三个 Agent 同时改。更合理流程是主实现 Agent 完成契约和核心状态；另一个只读验证 Agent从 `baseline` 与 Diff 检查状态矩阵；文档 Agent 在接口冻结后整理说明；整合者运行 16 个测试与 HTTP Smoke。
+取消订单的 Domain、Service 和 HTTP 强耦合，不适合三个 Agent 同时改。一种可行的分工是主实现者完成契约和核心状态，只读审查者根据基线与 Diff 检查状态矩阵，文档整理在接口冻结后开始，整合者重新运行测试与 HTTP。这里描述的是分工方案，订单教程的测试结果不能证明这种多 Agent 流程已经执行或具有提速收益。
 
 若未来同时增加“订单查询”和“客户地址校验”，可以在冻结公共 `Order` 变化后分 Worktree。两个任务分别拥有 Controller/Service 流程，但都修改 `Order` 时仍需协调。先完成共享模型提交，再让分支基于同一节点开始，能减少语义分叉。
 
-视频和博客制作也可以并行生成图、配音和代码证据，但必须共享同一脚本时间轴与 Git 节点。否则字幕、画面和讲解会引用不同状态，这正是非代码资产的语义冲突。
+非代码资产同样有语义冲突：接口文档和运行示例如果引用不同版本，文字都能单独通过校对，读者仍会遇到无法执行的命令。文档、截图和源码需要共享同一版本与验收合同。
 
 ## 失败模式
 
@@ -200,22 +192,13 @@ Cloud Agent 不能依赖“先手动点开 IDE，再从某个聊天窗口复制 
 - [ ] 记录墙钟时间、总成本、Review 与返工，不只看并发数。
 - [ ] 外部副作用与生产动作保持独立授权。
 
-## 读完之后，你应该能完成什么
+## 能力验证
 
 - 能判断任务是否真的可并行。
 - 能解释 Worktree 隔离文件树但不隔离业务语义。
 - 能设计多 Agent 交接包和停止条件。
 - 能用关键路径净收益决定是否增加 Agent。
 
-如果只能复述概念，却不能完成上述动作，说明还没有把内容转化成工程能力；可以回到对应机制图、失败模式和实践清单重新核对。
-
 ## 小结
 
 Cloud Agent、Worktree 和多 Agent 扩大的是执行容量，不会自动创造任务独立性。可靠并行从接口和验收开始，以环境和分支隔离减少互相覆盖，以交接包保持可接手状态，以集成测试发现语义冲突，最后由人类承担整合责任。并行的目标不是让更多 Agent 同时忙碌，而是缩短真正的关键路径，同时保持证据质量。
-
-## 参考资料
-
-- [GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent)
-- [OpenAI Codex](https://github.com/openai/codex)
-- [Git worktree documentation](https://git-scm.com/docs/git-worktree)
-- [Claude Code Best Practices](https://code.claude.com/docs/en/best-practices)

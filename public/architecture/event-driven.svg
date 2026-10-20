@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="600" viewBox="0 0 1040 600" role="img" aria-labelledby="title desc"><title id="title">事件驱动架构结构图</title><desc id="desc">展示生产者发布事件到事件总线，多个消费者异步处理事件。</desc><style>.bg{fill:#f8fafc}.prod{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.bus{fill:#1e293b}.consumer{fill:#dcfce7;stroke:#22c55e;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.bt{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style><rect class="bg" width="1040" height="600" rx="22"/><text class="h" x="56" y="55">事件驱动：发布事实，消费者异步响应</text><rect class="prod" x="90" y="220" width="220" height="90" rx="14"/><text class="h" x="145" y="255">订单服务</text><text class="t" x="130" y="282">发布 OrderPaid</text><rect class="bus" x="410" y="215" width="220" height="100" rx="16"/><text class="bt" x="465" y="255">事件总线</text><text class="bt" x="450" y="285">Kafka / MQ</text><rect class="consumer" x="740" y="95" width="220" height="70" rx="14"/><text class="t" x="795" y="138">库存消费者</text><rect class="consumer" x="740" y="220" width="220" height="70" rx="14"/><text class="t" x="795" y="263">消息消费者</text><rect class="consumer" x="740" y="345" width="220" height="70" rx="14"/><text class="t" x="795" y="388">积分消费者</text><line class="line" x1="310" y1="265" x2="410" y2="265"/><polygon class="arrow" points="410,265 397,257 397,273"/><line class="line" x1="630" y1="265" x2="740" y2="130"/><line class="line" x1="630" y1="265" x2="740" y2="255"/><line class="line" x1="630" y1="265" x2="740" y2="380"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">事件驱动的提交、投递与独立订阅</title><desc id="desc">订单和 Outbox 同事务提交，投递器发送到消息系统。库存与积分使用独立订阅，消费去重和业务效果同事务提交。长期失败隔离核对，不代表自动恢复。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}.async{stroke-dasharray:5 4}</style>
+<rect width="1120" height="640" fill="#f8fafc"/>
+<text class="title" x="56" y="58">事件驱动：提交事实后，各订阅独立处理</text>
+<text class="note" x="56" y="90">例：订单已支付 → 库存确认、积分发放；所有发送与消费都可能重复</text>
+<path class="line" d="M282 276H332"/><path class="line async" d="M518 276H574"/>
+<path class="line async" d="M750 250H774Q782 250 782 242V210Q782 202 790 202H820"/>
+<path class="line async" d="M750 304H774Q782 304 782 312V354Q782 362 790 362H820"/>
+<path class="line" d="M1064 202H1080Q1088 202 1088 210V492Q1088 500 1080 500H1064"/><path class="line" d="M944 410V476"/>
+<rect x="56" y="220" width="226" height="112" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="76" y="253">订单库 + Outbox</text><text class="t" x="76" y="282">状态与事件同事务</text><text class="note" x="76" y="309">只投递已提交事实</text>
+<rect class="box" x="332" y="220" width="186" height="112" rx="5"/><text class="h" x="352" y="253">独立投递器</text><text class="t" x="352" y="282">扫描、发送、确认</text><text class="note" x="352" y="309">失败可重发</text>
+<rect class="box" x="574" y="220" width="176" height="112" rx="5"/><text class="h" x="594" y="253">消息系统</text><text class="t" x="594" y="282">路由、保留与投递</text><text class="note" x="594" y="309">按配置提供能力</text>
+<rect class="box" x="820" y="154" width="244" height="96" rx="5"/><text class="h" x="840" y="187">库存独立订阅</text><text class="t" x="840" y="216">去重 + 确认预占</text><text class="note" x="840" y="240">事务提交后确认消费</text>
+<rect class="box" x="820" y="314" width="244" height="96" rx="5"/><text class="h" x="840" y="347">积分独立订阅</text><text class="t" x="840" y="376">去重 + 权益效果</text><text class="note" x="840" y="400">事务提交后确认消费</text>
+<rect class="box" x="820" y="476" width="244" height="66" rx="5"/><text class="h" x="840" y="505">长期失败：隔离与告警</text><text class="note" x="840" y="530">修复后按范围核对 / 重放</text>
+<text class="t" x="56" y="395">独立订阅：库存和积分各收一份事实。</text><text class="note" x="56" y="427">同队列多个消费者通常分担工作，不等于每人收到一份。</text>
+<text class="t" x="56" y="481">发送确认不等于消费完成；队列为空也不证明业务成功。</text>
+<text class="note" x="56" y="513">远程副作用需要接收端幂等与结果核对，本地事务不能覆盖。</text>
+<path d="M56 563H1064" stroke="#dce3df"/>
+<text class="note" x="56" y="602">故障验收：提交后退出、确认丢失、重复与乱序、毒消息、契约升级、受控重放。</text>
+</svg>

@@ -1,20 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
-  <title id="title">架构选型矩阵</title>
-  <desc id="desc">通过业务复杂度和组织复杂度判断架构起点。</desc>
-  <style>
-    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#475569}
-    .axis{stroke:#334155;stroke-width:3}.grid{stroke:#cbd5e1;stroke-width:2}.q1{fill:#e0f2fe}.q2{fill:#dcfce7}.q3{fill:#fff7ed}.q4{fill:#ede9fe}.h{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.label{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#334155}
-  </style>
-  <rect class="bg" width="1120" height="640" rx="24"/>
-  <text class="title" x="56" y="58">架构选型矩阵</text>
-  <text class="sub" x="56" y="88">优先选择能覆盖当前复杂度的最简单架构，等复杂度真实出现后再演进。</text>
-  <rect class="q1" x="160" y="130" width="390" height="200"/><rect class="q2" x="550" y="130" width="390" height="200"/><rect class="q3" x="160" y="330" width="390" height="200"/><rect class="q4" x="550" y="330" width="390" height="200"/>
-  <line class="axis" x1="160" y1="530" x2="940" y2="530"/><line class="axis" x1="160" y1="530" x2="160" y2="130"/>
-  <line class="grid" x1="550" y1="130" x2="550" y2="530"/><line class="grid" x1="160" y1="330" x2="940" y2="330"/>
-  <text class="label" x="420" y="570">业务复杂度低</text><text class="label" x="760" y="570">业务复杂度高</text>
-  <text class="label" x="40" y="450" transform="rotate(-90 40 450)">组织复杂度低</text><text class="label" x="40" y="245" transform="rotate(-90 40 245)">组织复杂度高</text>
-  <text class="h" x="215" y="180">模块化单体</text><text class="t" x="215" y="215">适合小团队、业务清晰、</text><text class="t" x="215" y="240">交付速度优先的系统。</text>
-  <text class="h" x="610" y="180">DDD + 模块化单体</text><text class="t" x="610" y="215">业务复杂但团队规模不大，</text><text class="t" x="610" y="240">先把领域边界建清楚。</text>
-  <text class="h" x="215" y="380">分层架构 / SOA 集成</text><text class="t" x="215" y="415">组织协作复杂但业务规则不深，</text><text class="t" x="215" y="440">重点治理接口与集成。</text>
-  <text class="h" x="610" y="380">微服务 / 事件驱动 / 云原生</text><text class="t" x="610" y="415">业务和组织都复杂时，</text><text class="t" x="610" y="440">才值得承担分布式成本。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="arch-matrix-title arch-matrix-desc">
+  <title id="arch-matrix-title">业务复杂度与组织复杂度的选型起点</title><desc id="arch-matrix-desc">横向业务复杂度增加，纵向组织复杂度增加。左下可从简单分层起步，右下优先模型与模块，左上重视契约集成，右上评估独立交付；矩阵不是自动决策。</desc>
+  <defs><marker id="arch-matrix-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="40" y="48" font-size="26" font-weight="600">选型起点：复杂度提供线索，约束决定方案</text>
+    <text x="40" y="80" font-size="16" fill="#5d6f64">象限表示候选方向；数据归属、可靠性和运维能力仍需单独判断</text>
+    <rect x="152" y="128" width="888" height="408" fill="#fff" stroke="#ccd6cf"/>
+    <path d="M596 128V536M152 332H1040" stroke="#ccd6cf"/>
+    <path d="M128 552V116" fill="none" stroke="#657768" stroke-width="2" marker-end="url(#arch-matrix-arrow)"/>
+    <path d="M128 552H1056" fill="none" stroke="#657768" stroke-width="2" marker-end="url(#arch-matrix-arrow)"/>
+    <g font-size="18"><text x="24" y="148">组织复杂度</text><text x="80" y="188">高</text><text x="80" y="524">低</text><text x="160" y="584">低</text><text x="1024" y="584">高</text><text x="800" y="616">业务复杂度</text></g>
+    <g font-size="22" font-weight="600"><text x="184" y="176">契约与集成治理</text><text x="628" y="176">模型边界 + 独立交付评估</text><text x="184" y="380">简单分层 / 模块化单体</text><text x="628" y="380">DDD + 模块化单体</text></g>
+    <g font-size="17" fill="#5d6f64"><text x="184" y="216">多团队集成，先管清接口与数据责任</text><text x="184" y="248">SOA 或已有系统集成都可能适用</text><text x="628" y="216">满足治理和数据边界后再考虑微服务</text><text x="628" y="248">团队多并不自动要求独立部署</text><text x="184" y="420">业务与协作简单，保持交付路径短</text><text x="184" y="452">不提前引入网络与分布式事务</text><text x="628" y="420">规则复杂但团队小，先集中规则</text><text x="628" y="452">按需用六边形隔离外部依赖</text></g>
+  </g>
 </svg>

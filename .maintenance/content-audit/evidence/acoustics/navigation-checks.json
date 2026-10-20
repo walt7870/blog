@@ -1,0 +1,98 @@
+[
+  {
+    "index": 0,
+    "href": "/blog/docs/basic/acoustics/structure.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/structure.html",
+    "heading": "声学结构\n​"
+  },
+  {
+    "index": 1,
+    "href": "/blog/docs/basic/acoustics/sound-fundamentals.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/sound-fundamentals.html",
+    "heading": "声音与信号基础\n​"
+  },
+  {
+    "index": 2,
+    "href": "/blog/docs/basic/acoustics/capture-playback.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/capture-playback.html",
+    "heading": "采集与播放链路\n​"
+  },
+  {
+    "index": 3,
+    "href": "/blog/docs/basic/acoustics/noise-reduction.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/noise-reduction.html",
+    "heading": "降噪与前处理\n​"
+  },
+  {
+    "index": 4,
+    "href": "/blog/docs/basic/acoustics/vad/",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/vad/",
+    "heading": "VAD 语音活动检测\n​"
+  },
+  {
+    "index": 5,
+    "href": "/blog/docs/basic/acoustics/speech-recognition.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/speech-recognition.html",
+    "heading": "语音识别\n​"
+  },
+  {
+    "index": 6,
+    "href": "/blog/docs/basic/acoustics/sherpa-onnx/",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/sherpa-onnx/",
+    "heading": "sherpa-onnx 端侧语音推理框架\n​"
+  },
+  {
+    "index": 7,
+    "href": "/blog/docs/basic/acoustics/voice-interaction.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/voice-interaction.html",
+    "heading": "语音交互链路\n​"
+  },
+  {
+    "index": 8,
+    "href": "/blog/docs/basic/acoustics/quality-evaluation.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/quality-evaluation.html",
+    "heading": "质量评估与排错\n​"
+  },
+  {
+    "index": 9,
+    "href": "/blog/docs/basic/acoustics/engineering.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/engineering.html",
+    "heading": "工程选型\n​"
+  },
+  {
+    "index": 10,
+    "href": "/blog/docs/basic/acoustics/quality-evaluation.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/quality-evaluation.html",
+    "heading": "质量评估与排错\n​"
+  },
+  {
+    "index": 11,
+    "href": "/blog/docs/basic/acoustics/vad/silero-vad.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/vad/silero-vad.html",
+    "heading": "Silero VAD 工程实践\n​"
+  },
+  {
+    "index": 12,
+    "href": "/blog/docs/basic/acoustics/wake-word.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/wake-word.html",
+    "heading": "语音唤醒\n​"
+  },
+  {
+    "index": 13,
+    "href": "/blog/docs/basic/acoustics/sherpa-onnx/recognition-modes.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/sherpa-onnx/recognition-modes.html",
+    "heading": "sherpa-onnx 识别运行模式\n​"
+  },
+  {
+    "index": 14,
+    "href": "/blog/docs/basic/acoustics/sherpa-onnx/model-selection-deployment.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/sherpa-onnx/model-selection-deployment.html",
+    "heading": "sherpa-onnx 模型与部署选型\n​"
+  },
+  {
+    "index": 15,
+    "href": "/blog/docs/basic/acoustics/speech-synthesis.html",
+    "target": "http://127.0.0.1:5177/blog/docs/basic/acoustics/speech-synthesis.html",
+    "heading": "语音合成\n​"
+  }
+]

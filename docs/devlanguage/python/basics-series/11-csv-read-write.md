@@ -1,9 +1,7 @@
 # 读写 CSV 文件
 
 > 示例文件：`csv_cleaning.py`  
-> 最后核验：2026-08-02
-
-本文围绕“怎样从真实表格文件读取和输出”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
@@ -13,13 +11,11 @@
 
 ## 核心判断
 
-- `csv` 要服务于真实客户数据处理。
-- `路径` 要服务于真实客户数据处理。
-- `编码` 要服务于真实客户数据处理。
-- `表头` 要服务于真实客户数据处理。
-- `写入文件` 要服务于真实客户数据处理。
+CSV 是文本记录格式，不能把 Excel 的 `.xlsx` 后缀直接改成 `.csv`。字段内也可能有逗号、双引号或换行，应交给 `csv` 模块解析，而不是 `line.split(",")`。`DictReader` 用表头作为字典键；必须先检查表头，再进入逐行规则，才能区分“整列不存在”和“某行为空”。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![CSV从文件、表头校验到异常清单的处理链](/python/csv-validation-path.svg)
+
+读取用 `utf-8-sig` 兼容 UTF-8 文件的可选 BOM，写入也使用该编码方便常见桌面表格软件识别。`newline=""` 把换行处理交给 CSV 模块。原文件不覆盖，结果固定写到 `missing_customers.csv`；重复运行会覆盖这一结果文件，如需保留每批结果，应另用批次目录。
 
 ## 运行示例
 
@@ -27,11 +23,16 @@
 python3 csv_cleaning.py
 ```
 
-运行后检查三件事：
+先在脚本旁创建 `customers.csv`：
 
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+```csv
+name,phone,city
+李雷,13800000001,上海
+韩梅梅,,杭州
+王芳,13900000003,
+```
+
+预期结果为两行：韩梅梅缺 `phone`、王芳缺 `city`。删除 `phone` 表头后，应在写结果前给出缺列错误；一份只有合法表头的空表应输出只有表头的结果。CSV 会保留手机号文本，但用表格软件再次打开时仍应将该列设为文本，防止软件自行转为数字。
 
 ## 完整示例
 
@@ -49,12 +50,16 @@ output_file = base / "missing_customers.csv"
 
 
 def main() -> None:
-    with input_file.open("r", encoding="utf-8", newline="") as file:
-        rows = list(csv.DictReader(file))
+    with input_file.open("r", encoding="utf-8-sig", newline="") as file:
+        reader = csv.DictReader(file)
+        missing_headers = {"name", "phone", "city"} - set(reader.fieldnames or [])
+        if missing_headers:
+            raise ValueError(f"缺少表头：{sorted(missing_headers)}")
+        rows = list(reader)
 
     missing = [row for row in rows if not row["phone"] or not row["city"]]
 
-    with output_file.open("w", encoding="utf-8", newline="") as file:
+    with output_file.open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=["name", "missing"])
         writer.writeheader()
         for row in missing:
@@ -71,28 +76,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

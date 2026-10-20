@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="rbac-namespace-scope-title rbac-namespace-scope-desc">
+  <title id="rbac-namespace-scope-title">RoleBinding 的命名空间授权范围</title>
+  <desc id="rbac-namespace-scope-desc">orders 的 RoleBinding 为值班组引用可复用 ClusterRole，只授予 orders 日志读取，payments 没有对应绑定时不会获得同样权限。</desc>
+  <defs><marker id="rbac-scope-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.zone{fill:none;stroke:#a7b8c6;stroke-width:1.5;stroke-dasharray:6 5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#rbac-scope-arrow)}.ref{stroke-dasharray:6 5}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/><text class="title" x="48" y="52">规则可复用，授权范围由 Binding 决定</text><text class="t" x="48" y="84">假设同一身份没有其他授权；此图表达 API 权限，不表达应用网络连通性。</text>
+  <rect class="zone" x="384" y="116" width="308" height="396" rx="6"/><rect class="zone" x="744" y="116" width="328" height="396" rx="6"/>
+  <path class="edge" d="M288 224H408"/><path class="edge ref" d="M408 248H348Q340 248 340 256V396Q340 404 332 404H288"/>
+  <path class="edge" d="M540 280V360"/>
+  <rect class="box" x="48" y="180" width="240" height="100" rx="6"/><text class="h" x="68" y="216">值班组</text><text class="t" x="68" y="248">orders-oncall</text>
+  <rect class="api" x="48" y="360" width="240" height="120" rx="6"/><text class="h" x="68" y="396">ClusterRole</text><text class="t" x="68" y="428">可复用日志读取规则</text><text class="t" x="68" y="460">集群级对象，不自带授权</text>
+  <rect class="api" x="408" y="180" width="260" height="100" rx="6"/><text class="h" x="428" y="216">RoleBinding</text><text class="t" x="428" y="248">namespace: orders</text>
+  <rect class="run" x="408" y="360" width="260" height="120" rx="6"/><text class="h" x="428" y="396">orders 中的 pods/log</text><text class="t" x="428" y="428">允许读取</text><text class="t" x="428" y="460">未授予 exec 或 Secret</text>
+  <rect class="box" x="768" y="360" width="280" height="120" rx="6"/><text class="h" x="788" y="396">payments 的 pods/log</text><text class="t" x="788" y="428">没有匹配的允许规则</text><text class="t" x="788" y="460">本例中拒绝读取</text>
+  <text class="h" x="408" y="152">Namespace：orders</text><text class="h" x="768" y="152">Namespace：payments</text>
+  <text class="t" x="780" y="216">不因名称相似或共享集群</text><text class="t" x="780" y="248">自动继承 orders 的授权</text>
+  <text class="t" x="48" y="560">实线：主体绑定与允许范围；虚线：roleRef 引用。RoleBinding 也可以引用同空间的 Role。</text>
+  <text class="t" x="48" y="592">增加其他 Binding 会合并允许权限；更窄的新规则不会抵消已存在的更广授权。</text>
+</svg>

@@ -1,0 +1,622 @@
+[
+  {
+    "file": "docs/basic/acoustics/quality-evaluation.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/troubleshooting-flow.svg",
+        "width": 1060
+      }
+    ],
+    "scroll": 390,
+    "text": 2001,
+    "title": "质量评估与排错",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/sherpa-onnx/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/sherpa-onnx-architecture.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 3538,
+    "title": "sherpa-onnx 端侧语音推理框架",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/sherpa-onnx-selection-flow.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 3924,
+    "title": "sherpa-onnx 模型与部署选型",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/sherpa-onnx-recognition-modes.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 5441,
+    "title": "sherpa-onnx 识别运行模式",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/sound-fundamentals.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/wave-sampling.svg",
+        "width": 1060
+      }
+    ],
+    "scroll": 390,
+    "text": 2305,
+    "title": "声音与信号基础",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/speech-recognition.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/asr-decoding.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 2610,
+    "title": "语音识别",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/speech-synthesis.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/tts-acoustic-vocoder.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2175,
+    "title": "语音合成",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/structure.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/structure-sound-paths.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2158,
+    "title": "声学结构",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/vad/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/vad-state-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3287,
+    "title": "VAD 语音活动检测",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/vad/silero-vad.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/silero-vad-streaming.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 5890,
+    "title": "Silero VAD 工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/voice-interaction.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/speech-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1793,
+    "title": "语音交互链路",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/acoustics/wake-word.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/speech-ai-modules.svg",
+        "width": 1080
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/kws-threshold.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 390,
+    "text": 2001,
+    "title": "语音唤醒",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/application-realtime.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/https-encapsulation.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 5764,
+    "title": "现代应用与实时协议",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/capacity-performance.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/connection-backpressure.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2796,
+    "title": "网络容量、并发与性能",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/embedded-protocols.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/embedded-bus.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/industrial-gateway-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 9735,
+    "title": "嵌入式与工业通信协议",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/http-vs-websocket.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/websocket-handshake.svg",
+        "width": 760
+      }
+    ],
+    "scroll": 390,
+    "text": 3196,
+    "title": "HTTP 与 WebSocket 的区别",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/full-request-path.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/osi-tcpip-layers.svg",
+        "width": 720
+      }
+    ],
+    "scroll": 390,
+    "text": 2919,
+    "title": "计算机网络与通信协议",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/network-foundations.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/https-encapsulation.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4166,
+    "title": "分层、寻址与路由",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/transport-socket.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/tcp-reliability-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4123,
+    "title": "TCP、UDP 与 Socket",
+    "width": 390
+  },
+  {
+    "file": "docs/basic/protocol/troubleshooting.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/protocol/network-troubleshooting-flow.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4894,
+    "title": "网络排障方法与案例",
+    "width": 390
+  },
+  {
+    "file": "docs/container/basic/concepts.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/container-isolation-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1726,
+    "title": "容器核心概念",
+    "width": 390
+  },
+  {
+    "file": "docs/container/basic/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/runtime-control-paths.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 734,
+    "title": "容器基础导览",
+    "width": 390
+  },
+  {
+    "file": "docs/container/basic/runtimes.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/runtime-control-paths.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1662,
+    "title": "运行时与工具边界",
+    "width": 390
+  },
+  {
+    "file": "docs/container/basic/standards.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/container-interface-contracts.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1819,
+    "title": "容器标准与接口边界",
+    "width": 390
+  },
+  {
+    "file": "docs/container/docker/command.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/docker-diagnostic-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3441,
+    "title": "Docker 常用命令",
+    "width": 390
+  },
+  {
+    "file": "docs/container/docker/image-build-supply-chain.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/docker-image-promotion.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2743,
+    "title": "镜像构建与供应链",
+    "width": 390
+  },
+  {
+    "file": "docs/container/docker/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/container-delivery-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 985,
+    "title": "Docker 导览",
+    "width": 390
+  },
+  {
+    "file": "docs/container/docker/java-application.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/java-container-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3369,
+    "title": "Java 应用镜像构建",
+    "width": 390
+  },
+  {
+    "file": "docs/container/docker/storage-network-compose.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/docker-compose-data-network.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3574,
+    "title": "存储、网络与 Compose",
+    "width": 390
+  },
+  {
+    "file": "docs/container/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/container-delivery-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1340,
+    "title": "容器技术",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/CR-CRD.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/crd-storage-migration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6160,
+    "title": "Kubernetes CRD 设计与版本演进",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/delivery-security.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/gitops-admission-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4709,
+    "title": "Kubernetes GitOps、策略与供应链安全",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/ecosystem.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/extension-selection-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2420,
+    "title": "Kubernetes 云原生扩展生态",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/extension-points.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-extension-points.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 3006,
+    "title": "Kubernetes 扩展点与接口边界",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/extension-selection-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1305,
+    "title": "Kubernetes 进阶扩展导览",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/operator.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-operator-state-machine.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 4431,
+    "title": "Kubernetes Operator 与生产级 Reconcile",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/platform-engineering.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-platform-layers.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 2746,
+    "title": "从 Kubernetes 集群到平台工程",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/advanced/traffic-engineering.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/gateway-ambient-data-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4221,
+    "title": "Kubernetes 流量工程：Gateway、Cilium 与 Service Mesh",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/control-plane.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-api-reconcile.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4204,
+    "title": "Kubernetes 控制面、API 与调谐",
+    "width": 390
+  },
+  {
+    "file": "docs/container/kubernetes/data-plane-reliability.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-request-data-path.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/container/kubernetes-volume-reconcile.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4674,
+    "title": "Kubernetes 数据面、存储与可靠性",
+    "width": 390
+  }
+]

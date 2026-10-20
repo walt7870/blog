@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="600" viewBox="0 0 1040 600" role="img" aria-labelledby="title desc"><title id="title">Serverless 架构结构图</title><desc id="desc">展示事件源触发函数，函数访问托管云服务。</desc><style>.bg{fill:#f8fafc}.event{fill:#fff7ed;stroke:#f97316;stroke-width:2}.fn{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.svc{fill:#dcfce7;stroke:#22c55e;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style><rect class="bg" width="1040" height="560" rx="22"/><text class="h" x="56" y="55">Serverless：事件触发函数，平台托管运行环境</text><rect class="event" x="95" y="115" width="210" height="70" rx="14"/><text class="t" x="150" y="157">HTTP 请求</text><rect class="event" x="95" y="245" width="210" height="70" rx="14"/><text class="t" x="155" y="287">文件上传</text><rect class="event" x="95" y="375" width="210" height="70" rx="14"/><text class="t" x="155" y="417">定时任务</text><rect class="fn" x="430" y="220" width="220" height="110" rx="16"/><text class="h" x="490" y="260">函数</text><text class="t" x="478" y="290">短任务 / 无状态</text><rect class="svc" x="775" y="115" width="190" height="70" rx="14"/><text class="t" x="835" y="157">数据库</text><rect class="svc" x="775" y="245" width="190" height="70" rx="14"/><text class="t" x="835" y="287">对象存储</text><rect class="svc" x="775" y="375" width="190" height="70" rx="14"/><text class="t" x="835" y="417">消息队列</text><line class="line" x1="305" y1="150" x2="430" y2="250"/><line class="line" x1="305" y1="280" x2="430" y2="275"/><line class="line" x1="305" y1="410" x2="430" y2="300"/><line class="line" x1="650" y1="275" x2="775" y2="150"/><line class="line" x1="650" y1="275" x2="775" y2="280"/><line class="line" x1="650" y1="275" x2="775" y2="410"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">Serverless 图片处理与失败恢复</title><desc id="desc">授权上传后，受限输入前缀的对象事件进入队列，再触发处理函数。函数使用稳定任务标识写结果和状态，长期失败隔离；输出前缀不会再次触发输入链路。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}.async{stroke-dasharray:5 4}</style>
+<rect width="1120" height="640" fill="#f8fafc"/>
+<text class="title" x="56" y="58">Serverless：平台托管执行，业务负责状态与恢复</text>
+<text class="note" x="56" y="90">头像缩略图示例；队列触发、有限并发；输出与输入分离避免递归</text>
+<path class="line" d="M270 242H320"/><path class="line async" d="M510 242H566"/>
+<path class="line" d="M802 224H823Q831 224 831 216V180Q831 172 839 172H860"/>
+<path class="line" d="M802 268H823Q831 268 831 276V334Q831 342 839 342H860"/>
+<path class="line async" d="M415 294V438"/>
+<rect class="box" x="56" y="190" width="214" height="104" rx="5"/><text class="h" x="76" y="222">原图对象</text><text class="t" x="76" y="252">授权的输入范围</text><text class="note" x="76" y="279">不可变键 / 对象版本</text>
+<rect class="box" x="320" y="190" width="190" height="104" rx="5"/><text class="h" x="340" y="222">工作队列</text><text class="t" x="340" y="252">可见性与重驱策略</text><text class="note" x="340" y="279">可重复投递</text>
+<rect x="566" y="190" width="236" height="104" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="586" y="222">图片处理函数</text><text class="t" x="586" y="252">校验、解码与变换</text><text class="note" x="586" y="279">稳定任务标识、有限并发</text>
+<rect class="box" x="860" y="126" width="204" height="92" rx="5"/><text class="h" x="880" y="160">缩略图对象</text><text class="t" x="880" y="189">独立结果前缀</text><text class="note" x="880" y="210">不再触发输入事件</text>
+<rect class="box" x="860" y="296" width="204" height="92" rx="5"/><text class="h" x="880" y="330">任务与版本状态</text><text class="t" x="880" y="359">条件更新、租约恢复</text><text class="note" x="880" y="380">防止旧结果覆盖新图</text>
+<rect class="box" x="320" y="438" width="260" height="80" rx="5"/><text class="h" x="340" y="471">长期失败：死信 / 隔离</text><text class="note" x="340" y="501">告警、核对、受控重投</text>
+<text class="note" x="56" y="145">上传入口先核对身份、对象范围、大小与类型</text>
+<text class="t" x="622" y="448">结果写入与状态登记是两步。</text><text class="note" x="622" y="480">文件存在但登记失败时，按任务标识核对。</text><text class="note" x="622" y="512">实例内存与临时盘不保存权威业务状态。</text>
+<path d="M56 552H1064" stroke="#dce3df"/>
+<text class="t" x="56" y="587">容量由触发器、平台配额与下游共同限制；自动扩容不代表无限并发。</text>
+<text class="note" x="56" y="616">重复、超时、输出失败和毒记录都要验收；处理成本包含重试、存储、网络与日志。</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="es-visible-title es-visible-desc">
+  <title id="es-visible-title">Elasticsearch 写入确认与搜索可见性</title>
+  <desc id="es-visible-desc">写入经主分片和在线副本处理并按持久化策略确认后返回；实时GET可以读取尚未刷新的文档，搜索要等待refresh打开新的搜索视图。副本复制和refresh都不能替代独立快照。</desc>
+  <defs>
+    <marker id="es-visible-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#es-visible-arrow)}</style>
+  </defs>
+  <rect width="1200" height="680" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">订单已写入，为什么搜索仍然没有结果？</text>
+  <text x="36" y="78" class="small">复制确认、实时读取、搜索视图和备份恢复具有不同的完成条件。</text>
+  <path d="M296 236H424" class="line"/><path d="M776 236H904" class="line"/>
+  <path d="M484 324V364Q484 372 476 372H208Q200 372 200 380V424" class="line"/>
+  <path d="M716 324V364Q716 372 724 372H992Q1000 372 1000 380V424" class="line"/>
+  <rect x="36" y="164" width="260" height="144" class="box"/>
+  <text x="56" y="202" class="head">写入订单 101</text><text x="56" y="242">稳定业务 ID 与源版本</text><text x="56" y="278" class="small">Bulk 逐项检查成功或失败</text>
+  <rect x="424" y="144" width="352" height="180" class="focus"/>
+  <text x="444" y="184" class="head">主分片与在线副本</text><text x="444" y="224">主分片协调复制与确认</text><text x="444" y="260">各副本维护索引与 translog</text><text x="444" y="298" class="small">持久化保证取决于确认与刷盘策略</text>
+  <rect x="904" y="164" width="260" height="144" class="box"/>
+  <text x="924" y="202" class="head">返回写入成功</text><text x="924" y="242">不等于立即可搜索</text><text x="924" y="278" class="small">也不等于已有离机快照</text>
+  <rect x="36" y="424" width="328" height="132" class="box"/>
+  <text x="56" y="462" class="head">实时 GET /_doc/101</text><text x="56" y="502">默认可取回尚未刷新的文档</text><text x="56" y="536" class="small">实验：GET 成功，count 仍为 0</text>
+  <rect x="836" y="424" width="328" height="132" class="focus"/>
+  <text x="856" y="462" class="head">refresh → 新搜索视图</text><text x="856" y="502">_search / _count 能看见新文档</text><text x="856" y="536" class="small">wait_for 等待刷新；不强制每笔刷</text>
+  <text x="424" y="458" class="head">flush 与 snapshot</text><text x="424" y="498">flush 推进 Lucene 提交点。</text><text x="424" y="534">snapshot 用于独立备份恢复。</text>
+  <path d="M36 592H1164" stroke="#bac4c9"/>
+  <text x="36" y="626" class="small">副本会同步误删；refresh 不提供离机恢复。实验单节点没有在线副本，不代表生产容错能力。</text>
+  <text x="36" y="654" class="small">实线表示处理或读取路径；青绿强调写入处理与搜索视图的边界。</text>
+</svg>

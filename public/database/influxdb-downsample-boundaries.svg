@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="influx-downsample-title influx-downsample-desc">
+  <title id="influx-downsample-title">InfluxDB 原始数据与降采样补数</title>
+  <desc id="influx-downsample-desc">设备采样进入原始桶，小时任务按设备和字段重算固定窗口后覆盖摘要桶。两小时范围内的迟到可被重算，范围外需要人工补数；原始数据过期后不能从均值还原峰值或分位数。</desc>
+  <defs>
+    <marker id="influx-downsample-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#influx-downsample-arrow)}</style>
+  </defs>
+  <rect width="1200" height="700" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">保留原始采样用于补算，摘要只回答已定义的统计问题</text>
+  <text x="36" y="78" class="small">定时任务、迟到窗口与保留期需要一起设计；offset 延后执行，不证明设备已经上报完毕。</text>
+  <path d="M264 224H344" class="line"/><path d="M632 224H716" class="line"/><path d="M932 224H1008" class="line"/>
+  <path d="M488 300V404" class="line" stroke-dasharray="5,4"/>
+  <path d="M716 476H648Q640 476 640 468V384Q640 376 648 376H816Q824 376 824 368V300" class="line" stroke-dasharray="5,4"/>
+  <rect x="36" y="148" width="228" height="152" class="box"/>
+  <text x="56" y="188" class="head">设备与采集器</text><text x="56" y="230">稳定时间、类型与标签</text><text x="56" y="268" class="small">拒写记录后按原身份重放</text>
+  <rect x="344" y="148" width="288" height="152" class="focus"/>
+  <text x="364" y="188" class="head">sensor_raw 原始桶</text><text x="364" y="230">每 30 秒温湿度采样</text><text x="364" y="268" class="small">生产保留期覆盖补数窗口</text>
+  <rect x="716" y="148" width="216" height="152" class="box"/>
+  <text x="736" y="188" class="head">小时任务</text><text x="736" y="230">先过滤 field</text><text x="736" y="268" class="small">按 device 分窗口聚合</text>
+  <rect x="1008" y="148" width="156" height="152" class="focus"/>
+  <text x="1028" y="188" class="head">摘要桶</text><text x="1028" y="230">窗口起点</text><text x="1028" y="268" class="small">同身份覆盖</text>
+  <rect x="344" y="404" width="288" height="148" class="box"/>
+  <text x="364" y="444" class="head">范围外迟到或任务停机</text><text x="364" y="486">固定 start/stop 手工补算</text><text x="364" y="524" class="small">原始过期后无法重建完整统计</text>
+  <rect x="716" y="404" width="448" height="148" class="box"/>
+  <text x="736" y="444" class="head">重算协议</text><text x="736" y="486">每小时重算最近两小时，延迟 10 分钟运行</text><text x="736" y="524" class="small">缺点变空不自动删除旧摘要；补数后核对 count/mean</text>
+  <text x="36" y="604">d1 的首分钟：20、24 → 均值 22；下一分钟的 26 不属于前一个窗口。</text>
+  <path d="M36 632H1164" stroke="#bac4c9"/>
+  <text x="36" y="670" class="small">实线：采样到摘要。虚线：补数与重算约束。小时 mean 不能直接当作等权日均值或 P95。</text>
+</svg>

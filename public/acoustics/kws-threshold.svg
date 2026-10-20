@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
-  <title id="title">唤醒词置信度与阈值</title>
-  <desc id="desc">展示唤醒词检测中正样本、负样本、阈值、误唤醒和漏唤醒的关系</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="kws-threshold-title kws-threshold-desc">
+  <title id="kws-threshold-title">唤醒词置信度与阈值</title>
+  <desc id="kws-threshold-desc">展示唤醒词检测中正样本、负样本、阈值、误唤醒和漏唤醒的关系</desc>
   <defs>
     <style>
       .bg{fill:#f8fafc}.axis{stroke:#94a3b8;stroke-width:1.5}.pos{fill:#22c55e;opacity:.72}.neg{fill:#f97316;opacity:.72}.line{stroke:#2563eb;stroke-width:3}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}

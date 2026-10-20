@@ -1,38 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="450" viewBox="0 0 1080 450" role="img" aria-labelledby="title desc">
-  <title id="title">systemd unit 启动链路</title>
-  <desc id="desc">展示 target、unit、依赖、进程、日志和重启策略之间的关系</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:10}.log{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}
-      .line{stroke:#2563eb;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1080" height="450"/>
-  <rect class="core" x="60" y="170" width="155" height="90"/>
-  <text class="text title" x="138" y="205" text-anchor="middle">target</text>
-  <text class="text body" x="138" y="232" text-anchor="middle">启动目标</text>
-  <rect class="core" x="285" y="170" width="155" height="90"/>
-  <text class="text title" x="363" y="205" text-anchor="middle">unit</text>
-  <text class="text body" x="363" y="232" text-anchor="middle">service/socket/timer</text>
-  <rect class="box" x="510" y="70" width="155" height="90"/>
-  <text class="text title" x="588" y="105" text-anchor="middle">依赖关系</text>
-  <text class="text body" x="588" y="132" text-anchor="middle">After / Requires</text>
-  <rect class="box" x="510" y="270" width="155" height="90"/>
-  <text class="text title" x="588" y="305" text-anchor="middle">服务进程</text>
-  <text class="text body" x="588" y="332" text-anchor="middle">ExecStart</text>
-  <rect class="log" x="735" y="70" width="155" height="90"/>
-  <text class="text title" x="813" y="105" text-anchor="middle">journald</text>
-  <text class="text body" x="813" y="132" text-anchor="middle">日志和状态</text>
-  <rect class="warn" x="735" y="270" width="155" height="90"/>
-  <text class="text title" x="813" y="305" text-anchor="middle">重启策略</text>
-  <text class="text body" x="813" y="332" text-anchor="middle">Restart / Limit</text>
-  <path class="line" d="M215 215 L285 215"/>
-  <path class="line" d="M440 205 C475 160 485 115 510 115"/>
-  <path class="line" d="M440 225 C475 270 485 315 510 315"/>
-  <path class="line" d="M665 115 L735 115"/>
-  <path class="line" d="M665 315 L735 315"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="systemd-unit-flow-title systemd-unit-flow-desc">
+<title id="systemd-unit-flow-title">配置加载、进程执行与应用就绪有不同边界</title>
+<desc id="systemd-unit-flow-desc">展示unit被管理器加载并启动进程、应用初始化与就绪验证，同时输出日志用于失败诊断。</desc>
+<defs><marker id="systemd-unit-flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.heading{font-size:25px;font-weight:700}.name{font-size:21px;font-weight:600}.body{font-size:17px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.focus{fill:#e7f3ef;stroke:#69978c;stroke-width:1.5}.blue{fill:#eff5fc;stroke:#a4b9cc;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#systemd-unit-flow-arrow)}.label{font-size:16px;fill:#4d5d63}</style></defs>
+<rect width="1120" height="560" fill="#f7f9fa"/>
+<text class="heading" x="36" y="46">配置加载、进程执行与应用就绪有不同边界</text>
+<text class="body" x="36" y="80">enable建立安装链接；start改变运行状态；daemon-reload不会自动重启服务。</text><path class="edge" d="M256 196H320"/><path class="edge" d="M540 196H604"/><path class="edge" d="M824 196H888"/><path class="edge" d="M714 252V364"/><path class="edge" d="M998 252V388Q998 396 990 396H824"/><rect x="262" y="162" width="54" height="24" fill="#f7f9fa"/><text class="label" x="266" y="180">加载</text><rect x="546" y="162" width="54" height="24" fill="#f7f9fa"/><text class="label" x="550" y="180">启动</text><rect x="828" y="162" width="56" height="24" fill="#f7f9fa"/><text class="label" x="832" y="180">初始化</text><rect x="724" y="304" width="100" height="24" fill="#f7f9fa"/><text class="label" x="728" y="322">标准输出</text><rect x="922" y="326" width="68" height="24" fill="#f7f9fa"/><text class="label" x="926" y="344">观测</text><rect class="box" x="36" y="140" width="220" height="112" rx="6"/><text class="name" x="54" y="172">unit / drop-in</text><text class="body" x="54" y="202">路径、身份、依赖</text><text class="body" x="54" y="228">Restart与启动限流</text><rect class="blue" x="320" y="140" width="220" height="112" rx="6"/><text class="name" x="338" y="172">systemd管理器</text><text class="body" x="338" y="202">读取配置并调度</text><text class="body" x="338" y="228">维护状态与cgroup</text><rect class="box" x="604" y="140" width="220" height="112" rx="6"/><text class="name" x="622" y="172">前台主进程</text><text class="body" x="622" y="202">Type=exec：执行成功</text><text class="body" x="622" y="228">不等于端口就绪</text><rect class="focus" x="888" y="140" width="196" height="112" rx="6"/><text class="name" x="906" y="172">应用就绪</text><text class="body" x="906" y="202">notify需主动通知</text><text class="body" x="906" y="228">仍要验业务请求</text><rect class="box" x="604" y="364" width="220" height="108" rx="6"/><text class="name" x="622" y="396">journal / 诊断</text><text class="body" x="622" y="426">日志、Result、退出码</text><text class="body" x="622" y="452">定位后同入口复验</text><text class="body" x="36" y="396">失败后的重启由管理器按Restart与限流策略决定。</text><text class="body" x="36" y="426">network-online只提供启动同步，不能保证远端依赖可用。</text><text class="body" x="36" y="516">这里分离了状态、日志与业务健康：日志不是依赖图的下一启动阶段。</text>
 </svg>

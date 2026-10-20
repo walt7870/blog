@@ -1,0 +1,140 @@
+[
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-domains.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-deployment.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-control.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-task.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-recovery.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-signing.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/audio-forensics.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-sdk.svg",
+    "width": 2900
+  },
+  {
+    "file": "projects/audio-forensics.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/sdk-session.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/audio-forensics.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/audio-forensics.svg",
+    "width": 1835
+  },
+  {
+    "file": "projects/commerce.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/commerce.svg",
+    "width": 1919
+  },
+  {
+    "file": "projects/delivery-platform.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/delivery-platform.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/feishu-workflow.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/feishu-workflow.svg",
+    "width": 2068
+  },
+  {
+    "file": "projects/gitlab-platform.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/gitlab-platform.svg",
+    "width": 1665
+  },
+  {
+    "file": "projects/materials-website.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/materials-website.svg",
+    "width": 2288
+  },
+  {
+    "file": "projects/memo-ai.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/memo-ai.svg",
+    "width": 1425
+  },
+  {
+    "file": "projects/private-asr.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/private-asr.svg",
+    "width": 1645
+  },
+  {
+    "file": "projects/speech-playground.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-playground.svg",
+    "width": 1841
+  },
+  {
+    "file": "projects/speech-sdk.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-sdk.svg",
+    "width": 2900
+  },
+  {
+    "file": "projects/speech-sdk.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/sdk-session.svg",
+    "width": 1280
+  },
+  {
+    "file": "projects/speech-sdk.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/audio-forensics.svg",
+    "width": 1835
+  },
+  {
+    "file": "projects/sub2api-platform.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/sub2api-platform.svg",
+    "width": 1539
+  },
+  {
+    "file": "projects/sub2api-platform.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/sub2api-operations.svg",
+    "width": 2048
+  },
+  {
+    "file": "projects/voice-platform.md",
+    "complete": true,
+    "src": "http://127.0.0.1:5177/blog/projects/diagrams/voice-platform.svg",
+    "width": 2137
+  }
+]

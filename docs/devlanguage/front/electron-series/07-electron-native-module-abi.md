@@ -2,9 +2,13 @@
 
 带有 `.node` 二进制的依赖并不是纯 JavaScript。它在编译时绑定操作系统、CPU 架构和 Node 模块 ABI；Electron 又内置自己的 Node/V8 版本。只要其中一个维度不匹配，`require()` 就可能在加载阶段失败。
 
+![原生模块兼容性与rebuild分支](/electron/native-module-contract.svg)
+
+例如给编辑器加 SQLite，网页开发服务器可以正常启动，真正调用数据库时却报 `ERR_DLOPEN_FAILED`。这首先是宿主与二进制加载问题；删除前端缓存不会改变 `.node` 文件的架构或 ABI。
+
 ## 一次可复现的 ABI 冲突
 
-DeskLab 安装了 `better-sqlite3@11.10.0`。普通 Node 24.7.0 的模块 ABI 为 137，Electron 43.3.0 内置 Node 24.18.1 的模块 ABI 为 148。
+DeskLab 的历史实验使用 `better-sqlite3@11.10.0`：普通 Node 24.7.0 报告模块 ABI 137，Electron 43.3.0 报告内置 Node 24.18.1、模块 ABI 148。ABI 应以目标运行时的 `process.versions.modules` 实际输出为准，不能只按 Node 主版本推断。
 
 ~~~js
 console.log(process.versions.node)
@@ -20,7 +24,7 @@ compiled against NODE_MODULE_VERSION 137
 this version of Node.js requires NODE_MODULE_VERSION 148
 ~~~
 
-这个错误已经给出关键证据：文件存在、CPU 架构可识别，但编译所用模块 ABI 与当前宿主不同。
+这个错误明确指出编译所用模块 ABI 与当前宿主不同。修复该层后仍可能暴露缺失动态库、签名或架构问题，因此不能把这条错误当成其他维度均已验收的证明。
 
 ## Rebuild 解决哪一层问题
 
@@ -30,7 +34,9 @@ this version of Node.js requires NODE_MODULE_VERSION 148
 npx @electron/rebuild -f -w better-sqlite3
 ~~~
 
-本次 rebuild 没有成功。编译器继续报 `SetNativeDataProperty`、`External::Value` 等 V8 API 错误，说明问题从“已有二进制 ABI 不匹配”进入“依赖源码不兼容当前 Electron/V8”。此时反复执行 rebuild 不会改变源码兼容性，需要升级依赖、使用支持该 Electron 版本的分支，或调整 Electron 版本。
+该次历史实验的 rebuild 没有成功。编译器继续报 `SetNativeDataProperty`、`External::Value` 等 V8 API 错误，说明问题从“已有二进制 ABI 不匹配”进入“依赖源码不兼容当前 Electron/V8”。此时反复执行 rebuild 不会改变源码兼容性，需要升级依赖、使用支持该 Electron 版本的分支，或调整 Electron 版本。
+
+这条命令在安装了目标 Electron 的应用目录中执行。若同一仓库还要用系统 Node 运行这个原生依赖，应隔离两种安装输出；为 Electron rebuild 后再直接运行 Node，可能制造反向 ABI 冲突。CI 缓存键至少包含锁文件摘要、Electron 版本、OS 和架构。
 
 ## 按错误层级排查
 

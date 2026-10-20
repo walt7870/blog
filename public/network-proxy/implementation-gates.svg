@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="impl-title impl-desc">
+<title id="impl-title">Trojan TLS主线的实施验收</title><desc id="impl-desc">先明确两类请求的出口和DNS，再准备证书、部署远端、应用客户端、验证业务。证书错误停止在身份阶段，配置或认证错误保留旧配置，业务失败按证据恢复与排障。</desc>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#527184"/></marker></defs>
+<rect width="1120" height="600" fill="#f7f9fb"/>
+<g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+<text x="40" y="52" font-size="28" font-weight="700">先定义预期路径，再逐段验证</text><text x="40" y="88" font-size="18" fill="#52616d">主线：Trojan + TLS；systemd 与 Docker 选一种，远端直接终止 TLS。</text>
+<g fill="none" stroke="#527184" stroke-width="2" marker-end="url(#a)"><path d="M340 198H394"/><path d="M694 198H748"/><path d="M898 264V350"/><path d="M748 416H694"/><path d="M394 416H340"/></g>
+<g fill="#fff" stroke="#91a6b5"><rect x="40" y="136" width="300" height="128" rx="6"/><rect x="394" y="136" width="300" height="128" rx="6"/><rect x="748" y="136" width="332" height="128" rx="6"/>
+<rect x="748" y="350" width="332" height="128" rx="6"/><rect x="394" y="350" width="300" height="128" rx="6" fill="#e8f5ef"/><rect x="40" y="350" width="300" height="128" rx="6" fill="#fff3ec"/></g>
+<g font-size="23" font-weight="600"><text x="62" y="174">1. 范围与预期</text><text x="416" y="174">2. 证书与身份</text><text x="770" y="174">3. 部署远端</text><text x="770" y="388">4. 应用客户端配置</text><text x="416" y="388">5. 业务与恢复验收</text><text x="62" y="388">失败：恢复并定位</text></g>
+<g font-size="18" fill="#52616d"><text x="62" y="210">内部制品库：内网 DNS 与直连</text><text x="62" y="242">外部下载 API：代理出口</text><text x="416" y="210">名称匹配、可读取、可续期</text><text x="416" y="242">证书错误时停止部署推进</text><text x="770" y="210">配置检查、监听、账号认证</text><text x="770" y="242">验证远端能访问目标</text>
+<text x="770" y="424">端口、凭据与 TLS 名称匹配</text><text x="770" y="456">引用检查失败则保留旧配置</text><text x="416" y="424">实际应用、内网与错误凭据</text><text x="416" y="456">服务重启后仍按预期运行</text><text x="62" y="424">回到上一可用配置与版本</text><text x="62" y="456">按接入、认证、出口分层收证</text></g>
+<g font-size="18" fill="#52616d"><text x="40" y="534">步骤 5 通过后才能进入日常运行；最后一条箭头仅表示验收失败分支。</text><text x="40" y="570">保存：配置版本、测试时间、目标、命中规则和响应。节点变绿不能代替这些证据。</text></g>
+</g></svg>

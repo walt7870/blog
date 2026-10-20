@@ -10,6 +10,8 @@ npm 适合工具链要求简单、团队成员水平差异较大、项目不需�
 
 ## 常用命令
 
+![npm依赖锁与构建验证合同](/front/package-managers/install-contract.svg)
+
 ```bash
 # 初始化
 npm init
@@ -38,10 +40,11 @@ npm run build
 
 # 安全审计
 npm audit
-npm audit fix
 ```
 
-`npm ci` 会删除现有 `node_modules` 并完全按 `package-lock.json` 安装，适合流水线；本地开发通常使用 `npm install`。
+`npm ci`要求锁文件与清单匹配，删除现有`node_modules`且不改清单和锁文件；缺锁或不一致应失败。生成锁时影响依赖树的配置，如`legacy-peer-deps`或`install-links`，CI也需一致。它仍可运行生命周期脚本，不代表离线或不执行代码。
+
+例如安装`is-number@7.0.0`后，将清单单独改为`6.0.0`，`npm ci`应失败。应审查依赖变更并重新生成锁，不能在CI前临时运行`npm install`掩盖不一致。
 
 ## package.json
 
@@ -57,14 +60,14 @@ npm audit fix
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "vite": "^6.0.0",
+    "vite": "^8.0.0",
     "typescript": "^5.0.0"
   },
   "engines": {
-    "node": ">=20",
-    "npm": ">=10"
+    "node": ">=22.12.0",
+    "npm": ">=11"
   },
-  "packageManager": "npm@10.9.0"
+  "packageManager": "npm@11.19.1"
 }
 ```
 
@@ -75,7 +78,7 @@ npm audit fix
 项目级 registry 建议写在项目根目录 `.npmrc`，不要只依赖个人机器的全局配置：
 
 ```ini
-registry=https://registry.npmmirror.com
+registry=https://registry.npmjs.org/
 save-exact=false
 engine-strict=true
 ```
@@ -109,6 +112,10 @@ npm run build -w apps/admin
 ```
 
 npm Workspaces 适合简单多包项目。如果仓库里包数量多、依赖关系复杂，通常优先评估 pnpm。
+
+静态前端构建通常需要开发依赖，不能构建前`--omit=dev`导致Vite缺失；SSR运行时还需要服务端依赖。`engines`是否强制取决于配置，`packageManager`也不自动替换当前npm。
+
+依赖提升可能让未声明的传递包恰好可见，发布后却找不到。每个包应声明直接导入的依赖。用`npm explain 包名`定位来源，用`npm ls 包名`查看树；`npm audit fix`会改变依赖，需要审查与回归。开发工具风险也影响构建机，不能只检查最终浏览器包。
 
 ## 排查
 

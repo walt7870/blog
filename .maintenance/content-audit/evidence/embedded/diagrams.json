@@ -1,0 +1,17 @@
+[
+  "/embedded/c-memory-contract.svg",
+  "/embedded/engineering-capability-path.svg",
+  "/embedded/protocol-command-contract.svg",
+  "/embedded/electrical-check-path.svg",
+  "/embedded/hardware-validation-loop.svg",
+  "/embedded/node-delivery-map.svg",
+  "/embedded/linux-boot-runtime.svg",
+  "/embedded/mcu-runtime-map.svg",
+  "/embedded/peripheral-buffer-lifecycle.svg",
+  "/embedded/platform-adapter-boundaries.svg",
+  "/embedded/project-node-gateway.svg",
+  "/embedded/ota-confirmation-states.svg",
+  "/embedded/rtos-event-flow.svg",
+  "/embedded/toolchain-artifact-flow.svg",
+  "/devlanguage/runtime-selection-map.svg"
+]

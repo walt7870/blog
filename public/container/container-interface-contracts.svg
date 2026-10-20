@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="title desc">
+  <title id="title">容器的内容与运行接口合同</title>
+  <desc id="desc">OCI 分别约定镜像内容、仓库分发和运行；kubelet 经 CRI 请求运行时，运行时经 CNI 接入网络，Kubernetes 存储组件经 CSI 供给和挂载卷。每条接口有不同的失败对象。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="630" fill="#f8fafc"/>
+  <text class="h" x="40" y="51">按对象区分接口，按阶段寻找失败证据</text><text class="t muted" x="40" y="84">OCI 的内容、分发、运行是不同规范；CRI、CNI、CSI 连接不同的调用双方。</text>
+  <text class="n" x="40" y="140">内容与进程</text>
+  <path class="line" d="M330 202H390"/><path class="line" d="M720 202H780"/>
+  <rect class="box" x="40" y="161" width="290" height="82" rx="6"/><text class="n" x="58" y="193">OCI Image 内容</text><text class="t" x="58" y="221">清单、配置、层及索引</text>
+  <rect class="blue" x="390" y="161" width="330" height="82" rx="6"/><text class="n" x="408" y="193">客户端与仓库：Distribution</text><text class="t" x="408" y="221">获取内容后，准备根文件系统与配置</text>
+  <rect class="green" x="780" y="161" width="300" height="82" rx="6"/><text class="n" x="798" y="193">OCI Runtime</text><text class="t" x="798" y="221">启动进程，不负责 Dockerfile 构建</text>
+  <text class="n" x="40" y="301">Kubernetes 的三类调用</text>
+  <path class="line" d="M365 356H565"/><path class="line" d="M365 431H565"/><path class="line" d="M365 506H565"/>
+  <rect class="box" x="40" y="326" width="325" height="60" rx="6"/><text class="n" x="58" y="362">kubelet</text>
+  <rect class="blue" x="565" y="326" width="515" height="60" rx="6"/><text class="n" x="583" y="362">CRI 运行时：镜像、sandbox 与容器生命周期</text>
+  <rect class="box" x="40" y="401" width="325" height="60" rx="6"/><text class="n" x="58" y="437">运行时的网络准备与清理</text>
+  <rect class="blue" x="565" y="401" width="515" height="60" rx="6"/><text class="n" x="583" y="437">网络插件：接口、地址与路由等配置</text>
+  <rect class="box" x="40" y="476" width="325" height="60" rx="6"/><text class="n" x="58" y="512">存储控制器 / 节点组件及 sidecar</text>
+  <rect class="green" x="565" y="476" width="515" height="60" rx="6"/><text class="n" x="583" y="512">存储驱动：按能力供给、附加与节点挂载</text>
+  <rect x="438" y="341" width="56" height="28" fill="#f8fafc"/><text class="t" x="451" y="362">CRI</text>
+  <rect x="438" y="416" width="56" height="28" fill="#f8fafc"/><text class="t" x="450" y="437">CNI</text>
+  <rect x="438" y="491" width="56" height="28" fill="#f8fafc"/><text class="t" x="452" y="512">CSI</text>
+  <text class="t muted" x="40" y="582">Pod 有 IP 不证明 Service 可达；PVC 已绑定不证明挂载可写；标准兼容不等于实现无条件互换。</text>
+</svg>

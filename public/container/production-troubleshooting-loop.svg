@@ -1,59 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="560" viewBox="0 0 1440 560" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes 生产排障链路</title>
-  <desc id="desc">从用户症状依次检查入口、服务发现、工作负载、节点运行时和存储配置，最后结合观测信号完成修复验证。</desc>
-  <rect width="1440" height="560" rx="24" fill="#071f1a"/>
-  <text x="72" y="72" fill="#f4f7f5" font-family="Arial, PingFang SC, sans-serif" font-size="34" font-weight="700">Kubernetes 生产排障链路</text>
-  <text x="72" y="110" fill="#9bb8ae" font-family="Arial, PingFang SC, sans-serif" font-size="20">从现象进入，按请求与控制链逐层收集证据，再用同一指标验证恢复</text>
-  <g font-family="Arial, PingFang SC, sans-serif">
-    <g transform="translate(72 176)">
-      <rect width="190" height="126" rx="12" fill="#123b31" stroke="#74d5b5" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">01 影响范围</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">用户症状</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">错误率 · 延迟 · 时间</text>
-    </g>
-    <g transform="translate(290 176)">
-      <rect width="190" height="126" rx="12" fill="#123b31" stroke="#5d8f7f" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">02 流量入口</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">Ingress / LB</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">域名 · TLS · 路由</text>
-    </g>
-    <g transform="translate(508 176)">
-      <rect width="190" height="126" rx="12" fill="#123b31" stroke="#5d8f7f" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">03 服务发现</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">Service</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">Selector · Endpoint</text>
-    </g>
-    <g transform="translate(726 176)">
-      <rect width="190" height="126" rx="12" fill="#123b31" stroke="#5d8f7f" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">04 工作负载</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">Deployment / Pod</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">发布 · 探针 · 日志</text>
-    </g>
-    <g transform="translate(944 176)">
-      <rect width="190" height="126" rx="12" fill="#123b31" stroke="#5d8f7f" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">05 节点执行</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">Node / Runtime</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">调度 · 资源 · 镜像</text>
-    </g>
-    <g transform="translate(1162 176)">
-      <rect width="206" height="126" rx="12" fill="#123b31" stroke="#5d8f7f" stroke-width="2"/>
-      <text x="24" y="42" fill="#74d5b5" font-size="19">06 外部依赖</text>
-      <text x="24" y="76" fill="#f4f7f5" font-size="23" font-weight="700">存储 / 配置</text>
-      <text x="24" y="105" fill="#b8c9c3" font-size="17">PVC · Secret · 数据库</text>
-    </g>
-    <g fill="none" stroke="#f5c85b" stroke-width="4" stroke-linecap="round">
-      <path d="M262 239h20"/><path d="M480 239h20"/><path d="M698 239h20"/><path d="M916 239h20"/><path d="M1134 239h20"/>
-    </g>
-    <g fill="#f5c85b">
-      <path d="M282 239l-10-7v14z"/><path d="M500 239l-10-7v14z"/><path d="M718 239l-10-7v14z"/><path d="M936 239l-10-7v14z"/><path d="M1154 239l-10-7v14z"/>
-    </g>
-    <rect x="72" y="370" width="850" height="118" rx="12" fill="#0d3028" stroke="#5d8f7f" stroke-width="2"/>
-    <text x="104" y="410" fill="#74d5b5" font-size="19">证据面</text>
-    <text x="104" y="449" fill="#f4f7f5" font-size="24" font-weight="700">资源状态 · Events · 日志 · 指标 · 追踪 · 最近变更</text>
-    <text x="104" y="475" fill="#b8c9c3" font-size="17">先定位层级，再执行修复；避免只凭单条日志猜测</text>
-    <rect x="958" y="370" width="410" height="118" rx="12" fill="#4a3b16" stroke="#f5c85b" stroke-width="2"/>
-    <text x="990" y="410" fill="#f5c85b" font-size="19">恢复闭环</text>
-    <text x="990" y="449" fill="#f4f7f5" font-size="24" font-weight="700">修复 -> 发布 -> 指标复核</text>
-    <text x="990" y="475" fill="#d7c994" font-size="17">确认用户影响消失，并记录预防措施</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 生产排查与恢复验证路径</title>
+  <desc id="desc">先确认用户影响与变更，再依据症状定位控制对象、请求网络或节点存储分支，保存证据、实施修复并用同一业务指标复核。这是排查顺序，不是请求转发路径。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.focus{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.ok{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="720" fill="#f7f9fb"/><text class="title" x="48" y="54">先确定故障边界，再验证修复是否恢复用户结果</text><text class="t" x="48" y="89">图中箭头表示排查与处理推进，不表示请求依次经过这些 Kubernetes 对象。</text>
+  <path class="edge" d="M348 205H410"/><path class="edge" d="M710 205H772"/><path class="edge" d="M922 275V355"/><path class="edge" d="M772 425H710"/><path class="edge" d="M410 425H348"/>
+  <rect class="focus" x="48" y="135" width="300" height="140" rx="6"/><text class="h" x="68" y="173">1. 用户影响</text><text class="t" x="68" y="210">成功率、尾延迟、正确性</text><text class="t" x="68" y="245">时间窗、区域、发布与配置</text>
+  <rect class="box" x="410" y="135" width="300" height="140" rx="6"/><text class="h" x="430" y="173">2. 判断故障层级</text><text class="t" x="430" y="210">对象未收敛、请求失败</text><text class="t" x="430" y="245">或节点运行与存储异常</text>
+  <rect class="box" x="772" y="135" width="300" height="140" rx="6"/><text class="h" x="792" y="173">3. 收集对应证据</text><text class="t" x="792" y="210">Conditions、Events、日志</text><text class="t" x="792" y="245">指标、Trace、端点与卷状态</text>
+  <rect class="box" x="772" y="355" width="300" height="140" rx="6"/><text class="h" x="792" y="393">4. 对齐因果时间线</text><text class="t" x="792" y="430">同一版本、Pod UID 与请求</text><text class="t" x="792" y="465">用对照验证，排除同时噪声</text>
+  <rect class="box" x="410" y="355" width="300" height="140" rx="6"/><text class="h" x="430" y="393">5. 修复并灰度</text><text class="t" x="430" y="430">限制变更范围与停止条件</text><text class="t" x="430" y="465">保留现场与恢复方案</text>
+  <rect class="ok" x="48" y="355" width="300" height="140" rx="6"/><text class="h" x="68" y="393">6. 相同指标复核</text><text class="t" x="68" y="430">重放故障条件和目标负载</text><text class="t" x="68" y="465">用户结果与容量均恢复</text>
+  <text class="h" x="48" y="560">订单发布后返回 503：从“哪个 revision 的哪些请求失败”开始</text>
+  <text class="t" x="48" y="602">探针提前通过、端点条件传播、代理选择该 Pod、应用连接池未就绪，需要独立证据关联。</text>
+  <text class="t" x="48" y="642">只看到 Pod Running、Slice 中出现地址，或重启后恢复，都不足以证明根因。</text>
 </svg>

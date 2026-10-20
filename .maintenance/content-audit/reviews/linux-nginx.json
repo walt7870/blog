@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/nginx/nginx.md",
+      "status": "verified",
+      "reviewedHash": "d2c2036e4c81b92361a772259d7c23dc2904cae46fab6c30719a67676a68a973",
+      "pageType": "Nginx请求与配置总览",
+      "decision": "完整审查旧202行，按订单网站补监听组、SNI/Host、默认站点、内部跳转、配置上下文、资源404与SPA回退、代理信任和reload验收。移除重复缓存头，HTTP/2版本细节归证书页，重画请求关系SVG。",
+      "validation": ["从正文提取站点配置，在Debian12 Nginx1.22.1临时容器测试，health200、缺失JS404、版本JS、SPA回退、代理原路径及reload通过；测试脚本nginx-validation.mjs，容器已清理。1280×800及390×844浅深色全页、长代码键盘横滚、图片原尺寸关闭、客户端location链接通过；独立SVG中文边界检查后缩短贴边标签。构建13.65秒成功，本地引用零错误。未验证实际systemd unit、CDN或真实订单接口。"]
+    },
+    {
+      "file": "docs/linux/nginx/location.md",
+      "status": "verified",
+      "reviewedHash": "aed430bc4f9f6c94269b8234922e37d901a839d7f88aa95fdf9431bbcbbc1fbd",
+      "pageType": "同层location决策与路径合同",
+      "decision": "完整审查旧203行，限定传统同层规则并补嵌套边界、规范化URI和参数差别、最长前缀的^~、内部跳转、root/alias与proxy_pass URI。修隐藏文件正则过宽放行和^~绕过误区，重画有停止分支的决策图。",
+      "validation": ["正文五条标签请求在Nginx1.22.1全部符合表格，保留/api与替换为/的代理路径及参数通过；其余机制核对官方core location/try_files与proxy_pass段。桌面手机浅深色、342px手机表格、长代码滚动、图片原尺寸关闭、客户端证书页跳转通过。独立图中文尺寸和条件分支截图通过，构建成功。嵌套复杂配置与扩展版本语法未当作已实测。"]
+    },
+    {
+      "file": "docs/linux/nginx/auto-renew-cert.md",
+      "status": "verified",
+      "reviewedHash": "b8296cdae451328458423c8cc017a076c14000939a28734cb6a02373ffe8444d",
+      "pageType": "证书签发部署与运行生效",
+      "decision": "完整审查旧250行，删除curl管道安装与force模拟续期，显式CA和隔离测试home、ECC对应证书、受控凭据、固定安装路径与非交互hook。补fullchain、HTTP/2版本、新连接SNI及主机名/信任链验证、多TLS终止层和到期监控，重画证据链并明确私钥不由CA签发。",
+      "validation": ["核对acme.sh README install-cert/默认ECC/cron段，官方脚本3.1.7参数解析、home/config/cert路径和DNS hook查找；LE staging与Nginx HTTP/2官方段。TLS配置在临时容器使用自签名ECC证书测试通过，以独立CAfile进行新握手、主机名、指纹检查。未请求真实CA、未写DNS、未运行生产定时与systemd hook。三页双视口浅深色、图片原尺寸、6段超宽代码键盘横滚通过；独立图实际字体尺寸及截图通过。构建成功。"]
+    }
+  ]
+}

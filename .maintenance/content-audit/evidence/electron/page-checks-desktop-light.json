@@ -1,0 +1,145 @@
+[
+  {
+    "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "双击 Electron 应用，系统到底启动了什么",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "一个窗口为什么带出一串进程",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "网页按钮怎样安全读取本地文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "关闭窗口后，Electron 应用为什么还在运行",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Electron Forge 的 Package、Make 和 Publish 分别做什么",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "ASAR 是归档格式，不是加密边界",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "原生 Node 模块为什么在 Electron 中加载失败",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Electron 签名、公证和系统放行是三次检查",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "自动更新的核心是一台可恢复状态机",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Electron 性能优化先建立可重复测量",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Electron 深度科普：从双击图标到签名更新",
+    "width": 1280
+  }
+]

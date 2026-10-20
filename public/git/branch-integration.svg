@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="git-branch-title git-branch-desc">
+  <title id="git-branch-title">merge、rebase 与 cherry-pick 的提交关系</title><desc id="git-branch-desc">三个独立示例。merge的M有B和F两个父提交。rebase将F重放为以B为父的F撇。cherry-pick把X的补丁复制成以R为父的X撇。图中箭头由父指向子表示开发进展，与Git对象内的父指针方向相反。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="56" font-size="27" font-weight="700">整合内容时，也在选择提交关系</text><text x="48" y="92" font-size="17" fill="#536470">三个独立示例；实线箭头表示父到子的开发进展，虚线表示修改的复制。</text>
+    <path d="M32 280H1088M32 460H1088" stroke="#d5dfe5"/>
+    <g fill="none" stroke="#596b78" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M360 172H484"/><path d="M328 196V232Q328 240 336 240H484"/><path d="M532 172H684"/><path d="M532 240H700Q708 240 708 232V196"/>
+      <path d="M360 344H484"/><path d="M328 368V404Q328 412 336 412H484"/><path d="M532 344H684"/>
+      <path d="M532 404H632Q640 404 640 396V384Q640 376 648 376H700Q708 376 708 368" stroke-dasharray="5 4"/>
+      <path d="M360 520H484"/><path d="M360 584H684"/><path d="M532 520H700Q708 520 708 528V560" stroke-dasharray="5 4"/>
+    </g>
+    <g fill="#fff" stroke="#a4b3be" stroke-width="1.5"><circle cx="328" cy="172" r="24"/><circle cx="508" cy="172" r="24"/><circle cx="508" cy="240" r="24"/><circle cx="708" cy="172" r="24" fill="#e9f5f0"/><circle cx="328" cy="344" r="24"/><circle cx="508" cy="344" r="24"/><circle cx="508" cy="412" r="24"/><circle cx="708" cy="344" r="24" fill="#edf4fc"/><circle cx="328" cy="520" r="24"/><circle cx="508" cy="520" r="24"/><circle cx="328" cy="584" r="24"/><circle cx="708" cy="584" r="24" fill="#edf4fc"/></g>
+    <g font-size="19" text-anchor="middle"><text x="328" y="179">A</text><text x="508" y="179">B</text><text x="508" y="247">F</text><text x="708" y="179">M</text><text x="328" y="351">A</text><text x="508" y="351">B</text><text x="508" y="419">F</text><text x="708" y="351">F′</text><text x="328" y="527">S</text><text x="508" y="527">X</text><text x="328" y="591">R</text><text x="708" y="591">X′</text></g>
+    <text x="48" y="178" font-size="23" font-weight="700">merge</text><text x="48" y="212" font-size="17">M 保留两个父关系</text><text x="780" y="178" font-size="17">B：main 新增权限</text><text x="780" y="212" font-size="17">F：功能修复</text><text x="780" y="246" font-size="17">M：集成两者</text>
+    <text x="48" y="350" font-size="23" font-weight="700">rebase</text><text x="48" y="384" font-size="17">重放 F，形成新 F′</text><text x="780" y="350" font-size="17">新父关系改变提交 ID</text><text x="780" y="384" font-size="17">旧 F 不自动原地消失</text><text x="780" y="418" font-size="17">分支引用转到 F′</text>
+    <text x="48" y="526" font-size="23" font-weight="700">cherry-pick</text><text x="48" y="560" font-size="17">选择 X 的修改</text><text x="780" y="526" font-size="17">R：维护分支基线</text><text x="780" y="560" font-size="17">X′：该基线上的新提交</text><text x="780" y="594" font-size="17">仍需检查前置依赖</text>
+  </g>
+</svg>

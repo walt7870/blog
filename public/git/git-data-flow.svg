@@ -1,56 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
-  <title id="title">Git data flow</title>
-  <desc id="desc">A diagram showing working tree, staging area, local repository, and remote repository.</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a"/>
-    </marker>
-    <style>
-      .bg { fill: #f8fafc; }
-      .box { fill: #ffffff; stroke: #dbe3ef; stroke-width: 1.6; }
-      .head { font: 700 22px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
-      .title { font: 700 17px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
-      .body { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
-      .cmd { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #166534; }
-      .line { stroke: #16a34a; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
-      .back { stroke: #64748b; stroke-width: 2; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
-    </style>
-  </defs>
-  <rect class="bg" width="920" height="360" rx="18"/>
-  <text class="head" x="36" y="46">Git 的数据流</text>
-  <text class="body" x="36" y="74">提交前先选择进入暂存区的内容；远程同步只发生在 fetch、pull、push 等命令中。</text>
-
-  <rect class="box" x="46" y="126" width="180" height="128" rx="14"/>
-  <text class="title" x="72" y="166">工作区</text>
-  <text class="body" x="72" y="194">正在编辑的文件</text>
-  <text class="cmd" x="72" y="224">git diff</text>
-
-  <rect class="box" x="276" y="126" width="180" height="128" rx="14"/>
-  <text class="title" x="302" y="166">暂存区</text>
-  <text class="body" x="302" y="194">下一次提交候选</text>
-  <text class="cmd" x="302" y="224">git diff --staged</text>
-
-  <rect class="box" x="506" y="126" width="180" height="128" rx="14"/>
-  <text class="title" x="532" y="166">本地版本库</text>
-  <text class="body" x="532" y="194">提交历史和引用</text>
-  <text class="cmd" x="532" y="224">git log</text>
-
-  <rect class="box" x="736" y="126" width="140" height="128" rx="14"/>
-  <text class="title" x="762" y="166">远程仓库</text>
-  <text class="body" x="762" y="194">团队共享</text>
-  <text class="cmd" x="762" y="224">origin/main</text>
-
-  <path class="line" d="M 226 190 C 246 190, 256 190, 276 190"/>
-  <text class="cmd" x="238" y="176">git add</text>
-
-  <path class="line" d="M 456 190 C 476 190, 486 190, 506 190"/>
-  <text class="cmd" x="462" y="176">git commit</text>
-
-  <path class="line" d="M 686 172 C 706 172, 716 172, 736 172"/>
-  <text class="cmd" x="694" y="158">git push</text>
-
-  <path class="back" d="M 736 218 C 716 218, 706 218, 686 218"/>
-  <text class="cmd" x="694" y="244">git fetch</text>
-
-  <text class="body" x="94" y="310">restore 可以从暂存区或版本库恢复内容；reset 会移动提交引用；revert 会新增一个反向提交。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="580" viewBox="0 0 1120 580" role="img" aria-labelledby="git-flow-title git-flow-desc">
+  <title id="git-flow-title">工作区、索引、提交与远程引用</title>
+  <desc id="git-flow-desc">add 从工作区选取内容进入索引，commit 从索引形成提交。push 更新远端分支，fetch 更新本地远程跟踪引用。origin/main 位于本地。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="580" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="56" font-size="27" font-weight="700">add 之后再编辑，提交候选不会自动改变</text>
+    <rect x="32" y="104" width="772" height="396" rx="6" fill="#fff" stroke="#a4b3be"/>
+    <rect x="852" y="104" width="236" height="396" rx="6" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="52" y="138" font-size="19" font-weight="700">本地仓库与工作目录</text>
+    <text x="872" y="138" font-size="19" font-weight="700">远端 origin</text>
+    <g fill="none" stroke="#596b78" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M248 252H304"/><path d="M496 252H552"/>
+      <path d="M764 216H892"/>
+      <path d="M892 416H764"/>
+    </g>
+    <text x="266" y="230" font-size="15">add</text><text x="498" y="230" font-size="15">commit</text>
+    <text x="810" y="196" font-size="15">push</text><text x="808" y="396" font-size="15">fetch</text>
+    <rect x="56" y="200" width="192" height="112" rx="6" fill="#fff" stroke="#a4b3be"/>
+    <text x="76" y="233" font-size="21" font-weight="700">工作区</text><text x="76" y="266" font-size="17">修复 + 调试日志</text><text x="76" y="292" font-size="16">当前编辑的内容</text>
+    <rect x="304" y="200" width="192" height="112" rx="6" fill="#e9f5f0" stroke="#7caaa0"/>
+    <text x="324" y="233" font-size="21" font-weight="700">索引</text><text x="324" y="266" font-size="17">只有已 add 的修复</text><text x="324" y="292" font-size="16">下一次提交候选</text>
+    <rect x="552" y="200" width="212" height="112" rx="6" fill="#fff" stroke="#a4b3be"/>
+    <text x="572" y="233" font-size="21" font-weight="700">提交与本地分支</text><text x="572" y="266" font-size="17">快照、父关系、main</text><text x="572" y="292" font-size="16">commit 不自动推送</text>
+    <rect x="552" y="364" width="212" height="100" rx="6" fill="#fff" stroke="#a4b3be"/>
+    <text x="572" y="399" font-size="20" font-weight="700">origin/main</text><text x="572" y="431" font-size="16">本地远程跟踪引用</text>
+    <rect x="892" y="200" width="156" height="264" rx="6" fill="#fff" stroke="#a4b3be"/>
+    <text x="912" y="242" font-size="21" font-weight="700">main</text><text x="912" y="278" font-size="17">远端真实分支</text><text x="912" y="416" font-size="16">团队共享对象</text>
+    <text x="56" y="366" font-size="17">git diff：工作区与索引</text><text x="56" y="402" font-size="17">git diff --staged：索引与 HEAD</text><text x="56" y="438" font-size="17">restore 默认从索引恢复工作区</text>
+    <text x="48" y="546" font-size="17" fill="#536470">图中展示主路径；fetch 不自动整合当前分支，远程跟踪引用也不会实时刷新。</text>
+  </g>
 </svg>

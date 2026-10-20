@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="580" viewBox="0 0 1120 580" role="img" aria-labelledby="title desc">
+  <title id="title">共用设备的两跳关联</title>
+  <desc id="desc">三个用户各有一条指向设备D9001的LOGIN关系，事件编号分别为E-U1001、E-U1002、E-U1003。查询从U1001顺向走到设备，再逆向找到U1002和U1003，关系方向不变，且只保留指定日期窗口的登录。共用设备是线索，不直接表示欺诈。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="580" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">U1001 → 设备 ← 其他账号：解释关联的中间对象</text>
+  <text x="36" y="78" class="small">三条 LOGIN 均发生在 2026-10-01 10:00 UTC；来源为 login-events。</text>
+  <path d="M276 280H440" class="line"/>
+  <path d="M844 178H774Q766 178 766 186V252Q766 260 758 260H680" class="line"/>
+  <path d="M844 390H740Q732 390 732 382V308Q732 300 724 300H680" class="line"/>
+  <rect x="36" y="230" width="240" height="100" fill="#eaf5ef" stroke="#478167" rx="6"/>
+  <text x="56" y="266" class="head">User · U1001</text><text x="56" y="300" class="small">查询起点</text>
+  <rect x="440" y="230" width="240" height="100" class="box"/>
+  <text x="460" y="266" class="head">Device · D9001</text><text x="460" y="300" class="small">解释路径中的共享设备</text>
+  <rect x="844" y="130" width="240" height="100" class="box"/>
+  <text x="864" y="166" class="head">User · U1002</text><text x="864" y="200" class="small">事件 E-U1002</text>
+  <rect x="844" y="342" width="240" height="100" class="box"/>
+  <text x="864" y="378" class="head">User · U1003</text><text x="864" y="412" class="small">事件 E-U1003</text>
+  <rect x="306" y="238" width="94" height="27" fill="#f7f9fa"/><text x="322" y="257">LOGIN</text>
+  <rect x="682" y="211" width="72" height="28" fill="#f7f9fa"/><text x="688" y="230">LOGIN</text>
+  <rect x="736" y="420" width="94" height="28" fill="#f7f9fa"/><text x="750" y="439">LOGIN</text>
+  <text x="36" y="376" class="small">事件 E-U1001</text>
+  <text x="36" y="492" class="small">箭头表示存储的关系方向；查询可以沿反方向遍历，不会把关系本身反转。</text>
+  <text x="36" y="528" class="small">窗口内查询返回 U1002、U1003；按 DISTINCT 用户计数，重复登录不应放大账号数量。</text>
+  <text x="36" y="562" class="small">共享终端也可能正常：保留来源与时间，结合其他证据核实，不把连通路径直接当作风险结论。</text>
+</svg>

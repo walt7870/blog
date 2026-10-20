@@ -2,6 +2,10 @@
 
 自动更新不是“发现新版本后下载”这一条直线。客户端要先选择匹配版本，再经历检查、下载、校验、等待安装、重启和失败恢复。网络中断、架构不匹配、签名失败和用户延迟重启都必须有明确状态。
 
+![更新候选与可恢复状态](/electron/update-lifecycle.svg)
+
+例如服务器同时保留 1.1.0 和 1.2.0 两个 stable 版本，客户端不应因数组顺序先遇到 1.1.0 就停止。选最高兼容版本还要结合最低系统要求、灰度规则及回滚策略；下方选择器只实现版本、OS、架构和 channel 的本地教学合同。
+
 ## 先筛选候选产物
 
 客户端当前身份至少包含版本、平台、CPU 架构和 channel。DeskLab 的隔离实验以 `1.0.0 / darwin / arm64 / stable` 查询三份本地元数据：
@@ -12,16 +16,23 @@
 | 只有 darwin/x64 1.2.0 | `no-candidate` |
 | 只有 darwin/arm64/beta 1.3.0 | `no-candidate` |
 
-选择器应该逐项匹配，并在版本比较时使用规范化的语义版本规则。
+选择器应该逐项匹配，并在版本比较时使用规范化的语义版本规则。示例在 CommonJS 文件中运行，依赖通过 `npm install semver` 安装；生产 feed 还需对完整字段、URL 和摘要进行结构校验。
 
 ~~~js
+const semver = require('semver')
+
 function selectUpdate(feed, client) {
-  return feed.artifacts.find(item =>
+  if (!semver.valid(client.version) || !Array.isArray(feed.artifacts)) {
+    throw new Error('invalid update contract')
+  }
+  return feed.artifacts.filter(item => item &&
     item.platform === client.platform &&
     item.arch === client.arch &&
     item.channel === client.channel &&
+    semver.valid(item.version) &&
+    (client.channel !== 'stable' || semver.prerelease(item.version) === null) &&
     semver.gt(item.version, client.version)
-  ) ?? null
+  ).sort((a, b) => semver.rcompare(a.version, b.version))[0] ?? null
 }
 ~~~
 
@@ -29,14 +40,7 @@ function selectUpdate(feed, client) {
 
 ## 状态与事件分开记录
 
-一套可审计的状态可以是：
-
-~~~text
-idle -> checking -> available -> downloading -> downloaded
-                    \-> not-available
-       \-> failed <-----------------------------/
-downloaded -> installing -> restarting
-~~~
+检查无候选时回到可继续使用的 `not-available`；用户稍后安装时停留 `downloaded`；下载或校验失败进入 `failed`，记录可重试原因与下次检查时间。状态图中的 `downloaded` 表示该教学模型已完成摘要和签名检查，不应直接照搬某个更新库的同名事件含义。
 
 状态描述客户端现在在哪里；事件记录是谁触发了变化，例如定时检查、用户点击、网络失败、校验失败或退出安装。每次转换应记录旧状态、新状态、版本、artifact ID 和请求编号。
 

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="log-read-title log-read-desc">
+  <title id="log-read-title">日志先选择读取方式，再按请求编号定位</title>
+  <desc id="log-read-desc">先确定目标文件。如果正在等待新日志，使用 tail -F 按名称跟踪；否则使用 less 分页或 head、tail 限定输出。两条路径都通过请求编号和前后文定位原因，避免只看孤立错误行。</desc>
+  <defs><marker id="log-read-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#62786c"/></marker></defs>
+  <rect width="960" height="600" fill="#fafcfb"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#253c30">
+    <text x="40" y="48" font-size="28" font-weight="600">日志先选读法，再定位请求</text>
+    <text x="40" y="80" font-size="18" fill="#607568">以导出失败为例：错误时间 + 请求编号 + 上下文</text>
+    <g fill="none" stroke="#62786c" stroke-width="2" marker-end="url(#log-read-arrow)">
+      <path d="M256 200H320"/><path d="M560 200H640"/>
+      <path d="M440 264V336"/>
+      <path d="M768 240V440"/>
+      <path d="M560 376H600Q608 376 608 384V472Q608 480 616 480H640"/>
+    </g>
+    <g font-size="18" fill="#607568"><rect x="580" y="164" width="40" height="28" fill="#fafcfb"/><text x="600" y="184" text-anchor="middle">是</text><rect x="456" y="284" width="40" height="28" fill="#fafcfb"/><text x="476" y="304" text-anchor="middle">否</text></g>
+    <rect data-node="target" x="64" y="164" width="192" height="72" rx="20" fill="#fff" stroke="#c4d3c9"/>
+    <path data-node="decision" d="M440 136 560 200 440 264 320 200Z" fill="#e9f4ee" stroke="#397657"/>
+    <rect data-node="follow" x="640" y="160" width="256" height="80" rx="6" fill="#edf3fb" stroke="#97b6d3"/>
+    <rect data-node="history" x="320" y="336" width="240" height="80" rx="6" fill="#fff" stroke="#c4d3c9"/>
+    <rect data-node="context" x="640" y="440" width="256" height="80" rx="6" fill="#e9f4ee" stroke="#397657"/>
+    <g font-size="20" font-weight="600" text-anchor="middle"><text x="160" y="208">确认文件与时间</text><text x="440" y="208">等待新增日志？</text><text x="768" y="193">按名称跟踪</text><text x="440" y="369">分页 / 限定行数</text><text x="768" y="473">搜索请求与上下文</text></g>
+    <g font-size="18" text-anchor="middle" fill="#607568"><text x="768" y="222">tail -n 50 -F app.log</text><text x="440" y="398">less -N / head / tail</text><text x="768" y="502">grep -n -F -C 4</text></g>
+    <path d="M40 548H920" stroke="#d7e1da"/>
+    <text x="40" y="578" font-size="18" fill="#607568">先找到同一次请求的前因后果，再判断失败环节；终端安静不代表服务正常。</text>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+[
+  {
+    "file": "docs/embedded/c-programming.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "嵌入式 C 编程",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "职业发展与进阶",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "通信协议实战",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "电子电路基础",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "硬件设计入门",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "嵌入式开发",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "嵌入式 Linux",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "微控制器原理与选型",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "外设驱动开发",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "主流平台实战",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "综合项目案例",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "实时操作系统",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "开发工具链",
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "title": "开发语言与运行平台",
+    "width": 1280,
+    "closed": true
+  }
+]

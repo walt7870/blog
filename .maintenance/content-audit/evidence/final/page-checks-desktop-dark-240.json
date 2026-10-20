@@ -1,0 +1,657 @@
+[
+  {
+    "file": "docs/design/architecture/platform/linux-arm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/linux-arm-migration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2574,
+    "title": "Linux ARM 平台与迁移",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/platform/linux-x86.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/linux-runtime-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3020,
+    "title": "Linux x86-64 构建与运行",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/platform/windows.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/windows-app-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3164,
+    "title": "Windows 应用与服务边界",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/serverless-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/serverless.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2962,
+    "title": "无服务器架构（Serverless Architecture）",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/soa.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/soa.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2450,
+    "title": "面向服务的架构（SOA）",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/adm-method.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/adm-decision-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 4571,
+    "title": "架构开发方法（ADM）：把不确定性变成可治理的变化",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/application-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/application-boundary-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3798,
+    "title": "应用架构：从能力责任推导系统边界与协作契约",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/architecture-content-repository.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/architecture-content-lifecycle.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 4010,
+    "title": "架构内容与架构仓库：让决策成为可组合、可追踪的资产",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/architecture-governance.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/governance-delivery-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3636,
+    "title": "架构治理：把目标架构变成交付与运行中的反馈机制",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/baseline-target-gap.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/baseline-target-gap-flow.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 4179,
+    "title": "Baseline、Target 与 Gap：把愿景变成可执行差距",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/business-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/business-capability-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3857,
+    "title": "业务架构：从战略口号推导能力、责任与变化顺序",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/core-questions.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/togaf-question-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 6698,
+    "title": "TOGAF 核心问题与应用辨析",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/data-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/data-authority-flow.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-reservation-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4337,
+    "title": "数据架构：让企业事实具有统一语义、责任与证据",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/deep-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/enterprise-change-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-transition.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/adm-control-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 10706,
+    "title": "TOGAF 深度实践：从订单重构到企业级变革",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/enterprise-change-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-transition.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1765,
+    "title": "TOGAF 企业架构",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/marketing-system-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-decision-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-value-capability-map.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-data-application-boundary.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-realtime-decision-flow.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-benefit-ledger-state.svg",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-measurement-loop.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-migration-roadmap.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 25091,
+    "title": "TOGAF 营销系统实践：从活动烟囱到可度量的增长能力",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/stakeholders-principles.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/stakeholder-principle-chain.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3500,
+    "title": "干系人、关注点与架构原则：先建立共同决策语言",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/technology-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/technology-quality-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3657,
+    "title": "技术架构：从业务损失推导容量、可靠性与运行机制",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/togaf/transition-migration-planning.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/migration-roadmap.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 4172,
+    "title": "过渡架构与迁移规划：设计企业不停机变化的路径",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/uml/class-relationships.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/uml-class-relationships.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1792,
+    "title": "UML 类图关系",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/architecture/uml/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/uml-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1852,
+    "title": "UML 建模总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/chain-of-responsibility.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/chain-of-responsibility.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 5386,
+    "title": "责任链模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/command.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/command.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6358,
+    "title": "命令模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/behavioral-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1334,
+    "title": "行为型模式总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/interpreter.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/interpreter.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4076,
+    "title": "解释器模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/iterator.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/iterator.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 5123,
+    "title": "迭代器模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/mediator.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/mediator.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 5131,
+    "title": "中介者模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/memento.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/memento.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6520,
+    "title": "备忘录模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/observer.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/observer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6017,
+    "title": "观察者模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/state.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 5536,
+    "title": "状态模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/strategy.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/strategy.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4682,
+    "title": "策略模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/template-method.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/template-method.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6747,
+    "title": "模板方法模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/visitor.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/visitor.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4780,
+    "title": "访问者模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/abstract-method.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/abstract-factory.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2620,
+    "title": "抽象工厂",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/builder.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/builder.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3718,
+    "title": "建造者模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/factory-method.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/factory-method.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2429,
+    "title": "工厂方法",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/creational-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1205,
+    "title": "创建型模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/prototype.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/prototype.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2515,
+    "title": "原型模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/creational/singleton.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/singleton.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2929,
+    "title": "单例模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/pattern-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/selection-guide.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1535,
+    "title": "设计模式",
+    "width": 1280
+  }
+]

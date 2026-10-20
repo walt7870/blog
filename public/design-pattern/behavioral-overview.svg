@@ -1,24 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
-  <title id="title">行为型模式总览</title>
-  <desc id="desc">展示行为型模式如何组织对象协作、状态变化和流程扩展。</desc>
-  <defs>
-    <style>.bg{fill:#fff7ed}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#7c2d12}.sub{font:16px Arial,'Microsoft YaHei',sans-serif;fill:#9a3412}.box{fill:#fff;stroke:#fb923c;stroke-width:2}.name{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.txt{font:13px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#f97316;stroke-width:2;fill:none}.arrow{fill:#f97316}</style>
-  </defs>
-  <rect class="bg" width="1120" height="680" rx="24"/>
-  <text class="title" x="56" y="58">行为型模式：让协作关系可替换、可扩展、可追踪</text>
-  <text class="sub" x="56" y="88">行为型模式关注请求如何流动、算法如何切换、状态如何改变、对象如何通知彼此。</text>
-  <rect class="box" x="70" y="140" width="180" height="88" rx="14"/><text class="name" x="106" y="174">策略</text><text class="txt" x="100" y="202">算法可替换</text>
-  <rect class="box" x="280" y="140" width="180" height="88" rx="14"/><text class="name" x="316" y="174">模板方法</text><text class="txt" x="310" y="202">流程骨架固定</text>
-  <rect class="box" x="490" y="140" width="180" height="88" rx="14"/><text class="name" x="526" y="174">状态</text><text class="txt" x="520" y="202">状态决定行为</text>
-  <rect class="box" x="700" y="140" width="180" height="88" rx="14"/><text class="name" x="736" y="174">命令</text><text class="txt" x="730" y="202">请求对象化</text>
-  <rect class="box" x="910" y="140" width="180" height="88" rx="14"/><text class="name" x="946" y="174">备忘录</text><text class="txt" x="940" y="202">保存与恢复状态</text>
-  <rect class="box" x="70" y="310" width="180" height="88" rx="14"/><text class="name" x="106" y="344">观察者</text><text class="txt" x="100" y="372">状态变化广播</text>
-  <rect class="box" x="280" y="310" width="180" height="88" rx="14"/><text class="name" x="316" y="344">中介者</text><text class="txt" x="310" y="372">对象交互集中协调</text>
-  <rect class="box" x="490" y="310" width="180" height="88" rx="14"/><text class="name" x="526" y="344">责任链</text><text class="txt" x="520" y="372">请求沿链传递</text>
-  <rect class="box" x="700" y="310" width="180" height="88" rx="14"/><text class="name" x="736" y="344">访问者</text><text class="txt" x="730" y="372">数据结构稳定，操作扩展</text>
-  <rect class="box" x="910" y="310" width="180" height="88" rx="14"/><text class="name" x="946" y="344">迭代器</text><text class="txt" x="940" y="372">统一遍历集合</text>
-  <rect class="box" x="385" y="500" width="350" height="88" rx="14"/><text class="name" x="514" y="534">解释器</text><text class="txt" x="454" y="562">定义小语言或规则表达式并解释执行</text>
-  <path class="line" d="M160 228v82M370 228v82M580 228v82M790 228v82M1000 228v82"/>
-  <path class="line" d="M250 354h30M460 354h30M670 354h30M880 354h30"/>
-  <polygon class="arrow" points="280,354 268,347 268,361"/><polygon class="arrow" points="490,354 478,347 478,361"/><polygon class="arrow" points="700,354 688,347 688,361"/><polygon class="arrow" points="910,354 898,347 898,361"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+<title id="title">行为协作：导出从检查到完成通知</title><desc id="desc">请求通过责任链检查后封装为命令，执行流程使用策略生成内容并更新任务状态。完成事件触发观察者。箭头表达场景中的处理关系，不表示命令自带可靠队列。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}.type{stroke-dasharray:5 4}</style>
+<rect width="1120" height="500" fill="#f8fafc"/><text class="title" x="40" y="52">行为协作：导出从检查到完成通知</text><text class="sub" x="40" y="84">场景模型：先找谁处理、谁选算法、谁持有状态，再确定扩展点。</text>
+<path class="line" d="M280 195H440"/><path class="line" d="M680 195H840"/><path class="line" d="M960 250V325"/><path class="line type" d="M840 375H680"/>
+<text class="sub" x="316" y="166">检查通过</text><text class="sub" x="718" y="166">调度执行</text><text class="sub" x="701" y="346">完成事件</text>
+<rect class="accent" x="40" y="140" width="240" height="110" rx="6"/><text class="h" x="60" y="176">责任链：入口检查</text><text class="t" x="60" y="207">权限 → 参数 → 继续</text><text class="t" x="60" y="233">任一拒绝即停止</text>
+<rect class="box" x="440" y="140" width="240" height="110" rx="6"/><text class="h" x="460" y="176">命令：导出操作</text><text class="t" x="460" y="207">保存要执行的请求</text><text class="t" x="460" y="233">持久化与幂等另行定义</text>
+<rect class="box" x="840" y="140" width="240" height="110" rx="6"/><text class="h" x="860" y="176">执行流程</text><text class="t" x="860" y="207">模板固定公共步骤</text><text class="t" x="860" y="233">策略选择生成算法</text>
+<rect class="box" x="840" y="325" width="240" height="100" rx="6"/><text class="h" x="860" y="360">状态：任务生命周期</text><text class="t" x="860" y="391">待处理 / 执行中 / 成败</text>
+<rect class="box" x="440" y="325" width="240" height="100" rx="6"/><text class="h" x="460" y="360">观察者：订阅响应</text><text class="t" x="460" y="391">日志、刷新与通知等</text>
+<text class="sub" x="40" y="468">实线为处理关系，虚线为事件通知；状态类与回调都不能代替持久化、并发控制与失败恢复。</text>
 </svg>

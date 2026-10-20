@@ -1,0 +1,91 @@
+[
+  {
+    "file": "projects/sub2api-platform.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sub2api-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/sub2api-platform.svg",
+        "width": 1539
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/delivery-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1999,
+    "title": "sub2api 部署与维护",
+    "width": 1280
+  },
+  {
+    "file": "projects/voice-platform.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-experience.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/voice-platform.svg",
+        "width": 2137
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-playground.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1787,
+    "title": "语音交互应用平台",
+    "width": 1280
+  },
+  {
+    "file": "README.md",
+    "dark": false,
+    "images": [],
+    "scroll": 1280,
+    "text": 2278,
+    "title": "稻草小站",
+    "width": 1280
+  }
+]

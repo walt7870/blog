@@ -1,0 +1,12 @@
+[
+  {
+    "mobile": false,
+    "src": "http://127.0.0.1:5177/blog/flutter/layout-constraints.svg",
+    "width": 1120
+  },
+  {
+    "mobile": true,
+    "src": "http://127.0.0.1:5177/blog/flutter/layout-constraints.svg",
+    "width": 1120
+  }
+]

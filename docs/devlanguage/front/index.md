@@ -2,21 +2,26 @@
 
 前端开发负责把业务能力交付到浏览器、WebView、小程序或跨端运行环境中。它不是只写页面样式，也包括工程化、状态管理、组件设计、构建优化、质量保障和发布回滚。
 
-这个专题按“基础能力 -> 工程工具 -> 框架生态 -> 质量与部署”组织。已有文章中，HTML、CSS、JavaScript 的基础内容暂时收敛在本页；框架、包管理、测试、性能和部署分别放到独立目录。
+这个专题按“基础能力 -> 工程工具 -> 框架生态 -> 质量与部署”组织。总览负责定位问题，HTML、CSS、JavaScript和运行机制在全链路系列中展开，框架、包管理、测试、性能和部署各有独立入口。
+
+例如订单页“能显示”只是开始：输入数量属于表单状态，保存失败涉及接口合同，刷新详情404属于部署路由，而发布后导出模块失效又涉及旧资源保留。沿同一条用户操作链判断问题，能避免把所有现象都归给框架。
+
+![从订单页面操作到工程交付的责任边界](/front/engineering/frontend-delivery.svg)
 
 ## 阅读路径
 
-| 阶段 | 关注点 | 入口 |
-| --- | --- | --- |
-| 基础能力 | HTML 语义、CSS 布局、JavaScript/TypeScript、浏览器模型 | 本页 |
-| 系列课程 | 从浏览器基础到现代前端生态的 33 篇深度图文 | [前端全链路系列](./frontend-foundations-series/) |
-| 包管理 | npm、pnpm、Yarn、Bun、Corepack、镜像和私有源 | [包管理器](./package-managers/) |
-| 框架生态 | React、Vue、Angular、Svelte、元框架、轻量框架、跨端框架 | [前端框架](./framework/) |
-| 状态管理 | 本地状态、全局状态、服务端状态、缓存同步 | [状态管理](./state-management/) |
-| 质量工具 | ESLint、Prettier、TypeScript、提交规范、代码扫描 | [质量工具](./quality-tools/) |
-| 测试 | 单元测试、组件测试、端到端测试 | [测试策略](./testing/) |
-| 性能 | 加载性能、运行时性能、资源优化、监控指标 | [性能优化](./performance/) |
-| 部署 | Nginx、对象存储/CDN、Docker、GitLab CI、回滚 | [前端部署](./deployment/) |
+<TopicDirectory :items="[
+  { title: '前端全链路系列', href: '/docs/devlanguage/front/frontend-foundations-series/', icon: 'book', description: '从浏览器打开页面开始，沿 33 篇图文进入基础、框架和工程生态。' },
+  { title: '包管理器', href: '/docs/devlanguage/front/package-managers/', icon: 'boxes', description: '解决安装失败、依赖版本漂移与私有源配置，比较 npm、pnpm、Yarn 和 Bun。' },
+  { title: '前端框架', href: '/docs/devlanguage/front/framework/', icon: 'code', description: '围绕组件、路由与渲染方式，选择 React、Vue、Angular、Svelte 或跨端方案。' },
+  { title: '状态管理', href: '/docs/devlanguage/front/state-management/', icon: 'branch', description: '购物车放哪里、列表何时刷新：区分本地状态、全局状态与服务端缓存。' },
+  { title: '质量工具', href: '/docs/devlanguage/front/quality-tools/', icon: 'shield', description: '让类型、格式和代码检查在提交前运行，减少协作中可提前发现的错误。' },
+  { title: '测试策略', href: '/docs/devlanguage/front/testing/', icon: 'workflow', description: '从金额计算的单元测试，到下单流程的端到端测试，按风险分配验证。' },
+  { title: '性能优化', href: '/docs/devlanguage/front/performance/', icon: 'gauge', description: '页面打开慢或交互卡顿时，从加载资源、长任务和监控指标定位原因。' },
+  { title: '前端部署', href: '/docs/devlanguage/front/deployment/', icon: 'terminal', description: '把构建产物发布到 Nginx 或 CDN，处理缓存、刷新 404 和版本回滚。' }
+]" />
+
+基础能力见本页的[基础边界](#基础边界)，系统学习从系列课程进入，已有项目可直接按当前问题选择工具、测试或部署专题。
 
 ## 系列课程
 

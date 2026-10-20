@@ -1,0 +1,36 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/service.md",
+      "status": "verified",
+      "reviewedHash": "0663ed2b0466a252f204a3b75dae96f37fc6da2c4b0839026fdf3f97005b4236",
+      "pageType": "服务发现、命名端口与流量边界",
+      "decision": "完整阅读后新增订单旧8080与新9090共用命名端口图；补Headless与类型区别、containerPort不启动监听、NodePort和云负载均衡前提、externalIPs弃用、ready例外与Local终止排空边界。排查改用已批准且网络身份相符的既有诊断Pod。",
+      "validation": ["核对Service官方命名端口、selectorless、Headless、externalIPs和流量策略相关段。1段YAML解析、3段Bash经bash -n/zsh -n通过。新SVG1120原尺寸实际字体边界及截图复验通过；桌面1280×900/手机390×844浅深色全页通过，手机页面宽390无横溢，3处长代码scrollLeft40。两端图片原尺寸1120加载关闭；手机正文链接到EndpointSlice URL正确。整站构建13.98秒通过；未运行集群实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/endpoint.md",
+      "status": "verified",
+      "reviewedHash": "721ace84254ceae964deef1f99b2896728b182d01dce7fccbf67bdca66fc299b",
+      "pageType": "后端配置对象、分片与终止状态",
+      "decision": "完整阅读并配命名端口分片图；补100默认/1000上限、端口协议地址族分组、聚合去重与非完美装箱、ready/serving/terminating及publishNotReadyAddresses、外部后端健康管理和selectorless不能port-forward边界。",
+      "validation": ["EndpointSlice官方全文核对。2段YAML共3对象解析，2段Bash双shell语法通过；缩减自动生成对象明确非创建清单。桌面/手机双主题全页和两端图片原尺寸1120加载关闭通过；手机4处长代码scrollLeft40/40/40/30，无整页横溢。桌面前页到NetworkPolicy URL/H1正确；整站构建通过，无外部数据库或集群集成实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/ingress.md",
+      "status": "verified",
+      "reviewedHash": "38defe5007d3e30bc1abeaf85ca2735d31cab66d2bd5312c63ce12837dcba8b5",
+      "pageType": "入口路由、TLS与Gateway迁移",
+      "decision": "完整阅读后用真实请求路径图替代将EndpointSlice画成转发一跳的ASCII；校准社区ingress-nginx停止维护与Ingress API区别，补Prefix不重写、Host/SNI验证和CA校验；增加Gateway/HTTPRoute跨命名空间例子，区分allowedRoutes和ReferenceGrant。",
+      "validation": ["Ingress官方冻结/前提/路径/TLS相关段、Gateway HTTP routing及multiple namespaces/ReferenceGrant、2025-11-11官方退役公告核对，后四篇全文阅读。2段YAML共3对象解析、1段Bash双shell语法通过。桌面/手机双主题全页、两端图片1120原尺寸加载关闭通过；手机2处长代码scrollLeft40，无整页横溢。旧请求图手机局部滚动问题列入最终共享UI复验。桌面Service分页到本页URL/H1正确。整站构建通过，无Controller联调。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/networkpolicy.md",
+      "status": "verified",
+      "reviewedHash": "73256a732724504e3037fb24550b58bdd7d07fd617b53bb87691feee6e695608",
+      "pageType": "网络允许集合与策略验证",
+      "decision": "完整阅读后新增同项AND与两项OR选择集合对照图；用gateway-system和orders具体Pod解释范围，补源Egress和目标Ingress两侧、响应隐式放行、NodeLocal DNSCache、节点回环协议边界及异步生效。排查改为批准探测身份的允许/拒绝、新连接与同跨节点测试。",
+      "validation": ["NetworkPolicy官方选择器、协议、生命周期、hostNetwork及现存连接相关段核对。3段YAML解析、1段Bash双shell语法通过。新SVG1120原尺寸实际字体边界及截图、桌面/手机浅深色完整页面及两端图片原尺寸加载关闭通过；手机2处长代码scrollLeft40/28.5，无页面横溢。13.98秒整站构建通过，无CNI数据面实验。"]
+    }
+  ]
+}

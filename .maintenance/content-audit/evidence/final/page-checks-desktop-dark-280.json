@@ -1,0 +1,637 @@
+[
+  {
+    "file": "docs/design/design-pattern/principles/composite-reuse.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/crp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1701,
+    "title": "合成复用原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/dependency-inversion.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/dip.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1913,
+    "title": "依赖倒置原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1034,
+    "title": "设计原则总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/interface-segregation.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/isp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1297,
+    "title": "接口隔离原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/law-of-demeter.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/lod.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1498,
+    "title": "迪米特法则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/liskov-substitution.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/lsp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1514,
+    "title": "里氏替换原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/open-closed.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/ocp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2228,
+    "title": "开闭原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/principles/single-responsibility.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/srp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2488,
+    "title": "单一职责原则",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/adapter.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/adapter.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4497,
+    "title": "适配器模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/bridge.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/bridge.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3996,
+    "title": "桥接模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/composite.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/composite.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3616,
+    "title": "组合模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/decorator.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/decorator.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2956,
+    "title": "装饰器模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/facade.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/facade.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4842,
+    "title": "外观模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/flyweight.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/flyweight.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3816,
+    "title": "享元模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/structural-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1249,
+    "title": "结构型模式总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/design-pattern/structural/proxy.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/proxy.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 7216,
+    "title": "代理模式",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/agile.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/agile-flow.svg",
+        "width": 281
+      }
+    ],
+    "scroll": 1280,
+    "text": 1751,
+    "title": "敏捷、Scrum 与看板：组织反馈和工作流",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/ai-coding.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/ai-choice.svg",
+        "width": 225
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/agent-swimlane.svg",
+        "width": 232
+      }
+    ],
+    "scroll": 1280,
+    "text": 2762,
+    "title": "AI 编程方式：辅助、原型、Agent 与规格驱动",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/devops.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/devops-release.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 1280,
+    "text": 1554,
+    "title": "DevOps 与持续交付：让变更可发布、可恢复",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/engineering-practices.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/test-loop.svg",
+        "width": 240
+      }
+    ],
+    "scroll": 1280,
+    "text": 2117,
+    "title": "工程验证：XP、TDD、BDD 与契约测试",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/method-map.svg",
+        "width": 257
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/increment-slices.svg",
+        "width": 300
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/agent-swimlane.svg",
+        "width": 232
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/devops-release.svg",
+        "width": 300
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/delivery-loop.svg",
+        "width": 281
+      }
+    ],
+    "scroll": 1280,
+    "text": 919,
+    "title": "开发方法",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/iterative.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/increment-slices.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 1280,
+    "text": 1364,
+    "title": "迭代与增量：按可验证能力推进",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/lean.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/lean-value-stream.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 1280,
+    "text": 1405,
+    "title": "精益开发：从价值流中减少等待和返工",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/selection-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/method-selection.svg",
+        "width": 225
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/delivery-loop.svg",
+        "width": 281
+      }
+    ],
+    "scroll": 1280,
+    "text": 1884,
+    "title": "方法选型与组合实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/spiral.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/risk-loop.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 1280,
+    "text": 1216,
+    "title": "螺旋模型：先验证关键风险",
+    "width": 1280
+  },
+  {
+    "file": "docs/design/develop-pattern/waterfall.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/waterfall-gates.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 1280,
+    "text": 1526,
+    "title": "瀑布与 V 模型：阶段基线和验收追踪",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/render-lifecycle.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/layout-constraints.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1861,
+    "title": "Flutter 核心架构与运行模型",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/hands-on.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/request-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6177,
+    "title": "Flutter 动手入门",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/app-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1094,
+    "title": "Flutter",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/project-delivery.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/release-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1873,
+    "title": "Flutter 项目交付",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/project-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/cache-sync-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1704,
+    "title": "Flutter 项目实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/troubleshooting.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/diagnostic-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1793,
+    "title": "Flutter 排错手册",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/flutter/video-series.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/flutter/app-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2300,
+    "title": "Flutter 学习路线",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/deployment/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/release-cache.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2955,
+    "title": "前端部署",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/startup-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2390,
+    "title": "双击 Electron 应用，系统到底启动了什么",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/process-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1677,
+    "title": "一个窗口为什么带出一串进程",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/ipc-file-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2830,
+    "title": "网页按钮怎样安全读取本地文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/lifecycle-intent.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2430,
+    "title": "关闭窗口后，Electron 应用为什么还在运行",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/forge-delivery-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1719,
+    "title": "Electron Forge 的 Package、Make 和 Publish 分别做什么",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/asar-file-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1799,
+    "title": "ASAR 是归档格式，不是加密边界",
+    "width": 1280
+  }
+]

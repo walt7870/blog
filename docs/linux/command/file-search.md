@@ -1,385 +1,86 @@
-# Linux 文件查找和定位
+# 文件查找与定位
 
-## 概述
+订单服务报“配置不存在”，可能是路径写错、当前目录不同、符号链接失效，也可能是服务看到了另一个挂载视图。先分清要查的是文件名、命令入口还是文件内容，再选工具；无结果并不自动证明文件从未存在。
 
-在 Linux 系统中，快速准确地查找文件是日常管理的重要技能。Linux 提供了多种强大的文件查找工具，每种工具都有其特定的用途和优势。掌握这些工具可以大大提高工作效率。
+以下find用法以GNU findutils为例。对线上目录先限定路径和文件系统范围，保留权限错误；不要把全盘搜索和删除连在一起。
 
-## 主要查找工具
+## 查什么决定用什么
 
-### find - 强大的文件查找工具
+![文件名筛选、命令解析和内容搜索的不同对象](/linux/find-scope-expression.svg)
 
-#### 基本语法
+| 目标 | 工具 | 边界 |
+| --- | --- | --- |
+| 当前目录树中的名称、大小、时间 | find | 实时遍历可见对象，受权限、挂载和并发变化影响 |
+| 根据索引快速找路径 | locate / plocate | 数据库可能过期；命中后还要确认当前对象 |
+| 当前shell如何解析命令 | Bash `type -a`、`command -v` | 包含内建、函数或别名，不能一律当文件路径 |
+| 程序及手册的大致位置 | whereis | 搜索预定义位置，不替代运行时解析 |
+| 哪个文件含有请求编号 | grep / rg | 搜的是内容，不是文件名 |
+
+which通常只搜索PATH中的外部程序，具体实现对别名的支持不同；不能用 `which -a` 的输出证明当前shell实际执行了哪个函数。也不要对 `command -v` 的任意输出直接readlink，因为它可能不是路径。
+
+## 表达式有优先级
+
 ```bash
-find [路径] [表达式]
+find /opt/order-api -type f \( -name '*.yaml' -o -name '*.yml' \) -print
+find /var/log -xdev -type f -name '*.log' -size +100M -print
 ```
 
-#### 常用选项
-- `-name`：按文件名查找
-- `-iname`：按文件名查找（忽略大小写）
-- `-type`：按文件类型查找
-- `-size`：按文件大小查找
-- `-mtime`：按修改时间查找
-- `-user`：按所有者查找
-- `-group`：按用户组查找
-- `-perm`：按权限查找
+隐含的 `-a` 比 `-o` 优先，括号要交给find而不是shell，所以使用反斜杠。若写成 `-type f -name '*.yaml' -o -name '*.yml'`，右侧yml分支不受type限制。添加-print或-exec后还需重新检查组合，避免动作只作用于其中一支。
 
-#### 基本用法示例
+find默认不跟随遍历到的符号链接，`-type l` 可找链接本身；`-L` 会改变跟随和类型判定，还可能跨入另一棵树。若需要限制同一文件系统，可用-xdev；它也会跳过本来想检查的挂载点，须先确认范围。
 
-##### 按名称查找
+## 时间和大小不是口语中的整数比较
+
+| 条件 | GNU find含义 |
+| --- | --- |
+| `-mtime -7` | 向下取整后的24小时段数小于7 |
+| `-mtime 7` | 取整为7，约为7至不足8天前 |
+| `-mtime +7` | 取整后大于7，至少8天前 |
+| `-mmin -60` | 按分钟桶比较，不等于业务日志时间字段 |
+| `-size 1M` | 按MiB向上取整后为1，普通文件是大于0且不超过1MiB |
+| `-size +100M` | 取整后大于100MiB；普通文件实际长度超过100MiB |
+| `-size 1048576c` | 按字节精确匹配1MiB |
+
+`-size`通常看逻辑长度，不是实际占用块数。稀疏文件的ls大小与du占用可能差很多。ctime是元数据变更时间，不是创建时间；mtime是内容修改时间，复制保留时间也会影响判断。
+
+## 有限实验：检查范围与条件
+
+以下在新临时目录创建四个对象，使用Bash与GNU工具：
+
 ```bash
-# 查找名为 file.txt 的文件
-find /home -name "file.txt"
-
-# 查找所有 .txt 文件
-find /home -name "*.txt"
-
-# 忽略大小写查找
-find /home -iname "File.txt"
-
-# 查找多个扩展名
-find /home -name "*.txt" -o -name "*.pdf"
+search_lab_dir=$(mktemp -d)
+mkdir -p -- "$search_lab_dir/cache" "$search_lab_dir/config"
+printf 'request=req-2048\n' > "$search_lab_dir/config/order api.yaml"
+printf 'cached\n' > "$search_lab_dir/cache/old.log"
+mkdir -- "$search_lab_dir/config/also.yml"
+touch -d '9 days ago' -- "$search_lab_dir/cache/old.log"
+truncate -s 1048576 -- "$search_lab_dir/config/exact.bin"
+find "$search_lab_dir" -type f \( -name '*.yaml' -o -name '*.yml' \) -print
+find "$search_lab_dir" -type f -mtime +7 -print
+find "$search_lab_dir" -type f -size 1048576c -print
 ```
 
-##### 按类型查找
+三次查找分别得到order api.yaml、old.log和exact.bin；also.yml是目录，不能混进第一组普通文件。目录名与文件名都可能包含空格，必须保留参数边界。
+
+排除子树应用prune，而不只是过滤最终输出：
+
 ```bash
-# 查找所有文件
-find /home -type f
-
-# 查找所有目录
-find /home -type d
-
-# 查找符号链接
-find /home -type l
-
-# 查找块设备
-find /dev -type b
+find "$search_lab_dir" -type d -name cache -prune -o -type f -print
+find "$search_lab_dir/config" -type f -name '*.yaml' -exec grep -nH -F -- 'req-2048' {} +
 ```
 
-##### 按大小查找
-```bash
-# 查找大于 100MB 的文件
-find /home -size +100M
+prune在匹配目录处阻止下降；`-not -path '*/cache/*'` 仅过滤结果时，仍可能进入cache遍历。第二条命令直接把文件作为grep参数，不通过空格拆分。若没有匹配文件，-exec不会调用grep；需要统计“无文件”和“文件无内容匹配”时应分别处理。
 
-# 查找小于 1KB 的文件
-find /home -size -1k
+## 批量动作与删除
 
-# 查找恰好 1MB 的文件
-find /home -size 1M
+先用相同范围和表达式执行-print，检查预期集合；批量操作再用 `-exec ... {} +`。跨两次遍历仍有竞争窗口，文件可能被替换或移走。对于不受信任、多人可写的目录，不把一次预览当作永久保证。
 
-# 查找空文件
-find /home -empty
-```
+`find ... -delete` 是真实删除，会隐含-depth，与-prune组合尤其容易误判；这里保留只读实验。任意文件名经过管道时用 `-print0` 配合接收端NUL支持，不能直接 `find ... | xargs rm`。
 
-##### 按时间查找
-```bash
-# 查找 7 天内修改的文件
-find /home -mtime -7
+内容摘要相同只适合筛选重复候选，删除前还需考虑碰撞、文件在扫描期间变化、硬链接与业务用途；不能把MD5分组输出当成“重复文件可删”的证明。
 
-# 查找 7 天前修改的文件
-find /home -mtime +7
+## 查不到时保留证据
 
-# 查找恰好 7 天前修改的文件
-find /home -mtime 7
+先核对路径是否在当前挂载与命名空间里，再看目录权限、符号链接、大小写、条件桶和locate索引。权限拒绝不是“该目录没有匹配”，`2>/dev/null` 会隐藏这一缺口。命令返回非零时先解释原因，再决定是否允许局部结果。
 
-# 查找 1 小时内修改的文件
-find /home -mmin -60
-```
-
-##### 按权限查找
-```bash
-# 查找可执行文件
-find /home -perm /u=x
-
-# 查找权限为 644 的文件
-find /home -perm 644
-
-# 查找权限为 755 的目录
-find /home -type d -perm 755
-```
-
-##### 按所有者查找
-```bash
-# 查找特定用户的文件
-find /home -user username
-
-# 查找特定组的文件
-find /home -group groupname
-
-# 查找当前用户的文件
-find /home -user $(whoami)
-```
-
-#### 高级用法
-
-##### 组合条件
-```bash
-# 查找当前用户拥有的可执行文件
-find /home -user $(whoami) -type f -perm /u=x
-
-# 查找大于 1MB 且 7 天内修改的文件
-find /home -size +1M -mtime -7
-
-# 查找特定目录下的 .log 文件
-find /var/log -name "*.log" -type f
-```
-
-##### 执行操作
-```bash
-# 查找并删除文件
-find /tmp -name "*.tmp" -delete
-
-# 查找并显示详细信息
-find /home -name "*.txt" -ls
-
-# 查找并执行命令
-find /home -name "*.txt" -exec ls -la {} \;
-
-# 查找并复制到目标目录
-find /home -name "*.txt" -exec cp {} /backup/ \;
-```
-
-### locate - 快速文件查找
-
-#### 基本语法
-```bash
-locate [选项] 模式
-```
-
-#### 常用选项
-- `-i`：忽略大小写
-- `-n`：限制结果数量
-- `-r`：使用正则表达式
-- `-c`：只显示匹配数量
-
-#### 基本用法
-```bash
-# 查找包含 "file" 的文件
-locate file
-
-# 忽略大小写查找
-locate -i file
-
-# 限制结果数量
-locate -n 10 file
-
-# 使用正则表达式
-locate -r "\.txt$"
-```
-
-#### 更新数据库
-```bash
-# 更新 locate 数据库
-sudo updatedb
-
-# 手动更新特定目录
-sudo updatedb -U /home
-```
-
-### which - 查找命令位置
-
-#### 基本语法
-```bash
-which [选项] 命令名
-```
-
-#### 基本用法
-```bash
-# 查找 ls 命令位置
-which ls
-
-# 查找所有匹配的命令
-which -a python
-
-# 显示命令的别名信息
-which -a ls
-```
-
-### whereis - 查找命令相关文件
-
-#### 基本语法
-```bash
-whereis [选项] 命令名
-```
-
-#### 常用选项
-- `-b`：只查找二进制文件
-- `-m`：只查找手册页
-- `-s`：只查找源代码
-
-#### 基本用法
-```bash
-# 查找 python 的所有相关文件
-whereis python
-
-# 只查找二进制文件
-whereis -b python
-
-# 只查找手册页
-whereis -m python
-```
-
-### grep - 文本内容查找
-
-#### 基本语法
-```bash
-grep [选项] 模式 文件...
-```
-
-#### 常用选项
-- `-i`：忽略大小写
-- `-r`：递归查找
-- `-n`：显示行号
-- `-l`：只显示文件名
-- `-v`：反向匹配
-
-#### 基本用法
-```bash
-# 在文件中查找文本
-grep "pattern" file.txt
-
-# 递归查找目录
-grep -r "pattern" /path/to/directory
-
-# 忽略大小写
-grep -i "pattern" file.txt
-
-# 显示行号
-grep -n "pattern" file.txt
-
-# 只显示包含匹配的文件名
-grep -l "pattern" *.txt
-```
-
-## 高级查找技巧
-
-### 使用正则表达式
-
-#### find 中的正则表达式
-```bash
-# 使用正则表达式查找
-find /home -regex ".*\.txt$"
-
-# 忽略大小写的正则表达式
-find /home -iregex ".*\.TXT$"
-```
-
-#### grep 中的正则表达式
-```bash
-# 使用扩展正则表达式
-grep -E "pattern1|pattern2" file.txt
-
-# 使用 Perl 兼容正则表达式
-grep -P "\d{3}-\d{4}" file.txt
-```
-
-### 组合工具使用
-
-#### find + grep
-```bash
-# 查找包含特定内容的文件
-find /home -name "*.txt" -exec grep -l "pattern" {} \;
-
-# 在特定类型的文件中查找
-find /var/log -name "*.log" -exec grep "ERROR" {} \;
-```
-
-#### find + xargs
-```bash
-# 使用 xargs 处理 find 结果
-find /home -name "*.tmp" | xargs rm
-
-# 并行处理
-find /home -name "*.txt" | xargs -P 4 -I {} cp {} /backup/
-```
-
-### 性能优化
-
-#### 使用索引
-```bash
-# 更新 locate 数据库
-sudo updatedb
-
-# 使用 locate 快速查找
-locate filename
-```
-
-#### 限制搜索范围
-```bash
-# 只搜索特定目录
-find /home/user -name "*.txt"
-
-# 排除特定目录
-find /home -name "*.txt" -not -path "*/node_modules/*"
-```
-
-## 实用查找脚本
-
-### 查找大文件
-```bash
-#!/bin/bash
-# 查找系统中最大的文件
-find / -type f -size +100M -exec ls -lh {} \; 2>/dev/null | sort -k5 -hr
-```
-
-### 查找重复文件
-```bash
-#!/bin/bash
-# 查找重复文件（基于内容）
-find /path -type f -exec md5sum {} \; | sort | uniq -w32 -dD
-```
-
-### 查找最近修改的文件
-```bash
-#!/bin/bash
-# 查找最近 24 小时内修改的文件
-find /home -type f -mtime -1 -ls
-```
-
-## 故障排除
-
-### 常见问题
-
-#### 权限被拒绝
-```bash
-# 使用 sudo 查找
-sudo find / -name "filename" 2>/dev/null
-
-# 排除权限错误
-find /path -name "filename" 2>/dev/null
-```
-
-#### 查找结果过多
-```bash
-# 限制结果数量
-find /path -name "pattern" | head -20
-
-# 使用更精确的模式
-find /path -name "specific_name"
-```
-
-#### 查找速度慢
-```bash
-# 使用 locate 替代 find
-locate filename
-
-# 限制搜索深度
-find /path -maxdepth 3 -name "pattern"
-```
-
-## 最佳实践
-
-### 搜索策略
-1. **使用合适的工具**：快速查找用 locate，精确查找用 find
-2. **优化搜索范围**：从最可能的目录开始搜索
-3. **使用索引**：定期更新 locate 数据库
-4. **组合工具**：结合多个工具实现复杂查找
-
-### 性能考虑
-1. **避免搜索整个文件系统**：除非必要
-2. **使用索引工具**：如 locate 和 updatedb
-3. **限制搜索深度**：使用 -maxdepth 选项
-4. **并行处理**：使用 xargs 的 -P 选项
-
-## 总结
-
-Linux 文件查找工具提供了强大的文件定位能力，从快速的 locate 到精确的 find，每种工具都有其适用场景。掌握这些工具的使用方法和最佳实践，可以大大提高系统管理和文件操作的效率。 
+找到配置后确认服务实际加载的是哪一份；需要内容上下文看 [文件查看](./file-view-edit.md)，字段统计看 [文本处理](./text-processing.md)。

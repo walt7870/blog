@@ -6,290 +6,71 @@ date: 2026-05-17
 
 # 嵌入式 Linux
 
-当产品需要文件系统、网络协议栈、多媒体、复杂 UI 或丰富的开源软件生态时，MCU + RTOS 就不够用了，需要上嵌入式 Linux。嵌入式 Linux 跑在有 MMU 的处理器上（Cortex-A 系列、MIPS、RISC-V），拥有完整的 Linux 内核能力，但针对资源受限场景做了裁剪。
+网关要同时维护网络连接、磁盘缓存、网页配置和多个传感器，Linux 的进程隔离与软件生态常能降低集成成本。是否采用 Linux 仍要比较启动、实时性、功耗、内存、存储与维护成本，不能仅凭“有文件系统”断言 MCU+RTOS 不够。
 
-## 一、与桌面 Linux 的区别
+![Linux 网关的启动与运行关系](/embedded/linux-boot-runtime.svg)
 
-| 维度       | 桌面/服务器 Linux       | 嵌入式 Linux              |
-| -------- | ------------------ | ---------------------- |
-| 硬件       | x86_64，GB 级内存      | ARM/MIPS/RISC-V，MB 级内存 |
-| 启动方式     | BIOS/UEFI → GRUB   | Bootloader（U-Boot）     |
-| 根文件系统    | ext4，几十 GB         | SquashFS/UBIFS，几十 MB   |
-| 包管理      | apt/yum            | 交叉编译 + 手动部署或 opkg      |
-| 图形界面     | X11/Wayland + 桌面环境 | framebuffer / Qt / LVGL |
-| 构建方式     | 安装发行版              | Buildroot / Yocto 从源码构建 |
+## 启动链与运行层分开看
 
-## 二、系统组成
+常见 SoC 从片内 ROM 进入厂商规定的启动阶段，再由 SPL/其他固件完成 DDR 等初始化，交给 U-Boot 或其他引导器。引导器加载内核和 DTB，内核初始化驱动、挂载根文件系统，启动 PID 1 和应用。并非每块板都采用相同的 ROM→SPL→U-Boot 链。
 
-```
-┌─────────────────────────────────────┐
-│         应用层（用户程序）              │
-├─────────────────────────────────────┤
-│    C 库（musl / glibc）              │
-├─────────────────────────────────────┤
-│         Linux 内核                   │
-│  （进程调度/内存管理/设备驱动/网络协议栈）  │
-├─────────────────────────────────────┤
-│       Bootloader（U-Boot）           │
-├─────────────────────────────────────┤
-│         硬件（SoC + 外设）            │
-└─────────────────────────────────────┘
-```
+内核、设备树、根文件系统和引导环境相互约束。启动命令中的加载地址必须在可用 RAM 内，避开内核解压、DTB 与保留区域；不能把别人的两个十六进制地址直接用于新板。修改持久 U-Boot 环境前保存原值与恢复入口，先临时启动验证，再决定是否持久化。
 
-## 三、Bootloader（U-Boot）
+Linux 常运行在有 MMU 的处理器上，也存在无 MMU 配置。嵌入式与桌面 Linux 的区别主要来自产品约束和集成方式，并非分别固定使用 ARM、x86 或某一种文件系统。
 
-U-Boot 是嵌入式 Linux 最常用的引导程序，负责：硬件初始化 → 加载内核到内存 → 传递设备树 → 跳转执行。
+## BSP 与设备树的合同
 
-### 常用命令
+BSP 通常包含引导器、内核配置、设备树、驱动和目标根文件系统。固定完整料号、板卡 revision、BSP 提交、工具链和 defconfig；主线内核新不等于目标外设全部受支持。
 
-```bash
-# U-Boot 命令行
-printenv              # 查看环境变量
-setenv bootargs 'console=ttyS0,115200 root=/dev/mmcblk0p2 rootwait'
-saveenv               # 保存到 Flash
-
-# 从 SD 卡加载内核和设备树
-load mmc 0:1 0x80008000 zImage
-load mmc 0:1 0x83000000 imx6ull.dtb
-bootz 0x80008000 - 0x83000000
-```
-
-### 启动流程
-
-1. SoC 内部 ROM 代码 → 从 SD/eMMC/SPI Flash 加载 SPL（Secondary Program Loader）
-2. SPL 初始化 DDR → 加载完整 U-Boot
-3. U-Boot 初始化外设 → 加载 Linux 内核 + 设备树 + 根文件系统
-4. 内核启动 → 挂载根文件系统 → 执行 init 进程
-
-## 四、内核裁剪与编译
-
-### 交叉编译环境
-
-```bash
-# 下载工具链
-sudo apt install gcc-arm-linux-gnueabihf
-
-# 或使用 Linaro/ARM 官方工具链
-export CROSS_COMPILE=arm-linux-gnueabihf-
-export ARCH=arm
-```
-
-### 内核配置与编译
-
-```bash
-# 基于默认配置
-make imx_v6_v7_defconfig
-
-# 图形化裁剪
-make menuconfig
-# 关闭不需要的驱动、文件系统、网络协议以减小体积
-
-# 编译
-make -j$(nproc) zImage dtbs modules
-
-# 输出
-# arch/arm/boot/zImage          — 压缩内核
-# arch/arm/boot/dts/xxx.dtb    — 设备树
-```
-
-### 设备树（Device Tree）
-
-设备树描述硬件拓扑，让同一个内核适配不同板子。
+设备树描述硬件关系，驱动通过 `compatible` 等匹配；设备树不能凭空创建硬件能力。为 I2C 传感器启用节点还要同时配置控制器、pinmux、电源、地址与对应驱动。下面是需要放入已有板级 DTS 的片段，不是可独立编译的完整 DTS。
 
 ```dts
-/ {
-    model = "My Custom Board";
-    compatible = "myvendor,myboard", "fsl,imx6ull";
-
-    leds {
-        compatible = "gpio-leds";
-        status-led {
-            gpios = <&gpio1 3 GPIO_ACTIVE_LOW>;
-            linux,default-trigger = "heartbeat";
-        };
-    };
-};
-
-&uart1 {
-    status = "okay";
-};
-
+/* i2c1 标签由板级包含的 SoC dtsi 定义 */
 &i2c1 {
-    clock-frequency = <400000>;
-    bme280@76 {
+    status = "okay";
+    clock-frequency = <100000>;
+    sensor@76 {
         compatible = "bosch,bme280";
         reg = <0x76>;
     };
 };
 ```
 
-## 五、根文件系统
+核对绑定文档和目标内核版本，执行 DTB 构建及适用的 schema 校验。运行时节点出现只证明 DT 加载；还要查驱动绑定、供电与实际读取。
 
-### Buildroot
+## 从标准子系统进入驱动
 
-最简单的嵌入式 Linux 构建系统，一条命令生成完整的根文件系统。
+已有设备优先使用 IIO、hwmon、input、tty 等标准接口，避免为了读一个传感器自造字符驱动。I2C 设备通常注册到 I2C 总线框架，不因为有设备树就都写成 platform driver。驱动需处理 probe 失败、资源释放、并发、休眠与卸载，不只是 `ioremap` 后读寄存器。
 
-```bash
-git clone https://github.com/buildroot/buildroot.git
-cd buildroot
-make menuconfig   # 选择目标架构、工具链、软件包
-make -j$(nproc)
+若确需字符设备，`read` 必须尊重用户长度、文件偏移、EOF 与错误，不能每次无限返回固定字符串。内核辅助函数 `simple_read_from_buffer` 可以完成相应静态缓冲区读取；设备注册、权限与生命周期仍需完整处理。动态硬件数据还需定义快照与阻塞语义，不能直接套静态示例。
 
-# 输出在 output/images/
-# rootfs.tar    — 根文件系统
-# zImage        — 内核
-# xxx.dtb       — 设备树
-```
-
-Buildroot 适合：小型系统、快速原型、对构建时间敏感的场景。
-
-### Yocto / OpenEmbedded
-
-工业级构建系统，支持层（Layer）机制，适合大型团队和长期维护的产品。
+GPIO 从用户空间请求后由请求者持有，进程退出释放线路，不能依赖退出后的电平保持。libgpiod 1.x/2.x API 与命令不同，先检查版本。以下为 2.x 风格，偏移 3 不是物理排针第 3 脚，也不保证适用于某块板；只有线路空闲且接线确认后才设置输出。
 
 ```bash
-# 初始化构建环境
-source oe-init-build-env
-
-# 编辑 conf/local.conf 设置目标机器
-MACHINE = "imx6ullevk"
-
-# 构建最小镜像
-bitbake core-image-minimal
-```
-
-Yocto 适合：量产产品、需要长期安全更新、多人协作、复杂软件栈。
-
-### BusyBox
-
-嵌入式 Linux 的"瑞士军刀"，一个二进制文件提供几百个常用命令（ls、cat、mount、ifconfig…）。Buildroot 和 Yocto 都默认集成 BusyBox。
-
-## 六、驱动开发
-
-### 字符设备驱动框架
-
-```c
-#include <linux/module.h>
-#include <linux/fs.h>
-#include <linux/cdev.h>
-
-static int my_open(struct inode *inode, struct file *file) { return 0; }
-static ssize_t my_read(struct file *file, char __user *buf, size_t len, loff_t *off) {
-    char data[] = "hello\n";
-    if (copy_to_user(buf, data, sizeof(data))) return -EFAULT;
-    return sizeof(data);
-}
-
-static struct file_operations fops = {
-    .owner = THIS_MODULE,
-    .open = my_open,
-    .read = my_read,
-};
-
-static dev_t devno;
-static struct cdev cdev;
-
-static int __init my_init(void) {
-    alloc_chrdev_region(&devno, 0, 1, "mydev");
-    cdev_init(&cdev, &fops);
-    cdev_add(&cdev, devno, 1);
-    return 0;
-}
-
-static void __exit my_exit(void) {
-    cdev_del(&cdev);
-    unregister_chrdev_region(devno, 1);
-}
-
-module_init(my_init);
-module_exit(my_exit);
-MODULE_LICENSE("GPL");
-```
-
-### Platform 驱动（配合设备树）
-
-现代 Linux 驱动通过设备树匹配：
-
-```c
-static const struct of_device_id my_of_match[] = {
-    { .compatible = "myvendor,mysensor" },
-    {},
-};
-
-static int my_probe(struct platform_device *pdev) {
-    // 从设备树获取资源（GPIO、中断、寄存器地址）
-    struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-    void __iomem *base = devm_ioremap_resource(&pdev->dev, res);
-    return 0;
-}
-
-static struct platform_driver my_driver = {
-    .probe = my_probe,
-    .driver = {
-        .name = "mysensor",
-        .of_match_table = my_of_match,
-    },
-};
-module_platform_driver(my_driver);
-```
-
-## 七、应用层开发
-
-嵌入式 Linux 应用和普通 Linux 程序一样，用 C/C++/Python/Go 都行，区别在于交叉编译。
-
-### GPIO 操作（sysfs / libgpiod）
-
-```bash
-# 新接口：libgpiod
 gpiodetect
-gpioinfo gpiochip0
-gpioset gpiochip0 3=1
-gpiomon gpiochip0 5
+gpioinfo --chip gpiochip0
+gpioset --chip gpiochip0 3=1
 ```
 
-```c
-#include <gpiod.h>
+默认保持进程存活以维持请求，按工具版本帮助确认退出行为。驱动已占用的线路不应强行从用户空间抢用。串口应用则需完整设置 raw、数据位、流控与超时，处理短读写、EINTR 和帧边界，不能假设一次 `read` 恰好返回一帧。
 
-struct gpiod_chip *chip = gpiod_chip_open("/dev/gpiochip0");
-struct gpiod_line *line = gpiod_chip_get_line(chip, 3);
-gpiod_line_request_output(line, "myapp", 0);
-gpiod_line_set_value(line, 1);  // 输出高
-```
+## 根文件系统与更新
 
-### 串口通信
+Buildroot 用固定配置和软件包版本生成目标系统，适合管理整体镜像；Yocto/OpenEmbedded 通过 recipe 与 layer 组织发行版和板级配置。两者都需要固定版本、补丁、源归档、许可证清单与安全维护策略，“一次 make”不等于可复现。
 
-```c
-int fd = open("/dev/ttyS1", O_RDWR | O_NOCTTY);
-struct termios tty;
-tcgetattr(fd, &tty);
-cfsetispeed(&tty, B115200);
-cfsetospeed(&tty, B115200);
-tty.c_cflag = CS8 | CLOCAL | CREAD;
-tty.c_lflag = 0;
-tcsetattr(fd, TCSANOW, &tty);
+Yocto 的 `MACHINE = "..."` 属于 `conf/local.conf` 等 BitBake 配置，不是 shell 命令；板型值取决于已加载 BSP layer。Buildroot 输出是否含内核、DTB、引导器取决于配置。BusyBox 可提供精简用户工具，但不是每个镜像都必须使用。
 
-write(fd, "AT\r\n", 4);
-char buf[64];
-int n = read(fd, buf, sizeof(buf));
-```
+只读系统加独立持久数据能降低写入复杂度，仍需考虑日志、掉电、数据库一致性和存储磨损。系统 OTA 可评估 RAUC、SWUpdate 等成熟框架，让镜像验证、引导选择、首次确认和回退闭合；A/B 不会自动解决共享数据向后兼容，启动失败后回退旧系统仍必须读得懂数据。
 
-## 八、OTA 升级
+## 按失败阶段取证
 
-量产产品必须支持远程固件升级。常见方案：
+| 失败阶段 | 优先证据 | 验证方向 |
+| --- | --- | --- |
+| 完全无串口 | 电源、复位、引导介质、串口电平/参数 | 最早启动阶段是否在运行 |
+| 内核 panic 或根盘挂不上 | 完整串口日志、bootargs、分区与内核配置 | 根设备、文件系统与驱动是否可用 |
+| 节点存在却读不了 | dmesg、设备树、绑定、权限、总线波形 | 配置、驱动与真实器件逐层确认 |
+| 应用异常或变慢 | journal/日志、strace、内存/IO、目标 ELF | 系统调用、资源与业务超时 |
 
-| 方案         | 原理                    | 代表工具              |
-| ---------- | --------------------- | ----------------- |
-| 双分区（A/B）   | 两个系统分区交替升级，失败回滚       | SWUpdate、RAUC     |
-| 差分升级       | 只下载变化部分，节省带宽          | bsdiff、Mender     |
-| 容器化升级      | 应用跑在容器里，独立于系统升级       | Docker、balena     |
+复验同时包含正常重启、异常断电、存储接近满、网络中断与更新失败。主机交叉编译通过不代表这些目标板行为已经验证。
 
-## 九、调试手段
-
-- **串口终端**：最基本的调试方式，内核 printk + 应用 printf
-- **SSH**：网络通了之后远程登录
-- **GDB + gdbserver**：目标板跑 gdbserver，PC 端 GDB 远程调试
-- **strace**：跟踪系统调用，排查文件/网络/权限问题
-- **perf / ftrace**：性能分析、内核函数追踪
-- **dmesg**：查看内核日志，排查驱动问题
-
-返回 [总览与学习路线](./index.md)
+返回[总览](./index.md)。

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="g1-regions-title g1-regions-desc">
+  <title id="g1-regions-title">G1 分区、跨区引用与复制空间</title>
+  <desc id="g1-regions-desc">一次Mixed回收选择年轻代和部分老年代区域，区外Old对象可指向本次集合内对象，Remembered Set提供区外引用位置。存活对象在暂停中复制到其他Survivor或Old区域，回收需要目标空间。示意不按实际地址排列。</desc>
+  <defs><marker id="g1-regions-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#g1-regions-arrow)}</style>
+  <rect width="1100" height="520" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">一次 Mixed：本次集合、区外引用和复制目标</text>
+  <text class="body" x="32" y="76">逻辑关系示意，不按地址排列；集合中仍存活的对象不能当垃圾丢掉。</text>
+  <rect x="344" y="108" width="320" height="256" rx="6" fill="none" stroke="#60a5fa" stroke-dasharray="5 4"/>
+  <text class="note" x="364" y="136">本次选中的 Region（部分示意）</text>
+  <path class="edge" d="M252 208H364"/><path class="edge" d="M644 192H792"/><path class="edge" d="M644 300H792"/>
+  <text class="note" x="268" y="190">引用</text><text class="note" x="686" y="174">复制</text><text class="note" x="686" y="282">复制</text>
+  <rect class="node" x="32" y="160" width="220" height="96" rx="6"/><text class="name" x="52" y="195">区外 Old</text><text class="body" x="52" y="230">对象 A 指向 B</text>
+  <rect x="364" y="160" width="280" height="80" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text class="name" x="384" y="190">Eden / Survivor</text><text class="body" x="384" y="220">其中有存活对象 B</text>
+  <rect x="364" y="268" width="280" height="80" rx="6" fill="#fff7ed" stroke="#e4b68b"/><text class="name" x="384" y="298">选中的 Old</text><text class="body" x="384" y="328">有垃圾，也有存活对象</text>
+  <rect x="792" y="152" width="276" height="88" rx="6" fill="#f0fdf4" stroke="#86b49b"/><text class="name" x="812" y="186">Survivor / Old 目标</text><text class="body" x="812" y="218">承接年轻代存活对象</text>
+  <rect x="792" y="268" width="276" height="80" rx="6" fill="#f0fdf4" stroke="#86b49b"/><text class="name" x="812" y="298">其他 Old 目标</text><text class="body" x="812" y="328">承接老年代存活对象</text>
+  <text class="body" x="32" y="402">Remembered Set：帮助发现区外指入的位置；移动后，引用也要更新到新位置。</text>
+  <text class="body" x="32" y="442">Young 回收主要处理年轻代；Mixed 额外选择部分 Old。两者复制工作都在 STW 中完成。</text>
+  <text class="note" x="32" y="490">复制空间不足或对象被固定会影响转移；Humongous 对象另有分配与回收规则，未画入普通对象路径。</text>
+</svg>

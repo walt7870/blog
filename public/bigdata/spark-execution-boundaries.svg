@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="spark-exec-title spark-exec-desc">
+  <title id="spark-exec-title">Spark Driver 与 Executor 执行边界</title>
+  <desc id="spark-exec-desc">Driver向Standalone、YARN或Kubernetes申请Executor资源，获得资源后直接向Executor调度Task，Executor读取和写入存储并维护缓存与Shuffle数据。集群管理器不是任务和数据的转发代理。</desc>
+  <defs><marker id="spark-exec-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#spark-exec-arrow)}</style></defs>
+  <rect width="1200" height="680" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">资源分配与任务执行是两条不同的控制关系</text><text x="36" y="78" class="small">图中Executor区域代表同一应用获得的一组进程；Shuffle与聚合的数据流见订单计算图。</text>
+  <rect x="820" y="116" width="360" height="344" rx="8" fill="none" stroke="#9caab2" stroke-dasharray="6,4"/>
+  <rect x="836" y="100" width="308" height="32" fill="#f7f9fa"/><text x="852" y="122" class="head">应用独立的 Executor 进程组</text>
+  <path d="M200 208V164Q200 156 208 156H448" class="line"/>
+  <path d="M752 156H820" class="line" stroke-dasharray="5,4"/>
+  <path d="M376 280H848" class="line"/>
+  <path d="M848 356H376" class="line" stroke-dasharray="5,4"/>
+  <path d="M956 424V508" class="line"/><path d="M1044 508V424" class="line"/>
+  <rect x="448" y="116" width="304" height="108" class="box"/><text x="468" y="152" class="head">集群管理器</text><text x="468" y="192">Standalone / YARN / K8s</text>
+  <rect x="36" y="208" width="340" height="216" class="focus"/><text x="56" y="248" class="head">Driver 主程序</text><text x="56" y="290">SparkSession 与查询计划</text><text x="56" y="330">Job → Stage → Task 调度</text><text x="56" y="370">接收进度、重试失败Task</text><text x="56" y="406" class="small">client / cluster 决定其运行位置</text>
+  <rect x="848" y="180" width="304" height="244" class="focus"/><text x="868" y="222" class="head">每个 Executor</text><text x="868" y="266">多线程执行分区Task</text><text x="868" y="308">缓存与Shuffle文件</text><text x="868" y="350">PySpark还需Python工作进程</text><text x="868" y="398" class="small">堆、原生内存、Python一起计预算</text>
+  <rect x="848" y="508" width="304" height="108" class="box"/><text x="868" y="546" class="head">外部输入 / 输出存储</text><text x="868" y="584">HDFS、对象存储、数据库等</text>
+  <text x="448" y="268" class="small">发送Task与应用代码</text><text x="448" y="344" class="small">状态与完成结果</text>
+  <text x="36" y="496" class="head">网络与恢复边界</text><text x="36" y="536">Executor必须能访问Driver及所需存储。</text><text x="36" y="576">任务重算不撤销外部副作用，输出提交需要幂等。</text>
+  <text x="36" y="650" class="small">实线：资源请求、Task或数据读写；虚线：资源分配与状态反馈。集群管理器不转发每条业务数据。</text>
+</svg>

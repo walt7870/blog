@@ -1,825 +1,239 @@
 ---
-title: MongoDB 详解
+title: MongoDB
 author: Walt
-date: 2024-12-19 10:00:00
-LastEditTime: 2024-12-19 10:00:00
-LastEditors: Walt
 ---
 
-# MongoDB 详解
+# MongoDB
 
-MongoDB 是一个基于文档的 NoSQL 数据库，以其灵活的数据模型、强大的查询功能和良好的扩展性而广受欢迎。它使用 JSON 风格的文档存储数据，非常适合现代应用开发。
+一笔订单经常连同商品明细、收货地址和下单价格一起读取。把这些有界、生命周期接近的内容放在一个文档里，可以减少关联，也能在一次更新中守住文档内部的条件。库存、商品现价和不断增长的操作历史则有独立生命周期，全部嵌入订单会带来重复更新和无限数组。
 
-## 概述
+本页以 **MongoDB 7.0、mongosh** 为基线，使用同一订单模型解释嵌入与引用、数组查询、聚合、事务、复制及恢复。BSON 是带明确数据类型的文档格式，不等于任意 JSON；“灵活结构”也不等于不需要字段合同。通用数据库边界见[数据库总览](./index.md)。
 
-### 核心概念
+![订单快照内嵌明细、独立库存、事务事件及外部通知的边界](/database/mongodb-order-boundaries.svg)
 
-- **文档 (Document)**：MongoDB 的基本数据单元，类似关系数据库的行
-- **集合 (Collection)**：文档的容器，类似关系数据库的表
-- **数据库 (Database)**：集合的容器
-- **字段 (Field)**：文档中的键值对，类似关系数据库的列
+## 建立可丢弃的练习副本集
 
-### 主要特性
+以下 Bash 命令启动不接入网络、不发布宿主端口的本地容器，使用容器内回环地址访问。名称或卷名已存在时换名称，不删除既有服务。单节点副本集用于练习事务，**不提供节点故障后的高可用**。
 
-1. **文档导向**：使用 BSON（Binary JSON）格式存储数据
-2. **动态模式**：无需预定义表结构
-3. **丰富查询**：支持复杂查询、索引和聚合
-4. **水平扩展**：内置分片支持
-5. **高可用性**：副本集提供自动故障转移
-6. **灵活索引**：支持多种索引类型
-
-## 安装与配置
-
-### 安装方式
-
-#### 1. 官方安装包
 ```bash
-# macOS
-brew tap mongodb/brew
-brew install mongodb-community
-
-# Ubuntu
-wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
-
-# CentOS/RHEL
-sudo yum install -y mongodb-org
+docker run --name mongo-lab --network none \
+  --mount source=mongo-lab-data,target=/data/db \
+  --detach mongo:7.0 \
+  mongod --bind_ip 127.0.0.1 --replSet lab-rs
+docker exec -it mongo-lab mongosh
 ```
 
-#### 2. Docker 安装
-```bash
-# 拉取镜像
-docker pull mongo:7.0
-
-# 运行容器
-docker run --name mongodb \
-  -e MONGO_INITDB_ROOT_USERNAME=admin \
-  -e MONGO_INITDB_ROOT_PASSWORD=password \
-  -p 27017:27017 \
-  -d mongo:7.0
-
-# 带数据持久化
-docker run --name mongodb \
-  -e MONGO_INITDB_ROOT_USERNAME=admin \
-  -e MONGO_INITDB_ROOT_PASSWORD=password \
-  -p 27017:27017 \
-  -v /data/mongodb:/data/db \
-  -d mongo:7.0
-```
-
-### 基本配置
-
-#### mongod.conf 配置文件
-```yaml
-# 网络配置
-net:
-  port: 27017
-  bindIp: 127.0.0.1,::1
-  maxIncomingConnections: 65536
-
-# 存储配置
-storage:
-  dbPath: /var/lib/mongodb
-  journal:
-    enabled: true
-  wiredTiger:
-    engineConfig:
-      cacheSizeGB: 1
-    collectionConfig:
-      blockCompressor: snappy
-    indexConfig:
-      prefixCompression: true
-
-# 系统日志
-systemLog:
-  destination: file
-  logAppend: true
-  path: /var/log/mongodb/mongod.log
-  logRotate: rename
-  verbosity: 0
-
-# 进程管理
-processManagement:
-  fork: true
-  pidFilePath: /var/run/mongodb/mongod.pid
-
-# 安全配置
-security:
-  authorization: enabled
-  keyFile: /etc/mongodb/keyfile
-
-# 副本集配置
-replication:
-  replSetName: "rs0"
-
-# 分片配置
-sharding:
-  clusterRole: shardsvr
-```
-
-## 数据模型
-
-### 文档结构
+在新实例的 mongosh 内初始化一次，等待 `db.hello().isWritablePrimary` 为 true 后再建库：
 
 ```javascript
-// 用户文档示例
-{
-  "_id": ObjectId("507f1f77bcf86cd799439011"),
-  "username": "john_doe",
-  "email": "john@example.com",
-  "profile": {
-    "firstName": "John",
-    "lastName": "Doe",
-    "age": 30,
-    "address": {
-      "street": "123 Main St",
-      "city": "New York",
-      "zipCode": "10001"
-    }
-  },
-  "interests": ["programming", "music", "travel"],
-  "createdAt": ISODate("2024-01-01T00:00:00Z"),
-  "lastLogin": ISODate("2024-12-19T10:00:00Z"),
-  "isActive": true
-}
-```
-
-### 数据类型
-
-```javascript
-// MongoDB 支持的数据类型示例
-{
-  // 基本类型
-  "string": "Hello World",
-  "number": 42,
-  "boolean": true,
-  "null": null,
-  
-  // 特殊类型
-  "objectId": ObjectId("507f1f77bcf86cd799439011"),
-  "date": ISODate("2024-12-19T10:00:00Z"),
-  "regex": /pattern/i,
-  "binary": BinData(0, "base64data"),
-  
-  // 复合类型
-  "array": [1, 2, 3, "mixed", {"nested": "object"}],
-  "object": {
-    "nested": "value",
-    "deep": {
-      "level": "two"
-    }
-  },
-  
-  // 数值类型
-  "int32": NumberInt(32),
-  "int64": NumberLong(64),
-  "decimal": NumberDecimal("123.45")
-}
-```
-
-## 基本操作
-
-### 数据库和集合操作
-
-```javascript
-// 连接到 MongoDB
-mongo
-
-// 显示所有数据库
-show dbs
-
-// 切换/创建数据库
-use myapp
-
-// 显示当前数据库
-db
-
-// 显示集合
-show collections
-
-// 创建集合
-db.createCollection("users")
-
-// 删除集合
-db.users.drop()
-
-// 删除数据库
-db.dropDatabase()
-```
-
-### CRUD 操作
-
-#### 插入文档
-```javascript
-// 插入单个文档
-db.users.insertOne({
-  username: "alice",
-  email: "alice@example.com",
-  age: 25,
-  interests: ["reading", "hiking"]
-})
-
-// 插入多个文档
-db.users.insertMany([
-  {
-    username: "bob",
-    email: "bob@example.com",
-    age: 30,
-    interests: ["programming", "gaming"]
-  },
-  {
-    username: "charlie",
-    email: "charlie@example.com",
-    age: 35,
-    interests: ["music", "cooking"]
-  }
-])
-```
-
-#### 查询文档
-```javascript
-// 查询所有文档
-db.users.find()
-
-// 格式化输出
-db.users.find().pretty()
-
-// 条件查询
-db.users.find({age: 30})
-db.users.find({age: {$gte: 25}})
-db.users.find({interests: "programming"})
-
-// 逻辑操作符
-db.users.find({
-  $and: [
-    {age: {$gte: 25}},
-    {age: {$lte: 35}}
-  ]
-})
-
-db.users.find({
-  $or: [
-    {age: {$lt: 25}},
-    {age: {$gt: 35}}
-  ]
-})
-
-// 字段投影
-db.users.find({}, {username: 1, email: 1, _id: 0})
-
-// 排序
-db.users.find().sort({age: 1})  // 升序
-db.users.find().sort({age: -1}) // 降序
-
-// 限制和跳过
-db.users.find().limit(5)
-db.users.find().skip(10).limit(5)
-
-// 计数
-db.users.countDocuments()
-db.users.countDocuments({age: {$gte: 30}})
-```
-
-#### 更新文档
-```javascript
-// 更新单个文档
-db.users.updateOne(
-  {username: "alice"},
-  {$set: {age: 26, lastLogin: new Date()}}
-)
-
-// 更新多个文档
-db.users.updateMany(
-  {age: {$lt: 30}},
-  {$set: {category: "young"}}
-)
-
-// 替换文档
-db.users.replaceOne(
-  {username: "bob"},
-  {
-    username: "bob",
-    email: "bob.new@example.com",
-    age: 31,
-    interests: ["programming", "photography"]
-  }
-)
-
-// Upsert（不存在则插入）
-db.users.updateOne(
-  {username: "david"},
-  {$set: {email: "david@example.com", age: 28}},
-  {upsert: true}
-)
-
-// 数组操作
-db.users.updateOne(
-  {username: "alice"},
-  {$push: {interests: "photography"}}
-)
-
-db.users.updateOne(
-  {username: "alice"},
-  {$pull: {interests: "reading"}}
-)
-
-db.users.updateOne(
-  {username: "alice"},
-  {$addToSet: {interests: "travel"}}
-)
-```
-
-#### 删除文档
-```javascript
-// 删除单个文档
-db.users.deleteOne({username: "charlie"})
-
-// 删除多个文档
-db.users.deleteMany({age: {$lt: 25}})
-
-// 删除所有文档
-db.users.deleteMany({})
-```
-
-## 高级查询
-
-### 复杂查询操作
-
-```javascript
-// 正则表达式查询
-db.users.find({email: /gmail\.com$/})
-db.users.find({username: /^a/i})
-
-// 数组查询
-db.users.find({interests: {$in: ["programming", "music"]}})
-db.users.find({interests: {$all: ["programming", "gaming"]}})
-db.users.find({interests: {$size: 2}})
-
-// 嵌套文档查询
-db.users.find({"profile.age": {$gte: 30}})
-db.users.find({"profile.address.city": "New York"})
-
-// 存在性查询
-db.users.find({email: {$exists: true}})
-db.users.find({phone: {$exists: false}})
-
-// 类型查询
-db.users.find({age: {$type: "number"}})
-db.users.find({_id: {$type: "objectId"}})
-
-// 文本搜索
-db.users.createIndex({username: "text", email: "text"})
-db.users.find({$text: {$search: "alice"}})
-```
-
-### 聚合管道
-
-```javascript
-// 基本聚合
-db.users.aggregate([
-  {$match: {age: {$gte: 25}}},
-  {$group: {
-    _id: "$category",
-    count: {$sum: 1},
-    avgAge: {$avg: "$age"}
-  }},
-  {$sort: {count: -1}}
-])
-
-// 复杂聚合示例
-db.orders.aggregate([
-  // 阶段1：匹配条件
-  {$match: {
-    orderDate: {$gte: ISODate("2024-01-01")}
-  }},
-  
-  // 阶段2：展开数组
-  {$unwind: "$items"},
-  
-  // 阶段3：关联查询
-  {$lookup: {
-    from: "products",
-    localField: "items.productId",
-    foreignField: "_id",
-    as: "productInfo"
-  }},
-  
-  // 阶段4：展开关联结果
-  {$unwind: "$productInfo"},
-  
-  // 阶段5：计算字段
-  {$addFields: {
-    itemTotal: {$multiply: ["$items.quantity", "$productInfo.price"]}
-  }},
-  
-  // 阶段6：分组统计
-  {$group: {
-    _id: {
-      category: "$productInfo.category",
-      month: {$month: "$orderDate"}
-    },
-    totalSales: {$sum: "$itemTotal"},
-    totalQuantity: {$sum: "$items.quantity"},
-    orderCount: {$sum: 1}
-  }},
-  
-  // 阶段7：排序
-  {$sort: {"_id.month": 1, totalSales: -1}},
-  
-  // 阶段8：投影
-  {$project: {
-    _id: 0,
-    category: "$_id.category",
-    month: "$_id.month",
-    totalSales: 1,
-    totalQuantity: 1,
-    orderCount: 1,
-    avgOrderValue: {$divide: ["$totalSales", "$orderCount"]}
-  }}
-])
-```
-
-## 索引优化
-
-### 索引类型
-
-```javascript
-// 单字段索引
-db.users.createIndex({username: 1})  // 升序
-db.users.createIndex({age: -1})      // 降序
-
-// 复合索引
-db.users.createIndex({age: 1, username: 1})
-
-// 多键索引（数组字段）
-db.users.createIndex({interests: 1})
-
-// 文本索引
-db.users.createIndex({
-  username: "text",
-  email: "text",
-  "profile.firstName": "text"
-})
-
-// 2dsphere 索引（地理位置）
-db.locations.createIndex({coordinates: "2dsphere"})
-
-// 哈希索引
-db.users.createIndex({userId: "hashed"})
-
-// 部分索引
-db.users.createIndex(
-  {email: 1},
-  {partialFilterExpression: {email: {$exists: true}}}
-)
-
-// 稀疏索引
-db.users.createIndex({phone: 1}, {sparse: true})
-
-// 唯一索引
-db.users.createIndex({email: 1}, {unique: true})
-
-// TTL 索引（自动过期）
-db.sessions.createIndex(
-  {createdAt: 1},
-  {expireAfterSeconds: 3600}
-)
-```
-
-### 索引管理
-
-```javascript
-// 查看索引
-db.users.getIndexes()
-
-// 查看索引使用情况
-db.users.find({username: "alice"}).explain("executionStats")
-
-// 删除索引
-db.users.dropIndex({username: 1})
-db.users.dropIndex("username_1")
-
-// 重建索引
-db.users.reIndex()
-
-// 查看索引大小
-db.users.totalIndexSize()
-
-// 索引统计
-db.users.aggregate([{$indexStats: {}}])
-```
-
-## 副本集
-
-### 副本集配置
-
-```javascript
-// 初始化副本集
 rs.initiate({
-  _id: "rs0",
-  members: [
-    {_id: 0, host: "mongodb1:27017", priority: 2},
-    {_id: 1, host: "mongodb2:27017", priority: 1},
-    {_id: 2, host: "mongodb3:27017", arbiterOnly: true}
-  ]
-})
-
-// 查看副本集状态
-rs.status()
-
-// 查看副本集配置
-rs.conf()
-
-// 添加成员
-rs.add("mongodb4:27017")
-
-// 删除成员
-rs.remove("mongodb4:27017")
-
-// 设置优先级
-var config = rs.conf()
-config.members[1].priority = 0.5
-rs.reconfig(config)
-
-// 强制选举
-rs.stepDown()
+  _id: "lab-rs",
+  members: [{ _id: 0, host: "localhost:27017" }]
+});
+db.hello().isWritablePrimary;
 ```
 
-### 读写配置
+本练习依靠无网络暴露的隔离方式，不是生产认证模板。生产需要账号最小权限、允许的来源、成员间认证以及客户端 TLS；使用当前 `net.tls` 配置，不沿用旧 `net.ssl` 名称。账号密码交互输入或通过受控凭据文件管理，不写进 URI、脚本或 Git。配置 `keyFile` 不等于完成证书身份校验；副本集对外通告的每个主机名都必须能被客户端解析和访问。
+
+当前入口是 mongosh，不是旧 `mongo` shell。`use`、`show collections` 是 shell 辅助命令；下文用 `db.getSiblingDB()` 便于脚本化。容器前台运行 mongod，不照搬 systemd 环境的 fork、日志目录与进程文件；MongoDB 7.0 也不能照搬旧 `storage.journal.enabled` 开关。
+
+## 文档有边界，字段有合同
+
+下单后商品名称和价格快照应保持历史含义，商品涨价不回写旧订单。这里金额按“分”保存，演示限制在 32 位整数范围；更大的金额需要选定 Decimal128 或 64 位整数，并保持驱动与前端精度合同，不能先经 JavaScript 浮点数再补精度。
 
 ```javascript
-// 设置读偏好
-db.users.find().readPref("secondary")
-db.users.find().readPref("secondaryPreferred")
-
-// 设置写关注
-db.users.insertOne(
-  {username: "test"},
-  {writeConcern: {w: "majority", j: true, wtimeout: 5000}}
-)
-
-// 设置读关注
-db.users.find().readConcern("majority")
+db = db.getSiblingDB("order_lab");
+db.createCollection("orders", {
+  validator: { $jsonSchema: {
+    bsonType: "object",
+    required: ["tenantId","requestId","customerId","status","amountCents","createdAt","items"],
+    properties: {
+      tenantId: { bsonType: "string", minLength: 1 },
+      requestId: { bsonType: "string", minLength: 1 },
+      customerId: { bsonType: "int" },
+      status: { enum: ["pending","paid","cancelled"] },
+      amountCents: { bsonType: "int", minimum: 0 },
+      createdAt: { bsonType: "date" },
+      items: { bsonType: "array", minItems: 1, maxItems: 100,
+        items: { bsonType: "object", required: ["sku","qty","unitCents"],
+          properties: {
+            sku: { bsonType: "string" },
+            qty: { bsonType: "int", minimum: 1 },
+            unitCents: { bsonType: "int", minimum: 0 }
+          }
+        }
+      }
+    }
+  } },
+  validationLevel: "strict", validationAction: "error"
+});
+db.orders.createIndex({tenantId:1,requestId:1},{unique:true});
+db.orders.insertMany([
+  {_id:101,tenantId:"t1",requestId:"req-101",customerId:NumberInt(1),status:"paid",
+   amountCents:NumberInt(5000),createdAt:ISODate("2026-10-02T02:00:00Z"),
+   items:[{sku:"book",qty:NumberInt(1),unitCents:NumberInt(2000)},
+          {sku:"bag",qty:NumberInt(3),unitCents:NumberInt(1000)}]},
+  {_id:102,tenantId:"t1",requestId:"req-102",customerId:NumberInt(1),status:"pending",
+   amountCents:NumberInt(3000),createdAt:ISODate("2026-10-02T02:00:00Z"),
+   items:[{sku:"mug",qty:NumberInt(2),unitCents:NumberInt(1500)}]},
+  {_id:103,tenantId:"t1",requestId:"req-103",customerId:NumberInt(1),status:"paid",
+   amountCents:NumberInt(3990),createdAt:ISODate("2026-10-03T03:00:00Z"),
+   items:[{sku:"lamp",qty:NumberInt(1),unitCents:NumberInt(3990)}]},
+  {_id:104,tenantId:"t1",requestId:"req-104",customerId:NumberInt(2),status:"cancelled",
+   amountCents:NumberInt(2000),createdAt:ISODate("2026-09-30T15:59:59Z"),
+   items:[{sku:"book",qty:NumberInt(1),unitCents:NumberInt(2000)}]}
+]);
 ```
 
-## 分片
+校验拒绝字符串日期、负金额和错误类型；唯一索引约束同租户内的请求号，但这些都不自动证明“金额等于所有明细合计”或“支付凭证有效”。这些跨字段业务规则需要另外实现。订单限 100 条明细只是本例的有界模型，仍要遵守单个 BSON 文档 **16 MiB** 等限制；操作日志、聊天记录等持续增长的数据应另存集合。
 
-### 分片集群配置
+`$set` 修改指定字段，`replaceOne` 替换整份文档主体，未给出的字段会丢失。`upsert:true` 只表示未匹配时尝试插入，不等于解决并发重复请求；需要匹配的唯一索引、冲突处理以及稳定的业务请求号。订单中的客户编号是引用，MongoDB 不会自动替它验证另一个集合里的客户存在。
+
+## 数组条件必须命中同一元素
 
 ```javascript
-// 启用分片
-sh.enableSharding("myapp")
-
-// 创建分片键
-sh.shardCollection("myapp.users", {userId: "hashed"})
-sh.shardCollection("myapp.orders", {customerId: 1, orderDate: 1})
-
-// 查看分片状态
-sh.status()
-
-// 查看分片分布
-db.users.getShardDistribution()
-
-// 添加分片
-sh.addShard("rs1/mongodb4:27017,mongodb5:27017,mongodb6:27017")
-
-// 移除分片
-sh.removeShard("rs1")
-
-// 平衡器控制
-sh.startBalancer()
-sh.stopBalancer()
-sh.isBalancerRunning()
+db.orders.find({
+  tenantId:"t1", "items.sku":"book", "items.qty":{$gte:2}
+},{_id:1}).toArray();
+db.orders.find({
+  tenantId:"t1", items:{$elemMatch:{sku:"book",qty:{$gte:2}}}
+},{_id:1}).toArray();
 ```
 
-## 性能优化
+第一项返回 101：book 满足 sku，另一条 bag 满足数量，条件可由不同元素分别满足。第二项为空，因为没有同一条 book 明细数量达到 2。外层同时出现两个点路径，不会自动变成“同一商品”。数组索引、多键索引边界与查询语义应一起检查，而不是发现结果不对后简单加 DISTINCT。
 
-### 查询优化
+对缺失和 NULL 也要明确：`{note:null}` 可匹配字段为 null 或不存在的文档；`$exists:true` 包含显式 null。要区分缺失、空值、空字符串与空数组，不能仅靠真假判断。投影通常不能任意混合包含与排除规则，`_id` 是常见例外。
+
+## 聚合之前确定计数对象
+
+先从订单集合汇总十月已支付订单，时间边界对应上海时间：
 
 ```javascript
-// 使用 explain 分析查询
-db.users.find({age: {$gte: 30}}).explain("executionStats")
+db.orders.aggregate([
+  {$match:{tenantId:"t1",status:"paid",createdAt:{
+    $gte:ISODate("2026-09-30T16:00:00Z"),
+    $lt:ISODate("2026-10-31T16:00:00Z")
+  }}},
+  {$group:{_id:"$customerId",orderCount:{$sum:1},paidCents:{$sum:"$amountCents"}}},
+  {$sort:{paidCents:-1,_id:1}}
+]).toArray();
 
-// 查看慢查询
-db.setProfilingLevel(2, {slowms: 100})
-db.system.profile.find().sort({ts: -1}).limit(5)
-
-// 使用 hint 强制使用索引
-db.users.find({age: 30}).hint({age: 1})
-
-// 批量操作
-var bulk = db.users.initializeUnorderedBulkOp()
-bulk.insert({username: "user1", age: 25})
-bulk.insert({username: "user2", age: 30})
-bulk.find({username: "user1"}).updateOne({$set: {age: 26}})
-bulk.execute()
+db.orders.aggregate([
+  {$match:{tenantId:"t1",status:"paid"}},
+  {$unwind:"$items"},
+  {$group:{_id:null,lineCount:{$sum:1},
+    orderIds:{$addToSet:"$_id"},
+    itemCents:{$sum:{$multiply:["$items.qty","$items.unitCents"]}}}},
+  {$project:{_id:0,lineCount:1,orderCount:{$size:"$orderIds"},itemCents:1}}
+]).toArray();
 ```
 
-### 内存和存储优化
+第一项得到客户 1、两单、8990 分。第二项展开为三条明细，所以 lineCount 为 3，订单数仍为 2，商品金额合计为 8990。若展开后直接 `$sum:1` 命名为 orderCount，或反复累加订单总金额，就会产生错误报表。此处用小集合 `$addToSet` 解释去重，大规模应按订单与分类分层聚合，避免把无限订单号装进一个结果文档。
+
+`$lookup` 是读取时关联，不自动提供外键或去重；再 `$unwind` 可能放大行数，也可能把没有匹配商品的订单丢掉。历史金额应取订单快照，不能关联商品现价后重算旧销售额。按月分组应包含年份与业务时区，只有 `$month` 会混合不同年份的十月。执行前先明确报表是订单、明细、件数还是客户数量，以及优惠和运费归属。
+
+## 索引服务实际查询
 
 ```javascript
-// 查看集合统计
-db.users.stats()
-
-// 查看数据库统计
-db.stats()
-
-// 压缩集合
-db.runCommand({compact: "users"})
-
-// 查看连接状态
-db.serverStatus().connections
-
-// 查看内存使用
-db.serverStatus().mem
-
-// 查看操作统计
-db.serverStatus().opcounters
+db.orders.createIndex({tenantId:1,customerId:1,createdAt:-1,_id:-1});
+db.orders.find({tenantId:"t1",customerId:NumberInt(1)},
+              {_id:1,status:1,createdAt:1})
+  .sort({createdAt:-1,_id:-1}).limit(10).explain("executionStats");
+db.orders.getIndexes();
 ```
 
-## 备份与恢复
+租户和客户等值条件后接稳定排序键，可服务客户订单时间线；没有唯一的 `_id` 破同分，同时间记录分页可能不稳定。大 skip 仍需跨过前面的记录，深分页可用末条 `(createdAt,_id)` 作为游标，并保留租户与排序范围条件。
 
-### mongodump 和 mongorestore
+先比较返回数、totalKeysExamined、totalDocsExamined、排序阶段与索引边界；IXSCAN 出现不等于高效，COLLSCAN 在四行数据上也未必不合理。`executionStats` 会实际执行读取工作，不在生产随意运行无界聚合分析。hint 只能用于验证候选，不该作为掩盖统计或查询设计问题的永久开关。
+
+数组生成 multikey 索引有组合限制，复合索引不能随意包含多个独立数组字段；部分索引需要查询能满足其过滤条件。唯一索引的缺失/NULL 行为、稀疏与部分索引都要按模型验证。传统 text 索引每集合只能有一个，中文分词和检索质量也不能由“建了 text 索引”推出。地理查询使用正确的 GeoJSON、经纬度顺序和 2dsphere 索引，不与平面坐标混算。
+
+TTL 索引只能用于合适的日期字段与结构，后台清理不是精确调度。会话即使还没被 TTL 删除，应用也要按 expiresAt 拒绝过期访问；不能以文档还在就认定令牌有效。
+
+## 单文档条件更新与跨文档事务
+
+扣一个库存单位时，条件和修改放在同一条更新中：
+
+```javascript
+db.inventory.insertMany([
+  {_id:"lamp",available:NumberInt(1)},
+  {_id:"mug",available:NumberInt(10)}
+]);
+db.inventory.updateOne({_id:"lamp",available:{$gte:1}},{$inc:{available:-1}});
+db.inventory.updateOne({_id:"lamp",available:{$gte:1}},{$inc:{available:-1}});
+db.inventory.findOne({_id:"lamp"});
+```
+
+第一次 matchedCount 为 1，第二次为 0，库存仍为 0。先查库存再无条件减会引入竞争；updateMany 对每个文档的修改原子，不表示整组都原子。`modifiedCount=0` 还可能表示目标已经是该值，要结合 matchedCount 和业务条件判断。
+
+若需要同时改变订单、扣独立库存并写一条待发事件，就需要多文档事务。以下只用于新练习数据，102 仍为 pending，杯子库存为 10；待发事件与实际发信分开：
+
+```javascript
+db.createCollection("outbox");
+const orderSession = db.getMongo().startSession();
+const orderDb = orderSession.getDatabase("order_lab");
+try {
+  orderSession.startTransaction({
+    readConcern:{level:"snapshot"},writeConcern:{w:"majority"}
+  });
+  const changed = orderDb.orders.updateOne(
+    {_id:102,tenantId:"t1",status:"pending"},{$set:{status:"paid"}}
+  );
+  if (changed.matchedCount !== 1) throw new Error("订单状态不匹配");
+  const stock = orderDb.inventory.updateOne(
+    {_id:"mug",available:{$gte:2}},{$inc:{available:-2}}
+  );
+  if (stock.matchedCount !== 1) throw new Error("库存不足");
+  orderDb.outbox.insertOne({_id:"paid-102",orderId:102,eventType:"OrderPaid"});
+  orderSession.commitTransaction();
+} catch (error) {
+  orderSession.abortTransaction();
+  throw error;
+} finally {
+  orderSession.endSession();
+}
+```
+
+成功后 102 为 paid、杯子库存为 8、outbox 有一条事件。故障测试应另起新练习基线，把库存设为不足，验证失败时订单也未提交。事务需副本集或分片环境，standalone 不支持这类多文档事务；单节点副本集能复现提交/回滚，不能证明多数副本故障容忍。
+
+示例省略生产重试策略。正式应用使用驱动支持的事务 API，区分暂态事务错误与提交结果未知；提交超时不等于已经回滚，不能无条件重新扣款。回调可能重试，不能在事务回调内直接发邮件、调用支付或完成不可逆外部副作用。outbox 由后续投递器读取并按事件号幂等处理，事务只保证事件记录与数据库状态一起提交。
+
+## 读偏好、读关注与写关注
+
+![写关注、读取位置、读关注和故障切换分别作用的位置](/database/mongodb-read-write-concerns.svg)
+
+readPreference 决定读主还是读副本；readConcern 决定可读数据的可见性保证；writeConcern 决定写入需要怎样的确认。它们不是同一个“强一致开关”。`secondaryPreferred` 可以减轻部分读负担，也可能读到滞后状态；`majority` 读取不自动等于最近一次业务写入。
+
+在相应配置、读写关注和同一因果会话约束下，可以获得所需的因果顺序保证；不能把任意新连接上的 secondary 读取当成写后必可见。线性化读取有明确限制和代价，应按单文档强实时要求单独评估。驱动连接池与拓扑发现负责找到可用节点，但不能代替应用的超时、幂等和错误处理。
+
+副本集多数确认依赖持有数据的投票成员，仲裁者只投票，不保存业务副本。两个数据节点加仲裁者不能当成三个数据副本，也不应作为无条件推荐拓扑。写关注 wtimeout 只表示指定确认未及时满足，写入可能已经落在部分节点并继续复制；“报错后一定没写入”是危险假设。选举、旧主失去写资格、驱动重连和回滚范围需要完整故障演练。
+
+分片再增加一层路由：mongos 按分片键定位数据，config server 保存元数据，各 shard 本身通常是副本集。分片键选择同时影响热点、目标路由、范围查询与唯一性约束；缺少键条件可能 scatter-gather。hashed 不自动消除低基数或单热点键问题，单调增长范围键也可能把新写入集中到少数分片。不要在普通单机上混入 `clusterRole: shardsvr` 就当完成分片部署。
+
+## 备份以恢复到新库验收
+
+下面在**停止练习写入后**进行逻辑备份；不代表并发业务下跨集合的一致快照。Bash 命令使用容器内 Database Tools，先核对工具版本与服务端兼容性：
 
 ```bash
-# 备份整个数据库
-mongodump --host localhost:27017 --db myapp --out /backup/
-
-# 备份特定集合
-mongodump --host localhost:27017 --db myapp --collection users --out /backup/
-
-# 压缩备份
-mongodump --host localhost:27017 --db myapp --gzip --out /backup/
-
-# 恢复数据库
-mongorestore --host localhost:27017 --db myapp /backup/myapp/
-
-# 恢复到不同数据库
-mongorestore --host localhost:27017 --db newapp /backup/myapp/
-
-# 删除现有数据后恢复
-mongorestore --host localhost:27017 --db myapp --drop /backup/myapp/
+umask 077
+docker exec mongo-lab mongodump --db order_lab --archive --gzip > order-lab.archive.gz
+docker exec -i mongo-lab mongorestore --archive --gzip \
+  --nsFrom 'order_lab.*' --nsTo 'order_restore.*' \
+  --nsInclude 'order_lab.*' --stopOnError < order-lab.archive.gz
+docker exec mongo-lab mongosh --quiet --eval \
+  'db=db.getSiblingDB("order_restore"); print(db.orders.countDocuments({})); printjson(db.orders.aggregate([{$group:{_id:null,cents:{$sum:"$amountCents"}}}]).toArray());'
 ```
 
-### mongoexport 和 mongoimport
+恢复应为四单、13990 分，且要核对索引、校验器、outbox 与库存；新库已存在时先核对归属，不用 `--drop` 随手覆盖。每条命令检查退出码，空/半截 archive 不应进入恢复。数据库级备份不自动包含整个部署的账号、角色、配置与密钥管理方案。
 
-```bash
-# 导出为 JSON
-mongoexport --host localhost:27017 --db myapp --collection users --out users.json
+有并发写入时应选与部署相容的完整一致性方案，例如满足条件的副本集全量 dump 加 oplog 回放，或受支持的物理快照/备份服务，并演练恢复目标。不能给任意 `--db` 或分片 dump 加上 `--oplog` 就宣称得到集群一致快照。oplog 保留窗口也不等于任意历史时间都能恢复。mongoexport/mongoimport 用于数据交换，不能代替 BSON 备份、索引、验证器和部署级恢复。
 
-# 导出为 CSV
-mongoexport --host localhost:27017 --db myapp --collection users --type csv --fields username,email,age --out users.csv
+## 排查与维护闭环
 
-# 导入 JSON
-mongoimport --host localhost:27017 --db myapp --collection users --file users.json
+先把问题归到连接/认证、错误结果、阻塞/延迟、复制进度或容量。连接检查通告主机名、来源、TLS 与认证库；结果问题检查 BSON 类型、缺失/NULL、数组同元素语义、unwind 行数和业务时区，再看访问计划。副本延迟不能靠强制 hint 或给读请求加更多重试解决。
 
-# 导入 CSV
-mongoimport --host localhost:27017 --db myapp --collection users --type csv --headerline --file users.csv
-```
+慢查询从业务分位延迟、服务端结构化日志、当前操作与 explain 对照。Profiler 的 level 2 记录全部操作，不是只记录超过 slowms 的慢查询；使用 level 1 等受控采样，记录原设置并恢复，注意性能和查询内容暴露。批量无序写不保证前后顺序，也不保证全成全败，必须逐项检查错误。
 
-## 安全性
+WiredTiger cache 不等于进程总内存，操作系统页缓存、连接与聚合等还有额外开销。compact、reIndex 等不能当成定期通用优化按钮，需要核对版本、部署限制、锁、磁盘和复制影响。监控累计操作数要按时间差计算并处理重启；索引零次访问也不能仅凭短观察窗口判定可删除。
 
-### 认证和授权
-
-```javascript
-// 创建管理员用户
-use admin
-db.createUser({
-  user: "admin",
-  pwd: "password",
-  roles: ["userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase"]
-})
-
-// 创建数据库用户
-use myapp
-db.createUser({
-  user: "appuser",
-  pwd: "apppassword",
-  roles: [
-    {role: "readWrite", db: "myapp"},
-    {role: "read", db: "logs"}
-  ]
-})
-
-// 创建只读用户
-db.createUser({
-  user: "readonly",
-  pwd: "readpassword",
-  roles: [{role: "read", db: "myapp"}]
-})
-
-// 查看用户
-db.getUsers()
-
-// 删除用户
-db.dropUser("username")
-
-// 修改用户密码
-db.changeUserPassword("username", "newpassword")
-```
-
-### SSL/TLS 配置
-
-```yaml
-# mongod.conf
-net:
-  ssl:
-    mode: requireSSL
-    PEMKeyFile: /etc/ssl/mongodb.pem
-    CAFile: /etc/ssl/ca.pem
-    allowConnectionsWithoutCertificates: false
-```
-
-## 监控与运维
-
-### 监控指标
-
-```javascript
-// 服务器状态
-db.serverStatus()
-
-// 数据库统计
-db.stats()
-
-// 集合统计
-db.users.stats()
-
-// 当前操作
-db.currentOp()
-
-// 终止操作
-db.killOp(opid)
-
-// 副本集状态
-rs.status()
-
-// 分片状态
-sh.status()
-```
-
-### 日志分析
-
-```bash
-# 查看日志
-tail -f /var/log/mongodb/mongod.log
-
-# 过滤慢查询
-grep "slow operation" /var/log/mongodb/mongod.log
-
-# 分析连接
-grep "connection" /var/log/mongodb/mongod.log
-```
-
-## 最佳实践
-
-### 1. 数据建模
-
-- **嵌入 vs 引用**：根据数据访问模式选择
-- **反规范化**：适度冗余提高查询性能
-- **数组大小**：避免无限增长的数组
-- **文档大小**：控制在 16MB 以内
-
-### 2. 索引策略
-
-- **查询模式**：根据查询模式创建索引
-- **复合索引**：注意字段顺序
-- **索引维护**：定期检查索引使用情况
-- **避免过多索引**：影响写入性能
-
-### 3. 性能优化
-
-- **连接池**：合理配置连接池大小
-- **批量操作**：使用批量操作提高效率
-- **分页查询**：使用 skip 和 limit 要谨慎
-- **聚合优化**：合理使用聚合管道
-
-### 4. 运维管理
-
-- **监控告警**：设置关键指标监控
-- **备份策略**：定期备份和恢复测试
-- **容量规划**：监控存储和内存使用
-- **版本升级**：及时升级到稳定版本
-
-## 总结
-
-MongoDB 是一个功能强大的文档数据库，特别适合需要灵活数据模型和快速开发的现代应用。其丰富的查询功能、良好的扩展性和高可用性特性，使其成为 NoSQL 数据库的优秀选择。
-
-### 优势
-
-- 灵活的文档模型
-- 强大的查询和聚合功能
-- 良好的水平扩展能力
-- 丰富的索引支持
-- 活跃的社区和生态
-
-### 适用场景
-
-- 内容管理系统
-- 实时分析应用
-- 物联网数据存储
-- 移动应用后端
-- 大数据处理
-
-通过合理的数据建模、索引设计和性能优化，MongoDB 能够为各种应用提供高效、可靠的数据存储解决方案。
+本页的达成标志是：能解释 101 的数组误匹配、两单三明细与 8990 分的区别，验证库存不会减成负数、事务失败不留下半套修改，并恢复到新库核对完整业务状态。文档模型减少了某些关联，不会自动消除并发、事务与运维问题。

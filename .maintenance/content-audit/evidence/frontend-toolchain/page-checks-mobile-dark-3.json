@@ -1,0 +1,44 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Vite 流水线：开发模块、HMR 与生产产物",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端质量工具链：格式、规则、类型与行为",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "组件化 UI：状态归属与响应式更新",
+    "width": 390
+  }
+]

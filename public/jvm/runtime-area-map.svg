@@ -1,27 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-labelledby="title desc">
-  <title id="title">JVM 运行时数据区</title>
-  <desc id="desc">展示线程共享和线程私有的 JVM 内存区域，以及直接内存的边界。</desc>
-  <style>
-    .bg{fill:#f8fafc}.shared{fill:#e0f2fe;stroke:#0284c7}.private{fill:#dcfce7;stroke:#22c55e}.native{fill:#fef3c7;stroke:#f59e0b}.out{fill:#f1f5f9;stroke:#64748b}.box{stroke-width:2}.t{font:700 20px Arial,"Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"Microsoft YaHei",sans-serif;fill:#334155}.m{font:12px Consolas,monospace;fill:#475569}
-  </style>
-  <rect class="bg" width="980" height="520" rx="22"/>
-  <text class="t" x="42" y="48">JVM 运行时数据区：先分清共享、私有、堆外</text>
-  <text class="s" x="42" y="76">排查内存问题时，先判断异常落在哪个区域，再看对应参数和观测指标。</text>
-
-  <rect class="box shared" x="60" y="118" width="390" height="250" rx="16"/>
-  <text class="t" x="198" y="154">线程共享</text>
-  <rect class="box shared" x="92" y="186" width="150" height="98" rx="14"/><text class="t" x="150" y="224">堆</text><text class="s" x="120" y="252">对象和数组</text>
-  <rect class="box shared" x="268" y="186" width="150" height="98" rx="14"/><text class="t" x="314" y="224">方法区</text><text class="s" x="292" y="252">类元数据</text>
-  <text class="m" x="108" y="326">典型异常：OutOfMemoryError</text>
-
-  <rect class="box private" x="520" y="118" width="390" height="250" rx="16"/>
-  <text class="t" x="652" y="154">线程私有</text>
-  <rect class="box private" x="552" y="184" width="102" height="106" rx="14"/><text class="t" x="574" y="222">PC</text><text class="s" x="570" y="252">执行位置</text>
-  <rect class="box private" x="674" y="184" width="102" height="106" rx="14"/><text class="t" x="694" y="222">虚拟机栈</text><text class="s" x="692" y="252">栈帧</text>
-  <rect class="box private" x="796" y="184" width="82" height="106" rx="14"/><text class="t" x="808" y="222">本地栈</text><text class="s" x="812" y="252">JNI</text>
-  <text class="m" x="548" y="326">典型异常：StackOverflowError / OutOfMemoryError</text>
-
-  <rect class="box out" x="160" y="408" width="660" height="70" rx="16"/>
-  <text class="t" x="260" y="450">直接内存</text>
-  <text class="s" x="388" y="450">堆外，由 NIO、Netty、JNI、MappedByteBuffer 等使用</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="576" viewBox="0 0 1000 576" role="img" aria-labelledby="runtime-area-map-title runtime-area-map-desc">
+  <title id="runtime-area-map-title">JVM 运行时数据区与进程内存边界</title>
+  <desc id="runtime-area-map-desc">HotSpot 的堆包含对象和虚拟线程栈块，堆外包含元空间、代码缓存、平台线程栈及不同分配来源；线程归属与物理位置是两个维度。</desc>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}</style>
+  <rect width="1000" height="576" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">两种分类：谁的现场，放在哪块内存</text>
+  <text class="body" x="32" y="76">逻辑区域不等于互斥的物理方块；下图按现代 HotSpot 进程内存组织。</text>
+  <rect x="32" y="104" width="936" height="376" rx="8" fill="#fff" stroke="#94a3b8" stroke-dasharray="6 4"/>
+  <text class="note" x="52" y="132">Java 进程：RSS、地址空间和容器统计各有口径</text>
+  <rect x="56" y="156" width="328" height="296" rx="8" fill="#eff6ff" stroke="#60a5fa"/>
+  <text class="name" x="76" y="188">Java 堆 · -Xmx</text>
+  <rect class="node" x="76" y="212" width="288" height="80" rx="6"/><text class="name" x="92" y="244">对象、数组、Class mirror</text><text class="note" x="92" y="272">共享存储，访问同步由程序负责</text>
+  <rect class="node" x="76" y="316" width="288" height="108" rx="6"/><text class="name" x="92" y="348">虚拟线程 stack chunk</text><text class="body" x="92" y="376">保存暂停的 Java 调用现场</text><text class="note" x="92" y="402">逻辑线程私有，不独占 OS 栈</text>
+  <rect x="408" y="156" width="536" height="296" rx="8" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="428" y="188">堆外 · 无统一 JVM 总量开关</text>
+  <rect class="node" x="428" y="212" width="228" height="80" rx="6"/><text class="name" x="444" y="244">元空间</text><text class="note" x="444" y="272">类结构、字节码等元数据</text>
+  <rect class="node" x="680" y="212" width="244" height="80" rx="6"/><text class="name" x="696" y="244">Code Cache</text><text class="note" x="696" y="272">JIT 机器码与代码结构</text>
+  <rect class="node" x="428" y="316" width="228" height="108" rx="6"/><text class="name" x="444" y="348">平台线程 OS 栈</text><text class="body" x="444" y="376">Java / native 调用现场</text><text class="note" x="444" y="402">按线程预留，驻留量另看</text>
+  <rect class="node" x="680" y="316" width="244" height="108" rx="6"/><text class="name" x="696" y="348">其他分配与映射</text><text class="body" x="696" y="376">NIO direct / mmap</text><text class="note" x="696" y="402">JNI 库、GC 与 JVM 开销</text>
+  <text class="body" x="32" y="516">程序计数器是每线程的逻辑执行位置；native 方法执行中，规范不定义它的值。</text>
+  <text class="note" x="32" y="548">-Xss、MaxMetaspaceSize、MaxDirectMemorySize、Code Cache 各自控制局部，不相互替代。</text>
 </svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="runtime-selection-title runtime-selection-desc">
+  <title id="runtime-selection-title">按代码、环境和交付选择 Agent 入口</title><desc id="runtime-selection-desc">本地 CLI 复用当前工具链，IDE 围绕可视交互，云任务需要重建隔离环境；三者都需验证结果、权限和交付路径。</desc>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a;letter-spacing:0}.title{font-size:26px;font-weight:700}.h{font-size:22px;font-weight:700}.b{font-size:17px;fill:#475569}.box{fill:white;stroke:#cbd5e1;stroke-width:1.5}</style>
+  <rect width="1120" height="490" fill="#f8fafc"/><text class="title" x="40" y="48">先确认代码在哪里，再比较功能入口</text>
+  <rect class="box" x="40" y="100" width="320" height="260" rx="6"/><text class="h" x="65" y="143">本地 CLI</text><text class="b" x="65" y="188">代码：当前目录与工作树</text><text class="b" x="65" y="226">环境：本机运行时与缓存</text><text class="b" x="65" y="264">反馈：命令、日志、Diff</text><text class="b" x="65" y="316">核对凭据暴露与用户脏工作。</text>
+  <rect class="box" x="400" y="100" width="320" height="260" rx="6"/><text class="h" x="425" y="143">IDE / 桌面交互</text><text class="b" x="425" y="188">代码：选区、文件与检索</text><text class="b" x="425" y="226">环境：确认实际执行位置</text><text class="b" x="425" y="264">反馈：编辑差异、运行页面</text><text class="b" x="425" y="316">核对后台命令与截图来源。</text>
+  <rect class="box" x="760" y="100" width="320" height="260" rx="6"/><text class="h" x="785" y="143">云任务</text><text class="b" x="785" y="188">代码：指定提交或分支</text><text class="b" x="785" y="226">环境：依赖、网络与测试数据</text><text class="b" x="785" y="264">反馈：提交、报告与交接</text><text class="b" x="785" y="316">核对未提交文件与环境差异。</text>
+  <path d="M40 397H1080" stroke="#cbd5e1"/><text class="b" x="40" y="434">同一品牌不同入口分别验证：权限、数据流、测试对象、交付状态，不共享未经观察的结论。</text>
+</svg>

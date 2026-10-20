@@ -49,7 +49,7 @@
     <text x="1210" y="463" text-anchor="middle" fill="#526078" font-size="14">历史事实、指标、预测</text>
   </g>
   <g stroke="#475569" stroke-width="2.5" fill="none" marker-end="url(#arrow)">
-    <path d="M292 223H362"/><path d="M292 333H362"/><path d="M292 443H362"/>
+    <path d="M292 223H328V280H370"/><path d="M292 333H370"/><path d="M292 443H328V378H370"/>
     <path d="M630 325H692"/>
     <path d="M1008 223H1052"/><path d="M1008 333H1052"/><path d="M1008 443H1052"/>
   </g>

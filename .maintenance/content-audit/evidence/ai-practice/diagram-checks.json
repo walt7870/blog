@@ -1,0 +1,38 @@
+[
+  {
+    "name": "practice-project-routes",
+    "check": {
+      "clip": [],
+      "height": 600,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "ticket-confirmation-lifecycle",
+    "check": {
+      "clip": [],
+      "height": 672,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "churn-snapshot-time-boundary",
+    "check": {
+      "clip": [],
+      "height": 580,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "vision-quality-contract",
+    "check": {
+      "clip": [],
+      "height": 624,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  }
+]

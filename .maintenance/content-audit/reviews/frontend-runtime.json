@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+      "pageType": "语言模型",
+      "decision": "商品对象浅拷贝、独立闭包和整数分金额规则，补词法环境、this与原型边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "39621339ac2044a5c2fcfdb832f5345e8bfbde753d70e9d346f7ff4544030a46"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+      "pageType": "DOM机制",
+      "decision": "安全文本渲染与重复替换完整示例，分清节点、当前状态和渲染成本。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "306c6d896926b459efffe513407940a03295524eb9796d5672d85a92cd5af7be"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+      "pageType": "事件机制",
+      "decision": "补有边界委托、内部span目标与焦点恢复，区分传播、取消、Shadow DOM及非冒泡事件。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "9148cf9db4b96519009ca683b8a92b3b5f8559f29d629455eabbdde74b9ef6f7"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+      "pageType": "异步机制",
+      "decision": "区分多个任务源、微任务检查点与可选渲染，补两个真实顺序实验及分批边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "8aafaa4b1c8fad45419efd682e6d9b3819a4d1aecdc15b293d77f615d28e16e8"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+      "pageType": "网络合同",
+      "decision": "完整Fetch字段校验、取消和最新结果约束，补HTTP/解析/CORS失败与幂等边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "b59a5a1945e73949ed0006a212c1662838463ac8bff364dcb6ce9996f3a9e971"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+      "pageType": "存储机制",
+      "decision": "按会话、偏好、草稿与响应分类，补损坏恢复、事务complete、缓存过期和账户清理。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "逐篇全文与原图审查并重绘六图；构建15.44秒通过，24份明暗全文截图全部查看，6次分页及12组原尺寸键盘预览通过，详见batches/frontend-runtime.md。",
+        "Node正文夹具含6项语言、6项存储和9项HTTP合同场景通过；浏览器实测DOM文本、委托焦点、微任务顺序及双源CORS预检；宽度1280/iframe390与主题严格断言，不声称真机和后端业务验收。"
+      ],
+      "reviewedHash": "6880056a5913cb70cf397247edffc8035ebc35eae96ca5d28b583d0865526041"
+    }
+  ]
+}

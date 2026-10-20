@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">sherpa-onnx 模型与部署选型流程</title>
-  <desc id="desc">从实时性、热词、语言和设备预算逐步缩小模型与部署方案</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="sherpa-onnx-selection-flow-title sherpa-onnx-selection-flow-desc">
+  <title id="sherpa-onnx-selection-flow-title">sherpa-onnx 模型与部署选型流程</title>
+  <desc id="sherpa-onnx-selection-flow-desc">从实时性、热词、语言和设备预算逐步缩小模型与部署方案</desc>
   <defs>
     <style>
       .bg { fill: #f8fafc; }
@@ -12,9 +12,9 @@
       .label { font: 700 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
       .text { font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
       .yesno { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f766e; }
-      .arrow { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .arrow { stroke: #64748b; stroke-width: 3; fill: none; marker-end: url(#sherpa-onnx-selection-flow-arrow); }
     </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <marker id="sherpa-onnx-selection-flow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
     </marker>
   </defs>

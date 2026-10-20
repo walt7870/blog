@@ -1,205 +1,92 @@
 # Git 分支与合并
 
-分支用于隔离不同任务。合并用于把一个分支的提交整合到另一个分支。理解 merge、rebase、cherry-pick 的差异，可以避免协作时把历史改乱。
+订单导出分支增加了空结果处理，同事同时在 main 增加权限检查。整合时既要保留修复，也要保留权限约束。merge、rebase、cherry-pick 的差别在提交关系；没有冲突也不证明两项业务逻辑组合正确。
 
-## 分支基础
+![merge rebase与cherry-pick的提交关系](/git/branch-integration.svg)
 
-### 创建分支
+## 从明确的基线开始
+
+以下假设工作区已处理完、main 跟踪 origin/main，并且没有需要重写的 main 本地提交。更新失败就检查分叉，不自动变基共享历史。
 
 ```bash
+git status -sb
 git switch main
-git pull --rebase
-git switch -c feature/payment-callback
+git pull --ff-only
+git switch -c feature/order-export
 ```
 
-`feature/payment-callback` 从当前 `main` 位置创建，并切换过去。
+创建分支不复制完整文件目录。未提交修改也可能随切换保留，或因会被覆盖而阻止切换；它们不是天然归属于旧分支。要同时修改两个版本，使用 [worktree](./advanced.md)。
 
-### 查看分支
+## merge 保留原提交关系
 
-```bash
-git branch
-git branch -a
-git branch -vv
-```
-
-`-vv` 可以看到本地分支跟踪的远程分支，以及 ahead/behind 状态。
-
-### 删除分支
+在功能分支同步 main，可以 fetch 后 merge，不改变已有功能提交的 ID。反过来，在目标分支执行 merge 才是把功能纳入目标，命令始终以当前分支为接收方。
 
 ```bash
-git branch -d feature/payment-callback
-git push origin --delete feature/payment-callback
-```
-
-`-d` 会检查分支是否已合并；`-D` 会强制删除，只在确认不再需要时使用。
-
-## merge
-
-`merge` 把另一个分支的历史合入当前分支。
-
-```bash
-git switch main
-git merge feature/payment-callback
-```
-
-适用场景：
-
-- 保留真实分支历史。
-- 发布分支、长期分支合并。
-- 团队约定不改写公共分支历史。
-
-常见选项：
-
-```bash
-git merge --no-ff feature/payment-callback
-git merge --abort
-```
-
-`--no-ff` 会保留一次 merge commit，方便看出某个功能分支的合并边界。
-
-## rebase
-
-`rebase` 会把当前分支的提交“搬到”目标提交之后，形成更线性的历史。
-
-```bash
-git switch feature/payment-callback
 git fetch origin
+git switch feature/order-export
+git merge origin/main
+```
+
+若当前提交已经是目标祖先，默认可快进，只移动引用。发生分叉时通常创建 merge commit，拥有两个父提交；`--no-ff` 在本可快进时也创建合并提交，`--ff-only` 则拒绝需要合并提交的情况。历史形态按团队策略选择，不把“出现一条线”当作质量标准。
+
+## rebase 重放本分支提交
+
+功能分支未被其他人依赖，且团队允许整理时，可将分支自己的提交重放到新的 origin/main 之后。重放通常生成新的提交 ID；已等价应用或变为空的提交可能被跳过，默认处理也不会原样保留所有 merge 结构。
+
+```bash
+git fetch origin
+git switch feature/order-export
 git rebase origin/main
 ```
 
-适用场景：
+“只在个人分支”是协作条件，不是因为命令更安全。若别人已经基于该历史开发，优先 merge 或协调变更。交互整理用 `git rebase -i HEAD~3`，但要求确实存在相应祖先；`reword` 改说明，`fixup`/`squash` 合并提交，`drop` 删除重放项。开始前先保护提交引用并处理未提交工作。
 
-- 功能分支推送前同步主分支。
-- 整理本地提交历史。
-- 减少无意义 merge commit。
+## cherry-pick 复制指定修改
 
-不适用场景：
-
-- 已被多人基于其继续开发的公共分支。
-- 不确定是否会覆盖别人提交的远程分支。
-
-## merge 和 rebase 的选择
-
-| 场景 | 推荐 |
-| --- | --- |
-| 功能分支同步主分支 | `git rebase origin/main` |
-| 功能分支合入主分支 | 按团队平台策略选择 merge、squash 或 rebase merge |
-| 长期发布分支合并 | `git merge` |
-| 已推送且多人使用的公共分支 | 避免 rebase |
-| 本地未推送提交整理 | `git rebase -i` |
-
-## 交互式 rebase
-
-整理最近 3 个提交：
-
-```bash
-git rebase -i HEAD~3
-```
-
-常见动作：
-
-```text
-pick    保留提交
-reword  修改提交信息
-squash  合并到前一个提交，并编辑提交信息
-fixup   合并到前一个提交，丢弃当前提交信息
-drop    删除提交
-```
-
-适合在发起 PR/MR 前整理本地历史，不适合在公共分支上重写别人依赖的提交。
-
-## cherry-pick
-
-`cherry-pick` 用于把某个提交单独复制到当前分支。
+维护 release 分支时，只需带回空结果修复，不需要整个导出功能分支，可选择具体修复提交：
 
 ```bash
 git switch release/v1.4
-git cherry-pick <commit>
+git cherry-pick -x REPLACE_WITH_FIX_COMMIT
 ```
 
-常见场景：
+占位值替换为核实过的提交。新提交有自己的父关系和 ID，`-x` 在说明中记录来源。修复可能依赖前置重构或新的数据库字段，必须检查依赖并运行该发布分支上的测试。merge commit 涉及主父选择，不能直接当普通单父提交复制。
 
-- 把主分支上的修复补到 release 分支。
-- 把 hotfix 同步到多个维护分支。
-- 只拿某个提交，不合并整个功能分支。
+## 冲突先理解操作上下文
 
-中途冲突：
+发生冲突时先看 status：当前是 merge、rebase 还是 cherry-pick。文件中的冲突标记需要按业务意图组合，例如权限判断必须保留，导出空列表也应生成合法文件；不能只因一侧测试通过就整块覆盖另一侧。
 
 ```bash
 git status
-# 修改冲突文件
-git add <file>
-git cherry-pick --continue
-```
-
-取消：
-
-```bash
-git cherry-pick --abort
-```
-
-## 冲突处理
-
-冲突表示 Git 无法自动判断两边修改应该如何组合。
-
-### 处理步骤
-
-```bash
-git status
-# 打开冲突文件，处理 <<<<<<< ======= >>>>>>> 标记
-git add <resolved-file>
-git status
+git diff --name-only --diff-filter=U
+# 编辑冲突，验证权限、空列表与正常导出
+git add -- src/order-export.ts
+git diff --staged
+# 按当前操作只选择一条继续命令
 git merge --continue
+# git rebase --continue
+# git cherry-pick --continue
 ```
 
-rebase 冲突时：
+rebase 中的 ours/theirs 与直观的“我的分支/别人的分支”容易相反，先辨认正在重放的提交及新基线。解决冲突只是语法整合，仍要测试。
 
-```bash
-git rebase --continue
-```
+取消使用对应的 `merge --abort`、`rebase --abort` 或 `cherry-pick --abort`。操作前存在未提交修改时，尤其不要假设任何 abort 都能重建所有工作内容；先保护现场，恢复细节见 [撤销与恢复](./recovery.md)。
 
-取消当前合并或变基：
-
-```bash
-git merge --abort
-git rebase --abort
-```
-
-### 冲突文件示例
-
-```text
-<<<<<<< HEAD
-return order.getPaidAmount();
-=======
-return order.getActualPaidAmount();
->>>>>>> feature/payment-callback
-```
-
-处理时不要机械保留一边，要理解两边业务意图。处理后通常要运行相关测试。
-
-## 排查
-
-### 分支是否已经合入
-
-```bash
-git branch --merged main
-git branch --no-merged main
-```
-
-### 当前分支相对主分支改了什么
+## 对比与推送
 
 ```bash
 git fetch origin
 git log --oneline origin/main..HEAD
 git diff origin/main...HEAD
+git branch -vv
 ```
 
-### rebase 后推送被拒绝
+log 列本分支独有可达提交；三点 diff 从 merge-base 比较到 HEAD，常用于看功能分支引入的文件变化，不是直接比较两个分支尖端。需要当前两端快照差异时用两点或直接指定两个提交。
 
-如果确认只是自己功能分支的历史被重写：
+首次推送通常用 `git push -u origin feature/order-export`。已推送个人分支变基后，普通 push 会因非快进被拒绝；先核对远端变化与团队约定，再考虑带租约推送。默认 `--force-with-lease` 依赖本地远程跟踪引用，后台 fetch 可能刷新它；需要严格保护时使用已人工核对的明确预期 OID，而不是把默认租约当作绝对保证。公共分支优先新增提交。
 
-```bash
-git push --force-with-lease
-```
+## 合并后清理
 
-不要用裸 `--force`。`--force-with-lease` 会检查远程分支是否出现了你本地不知道的新提交，能降低覆盖别人工作的风险。
+`git branch --merged main` 检查提交祖先关系。squash/rebase merge 后，原功能提交可能不是 main 的祖先，因此 `git branch -d` 拒绝并不一定说明功能未交付。先比较评审结果、最终提交和分支差异，保留仍需内容，再决定删除；不要机械改成 `-D`。
+
+远程分支删除与本地分支删除是独立操作；`fetch --prune` 清理的是相应远程跟踪引用，不会自动删除同名本地分支。发布和评审闭环见 [协作流程](./workflow.md)。

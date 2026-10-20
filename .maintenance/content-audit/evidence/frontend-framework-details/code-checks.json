@@ -1,0 +1,22 @@
+{
+  "vue": {
+    "cases": 5,
+    "staleIgnoredDespiteResolvedCancelledRequest": true,
+    "stoppedScopeIgnoresLateResponse": true
+  },
+  "angular": {
+    "sharedParent": true,
+    "localIndependent": true,
+    "limit": 5,
+    "resetCents": 1990
+  },
+  "versions": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "@angular/core": "21.2.0",
+    "@angular/common": "21.2.0",
+    "@angular/compiler": "21.2.0",
+    "@angular/platform-browser": "21.2.0",
+    "rxjs": "7.8.2"
+  }
+}

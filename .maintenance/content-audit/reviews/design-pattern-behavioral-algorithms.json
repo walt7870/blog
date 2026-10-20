@@ -1,0 +1,27 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/strategy.md",
+      "status": "verified",
+      "reviewedHash": "e1101ef70124e1431b8b0cef785d3d56a2e90714691b394bbe349cf51f1fcf71",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读1369行旧正文和代码，移除支付打印即完成、ZIP尾部未完成即取字节、按长度断言最快排序、状态迁移和命令撤销绝对化、两个Map缓存伪一致性等误导。改为人民币分计费程序，解释逐请求选择、取整、规则版本、未知类型拒绝和共享状态边界。",
+      "validation": [
+        "JDK21使用javac --release 17编译运行StrategyDemo，普通/会员费用、取整临界、零、大金额、未知方案和负数验证通过；额外100次交错并发请求无策略污染",
+        "SVG独立浏览器检查中文边界及连线，xmllint通过；生产构建24.75秒通过；两页逐页桌面和390×844手机亮深色视口、首图原尺寸与关闭通过，无破图和控制台错误，手机深色无溢出；未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/template-method.md",
+      "status": "verified",
+      "reviewedHash": "9ee75370dd148f95433611b8c392aea1129f553d4cb0fa6b78278c993c829ea8",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分段阅读1422行旧正文和代码，截断后补读381至1120行；修清理被早退或异常跳过、正则伪CSV/XML转换、异常继续、吞SQL异常、清空缓存伪LRU、框架模式泛化和mcreference制作痕迹。改为完整报表程序，明确资源关闭权、部分输出、主异常和suppressed异常。",
+      "validation": [
+        "JDK21使用javac --release 17编译运行TemplateDemo及额外合同检查，明细/汇总内容、空输入不打开、打开失败、关闭失败、生成与关闭双失败、汇总溢出收尾通过；未验证真实文件持久化或远端发布",
+        "核对Jakarta Servlet6.1 HttpServlet分派与Spring6.2.19 JdbcTemplate回调合同；抽取全文截断，实际只使用并读取相关完整声明段，没有宣称全文资料已读",
+        "SVG独立浏览器中文边界、连线和xmllint通过；生产构建24.75秒通过；逐页桌面和390×844手机亮深色视口、首图原尺寸与关闭通过，无破图和控制台错误，手机深色无溢出；未做全页截图"
+      ]
+    }
+  ]
+}

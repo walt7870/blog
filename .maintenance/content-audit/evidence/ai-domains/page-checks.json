@@ -1,0 +1,346 @@
+[
+  {
+    "page": "",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/ai-domain-map.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "AI 主要应用方向 ​",
+    "width": 1280
+  },
+  {
+    "page": "nlp.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/nlp-evidence-contract.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "自然语言处理 ​",
+    "width": 1280
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/vision-coordinate-contract.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "计算机视觉 ​",
+    "width": 1280
+  },
+  {
+    "page": "speech.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/speech-runtime-contract.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "语音识别与语音合成 ​",
+    "width": 1280
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/recommendation-feedback-boundaries.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "推荐系统 ​",
+    "width": 1280
+  },
+  {
+    "page": "time-series.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/time-series-backtest.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "时间序列与预测 ​",
+    "width": 1280
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/rl-state-action-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "强化学习 ​",
+    "width": 1280
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "desktop-light",
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/multimodal-evidence-alignment.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "多模态模型 ​",
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "nlp.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "speech.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "time-series.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "nlp.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "speech.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "time-series.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "nlp.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "speech.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "time-series.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  }
+]

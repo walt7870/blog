@@ -6,289 +6,58 @@ date: 2026-05-17
 
 # 外设驱动开发
 
-MCU 的价值在于它集成的外设：GPIO 控制 LED 和按键、UART 做串口通信、SPI/I2C 连接传感器、ADC 采集模拟信号、PWM 驱动电机、DMA 搬运数据。掌握外设驱动是嵌入式开发的核心技能。
+驱动的职责是把电气事件变成有边界的数据操作：配置时钟与引脚、启动传输、确认完成、报告错误并恢复。下文以 STM32F4 HAL 为机制示例，使用工程已生成并检查成功的句柄；片段不包含整板初始化，不能直接当作独立固件。
 
-本篇以 STM32F4 为例，每个外设给出寄存器级和 HAL 库两种写法。
+![外设传输与缓冲区归属](/embedded/peripheral-buffer-lifecycle.svg)
 
-## 一、GPIO
+## GPIO 与 UART：先确认引脚和完成语义
 
-GPIO（General Purpose Input/Output）是最基础的外设，控制引脚的高低电平。
+点亮 LED 前核对电路是高有效还是低有效。STM32F4 的 GPIO BSRR 低半区置位、高半区复位，避免修改某一引脚时读改写整个 ODR；模式配置本身仍需协调所有访问者。按键可周期轮询或用 EXTI 唤醒，消抖不能在 ISR 中阻塞等待。
 
-### 输出模式（点亮 LED）
+UART 波特率取决于实际外设输入时钟、过采样与寄存器编码。`BRR=0x02D9` 只适用于相应 STM32F4 USART、84 MHz 输入和 16 倍过采样下约 115200 baud，不能跨芯片抄用。还要匹配数据位、校验、停止位、电平和共地。
 
-**寄存器级**
+接收中断回调只把字节交给有上限的环形缓冲区；重新启动接收的返回值、溢出/帧错误和重启接收流程都要处理。`printf` 使用无限超时发送可能卡住控制任务；生产日志应限速并明确丢弃策略。UART TXE、DMA 传输完成和最后一个停止位发完是不同事件，RS-485 方向控制必须等待正确的发送完成事件。
 
-```c
-// 开启 GPIOA 时钟
-RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+## SPI 与 I2C：事务边界包含错误路径
 
-// PA5 配置为推挽输出
-GPIOA->MODER &= ~(3 << 10);   // 清除 bit[11:10]
-GPIOA->MODER |= (1 << 10);    // 01 = 输出模式
-GPIOA->OTYPER &= ~(1 << 5);   // 0 = 推挽
-GPIOA->OSPEEDR |= (2 << 10);  // 10 = 高速
-
-// 输出高电平
-GPIOA->BSRR = (1 << 5);       // 置位（原子操作）
-// 输出低电平
-GPIOA->BSRR = (1 << 21);      // 复位（写高 16 位）
-```
-
-**HAL 库**
+SPI Flash 读 JEDEC ID 时，命令与返回字节通常处于同一片选事务。下面的函数要求 `hspi1` 已配置成与器件匹配的 8 位主机模式，CS 已配置输出且初始为高；所有路径都释放 CS，错误向上传递。
 
 ```c
-GPIO_InitTypeDef gpio = {0};
-__HAL_RCC_GPIOA_CLK_ENABLE();
-gpio.Pin = GPIO_PIN_5;
-gpio.Mode = GPIO_MODE_OUTPUT_PP;
-gpio.Speed = GPIO_SPEED_FREQ_HIGH;
-HAL_GPIO_Init(GPIOA, &gpio);
-
-HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-```
-
-### 输入模式（读按键）
-
-```c
-// PA0 配置为输入，内部上拉
-GPIOA->MODER &= ~(3 << 0);    // 00 = 输入
-GPIOA->PUPDR &= ~(3 << 0);
-GPIOA->PUPDR |= (1 << 0);     // 01 = 上拉
-
-// 读取电平
-if (!(GPIOA->IDR & (1 << 0))) {
-    // 按键按下（低电平有效）
-}
-```
-
-### 外部中断（EXTI）
-
-按键用轮询会浪费 CPU，用外部中断更合理：
-
-```c
-// HAL 方式配置 PA0 下降沿中断
-gpio.Pin = GPIO_PIN_0;
-gpio.Mode = GPIO_MODE_IT_FALLING;
-gpio.Pull = GPIO_PULLUP;
-HAL_GPIO_Init(GPIOA, &gpio);
-
-HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);
-HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-// 中断回调
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == GPIO_PIN_0) {
-        // 按键处理（注意消抖）
-    }
-}
-```
-
-## 二、UART
-
-UART 是嵌入式最常用的通信接口，调试打印、AT 指令、传感器数据都靠它。
-
-### 寄存器级发送
-
-```c
-// 开时钟、配置引脚（AF7）、配置波特率
-RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-// ... 引脚配置省略
-
-// 波特率 = fck / (16 * USARTDIV)
-// 84MHz / (16 * 115200) ≈ 45.5625 → BRR = (45 << 4) | 9
-USART1->BRR = 0x02D9;
-USART1->CR1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
-
-// 发送一个字节
-void uart_send(uint8_t ch) {
-    while (!(USART1->SR & USART_SR_TXE));
-    USART1->DR = ch;
-}
-```
-
-### HAL + 中断接收
-
-```c
-UART_HandleTypeDef huart1;
-uint8_t rx_byte;
-
-// 初始化
-huart1.Instance = USART1;
-huart1.Init.BaudRate = 115200;
-huart1.Init.WordLength = UART_WORDLENGTH_8B;
-huart1.Init.StopBits = UART_STOPBITS_1;
-huart1.Init.Parity = UART_PARITY_NONE;
-huart1.Init.Mode = UART_MODE_TX_RX;
-HAL_UART_Init(&huart1);
-
-// 开启接收中断
-HAL_UART_Receive_IT(&huart1, &rx_byte, 1);
-
-// 接收完成回调
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-    ring_buffer_push(&rx_buf, rx_byte);
-    HAL_UART_Receive_IT(huart, &rx_byte, 1);  // 重新开启
-}
-```
-
-### printf 重定向
-
-```c
-int _write(int fd, char *ptr, int len) {
-    HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
-    return len;
-}
-```
-
-## 三、SPI
-
-SPI 速度快、全双工，常用于 Flash、显示屏、高速 ADC。
-
-```c
-// HAL 方式初始化
-hspi1.Instance = SPI1;
-hspi1.Init.Mode = SPI_MODE_MASTER;
-hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;   // CPOL=0
-hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;       // CPHA=0
-hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-HAL_SPI_Init(&hspi1);
-
-// 读写 SPI Flash（W25Q128）
-void flash_read_id(uint8_t *id) {
-    uint8_t cmd = 0x9F;  // JEDEC ID
+HAL_StatusTypeDef flash_read_id(uint8_t id[3]) {
+    if (id == NULL) return HAL_ERROR;
+    uint8_t command = 0x9f;
     HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
-    HAL_SPI_Transmit(&hspi1, &cmd, 1, 100);
-    HAL_SPI_Receive(&hspi1, id, 3, 100);
+    HAL_StatusTypeDef status = HAL_SPI_Transmit(&hspi1, &command, 1, 100);
+    if (status == HAL_OK) status = HAL_SPI_Receive(&hspi1, id, 3, 100);
     HAL_GPIO_WritePin(CS_PORT, CS_PIN, GPIO_PIN_SET);
+    return status;
 }
 ```
 
-## 四、I2C
+实际项目还要按器件检查模式、最大时钟、dummy cycles 和片选间隔。多任务共享 SPI 时，锁要覆盖整个片选事务，而不是每次 HAL 调用分别加锁。
 
-I2C 两根线挂多个设备，适合低速传感器。
+STM32F4 HAL 的 `HAL_I2C_Mem_Read` 使用左移一位的 7 位设备地址；其他库可能直接收 7 位地址，左移不是协议层统一调用约定。BME280 从 `0xF7` 读到的原始数据必须结合初始化、状态、校准参数与补偿算法，不能直接称为温湿度数值。
 
-```c
-// 读取 BME280 温湿度传感器
-uint8_t reg = 0xF7;  // 数据寄存器起始地址
-uint8_t data[8];
+NAK 先查地址与上电状态，再看电平和时序。若 SDA 卡低、SCL 可控且确认没有其他主机事务，可按器件与 I2C 总线恢复要求尝试最多九个时钟并生成 STOP；SCL 被拉低、总线争用或器件未释放时可能需要受控复位/掉电。恢复要限次数，并记录故障，不能在每次错误后无限敲时钟。
 
-HAL_I2C_Master_Transmit(&hi2c1, 0x76 << 1, &reg, 1, 100);
-HAL_I2C_Master_Receive(&hi2c1, 0x76 << 1, data, 8, 100);
+## ADC 与 PWM：公式必须写出前提
 
-// 或用 Mem 系列函数（更简洁）
-HAL_I2C_Mem_Read(&hi2c1, 0x76 << 1, 0xF7, I2C_MEMADD_SIZE_8BIT, data, 8, 100);
-```
+N 位 ADC 的理想码值范围是 `0..2^N-1`，电压换算依参考电压和输入规格，不固定为 3.3 V。源阻抗、采样时间、参考误差、校准和噪声决定实际精度。
 
-I2C 常见问题排查：
-- 总线挂死 → 检查上拉电阻、尝试发 9 个时钟脉冲恢复
-- NAK → 地址错误（注意 7 位地址要左移 1 位）
-- 速度不对 → 检查时钟配置和上拉电阻值
+若电路为 `Vref → 10 kΩ固定电阻 → ADC节点 → NTC → GND`，理想估算 `Rntc=10000×raw/(4095-raw)`；上下电阻交换后公式也要交换。raw 为 0 或满量程应按短路/开路等故障处理，不能代入对数或分母。温度换算还需对应 NTC 的参数和有效温区。
 
-## 五、ADC
+边沿对齐向上计数 PWM 的常见公式为 `fPWM=fTIM/((PSC+1)×(ARR+1))`。若 TIM3 实际为 84 MHz，PSC=83、ARR=999，则为 1 kHz；PWM mode 1、有效极性和通道配置成立时，CCR=500 约为 50%。必须先完成基础、通道和复用引脚配置并检查启动返回值。舵机允许的脉宽、频率和机械范围按型号验证，不统一承诺 0.5–2.5 ms 对应 180°。
 
-ADC 把模拟电压转换为数字值。STM32F4 的 ADC 是 12 位，量程 0~3.3V。
+## DMA：完成前不能归还缓冲区
 
-```c
-// 单次转换
-HAL_ADC_Start(&hadc1);
-HAL_ADC_PollForConversion(&hadc1, 100);
-uint32_t raw = HAL_ADC_GetValue(&hadc1);
+发送前填充 TX buffer，移交 DMA 后不要修改，直到驱动确认完成或停止并同步回收。接收时 DMA 拥有写权限，CPU 只处理已完成的半区/描述符；若 CPU 来不及消费，需要丢帧或背压策略。`volatile` 不解决 Cache 一致性。
 
-// 转换为电压
-float voltage = raw * 3.3f / 4095.0f;
+对有 D-Cache 的目标，TX 常需在 DMA 读取前 clean；RX 需按平台方案避免脏行覆盖，并在 DMA 完成后 invalidate 再供 CPU 读。地址/长度按缓存行对齐，独占完整缓存行，配合必要屏障；DMA 可达内存也必须核对。不能无区别地在每个回调里同时 clean/invalidate，否则可能覆盖新数据或损坏相邻对象。简单原型可先使用合法的非缓存区，但仍需寿命与同步管理。
 
-// 转换为温度（NTC 热敏电阻分压电路）
-float resistance = 10000.0f * raw / (4095.0f - raw);
-float temperature = 1.0f / (log(resistance / 10000.0f) / 3950.0f + 1.0f / 298.15f) - 273.15f;
-```
+## 看门狗与故障验证
 
-多通道采集用 DMA 最高效，避免 CPU 轮询等待。
+独立看门狗只有在关键任务都按期推进时才刷新。若单独的“喂狗任务”一直运行，采集死锁和通信卡死仍可能被掩盖。监督器检查每个任务的进展代次、截止期与故障状态，确认健康后喂狗；窗口型看门狗还限制过早刷新。超时按实际时钟容差计算。
 
-## 六、PWM 与定时器
+验收应主动制造断开传感器、串口突发、DMA 消费变慢和任务停止：观察错误是否有界、资源是否释放、采集是否恢复、是否保留复位原因。主机逻辑测试不能证明总线电气和 Cache 操作正确，这些必须在对应板上测量。
 
-PWM（脉宽调制）通过改变占空比控制平均输出电压，用于 LED 调光、电机调速、舵机控制。
-
-```c
-// TIM3 CH1 输出 1kHz PWM，占空比 50%
-// 假设 TIM3 时钟 84MHz，预分频 83 → 计数频率 1MHz
-// ARR = 999 → PWM 频率 = 1MHz / 1000 = 1kHz
-htim3.Instance = TIM3;
-htim3.Init.Prescaler = 83;
-htim3.Init.Period = 999;
-HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-
-// 设置占空比
-__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);  // 50%
-__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 250);  // 25%
-```
-
-舵机控制（50Hz PWM，脉宽 0.5~2.5ms 对应 0~180°）：
-
-```c
-// ARR = 19999, PSC = 83 → 50Hz
-// 0° = 500, 90° = 1500, 180° = 2500
-void servo_set_angle(uint16_t angle) {
-    uint16_t pulse = 500 + angle * 2000 / 180;
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pulse);
-}
-```
-
-## 七、DMA
-
-DMA（Direct Memory Access）让外设和内存之间直接搬运数据，不需要 CPU 介入。适合大量数据传输（ADC 多通道采集、UART 收发大包、SPI Flash 读写）。
-
-```c
-// UART DMA 发送
-uint8_t tx_buf[] = "Hello DMA\r\n";
-HAL_UART_Transmit_DMA(&huart1, tx_buf, sizeof(tx_buf) - 1);
-// CPU 可以去做其他事，传输完成会触发回调
-
-// ADC + DMA 连续采集
-uint16_t adc_buf[4];  // 4 通道
-HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buf, 4);
-// adc_buf 会被 DMA 自动填充，无需 CPU 干预
-```
-
-DMA 注意事项：
-- 缓冲区不能是局部变量（DMA 传输期间函数可能已返回）
-- 双缓冲（Double Buffer）模式适合音频等连续流
-- 注意 Cache 一致性（Cortex-M7 有 D-Cache，DMA 前要 Clean/Invalidate）
-
-## 八、看门狗
-
-看门狗定时器防止程序跑飞。如果程序在规定时间内没有"喂狗"，看门狗会触发系统复位。
-
-```c
-// 独立看门狗（IWDG），LSI 时钟驱动，不依赖主时钟
-hiwdg.Instance = IWDG;
-hiwdg.Init.Prescaler = IWDG_PRESCALER_64;
-hiwdg.Init.Reload = 625;  // 超时 ≈ 1 秒（32kHz / 64 / 625）
-HAL_IWDG_Init(&hiwdg);
-
-// 主循环中定期喂狗
-while (1) {
-    HAL_IWDG_Refresh(&hiwdg);
-    // ... 业务逻辑
-}
-```
-
-窗口看门狗（WWDG）更严格：必须在特定时间窗口内喂狗，太早或太晚都会复位。
-
-## 九、外设选型与组合
-
-| 需求             | 推荐外设组合                          |
-| -------------- | ------------------------------- |
-| 调试打印           | UART + printf 重定向               |
-| 读温湿度传感器        | I2C（BME280）或 1-Wire（DS18B20）    |
-| 读加速度/陀螺仪       | SPI（MPU6500）或 I2C（MPU6050）      |
-| 驱动 TFT 显示屏     | SPI（ST7789）+ DMA               |
-| 电机调速           | PWM + 定时器                       |
-| 多通道电压采集        | ADC + DMA                       |
-| 大数据量传输         | UART/SPI + DMA                  |
-| 存储数据到 Flash    | SPI（W25Q128）                    |
-| 读 SD 卡         | SDIO 或 SPI 模式                   |
-
-返回 [总览与学习路线](./index.md)
+返回[总览](./index.md)。

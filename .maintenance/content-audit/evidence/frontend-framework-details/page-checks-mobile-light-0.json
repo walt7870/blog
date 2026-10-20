@@ -1,0 +1,44 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "React：组件、状态快照与外部同步",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Vue：单文件组件、依赖追踪与逻辑复用",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Angular：组件、注入作用域与 Signals",
+    "width": 390
+  }
+]

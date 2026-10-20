@@ -38,10 +38,12 @@
 
 ## 本地运行
 
+使用 Node.js 24（与 CI 一致），最低版本为 22.12.0。站点固定使用 VitePress `2.0.0-alpha.20`，这是预发布版本；升级时应重新验证导航、搜索、主题组件及完整构建。依赖以 `package-lock.json` 为准。
+
 安装依赖：
 
 ```bash
-npm install
+npm ci
 ```
 
 启动开发服务：
@@ -61,6 +63,8 @@ npm run docs:build
 ```bash
 npm run docs:preview
 ```
+
+站点部署在 `/blog/` 下，本地访问也需要保留这个路径前缀。全文搜索使用 VitePress 内置的 MiniSearch 本地索引，在 `.vitepress/config.mts` 的 `themeConfig.search` 中配置；索引随站点构建生成，不需要独立搜索服务。搜索文案直接配置在 `options.translations`，默认语言不需要嵌套在 `locales.zh` 中。
 
 ## 写作原则
 

@@ -1,0 +1,125 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/speech-engineering/index.md",
+      "status": "verified",
+      "pageType": "语音工程专题导读",
+      "decision": "保留有真实会议场景、三类模式、技术地图与不变量的导读，核对两条模型路径与模式差别；现有图补独立可访问性ID。",
+      "findings": [],
+      "validation": [
+        "全文及全部导航入口审查；四模式全文截图、分页、架构图双视口原尺寸通过。"
+      ],
+      "reviewedHash": "94e1c99b875047d3e0fa06e196b9161ed0439de397753d2dcf90e9edf12aac16"
+    },
+    {
+      "file": "docs/ai/speech-engineering/architecture-and-workflow.md",
+      "status": "verified",
+      "pageType": "音频链路与任务生命周期",
+      "decision": "保留样本半开区间、主分段权、三模式计划、对象生命周期及有序发布机制；核对两图和正文依赖关系，补图示独立ID。",
+      "findings": [],
+      "validation": [
+        "全文与两图逐项核对；四模式截图、分页、两图双视口原尺寸通过。未重跑所述原项目服务。"
+      ],
+      "reviewedHash": "29411e5c9b2411a501a5f61af3851252708dd381ce02d6f539ebd5554f81c5c9"
+    },
+    {
+      "file": "docs/ai/speech-engineering/pipeline-boundaries.md",
+      "status": "verified",
+      "pageType": "角色与目标输入合同",
+      "decision": "保留匿名角色/登记身份、整段模型不兼容反例、短段与参考持久化；以SVG替换SEP字符图，补编码取整教学反例。",
+      "findings": [],
+      "validation": [
+        "全文阅读、两图实际字体测量、编码长度5与3实际计算通过；四模式、分页、展开参考约束及两图双视口原尺寸通过。"
+      ],
+      "reviewedHash": "5f4ead07fa990c242ec864bba595ba1c8faa3b9fc6fb760b30c2c35a17fe9153"
+    },
+    {
+      "file": "docs/ai/speech-engineering/latency-and-finalization.md",
+      "status": "verified",
+      "pageType": "边界、所有权与收尾机制",
+      "decision": "保留末音/Final与EOF/terminal区别、单变量边界对照、任务所有权和有界恢复，核对图示并补独立ID。",
+      "findings": [],
+      "validation": [
+        "全文、配置作用范围及历史对照范围审查；四模式、分页、折叠内容、图示双视口原尺寸通过。历史质量数字未作为本轮新测试结果。"
+      ],
+      "reviewedHash": "34c1ce11c410338e22c5e63f824865540ea4161aca6aa6ac3c7732601acb287e"
+    },
+    {
+      "file": "docs/ai/speech-engineering/performance-and-capacity.md",
+      "status": "verified",
+      "pageType": "排队容量与执行调度",
+      "decision": "补多会话有界队列、有限解码容量和拒绝路径SVG；补17项/8槽三波与600ms剩余预算例子，注明教学数字和历史对照的不同范围。",
+      "findings": [],
+      "validation": [
+        "全文与调度关系审查；波次算术通过；四模式、分页、图示双视口原尺寸通过。未启动Docker或重跑历史容量压测。"
+      ],
+      "reviewedHash": "8e6520b687b09785e78485e7be0fef08f7159dce00e44410bc2db15094e64d90"
+    },
+    {
+      "file": "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
+      "status": "verified",
+      "pageType": "输入与原生任务所有权",
+      "decision": "保留整批预检、取消与许可归属、关闭顺序、执行形状边界；现有双生命周期图补独立ID。",
+      "findings": [],
+      "validation": [
+        "实际执行正文长度函数，合法长度及布尔/零/负/超长/浮点/空值7项拒绝通过；四模式、分页、折叠内容与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "c17fdd8af8d2a65d264d9fe87329a426a500d26ab71eb063872ba2757309f984"
+    },
+    {
+      "file": "docs/ai/speech-engineering/hotword-routing.md",
+      "status": "verified",
+      "pageType": "召回、重解与请求隔离",
+      "decision": "保留普通补召和目标纠正的差别、已进提示的适用边界、跨词误替换反例、快照与ITN约束；核对现有图并补独立ID。",
+      "findings": [],
+      "validation": [
+        "全文与普通/目标路径逐项核对；四模式、分页、折叠条件及图示双视口原尺寸通过。未把合成词历史成绩外推到真实业务。"
+      ],
+      "reviewedHash": "ae69823ecee7ccf958a5c1ea87753244743497823d6ca8a80aec966e827d570a"
+    },
+    {
+      "file": "docs/ai/speech-engineering/evidence-driven-validation.md",
+      "status": "verified",
+      "pageType": "分层证据与回归方法",
+      "decision": "保留七维验收、四层差异定位、绝对回放和分维结论；图示补独立ID。",
+      "findings": [],
+      "validation": [
+        "全文审查；正文replay在模拟单调时钟和每帧3ms发送开销下运行100帧，20ms绝对间隔无累积偏差，结束1.983秒；JSON解析通过。四模式、分页、两处折叠示例和双视口原尺寸通过。"
+      ],
+      "reviewedHash": "9f5d8d894ea7f71c42e9cb5a9223cadd623720ab004ec9bd46a0d87e8dc69ad0"
+    },
+    {
+      "file": "docs/ai/speech-engineering/delivery-and-handoff.md",
+      "status": "verified",
+      "pageType": "离线依赖与工件DAG",
+      "decision": "保留宿主/镜像/运行输入、授权绑定、只读路径、冻结工件与真实DAG依赖；三图核对直接前置和发布条件并补独立ID。",
+      "findings": [],
+      "validation": [
+        "全文、三图和表格依赖核对，JSON解析通过；四模式、分页、三图双视口原尺寸通过。本轮未执行真实容器交付构建。"
+      ],
+      "reviewedHash": "56c08d47c2ef7fb433b26070d9069313284e122555dd267e1767456ce8a868e5"
+    },
+    {
+      "file": "docs/ai/speech-engineering/incident-playbook.md",
+      "status": "retained",
+      "pageType": "旧入口迁移",
+      "decision": "保留旧路径与四个技术机制去向，不为迁移页添加装饰SVG；专题正式导航已指向细节页。",
+      "findings": [],
+      "validation": [
+        "全文及四个本地引用检查；四模式截图、正文首个去向使用Enter真实跳转并核对目标标题通过。"
+      ],
+      "reviewedHash": "4865d738a2323cca1b21f5a820d26fc13937ab4b8e0c58b76202dfa0a7f65726"
+    },
+    {
+      "file": "docs/ai/speech-engineering/release-and-collaboration.md",
+      "status": "retained",
+      "pageType": "旧入口迁移",
+      "decision": "保留离线运行、架构和调度三个去向，不重复展开已合并内容，不新增无信息量图示。",
+      "findings": [],
+      "validation": [
+        "全文与本地引用检查；四模式截图、正文去向Enter跳转通过。跨行链接矩形中心落在空白处的工具点击不算站点故障或通过证据。"
+      ],
+      "reviewedHash": "548a78aadf80dae165f50fea7bf86c1602bd974ee937865356ec99f4e2001c5d"
+    }
+  ]
+}

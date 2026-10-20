@@ -1,0 +1,93 @@
+[
+  {
+    "file": "docs/devlanguage/front/package-managers/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "前端包管理器概览",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/corepack.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Corepack",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/npm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "npm",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/pnpm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "pnpm",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/yarn.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Yarn",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/bun.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Bun",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/registry.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "镜像与私有源",
+    "width": 1280
+  }
+]

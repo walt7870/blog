@@ -1,0 +1,212 @@
+[
+  {
+    "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "这套 Python 基础课会带你从哪里走到哪里",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 第一课：把客户名单变成可检查的数据",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "安装、运行和脚本文件：客户电脑上怎样确认 Python 能跑起来",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/03-field-types.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "变量和类型怎么服务业务字段",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "列表、字典和表格行：一行、多行、字段名怎样在代码里对应",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "条件判断：把业务规则写清楚",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "循环：一条规则跑完整张表",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "字符串清洗：空格、大小写和格式",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "数字和日期：金额、天数和超期",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "函数：把重复规则变成可复用步骤",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "模块：把脚本拆成几份文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "读写 CSV 文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "JSON：系统接口常见的数据形态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Excel/表格实战入口",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "分组统计：按来源、城市、销售汇总",
+    "width": 390
+  }
+]

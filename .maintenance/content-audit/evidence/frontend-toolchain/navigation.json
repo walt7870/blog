@@ -1,0 +1,32 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/19-node-package-management.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/19-node-package-management.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.html"
+  }
+]

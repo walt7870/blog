@@ -1,90 +1,63 @@
 # 合成复用原则
 
-合成复用原则强调：优先使用组合、聚合和委托来复用能力，而不是优先使用继承。
+合成复用原则强调优先通过对象组合与委托复用能力。它与 GoF 提倡的“优先对象组合，而不是类继承”一致：变化维度独立时，让对象分别承担能力，在组装处决定组合方式。
 
-![合成复用原则示意图](/design-pattern/principles/crp.svg)
+![日志能力通过委托逐层组合](/design-pattern/principles/crp.svg)
 
-## 历史脉络
+## 为什么继承容易膨胀
 
-合成复用原则来自面向对象长期实践中的经验总结。GoF 设计模式中也反复强调“优先对象组合，而不是类继承”。装饰器、策略、桥接、组合等模式都体现了这一思想。
+日志既可以输出到控制台或文件，也可以增加前缀、过滤和敏感字段遮盖。若把输出位置和处理能力都写进继承树，很快会出现多种组合子类。新增一种处理能力时，又需要为每种输出位置增加对应子类。
 
-## 准确理解
+组合把处理能力与输出目标分开：前缀组件持有另一个 `Logger`，处理消息后交给它。调用方仍只依赖同一接口，组合关系由组装代码决定。
 
-继承表达“是一个”，组合表达“拥有某种能力”。如果只是为了复用代码而继承，很容易把不稳定变化写进类型层次，后续扩展会越来越困难。
+## 可运行示例
 
-例如日志系统既可能输出到文件、控制台、网络，又可能增加加密、压缩、异步能力。如果用继承组合这些维度，很快会出现大量类。
-
-## 代码坏味道
-
-- 子类数量随功能组合成倍增加。
-- 子类名越来越长，例如 `CompressedEncryptedRemoteLogger`。
-- 父类修改会影响大量子类。
-- 子类只想复用一个方法，却被迫继承父类全部行为。
-- 多个变化维度混在同一继承树里。
-
-## 重构示例
-
-继承堆叠：
+以下 Java 17+ 示例使用字段名精确的 `token` 键值对做有限遮盖，演示委托顺序；它不是覆盖所有凭据形式的安全日志过滤器。
 
 ```java
-public class FileLogger {}
+import java.util.Objects;
 
-public class EncryptedFileLogger extends FileLogger {}
-
-public class CompressedEncryptedFileLogger extends EncryptedFileLogger {}
-```
-
-组合能力：
-
-```java
-public interface Logger {
-    void log(String message);
-}
-
-public class FileLogger implements Logger {
-    public void log(String message) {
-        // 写文件
+public class LoggerComposition {
+    interface Logger {
+        void log(String message);
     }
-}
 
-public class EncryptLogger implements Logger {
-    private final Logger delegate;
-
-    public void log(String message) {
-        delegate.log(encrypt(message));
+    static final class ConsoleLogger implements Logger {
+        public void log(String message) {
+            System.out.println(message);
+        }
     }
-}
 
-public class CompressLogger implements Logger {
-    private final Logger delegate;
+    record PrefixLogger(Logger delegate) implements Logger {
+        PrefixLogger {
+            Objects.requireNonNull(delegate);
+        }
+        public void log(String message) {
+            delegate.log("[订单] " + message);
+        }
+    }
 
-    public void log(String message) {
-        delegate.log(compress(message));
+    record TokenMaskLogger(Logger delegate) implements Logger {
+        TokenMaskLogger {
+            Objects.requireNonNull(delegate);
+        }
+        public void log(String message) {
+            delegate.log(message.replaceAll("token=[^\\s]+", "token=***"));
+        }
+    }
+
+    public static void main(String[] args) {
+        Logger logger = new PrefixLogger(
+                new TokenMaskLogger(new ConsoleLogger()));
+        logger.log("创建成功 token=demo");
     }
 }
 ```
 
-通过组合可以按需叠加能力：
+输出为 `[订单] 创建成功 token=***`。运行命令是 `javac LoggerComposition.java && java LoggerComposition`。输入先经过前缀组件，再经过遮盖组件，最后交给控制台；构造器的嵌套方向与调用方向一致。
 
-```java
-Logger logger = new CompressLogger(new EncryptLogger(new FileLogger()));
-```
+## 取舍与验收
 
-## 落地步骤
+新增文件输出时，只需实现相同接口再组装；新增处理能力时，单独测试组件并补组合测试。需要检查调用顺序、异常传播与资源关闭：异步、压缩、加密、重试等组件通常不满足交换律，不能任意调换位置。
 
-1. 找出继承树中多个变化维度。
-2. 把每个变化维度拆成独立接口或组件。
-3. 让对象持有能力对象，通过委托完成复用。
-4. 保留真正稳定的继承关系。
-5. 用装配代码或依赖注入组合不同能力。
-
-## 常见误区
-
-- 认为继承一律不能用。稳定的类型层次仍然可以继承。
-- 组合后对象链过深，调试困难，需要清晰命名和测试。
-- 组合对象没有统一接口，导致调用方仍然知道具体结构。
-- 把所有差异都做成可配置，牺牲可读性。
-
-## 判断标准
-
-新增一种能力组合时，是否只需要新增一个组件并重新装配，而不是新增一批子类。如果可以，组合复用就发挥了作用。
+继承仍适合稳定的行为契约与模板流程。组合也有成本，层数过深会增加排查难度，资源所有权不清还会导致重复关闭。若当前只需要固定的一次输出，直接函数调用就足够，无需先建立组件链。

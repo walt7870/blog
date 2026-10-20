@@ -19,7 +19,7 @@ Spring 不会替你设计领域模型，也不会自动修复错误的事务边�
 
 ## 先看没有 Spring 的订单服务
 
-下面的代码可以工作，但它把“业务对象需要什么”和“依赖如何创建”写在了一起：
+下面是结构示意，省略了数据源工厂、仓库和订单模型的实现。它把“业务对象需要什么”和“依赖如何创建”写在了一起：
 
 ```java
 public final class OrderService {
@@ -72,7 +72,7 @@ public final class OrderService {
 }
 ```
 
-此时依赖已经显式化。测试可以传入内存仓库和固定时钟，生产环境可以传入 JDBC 仓库和系统时钟。这是**依赖注入**，它首先是一种设计方法，并不属于 Spring 专利。
+这里省略了 `create()` 的业务实现，不能单独编译；完整实现见后面的订单练习。此时依赖已经显式化。测试可以传入内存仓库和固定时钟，生产环境可以传入 JDBC 仓库和系统时钟。这是**依赖注入**，它首先是一种设计方法，并不属于 Spring 专利。
 
 然而，系统中如果有几百个组件，手写一个巨大的 `main` 方法来按顺序创建 DataSource、Repository、Service、Controller、线程池和客户端，也会逐渐变成新的维护中心。Spring 容器接管的正是这层应用级组装工作。
 
@@ -108,11 +108,11 @@ public class InMemoryOrderRepository implements OrderRepository {
 | Bean 实例 | 真正参与运行的 Controller、Service、Repository 等对象 | 实例化阶段 |
 | `ApplicationContext` | BeanFactory 加上事件、资源、环境、国际化等应用级能力 | 整个应用运行期 |
 
-容器不是一个静态 `Map<String, Object>`。在单例创建前，它还允许 `BeanFactoryPostProcessor` 修改定义；对象创建后，`BeanPostProcessor` 可以检查或包装实例；Context 刷新完成后，事件监听器和生命周期组件才进入运行状态。后续 Core Container 章节会拆开这些阶段，本篇只需要先建立“**定义先于实例，装配发生在请求之前**”的模型。
+容器不是一个静态 `Map<String, Object>`。在普通单例创建前，`BeanFactoryPostProcessor` 可以修改定义；对象创建后，`BeanPostProcessor` 可以检查或包装实例。监听器登记、生命周期启动和刷新事件也各有阶段，见 [IoC 生命周期](../ioc.md)。通常非懒加载单例会在接收业务请求前装配完成；懒加载对象和短作用域对象可能在后续访问时才创建。
 
 ## 从手写装配到容器装配
 
-构造器注入之后，完全可以不用容器，在 `main` 方法中完成组装：
+构造器注入之后，完全可以不用容器，在 `main` 方法中完成组装。以下仍是伪代码，`HttpServer` 表示项目自定义的 HTTP 适配器，不是 JDK `HttpServer` 的构造 API：
 
 ```java
 OrderProperties properties = loadOrderProperties();
@@ -241,10 +241,10 @@ Spring Framework 提供容器、AOP、事务和 Web 等机制，但不会替应�
 
 1. `SpringApplication.run()` 判断应用类型，准备监听器、参数和 Environment。
 2. Boot 创建 Servlet Web 类型的 `ApplicationContext`。
-3. 配置类解析、组件扫描和自动配置注册 BeanDefinition。
-4. `refresh()` 驱动 BeanFactory 后处理、Bean 创建、Bean 后处理和生命周期回调。
+3. Boot 加载主配置等初始定义，进入 `refresh()`。
+4. `refresh()` 内的 BeanFactory 后处理驱动配置类解析、扫描与自动配置，之后继续创建非懒加载单例、运行 Bean 后处理和生命周期回调。
 5. `OrderController` 构造时获得 `OrderService`；`OrderService` 构造时获得 `OrderRepository`、`OrderProperties` 和 `Clock`。
-6. WebServer 完成初始化并监听端口，应用才具备接收请求的条件。
+6. WebServer 完成初始化并监听端口；随后 Boot 还要执行 Runner，成功后发布就绪状态。生产流量应与 readiness 配合，不能把端口监听等同于业务就绪。
 
 ### 请求链
 
@@ -290,10 +290,11 @@ Spring Framework 提供容器、AOP、事务和 Web 等机制，但不会替应�
 
 ## 可运行证据：业务代码不依赖 Spring 才更容易测试
 
-配套工程位于 `spring-blog-examples`。`OrderServiceTest` 直接调用构造器，不启动 Spring：
+下载 [订单练习源码](/java/examples/spring-order-lab.zip)，使用 JDK 17 或更高版本和 Maven 3.6.3 或更高版本。工程固定 Boot 3.5.15，使用内存仓库；`OrderServiceTest` 直接调用构造器，不启动 Spring：
 
 ```java
-OrderRepository repository = order -> order;
+OrderRepository repository = new InMemoryOrderRepository();
+Instant fixedInstant = Instant.parse("2026-10-19T00:00:00Z");
 Clock clock = Clock.fixed(fixedInstant, ZoneOffset.UTC);
 OrderProperties properties = new OrderProperties("CNY", new BigDecimal("10000.00"));
 
@@ -305,12 +306,29 @@ Order result = service.create(new CreateOrderCommand("C-1001", new BigDecimal("1
 
 完整 HTTP 测试则使用 `@SpringBootTest` 和 MockMvc，验证 JSON 输入确实经过 Controller、校验、Service 和 Repository，并得到 `201`、`Location` 与订单响应。两个层次的测试分别证明业务规则和框架接线，失败时也能更快定位。
 
+练习为便于追踪，把对象定义放在一个 Java 文件中，并直接把不可变 `Order` record 作为响应；实际项目通常拆分文件及独立响应 DTO。仓库只存在于进程内存，重启后数据丢失，没有数据库、事务、支付和用户鉴权，也没有容量淘汰策略，只用于本机练习。
+
 运行全部证据：
 
 ```bash
-cd spring-blog-examples
+unzip spring-order-lab.zip
+cd spring-order-lab
 mvn test
 ```
+
+启动本机服务后，在另一个终端创建订单：
+
+```bash
+mvn spring-boot:run
+```
+
+```bash
+curl -i http://127.0.0.1:8081/api/orders \
+  -H 'Content-Type: application/json' \
+  -d '{"customerId":"C-1001","totalAmount":199.00}'
+```
+
+预期得到 `201`、`CNY` 币种和 `Location: /api/orders/<订单UUID>`。把该路径接到 `http://127.0.0.1:8081` 后发起 GET，应返回刚保存的订单；不存在的合法 UUID 返回 404，非法 JSON 和不合法金额返回 400。练习仅监听回环地址，完成后用 Ctrl+C 停止。
 
 只验证纯业务对象：
 
@@ -338,7 +356,7 @@ new ApplicationContextRunner()
 
 预期结果不是请求到来后才失败，而是 Context 创建 `OrderService` 时立即报告无法解析 `OrderRepository`。这说明容器把一部分运行期不确定性提前到了启动期。
 
-恢复方式也很明确：注册一个 `OrderRepository` Bean，例如让 `InMemoryOrderRepository` 进入组件扫描范围，或通过 `@Bean` 显式提供实现。不要通过把构造器参数改成可空、在业务方法中临时 `new` 实现来掩盖对象图缺口。
+恢复方式也很明确：注册一个 `OrderRepository` Bean。练习工程通过 `@Bean` 显式提供 `InMemoryOrderRepository`，该实现没有组件注解，仅扩大扫描范围不会注册它。不要通过把构造器参数改成可空、在业务方法中临时 `new` 实现来掩盖对象图缺口。
 
 运行失败实验的自动化断言：
 
@@ -414,7 +432,7 @@ Spring Framework 可以脱离 Boot 使用，Boot 则以 Framework 为基础。To
 
 ## 本篇结论
 
-Spring 的核心价值可以压缩成一句话：**让业务对象声明依赖，让应用基础设施统一完成装配、增强和协议接入，并尽可能在启动阶段验证运行结构。**
+Spring 让业务对象声明依赖，让应用基础设施统一完成装配、增强和协议接入，并尽可能在启动阶段验证运行结构。
 
 这套机制带来可替换、可测试和一致的扩展入口，但也引入容器生命周期、代理边界和自动配置条件。掌握 Spring 不是记住更多注解，而是能回答：当前对象由谁创建、依赖从哪里来、调用经过哪些基础设施、错误发生在哪个阶段。
 

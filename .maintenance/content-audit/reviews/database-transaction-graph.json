@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/transaction-system.md",
+      "status": "verified",
+      "reviewedHash": "c6efce816ad37ae5ee1e1037ebb4c3035a72e828717a495dfb181a0ba8915d55",
+      "pageType": "事务、快照与锁等待机制",
+      "decision": "全文审查旧2170行。修普通快照被X锁阻塞、锁升级、快照总在开始建立、RR解决全部并发异常、SERIALIZABLE完全串行、1205整笔自动回滚、内部两阶段提交等于跨系统原子性、旧锁表/SHOW MASTER STATUS/redo参数、动态开启log_bin、命令计数等于成功率、历史列表等于行版本链等。用完整扣库存过程、双连接RR图、错误范围和诊断SQL贯穿。实际发现外键共享锁升级死锁后改为先固定顺序锁库存，补独立事务调用边界、幂等核实和响应丢失。手机短词竖排已局部修复。",
+      "validation": [
+        "Oracle8.4锁机制与隐式提交CLI读取成功；一致性读与错误处理CLI失败后官方浏览器全文核对。MySQL8.4.11执行8个SQL围栏，真实双连接RR2/3/2、RC3→4、首次读与显式快照时点、普通读不被行X锁阻塞、1205后先前修改仍在、重复键语句回滚、真实1213死锁整笔回滚通过；实际锁等待期间诊断SQL通过；20路各买1件，5成功15不足库存0、预留合计5",
+        "双SVG独立中文字体/画布/箭头与XML通过；生产构建21.63秒，手机短词局部修正后24.56秒；桌面1280和真实390×844手机亮深色、放大/原尺寸/关闭通过，无破图/横向溢出/本站console错误；最新手机短词均16.5px单行，临时viewport reset。未模拟断电、HA、备份恢复或支付外部系统"
+      ]
+    },
+    {
+      "file": "docs/database/graph-database.md",
+      "status": "verified",
+      "reviewedHash": "2778233ef69d49b2ba351e8433eea7bc3c229488ed892fb1650688e4d86d260e",
+      "pageType": "属性图模型与有界关系查询",
+      "decision": "全文审查旧120行。修图数据库不能权威事务存储、关系数据库只能临时还原/逐跳必慢、两跳任意扩散未限定类型/方向/窗口、MERGE等于任意全局幂等、Neo4j固定中小规模等。以三账号共享设备SVG和可跑Cypher解释实体/事件、窗口、DISTINCT、权限路径不等于授权、共用终端不等于欺诈。同步复用已验收总览图，补源键、乱序删除、位点与并发约束边界。",
+      "validation": [
+        "Neo4j官方Cypher5 MERGE/LIMIT文档核对；官方镜像public.ecr.aws/docker/library/neo4j:5.26-community摘要sha256:0a6e7aedf54a531f76286032d4365ead65b11cca05e4a15cdf23b8e53d6db02b，实际5.26.32，独立容器无宿主端口。三个Cypher围栏全部执行，返回U1002/U1003和D9001，计数3；重放4节点3边、重复登录不增用户数、次日00点排除、重复节点拒绝，verbose EXPLAIN确认NodeUniqueIndexSeek",
+        "SVG中文/边界/连线与XML通过；21.63秒生产构建，24.56秒全站重建；桌面1280与实际390×844手机亮深色及放大/原尺寸/关闭通过，无破图/溢出/本站console错误，无全页截图。未验证生产导入、CDC同步或任意并发事件边的全局唯一"
+      ]
+    }
+  ]
+}

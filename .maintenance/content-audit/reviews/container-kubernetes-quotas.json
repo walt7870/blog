@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/limitrange.md",
+      "status": "verified",
+      "reviewedHash": "e90e5088a11d4dcfa1490d1837057c3eddbc599b49dbec4ca0b26289adcd7b9e",
+      "pageType": "资源默认值与单对象约束",
+      "decision": "完整阅读后修复max.cpu自动补默认limit与原文不一致的问题，显式设置CPU默认上限；补默认值冲突、多LimitRange不确定性、旧Pod与模板边界，改服务端dry-run并新增资源准入/配额/调度流程图。",
+      "validation": ["LimitRange概念和CPU min/max官方示例全文阅读，确认max会补默认值。2段YAML经Ruby解析、1段Bash经bash/zsh语法；新SVG自检、1120原尺寸字体边界与截图通过。两端双主题全页、图片放大关闭、手机长代码scrollLeft21.5、整页宽390、客户端分页至ResourceQuota通过。构建14.12秒通过；未执行真实集群准入或性能实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/resourcequota.md",
+      "status": "verified",
+      "reviewedHash": "cfbf4b3c3a9ff8d247ba5fd2912a430e7c9d4ec325a090bc313da43c45335443",
+      "pageType": "团队预算、准入拒绝与发布容量",
+      "decision": "完整阅读后以18/20核预算贯穿准入与调度，补声明和实时用量、终止态Pod与对象配额、多个Quota共同约束、控制器FailedCreate、hard和节点独立、surge及HPA预算例子，引用新流程图。",
+      "validation": ["ResourceQuota官方计算、对象数、范围与控制器创建相关段核对，未标全文。1段YAML和2段Bash解析通过；桌面1280×900/手机390×844双主题完整截图、图片两端放大关闭、手机超宽代码scrollLeft40/26及整页宽390、分页至Custom Resource通过。构建14.12秒通过，无真实集群配额或扩容实验。"]
+    }
+  ]
+}

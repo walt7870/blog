@@ -24,15 +24,29 @@ date: 2026-07-12
 
 固定一条失败请求和准确时间戳，再寻找成功样本。没有对照时，很容易把正常现象误判为异常。
 
+以下路由、Socket、资源与 `tcpdump -i any` 示例使用 Linux。`203.0.113.20` 是保留地址，应换成被测服务，`PID` 换成真实进程号。macOS 的接口名、Ping 选项和工具不同，不要直接混用。
+
 ## 第二步：拆分耗时
 
-一次 HTTPS 请求可以拆成 DNS、TCP Connect、TLS、等待首字节和下载：
+先用一次不跟随重定向、不经显式代理的新建 HTTPS 连接观察累计时间点：
 
 ```bash
 curl -sS -o /dev/null \
   -w 'dns=%{time_namelookup}\nconnect=%{time_connect}\ntls=%{time_appconnect}\nttfb=%{time_starttransfer}\ntotal=%{time_total}\n' \
   https://example.com/
 ```
+
+这些 `time_*` 均从请求开始计时，单位为秒。对这里的 TCP + TLS 新连接，各阶段近似为：
+
+| 阶段 | 差值 |
+|---|---|
+| DNS | `time_namelookup` |
+| TCP 建连 | `time_connect - time_namelookup` |
+| TLS | `time_appconnect - time_connect` |
+| 建立安全通道后到首字节 | `time_starttransfer - time_appconnect` |
+| 响应正文接收 | `time_total - time_starttransfer` |
+
+例如累计时间依次为 `0.02 / 0.06 / 0.12 / 0.42 / 0.50`，则 DNS 为 20 ms、TCP 为 40 ms、TLS 为 60 ms、通道建立后等待为 300 ms、下载为 80 ms。等待首字节包含请求上传、网络传输、代理和服务端处理，不能全部算作应用执行时间。连接复用、重定向、代理隧道和 HTTP/3 会改变解释，应结合 `curl -v` 记录实际路径。
 
 | 异常阶段 | 优先方向 |
 |---|---|
@@ -98,10 +112,13 @@ Ping 失败不能证明 TCP 服务不可用，Ping 成功也不能证明目标�
 ```bash
 openssl s_client -connect example.com:443 \
   -servername example.com \
+  -verify_hostname example.com -verify_return_error \
   -alpn h2 -showcerts
 ```
 
 检查证书域名、有效期、签发链、ALPN 和握手 Alert。使用 IP 直连时仍要提供正确 SNI，否则多域名服务器可能返回另一张证书。
+
+SNI 只帮助服务器选证书，域名校验依赖 `-verify_hostname`；`-showcerts` 只打印证书链。系统信任根不可用时，应按本机 OpenSSL 安装指定 `-CAfile` 或 `-CApath`，不能把关闭验证当作修复。
 
 ### 5. HTTP 与代理
 
@@ -140,12 +157,14 @@ sar -n DEV,TCP,ETCP 1
 ### 验证
 
 ```bash
-ping -D -s 1472 203.0.113.20
+ping -4 -M do -c 3 -s 1472 203.0.113.20
 tracepath 203.0.113.20
 sudo tcpdump -nn 'icmp or icmp6 or host 203.0.113.20'
 ```
 
 逐步降低 Payload，找出能够通过的上限，并检查是否收到 `Fragmentation Needed` 或 `Packet Too Big`。
+
+Linux 的 `-M do` 才是这里需要的 IPv4 禁止分片选项；macOS 用 `-D`。Echo 被过滤时不能凭超时推算路径 MTU，应结合两端抓包和真实业务报文。
 
 ### 修复
 

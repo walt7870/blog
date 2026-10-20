@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="460" viewBox="0 0 1100 460" role="img" aria-labelledby="conc-budget-title conc-budget-desc">
+  <title id="conc-budget-title">并发回收期间的分配余量</title>
+  <desc id="conc-budget-desc">并发回收与应用同时推进时，当前堆仍有存活对象、尚未回收的数据和空闲空间。回收完成前的新分配必须有空间承接，空间提前耗尽会产生分配等待或节流甚至退化回收。该预算模型不是ZGC或Shenandoah完整时序。</desc>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}</style>
+  <rect width="1100" height="460" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">暂停很短，分配仍可能等待空间</text>
+  <text class="body" x="32" y="76">并发回收预算示意；分段不代表地址、精确比例或任何回收器的完整阶段。</text>
+  <text class="note" x="32" y="120">某一时刻的逻辑空间</text>
+  <rect x="32" y="136" width="360" height="88" fill="#eff6ff" stroke="#93c5fd"/><text class="name" x="52" y="172">仍被引用的存活对象</text><text class="body" x="52" y="204">不能回收</text>
+  <rect x="392" y="136" width="340" height="88" fill="#fff7ed" stroke="#e4b68b"/><text class="name" x="412" y="172">尚未释放的空间</text><text class="body" x="412" y="204">需要回收进度与正确性条件</text>
+  <rect x="732" y="136" width="336" height="88" fill="#f0fdf4" stroke="#86b49b"/><text class="name" x="752" y="172">当前可用余量</text><text class="body" x="752" y="204">承接新分配及回收工作</text>
+  <path d="M32 260H1068" stroke="#cbd5e1"/>
+  <text class="name" x="32" y="300">应用继续创建对象，同时 GC 需要 CPU 与内存带宽</text>
+  <text class="body" x="32" y="338">余量先耗尽：可能出现 Allocation Stall、pacing，或更重的暂停回收，具体取决于实现。</text>
+  <text class="body" x="32" y="374">观测：分配速率、周期耗时、存活量、CPU 限流、分配等待与业务尾延迟一起对齐。</text>
+  <text class="note" x="32" y="426">ZGC 与 Shenandoah 的屏障、分代和退化机制不同；共同点是并发不等于没有资源与容量约束。</text>
+</svg>

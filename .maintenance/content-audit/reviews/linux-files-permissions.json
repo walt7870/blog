@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/index.md",
+      "status": "verified",
+      "reviewedHash": "fb77d6a55d8fe6a90624696fd7321198c410a9210cea003d6b0dc3cdbb3ab41a",
+      "pageType": "命令专题阅读地图",
+      "decision": "以订单故障建立操作对象、参数边界、日志磁盘端口与退出码的阅读闭环，链接其余全部命令模块并重绘地图。",
+      "validation": ["六页全文阅读；1280×800及390×844浅深色全页检查、六处图片预览/原尺寸/关闭、全部超宽代码键盘滚动通过，无整页横向溢出。构建14.84秒成功，本地引用和diff检查通过。接口示例与环境命令已在Linux容器实跑；未对真实订单服务做端到端验收。"]
+    },
+    {
+      "file": "docs/linux/command/file-basic.md",
+      "status": "verified",
+      "reviewedHash": "c4909ee2713563ef73eb09e339a24f54cf3ef0d6d42a1681f4824ff81e8c098f",
+      "pageType": "文件机制与操作实验",
+      "decision": "区分名称、inode、软硬链接和打开句柄，补复制与rename边界、任意文件名和重名风险，移除全局清空tmp示例，修cp参数含义。",
+      "validation": ["正文实验提取至临时脚本，Debian12容器实跑两硬链接inode相同/链接数2、改名后hard可读而soft失效、删除一个名称后final仍在。图示XML和技能自检、独立截图及实际字体边界通过，软链接最终采用左侧虚线避交叉。六页桌面手机浅深色全页与全部超宽代码滚动通过，构建14.84秒成功。打开句柄延迟释放未单独实跑。"]
+    },
+    {
+      "file": "docs/linux/command/file-search.md",
+      "status": "verified",
+      "reviewedHash": "e995c9d54b031e2fa7c7776035c7f4c482353c1543b95531f199061dd079a073",
+      "pageType": "查找语义与有限实验",
+      "decision": "补find条件优先级、mtime和size取整、prune、NUL与竞态，修which与shell解析混淆及摘要直接证明重复文件的错误。",
+      "validation": ["GNU find手册定向核对mtime、size、prune、delete和运算优先级段落。正文实验在Linux容器正确筛出含空格yaml、9天前日志和精确1048576字节文件；also.yml目录被排除，prune不进入cache，grep保留完整空格路径。SVG实际字体和双视口浅深色通过，超宽代码键盘滚动及权限页到查找页客户端键盘跳转通过。构建14.84秒成功。未运行任何业务删除动作。"]
+    },
+    {
+      "file": "docs/linux/command/file-view-edit.md",
+      "status": "retained",
+      "reviewedHash": "2db2a9226222863a7738bc7de0684fb8b70bb0996abee08c184f8e2eecc610ad",
+      "pageType": "日志读取与配置修改闭环",
+      "decision": "完整审查并保留前序改造，日志按请求和上下文读取、配置先备份再检查与复验，图示表达读取方式选择。",
+      "validation": ["有限日志脚本验证tail/grep/sed；轮转后tail -F读到新文件req-2049 new-file，diff差异预期退出1。六页桌面手机浅深色全页、图示放大和超宽代码键盘滚动通过，构建14.84秒成功。未操作交互vim/less或真实服务配置。"]
+    },
+    {
+      "file": "docs/linux/command/file-permissions.md",
+      "status": "verified",
+      "reviewedHash": "747a0b2086fc7135954d853c2411bdc7c011a72959004de26d16f1a6231967a5",
+      "pageType": "DAC与创建权限机制",
+      "decision": "分离文件读写与父目录搜索删除，修owner回退other、umask算术减法和chattr与xattr混淆，明确特殊位和额外约束。",
+      "validation": ["正文umask实验在Linux容器产生640文件、750目录和664文件。setpriv使用UID42420证明0444文件可在可写父目录删除、owner无读即使other有读仍拒绝。核对chmod手册；图示实际字体、桌面手机浅深色和权限到ACL往返键盘跳转通过。构建14.84秒成功。未验证LSM/noexec/immutable实际阻断。"]
+    },
+    {
+      "file": "docs/linux/command/permissions.md",
+      "status": "verified",
+      "reviewedHash": "eab30b064434d263bcd758353a89eb126935bd81fbd88be8ce66aa1fa15e1587",
+      "pageType": "访问诊断与ACL实验",
+      "decision": "集中ACL mask、默认ACL、实际服务身份与namespace、按目录职责授权及快照预演，删除777模板和不能处理任意文件名的恢复脚本。",
+      "validation": ["核对acl(5)访问算法与继承：组条目逐项覆盖请求并受mask约束，不写成简单并集。Linux容器安装acl后正文实验验证UID42420 rw被mask r裁剪、修改mask后恢复；默认ACL存在时umask077创建文件仍给命名用户effective:rw且无有效执行权限。图示实际字体、四种视口主题、预览关闭和键盘滚动通过，构建14.84秒成功。未实测真实业务ACL、完整服务隔离、权限恢复或LSM。"]
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+[
+  {
+    "file": "docs/devlanguage/rust/index.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/advantages.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 的优势与代价",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/history.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 发展历程",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/ecosystem.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 生态与运行边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/basic.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 基础概念",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/ownership.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "所有权、借用与生命周期",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/type-system.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "类型系统、Trait 与错误处理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/concurrency.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "并发、异步与运行时",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/tooling.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "工具链与工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/hands-on.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 动手入门",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/troubleshooting.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 排错手册",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/project-practice.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 项目实战",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/learning-path.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 学习路线与选型",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/rust/video-series.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rust 视频学习系列",
+    "width": 390
+  }
+]

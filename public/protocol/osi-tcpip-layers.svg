@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-size="13" role="img" aria-labelledby="osi-title osi-desc">
+  <title id="osi-title">OSI 与 TCP/IP 的职责近似对应</title>
+  <desc id="osi-desc">OSI应用、表示与会话层近似对应TCP/IP应用层，传输与网络层分别对应，链路与物理层合为网络接口层；右侧协议示例不代表严格OSI归属。</desc>
   <style>
     .layer { stroke:#374151; stroke-width:1; }
     .lyr-app  { fill:#dbeafe; }
@@ -18,7 +20,8 @@
     </marker>
   </defs>
 
-  <text x="360" y="24" text-anchor="middle" class="title">OSI 七层 vs TCP/IP 四层</text>
+  <rect width="720" height="360" fill="#f7f9fb"/>
+  <text x="360" y="24" text-anchor="middle" class="title">OSI 七层与 TCP/IP 四层：职责近似对应</text>
 
   <!-- OSI -->
   <text x="120" y="50" text-anchor="middle" class="sub" font-weight="600">OSI 七层</text>
@@ -40,12 +43,13 @@
   <!-- 协议示例 -->
   <text x="600" y="50" text-anchor="middle" class="sub" font-weight="600">代表协议</text>
   <text x="500" y="82">HTTP / WebSocket / SSE</text>
-  <text x="500" y="116">TLS / SSL（加密表示）</text>
-  <text x="500" y="150">DNS / SMTP / SSH / gRPC</text>
+  <text x="500" y="116">DNS / SMTP / SSH / gRPC</text>
+  <text x="500" y="150">TLS 跨安全与传输边界</text>
   <text x="500" y="184">TCP / UDP / QUIC</text>
-  <text x="500" y="218">IP / ICMP / ARP</text>
-  <text x="500" y="252">Ethernet / Wi-Fi / PPP</text>
+  <text x="500" y="218">IP / ICMP（含 ICMPv6）</text>
+  <text x="500" y="252">Ethernet / Wi-Fi / ARP</text>
   <text x="500" y="286">铜缆 / 光纤 / 无线电</text>
 
-  <text x="360" y="332" text-anchor="middle" class="sub" font-style="italic">应用层 = 应用怎么用 · 传输层 = 端到端可不可靠 · 网络层 = 包怎么寻址 · 物理层 = 信号怎么跑</text>
+  <text x="360" y="328" text-anchor="middle" class="sub">右侧为协议栈示例，不是每个 OSI 层的严格归属；QUIC 承载在 UDP 之上。</text>
+  <text x="360" y="348" text-anchor="middle" class="sub">NDP 使用 ICMPv6，服务于本地邻居发现；不能按功能把它当作独立二层协议。</text>
 </svg>

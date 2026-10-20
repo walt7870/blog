@@ -35,22 +35,25 @@ Silero VAD 是有状态模型。同一会话的音频块必须按时间顺序输
 Python 包提供了读取音频和生成语音时间戳的封装。先安装运行依赖：
 
 ```bash
-python -m pip install silero-vad soundfile
+python -m pip install silero-vad onnxruntime soundfile
 ```
 
 ```python
+import soundfile as sf
+import torch
 from silero_vad import (
     collect_chunks,
     get_speech_timestamps,
     load_silero_vad,
-    read_audio,
-    save_audio,
 )
 
 SAMPLE_RATE = 16_000
 
 model = load_silero_vad(onnx=True)
-wav = read_audio("meeting.wav", sampling_rate=SAMPLE_RATE)
+samples, rate = sf.read("meeting.wav", dtype="float32", always_2d=True)
+if rate != SAMPLE_RATE:
+    raise ValueError("先用带抗混叠滤波的重采样器转换到 16 kHz")
+wav = torch.from_numpy(samples[:, 0].copy())  # 示例明确取第一声道
 
 segments = get_speech_timestamps(
     wav,
@@ -60,6 +63,7 @@ segments = get_speech_timestamps(
     min_speech_duration_ms=250,
     min_silence_duration_ms=300,
     speech_pad_ms=80,
+    time_resolution=2,
     return_seconds=True,
 )
 
@@ -86,14 +90,15 @@ sample_segments = get_speech_timestamps(
 )
 
 speech_only = collect_chunks(sample_segments, wav)
-save_audio("speech-only.wav", speech_only, sampling_rate=SAMPLE_RATE)
+if speech_only.numel():
+    sf.write("speech-only.wav", speech_only.numpy(), SAMPLE_RATE, subtype="PCM_16")
 ```
 
 把各段直接拼接会丢失原始时间轴，也可能破坏说话人分离和字幕同步。录音质检或会议转写通常应保留原时间戳，仅在送入 ASR 时生成临时片段。
 
 ## 流式事件
 
-`VADIterator` 封装了模型状态与开始、结束事件。16 kHz 输入每次送入 512 个样本，最后不足一帧的部分应缓存到下一次，而不是补零后反复提交。
+`VADIterator` 封装了模型状态与开始、结束事件。16 kHz 输入每次送入 512 个样本；持续收音时，不足一帧的部分缓存到下一次。真正 EOF 没有下一块，应只补齐一次末帧，并保存补零前的真实总样本数。
 
 ```python
 from silero_vad import VADIterator, load_silero_vad
@@ -114,7 +119,7 @@ def accept_frame(frame):
     if len(frame) != FRAME_SAMPLES:
         raise ValueError("frame 必须由上层缓冲为 512 个样本")
 
-    event = iterator(frame, return_seconds=True)
+    event = iterator(frame, return_seconds=False)
     if event is not None:
         print(event)  # {"start": ...} 或 {"end": ...}
 
@@ -124,6 +129,10 @@ try:
 finally:
     iterator.reset_states()
 ```
+
+上面的循环只演示完整帧调用，`audio_frames` 由应用提供。文件结束还需应用层封口：处理仅一次补齐的末帧，把事件边界裁到 `[0, real_samples]`；如果已收到开始而没有结束事件，以真实 EOF 关闭当前段，再重置。`VADIterator` 没有独立 `flush()`，`reset_states()` 也不会补发结束事件。不要反复把同一个末帧补零提交以等待结束，否则重复音频会污染状态。时间戳保留采样点，展示时再除以采样率。
+
+例如输入 1000 个样本，第一帧提交 512 个，余下 488 个只补 24 个零后提交一次；真实结束仍是第 1000 个样本，不是 1024。EOF、正常静音结束和连接异常分别记录，避免把强制封口伪装成模型检测到的静音。
 
 真实服务不能把一个全局 `iterator` 共享给所有 WebSocket。可以按 `session_id` 建立会话对象，并在断开连接、超时或输入格式变化时销毁：
 
@@ -147,14 +156,16 @@ class VadSession:
 
 Silero 官方建议先绘制语音概率，再调整阈值和时长参数。不要一次改动所有参数，否则很难判断收益来自哪里。
 
-| 参数 | 作用 | 调整建议 |
+| 参数 | 接口范围 | 调整建议 |
 | --- | --- | --- |
-| `threshold` | 触发语音的概率阈值 | 从默认值建立基线，结合目标设备概率分布调整 |
-| `neg_threshold` | 从语音回到非语音的阈值 | 低于起始阈值可形成滞回，避免边界抖动 |
-| `min_speech_duration_ms` | 过滤过短语音候选 | 命令词场景要保留“开”“停”等短词 |
-| `min_silence_duration_ms` | 连续静音多久后结束 | 降低可缩短延迟，但会增加碎片 |
-| `speech_pad_ms` | 在片段两端补音频 | 用于保护爆破音、轻辅音和尾音 |
-| `max_speech_duration_s` | 限制单段最长语音 | 长录音必须配置，避免片段无限增长 |
+| `threshold` | 文件函数与迭代器 | 从默认值建立基线，结合目标设备概率分布调整 |
+| `neg_threshold` | 当前文件函数与迭代器；旧包需核对签名 | 低于起始阈值形成滞回，避免边界抖动 |
+| `min_speech_duration_ms` | `get_speech_timestamps` | 迭代器需应用自行过滤；命令词场景保留“开”“停” |
+| `min_silence_duration_ms` | 文件函数与迭代器 | 降低可缩短延迟，但会增加碎片 |
+| `speech_pad_ms` | 文件函数与迭代器 | 保护字头和尾音；边界仍需对应真实缓存 |
+| `max_speech_duration_s` | `get_speech_timestamps` | 迭代器需应用自行限制最长段与缓存 |
+
+这里按 2026 年 10 月核对的上游接口区分。部署时锁定实际包版本，并用 `inspect.signature(VADIterator)` 检查参数；文件函数能用的配置不能直接传给迭代器。
 
 推荐的调参顺序：
 

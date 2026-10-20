@@ -1,0 +1,92 @@
+[
+  {
+    "file": "/embedded/c-memory-contract.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "相同的读写语法，三种不同访问合同"
+  },
+  {
+    "file": "/embedded/engineering-capability-path.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "用可检查的产物验证工程能力"
+  },
+  {
+    "file": "/embedded/protocol-command-contract.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "打开阀门的命令要跨过六个确认边界"
+  },
+  {
+    "file": "/embedded/electrical-check-path.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "总线读不到数据时按证据缩小范围"
+  },
+  {
+    "file": "/embedded/hardware-validation-loop.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "采集板从约束到实板验证"
+  },
+  {
+    "file": "/embedded/node-delivery-map.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "环境节点的交付链从电源延伸到恢复"
+  },
+  {
+    "file": "/embedded/linux-boot-runtime.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "Linux网关先经历启动链，再运行服务"
+  },
+  {
+    "file": "/embedded/mcu-runtime-map.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "时钟与数据从不同路径进入外设"
+  },
+  {
+    "file": "/embedded/peripheral-buffer-lifecycle.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "一次异步发送的缓冲区寿命"
+  },
+  {
+    "file": "/embedded/platform-adapter-boundaries.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "采样业务不直接绑定所有厂商API"
+  },
+  {
+    "file": "/embedded/project-node-gateway.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "采样节点经网关上报，控制命令另行确认"
+  },
+  {
+    "file": "/embedded/ota-confirmation-states.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "OTA候选必须经过试启动与确认"
+  },
+  {
+    "file": "/embedded/rtos-event-flow.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "采样ISR把数据交给有界队列"
+  },
+  {
+    "file": "/embedded/toolchain-artifact-flow.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "构建、烧录与定位使用同一份ELF"
+  },
+  {
+    "file": "/devlanguage/runtime-selection-map.svg",
+    "issues": [],
+    "texts": 21,
+    "title": "订单业务跨越多种语言与运行位置"
+  }
+]

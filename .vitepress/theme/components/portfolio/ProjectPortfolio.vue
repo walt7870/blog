@@ -6,11 +6,12 @@ import { categories, projects } from './projects';
 import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
 import './portfolio.css';
+import './portfolio-browser.css';
 
 const props = defineProps<{ projectId?: string; profilePath?: string }>();
 const category = ref('全部项目');
 const query = ref('');
-const view = ref('grid');
+const view = ref('list');
 const project = computed(() => projects.find(p => p.id === props.projectId));
 const relatedProjects = computed(() => projects.filter(p => p.id !== project.value?.id)
   .sort((a, b) => Number(b.category === project.value?.category) - Number(a.category === project.value?.category)).slice(0, 3));
@@ -91,6 +92,7 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
     <div v-if="!projectId" id="portfolio-main" class="pf-index">
       <header class="pf-intro">
         <div class="pf-collection-title"><h1>项目实践</h1><a :href="withBase(profilePath || '/')">个人概览 <ArrowUpRight :size="16" /></a></div>
+        <p class="pf-collection-summary">AI 应用、云平台与跨端 SDK，从业务场景到系统架构和交付验证。</p>
       </header>
       <section class="pf-browser" aria-label="项目作品">
         <div class="pf-tools">
@@ -99,7 +101,8 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
         </div>
         <div class="pf-filters" role="group" aria-label="项目分类"><button v-for="c in categories" :key="c" :class="{ active: category === c }" :aria-pressed="category === c" @click="category = c">{{ c }}<span>{{ c === '全部项目' ? projects.length : projects.filter(p => p.category === c).length }}</span></button></div>
         <div class="pf-results-line"><span>{{ category === '全部项目' ? '精选与项目实践' : category }}</span><span aria-live="polite">{{ filtered.length }} 个项目</span></div>
-        <div v-if="filtered.length" class="pf-grid" :class="{ 'pf-list': view === 'list' }">
+        <Transition name="pf-results">
+        <div v-if="filtered.length" :key="`${category}:${query}:${view}`" class="pf-grid" :class="{ 'pf-list': view === 'list' }">
           <template v-for="(p, index) in filtered" :key="p.id">
           <div v-if="category === '全部项目' && p.category === '公司基础设施' && filtered[index - 1]?.category !== p.category" class="pf-module-heading"><h2>公司基础设施</h2><p>代码协作 · 持续交付 · 内部 AI 接入</p></div>
           <article class="pf-project" :class="[{ featured: !query && category === '全部项目' && index === 0 && view === 'grid' }, `tone-${p.color}`]">
@@ -108,7 +111,8 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
           </article>
           </template>
         </div>
-        <div v-else class="pf-empty"><Search :size="30"/><h2>没有匹配的项目</h2><p>当前分类下没有找到“{{ query }}”。</p><button @click="reset"><RotateCcw :size="16"/> 重置筛选</button></div>
+        <div v-else key="empty" class="pf-empty"><Search :size="30"/><h2>没有匹配的项目</h2><p>当前分类下没有找到“{{ query }}”。</p><button @click="reset"><RotateCcw :size="16"/> 重置筛选</button></div>
+        </Transition>
       </section>
       <footer class="pf-bottom"><span>牛万成 · 项目实践</span><a :href="withBase('/')">回到稻草小站 <ArrowUpRight :size="16"/></a></footer>
     </div>

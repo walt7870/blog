@@ -1,0 +1,54 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "CSS 层叠、选择器与样式计算",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "CSS 布局系统：盒模型、Flex 与 Grid",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "响应式设计：视口、媒体查询与容器查询",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Web 可访问性基础：语义、键盘与可感知界面",
+    "width": 1280
+  }
+]

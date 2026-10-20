@@ -1,0 +1,136 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/electron-series/index.md",
+      "pageType": "系列导读",
+      "decision": "用同一本地编辑器解释运行时、权限和交付两条链，历史测量限定为对应基线。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "85a62ee4c1786184d9fead16b535a57b4ce0c637487b31c584a2ead2aeac0a7d"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+      "pageType": "启动机制",
+      "decision": "Preload改绝对路径并补导航失败与启动异常，区分DOM、加载和业务就绪。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "807c64b77fa6ec39c587abaacea9d3164c1f75cd055b43bf7aa3ece39cccdf5c"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+      "pageType": "进程关系",
+      "decision": "区分窗口对象、webContents、Renderer PID和Utility类型，补任务副作用及共享页边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "ee3dacf6bbf35ea07d74e3e8740e5e36677ccb4ae9d37cfe3f30ecc7e980de81"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+      "pageType": "权限边界",
+      "decision": "修复file前缀授权，绑定窗口、主frame和精确页面，补自定义协议、CSP及拒绝分支。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "a5dc2b91e9563f600c5947b10449936b5d2c0d0ee8a236b5006dbff09bfe2062"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+      "pageType": "生命周期",
+      "decision": "补macOS早期open-url与open-file入口、业务就绪队列和异步退出收尾。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "aae401eb7ea4842e54de4c7431b36a88b4363d98835de84ff030421407beb6d1"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+      "pageType": "构建交付",
+      "decision": "纠正ZIP单位换算，明确应用与安装器签名位置以及平台产物验收范围。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "a37d4857b23d467658ff1ebc970966d56f2a8ff0986f329f95499a2bf196bf21"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+      "pageType": "归档边界",
+      "decision": "补用户数据位置和部分API临时解包事实，区分Fuse支持、完整性与加密。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "a3637a240b03d8236fc3df598b06834d9edd418745715faed01432e2cbf438c4"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+      "pageType": "兼容性排错",
+      "decision": "核对基线ABI并区分加载与源码API错误，补两种宿主安装输出和缓存维度。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "099e034844285ad7550b82d97f6b60523bb711b2c5a439788e32ca05639d660b"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+      "pageType": "平台信任",
+      "decision": "区分签名、公证接受、票据和系统策略，说明ZIP不能直接stapling及最终下载验收。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "759cd6d0d7f8c18a14ed05243dceef8f0773ae77df874b6db380837df7c5f227"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+      "pageType": "更新状态",
+      "decision": "修复只取首个候选，按最高兼容版本排序并拒绝非法和stable预发布版本，明确状态含义。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "29b8fdc97f7284622cd2e4129c4f06494d0df51e405ae5e023ebf59265a8da73"
+    },
+    {
+      "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+      "pageType": "性能测量",
+      "decision": "补实际交互就绪阶段与时钟原点，纠正工作集相加等于去重内存的错误。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示逐项审查；完整构建、十图字体边界、四组明暗全文截图、11次分页和22组图片键盘交互通过，详见batches/electron.md。",
+        "官方机制与基线核对见evidence/electron/source-checks.json，Node夹具范围见code-checks.json；未重新执行历史Electron应用实验。"
+      ],
+      "reviewedHash": "2685fd41206c0e92b440452ef49ca013f00b610826e7fcd2b43e865560b2dd73"
+    }
+  ]
+}

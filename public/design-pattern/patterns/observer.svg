@@ -1,15 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
-  <title id="title">观察者模式结构图</title>
-  <desc id="desc">展示主题状态变化后向多个观察者发送通知。</desc>
-  <style>.bg{fill:#f8fafc}.subject{fill:#e0f2fe;stroke:#0284c7}.obs{fill:#fff7ed;stroke:#f97316}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}</style>
-  <rect class="bg" width="1040" height="520" rx="22"/>
-  <text class="t" x="48" y="52">观察者模式：状态变化后广播给订阅者</text>
-  <rect class="box subject" x="92" y="185" width="250" height="120" rx="14"/><text class="t" x="156" y="225">Subject</text><text class="s" x="134" y="252">维护观察者列表</text><text class="s" x="134" y="278">状态变化后 notify()</text>
-  <path class="line" d="M342 245H520"/><polygon class="arrow" points="520,245 507,237 507,253"/>
-  <rect class="box obs" x="560" y="78" width="270" height="74" rx="14"/><text class="t" x="640" y="122">库存监听器</text>
-  <rect class="box obs" x="560" y="194" width="270" height="74" rx="14"/><text class="t" x="640" y="238">消息监听器</text>
-  <rect class="box obs" x="560" y="310" width="270" height="74" rx="14"/><text class="t" x="640" y="354">积分监听器</text>
-  <path class="line" d="M520 245Q530 115 560 115"/><path class="line" d="M520 245H560"/><path class="line" d="M520 245Q530 347 560 347"/>
-  <text class="s" x="100" y="410">主题不知道具体观察者要做什么，只负责发布变化。</text>
-  <text class="s" x="560" y="410">观察者可独立新增，但要注意顺序、异常隔离和重复通知。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="510" viewBox="0 0 1120 510" role="img" aria-labelledby="title desc">
+<title id="title">观察者：按订阅快照分发，逐个记录结果</title><desc id="desc">Publisher在同一线程中复制订阅快照，向页面、可选统计和本地日志监听器分发OrderPaid。统计失败仍继续本地日志。订阅变化从下次发布生效，进程内分发不提供持久投递。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}</style>
+<rect width="1120" height="510" fill="#f8fafc"/><text class="title" x="40" y="52">观察者：按订阅快照分发，逐个记录结果</text><text class="sub" x="40" y="84">同一线程同步回调；事件数据不可变。本例仅隔离非关键监听器的运行时异常。</text>
+<path class="line" d="M330 191H430Q440 191 440 181V160Q440 150 450 150H650"/><path class="line" d="M330 230H510Q520 230 520 240V260Q520 270 530 270H650"/><path class="line" d="M330 269H390Q400 269 400 279V380Q400 390 410 390H650"/>
+<rect class="accent" x="40" y="170" width="290" height="140" rx="6"/><text class="h" x="60" y="205">Publisher / OrderPaid</text><text class="t" x="60" y="239">先复制本次订阅快照</text><text class="t" x="60" y="273">再按注册顺序调用与记录</text>
+<rect class="box" x="650" y="110" width="430" height="80" rx="6"/><text class="h" x="670" y="142">页面监听器：成功</text><text class="t" x="670" y="171">刷新当前显示，不修改支付事实</text>
+<rect class="box" x="650" y="230" width="430" height="80" rx="6"/><text class="h" x="670" y="262">可选统计：失败</text><text class="t" x="670" y="291">记录失败结果，后续监听器继续</text>
+<rect class="box" x="650" y="350" width="430" height="80" rx="6"/><text class="h" x="670" y="382">本地日志：成功</text><text class="t" x="670" y="411">不因前一个可选监听器失败而跳过</text>
+<text class="sub" x="40" y="462">通知期间退订从下一次发布生效；本例拒绝重入发布，不能跨线程直接共享。</text><text class="sub" x="40" y="488">分发返回仅说明本次回调结果，不保证事务提交、持久化、重试或外部副作用完成。</text>
 </svg>

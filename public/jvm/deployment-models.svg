@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500" role="img" aria-labelledby="deploy-jvm-title deploy-jvm-desc">
+  <title id="deploy-jvm-title">HotSpot 与 Native Image 的部署产物</title>
+  <desc id="deploy-jvm-desc">同一应用可将JAR部署到HotSpot，使用解释器、JIT与可选CDS或AOT缓存；也可经Native Image构建目标平台可执行文件。HotSpot启动缓存不等于独立native可执行文件，两个路径需分别验证兼容与性能。</desc>
+  <defs><marker id="deploy-jvm-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#deploy-jvm-arrow)}</style>
+  <rect width="1100" height="500" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">先确定运行产物，再比较启动与持续运行成本</text>
+  <text class="body" x="32" y="76">训练与构建都要使用受控输入；性能、兼容和诊断能力分别验证。</text>
+  <path class="edge" d="M232 176H338"/>
+  <path class="edge" d="M232 208H276Q284 208 284 216V364Q284 372 292 372H338"/>
+  <path class="edge" d="M660 176H746"/><path class="edge" d="M660 372H746"/>
+  <rect class="node" x="32" y="136" width="200" height="108" rx="6"/>
+  <text class="name" x="52" y="174">应用 JAR 与依赖</text><text class="body" x="52" y="208">代码、资源、动态调用</text>
+  <rect class="node" x="338" y="126" width="322" height="100" rx="6"/>
+  <text class="name" x="358" y="161">部署到 HotSpot JVM</text><text class="body" x="358" y="196">解释器与 JIT 参与运行</text>
+  <rect x="746" y="126" width="322" height="100" rx="6" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="766" y="161">运行产物：JAR + JVM</text><text class="body" x="766" y="196">可选 CDS / AOT 启动缓存</text>
+  <rect x="338" y="240" width="730" height="44" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="body" x="358" y="268">HotSpot 缓存仍依赖兼容的 JVM、类路径与运行环境。</text>
+  <rect class="node" x="338" y="322" width="322" height="100" rx="6"/>
+  <text class="name" x="358" y="357">Native Image 构建</text><text class="body" x="358" y="392">可达性分析与 native 编译</text>
+  <rect x="746" y="322" width="322" height="100" rx="6" fill="#fff7ed" stroke="#e4b68b"/>
+  <text class="name" x="766" y="357">运行产物：可执行文件</text><text class="body" x="766" y="392">面向目标 OS / CPU 构建</text>
+  <text class="note" x="338" y="452">Native Image 仍有内存管理与运行时；反射、JNI、资源需要明确配置与验证。</text>
+  <text class="note" x="32" y="484">比较指标：启动到可服务时间、首个请求、吞吐、尾延迟、峰值 RSS 与故障恢复。</text>
+</svg>

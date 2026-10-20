@@ -1,34 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="500" viewBox="0 0 980 500" role="img" aria-labelledby="title desc">
-  <title id="title">GC 选型思路</title>
-  <desc id="desc">展示根据吞吐量、延迟、堆大小和维护场景选择垃圾回收器。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#7c3aed"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.q{fill:#fff;stroke:#dbe3ef;stroke-width:1.8}.a{fill:#ede9fe;stroke:#7c3aed;stroke-width:1.8}.old{fill:#fee2e2;stroke:#ef4444;stroke-width:1.8}.t{font:700 19px Arial,"Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"Microsoft YaHei",sans-serif;fill:#334155}.m{font:12px Consolas,monospace;fill:#475569}.line{stroke:#7c3aed;stroke-width:2.4;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="980" height="500" rx="22"/>
-  <text class="t" x="42" y="48">GC 选型：先定目标，再看约束</text>
-  <text class="s" x="42" y="76">调 GC 不是背参数，而是在吞吐量、停顿、内存、CPU 和 JDK 版本之间取舍。</text>
-
-  <rect class="q" x="70" y="132" width="220" height="82" rx="14"/><text class="t" x="104" y="168">小堆 / 工具进程</text><text class="s" x="116" y="194">简单、资源占用低</text>
-  <rect class="a" x="380" y="132" width="190" height="82" rx="14"/><text class="t" x="434" y="168">Serial</text><text class="m" x="424" y="194">-XX:+UseSerialGC</text>
-
-  <rect class="q" x="70" y="258" width="220" height="82" rx="14"/><text class="t" x="106" y="294">吞吐量优先</text><text class="s" x="118" y="320">批处理、离线任务</text>
-  <rect class="a" x="380" y="258" width="190" height="82" rx="14"/><text class="t" x="426" y="294">Parallel</text><text class="m" x="414" y="320">UseParallelGC</text>
-
-  <rect class="q" x="650" y="132" width="220" height="82" rx="14"/><text class="t" x="690" y="168">通用服务端</text><text class="s" x="704" y="194">均衡吞吐与停顿</text>
-  <rect class="a" x="650" y="258" width="220" height="82" rx="14"/><text class="t" x="730" y="294">G1</text><text class="m" x="708" y="320">默认常见选择</text>
-
-  <rect class="q" x="70" y="386" width="220" height="72" rx="14"/><text class="t" x="104" y="424">极低延迟</text>
-  <rect class="a" x="380" y="386" width="190" height="72" rx="14"/><text class="t" x="424" y="424">ZGC / Shenandoah</text>
-
-  <rect class="old" x="650" y="386" width="220" height="72" rx="14"/><text class="t" x="708" y="424">CMS / ParNew</text><text class="s" x="690" y="446">维护老系统时理解</text>
-
-  <path class="line" d="M290 173H380"/>
-  <path class="line" d="M290 299H380"/>
-  <path class="line" d="M760 214V258"/>
-  <path class="line" d="M290 422H380"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img" aria-labelledby="gc-select-title gc-select-desc">
+  <title id="gc-select-title">GC 候选与验证约束</title>
+  <desc id="gc-select-desc">从实际业务目标选择Serial、Parallel、G1或低延迟回收器候选，再检查版本、CPU、内存与同负载验证。CMS和ParNew用于历史维护，Epsilon只用于有预算的有限实验，不把候选当作自动选择规则。</desc>
+  <defs><marker id="gc-select-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#gc-select-arrow)}</style>
+  <rect width="1100" height="520" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">先确定业务约束，再试验候选回收器</text>
+  <text class="body" x="32" y="76">候选入口，不是自动规则；所有方案都要保持输入、CPU 限额与内存预算可比。</text>
+  <path class="edge" d="M356 144H420"/><path class="edge" d="M356 228H420"/><path class="edge" d="M356 312H420"/><path class="edge" d="M356 396H420"/>
+  <rect class="node" x="32" y="112" width="324" height="64" rx="6"/><text class="name" x="52" y="151">小工具，暂停可接受</text>
+  <rect class="node" x="32" y="196" width="324" height="64" rx="6"/><text class="name" x="52" y="235">批处理，完成时间优先</text>
+  <rect class="node" x="32" y="280" width="324" height="64" rx="6"/><text class="name" x="52" y="319">服务，兼顾吞吐与停顿</text>
+  <rect class="node" x="32" y="364" width="324" height="64" rx="6"/><text class="name" x="52" y="403">已证实 GC 长暂停影响业务</text>
+  <rect x="420" y="112" width="648" height="64" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text class="name" x="440" y="139">Serial</text><text class="body" x="440" y="162">检查存活量、暂停与任务总耗时</text>
+  <rect x="420" y="196" width="648" height="64" rx="6" fill="#f0fdf4" stroke="#86b49b"/><text class="name" x="440" y="223">Parallel</text><text class="body" x="440" y="246">检查吞吐和最大暂停；多线程仍然 STW</text>
+  <rect x="420" y="280" width="648" height="64" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text class="name" x="440" y="307">G1</text><text class="body" x="440" y="330">检查暂停、复制空间、大对象与实际存活量</text>
+  <rect x="420" y="364" width="648" height="64" rx="6" fill="#f0fdf4" stroke="#86b49b"/><text class="name" x="440" y="391">ZGC / Shenandoah</text><text class="body" x="440" y="414">检查版本支持、并发 CPU、分配等待和业务尾延迟</text>
+  <text class="note" x="32" y="470">历史维护：CMS / ParNew。有限分配实验：Epsilon。两者不能当作普通新服务的通用模板。</text>
+  <text class="note" x="32" y="500">验收共同项：业务结果、吞吐、P99/P999、GC CPU、RSS、突发负载与恢复。</text>
 </svg>

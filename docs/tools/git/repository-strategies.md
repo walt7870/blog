@@ -19,11 +19,13 @@
 
 | 方案 | 版本边界 | 跨模块原子修改 | 克隆体验 | 适合场景 |
 | --- | --- | --- | --- | --- |
-| Monorepo | 一个仓库统一提交 | 强 | 一次 Clone，规模可能很大 | 共享工具链、频繁联动修改 |
+| Monorepo | 一个仓库统一提交 | 同一提交可同时改多模块 | 一次 Clone，规模可能很大 | 共享工具链、频繁联动修改 |
 | 多仓库 | 每个组件独立历史 | 弱，需要协调版本 | 每个仓库独立 | 团队、权限、发布周期独立 |
 | Submodule | 主仓库记录子仓库提交 | 主从仓库分别提交 | 需要额外初始化 | 精确引用外部源码，不合并历史 |
 | Subtree | 外部代码进入主仓库目录 | 主仓库内可原子提交 | 普通 Clone 即可 | 希望内置源码并保留同步通道 |
 | 包管理器 | 依赖制品版本 | 通过版本发布协调 | 普通依赖安装 | 有稳定接口和发布流程的组件 |
+
+这些选项可以组合：Monorepo 内部仍可通过包管理器声明依赖，多仓库也可以发布到同一个制品库。仓库中的原子提交只保证源码快照一起记录，不保证多个服务同时部署成功；发布仍需要兼容协议、明确顺序和失败恢复。
 
 ## Monorepo
 
@@ -67,7 +69,7 @@ Submodule 让主仓库记录另一个仓库的某个提交。主仓库保存的�
 
 ```bash
 git submodule add https://example.com/platform/sdk.git third_party/sdk
-git commit -m "chore: add sdk submodule"
+git commit -m "chore: 引入 SDK 子模块"
 ```
 
 克隆：
@@ -88,7 +90,7 @@ git submodule update --init --recursive
 git -C third_party/sdk fetch
 git -C third_party/sdk switch --detach <target-commit>
 git add third_party/sdk
-git commit -m "chore: update sdk revision"
+git commit -m "chore: 更新 SDK 固定提交"
 ```
 
 判断重点：
@@ -98,6 +100,8 @@ git commit -m "chore: update sdk revision"
 - 子模块的新提交必须先推送到它自己的远端，再提交主仓库指针。
 - CI、归档和发布脚本必须显式初始化递归子模块。
 
+`.gitmodules` 保存路径和获取 URL 等配置，Gitlink 保存精确提交；两者应一起审查。子仓库的读取权限和 LFS 权限独立，主仓库能 Clone 不保证子模块能下载。备份也要分别保护子仓库对象，主仓库 Bundle 不会把嵌套仓库内容打进去。
+
 ## Subtree
 
 Subtree 把外部项目内容合入主仓库的某个目录。普通 Clone 可以直接得到全部文件，不需要额外初始化。
@@ -105,19 +109,19 @@ Subtree 把外部项目内容合入主仓库的某个目录。普通 Clone 可�
 添加外部项目：
 
 ```bash
-git subtree add \
-  --prefix=third_party/sdk \
-  https://example.com/platform/sdk.git main \
-  --squash
+git remote add sdk https://example.com/platform/sdk.git
+git fetch sdk main
+# 核对 FETCH_HEAD 对应的完整提交及许可证，记录后再导入
+git show --no-patch FETCH_HEAD
+git subtree add --prefix=third_party/sdk FETCH_HEAD --squash
 ```
 
 拉取更新：
 
 ```bash
-git subtree pull \
-  --prefix=third_party/sdk \
-  https://example.com/platform/sdk.git main \
-  --squash
+git fetch sdk main
+git show --no-patch FETCH_HEAD
+git subtree merge --prefix=third_party/sdk FETCH_HEAD --squash
 ```
 
 把本地修改推回外部仓库：
@@ -168,15 +172,6 @@ Subtree 的优点是使用者无需理解嵌套仓库；代价是同步命令更
 
 ## 决策流程
 
-```text
-依赖是否有稳定制品？
-├─ 有 -> 优先包管理器和制品仓库
-└─ 没有
-   ├─ 是否高频原子修改？ -> 是：评估 Monorepo
-   └─ 是否必须引用外部源码？
-      ├─ 精确固定外部提交 -> Submodule
-      ├─ 普通 Clone 必须完整 -> Subtree
-      └─ 团队和发布独立 -> 多仓库 + 版本契约
-```
+订单服务只需消费协议包时，先固定制品版本；前端、后端和协议源码高频联动且权限一致时，再评估统一仓库。固件内嵌厂商 SDK 时，判断需要独立保留上游仓库，还是把代码内置后统一管理。总览图展示这些判断入口，不把方案误当成只能五选一的互斥关系。
 
 选型后要用一次真实变更验证：修改、评审、CI、发布、升级和回滚是否都能被追踪。只比较目录外观无法判断长期维护成本。

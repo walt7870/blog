@@ -1,50 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="500" viewBox="0 0 1080 500" role="img" aria-labelledby="title desc">
-  <title id="title">Linux 命令学习地图</title>
-  <desc id="desc">按文件、文本、系统、网络、权限、软件包和排错路径整理 Linux 命令体系</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.center{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}
-      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.ops{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:19px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
-      .line{stroke:#2563eb;stroke-width:2;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1080" height="500"/>
-  <rect class="center" x="430" y="195" width="220" height="110"/>
-  <text class="text title" x="540" y="238" text-anchor="middle">Linux 命令</text>
-  <text class="text body" x="540" y="268" text-anchor="middle">读文件、查状态、改配置、排故障</text>
-
-  <rect class="box" x="70" y="60" width="200" height="90"/>
-  <text class="text title" x="170" y="94" text-anchor="middle">文件与目录</text>
-  <text class="text small" x="170" y="120" text-anchor="middle">ls / cp / mv / find</text>
-
-  <rect class="box" x="430" y="40" width="220" height="90"/>
-  <text class="text title" x="540" y="74" text-anchor="middle">文本处理</text>
-  <text class="text small" x="540" y="100" text-anchor="middle">cat / grep / sed / awk</text>
-
-  <rect class="ops" x="810" y="60" width="200" height="90"/>
-  <text class="text title" x="910" y="94" text-anchor="middle">系统与进程</text>
-  <text class="text small" x="910" y="120" text-anchor="middle">ps / top / systemctl</text>
-
-  <rect class="ops" x="70" y="350" width="200" height="90"/>
-  <text class="text title" x="170" y="384" text-anchor="middle">网络排查</text>
-  <text class="text small" x="170" y="410" text-anchor="middle">ip / ss / curl / tcpdump</text>
-
-  <rect class="warn" x="430" y="370" width="220" height="90"/>
-  <text class="text title" x="540" y="404" text-anchor="middle">权限与用户</text>
-  <text class="text small" x="540" y="430" text-anchor="middle">chmod / chown / sudo</text>
-
-  <rect class="box" x="810" y="350" width="200" height="90"/>
-  <text class="text title" x="910" y="384" text-anchor="middle">归档与软件包</text>
-  <text class="text small" x="910" y="410" text-anchor="middle">tar / gzip / apt / yum</text>
-
-  <path class="line" d="M270 105 C340 130 390 180 430 225"/>
-  <path class="line" d="M540 130 L540 195"/>
-  <path class="line" d="M810 105 C740 130 690 180 650 225"/>
-  <path class="line" d="M270 395 C340 365 390 315 430 275"/>
-  <path class="line" d="M540 370 L540 305"/>
-  <path class="line" d="M810 395 C740 365 690 315 650 275"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="linux-command-map-title linux-command-map-desc">
+<title id="linux-command-map-title">从业务现象找到对象，再验证原始操作</title><desc id="linux-command-map-desc">订单导出失败：文件、进程、网络与身份是关联视图，不是独立命令列表。</desc>
+<defs><marker id="linux-command-map-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#738288"/></marker>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238} .heading{font-size:25px;font-weight:600}.name{font-size:21px;font-weight:600}.body{font-size:18px}.note{font-size:17px;fill:#52656c}.line{fill:none;stroke:#738288;stroke-width:1.8;marker-end:url(#linux-command-map-arrow)}.box{fill:#fff;stroke:#bac6cc;stroke-width:1.3}.focus{fill:#e8f4ef;stroke:#67877b;stroke-width:1.5}.soft{fill:#f0f5fc;stroke:#a8bacd;stroke-width:1.3}</style></defs>
+<rect width="1120" height="540" fill="#f8fafb"/>
+<text class="heading" x="52" y="54">从业务现象找到对象，再验证原始操作</text><text class="note" x="52" y="88">订单导出失败：文件、进程、网络与身份是关联视图，不是独立命令列表。</text><path class="line" d="M292 216H390"/><path class="line" d="M658 216H760"/><path class="line" d="M898 278V342"/><path class="line" d="M760 403H658"/><path class="line" d="M390 403H292"/><rect data-node="1. 保存失败输入" class="box" x="52" y="154" width="240" height="124" rx="6"/><text class="name" x="70" y="186">1. 保存失败输入</text><text class="body" x="70" y="215">时间、请求编号</text><text class="body" x="70" y="240">输出路径与错误码</text><rect data-node="2. 确认实际环境" class="box" x="390" y="154" width="268" height="124" rx="6"/><text class="name" x="408" y="186">2. 确认实际环境</text><text class="body" x="408" y="215">身份、目录与命名空间</text><text class="body" x="408" y="240">服务管理器、挂载点</text><rect data-node="3. 读取相关证据" class="soft" x="760" y="154" width="308" height="124" rx="6"/><text class="name" x="778" y="186">3. 读取相关证据</text><text class="body" x="778" y="215">文件 / 进程 / 网络</text><text class="body" x="778" y="240">日志、端口、容量与权限</text><rect data-node="4. 定位并修改" class="box" x="760" y="342" width="308" height="124" rx="6"/><text class="name" x="778" y="374">4. 定位并修改</text><text class="body" x="778" y="403">错误路径、依赖或权限</text><text class="body" x="778" y="428">一次改变明确范围</text><rect data-node="5. 复验同一请求" class="focus" x="390" y="342" width="268" height="124" rx="6"/><text class="name" x="408" y="374">5. 复验同一请求</text><text class="body" x="408" y="403">内容、延迟与退出状态</text><text class="body" x="408" y="428">确认实际加载结果</text><rect data-node="6. 保存结果" class="box" x="52" y="342" width="240" height="124" rx="6"/><text class="name" x="70" y="374">6. 保存结果</text><text class="body" x="70" y="403">可重复证据与差异</text><text class="body" x="70" y="428">恢复办法与适用边界</text><text class="note" x="52" y="514">命令成功只证明该动作完成；业务验收仍需回到同一订单输入。</text></svg>

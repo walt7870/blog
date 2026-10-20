@@ -8,7 +8,7 @@ date: 2026-07-12
 
 计算机网络解决的不是“把一段文本发出去”这么单一的问题，而是让不同设备、不同操作系统和不同链路上的程序，能够找到彼此、建立通信、控制发送速度、发现错误，并用双方都理解的格式交换数据。
 
-一次 HTTPS 请求至少会经过域名解析、路由选择、邻居解析、链路传输、TCP 或 QUIC、TLS、HTTP、代理和应用服务。每一层都可能成功，也都可能独立失败。学习网络协议的关键，是先建立一条完整链路，再逐层进入报文和状态机。
+以新建连接访问订单接口为例，请求涉及域名解析、路由与邻居解析、链路传输、安全连接和 HTTP 消息处理；中间还可能经过代理。DNS 与连接可以复用缓存或现有状态，QUIC 则把 TLS 1.3 集成在连接建立过程中。这些步骤并非每次请求都会重新执行，排障时要区分观察的是新连接还是复用请求。
 
 ![一条请求穿过网络的完整路径](/protocol/full-request-path.svg)
 
@@ -35,10 +35,12 @@ OSI 七层模型适合描述职责，TCP/IP 模型更贴近互联网实现。工
 | 安全与会话 | Record、Session | 身份认证、机密性、完整性、会话恢复 | TLS 1.3、DTLS |
 | 传输层 | Segment、Datagram、Stream | 端到端交付、顺序、重传、流控、拥塞控制 | TCP、UDP、QUIC |
 | 网络层 | Packet | 跨网寻址、路由选择、逐跳转发 | IPv4、IPv6、ICMP、OSPF、BGP |
-| 链路层 | Frame | 当前广播域的一跳交付 | Ethernet、Wi-Fi、ARP、NDP、VLAN |
+| 链路层 | Frame | 当前链路的一跳交付 | Ethernet、Wi-Fi、ARP、VLAN |
 | 物理层 | Bit、Signal | 电气、光学或无线信号传输 | 双绞线、光纤、射频 |
 
 发送端从上向下逐层添加头部，接收端按相反方向解封装。每层只解释自己的头部，并把 Payload 交给上层。HTTP 不需要知道 Wi-Fi 的调制方式，交换机也不需要理解 JSON 字段。
+
+表中的“安全与会话”是工程职责，并非额外增加一层 TCP/IP 标准层。NDP 虽然服务于本地链路邻居发现，实际承载在 ICMPv6 中；QUIC 在 UDP 之上同时实现传输与安全能力，也不能机械套进 OSI 的单独一格。
 
 ## 一次请求的最小心智模型
 
@@ -47,8 +49,8 @@ OSI 七层模型适合描述职责，TCP/IP 模型更贴近互联网实现。工
 1. DNS 把域名解析为 IPv4 或 IPv6 地址。
 2. 操作系统查询路由表，决定出口接口和下一跳。
 3. ARP 或 NDP 把下一跳 IP 映射为链路地址。
-4. TCP 完成三次握手，或 QUIC 直接在 UDP 上建立安全连接。
-5. TLS 验证证书并协商会话密钥。
+4. HTTP/1.1 与 HTTP/2 的 HTTPS 连接先建立 TCP，再进行 TLS 握手，验证证书并协商密钥。
+5. HTTP/3 使用 QUIC，在 UDP 之上集成 TLS 1.3 握手；它与上一步是两条备选路径。
 6. HTTP 发送方法、路径、Header 和 Body。
 7. CDN、负载均衡与反向代理可能终止连接并建立新的上游连接。
 8. 应用处理请求，响应沿协议栈反向返回。
@@ -98,7 +100,7 @@ dig +trace example.com
 ip route get 1.1.1.1
 ip neigh show
 
-# 连接、TLS 和 HTTP 分阶段耗时
+# 从请求开始累计的各时间点，适用于这里的新建直连 HTTPS 请求
 curl -sS -o /dev/null \
   -w 'dns=%{time_namelookup} connect=%{time_connect} tls=%{time_appconnect} ttfb=%{time_starttransfer} total=%{time_total}\n' \
   https://example.com/
@@ -107,11 +109,14 @@ curl -sS -o /dev/null \
 ss -s
 ss -tanp
 
-# 保留完整报文证据
-sudo tcpdump -i any -nn -s 0 -w network.pcap
+# Linux：限定目标、端口和报文数，保留完整报文
+sudo tcpdump -i any -nn -s 0 -c 500 \
+  -w network.pcap 'host 203.0.113.20 and tcp port 443'
 ```
 
 后续页面会围绕这些命令建立完整解释：命令观察的是哪一层、结果说明什么、不能说明什么，以及下一步应收集哪项证据。
+
+`ip`、`ss` 和 `-i any` 是这里的 Linux 用法；macOS 可分别用 `route -n get`、`netstat`，抓包用实际接口。`203.0.113.20` 是保留的示例地址，实验需替换成被测服务地址。`curl` 的 `time_*` 是累计时间点，不能直接当作各阶段独立耗时，差值算法见 [耗时拆分](./troubleshooting.md#第二步-拆分耗时)。
 
 ## 相关专题
 

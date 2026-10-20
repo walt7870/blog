@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="security-recovery-boundaries-title security-recovery-boundaries-desc">
+  <title id="security-recovery-boundaries-title">凭据泄露处置与备份范围</title><desc id="security-recovery-boundaries-desc">泄露后先吊销轮换凭据，再保护现场并清理明确的引用，最后同步协作者及平台副本。Git Bundle仅包含所选引用可达对象；LFS、子模块、平台与运行数据需要独立备份并共同恢复。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs><rect width="1120" height="490" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="55" font-size="27" font-weight="700">先让泄露凭据失效，再处理历史副本</text><text x="48" y="91" font-size="17" fill="#536470">删除当前 .env 不能撤销旧提交、Fork、流水线缓存或已经复制的令牌。</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M328 187H416"/><path d="M704 187H792"/></g>
+    <rect x="48" y="136" width="280" height="106" rx="6" fill="#e9f5f0" stroke="#7caaa0"/><text x="70" y="173" font-size="21" font-weight="700">吊销与轮换</text><text x="70" y="210" font-size="17">检查使用记录，限制受影响权限</text>
+    <rect x="416" y="136" width="288" height="106" rx="6" fill="#fff" stroke="#a4b3be"/><text x="438" y="173" font-size="21" font-weight="700">保护现场，重写明确范围</text><text x="438" y="210" font-size="17">新副本验证，逐引用核对旧 OID</text>
+    <rect x="792" y="136" width="280" height="106" rx="6" fill="#fff" stroke="#a4b3be"/><text x="814" y="173" font-size="21" font-weight="700">协调副本与平台清理</text><text x="814" y="210" font-size="17">协作者、Fork、CI、隐藏引用</text>
+    <text x="48" y="303" font-size="21" font-weight="700">恢复演练必须覆盖实际资产</text><path d="M48 321H1072" stroke="#c9d3dc"/>
+    <text x="48" y="358" font-size="19" font-weight="700">Git Bundle</text><text x="48" y="390" font-size="17">所选引用可达的提交、树和 Blob</text><text x="48" y="420" font-size="17">不保护未提交文件或独立存储</text>
+    <text x="570" y="358" font-size="19" font-weight="700">另行备份并关联版本</text><text x="570" y="390" font-size="17">LFS 正文、子模块、平台元数据和 Secret</text><text x="570" y="420" font-size="17">发布制品、运行配置与数据库恢复点</text>
+    <text x="48" y="464" font-size="17" fill="#536470">验收：恢复到干净环境，补齐依赖与配置，构建并验证业务；能读日志不代表业务已恢复。</text>
+  </g>
+</svg>

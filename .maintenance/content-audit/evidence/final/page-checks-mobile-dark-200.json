@@ -1,0 +1,661 @@
+[
+  {
+    "file": "docs/database/bigdata/nosql-databases.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/bigdata/nosql-access-contracts.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 3898,
+    "title": "NoSQL：访问模型与数据边界",
+    "width": 390
+  },
+  {
+    "file": "docs/database/elasticsearch.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/elasticsearch-write-visibility.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/elasticsearch-derived-pagination.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 10534,
+    "title": "Elasticsearch 搜索、索引与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/graph-database.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/graph-shared-device.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3978,
+    "title": "图数据库",
+    "width": 390
+  },
+  {
+    "file": "docs/database/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/database-selection-flow.svg",
+        "width": 1040
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/order-derived-views.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2662,
+    "title": "数据库技术概览",
+    "width": 390
+  },
+  {
+    "file": "docs/database/influxdb.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/influxdb-point-identity.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/influxdb-downsample-boundaries.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 8668,
+    "title": "InfluxDB 时序建模、窗口与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mongodb.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mongodb-order-boundaries.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mongodb-read-write-concerns.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 9771,
+    "title": "MongoDB",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/backup-recovery.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-recovery-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6722,
+    "title": "MySQL 备份与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/basic-syntax.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-sql-logical-flow.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 10104,
+    "title": "MySQL 基础语法",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/data-types-design.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-field-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 7944,
+    "title": "MySQL 数据类型与字段设计",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/high-availability.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-replication-progress.svg",
+        "width": 1160
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-failover-fence.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 6866,
+    "title": "MySQL 高可用与扩展",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/index-system.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-index-order-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4434,
+    "title": "MySQL 索引系统",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-operation-boundaries.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 390,
+    "text": 3445,
+    "title": "MySQL",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/monitoring-operations.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-observation-loop.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 8743,
+    "title": "MySQL 监控与运维",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/partitioning.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-partition-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4565,
+    "title": "MySQL 分区表",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/query-optimization.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-query-cardinality.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 8782,
+    "title": "MySQL 查询优化",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/security-permissions.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-security-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6713,
+    "title": "MySQL 安全与权限管理",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/service-modules.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-query-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3504,
+    "title": "MySQL 服务模块",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/storage-engines.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-engine-rollback.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 3923,
+    "title": "MySQL 存储引擎",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/transaction-system.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-transaction-read-view.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 7606,
+    "title": "MySQL 事务处理机制",
+    "width": 390
+  },
+  {
+    "file": "docs/database/postgresql.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/postgresql-runtime-map.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/postgresql-mvcc-vacuum.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 10314,
+    "title": "PostgreSQL",
+    "width": 390
+  },
+  {
+    "file": "docs/database/redis.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/redis-cache-order-race.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/redis-stream-delivery.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 8059,
+    "title": "Redis",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/cloud-native-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cloud-native.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cloud-native-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6144,
+    "title": "云原生架构（Cloud-Native Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/cqrs-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cqrs.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3200,
+    "title": "CQRS：命令与查询模型分离",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/Aggregate.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-aggregate-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4117,
+    "title": "聚合根（Aggregate Root）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/basic-concept.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-aggregate-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1261,
+    "title": "DDD 基础概念",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/domain-driven-design.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1843,
+    "title": "DDD 概述",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/event-storming.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-storming-levels.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-storming-order.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3457,
+    "title": "事件风暴（EventStorming）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-overview.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-model-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1276,
+    "title": "领域驱动设计总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/learn-note.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-legacy-migration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1356,
+    "title": "领域划分与遗留改造笔记",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-model-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4609,
+    "title": "DDD 模型详细说明",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-payment-transaction.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 2750,
+    "title": "DDD 实践：订单支付与超时关闭",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/uml/uml.md",
+    "dark": true,
+    "images": [],
+    "scroll": 390,
+    "text": 175,
+    "title": "UML 建模",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/event-driven-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-driven.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2893,
+    "title": "事件驱动架构（Event-Driven Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/hexagonal-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/hexagonal.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2334,
+    "title": "六边形架构（Hexagonal Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/architecture-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/selection-matrix.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/decision-flow.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/evolution-roadmap.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1335,
+    "title": "软件架构设计导论",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/layered-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/layered.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2543,
+    "title": "分层架构（Layered Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/microservices-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/microservices.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2811,
+    "title": "微服务架构（Microservices Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/android.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/android-build-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2301,
+    "title": "Android 构建与运行边界",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/platform-compatibility.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1893,
+    "title": "开发平台与兼容性",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/ios.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ios-upload-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2441,
+    "title": "iOS 应用架构与交付",
+    "width": 390
+  }
+]

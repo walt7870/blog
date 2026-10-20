@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="600" viewBox="0 0 1040 600" role="img" aria-labelledby="title desc"><title id="title">SOA 架构结构图</title><desc id="desc">展示客户端通过服务总线访问多个企业服务。</desc><style>.bg{fill:#f8fafc}.bus{fill:#1e293b}.svc{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.client{fill:#fff;stroke:#94a3b8;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.bt{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}</style><rect class="bg" width="1040" height="560" rx="22"/><text class="h" x="56" y="55">SOA：企业能力服务化，通过统一契约集成</text><rect class="client" x="110" y="110" width="180" height="64" rx="14"/><text class="t" x="165" y="149">系统 A</text><rect class="client" x="430" y="110" width="180" height="64" rx="14"/><text class="t" x="485" y="149">系统 B</text><rect class="client" x="750" y="110" width="180" height="64" rx="14"/><text class="t" x="805" y="149">系统 C</text><rect class="bus" x="330" y="245" width="380" height="82" rx="16"/><text class="bt" x="430" y="292">服务总线 / API 网关</text><rect class="svc" x="100" y="410" width="220" height="76" rx="14"/><text class="t" x="165" y="455">客户服务</text><rect class="svc" x="410" y="410" width="220" height="76" rx="14"/><text class="t" x="475" y="455">订单服务</text><rect class="svc" x="720" y="410" width="220" height="76" rx="14"/><text class="t" x="785" y="455">支付服务</text><line class="line" x1="200" y1="174" x2="430" y2="245"/><line class="line" x1="520" y1="174" x2="520" y2="245"/><line class="line" x1="840" y1="174" x2="610" y2="245"/><line class="line" x1="520" y1="327" x2="210" y2="410"/><line class="line" x1="520" y1="327" x2="520" y2="410"/><line class="line" x1="520" y1="327" x2="830" y2="410"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+<title id="title">SOA 以业务契约封装旧 ERP 库存能力</title><desc id="desc">商城和门店共同使用库存预留服务；集成入口处理接入治理，业务契约保护语义，防腐适配转换旧 ERP。ESB 是可选实现，未知结果需要稳定编号和核对。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="600" fill="#f8fafc"/>
+<text class="title" x="56" y="58">SOA：多个渠道复用有语义的库存能力</text><text class="note" x="56" y="90">连锁书店示例；箭头表示业务请求，响应和结果查询沿合同返回</text>
+<path class="line" d="M250 188H272Q280 188 280 196V238Q280 246 288 246H314"/>
+<path class="line" d="M250 344H272Q280 344 280 336V294Q280 286 288 286H314"/>
+<path class="line" d="M528 266H590"/><path class="line" d="M834 266H888"/>
+<path class="line" d="M980 320V420Q980 428 972 428H834"/>
+<rect class="box" x="56" y="144" width="194" height="88" rx="5"/><text class="h" x="78" y="180">商城</text><text class="t" x="78" y="212">订单预留库存</text>
+<rect class="box" x="56" y="300" width="194" height="88" rx="5"/><text class="h" x="78" y="336">门店系统</text><text class="t" x="78" y="368">调拨预留库存</text>
+<rect class="box" x="314" y="214" width="214" height="104" rx="5"/><text class="h" x="334" y="247">集成入口</text><text class="t" x="334" y="277">接入、认证与配额</text><text class="note" x="334" y="304">网关 / ESB 为可选实现</text>
+<rect x="590" y="214" width="244" height="104" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="610" y="247">库存服务契约</text><text class="t" x="610" y="277">授权、预留与查询语义</text><text class="note" x="610" y="304">稳定编号、期限、错误合同</text>
+<rect class="box" x="888" y="214" width="176" height="106" rx="5"/><text class="h" x="906" y="247">防腐适配</text><text class="t" x="906" y="277">状态与协议转换</text><text class="note" x="906" y="305">核对含义与失败</text>
+<rect class="box" x="590" y="390" width="244" height="76" rx="5"/><text class="h" x="610" y="423">旧 ERP</text><text class="note" x="610" y="451">库存写入权与既有业务约束</text>
+<text class="t" x="56" y="452">服务目录记录合同、维护者与消费者；不代替运行调用。</text>
+<path d="M56 493H1064" stroke="#dce3df"/>
+<text class="t" x="56" y="530">中间层不自动提供跨系统事务；ERP 已成功但回复丢失时仍需查询与核对。</text>
+<text class="note" x="56" y="565">恢复能力受旧系统合同限制；安装总线不能补出不存在的幂等或结果查询接口。</text>
+</svg>

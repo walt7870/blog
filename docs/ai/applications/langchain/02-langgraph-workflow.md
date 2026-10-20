@@ -1,8 +1,14 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # 02. 从函数调用到 LangGraph 状态工作流
 
 一个模型调用很好理解：输入进去，结果出来。真正的业务流程却经常是“先判断，再执行，再检查，最后回复”。当步骤开始共享状态、出现分支和错误路径时，代码很容易变成一团嵌套条件。
 
 LangGraph 用状态图表达这种流程。
+
+![客服状态图：先检查输入和升级条件，再调用工具](/ai/langgraph-support-routing.svg)
 
 ## 为什么普通函数开始失控
 
@@ -51,10 +57,10 @@ START -> classify -> respond -> END
 
 ## 一个可离线运行的最小图
 
-下面的例子不调用模型，可以直接在项目根目录运行：
+先按[运行准备](./#代码运行准备)安装依赖，下面的例子不调用模型，可在激活虚拟环境后运行：
 
 ```bash
-conda run --no-capture-output -n arm_env python - <<'PY'
+python - <<'PY'
 from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -91,35 +97,31 @@ print(graph.invoke({"message": "退款多久到账？"}))
 PY
 ```
 
-输出中会同时保留原始 `message`、分类结果 `intent` 和最终 `answer`。节点只返回自己负责的更新，LangGraph 负责合并状态并按边执行。
+输出中会同时保留原始 `message`、分类结果 `intent` 和最终 `answer`。节点只返回自己负责的更新，默认同名字段被新值覆盖；要追加消息或合并列表，必须为对应字段声明 reducer。`TypedDict` 描述字段类型，不等于执行了输入校验，API 边界仍需单独验证。
 
 这里完全没有“智能决策”。图的结构是代码预先定义的，分类也只是普通规则。这一点非常重要。
 
 ## 客服工作流逐步拆解
 
-一个实用的客服图可以拆成四个节点：
+生产客服工作流应先校验输入、身份和风险，再执行工具。完整<a :href="withBase('/ai/examples/workflow_demo.py')" download="workflow_demo.py">离线示例</a>采用三个节点与条件边：
 
 ```text
-classify -> tools -> guardrail -> respond
+classify -> guardrail -> respond（仅ready时查询）
+                     -> END（缺输入或转人工）
 ```
 
 ### classify：识别意图和参数
 
-这一节点通过 `ModelGateway` 取得有限的意图标签，并用确定性正则提取订单号。离线模式使用规则，真实模型模式才会调用模型。
+该节点用规则产生有限意图标签，并用正则提取教学订单号。替换为模型分类后，仍需校验标签和订单格式；模型不能提供已登录用户的可信身份。
 
 输出示意：
 
 ```python
 {
     "intent": "order_status",
-    "order_no": "HB20260722001",
-    "tool_calls": [],
+    "order_no": "DEMO001",
 }
 ```
-
-### tools：确定性路由业务函数
-
-节点根据已经得到的意图执行 `lookup_order`、`search_policy` 或 `create_ticket`。下一步由 `if` 分支决定，不是模型自由选择。
 
 ### guardrail：执行业务硬规则
 
@@ -129,7 +131,7 @@ classify -> tools -> guardrail -> respond
 
 ### respond：产生受控回复
 
-最后一步读取统一状态生成回复。示例使用确定性模板，因此不会做未经授权的承诺。
+`ready` 才进入该节点，按意图确定是否调用订单 Tool，再用固定模板回复；其他状态直接结束，不先创建工单再检查赔偿权限。真实查单服务必须用服务端身份验证订单归属。示例没有身份系统，只能访问教学订单。
 
 ## 工作流不等于 Agent
 
@@ -154,7 +156,9 @@ classify -> tools -> guardrail -> respond
 - `run_failed`：运行在哪个节点失败；
 - `run_completed`：最终结果。
 
-如果回答节点调用模型超时，运行不会只留下一个模糊的 500 错误，而是能指出 `answer` 节点失败。调试多步骤系统时，这通常比“少写几行代码”更有价值。
+如果回答节点调用模型超时，应记录 `respond` 节点失败。节点命名不会自动完成日志脱敏和业务审计，事件采集仍需实现。
+
+图本身也不会自动持久化。上述 `compile()` 没有配置 checkpointer，进程退出后不能从检查点继续。需要恢复时，配置持久化存储和稳定的 `thread_id`；恢复可能从节点开头重新执行，因此数据库写入要使用业务幂等键。检查点不提供外部副作用的恰好一次保证。
 
 ## 不使用 LangGraph 时
 
@@ -163,8 +167,10 @@ classify -> tools -> guardrail -> respond
 ```python
 def run_support(message: str) -> dict:
     intent = classify(message)
-    tool_calls = use_tools(intent, message)
     status = apply_guardrail(intent, message)
+    if status != "ready":
+        return {"status": status}
+    tool_calls = use_tools(intent, message)
     answer = respond(intent, tool_calls, status)
     return {"answer": answer, "status": status}
 ```
@@ -190,6 +196,6 @@ def run_support(message: str) -> dict:
 
 LangGraph 把共享状态、多步骤执行和分支变成显式结构。它的价值不是让模型更自主，而是让复杂流程更容易理解、测试和恢复。
 
-下一篇，我们会把这个状态图用于 RAG：先检索资料，再判断证据是否足够，最后决定回答还是拒答。
+下一篇讨论 RAG 的证据链：先检索资料，再判断证据是否足够，最后决定回答还是拒答。离线示例先用普通函数演示门控，复杂分支再考虑组织为状态图。
 
 [上一篇：LangChain 到底是什么](01-what-is-langchain.md) · [返回目录](./) · [下一篇：完整 RAG](03-rag-from-zero.md)

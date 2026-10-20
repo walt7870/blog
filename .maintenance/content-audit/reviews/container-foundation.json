@@ -1,0 +1,44 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/index.md",
+      "status": "verified",
+      "reviewedHash": "f8d45026bc29ca6ff1c8a302349135a41937fa94aeda09f7da6ee8fc2a7dbba5",
+      "pageType": "容器专题总览",
+      "decision": "完整阅读原143行，按订单交付线重写，补镜像、运行配置、持久化与调谐边界，保留四个目录及视频入口，覆盖全部主要子模块；重画交付关系SVG。",
+      "validation": ["构建首次因新稿误用TopicDirectory link字段失败，修为href后13.76秒成功；本地引用零错误。1280×800及390×844浅深色逐页全屏截图、图示预览原尺寸关闭通过；专题目录键盘客户端跳转到基础页URL与H1正确。独立SVG实际字体边界和连线截图检查通过。"]
+    },
+    {
+      "file": "docs/container/basic/index.md",
+      "status": "verified",
+      "reviewedHash": "5d466bc254a9299714f8c30986039688a27f94ae3d17f31b6a28f723f5aa0a01",
+      "pageType": "基础模块阅读导览",
+      "decision": "完整阅读原31行，补三篇职责、调用链、五类故障边界与订单任务恢复实例，引用运行时关系SVG。",
+      "validation": ["双视口浅深色全页、手机342px表格无横溢、图片放大关闭、基础到概念客户端跳转通过；构建13.76秒成功。本页不执行集群变更，未把业务恢复描述为已实测。"]
+    },
+    {
+      "file": "docs/container/basic/concepts.md",
+      "status": "verified",
+      "reviewedHash": "1e96ca950db6306aefacb6616e7a0d6ab3dc765a009beb446849ecd35442b9f5",
+      "pageType": "镜像实例与隔离机制",
+      "decision": "完整阅读原77行，补标签与两类摘要、停止与重建、挂载遮蔽、namespace共享及cgroup限制、安全与VM内核边界；新增两个订单容器写入落点SVG和临时观察命令。",
+      "validation": ["从正文提取Alpine3.22命令运行退出0，观察Linux、PID1、0::/及namespace链接；--rm临时实例自动删除，未测隔离强度和业务容量。核对Docker容器与卷生命周期官方段及K8s卷重建说明。独立SVG文字边界与截图通过；双视口浅深色、图片原尺寸关闭、超宽代码ArrowRight及客户端运行时链接通过，构建成功。"]
+    },
+    {
+      "file": "docs/container/basic/runtimes.md",
+      "status": "verified",
+      "reviewedHash": "f6cbb56fb0e85701ab13ba8128e37c42f379f2d5b5f5807c5ab242f172ac950c",
+      "pageType": "运行时与管理工具调用链",
+      "decision": "完整阅读原67行，分开Docker和K8s路径，补远程context绑定路径、CRI v1、镜像与管理API兼容、containerd namespace、Podman和本地VM职责；新增双路径SVG。",
+      "validation": ["核对K8s CRI官方1.26+要求及containerd README的CRI插件职责。四图独立中文边界与截图通过；双视口浅深色全页、图片原尺寸关闭、运行时到标准客户端跳转通过；构建成功。未在真实K8s或Podman环境执行管理命令。"]
+    },
+    {
+      "file": "docs/container/basic/standards.md",
+      "status": "verified",
+      "reviewedHash": "26c5d389f9d593638fdb8dc0b122bd93ca29c7307f4f6adf0e70a56619a27813",
+      "pageType": "OCI与CRI/CNI/CSI接口边界",
+      "decision": "完整阅读原64行，解释内容分发启动的区别、镜像与sandbox失败阶段、CNI能力与Service策略边界、CSI可选能力与卷供给挂载区别，新增接口关系SVG。",
+      "validation": ["核对OCI Image overview、CNI SPEC overview/ADD/DEL与执行协议、CSI规范目标和控制/节点架构、K8s PV生命周期及Docker卷生命周期。抓取截断资料只采用已读相关段，未声称全文规范或真实CSI集成测试通过。双视口浅深色、342px表格、图片预览原尺寸关闭与客户端阅读链通过，构建13.76秒成功。"]
+    }
+  ]
+}

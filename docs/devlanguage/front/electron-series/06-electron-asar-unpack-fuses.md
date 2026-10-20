@@ -2,6 +2,10 @@
 
 Electron 常把应用 JavaScript、HTML 和依赖放进 `app.asar`。它减少零散文件，便于分发，并让 Electron 的部分文件 API 以接近普通目录的方式读取归档内容。归档中的代码仍然可以被列出和提取，因此 ASAR 不承担保密职责。
 
+![ASAR读取与真实文件边界](/electron/asar-file-boundary.svg)
+
+例如 Markdown 模板可以留在归档中读取，用户编辑后的文档应写入用户选择的位置或 `app.getPath('userData')`。把用户内容写回 `__dirname`，开发时可能成功，打包进入只读归档后就会失败。
+
 ## 透明读取与真实文件操作
 
 DeskLab 的实际产物中，`asar list` 能看到 `main.js`、`preload.js`、`index.html`、`package.json`、`node_modules` 和测试夹具。Electron 运行时成功读取：
@@ -19,7 +23,7 @@ write app.asar/write-test.txt -> ENOTDIR
 process.chdir(app.asar)       -> ENOTDIR
 ~~~
 
-这反映了两种边界：Electron 对部分读操作提供归档感知，操作系统仍把 ASAR 视为一个文件。写入、`chdir`、动态库加载、外部程序调用等要求真实路径的操作不能依赖透明读取。
+这反映了两种边界：Electron 对部分读操作提供归档感知，操作系统仍把 ASAR 视为一个文件。归档只读，不能作为工作目录。`execFile`、部分 `fs.open` 和 `process.dlopen` 等接口可能由 Electron 临时解包后再调用系统 API；这有额外开销，也不能推导任意外部程序都能访问 `app.asar/内部路径`。需要稳定真实路径的资源应显式解包。
 
 ## `asarUnpack` 只解包必要文件
 
@@ -50,6 +54,8 @@ DeskLab 测试产物读取到的 Fuse 状态包括：
 | `EnableNodeCliInspectArguments` | Enabled |
 
 这是一份开发态结果，不代表生产配置。生产流水线可以按需求关闭调试入口，并启用 ASAR 完整性相关能力。Fuse 是 Electron 二进制中的构建期开关，修改后必须重新签名并重新验证启动、崩溃上报和更新流程。
+
+ASAR 完整性校验需核对目标平台支持情况，并配合 `OnlyLoadAppFromAsar` 等约束，防止退回其他未受保护的加载位置。不能仅记录某个开关为 Enabled，就断言应用不存在替换入口。归档里也不应放长期服务端密钥。
 
 ## 完整性来自多层组合
 

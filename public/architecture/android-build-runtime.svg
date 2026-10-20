@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">Android 构建与设备运行</title><desc id="desc">Kotlin 和 Java 由构建工具生成 DEX 与资源，C++ 由 NDK 生成对应 ABI 的原生库，两者打包进 APK 后由设备 ART 和动态链接器执行。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="640" fill="#f8fafc"/><text class="title" x="56" y="58">构建工具能运行，不代表设备已经兼容</text><text class="note" x="56" y="91">例：Kotlin 页面调用 C++ 图片校正库；构建 JDK 与设备 API 分别核对</text>
+<path class="line" d="M316 220H380"/><path class="line" d="M660 220H800"/><path class="line" d="M316 445H380"/>
+<path class="line" d="M660 445H704Q712 445 712 437V328Q712 320 720 320H892Q900 320 900 312V275"/>
+<path class="line" d="M1040 275V390"/>
+<rect class="box" x="56" y="165" width="260" height="110" rx="5"/><text class="h" x="80" y="202">Kotlin / Java 与资源</text><text class="t" x="80" y="238">页面、逻辑、布局与图像</text>
+<rect x="380" y="165" width="280" height="110" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="404" y="202">Gradle + AGP + JDK</text><text class="t" x="404" y="238">编译、DEX 与资源处理</text>
+<text class="note" x="687" y="204">打包</text>
+<rect class="box" x="800" y="165" width="264" height="110" rx="5"/><text class="h" x="824" y="202">APK</text><text class="t" x="824" y="238">DEX、资源、ABI 库与签名</text>
+<rect class="box" x="56" y="390" width="260" height="110" rx="5"/><text class="h" x="80" y="427">C / C++ 与原生依赖</text><text class="t" x="80" y="463">图片处理与 JNI 接口</text>
+<rect class="box" x="380" y="390" width="280" height="110" rx="5"/><text class="h" x="404" y="427">NDK 与目标 ABI</text><text class="t" x="404" y="463">分别生成所需的 .so</text>
+<text class="note" x="746" y="306">lib/&lt;abi&gt;/</text><text class="note" x="950" y="353">安装</text>
+<rect class="box" x="800" y="390" width="264" height="110" rx="5"/><text class="h" x="824" y="427">Android 设备</text><text class="t" x="824" y="463">ART、linker 与系统 API</text>
+<path d="M56 548H1064" stroke="#dce3df"/><text class="t" x="56" y="582">compileSdk 是编译 API；minSdk 是设备下限；targetSdk 关联系统行为。</text><text class="note" x="56" y="613">图示直接安装 APK 的主链路；App Bundle 还要验证生成的设备拆分包。</text>
+</svg>

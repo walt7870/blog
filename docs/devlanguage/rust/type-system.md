@@ -1,269 +1,98 @@
 # 类型系统、Trait 与错误处理
 
-Rust 的类型系统承担了很多工程职责：表达数据结构、限制状态、约束接口、传播错误、保证并发安全。理解类型系统后，Rust 代码会从“编译器很严格”变成“编译器在帮我维护边界”。
+外部接口可能收到 `"0"`、`"2"` 或 `"two"` 作为购买数量。如果核心计算一直接收字符串，每个调用点都要重新猜测哪些值有效。更稳妥的边界是先解析为私有字段的 `Quantity`，再让核心函数只接收这个领域类型。
 
-## 强类型与类型推断
+![外部输入通过领域类型进入核心计算](/rust/type-validation-boundary.svg)
 
-Rust 是静态强类型语言，但具备类型推断：
+## 用构造入口维护不变量
 
-```rust
-let count = 10;        // 推断为 i32
-let size = 10usize;    // 明确为 usize
-let name = "Rust";     // &str
-```
-
-函数签名必须写清参数和返回类型：
+下面代码可放进 `src/lib.rs`。数量限制为 1 至 99，金额单位为整数分；校验只表达这条业务规则，不宣称覆盖货币系统的全部需求。
 
 ```rust
-fn double(value: i32) -> i32 {
-    value * 2
-}
-```
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Quantity(u8);
 
-这是有意设计：函数签名是模块之间的契约，不能完全依赖上下文猜测。
-
-## 结构体建模
-
-结构体适合表达实体和值对象：
-
-```rust
-struct Money {
-    amount: i64,
-    currency: String,
+#[derive(Debug, PartialEq, Eq)]
+pub enum OrderError {
+    InvalidQuantity,
+    AmountOverflow,
 }
 
-impl Money {
-    fn new(amount: i64, currency: impl Into<String>) -> Self {
-        Self {
-            amount,
-            currency: currency.into(),
+impl Quantity {
+    pub fn parse(input: &str) -> Result<Self, OrderError> {
+        let value: u8 = input.parse().map_err(|_| OrderError::InvalidQuantity)?;
+        if !(1..=99).contains(&value) {
+            return Err(OrderError::InvalidQuantity);
         }
+        Ok(Self(value))
     }
+
+    pub fn get(self) -> u8 { self.0 }
+}
+
+pub fn total_cents(unit_cents: u64, quantity: Quantity) -> Result<u64, OrderError> {
+    unit_cents.checked_mul(u64::from(quantity.get()))
+        .ok_or(OrderError::AmountOverflow)
 }
 ```
 
-`Self` 表示当前实现块对应的类型。
+字段未公开，其他模块不能直接 `Quantity(0)`。模块内部仍必须守住不变量，反序列化、数据库加载和新增构造函数也要经过同一校验。不能只检查字符串里是否有 `@` 就把一个 `Email` 类型称作完整验证；类型保证只与实际构造规则一样强。
 
-## 枚举建模
+## 枚举表达互斥状态
 
-枚举适合表达状态和分支：
+`Pending` 与 `Paid { transaction_id }` 的枚举可避免“已支付但没有流水”的字段组合。穷尽匹配能提醒遗漏状态，但不能自动阻止“已退款再次发货”：合法转换还要由方法、事务条件与幂等键控制。跨进程收到的字符串或 JSON 也必须先解析，静态类型不能证明外部数据可信。
+
+## 泛型与 Trait 的职责
+
+泛型适合相同算法处理不同类型，例如 `fn first<T>(items: &[T]) -> Option<&T>`；Trait 定义类型必须提供的行为。给订单存储定义接口时，先明确需要的行为，再抽象，而不是为每个结构体都配一个同名 Trait。
 
 ```rust
-enum PaymentStatus {
-    Pending,
-    Paid { transaction_id: String },
-    Failed { reason: String },
-    Refunded,
+trait OrderStore {
+    fn total(&self, id: u64) -> Option<u64>;
+}
+
+fn lookup<S: OrderStore>(store: &S, id: u64) -> Option<u64> {
+    store.total(id)
 }
 ```
 
-相比用字符串或整数状态码，枚举能让编译器检查遗漏分支：
+这种泛型调用通常单态化。若要在运行时替换实现，可以接收 `&dyn OrderStore`；Trait 必须满足动态兼容要求，调用通常通过虚表间接分发。动态分发不必然分配堆内存，`Box<dyn Trait>` 的装箱和 `&dyn Trait` 的借用是不同选择。
+
+`Debug` 服务调试，`Display` 服务面向人的输出，`From/TryFrom` 区分不失败与可能失败的转换。`Clone` 不保证深复制，`Copy` 不自动保证大对象复制便宜；派生前应确认数据语义，见[所有权](./ownership.md)。
+
+## 缺失、失败与传播
+
+找不到可选优惠券可用 `Option`；输入非法、存储故障通常用 `Result`，保留原因。`?` 提前传播错误，并在兼容时使用 `From` 转换错误类型，不会记录日志或执行补偿。
+
+| 边界 | 处理方式 | 订单例子 |
+| --- | --- | --- |
+| 核心领域库 | 返回可匹配的错误枚举 | 非法数量与金额溢出分开 |
+| CLI入口 | 错误写 stderr 并返回非零退出码 | 脚本不会把失败当成功 |
+| HTTP适配 | 转成稳定响应，内部细节进受控日志 | 校验失败与内部故障区别处理 |
+| 不变量被破坏 | 根据恢复策略处理 panic | 不把 panic 当普通用户输入错误 |
+
+未处理的 `Result` 默认通常产生 `must_use` 警告，不是必然编译失败；项目可用 lint 策略提高严格度，但 `let _ =` 仍可显式丢弃。审查要确认业务错误得到了处理，不能仅检查有没有警告。
+
+## 验证保证是否真实存在
+
+在同一个库文件追加下面测试后执行 `cargo test`：
 
 ```rust
-fn status_label(status: PaymentStatus) -> &'static str {
-    match status {
-        PaymentStatus::Pending => "pending",
-        PaymentStatus::Paid { .. } => "paid",
-        PaymentStatus::Failed { .. } => "failed",
-        PaymentStatus::Refunded => "refunded",
-    }
-}
-```
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-## 泛型
-
-泛型用于编写和具体类型无关的代码：
-
-```rust
-fn first<T>(items: &[T]) -> Option<&T> {
-    items.first()
-}
-```
-
-Rust 泛型通常在编译期单态化，也就是为实际使用的类型生成对应代码。这样可以获得接近手写具体类型的性能。
-
-## Trait
-
-Trait 定义行为契约，类似“某个类型能做什么”：
-
-```rust
-trait Summary {
-    fn summarize(&self) -> String;
-}
-
-struct Article {
-    title: String,
-    author: String,
-}
-
-impl Summary for Article {
-    fn summarize(&self) -> String {
-        format!("{} by {}", self.title, self.author)
-    }
-}
-```
-
-Trait 可以作为函数参数约束：
-
-```rust
-fn print_summary(item: &impl Summary) {
-    println!("{}", item.summarize());
-}
-```
-
-也可以写成泛型约束：
-
-```rust
-fn print_summary<T: Summary>(item: &T) {
-    println!("{}", item.summarize());
-}
-```
-
-## 常见标准库 Trait
-
-| Trait | 用途 |
-| --- | --- |
-| `Debug` | `{:?}` 调试输出 |
-| `Display` | `{}` 用户友好输出 |
-| `Clone` | 显式复制 |
-| `Copy` | 低成本按位复制 |
-| `Default` | 默认值 |
-| `PartialEq`、`Eq` | 相等比较 |
-| `PartialOrd`、`Ord` | 排序比较 |
-| `Iterator` | 迭代器协议 |
-| `From`、`Into` | 类型转换 |
-
-很多 Trait 可以通过派生自动实现：
-
-```rust
-#[derive(Debug, Clone, PartialEq, Eq)]
-struct UserId(u64);
-```
-
-## Trait 对象
-
-泛型适合编译期确定类型，Trait 对象适合运行时多态：
-
-```rust
-trait Handler {
-    fn handle(&self, input: &str);
-}
-
-fn run(handler: Box<dyn Handler>) {
-    handler.handle("event");
-}
-```
-
-`dyn Handler` 表示动态分发，会有一次间接调用成本，但能换来更灵活的扩展方式。
-
-## Option：显式表达缺失
-
-`Option<T>` 有两个可能值：
-
-```rust
-enum Option<T> {
-    Some(T),
-    None,
-}
-```
-
-常见用法：
-
-```rust
-let maybe_name = Some("Alice");
-
-if let Some(name) = maybe_name {
-    println!("{name}");
-}
-```
-
-`if let` 适合只关心某一个分支的情况。
-
-## Result：显式表达失败
-
-`Result<T, E>` 有两个可能值：
-
-```rust
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
-```
-
-示例：
-
-```rust
-use std::num::ParseIntError;
-
-fn parse_port(value: &str) -> Result<u16, ParseIntError> {
-    value.parse::<u16>()
-}
-```
-
-调用方可以匹配结果：
-
-```rust
-match parse_port("8080") {
-    Ok(port) => println!("port = {port}"),
-    Err(error) => println!("invalid port: {error}"),
-}
-```
-
-## ? 运算符
-
-`?` 用于传播错误：
-
-```rust
-use std::fs;
-use std::io;
-
-fn read_username() -> Result<String, io::Error> {
-    let content = fs::read_to_string("user.txt")?;
-    Ok(content.trim().to_string())
-}
-```
-
-如果读取成功，`content` 得到字符串；如果失败，函数直接返回 `Err`。
-
-## panic 与可恢复错误
-
-Rust 区分两类失败：
-
-- 可恢复错误：文件不存在、网络超时、参数非法，通常返回 `Result`。
-- 不可恢复错误：程序状态已经违反基本假设，可以使用 `panic!`。
-
-业务代码不应把 `panic!` 当作普通异常系统使用。库代码尤其应该谨慎，因为 `panic!` 会把控制权交给调用方或直接终止程序。
-
-## 类型驱动设计
-
-Rust 很适合把非法状态排除在类型之外：
-
-```rust
-struct Email(String);
-
-impl Email {
-    fn parse(value: String) -> Result<Self, String> {
-        if value.contains('@') {
-            Ok(Self(value))
-        } else {
-            Err(String::from("invalid email"))
+    #[test]
+    fn quantity_and_amount_contract() {
+        assert_eq!(total_cents(1990, Quantity::parse("2").unwrap()), Ok(3980));
+        for input in ["", "0", "100", "-1", "two", "256"] {
+            assert_eq!(Quantity::parse(input), Err(OrderError::InvalidQuantity));
         }
+        assert_eq!(Quantity::parse("99").unwrap().get(), 99);
+        assert_eq!(total_cents(u64::MAX, Quantity::parse("2").unwrap()),
+                   Err(OrderError::AmountOverflow));
     }
 }
 ```
 
-只要外部无法直接构造 `Email`，后续函数就可以相信它已经通过校验。
-
-## 常见实践
-
-- 对业务状态优先使用枚举，而不是字符串常量。
-- 对外部输入优先转换成领域类型，再进入核心逻辑。
-- 公共函数签名要清楚表达所有权、借用和错误。
-- 库代码少用 `unwrap`，应用边界处可以在确定不可恢复时使用。
-- Trait 不要过早抽象，先等重复行为稳定出现。
-
-## 参考资料
-
-- Generics：https://doc.rust-lang.org/book/ch10-00-generics.html
-- Traits：https://doc.rust-lang.org/book/ch10-02-traits.html
-- Error Handling：https://doc.rust-lang.org/book/ch09-00-error-handling.html
+再从库外尝试构造 `Quantity(0)`，应编译失败；故意把金额乘法改成加法，正常金额测试应失败。前者验证接口边界，后者验证断言能发现行为退化。完整CLI与错误退出见[动手实践](./hands-on.md)。

@@ -1,7 +1,7 @@
 # 安装、运行和脚本文件：客户电脑上怎样确认 Python 能跑起来
 
 > 示例文件：`hello_customer.py`  
-> 最后核验：2026-08-02
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 这篇文章解决一个非常实际的问题：拿到 Python 脚本之后，怎样确认它能在客户电脑上运行。
 
@@ -47,10 +47,16 @@ pwd
 Windows 可以输入：
 
 ```powershell
-cd
+Get-Location
 ```
 
+Windows 命令提示符（cmd）用 `cd`，PowerShell 用 `Get-Location` 查看当前目录。
+
 很多“找不到文件”的问题，不是文件真的不存在，而是终端没有进入脚本所在目录。
+
+![解释器、工作目录与脚本目录的区别](/python/script-path-boundaries.svg)
+
+`Path("customers.csv")` 相对终端工作目录解析；`Path(__file__).resolve().parent / "customers.csv"` 相对脚本目录解析。比如在 `/tmp` 执行 `/work/tool/hello_customer.py`，前者寻找 `/tmp/customers.csv`，后者寻找 `/work/tool/customers.csv`。本课选择后者，因此运行入口可以变化，数据仍在脚本旁边。
 
 ## 运行本集示例
 
@@ -84,9 +90,10 @@ def main() -> None:
     print(f"- Python 版本：{platform.python_version()}")
     print(f"- 解释器路径：{sys.executable}")
     print(f"- 脚本所在目录：{BASE_DIR}")
-    print(f"- 客户表是否存在：{'是' if DATA_FILE.exists() else '否'}")
+    print(f"- 终端工作目录：{Path.cwd()}")
+    print(f"- 客户表是否存在：{'是' if DATA_FILE.is_file() else '否'}")
 
-    if DATA_FILE.exists():
+    if DATA_FILE.is_file():
         print(f"- 客户表示例文件：{DATA_FILE.name}")
 
 

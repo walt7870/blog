@@ -1,0 +1,292 @@
+[
+  {
+    "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/03-field-types.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/20-logging.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/index.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/python/index.md",
+    "method": "iframe-390x844-keyboard",
+    "height": 844,
+    "imageWidth": 960,
+    "natural": 960,
+    "open": true,
+    "width": 390,
+    "closed": true
+  }
+]

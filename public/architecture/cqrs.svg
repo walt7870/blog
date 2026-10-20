@@ -1,1 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="600" viewBox="0 0 1040 600" role="img" aria-labelledby="title desc"><title id="title">CQRS 架构结构图</title><desc id="desc">展示写模型处理命令并发布事件，读模型异步构建查询视图。</desc><style>.bg{fill:#f8fafc}.cmd{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.read{fill:#dcfce7;stroke:#22c55e;stroke-width:2}.bus{fill:#fff7ed;stroke:#f97316;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style><rect class="bg" width="1040" height="600" rx="22"/><text class="h" x="56" y="55">CQRS：写模型负责规则，读模型负责查询</text><rect class="cmd" x="90" y="150" width="220" height="95" rx="14"/><text class="h" x="150" y="188">命令入口</text><text class="t" x="135" y="218">创建、支付、取消</text><rect class="cmd" x="410" y="150" width="220" height="95" rx="14"/><text class="h" x="470" y="188">写模型</text><text class="t" x="450" y="218">校验业务规则</text><rect class="bus" x="410" y="310" width="220" height="80" rx="14"/><text class="h" x="470" y="358">领域事件</text><rect class="read" x="730" y="150" width="220" height="95" rx="14"/><text class="h" x="790" y="188">查询入口</text><text class="t" x="775" y="218">列表、详情、报表</text><rect class="read" x="730" y="310" width="220" height="95" rx="14"/><text class="h" x="790" y="348">读模型</text><text class="t" x="770" y="378">冗余视图 / 索引</text><line class="line" x1="310" y1="198" x2="410" y2="198"/><polygon class="arrow" points="410,198 397,190 397,206"/><line class="line" x1="520" y1="245" x2="520" y2="310"/><polygon class="arrow" points="520,310 512,297 528,297"/><line class="line" x1="630" y1="350" x2="730" y2="358"/><polygon class="arrow" points="730,358 717,350 717,366"/><line class="line" x1="840" y1="310" x2="840" y2="245"/><polygon class="arrow" points="840,245 832,258 848,258"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+  <title id="title">CQRS 的异步订单投影</title>
+  <desc id="desc">命令处理器校验后，在同一本地事务提交订单和 Outbox。转发器重试投递，投影器去重并更新读存储，查询端从视图读取。此图是可选异步方案，CQRS 也可以共用数据库。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font-size:24px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:15px;fill:#475569}.b{fill:white;stroke:#cbd5e1;stroke-width:2}.l{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <text x="48" y="52" class="h">CQRS：订单写入与列表投影各有职责</text>
+  <text x="48" y="84" class="t">此图采用异步读存储；同库读写模型分离也是 CQRS，不必引入消息队列。</text>
+  <rect x="332" y="120" width="312" height="200" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-dasharray="6 4"/>
+  <text x="352" y="148" class="t">同一本地事务提交</text>
+  <path class="l" d="M276 220H360"/>
+  <path class="l" d="M616 220H720"/>
+  <path class="l" d="M824 268V356Q824 364 816 364H612"/>
+  <path class="l" d="M380 412V460"/>
+  <path class="l" d="M264 508H348"/>
+  <path class="l" d="M612 396H660Q668 396 668 404V436Q668 444 676 444H1008Q1016 444 1016 436V388Q1016 380 1008 380H964" stroke-dasharray="6 4"/>
+  <rect class="b" x="48" y="172" width="228" height="96" rx="6"/>
+  <text class="n" x="72" y="207">命令处理器</text><text class="t" x="72" y="239">身份、租户、金额、状态</text>
+  <rect x="360" y="172" width="256" height="96" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text class="n" x="384" y="207">订单状态 + Outbox</text><text class="t" x="384" y="239">条件更新与待发事件一起保存</text>
+  <rect class="b" x="720" y="172" width="208" height="96" rx="6"/>
+  <text class="n" x="744" y="207">事件转发器</text><text class="t" x="744" y="239">提交后投递，失败重试</text>
+  <rect class="b" x="720" y="324" width="244" height="80" rx="6"/>
+  <text class="n" x="744" y="356">消息队列</text><text class="t" x="744" y="384">允许重投，按订单处理顺序</text>
+  <rect x="348" y="324" width="264" height="88" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <text class="n" x="372" y="358">投影器</text><text class="t" x="372" y="386">去重、检查版本、更新视图</text>
+  <rect class="b" x="348" y="460" width="280" height="96" rx="6"/>
+  <text class="n" x="372" y="496">读存储</text><text class="t" x="372" y="528">列表索引 / 汇总视图 + 检查点</text>
+  <rect class="b" x="48" y="460" width="216" height="96" rx="6"/>
+  <text class="n" x="72" y="496">查询处理器</text><text class="t" x="72" y="528">授权过滤，只读展示 DTO</text>
+  <text class="t" x="684" y="432">失败后不确认，修复后重试</text>
+  <text class="t" x="48" y="620">重建来源：一致性快照 + 增量日志，或保留完整事实的事件流；切换前追平并对账。</text>
+</svg>

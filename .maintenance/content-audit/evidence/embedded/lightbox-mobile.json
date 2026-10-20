@@ -1,0 +1,100 @@
+[
+  {
+    "file": "docs/embedded/c-programming.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "width": 390,
+    "closed": true
+  }
+]

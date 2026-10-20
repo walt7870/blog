@@ -1,0 +1,122 @@
+{
+  "python": "Python 3.14.7",
+  "pages": 20,
+  "blocks": 18,
+  "temporary": "/var/folders/9r/qpxb_c5n2_15q5fwmgg_fkgr0000gn/T/blog-python-concurrency-XjweZf",
+  "examples": [
+    {
+      "episode": "10",
+      "execution": "passed",
+      "output": "failed broken.mp3 ValueError('转码输入损坏')\nsuccess a.wav 模拟文本\nfailed bad.wav ValueError('识别输入被拒绝')\nsuccess b.wav 模拟文本"
+    },
+    {
+      "episode": "11",
+      "execution": "passed",
+      "output": "[{'id': 0, 'status': 'done', 'attempt': 2}, {'id': 1, 'status': 'done', 'attempt': 1}, {'id': 2, 'status': 'done', 'attempt': 1}, {'id': 3, 'status': 'done', 'attempt': 2}, {'id': 4, 'status': 'done', 'attempt': 1}, {'id': 5, 'status': 'done', 'attempt': 1}]"
+    },
+    {
+      "episode": "14",
+      "execution": "passed",
+      "output": "{'id': 'a', 'path': 'a.wav', 'attempt': 1, 'status': 'done', 'billing': 'confirmed', 'cost': Decimal('0.01'), 'provider_request_id': 'fake-a'}\n{'id': 'slow', 'path': 'slow.wav', 'attempt': 1, 'status': 'unknown', 'billing': 'unknown', 'cost': None, 'provider_request_id': None}"
+    },
+    {
+      "episode": "15",
+      "execution": "passed",
+      "output": "[(0, 'result:0'), (1, 'result:1'), (2, 'result:2'), (3, 'result:3'), (4, 'result:4'), (5, 'result:5'), (6, 'result:6'), (7, 'result:7'), (8, 'result:8'), (9, 'result:9'), (10, 'result:10'), (11, 'result:11'), (12, 'result:12'), (13, 'result:13'), (14, 'result:14'), (15, 'result:15'), (16, 'result:16'), (17, 'result:17'), (18, 'result:18'), (19, 'result:19')]"
+    },
+    {
+      "episode": "16",
+      "execution": "passed",
+      "output": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+    },
+    {
+      "episode": "17",
+      "execution": "passed",
+      "output": "{'workers': 1, 'count': 100, 'elapsed': 0.7227509589865804, 'completed_per_second': 138.36024533293875, 'success_per_second': 134.20943797295058, 'avg': 0.3715842704701936, 'p95': 0.6890635839954484, 'errors': 3, 'error_rate': 0.03}\n{'workers': 4, 'count': 100, 'elapsed': 0.18173079198459163, 'completed_per_second': 550.2644813680154, 'success_per_second': 533.7565469269749, 'avg': 0.09214099957316649, 'p95': 0.17205250001279637, 'errors': 3, 'error_rate': 0.03}"
+    },
+    {
+      "episode": "18",
+      "execution": "passed",
+      "output": "{'version': '3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]', 'free_threaded_build': False, 'gil_enabled': True}\n{'waits_on_network': True} 异步客户端或受限线程池，并单独限制请求速率\n{'cpu_python_heavy': True} 比较进程池与可选free-threaded构建\n{'gpu_inference': True} 有界模型队列、组批和显存预算"
+    },
+    {
+      "episode": "00",
+      "execution": "passed",
+      "output": "- asyncio + Semaphore + timeout + retry backoff\n- bounded ThreadPoolExecutor with batch scanning\n- ProcessPoolExecutor, external command pool, or native library that releases the GIL\n- producer-consumer pipeline with bounded queues\n- checkpoint + idempotent result writes + failed-task table"
+    },
+    {
+      "episode": "01",
+      "execution": "passed",
+      "output": "read         0.0400s rss=   16.8MiB峰值 ok\ntranscode    0.0042s rss=   16.8MiB峰值 ok\nasr          0.0891s rss=   16.8MiB峰值 ok\nwrite        0.0149s rss=   16.8MiB峰值 ok\nread         0.0393s rss=   16.8MiB峰值 ok\ntranscode    0.0047s rss=   16.8MiB峰值 ok\nasr          0.0900s rss=   16.8MiB峰值 ok\nwrite        0.0129s rss=   16.8MiB峰值 ok\nread         0.0311s rss=   16.8MiB峰值 ok\ntranscode    0.0075s rss=   16.8MiB峰值 ok\nasr          0.0900s rss=   16.8MiB峰值 ok\nwrite        0.0135s rss=   16.8MiB峰值 ok"
+    },
+    {
+      "episode": "04",
+      "execution": "passed",
+      "output": "[('c.wav', 5), ('a.wav', 5), ('b.wav', 5)]"
+    },
+    {
+      "episode": "05",
+      "execution": "passed",
+      "output": "['processed:a', 'processed:b', 'processed:c']"
+    },
+    {
+      "episode": "06",
+      "execution": "passed",
+      "output": "b:done\nc:done\na:done"
+    },
+    {
+      "episode": "07",
+      "execution": "passed",
+      "output": "('a', 'success', 'a:ok')\n('bad', 'failed', \"ValueError('bad input')\")\n('slow', 'timeout', '')"
+    },
+    {
+      "episode": "08",
+      "execution": "passed",
+      "output": "['a:done', 'b:done', 'c:done']"
+    },
+    {
+      "episode": "09",
+      "execution": "passed",
+      "output": "41666541666750000\n71999820000100000\n114333088333450000\n170666346666800000"
+    }
+  ],
+  "behavior": {
+    "thread_window": "passed",
+    "pipeline": "50 success + 2 failed",
+    "async_cancel_timeout": "passed",
+    "retry_pacing": "passed",
+    "checkpoint": "skip, changed input, failed replace passed",
+    "ffmpeg": "real local synthetic WAV conversion, duplicate and invalid input passed",
+    "batch_failure": "TaskGroup propagated",
+    "realtime": "sequence and expiry passed",
+    "benchmark": {
+      "one_worker": {
+        "workers": 1,
+        "count": 100,
+        "elapsed": 0.7186047499999404,
+        "completed_per_second": 139.1585569118605,
+        "success_per_second": 134.9838002045047,
+        "avg": 0.36562618795142043,
+        "p95": 0.685835959011456,
+        "errors": 3,
+        "error_rate": 0.03
+      },
+      "four_workers": {
+        "workers": 4,
+        "count": 100,
+        "elapsed": 0.17710162498406135,
+        "completed_per_second": 564.6475576325159,
+        "success_per_second": 547.7081309035405,
+        "avg": 0.08950472665135749,
+        "p95": 0.16771412501111627,
+        "errors": 3,
+        "error_rate": 0.03
+      }
+    }
+  },
+  "limits": [
+    "未访问真实ASR/TTS服务，未运行模型或GPU，未访问麦克风",
+    "ffmpeg仅处理本机生成的短合成WAV",
+    "本机并发耗时只验证worker参数生效，不作为容量基准"
+  ]
+}

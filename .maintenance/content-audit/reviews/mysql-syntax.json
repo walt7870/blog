@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/basic-syntax.md",
+      "status": "verified",
+      "reviewedHash": "aa844de49533eb654701857beea28e8e144ae95dc961a01bd2287acf978e7ec3",
+      "pageType": "统一订单数据集的SQL语义与事务入门",
+      "decision": "完整阅读旧2627行，以客户、订单和明细重写连续练习。修WHERE/HAVING不等价、外连接条件/计数、重复关联金额、不稳定分页、普通SQL直接IF、库存扣减后查负数的错误验收、DDL隐式提交与原子DDL混淆、REPLACE/IGNORE语义、SQL转义/大小写、INITCAP与SHOW KEYWORDS不存在等；补窗口与集合版本边界、参数化及标识符白名单，新增逻辑查询关系SVG并区别物理执行计划。",
+      "validation": [
+        "Oracle8.4 UNION、隐式提交、字符串字面量正文核对。/tmp/blog-mysql-syntax-check.mjs在独立MySQL8.4.11执行全部12个SQL围栏；支付2/89.90、三客户外连接、窗口119.90/20、集合结果、影响行数/保存点/DDL不可回滚、字符8/字节12、绑定101/50通过；反例含外键1452、CHECK3819、无效函数1305/语法1064及注入输入匹配0。未将样本正确性外推生产性能",
+        "SVG xmllint、实际中文文字画布边界与截图通过。19.59秒生产构建后重启preview；1280桌面及实际390×844手机亮深色、图片放大/原尺寸/关闭通过，无破图、全页横向溢出或客户端error，viewport reset"
+      ]
+    }
+  ]
+}

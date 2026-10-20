@@ -1,0 +1,160 @@
+{
+  "pages": [
+    {
+      "file": "docs/tools/editor/andorid-studio/index.md",
+      "status": "verified",
+      "reviewedHash": "1593b7abe0f11d6ce2f89cb2274b54b4b087933bd19b6f156c1f6e83f8394c7c",
+      "pageType": "IDE与构建排错",
+      "decision": "区分IDE JBR、Gradle运行JVM、Daemon criteria、编译toolchain和Android SDK，按实际失败链路给出入口与验证；补独立流程图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/sdkman/index.md",
+      "status": "verified",
+      "reviewedHash": "c6b3f7d5686b529ea22e6c495f3eddd8a495e54c02d882c39977748b176d4e27",
+      "pageType": "JVM环境管理",
+      "decision": "修正sdk env显式加载和auto-env条件，补clear与Wrapper、IDE、已有进程边界及环境作用域图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/vfox/index.md",
+      "status": "verified",
+      "reviewedHash": "af81ded47f931b404f3914fd458b73aec8f3b22fe0dafc29eddb2b1c6e39ea12",
+      "pageType": "多语言运行时管理",
+      "decision": "按本机1.0.11修正.vfox.toml和install --all、项目优先级及shell activate；删除无效命令和递归chmod，补作用域图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/index.md",
+      "status": "verified",
+      "reviewedHash": "fac958be928d2ffaba74e766dc149f7c58ee487ca745a5dfa24f152f48329669",
+      "pageType": "编辑模型与操作入口",
+      "decision": "补操作符、范围、寄存器编辑图，解释cw特例、宏回车、可视行与字符范围；保留真实编辑任务与验收。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/plugin.md",
+      "status": "verified",
+      "reviewedHash": "4f4c28e3621c1bf30d8adb077c37073a7ed65ff6591a329abdd87d3b47b707e9",
+      "pageType": "插件职责与配置排错",
+      "decision": "补插件边界图与独立dotfiles流程，说明--noplugin仍加载vimrc；删除无条件qall!。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/register.md",
+      "status": "verified",
+      "reviewedHash": "0dc33eba3f28a6e871900fc2f2284ceabdf1fb6f66551d0c879a783dbea04e13",
+      "pageType": "寄存器与剪贴板",
+      "decision": "修正具名yank不更新0寄存器、黑洞及clipboard/provider边界；补寄存器路由图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/vim/special.md",
+      "status": "verified",
+      "reviewedHash": "82caf3519a05ad5ef6490c5278bdbec38eda666ccaece4a24aee1f3c855e2762",
+      "pageType": "替换与范围验证",
+      "decision": "修可视选择与范围、ASCII单词类、替换确认步骤，补验证闭环图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/index.md",
+      "status": "verified",
+      "reviewedHash": "f25823948224ef62febd5dc0786ab9e3c56a1c149b8d027a5bf57d3f69165f44",
+      "pageType": "消息系统全景与选型",
+      "decision": "用订单支付例子提前展示首图，补同库Outbox、消费幂等、跨Topic顺序及订单条件更新边界，重画四张机制图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/kafka.md",
+      "status": "verified",
+      "reviewedHash": "2352497b6ca935212f704ef63c18c7616c1d0381f4026f19b15dda15adf4c74d",
+      "pageType": "分区日志与消费进度",
+      "decision": "修Kafka4仅KRaft、经典组与Share Group、acks/ISR/fsync和compaction边界；首图移到视频目录前，重画四图并修消费组连线。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/rabbitmq.md",
+      "status": "verified",
+      "reviewedHash": "5a4f158d9f480fa835cabeb7bbbc352fd66f4e284ccac7f6a7f9f01fd1d2b064",
+      "pageType": "路由与可靠投递",
+      "decision": "补mandatory/return、DLX可靠性条件、TTL队首限制及4.x Classic不复制；重画三张路由与订单图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/rocketmq.md",
+      "status": "verified",
+      "reviewedHash": "0b52244f9c0e5d6254ebf104470b31f0c6ec412c448eda56092681c555d9d156",
+      "pageType": "交易消息与版本边界",
+      "decision": "区分4.x Queue与5.x MessageGroup顺序，补UNKNOWN回查及复制、刷盘、选主边界；四图重画并修Broker注册方向。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    },
+    {
+      "file": "docs/tools/mq/pulsar/index.md",
+      "status": "verified",
+      "reviewedHash": "79c679219b501a6145514a236fed99f8ae5fd4cdc3671a30fa269656399b862c",
+      "pageType": "订阅与存算分离",
+      "decision": "补Key_Shared batching约束、Delayed Delivery订阅限制、TTL/配额及元数据恢复边界；重画三张机制与订单图。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对；25张图独立1120px浏览器检查及双视口键盘放大、原尺寸、关闭共50次验证通过。",
+        "1280×720与390×844浅深色截图检查、资源加载、页面宽度及逐页客户端站内跳转通过；最新完整构建14.61秒通过。",
+        "Vim临时缓冲区15项行为断言通过；Kafka16集B站view接口code0且标题匹配，仅验证元数据；官方版本与机制核对留维护证据。未运行真实MQ集群集成测试。"
+      ]
+    }
+  ]
+}

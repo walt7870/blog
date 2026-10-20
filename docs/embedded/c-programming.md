@@ -6,337 +6,111 @@ date: 2026-05-17
 
 # 嵌入式 C 编程
 
-嵌入式开发的主力语言是 C。不是因为 C 好写，而是因为 C 能精确控制内存布局、直接操作硬件地址、生成高效的机器码，且几乎所有 MCU 都有成熟的 C 编译器支持。
+采集节点会把传感器字节解析成数值，把数值装进缓冲区，再交给 UART 或 DMA。C 允许精确表达这些操作，也把边界检查、对象寿命和并发责任交给程序。这里聚焦硬件访问和数据合同；完整外设初始化见[外设驱动](./peripherals.md)。
 
-本篇不是 C 语言入门教程，而是聚焦"嵌入式场景下 C 的特殊用法"——那些在应用层开发中很少碰到，但在固件开发中天天要用的东西。
+![寄存器、普通内存与 DMA 的访问合同](/embedded/c-memory-contract.svg)
 
-## 一、指针与内存
+## 指针、寄存器与位字段
 
-### 指针即地址
+指针是带类型的地址引用，其大小和表示由目标 ABI 决定，不能概括成“32 位整数”。许多 Cortex-M 目标使用 32 位地址，但主机测试可能是 64 位。内存映射寄存器还要求特定访问宽度、顺序和副作用；应优先使用匹配芯片的 CMSIS/厂商头文件。
 
-在 MCU 上，指针就是一个 32 位整数，代表内存地址。操作外设寄存器的本质就是通过指针读写特定地址：
-
-```c
-// 直接操作 GPIOA 的输出数据寄存器
-#define GPIOA_ODR  (*(volatile uint32_t *)0x40020014)
-
-GPIOA_ODR |= (1 << 5);   // PA5 输出高电平（点亮 LED）
-GPIOA_ODR &= ~(1 << 5);  // PA5 输出低电平
-```
-
-### 函数指针
-
-中断向量表本质上是一个函数指针数组：
+以下是普通 `uint32_t` 值的字段更新函数，可在电脑上测试。它只修改 bit[5:4]，拒绝范围外的字段值，其他位保持原样。
 
 ```c
-typedef void (*IRQHandler)(void);
+#include <stdbool.h>
+#include <stdint.h>
+#include <stddef.h>
 
-__attribute__((section(".isr_vector")))
-const IRQHandler vector_table[] = {
-    (IRQHandler)&_estack,    // 初始栈指针
-    Reset_Handler,           // 复位向量
-    NMI_Handler,
-    HardFault_Handler,
-    // ...
-};
-```
-
-### 指针运算陷阱
-
-```c
-uint32_t *p = (uint32_t *)0x20000000;
-p++;  // 地址增加 4（不是 1），因为 sizeof(uint32_t) == 4
-```
-
-## 二、位操作
-
-MCU 的寄存器是按位控制的，位操作是最基本的技能。
-
-### 常用操作
-
-```c
-// 置位（Set bit）
-reg |= (1 << n);
-
-// 清位（Clear bit）
-reg &= ~(1 << n);
-
-// 翻转（Toggle bit）
-reg ^= (1 << n);
-
-// 读位（Read bit）
-if (reg & (1 << n)) { /* bit is set */ }
-
-// 设置多位字段
-reg = (reg & ~(0x3 << 4)) | (value << 4);  // 清除 bit[5:4] 再写入
-```
-
-### 位域（Bit Field）
-
-```c
-typedef struct {
-    uint32_t mode   : 2;   // bit[1:0]
-    uint32_t otype  : 1;   // bit[2]
-    uint32_t ospeed : 2;   // bit[4:3]
-    uint32_t pupd   : 2;   // bit[6:5]
-    uint32_t reserved : 25;
-} GPIO_MODER_Bits;
-```
-
-注意：位域的内存布局依赖编译器和平台，跨平台代码慎用。寄存器操作推荐用移位 + 掩码。
-
-## 三、volatile 关键字
-
-`volatile` 告诉编译器"这个变量可能被外部因素改变，不要优化掉对它的读写"。
-
-**必须用 volatile 的场景**：
-
-1. 硬件寄存器（外设可能随时改变寄存器值）
-2. 中断服务函数和主循环共享的变量
-3. 多任务共享变量（RTOS 环境）
-
-```c
-// 错误：编译器可能优化掉循环中的读取
-uint32_t *status = (uint32_t *)0x40020010;
-while (!(*status & 0x01)) {}  // 可能被优化成死循环
-
-// 正确：
-volatile uint32_t *status = (volatile uint32_t *)0x40020010;
-while (!(*status & 0x01)) {}  // 每次都真正读取硬件
-```
-
-```c
-// 中断与主循环共享
-volatile uint8_t rx_flag = 0;
-
-void USART1_IRQHandler(void) {
-    rx_flag = 1;  // 中断中置位
-}
-
-int main(void) {
-    while (1) {
-        if (rx_flag) {   // 主循环检测
-            rx_flag = 0;
-            process_data();
-        }
-    }
+bool set_mode(uint32_t original, uint32_t mode, uint32_t *out) {
+    if (out == NULL || mode > UINT32_C(3)) return false;
+    const uint32_t mask = UINT32_C(3) << 4;
+    *out = (original & ~mask) | ((mode << 4) & mask);
+    return true;
 }
 ```
 
-## 四、const 的嵌入式用法
+用于寄存器前还要查手册：读写普通配置寄存器可以采用掩码操作；写 1 清零（W1C）、读清零和只写寄存器不能套用读改写。STM32F4 的 GPIO BSRR 用独立的置位/复位写入避免 ODR 的读改写竞争，但不会让多次写入自动组成事务。移位使用无符号数，并验证移位量小于类型位宽。
 
-`const` 修饰的全局变量会被放到 Flash（.rodata 段）而不是 SRAM（.data 段）。在 RAM 紧张的 MCU 上，把查找表、字符串、配置数据声明为 const 能节省宝贵的 RAM。
+## volatile 不提供线程同步
 
-```c
-// 放在 Flash，不占 RAM
-const uint16_t sin_table[256] = { /* ... */ };
-const char firmware_version[] = "v1.2.3";
+`volatile` 用于表达访问不能被当作普通内存读写随意消除或合并，具体语义仍受编译器和目标约定约束。它不保证读改写原子性、不建立线程间 happens-before，也不是 DMA Cache 维护或内存屏障的替代品。
 
-// 放在 RAM（浪费）
-uint16_t sin_table[256] = { /* ... */ };
-```
+例如 ISR 置 `rx_flag=1`，主循环先判断后清零；两步之间再次中断，第二次通知可能被清掉。给标志加 `volatile` 仍然丢事件。需要累计事件时可用 RTOS 的 ISR 安全队列或计数通知；裸机则在平台支持的短临界区内取走计数，并处理计数上限。使用 C 原子操作前确认目标实现是否无锁，以及是否允许在 ISR 中使用，不能让 ISR 调入会阻塞的库实现。
 
-## 五、结构体与内存对齐
+## 字节解析与对象寿命
 
-### 对齐规则
-
-ARM Cortex-M 要求数据按自然对齐访问（uint32_t 地址必须是 4 的倍数）。编译器会自动插入填充字节：
+把网络字节强制转成结构体指针，可能同时踩到对齐、字节序、对象有效类型和越界问题。`packed` 只影响布局，不解决全部问题。下面显式读取两个大端字节，空指针和短包都拒绝。
 
 ```c
-struct Bad {
-    uint8_t  a;   // offset 0
-    // 3 bytes padding
-    uint32_t b;   // offset 4
-    uint8_t  c;   // offset 8
-    // 3 bytes padding
-};  // sizeof = 12
+bool read_u16_be(const uint8_t *buf, size_t len, uint16_t *out) {
+    if (buf == NULL || out == NULL || len < 2) return false;
+    *out = (uint16_t)(((uint16_t)buf[0] << 8) | buf[1]);
+    return true;
+}
 
-struct Good {
-    uint32_t b;   // offset 0
-    uint8_t  a;   // offset 4
-    uint8_t  c;   // offset 5
-    // 2 bytes padding
-};  // sizeof = 8
+bool elapsed(uint32_t now, uint32_t since, uint32_t interval) {
+    return (uint32_t)(now - since) >= interval;
+}
 ```
 
-### packed 属性
+无符号 tick 差值允许跨一次计数回绕，但前提是实际经过时间没有达到完整计数周期，且周期内持续检查；它不是任意长时间的时间戳。周期调度还要决定超时后补跑、跳过还是重新起算，不能在延迟很久后无限补任务。
 
-通信协议解析时经常需要取消对齐填充：
+局部缓冲区并非永远不能用于 DMA，关键在于 DMA 完成前对象仍存活且不被修改。异步发送函数返回后，自动局部数组通常失效；静态数组解决寿命却未解决重入。应明确谁持有、何时释放、错误和取消后何时停止硬件访问。
 
-```c
-typedef struct __attribute__((packed)) {
-    uint8_t  header;
-    uint16_t length;
-    uint32_t timestamp;
-    uint8_t  payload[64];
-    uint16_t crc;
-} Packet;
-```
+## 链接地址与启动初始化
 
-注意：packed 结构体在某些平台上访问未对齐字段会触发 HardFault 或性能下降。
+`const` 表示不可通过该限定类型修改对象，不保证对象一定放在 Flash。最终位置由链接脚本、节属性和加载方式决定。用 ELF 的段表和 map 文件验证，而不是从声明猜测 SRAM 用量。
 
-## 六、链接脚本
-
-链接脚本（.ld 文件）告诉链接器如何把编译后的段放到 MCU 的物理内存中。
+典型 Cortex-M Flash 启动需要向量表、`.data` 的加载地址与运行地址、`.bss` 清零和栈边界。下面仅展示 GNU ld 的段关系；`FLASH`/`RAM` 区域、栈堆、异常展开和其他运行库段应沿用具体芯片完整脚本，不能独立烧录。
 
 ```ld
-MEMORY {
-    FLASH (rx)  : ORIGIN = 0x08000000, LENGTH = 512K
-    RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
-}
-
-SECTIONS {
-    .text : {           /* 代码段 → Flash */
-        *(.isr_vector)
-        *(.text*)
-        *(.rodata*)
-    } > FLASH
-
-    .data : {           /* 已初始化全局变量 → RAM（初始值存 Flash） */
-        _sdata = .;
-        *(.data*)
-        _edata = .;
-    } > RAM AT > FLASH
-
-    .bss : {            /* 未初始化全局变量 → RAM（启动时清零） */
-        _sbss = .;
-        *(.bss*)
-        *(COMMON)
-        _ebss = .;
-    } > RAM
-
-    _estack = ORIGIN(RAM) + LENGTH(RAM);  /* 栈顶 */
-}
+/* 位于目标链接脚本的 SECTIONS 内 */
+.isr_vector : { KEEP(*(.isr_vector)) } > FLASH
+.text : { *(.text*) *(.rodata*) . = ALIGN(4); } > FLASH
+.data : {
+    . = ALIGN(4); _sdata = .;
+    *(.data*)
+    . = ALIGN(4); _edata = .;
+} > RAM AT > FLASH
+_sidata = LOADADDR(.data);
+.bss (NOLOAD) : {
+    . = ALIGN(4); _sbss = .;
+    *(.bss*) *(COMMON)
+    . = ALIGN(4); _ebss = .;
+} > RAM
 ```
 
-理解链接脚本才能做：自定义 Bootloader 分区、把关键函数放到 RAM 执行（提速）、多固件共存。
+复位处理程序把 `_sidata` 开始的初值复制到 `_sdata.._edata`，再清零 `_sbss.._ebss`。系统初始化和 C/C++ 运行库初始化的顺序应核对当前启动文件，尤其是外部 RAM 与构造函数；不能随意照抄另一块板子的汇编。向量表首项是初始栈指针，不宜把整个表描述为纯函数指针数组。
 
-## 七、启动文件
+## 验证与排错
 
-启动文件（startup_xxx.s）是 MCU 上电后执行的第一段代码，用汇编写：
-
-```asm
-Reset_Handler:
-    ldr   sp, =_estack       /* 设置栈指针 */
-    
-    /* 拷贝 .data 段从 Flash 到 RAM */
-    ldr   r0, =_sdata
-    ldr   r1, =_edata
-    ldr   r2, =_sidata
-copy_loop:
-    cmp   r0, r1
-    bge   zero_bss
-    ldr   r3, [r2], #4
-    str   r3, [r0], #4
-    b     copy_loop
-
-    /* 清零 .bss 段 */
-zero_bss:
-    ldr   r0, =_sbss
-    ldr   r1, =_ebss
-    mov   r2, #0
-bss_loop:
-    cmp   r0, r1
-    bge   call_main
-    str   r2, [r0], #4
-    b     bss_loop
-
-call_main:
-    bl    SystemInit          /* 配置时钟 */
-    bl    main                /* 进入用户代码 */
-    b     .                   /* main 不应返回，死循环兜底 */
-```
-
-## 八、裸机编程范式
-
-不用 RTOS 时，常见的程序结构：
-
-### 超级循环（Super Loop）
+把前两段代码放进 `logic.c`，追加下面入口，可先验证与芯片无关的边界。
 
 ```c
-int main(void) {
-    system_init();
-    
-    while (1) {
-        task_sensor_read();
-        task_display_update();
-        task_communication();
-    }
-}
-```
-
-问题：如果某个 task 耗时长，其他 task 响应变慢。
-
-### 时间片轮询
-
-```c
-static uint32_t tick = 0;
-
-void SysTick_Handler(void) { tick++; }
+#include <assert.h>
 
 int main(void) {
-    system_init();
-    
-    while (1) {
-        if (tick - last_sensor >= 100) {    // 每 100ms
-            last_sensor = tick;
-            task_sensor_read();
-        }
-        if (tick - last_display >= 500) {   // 每 500ms
-            last_display = tick;
-            task_display_update();
-        }
-        if (tick - last_comm >= 10) {       // 每 10ms
-            last_comm = tick;
-            task_communication();
-        }
-    }
+    uint32_t value = 0;
+    uint16_t word = 0;
+    const uint8_t bytes[] = {0x12, 0x34};
+    assert(set_mode(UINT32_C(0xffff), 2, &value));
+    assert(value == UINT32_C(0xffef));
+    assert(!set_mode(0, 4, &value));
+    assert(!set_mode(0, 1, NULL));
+    assert(read_u16_be(bytes, sizeof bytes, &word) && word == 0x1234);
+    assert(!read_u16_be(bytes, 1, &word));
+    assert(!read_u16_be(NULL, 2, &word));
+    assert(elapsed(3, UINT32_MAX - 6, 10));
+    assert(!elapsed(2, UINT32_MAX - 6, 10));
+    return 0;
 }
 ```
 
-### 状态机
-
-复杂逻辑用状态机拆解：
-
-```c
-typedef enum { IDLE, CONNECTING, SENDING, WAITING_ACK, ERROR } State;
-
-void task_communication(void) {
-    static State state = IDLE;
-    
-    switch (state) {
-    case IDLE:
-        if (has_data_to_send()) state = CONNECTING;
-        break;
-    case CONNECTING:
-        start_connection();
-        state = SENDING;
-        break;
-    case SENDING:
-        send_packet();
-        state = WAITING_ACK;
-        break;
-    case WAITING_ACK:
-        if (ack_received()) state = IDLE;
-        else if (timeout()) state = ERROR;
-        break;
-    case ERROR:
-        reset_connection();
-        state = IDLE;
-        break;
-    }
-}
+```bash
+cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined logic.c -o logic
+./logic
 ```
 
-## 九、常见陷阱
+主机通过后，再用目标工具链检查段和指令，并在板上验证寄存器行为。HardFault 排查保存故障寄存器、栈帧 PC/LR、构建对应 ELF 与复现输入；不是所有 Cortex-M 都支持同一组故障寄存器或非对齐访问。ISR 标志的清除顺序按具体外设手册执行，不能统一规定“进入 ISR 第一件事清标志”。
 
-| 陷阱                  | 后果                | 防范                              |
-| ------------------- | ----------------- | ------------------------------- |
-| 栈溢出                 | HardFault 或数据损坏   | 控制递归深度、减少局部大数组、用静态分析工具检查栈深度    |
-| 未初始化变量              | 随机行为              | 开启 -Wall -Werror，.bss 段启动时清零   |
-| 中断中操作非原子变量          | 数据竞争              | 关中断保护、用 volatile + 原子操作        |
-| 整数溢出                | 计算错误              | 用 uint32_t 做定时器差值比较，避免有符号溢出    |
-| 指针越界                | 写坏其他变量或外设寄存器      | 边界检查、MPU 保护                    |
-| 忘记清中断标志             | 中断反复触发            | ISR 里第一件事就是清标志                  |
-
-返回 [总览与学习路线](./index.md)
+返回[总览](./index.md)。

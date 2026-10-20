@@ -8,6 +8,8 @@ Bun 适合新工具链试点、内部工具、脚手架、构建脚本和对安�
 
 前端静态应用只把 Bun 用作安装器和脚本执行器时，迁移风险通常低于把 Bun 作为服务端运行时。
 
+![Bun依赖安装、脚本信任与运行验证](/front/package-managers/bun-script-trust.svg)
+
 ## 常用命令
 
 ```bash
@@ -41,22 +43,26 @@ bunx create-vite
     "build": "vite build",
     "test": "vitest"
   },
-  "packageManager": "bun@1.2.0"
+  "packageManager": "bun@1.3.0"
 }
 ```
 
-Bun 会生成自己的锁文件。迁移时不要同时保留 `package-lock.json`、`pnpm-lock.yaml`、`yarn.lock` 和 Bun 锁文件。
+Bun1.2起新项目默认使用文本`bun.lock`，老项目可能仍有`bun.lockb`。迁移先保留旧基线，明确转换锁与CI步骤。`packageManager`记录预期工具，不意味着Corepack会管理Bun，二进制安装与版本检查另行配置。
 
 ## 迁移验证
 
 ```bash
-rm -rf node_modules
+# 在独立副本验证，保留原锁文件基线
+bun --version
 bun install
+bun install --frozen-lockfile
 bun run build
 bun run test
 ```
 
-如果项目依赖 `postinstall`、原生模块、特定 npm 生命周期脚本或复杂 Workspace，迁移后要额外确认这些脚本是否按预期执行。
+如果依赖`postinstall`、原生模块或Workspace，要确认脚本实际执行。Bun不默认执行任意依赖生命周期脚本，内置受信任名单和项目`trustedDependencies`影响执行结果；安装退出0不代表原生扩展已构建。
+
+显式允许脚本前先审查来源和用途，再用固定Bun版本验证名单语义，不为单个包全局信任所有依赖。业务脚本的shebang、Node API、模块加载与平台扩展分别测试：用Bun安装一个包，不代表该包一定在Bun运行时执行。
 
 ## 排查
 

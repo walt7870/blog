@@ -1,0 +1,29 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/hpa.md",
+      "status": "verified",
+      "reviewedHash": "b511f208b4d39c21c07cdc6e8d620b5f24b1e22dc6aa50415371e5b666162d8a",
+      "pageType": "反馈伸缩、指标合同与容量延迟",
+      "decision": "全文复读，以4副本130%/65%解释基础建议8与requests分母，补metrics适配器、策略窗口、多指标失败和字段所有权，修复PDB可保护HPA缩容的误导。",
+      "findings": [{"kind":"mobile-diagram-layout","status":"resolved","detail":"移除手机固定760px规则；390px浏览器截图确认图片与容器均342px，完整缩略显示，原尺寸仍可放大横滚。共享主题最终逐页复验仍待完成。"}],
+      "validation": ["核对HPA官方算法、指标、ContainerResource相关段。1段YAML和1段Bash解析通过；1280×900/390×844双主题全页检查、图片原尺寸加载1120并关闭、手机超宽代码scrollLeft11.5/40、页面宽390、分页至VPA通过。构建13.82秒通过；无集群伸缩或压测实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/vpa.md",
+      "status": "verified",
+      "reviewedHash": "2a91c4fe6a2151f001029d451fd271dc01a37a621f04426c925c4656d428c67e",
+      "pageType": "资源建议、更新模式与驱逐恢复",
+      "decision": "全文复读，补128Mi/350Mi场景、显式Off与容器策略、RequestsOnly及默认RequestsAndLimits边界、request/limit冲突、原地更新版本能力和停止更新不还原资源，新增建议读取与Recreate生效路径图。",
+      "validation": ["官方components全文及api模式/策略字段核对。1段YAML和2段Bash解析通过；新SVG自检、1120原尺寸实际中文字体和截图通过。桌面手机双主题全页、两端图片原尺寸1120加载关闭、手机超宽代码scrollLeft35.5/40、页面宽390及分页至PDB通过。构建13.82秒通过；未安装或运行VPA。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/poddisruptionbudget.md",
+      "status": "verified",
+      "reviewedHash": "c7e01145db1214f50d10f65c9d65cdf8f9e5da088c8fd058acb1abb67fdc0f41",
+      "pageType": "健康预算、自愿驱逐与维护边界",
+      "decision": "全文复读，以3副本minAvailable2解释预算变化，补百分比取整、HPA缩容和DELETE边界、selector重叠、异常Pod策略、状态代数局限；修正drain先补后驱保证并新增健康状态对比图。",
+      "validation": ["官方PDB和drain两篇全文阅读。1段YAML和1段Bash解析通过；SVG自检及原尺寸实际字体和全图截图通过。两端双主题全页、图片原尺寸1120加载关闭、手机长代码scrollLeft38.5、页面宽390及分页至LimitRange通过。构建13.82秒通过；无真实驱逐或业务可用性实验。"]
+    }
+  ]
+}

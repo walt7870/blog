@@ -1,192 +1,79 @@
 # 并发、异步与运行时
 
-Rust 对并发的核心态度是：允许你写高性能并发程序，但不把数据竞争留到运行时碰运气。很多并发错误会在编译期被拒绝。
+导出服务可能同时收到许多请求，但一次只能生成少量文件。关键不是“创建多少任务”，而是限定排队数量、决定谁持有数据、区分失败与取消，并在关闭时等待资源回收。Rust 的类型约束能帮助防止数据竞争，业务并发合同仍要单独设计。
 
-## 并发与并行
+![导出请求的有界排队、执行与关闭](/rust/bounded-work-lifecycle.svg)
 
-- 并发：多个任务在同一时间段内推进，重点是结构。
-- 并行：多个任务在同一时刻真正同时运行，重点是执行。
+## 线程与数据转移
 
-Rust 标准库提供线程、锁、通道、原子类型等基础能力；异步运行时和网络生态主要由社区库提供，例如 Tokio、async-std、smol。
+并发描述多个任务在一段时间内推进，并行描述同一时刻真正同时执行。标准库提供线程、锁和通道；线程的 `join` 等待结束，`move` 闭包按捕获方式接管数据。`move` 也可能移动一个引用，并不会自动把引用指向的对象变成长期有效。
 
-## 线程
-
-最基本的线程示例：
+下面只使用标准库，容量为 2 的同步通道在队列满时阻塞生产者；消费者取出消息后空出容量，发送返回并不等于任务完成。
 
 ```rust
-use std::thread;
+use std::{sync::mpsc::sync_channel, thread};
 
 fn main() {
-    let handle = thread::spawn(|| {
-        println!("hello from thread");
+    let (tx, rx) = sync_channel::<String>(2);
+    let worker = thread::spawn(move || {
+        let mut completed = 0;
+        for job in rx {
+            println!("导出 {job}");
+            completed += 1;
+        }
+        completed
     });
-
-    handle.join().unwrap();
-}
-```
-
-`join` 会等待子线程结束。`unwrap` 在示例中用于简化处理，真实业务里应根据需要处理错误。
-
-## move 闭包
-
-跨线程传递数据时，经常使用 `move` 把所有权转移进线程：
-
-```rust
-use std::thread;
-
-fn main() {
-    let values = vec![1, 2, 3];
-
-    let handle = thread::spawn(move || {
-        println!("{values:?}");
-    });
-
-    handle.join().unwrap();
-}
-```
-
-如果不移动所有权，子线程可能比当前作用域活得更久，引用就可能失效。Rust 会阻止这种不安全情况。
-
-## Send 与 Sync
-
-Rust 并发安全依赖两个重要 Trait：
-
-| Trait | 含义 |
-| --- | --- |
-| `Send` | 类型的值可以安全地转移到另一个线程 |
-| `Sync` | 类型的引用可以安全地被多个线程共享 |
-
-多数基础类型自动满足这些约束。某些类型不满足，例如 `Rc<T>` 不能跨线程共享，应改用 `Arc<T>`。
-
-## 消息传递
-
-通道适合让线程之间通过消息通信：
-
-```rust
-use std::sync::mpsc;
-use std::thread;
-
-fn main() {
-    let (tx, rx) = mpsc::channel();
-
-    thread::spawn(move || {
-        tx.send(String::from("hello")).unwrap();
-    });
-
-    let message = rx.recv().unwrap();
-    println!("{message}");
-}
-```
-
-这种模式的优势是共享状态少，线程之间边界清楚。
-
-## 共享状态
-
-需要多个线程访问同一份数据时，可以使用 `Arc<Mutex<T>>`：
-
-```rust
-use std::sync::{Arc, Mutex};
-use std::thread;
-
-fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = Vec::new();
-
-    for _ in 0..4 {
-        let counter = Arc::clone(&counter);
-        handles.push(thread::spawn(move || {
-            let mut value = counter.lock().unwrap();
-            *value += 1;
-        }));
+    for id in ["order-1", "order-2", "order-3"] {
+        tx.send(id.to_owned()).expect("工作线程提前退出");
     }
-
-    for handle in handles {
-        handle.join().unwrap();
-    }
-
-    println!("{}", *counter.lock().unwrap());
+    drop(tx);
+    assert_eq!(worker.join().expect("工作线程panic"), 3);
 }
 ```
 
-`Arc` 负责多线程引用计数，`Mutex` 负责互斥访问。Rust 类型系统会迫使你明确写出共享和加锁策略。
+`drop(tx)` 关闭最后一个发送端后，接收端读完存量消息才退出。如果发送端克隆还活着，消费者可能一直等；无界通道则可能把过载变成内存持续增长。真实服务需选择等待、超时或立即拒绝，不能无限等待后仍称作限流。
 
-## 异步编程
+## Send、Sync与共享状态
 
-Rust 的异步模型基于 `Future`。`async fn` 返回一个尚未执行完成的未来值，只有被运行时轮询时才推进：
+`Send` 表示值可以安全转移到另一个线程；`Sync` 表示 `&T` 可以安全跨线程共享。`Arc<T>` 只管理原子引用计数，是否能跨线程仍取决于 `T`。例如 `Arc<RefCell<T>>` 不会自动变成线程安全存储。
 
-```rust
-async fn fetch_user(id: u64) -> Result<String, reqwest::Error> {
-    let url = format!("https://example.com/users/{id}");
-    let text = reqwest::get(url).await?.text().await?;
-    Ok(text)
-}
-```
+`Arc<Mutex<T>>` 可以保护符合相应约束的数据，但检查库存与扣减必须在同一临界区或数据库事务内。分别加锁读取、解锁、再加锁写入，依然可能产生业务竞态。锁顺序、死锁、重复处理与分布式一致性都超出编译器的数据竞争保证。
 
-`.await` 表示当前任务可以让出执行权，等待 I/O 完成后再继续。
+## Future与运行时
 
-## 为什么需要运行时
+调用 `async fn` 得到 Future；其函数体在被轮询时推进。`.await` 轮询子 Future，只有遇到未就绪等情况才可能挂起，立即就绪时可能继续执行，不能把每次 `.await` 都当成公平让出CPU。
 
-Rust 标准库定义了 `Future` 抽象，但不内置完整异步运行时。网络 I/O、定时器、任务调度通常由运行时提供。
-
-最常见的是 Tokio：
+标准库定义 Future 等抽象，Tokio之类运行时提供调度、I/O和定时器。下面片段需要 `tokio = { version = "1", features = ["macros", "rt", "sync", "time"] }`：
 
 ```rust
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
-    println!("async Rust");
+    let (tx, mut rx) = tokio::sync::mpsc::channel::<u64>(2);
+    let worker = tokio::spawn(async move {
+        let mut total = 0;
+        while let Some(id) = rx.recv().await { total += id; }
+        Ok::<u64, &'static str>(total)
+    });
+    for id in 1..=3 { tx.send(id).await.expect("消费者关闭"); }
+    drop(tx);
+    match worker.await {
+        Ok(Ok(total)) => assert_eq!(total, 6),
+        Ok(Err(error)) => panic!("业务失败：{error}"),
+        Err(error) => panic!("任务失败：{error}"),
+    }
 }
 ```
 
-Tokio 提供异步 TCP/UDP、文件、定时器、任务调度、同步原语等能力，是 Rust 后端服务和网络程序里的主流选择之一。
+这是单线程运行时上的并发，不是多核并行。`tokio::spawn` 的任务通常要求 `Send + 'static`；局部非Send任务可有专门入口。CPU密集计算和阻塞库会占住执行线程，应放进受控线程池或合适的阻塞任务入口，并限制并发数。`spawn_blocking` 的已启动工作通常不能用 `abort` 直接停止，仍需协作式退出。
 
-## async 不等于多线程
+## 超时、取消与关闭
 
-异步任务可以在单线程运行，也可以由多线程运行时调度。它解决的主要是 I/O 等待期间的资源利用率问题，而不是自动让 CPU 密集任务变快。
+取消 Future 一般意味着丢弃后续轮询，并不回滚已经发送的支付请求或已提交事务。调用超时也可能是结果未知，重试之前应查状态并使用幂等标识。`JoinHandle` 被丢弃时，Tokio任务通常继续运行；调用 `abort` 后还应等待句柄，确认退出并处理已发生的副作用。
 
-经验上：
+关闭服务时先停止接收新任务，再关闭发送端，按约定排空队列或标记未完成，最后等待工作任务与资源关闭。超时策略必须说明剩余任务如何恢复，不能只调用一个取消函数就报告全部处理成功。
 
-- I/O 密集：适合 async。
-- CPU 密集：适合线程池、并行迭代或专门任务队列。
-- 简单脚本或工具：同步代码通常更清晰。
+`Pin` 约束的是被固定目标的移动，并不表示持有它的指针句柄完全不能移动；`Unpin` 类型又有不同条件。普通异步应用优先使用运行时与安全库封装，避免为了消除错误手写不受证明的 `unsafe` 投影。
 
-## Pin 与 Future 的直观理解
+## 验收与定位
 
-入门阶段经常会看到 `Pin`，但不必一开始深入。可以先理解为：某些异步状态机内部保存了自引用关系，运行过程中不能随意移动内存位置，`Pin` 用类型系统表达这种限制。
-
-日常业务代码一般通过 `async fn`、`.await`、运行时和库封装使用异步，不需要手写复杂 `Future`。
-
-## 并发中的错误处理
-
-线程和异步任务都有“任务本身失败”和“业务逻辑失败”两层错误：
-
-```rust
-let handle = tokio::spawn(async {
-    Ok::<_, std::io::Error>("done")
-});
-
-let result = handle.await;
-```
-
-`await` 可能返回任务调度层面的错误，任务内部还可能返回业务错误。实际项目中要明确区分这两层。
-
-## 常见陷阱
-
-- 在异步函数中执行长时间阻塞操作，导致运行时线程被占住。
-- `Mutex` 锁范围过大，甚至跨 `.await` 持有锁。
-- 为了绕过所有权问题过度使用 `Arc<Mutex<T>>`。
-- 在 CPU 密集任务中误以为 async 会自动并行。
-- 忽略任务取消、超时和背压。
-
-## 实践建议
-
-- 优先用所有权转移和消息传递减少共享状态。
-- 共享状态必须明确 `Arc`、`Mutex`、`RwLock` 的责任边界。
-- 异步服务里给外部调用加超时。
-- 高并发系统要关注连接池、队列长度、限流和背压。
-- 不要在库中强绑定某个异步运行时，除非领域本身要求。
-
-## 参考资料
-
-- Fearless Concurrency：https://doc.rust-lang.org/book/ch16-00-concurrency.html
-- Async Book：https://rust-lang.github.io/async-book/
-- Tokio：https://tokio.rs/
+分别记录入队等待、队列长度、执行时长和结果状态。入队变慢说明生产速率超过处理能力或消费者卡住，不能只增加队列容量；吞吐不足要检查I/O、锁范围、CPU及外部服务。测试应覆盖满队列、接收端提前关闭、任务panic、业务失败、关闭排空与取消后的重复请求，不能把“能编译”当成负载或恢复验证。

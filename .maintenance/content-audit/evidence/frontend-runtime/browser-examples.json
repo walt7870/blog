@@ -1,0 +1,38 @@
+[
+  {
+    "case": "dom-text-and-repeat",
+    "before": {
+      "images": 0,
+      "items": 2,
+      "text": "桌面收纳盒<img src=x onerror=alert(1)>"
+    },
+    "after": {
+      "images": 0,
+      "items": 2,
+      "text": "桌面收纳盒<img src=x onerror=alert(1)>"
+    }
+  },
+  {
+    "case": "delegation-inner-span-and-keyboard",
+    "one": {
+      "focused": "移除收纳架",
+      "items": 1,
+      "status": "已移除：box"
+    },
+    "empty": {
+      "focus": "cart-status",
+      "items": 0,
+      "status": "已移除：rack"
+    }
+  },
+  {
+    "case": "browser-event-loop",
+    "one": "A\nB\npromise\nmicrotask\ntimer\n",
+    "two": "inside\noutside\ncontinued\n"
+  },
+  {
+    "case": "browser-cors",
+    "allow": "allow:ok",
+    "block": "block:rejected"
+  }
+]

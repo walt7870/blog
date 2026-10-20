@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/archive.md",
+      "status": "verified",
+      "reviewedHash": "1b5f272fa00291b226a991cd8698de9d00f070941d8911a81f33c6fcb57bfac4",
+      "pageType": "归档机制与恢复实验",
+      "decision": "完整审查旧926行，区分归档、压缩、备份与恢复，补稳定视图、相对路径、元数据和增量链边界。移除有问题的清旧备份脚本、eval与流水线计数，修overwrite和gzip-f误解，补独立恢复流程SVG。",
+      "validation": ["正文全部Bash在Debian12临时容器执行成功，中文空格文件名、摘要、内容和符号链接检查通过并输出restore_verified。1280×800及390×844浅深色全页、超宽代码键盘滚动、图片原尺寸与关闭、客户端速查跳转通过；独立SVG实际中文尺寸与截图无裁切。构建13.46秒成功，本地引用零错误。未实测生产备份、ACL/xattr、增量恢复或恶意归档隔离。"]
+    },
+    {
+      "file": "docs/linux/command/archive-compress.md",
+      "status": "verified",
+      "reviewedHash": "abed22e28940eb00cc5b5649960fc830f7c403c0c2b605a302a37d830976b4f8",
+      "pageType": "压缩归档任务速查",
+      "decision": "完整审查旧446行，以任务选择工具，链接机制页，修bzip2-s低内存含义及压缩率固定排名，补保留原件实验并复用恢复图。",
+      "validation": ["正文全部Bash在临时Debian12执行成功，gzip/bzip2/xz格式测试和gzip恢复比较通过，输出gzip_roundtrip_verified。桌面手机浅深色全页、两列任务表、代码横滚、图片放大及下一页客户端跳转通过。ZIP/7z/RAR为明确的用法与边界，未当作实测。构建成功。"]
+    },
+    {
+      "file": "docs/linux/command/package.md",
+      "status": "verified",
+      "reviewedHash": "b9b0d9cc338f08214fa9343cb353bb9a009dab22acc8234efef19797ad4ca51c",
+      "pageType": "软件包来源与升级生命周期",
+      "decision": "完整审查旧1042行，按仓库索引、依赖计划、事务、运行服务和业务验收重组。补APT查询模拟，Signed-By与keyring格式，DNF4/5、Arch完整升级及降级边界，删除强行依赖与删锁建议，补升级链SVG。",
+      "validation": ["正文全部Bash在干净Debian12容器执行成功：gzip1.12-1状态、归属、policy和模拟计划符合预期，dpkg audit无问题；不修改宿主软件包。核对Debian apt/apt-secure/apt-key及sources.list的Signed-By段、Arch部分升级段。1280×800及390×844浅深色全页、代码横滚、图示原尺寸关闭通过；独立SVG文本与节点尺寸及截图通过。构建13.46秒成功。未执行真实升级、第三方仓库安装或其他发行版事务。"]
+    }
+  ]
+}

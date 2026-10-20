@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="docker-title docker-desc">
+  <title id="docker-title">Docker代理部署的端口映射与只读挂载</title>
+  <desc id="docker-desc">远端主机上Docker发布宿主端口到sing-box容器443，宿主机配置和证书目录只读挂载，日志由Docker daemon管理。客户端通过发布端口连接，远端容器访问目标。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="620" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="57" font-size="27" font-weight="700">固定镜像、发布端口、挂载目录分别核对</text>
+    <text x="48" y="91" font-size="17" fill="#536470">Compose 单副本示例；容器身份必须能读取宿主机挂载的配置和私钥。</text>
+    <rect x="276" y="126" width="570" height="421" rx="6" fill="none" stroke="#a4b3be" stroke-dasharray="7 5"/>
+    <text x="296" y="157" font-size="18" fill="#536470">远端 Docker 主机</text>
+    <rect x="349" y="276" width="425" height="139" rx="5" fill="#e9f5f0" stroke="#7caaa0"/>
+    <text x="369" y="309" font-size="19" font-weight="700">容器：sing-box · 固定标签或摘要</text>
+    <text x="369" y="347" font-size="18">Trojan + TLS，监听容器 TCP 443</text>
+    <text x="369" y="382" font-size="17">/etc/sing-box/ 与 certs/ 子目录</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M231 331H349"/><path d="M774 331H881"/>
+      <path d="M556 234V276"/><path d="M460 460V415"/>
+      <path d="M662 415V460"/>
+    </g>
+    <rect x="48" y="285" width="183" height="96" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="67" y="322" font-size="21" font-weight="700">客户端内核</text>
+    <text x="67" y="355" font-size="17">连接宿主发布端口</text>
+    <rect x="881" y="285" width="191" height="96" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="900" y="322" font-size="21" font-weight="700">目标服务</text>
+    <text x="900" y="355" font-size="17">经远端网络出口</text>
+    <rect x="311" y="185" width="500" height="49" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="331" y="217" font-size="19">compose.yml + .env：镜像、端口、卷与重启策略</text>
+    <rect x="299" y="460" width="298" height="62" rx="4" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="317" y="486" font-size="16">宿主 /opt/network-proxy/</text>
+    <text x="317" y="510" font-size="16">config/ + certs/ → 只读挂载</text>
+    <rect x="620" y="460" width="203" height="62" rx="4" fill="#fff" stroke="#a4b3be"/>
+    <text x="636" y="486" font-size="16">Docker daemon 日志</text>
+    <text x="636" y="510" font-size="16">json-file 轮转与限额</text>
+    <rect x="238" y="297" width="104" height="24" fill="#f7f9fb"/><text x="242" y="315" font-size="14">443 → 443</text>
+    <text x="48" y="588" font-size="17" fill="#536470">示例只发布 TCP。镜像、端口、环境变量与挂载变更要 up -d 重建；restart 仅重启现有容器。</text>
+  </g>
+</svg>

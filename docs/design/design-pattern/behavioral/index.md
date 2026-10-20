@@ -1,210 +1,43 @@
 # 行为型模式总览
 
-行为型模式关注对象之间如何协作。它们解决的是算法替换、流程扩展、状态切换、事件通知、请求分发、撤销恢复等行为变化问题。
+行为型模式组织对象如何协作：算法由谁选择、请求经过谁、状态何时改变、操作如何记录。先定位变化的规则，再选择结构。分支多不是必须引入模式的理由，关键是变化是否需要独立维护和验证。
 
-![行为型模式总览](/design-pattern/behavioral-overview.svg)
+![导出任务中的行为协作](/design-pattern/behavioral-overview.svg)
 
-## 解决的核心问题
+## 沿一个导出任务理解协作
 
-行为型模式常出现在这些信号里：
+创建订单导出时，请求先经过权限、参数等检查，任一检查拒绝就停止，适合用责任链表达。确认合法后，用策略选择 CSV 或其他格式的生成算法；若不同格式都遵循“读取、转换、写出、收尾”的共同骨架，又可以用模板方法组织扩展点。策略选择可替换行为，模板方法固定局部步骤，两者回答的问题不同。
 
-- 一段逻辑里有大量 `if else` 或 `switch`，分支还会继续增加。
-- 算法经常切换，但调用方不应该关心算法细节。
-- 流程大体固定，但某些步骤由不同子类或扩展点实现。
-- 状态变化后，对象行为完全不同。
-- 一个事件发生后，需要通知多个对象。
-- 一个请求可能由多个处理器中的某一个处理。
-- 操作需要排队、记录、撤销、重做。
-- 数据结构稳定，但针对结构的操作不断增加。
+耗时导出可以封装为命令，由调度器执行，但命令对象本身不提供持久队列或防重复执行。任务从待处理变为执行中、成功或失败，状态模式帮助管理允许的操作；真正防止两个工作进程同时完成任务，还需要持久化版本或条件更新。
 
-行为型模式的共同目标是把协作逻辑从硬编码调用中拆出来，让职责更清晰。
+任务完成后，可以用观察者通知日志、页面刷新等订阅者。进程内回调不等于可靠消息：如果必须在崩溃后补发通知，就要有事件持久化、幂等与重试机制。相关边界见[事件驱动架构](../../architecture/event-driven-architecture.md)。
 
-## 十一种行为型模式
+## 按变化类型阅读
 
-| 模式 | 适合场景 | 直观理解 |
+| 要解决的变化 | 阅读入口 | 先确定什么 |
 | --- | --- | --- |
-| [策略](./strategy.md) | 算法可替换 | 同一目标，多种打法 |
-| [模板方法](./template-method.md) | 流程骨架固定，步骤可变 | 固定流程，开放步骤 |
-| [观察者](./observer.md) | 状态变化通知多个对象 | 发布订阅 |
-| [迭代器](./iterator.md) | 统一遍历集合 | 不暴露内部结构也能遍历 |
-| [责任链](./chain-of-responsibility.md) | 多个处理器依次尝试处理请求 | 审批流 |
-| [状态](./state.md) | 状态不同，行为不同 | 订单状态机 |
-| [命令](./command.md) | 请求需要对象化 | 可排队、可记录、可撤销的操作 |
-| [备忘录](./memento.md) | 保存和恢复状态 | 快照与撤销 |
-| [解释器](./interpreter.md) | 解释简单规则或表达式 | 小型规则引擎 |
-| [访问者](./visitor.md) | 数据结构稳定，操作常变化 | 给结构新增操作 |
-| [中介者](./mediator.md) | 多对象交互复杂 | 用协调中心减少互相依赖 |
+| 同一目标有不同算法 | [策略](./strategy.md) | 输入输出合同、选择规则与未知类型处理 |
+| 固定流程中的局部步骤不同 | [模板方法](./template-method.md) | 步骤顺序、必经步骤与资源收尾 |
+| 一个变化触发多个订阅者 | [观察者](./observer.md) | 通知顺序、异常隔离与取消订阅 |
+| 遍历集合而不暴露存储结构 | [迭代器](./iterator.md) | 结束条件、修改与并发语义 |
+| 多个节点决定处理或继续 | [责任链](./chain-of-responsibility.md) | 顺序、短路与每次请求的推进状态 |
+| 对象行为受生命周期约束 | [状态](./state.md) | 合法转移、重复操作与并发更新 |
+| 操作需要调度、记录或重放 | [命令](./command.md) | 操作身份、结果与幂等 |
+| 需要恢复某个对象的历史状态 | [备忘录](./memento.md) | 快照范围、容量与恢复版本 |
+| 需要解释受限表达式 | [解释器](./interpreter.md) | 语法、输入限制与执行预算 |
+| 节点种类稳定，操作持续增加 | [访问者](./visitor.md) | 分派方式、遍历归属与新节点成本 |
+| 多个对象互相调用难以管理 | [中介者](./mediator.md) | 协调边界与防止中心对象膨胀 |
 
-## 怎么选
+迭代器与访问者可以协作：前者负责“依什么顺序访问元素”，后者负责“对不同种类元素做什么”。解释器通常在语法树上求值；面对复杂语法应使用成熟解析工具，不把字符串拆分或执行任意脚本当作通用规则引擎。
 
-### 算法可替换
+## 用失败反例校验边界
 
-选择策略模式。比如不同折扣算法、路由算法、排序规则、支付费率计算。策略强调“同一件事有多种做法”。
+促销策略必须明确金额单位、适用门槛和结果范围。订单金额不足减免额时不能算出负数；未知策略也不能悄悄退回原价。策略注册、类型选择与结果合同都需要验证，不是拆出几个类就自动安全。
 
-### 流程固定，步骤可变
+订单取消同样需要状态合同。“支付已受理”“退款处理中”“退款成功”是不同事实，不能调用退款接口后立即把订单标为已退款或最终取消。重试、重复回调与并发取消必须按业务协议处理，状态类本身不是分布式事务。
 
-选择模板方法。比如导入流程固定为读取、校验、转换、保存，但每类文件的读取和转换不同。
+命令撤销与备忘录恢复也有边界。恢复本地编辑器的文字快照，不会撤销已经发出的邮件、删除支付流水或收回他人下载的文件。外部副作用需要新的补偿操作及其结果，不能借“撤销”二字隐藏。
 
-### 状态决定行为
+## 判断设计是否有帮助
 
-选择状态模式。比如订单、工单、审批单、连接对象。状态模式适合把状态分支从主类中拆出去。
-
-### 一个事件通知多个对象
-
-选择观察者模式。比如事件总线、监听器、消息订阅、模型视图同步。
-
-### 请求需要一站站处理
-
-选择责任链。比如过滤器链、拦截器链、审批链、风控规则链。
-
-### 操作需要记录和撤销
-
-选择命令模式，必要时配合备忘录。命令保存“要做什么”，备忘录保存“做之前是什么状态”。
-
-### 多对象互相调用太乱
-
-选择中介者。它把复杂网状交互收敛到协调中心，适合 UI 控件联动、聊天室、工作流协调。
-
-### 数据结构稳定，操作增加快
-
-选择访问者。比如 AST、报表结构、组织结构，需要不断增加导出、统计、校验等操作。
-
-## 实操：行为变化怎么拆
-
-### 场景一：促销计算从分支改成策略
-
-问题代码：
-
-```java
-public BigDecimal calculate(String promotionType, Order order) {
-    if ("discount".equals(promotionType)) {
-        return order.getAmount().multiply(new BigDecimal("0.9"));
-    }
-    if ("full_reduce".equals(promotionType)) {
-        return order.getAmount().subtract(new BigDecimal("20"));
-    }
-    if ("coupon".equals(promotionType)) {
-        return couponService.calculate(order);
-    }
-    return order.getAmount();
-}
-```
-
-当促销规则频繁变化时，可以拆成策略：
-
-```java
-public interface PromotionStrategy {
-    String type();
-    BigDecimal calculate(Order order);
-}
-
-public class PromotionService {
-    private final Map<String, PromotionStrategy> strategies;
-
-    public BigDecimal calculate(String type, Order order) {
-        PromotionStrategy strategy = strategies.get(type);
-        if (strategy == null) {
-            return order.getAmount();
-        }
-        return strategy.calculate(order);
-    }
-}
-```
-
-新增促销时新增一个策略类，不修改原有计算服务。
-
-### 场景二：校验流程改成责任链
-
-问题代码：
-
-```java
-public void submit(Order order) {
-    checkUser(order);
-    checkAddress(order);
-    checkInventory(order);
-    checkRisk(order);
-    createOrder(order);
-}
-```
-
-如果校验节点会按业务线增减，可以拆成处理器链：
-
-```java
-public interface OrderValidator {
-    void validate(Order order);
-}
-
-public class OrderSubmitService {
-    private final List<OrderValidator> validators;
-
-    public void submit(Order order) {
-        for (OrderValidator validator : validators) {
-            validator.validate(order);
-        }
-        createOrder(order);
-    }
-}
-```
-
-责任链适合处理节点可插拔的流程。链路顺序本身是业务规则，需要明确配置和测试。
-
-### 场景三：订单状态从条件判断改成状态模式
-
-问题代码：
-
-```java
-public void cancel(Order order) {
-    if (order.isPaid()) {
-        refund(order);
-        order.setStatus("CANCELLED");
-    } else if (order.isCreated()) {
-        order.setStatus("CANCELLED");
-    } else if (order.isShipped()) {
-        throw new IllegalStateException("已发货订单不能直接取消");
-    }
-}
-```
-
-状态越来越多时，可以把状态行为拆出去：
-
-```java
-public interface OrderState {
-    void cancel(Order order);
-}
-
-public class PaidState implements OrderState {
-    public void cancel(Order order) {
-        refund(order);
-        order.changeState(new CancelledState());
-    }
-}
-
-public class ShippedState implements OrderState {
-    public void cancel(Order order) {
-        throw new IllegalStateException("已发货订单不能直接取消");
-    }
-}
-```
-
-状态模式适合状态数量较多、状态行为差异明显的场景。如果只有两个状态且变化很少，普通分支更简单。
-
-## 容易混淆的模式
-
-| 模式 | 相似点 | 区分方式 |
-| --- | --- | --- |
-| 策略 vs 状态 | 都把行为拆到独立类 | 策略由外部选择，状态由对象内部状态驱动 |
-| 策略 vs 模板方法 | 都能改变算法 | 策略用组合替换整体算法，模板方法用继承替换局部步骤 |
-| 责任链 vs 命令 | 都能封装请求 | 责任链强调谁处理，命令强调请求本身可保存和调度 |
-| 观察者 vs 中介者 | 都降低对象直接依赖 | 观察者是一对多通知，中介者是多对象交互协调 |
-| 备忘录 vs 命令 | 都可用于撤销 | 命令记录操作，备忘录记录状态 |
-
-## 常见误区
-
-- 策略类过多但变化很少，会造成过度设计。
-- 观察者链路过长时，问题定位会变难，需要日志和事件边界。
-- 责任链处理顺序很重要，顺序隐含业务规则时要明确文档化。
-- 状态模式不适合状态很少且稳定的简单分支。
-- 访问者要求数据结构稳定，如果元素类型频繁变化会很痛苦。
-- 解释器只适合小语言或规则表达式，复杂语言应使用成熟解析工具。
-
-行为型模式最重要的是让协作可见。读代码时应该能看出请求如何流动、状态如何切换、扩展点在哪里。
+沿一次请求，应该能找到算法选择入口、处理顺序、状态持有者和失败去向。再尝试增加一种合法变化，观察修改是否局限于对应扩展点，并验证已有合同。若需要跨多个模式对象来回追踪同一条简单规则，减少抽象层通常更清楚。

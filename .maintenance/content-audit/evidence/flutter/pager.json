@@ -1,0 +1,37 @@
+[
+  {
+    "file": "docs/devlanguage/flutter/index.md",
+    "href": "/blog/docs/devlanguage/flutter/video-series.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/video-series.html"
+  },
+  {
+    "file": "docs/devlanguage/flutter/architecture.md",
+    "href": "/blog/docs/devlanguage/flutter/project-practice.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/project-practice.html"
+  },
+  {
+    "file": "docs/devlanguage/flutter/hands-on.md",
+    "href": "/blog/docs/devlanguage/flutter/architecture.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/architecture.html"
+  },
+  {
+    "file": "docs/devlanguage/flutter/project-practice.md",
+    "href": "/blog/docs/devlanguage/flutter/project-delivery.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/project-delivery.html"
+  },
+  {
+    "file": "docs/devlanguage/flutter/project-delivery.md",
+    "href": "/blog/docs/devlanguage/flutter/troubleshooting.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/troubleshooting.html"
+  },
+  {
+    "file": "docs/devlanguage/flutter/troubleshooting.md",
+    "href": "/blog/docs/devlanguage/front/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/"
+  },
+  {
+    "file": "docs/devlanguage/flutter/video-series.md",
+    "href": "/blog/docs/devlanguage/flutter/hands-on.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/flutter/hands-on.html"
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
+      "pageType": "框架选型",
+      "decision": "统一业务维度比较React/Vue/Angular/Svelte5，修正编译和运行时刻板印象，补选型实验。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "e96c9f341731e397e02be9ed784696c2a959d9ffd378653bc5cdc30a06441f02"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
+      "pageType": "渲染模型",
+      "decision": "区分HTML生成时机和交互激活，补Islands正交关系、缓存隔离、hydration不一致与观察边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "01cf2df1a22364c3c2459b10d1b1f6cf1ad851c8d87f2a23fe771ac278950e0d"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
+      "pageType": "应用机制",
+      "decision": "补URL严格页码、查询快照和草稿分离，ETag条件保存412与保存后刷新失败区别。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "b1d8c7660ff27e7211164f469a52eff094776ab3ea2d8437a84b336910d38c2f"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
+      "pageType": "测试策略",
+      "decision": "围绕同一商品业务定义单元至端到端范围，补真实回读、变异、异步与视觉基线。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "ffa32932635fe5224413b82f34b3fbd9a8c48b01c1e4b169afdf2eae88b347ff"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
+      "pageType": "性能机制",
+      "decision": "按加载/交互/布局定位，核对CWV阈值和统计口径，补主图发现、长任务与复测。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "4188f0e0a1a06adb3746a530f6c96890e03638c5a0f98c97a8d5225af60571e8"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
+      "pageType": "安全边界",
+      "decision": "补文本上下文、会话写入、CSP响应头、SameSite/同源/CORS边界和构建权限。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "6a27b97e1ecbfaa7d654e6da90fe434ee397c9ba64767f86503deeb93274c8eb"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
+      "pageType": "交付机制",
+      "decision": "补新旧页面chunk保留、缓存层、no-cache语义、Source Map访问及完整产物回滚。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "cb4eeed6e009bee98ca641f95cca78e708ed81c8d6d26b1da33b289d874c7e52"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
+      "pageType": "AI协作",
+      "decision": "以商品筛选任务合同连接原型/规范/代理协作，补独立反例、上下文与能力达成标志。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文和原图逐项阅读，重写八图；整站构建14.84秒通过，32份四模式全文截图全部查看，1280/iframe390与主题和无全页溢出断言通过；8次分页、16组原尺寸1120与Escape通过。",
+        "8项路由输入、2项测试与parseInt错误变异、4项保存分支通过；真实本地HTTP旧ETag412且新数据保留。浏览器验证文本安全、CSP阻止内联/允许外部、新旧页面各自加载资源。官方指标通过浏览器核对，无真实用户收益或生产会话验收声称。详见batches/frontend-architecture.md。"
+      ],
+      "reviewedHash": "dcecfaa70a2a334b7f487ac5658575ea60727bc73edc80345cc4f68c22a7a98e"
+    }
+  ]
+}

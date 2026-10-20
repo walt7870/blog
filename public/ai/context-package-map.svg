@@ -20,7 +20,7 @@
   <text class="text b" x="560" y="154" text-anchor="middle">参数、分页、状态枚举</text>
   <rect class="box" x="840" y="95" width="210" height="90"/>
   <text class="text h" x="945" y="128" text-anchor="middle">权限规则</text>
-  <text class="text b" x="945" y="154" text-anchor="middle">权限点和无权限行为</text>
+  <text class="text b" x="945" y="154" text-anchor="middle">服务端权限与租户范围</text>
   <rect class="box" x="70" y="340" width="210" height="90"/>
   <text class="text h" x="175" y="373" text-anchor="middle">字段定义</text>
   <text class="text b" x="175" y="399" text-anchor="middle">白名单和敏感字段</text>
@@ -30,6 +30,10 @@
   <rect class="box" x="840" y="340" width="210" height="90"/>
   <text class="text h" x="945" y="373" text-anchor="middle">验证命令</text>
   <text class="text b" x="945" y="399" text-anchor="middle">test、build、lint</text>
-  <path class="line" d="M280 140 L430 230"/><path class="line" d="M560 185 L560 205"/><path class="line" d="M840 140 L690 230"/>
-  <path class="line" d="M280 385 L430 290"/><path class="line" d="M560 340 L560 315"/><path class="line" d="M840 385 L690 290"/>
+  <path class="line" d="M280 140H347Q355 140 355 148V222Q355 230 363 230H430"/>
+  <path class="line" d="M560 185V205"/>
+  <path class="line" d="M840 140H773Q765 140 765 148V222Q765 230 757 230H690"/>
+  <path class="line" d="M280 385H347Q355 385 355 377V298Q355 290 363 290H430"/>
+  <path class="line" d="M560 340V315"/>
+  <path class="line" d="M840 385H773Q765 385 765 377V298Q765 290 757 290H690"/>
 </svg>

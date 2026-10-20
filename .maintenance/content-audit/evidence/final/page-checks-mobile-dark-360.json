@@ -1,0 +1,617 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep24-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1814,
+    "title": "Web 渲染架构：HTML 来源与交互激活",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep25-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2323,
+    "title": "前端应用架构：路由、查询、草稿与保存",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep26-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1947,
+    "title": "前端测试分层：每种证据能覆盖什么",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep27-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1779,
+    "title": "Web 性能工程：加载、交互与布局稳定性",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep28-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1994,
+    "title": "Web 前端安全：输入、会话、浏览器策略与构建",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep29-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1767,
+    "title": "前端交付：版本、缓存、错误定位与回滚",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep30-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1718,
+    "title": "AI 辅助前端工程：任务合同、验证与学习路线",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep31-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3798,
+    "title": "React：组件、状态快照与外部同步",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep32-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4652,
+    "title": "Vue：单文件组件、依赖追踪与逻辑复用",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep33-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4006,
+    "title": "Angular：组件、注入作用域与 Signals",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep01-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1709,
+    "title": "前端全链路：从浏览器基础到现代生态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/frontend-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2201,
+    "title": "前端开发",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/bun.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/bun-script-trust.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1274,
+    "title": "Bun",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/corepack.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/install-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1484,
+    "title": "Corepack",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/install-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2648,
+    "title": "前端包管理器概览",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/npm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/install-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2164,
+    "title": "npm",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/pnpm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/dependency-layout.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1924,
+    "title": "pnpm",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/registry.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/registry-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2052,
+    "title": "镜像与私有源",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/yarn.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/package-managers/yarn-resolution.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1754,
+    "title": "Yarn",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/performance/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/performance-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1981,
+    "title": "前端性能优化",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/quality-tools/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/quality-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2620,
+    "title": "前端代码质量工具",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/state-management/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/state-ownership.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2881,
+    "title": "前端状态管理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/testing/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/engineering/testing-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2441,
+    "title": "前端测试策略",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/devlanguage/runtime-selection-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 913,
+    "title": "开发语言与运行平台",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/basic/base-class.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/collection-view-snapshot.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 8832,
+    "title": "Java 基础工具类",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/basic/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/method-value-reference.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 5257,
+    "title": "Java 基础",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/basic/jdk/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/jdk-toolchain-contract.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 3549,
+    "title": "JDK 与 Java 版本",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/basic/jdk/upgrade.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/jdk-migration-gates.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 5089,
+    "title": "JDK 升级实践",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/basic/special.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/stream-order-pipeline.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 8883,
+    "title": "Java 语言特性",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/framework-order-boundaries.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 1351,
+    "title": "Java 框架",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/mybatis/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/mybatis-session-transaction.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 8478,
+    "title": "MyBatis 的映射、会话与事务",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/mybatis/plugin.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/mybatis-plugin-boundaries.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 4467,
+    "title": "MyBatis 插件的拦截边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/annotations.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/annotation-processing-boundaries.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 8309,
+    "title": "Spring 常用注解完整指南",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/aop.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/aop-transaction-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/aop-proxy-flow.svg",
+        "width": 1240
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/aop-proxy-creation-flow.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 5928,
+    "title": "Spring AOP",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/boot-autoconfiguration.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-auto-config.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 9130,
+    "title": "Spring Boot 自动配置",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/boot-config-data.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/boot-config-data-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-config-data-resolution.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 10434,
+    "title": "Spring Boot Config Data、配置覆盖与类型安全绑定",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/boot-production.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/production-drain-lifecycle.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 5002,
+    "title": "Spring Boot 配置与生产运行",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/boot-startup.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-startup-source-chain.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 7947,
+    "title": "Spring Boot 启动机制",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/foundation/spring-platform-boundaries.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 10124,
+    "title": "Spring Framework、Spring Boot、Servlet 容器与生态项目边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/foundation/why-spring.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/foundation/why-spring-runtime-boundaries.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 14457,
+    "title": "Spring 解决了什么问题",
+    "width": 390
+  }
+]

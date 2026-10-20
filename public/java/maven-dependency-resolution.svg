@@ -1,62 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
-  <title id="title">Maven 依赖解析链路</title>
-  <desc id="desc">展示 Maven 如何从 pom 声明解析直接依赖、传递依赖、本地仓库、私服和中央仓库。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.repo{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 16px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 5;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1120" height="560" rx="22"/>
-  <text class="t" x="56" y="50">依赖解析：声明一个坐标，得到一棵 classpath 树</text>
-  <text class="s" x="56" y="80">Maven 优先读取本地缓存，本地没有再访问镜像、私服或中央仓库。</text>
-
-  <rect class="core" x="58" y="160" width="200" height="140" rx="14"/>
-  <text class="h" x="158" y="198" text-anchor="middle">pom.xml</text>
-  <text class="m" x="158" y="230" text-anchor="middle">spring-web</text>
-  <text class="m" x="158" y="256" text-anchor="middle">junit-jupiter</text>
-  <text class="m" x="158" y="282" text-anchor="middle">mysql-driver</text>
-
-  <rect class="box" x="330" y="110" width="210" height="120" rx="14"/>
-  <text class="h" x="435" y="150" text-anchor="middle">直接依赖</text>
-  <text class="s" x="435" y="184" text-anchor="middle">项目主动声明</text>
-  <text class="s" x="435" y="210" text-anchor="middle">决定业务代码入口</text>
-
-  <rect class="box" x="330" y="300" width="210" height="120" rx="14"/>
-  <text class="h" x="435" y="340" text-anchor="middle">传递依赖</text>
-  <text class="s" x="435" y="374" text-anchor="middle">依赖的依赖继续展开</text>
-  <text class="s" x="435" y="400" text-anchor="middle">形成完整依赖树</text>
-
-  <rect class="repo" x="620" y="92" width="200" height="108" rx="14"/>
-  <text class="h" x="720" y="132" text-anchor="middle">本地仓库</text>
-  <text class="m" x="720" y="164" text-anchor="middle">~/.m2/repository</text>
-  <text class="s" x="720" y="188" text-anchor="middle">命中后直接复用</text>
-
-  <rect class="repo" x="620" y="244" width="200" height="108" rx="14"/>
-  <text class="h" x="720" y="284" text-anchor="middle">企业私服 / 镜像</text>
-  <text class="s" x="720" y="316" text-anchor="middle">缓存、权限、审计</text>
-  <text class="s" x="720" y="340" text-anchor="middle">内部构件发布</text>
-
-  <rect class="repo" x="620" y="396" width="200" height="108" rx="14"/>
-  <text class="h" x="720" y="436" text-anchor="middle">中央仓库</text>
-  <text class="s" x="720" y="468" text-anchor="middle">公共开源构件</text>
-  <text class="s" x="720" y="492" text-anchor="middle">远程下载源头</text>
-
-  <rect class="warn" x="890" y="214" width="190" height="136" rx="14"/>
-  <text class="h" x="985" y="254" text-anchor="middle">冲突裁决</text>
-  <text class="s" x="985" y="286" text-anchor="middle">路径最近优先</text>
-  <text class="s" x="985" y="312" text-anchor="middle">同深度先声明优先</text>
-  <text class="m" x="985" y="338" text-anchor="middle">dependencyManagement</text>
-
-  <path class="line" d="M258 208C292 174 300 170 330 170"/>
-  <path class="line" d="M540 170C580 156 584 146 620 146"/>
-  <path class="line" d="M258 252C292 318 300 360 330 360"/>
-  <path class="line" d="M540 360C580 330 584 298 620 298"/>
-  <path class="dash" d="M720 200V244"/>
-  <path class="dash" d="M720 352V396"/>
-  <path class="line" d="M820 298H890"/>
-  <text class="m" x="560" y="132">先查本地</text>
-  <text class="m" x="735" y="225">未命中再远程</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="590" viewBox="0 0 1120 590" role="img" aria-labelledby="maven-dependency-resolution-title maven-dependency-resolution-desc">
+  <title id="maven-dependency-resolution-title">仓库路由与版本调解分别解决不同问题</title><desc id="maven-dependency-resolution-desc">上半部分展示构件解析的本地与远程路线，下半部分展示依赖路径深度与dependencyManagement的作用。镜像不是绕过私服直连中央仓库的兜底。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="590" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">仓库路由与版本调解分别解决不同问题</text>
+  <text x="36" y="82" class="small">下载回答“从哪里获取”；版本调解回答“最终选哪个”。两条规则要分别核对。</text>
+  <path d="M246 191H306" class="line"/>
+  <path d="M526 191H586" class="line"/>
+  <path d="M806 191H866" class="line"/>
+  <rect x="36" y="132" width="210" height="120" rx="6" class="box"/><text x="54" y="167" class="head">依赖坐标</text>
+  <text x="54" y="201" class="small">读取 POM 与构件</text>
+  <text x="54" y="228" class="small">按 scope 形成路径</text>
+  <rect x="306" y="132" width="220" height="120" rx="6" class="box"/><text x="324" y="167" class="head">本地仓库</text>
+  <text x="324" y="201" class="small">复用可用结果</text>
+  <text x="324" y="228" class="small">还要遵守更新策略</text>
+  <rect x="586" y="132" width="220" height="120" rx="6" class="blue"/><text x="604" y="167" class="head">远程仓库路由</text>
+  <text x="604" y="201" class="small">应用 mirror 配置</text>
+  <text x="604" y="228" class="small">认证匹配实际 ID</text>
+  <rect x="866" y="132" width="218" height="120" rx="6" class="box"/><text x="884" y="167" class="head">选定的远程端</text>
+  <text x="884" y="201" class="small">私服可代理 Central</text>
+  <text x="884" y="228" class="small">不自动绕过镜像</text>
+  <text x="534" y="112" class="small">需远程</text>
+  <path d="M36 302H1084" class="rule"/>
+  <rect x="36" y="344" width="486" height="120" rx="6" class="box"/><text x="54" y="379" class="head">路径调解示例</text>
+  <text x="54" y="413" class="small">订单 → SDK-A → 库 1.0</text>
+  <text x="54" y="440" class="small">订单 → 库 2.0：路径更近，通常选 2.0</text>
+  <rect x="586" y="344" width="498" height="120" rx="6" class="focus"/><text x="604" y="379" class="head">版本治理</text>
+  <text x="604" y="413" class="small">dependencyManagement 提供默认管理信息</text>
+  <text x="604" y="440" class="small">只管理不会引入库；最终看有效 POM 与依赖树</text>
+  <text x="36" y="522" class="small">同深度通常先声明者优先；直接版本声明与管理表也参与结果，不能只画成“永远选最新”。</text>
+  <text x="36" y="555" class="small">快照与缺失结果缓存受更新策略影响；本地存在文件不保证构建永远不访问远端。</text>
 </svg>

@@ -1,0 +1,244 @@
+[
+  {
+    "idx": 9,
+    "file": "order-request-map.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 9,
+    "file": "order-request-map.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 5,
+    "file": "order-cancel-state.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 5,
+    "file": "order-cancel-state.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 10,
+    "file": "order-verification-stages.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 10,
+    "file": "order-verification-stages.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 3,
+    "file": "runtime-selection.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 3,
+    "file": "runtime-selection.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 12,
+    "file": "worktree-integration.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 12,
+    "file": "worktree-integration.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 14,
+    "file": "productivity-example.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 14,
+    "file": "productivity-example.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 1,
+    "file": "agent-verification-loop.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1080
+    ]
+  },
+  {
+    "idx": 1,
+    "file": "agent-verification-loop.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1080
+    ]
+  },
+  {
+    "idx": 2,
+    "file": "harness-control-plane.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 2,
+    "file": "harness-control-plane.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 6,
+    "file": "context-package-map.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 6,
+    "file": "context-package-map.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1120
+    ]
+  },
+  {
+    "idx": 8,
+    "file": "mcp-architecture.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      1080
+    ]
+  },
+  {
+    "idx": 8,
+    "file": "mcp-architecture.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      1080
+    ]
+  },
+  {
+    "idx": 4,
+    "file": "ai-choice.svg",
+    "label": "desktop",
+    "open": true,
+    "pageWidth": 1280,
+    "viewport": 1280,
+    "widths": [
+      960
+    ]
+  },
+  {
+    "idx": 4,
+    "file": "ai-choice.svg",
+    "label": "mobile",
+    "open": true,
+    "pageWidth": 390,
+    "viewport": 390,
+    "widths": [
+      960
+    ]
+  }
+]

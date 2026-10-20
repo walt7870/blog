@@ -1,0 +1,497 @@
+[
+  {
+    "file": "docs/devlanguage/java/framework/spring/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/spring-learning-map.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 1616,
+    "title": "Spring / Spring Boot",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/ioc.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/ioc-container-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/ioc-bean-lifecycle.svg",
+        "width": 1040
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/ioc-bean-creation-source-flow.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 7128,
+    "title": "Spring IoC 容器",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/mvc.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/mvc-request-dispatch-overview.webp",
+        "width": 941
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/mvc-request-flow.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 7180,
+    "title": "Spring MVC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/runtime-model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/summary/runtime-model-overview.webp",
+        "width": 952
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/spring-runtime-chains.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 5536,
+    "title": "一个 Spring 请求从启动到响应的完整生命线",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/springboot.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-startup-source-chain.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-auto-config.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 5138,
+    "title": "Spring Boot",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/framework/spring/video-series.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/spring/boot-startup-source-chain.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 5646,
+    "title": "Spring Boot 源码全流程视频系列",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/java-delivery-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/java/framework-order-boundaries.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 3579,
+    "title": "Java",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/class-file-bytecode.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/bytecode-linkage-contract.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3908,
+    "title": "Class 文件与字节码",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/class-loading.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/class-loading-boundaries.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3481,
+    "title": "类加载机制",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/diagnostic-cases.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/diagnostic-path.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 4325,
+    "title": "JVM 诊断案例",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/execution-engine-jit.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/execution-tiering.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3396,
+    "title": "执行引擎与 JIT",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/cms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/cms-cycle.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1325,
+    "title": "CMS GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/epsilon.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/epsilon-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1334,
+    "title": "Epsilon GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/g1.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/g1-regions.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1961,
+    "title": "G1 GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-reachability.svg",
+        "width": 1100
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-selection.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3085,
+    "title": "JVM GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/parallel.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1085,
+    "title": "Parallel GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/parnew.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1048,
+    "title": "ParNew GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/serial.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/gc-stw-workers.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 982,
+    "title": "Serial GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/shenandoah.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/concurrent-gc-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1523,
+    "title": "Shenandoah GC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/gc/zgc.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/concurrent-gc-budget.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 1397,
+    "title": "ZGC",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/hands-on.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jvm-overview.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 3097,
+    "title": "JVM 动手入门路径",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jvm-overview.svg",
+        "width": 1000
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/runtime-area-map.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2253,
+    "title": "JVM：Java 程序的运行系统",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/jni.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/jni-data-boundary.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 4130,
+    "title": "JNI：Java 与 Native 能力的边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/modern-jvm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/deployment-models.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 2668,
+    "title": "现代 JVM 发展",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/object-lifecycle.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/heap-export-retention.svg",
+        "width": 1000
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/threadlocal-retention.svg",
+        "width": 1100
+      }
+    ],
+    "scroll": 390,
+    "text": 3038,
+    "title": "对象生命周期：从 new 到回收",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/direct-memory.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/direct-memory.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2610,
+    "title": "直接内存",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/heap.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/heap-export-retention.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1849,
+    "title": "堆",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/runtime-area-map.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 2248,
+    "title": "JVM 运行时数据区",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/method-area.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/metaspace-loader-retention.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1791,
+    "title": "方法区与元空间",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/java/jvm/runtime-area/native-method-stack.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/jvm/native-call-resources.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 390,
+    "text": 1726,
+    "title": "本地方法栈",
+    "width": 390
+  }
+]

@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620" role="img" aria-labelledby="title desc"><title id="title">六边形架构结构图</title><desc id="desc">展示业务核心通过端口与外部适配器交互。</desc><style>.bg{fill:#f8fafc}.core{fill:#dcfce7;stroke:#22c55e;stroke-width:3}.port{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.adp{fill:#fff;stroke:#94a3b8;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}</style><rect class="bg" width="1040" height="620" rx="22"/><text class="h" x="56" y="55">六边形架构：业务核心不依赖外部技术</text><polygon class="core" points="520,145 680,235 680,405 520,495 360,405 360,235"/><text class="h" x="455" y="300">业务核心</text><text class="t" x="430" y="330">领域模型 / 用例</text><rect class="port" x="420" y="95" width="200" height="54" rx="12"/><text class="t" x="462" y="129">输入端口</text><rect class="port" x="420" y="492" width="200" height="54" rx="12"/><text class="t" x="462" y="526">输出端口</text><rect class="adp" x="85" y="170" width="210" height="70" rx="14"/><text class="t" x="140" y="212">HTTP 适配器</text><rect class="adp" x="85" y="380" width="210" height="70" rx="14"/><text class="t" x="140" y="422">消息适配器</text><rect class="adp" x="745" y="170" width="210" height="70" rx="14"/><text class="t" x="800" y="212">数据库适配器</text><rect class="adp" x="745" y="380" width="210" height="70" rx="14"/><text class="t" x="790" y="422">第三方 API 适配器</text><line class="line" x1="295" y1="205" x2="360" y2="250"/><line class="line" x1="295" y1="415" x2="360" y2="390"/><line class="line" x1="680" y1="250" x2="745" y2="205"/><line class="line" x1="680" y1="390" x2="745" y2="415"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="hexagonal-title hexagonal-desc">
+  <title id="hexagonal-title">端口与适配器的调用和源码依赖</title>
+  <desc id="hexagonal-desc">网页与定时任务适配器调用输入端口，用例实现输入端口并调用输出端口，存储适配器实现输出端口。运行调用向外，适配器源码依赖向内；装配连接接口和实现。</desc>
+  <defs><marker id="hexagonal-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker><marker id="hexagonal-open" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m0 0 8 4-8 4" stroke="#397657" fill="none"/></marker></defs>
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="32" y="48" font-size="26" font-weight="600">六边形：核心拥有契约，适配器连接技术</text>
+    <text x="32" y="80" font-size="16" fill="#5d6f64">订单导出示例；上下两行区分运行调用与源码关系</text>
+    <rect x="328" y="116" width="456" height="368" rx="8" fill="#edf4fc" stroke="#b4c7dc"/>
+    <text x="352" y="148" font-size="18" font-weight="600">应用核心</text>
+    <g stroke="#657768" stroke-width="2" fill="none" marker-end="url(#hexagonal-arrow)">
+      <path d="M272 252H352"/><path d="M520 252H592"/><path d="M760 252H848"/>
+    </g>
+    <g stroke="#397657" stroke-width="2" stroke-dasharray="6 5" fill="none" marker-end="url(#hexagonal-open)">
+      <path d="M436 364V288"/><path d="M520 400H592"/><path d="M848 400H760"/>
+    </g>
+    <g fill="#fff" stroke="#c4cdd5"><rect x="32" y="204" width="240" height="96" rx="6"/><rect x="352" y="204" width="168" height="84" rx="6"/><rect x="592" y="204" width="168" height="84" rx="6"/><rect x="848" y="204" width="240" height="96" rx="6"/><rect x="352" y="364" width="168" height="84" rx="6" fill="#e5f3e9" stroke="#468363"/><rect x="592" y="364" width="168" height="84" rx="6"/><rect x="848" y="364" width="240" height="96" rx="6"/></g>
+    <g font-size="20" font-weight="600"><text x="56" y="240">HTTP / 定时适配器</text><text x="376" y="240">输入端口</text><text x="616" y="240">输出端口</text><text x="872" y="240">存储适配器</text><text x="376" y="400">用例实现</text><text x="616" y="400">输出端口</text><text x="872" y="400">存储适配器</text></g>
+    <g font-size="15" fill="#5d6f64"><text x="56" y="272">转换身份与命令，调用用例</text><text x="376" y="268">请求导出</text><text x="616" y="268">保存文件</text><text x="872" y="272">转成 SDK 调用</text><text x="376" y="428">实现输入端口</text><text x="616" y="428">核心定义的契约</text><text x="872" y="432">实现输出端口</text></g>
+    <text x="32" y="544" font-size="17">实线：运行调用通过装配找到实现；上行“输入到输出”省略了用例内部的规则与编排。</text>
+    <text x="32" y="576" font-size="17">虚线：实现依赖核心契约；用例使用输出端口，外部 SDK 类型止于适配器。</text>
+    <text x="32" y="608" font-size="16" fill="#5d6f64">输入适配器调用输入端口，通常由用例服务实现该端口；架构隔离不提供跨数据库与文件的原子性。</text>
+  </g>
+</svg>

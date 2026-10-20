@@ -2,6 +2,8 @@
 
 包管理器本身只负责安装依赖，依赖从哪里下载由 registry 决定。国内团队通常会配置公共镜像、企业私有 npm 仓库或制品库代理，以提高安装速度、隔离外网波动，并控制私有包访问权限。
 
+![公共包、私有scope与仓库凭证的请求边界](/front/package-managers/registry-scope.svg)
+
 ## 公共镜像
 
 项目级 `.npmrc`：
@@ -10,7 +12,7 @@
 registry=https://registry.npmmirror.com
 ```
 
-pnpm、Yarn 和 Bun 大多也能读取 npm registry 配置。团队应优先把 registry 写在项目或 CI 配置中，避免只依赖个人电脑上的全局配置。
+npm、pnpm及Bun可使用对应npm配置能力，现代Yarn使用`.yarnrc.yml`。按实际工具核对，不能因一次成功就认定都经过新镜像；锁中解析地址、scope和缓存均会影响请求。
 
 查看当前 registry：
 
@@ -31,6 +33,19 @@ registry=https://registry.npmmirror.com
 ```
 
 这样公共包走公共镜像，私有包走企业仓库。`NPM_TOKEN` 由 CI/CD 变量或本机安全配置注入，不写入仓库。
+
+现代Yarn对应配置：
+
+```yaml
+npmRegistryServer: "https://registry.npmjs.org"
+npmScopes:
+  company:
+    npmRegistryServer: "https://npm.company.com"
+    npmAlwaysAuth: true
+    npmAuthToken: "${NPM_TOKEN}"
+```
+
+凭证只绑定目标仓库，不关闭TLS检查解决证书问题。企业代理需要正确证书链或CA配置。scope也不自动杜绝依赖混淆，应限制仓库回退并验证内部包解析到预期仓库。
 
 ## 私有仓库
 
@@ -64,23 +79,23 @@ npm publish --registry=https://npm.company.com
 }
 ```
 
-`publishConfig` 可以避免误发到公共 npm registry。
+`publishConfig`提供目标约束，仍须检查命令覆盖参数和CI配置。内部应用不应发布时设置`private: true`。可发布库先用`npm pack --dry-run`检查文件，确认没有`.env`、令牌或业务数据，再准备发布。只读安装令牌与发布令牌分开。
 
 ## CI 安装
 
-CI 中临时生成 `.npmrc`：
+CI可提交仅含变量占位的项目`.npmrc`，运行时注入变量，无需把明文令牌写入项目文件：
 
-```bash
-cat > .npmrc <<EOF
+```ini
 registry=https://registry.npmmirror.com
 @company:registry=https://npm.company.com
 //npm.company.com/:_authToken=${NPM_TOKEN}
-EOF
+```
 
+```bash
 pnpm install --frozen-lockfile
 ```
 
-流水线结束后不需要保留 `.npmrc`。如果构建产物或镜像包含源码目录，要确认 `.npmrc` 没被打进最终产物。
+CI以受保护变量注入`NPM_TOKEN`，日志不打印整份环境和认证配置。镜像构建采用秘密挂载，不能将令牌写入镜像层再删除。示例仓库只是配置占位，验证时不向其发送请求或执行真实发布。
 
 ## 排查
 

@@ -1,59 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
-  <title id="title">Maven 生命周期与插件执行</title>
-  <desc id="desc">展示 clean、default、site 生命周期，以及 package 阶段从 validate 到 package 的执行顺序。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.phase{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.plug{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.side{fill:#fff;stroke:#cbd5e1;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:13px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.4;fill:none;marker-end:url(#arrow)}.down{stroke:#ea580c;stroke-width:2.2;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1120" height="520" rx="22"/>
-  <text class="t" x="56" y="50">执行 mvn package 时，Maven 会顺序走完前置阶段</text>
-  <text class="s" x="56" y="80">生命周期决定顺序，插件目标负责具体动作。</text>
-
-  <rect class="side" x="58" y="126" width="190" height="96" rx="14"/>
-  <text class="h" x="153" y="166" text-anchor="middle">clean 生命周期</text>
-  <text class="m" x="153" y="196" text-anchor="middle">mvn clean</text>
-
-  <rect class="side" x="58" y="298" width="190" height="96" rx="14"/>
-  <text class="h" x="153" y="338" text-anchor="middle">site 生命周期</text>
-  <text class="m" x="153" y="368" text-anchor="middle">mvn site</text>
-
-  <rect class="phase" x="310" y="132" width="112" height="72" rx="12"/>
-  <text class="h" x="366" y="163" text-anchor="middle">validate</text>
-  <text class="s" x="366" y="186" text-anchor="middle">校验模型</text>
-  <rect class="phase" x="470" y="132" width="112" height="72" rx="12"/>
-  <text class="h" x="526" y="163" text-anchor="middle">compile</text>
-  <text class="s" x="526" y="186" text-anchor="middle">编译主代码</text>
-  <rect class="phase" x="630" y="132" width="112" height="72" rx="12"/>
-  <text class="h" x="686" y="163" text-anchor="middle">test</text>
-  <text class="s" x="686" y="186" text-anchor="middle">运行测试</text>
-  <rect class="phase" x="790" y="132" width="112" height="72" rx="12"/>
-  <text class="h" x="846" y="163" text-anchor="middle">package</text>
-  <text class="s" x="846" y="186" text-anchor="middle">生成产物</text>
-  <rect class="phase" x="950" y="132" width="112" height="72" rx="12"/>
-  <text class="h" x="1006" y="163" text-anchor="middle">deploy</text>
-  <text class="s" x="1006" y="186" text-anchor="middle">发布仓库</text>
-
-  <path class="line" d="M422 168H470"/>
-  <path class="line" d="M582 168H630"/>
-  <path class="line" d="M742 168H790"/>
-  <path class="line" d="M902 168H950"/>
-
-  <rect class="plug" x="444" y="292" width="164" height="84" rx="12"/>
-  <text class="h" x="526" y="326" text-anchor="middle">compiler 插件</text>
-  <text class="s" x="526" y="354" text-anchor="middle">执行 javac 编译</text>
-  <rect class="plug" x="604" y="394" width="164" height="84" rx="12"/>
-  <text class="h" x="686" y="428" text-anchor="middle">surefire 插件</text>
-  <text class="s" x="686" y="456" text-anchor="middle">执行单元测试</text>
-  <rect class="plug" x="764" y="292" width="164" height="84" rx="12"/>
-  <text class="h" x="846" y="326" text-anchor="middle">jar / war 插件</text>
-  <text class="s" x="846" y="354" text-anchor="middle">组装最终包</text>
-
-  <path class="down" d="M526 204V292"/>
-  <path class="down" d="M686 204V394"/>
-  <path class="down" d="M846 204V292"/>
-  <text class="m" x="314" y="108">default 生命周期</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="maven-lifecycle-title maven-lifecycle-desc">
+  <title id="maven-lifecycle-title">到 package 为止，不会继续执行 install 和 deploy</title><desc id="maven-lifecycle-desc">展示默认生命周期按目标阶段停止，插件绑定执行动作；clean是另一生命周期。verify需要绑定相应校验，不会自动执行未配置集成测试。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="540" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">到 package 为止，不会继续执行 install 和 deploy</text>
+  <text x="36" y="82" class="small">mvn package：从默认生命周期起点执行到 package；图只列关键阶段，中间阶段省略。</text>
+  <path d="M216 191H276" class="line"/>
+  <path d="M446 191H506" class="line"/>
+  <path d="M676 191H736" class="line"/>
+  <rect x="36" y="132" width="180" height="120" rx="6" class="box"/><text x="54" y="167" class="head">validate</text>
+  <text x="54" y="201" class="small">模型校验入口</text>
+  <text x="54" y="228" class="small">按已绑定目标</text>
+  <rect x="276" y="132" width="170" height="120" rx="6" class="box"/><text x="294" y="167" class="head">compile</text>
+  <text x="294" y="201" class="small">compiler:compile</text>
+  <text x="294" y="228" class="small">编译主代码</text>
+  <rect x="506" y="132" width="170" height="120" rx="6" class="box"/><text x="524" y="167" class="head">test</text>
+  <text x="524" y="201" class="small">surefire:test</text>
+  <text x="524" y="228" class="small">执行单元测试</text>
+  <rect x="736" y="132" width="348" height="120" rx="6" class="focus"/><text x="754" y="167" class="head">package</text>
+  <text x="754" y="201" class="small">jar:jar / war:war 等</text>
+  <text x="754" y="228" class="small">由 packaging 与插件配置决定</text>
+  <path d="M36 299H1084" class="rule"/>
+  <text x="36" y="340" class="small">目标改为 verify：继续到校验阶段；集成测试与门禁需要实际的插件执行绑定。</text>
+  <text x="36" y="380" class="small">目标改为 install：把项目产物安装到本地仓库；deploy 再发布到指定远程仓库。</text>
+  <rect x="36" y="416" width="486" height="86" rx="6" class="box"/><text x="54" y="451" class="head">clean 生命周期</text>
+  <text x="54" y="485" class="small">清理输出；mvn clean package 才会先清理</text>
+  <rect x="586" y="416" width="498" height="86" rx="6" class="box"/><text x="604" y="451" class="head">直接 plugin:goal</text>
+  <text x="604" y="485" class="small">执行某个目标，不承诺自动补齐此前全部阶段</text>
 </svg>

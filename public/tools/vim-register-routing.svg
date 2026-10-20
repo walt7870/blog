@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="vim-register-title vim-register-desc"><title id="vim-register-title">Vim 寄存器：按操作区分写入目标</title><desc id="vim-register-desc">默认剪贴板设置下，yy 更新0和无名，命名yank保留0，删除写删除历史和无名，黑洞删除不改变这些寄存器。</desc><defs><marker id="vim-register-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#54778a"/></marker></defs><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#183248}.h{font-size:28px;font-weight:700}.n{font-size:21px;font-weight:700}.b{font-size:18px}.s{font-size:16px;fill:#526877}.box{fill:#fff;stroke:#b8cad5;stroke-width:1.5}.focus{fill:#e5f4ef;stroke:#27846b;stroke-width:2}.edge{fill:none;stroke:#54778a;stroke-width:2;marker-end:url(#vim-register-arrow)}</style><rect width="1120" height="520" fill="#f4f8fa"/><text class="h" x="36" y="50">Vim 寄存器：按操作区分写入目标</text>
+<text class="b" x="36" y="86">以下按默认 clipboard 说明；命名复制不会更新 0，黑洞删除不污染复制内容。</text>
+<path class="edge" d="M328 164H440"/><path class="edge" d="M328 246H440"/><path class="edge" d="M328 328H440"/><path class="edge" d="M328 410H440"/>
+<rect class="box" x="36" y="128" width="292" height="68" rx="6"/><text class="n" x="56" y="169">yy · 默认复制</text>
+<rect class="focus" x="440" y="128" width="644" height="68" rx="6"/><text class="n" x="460" y="169">更新 0 与无名；随后删除可用 "0p 取回</text>
+<rect class="box" x="36" y="210" width="292" height="68" rx="6"/><text class="n" x="56" y="251">"ayy · 指定 a 复制</text>
+<rect class="box" x="440" y="210" width="644" height="68" rx="6"/><text class="n" x="460" y="251">写入 a；无名反映此次内容；0 保留</text>
+<rect class="box" x="36" y="292" width="292" height="68" rx="6"/><text class="n" x="56" y="333">dd / 行内 dw · 默认删除</text>
+<rect class="box" x="440" y="292" width="644" height="68" rx="6"/><text class="n" x="460" y="333">更新无名与删除历史；0 保留</text>
+<rect class="box" x="36" y="374" width="292" height="68" rx="6"/><text class="n" x="56" y="415">"_dd · 黑洞删除</text>
+<rect class="box" x="440" y="374" width="644" height="68" rx="6"/><text class="n" x="460" y="415">丢弃文本；以上寄存器保留</text>
+<text class="s" x="36" y="485">整行与跨行删除通常进入 1–9；小删除通常进入 -，具体移动命令可能存在例外。</text></svg>

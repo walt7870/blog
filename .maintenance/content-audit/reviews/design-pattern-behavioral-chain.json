@@ -1,0 +1,27 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/index.md",
+      "status": "verified",
+      "reviewedHash": "6909f9c0da30b8347ac3fd5250a9407b4858f9e0201c35a62bd15db559c9c578",
+      "pageType": "专题总览",
+      "decision": "完整阅读210行旧文，以导出任务贯穿行为协作，保留11模式入口；修正优惠与未知策略回退、退款后直接取消等误导，解释命令、队列、观察者和可靠消息的边界。",
+      "validation": [
+        "全文、全部示例与11篇入口核对；总览SVG独立浏览器检查中文边界与连线",
+        "生产构建24.72秒通过；逐页桌面和390×844手机亮深色视口、首图原尺寸与关闭通过，无破图或控制台错误，手机无横向溢出；未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/chain-of-responsibility.md",
+      "status": "verified",
+      "reviewedHash": "d2b4d87bcc69861270a8305d26573c828bda3ec28fe4b86dc013e24ab445c966",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分段阅读908行旧正文和代码，修复共享游标跨请求跳过鉴权、伪令牌认证、虚构框架源码、Netty释放后转发及异常继续绕过拒绝等问题；改为不可变列表与请求局部推进，补短路、后置收尾及异步边界。",
+      "validation": [
+        "JDK21下javac --release 17编译运行ChainDemo，连续成功、无权限、非法参数及重复继续保护通过；未进行真实认证或异步框架集成测试",
+        "核对Spring Security链选择和Netty4.1 SimpleChannelInboundHandler自动释放合同；SVG独立浏览器中文边界、连线与xmllint通过",
+        "生产构建24.72秒通过；逐页桌面和390×844手机亮深色视口、首图原尺寸与关闭通过，无破图或控制台错误，手机无横向溢出；未做全页截图"
+      ]
+    }
+  ]
+}

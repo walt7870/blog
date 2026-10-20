@@ -6,53 +6,50 @@ date: 2026-07-12
 
 # 存储、网络与 Compose
 
-容器启动成功只是运行入口。真实应用还要处理数据写到哪里、服务怎样互相访问、依赖未就绪时如何重试，以及多服务环境怎样被一致地创建和销毁。
+订单服务在运行中需要连接数据库，把导出的 CSV 留给后续下载。容器启动成功只说明主进程还在，不能证明数据库已就绪、文件能保留或请求可以到达。部署配置应明确数据落点、服务地址和失败后的恢复方式。
 
-## 数据写入的四个位置
+![订单 API 经内部网络访问数据库并将结果写入独立卷的关系](/container/docker-compose-data-network.svg)
 
-| 位置 | 生命周期 | 适合内容 | 注意事项 |
-| --- | --- | --- | --- |
-| 镜像层 | 随镜像发布，只读 | 程序、运行依赖、默认静态资源 | 修改后必须重建镜像 |
-| 容器可写层 | 随容器存在 | 临时缓存、可丢弃中间文件 | 重建容器后不应依赖其数据 |
-| Volume | 独立于容器 | 数据库文件、需要长期保存的数据 | 由 Docker 管理位置和生命周期 |
-| Bind Mount | 直接映射主机路径 | 本地源码、开发配置、明确的宿主目录 | 权限和主机目录结构会影响可移植性 |
+## 数据写入与生命周期
 
-`tmpfs` 把临时数据放在内存中，适合不应落盘的短期文件，但会消耗内存且重启即丢失。数据库目录不应写在容器可写层，因为容器替换和镜像升级会让数据边界失控。
+| 位置 | 保存边界 |
+| --- | --- |
+| 镜像层 | 程序及默认文件；运行实例不会原地修改发布镜像 |
+| 容器可写层 | 跟随该实例；删除重建后不能依赖原数据 |
+| 命名卷 | Docker 管理；生命周期与单个容器分开 |
+| 绑定挂载 | 直接使用 daemon 所在主机路径，受目录、权限及共享机制影响 |
+| tmpfs | 临时内存文件；停止后不保留，仍需计算资源消耗 |
 
-```bash
-docker volume create order-db
-docker run -d --name postgres \
-  -v order-db:/var/lib/postgresql/data \
-  -e POSTGRES_PASSWORD=change-me \
-  postgres:16
+挂载会遮住镜像中的同名路径。Docker 给空卷初始化内容还有默认复制行为，应与绑定挂载区分。容器内固定 UID 后，挂载目录也需允许相应身份访问；macOS 的宿主路径还经过虚拟机文件共享。命名卷可保留并不等于有备份，数据库应单独验证一致性备份和恢复。
 
-docker volume inspect order-db
-```
-
-挂载问题先检查“容器内路径是否正确”，再检查主机或 Volume 权限。容器内 UID 可能与主机用户名无关；生产镜像使用固定 UID 后，挂载目录也要允许该 UID 读写。
-
-## 从进程端口到主机端口
-
-应用在容器中监听 `127.0.0.1` 时，只允许容器自己的回环接口访问。要让其他容器或端口映射访问，服务通常应监听 `0.0.0.0` 或对应容器接口。
+## 端口发布与内部通信
 
 ```bash
-docker run --rm -p 127.0.0.1:8080:8080 order-api:dev
+docker run --rm --publish 127.0.0.1:8080:8080 order-api:dev
 ```
 
-三段含义依次是主机监听地址、主机端口、容器端口。发布端口只解决“主机如何进入容器”；同一自定义网络中的容器之间应通过服务名和容器端口访问，不要绕到主机暴露端口。
+三段分别为宿主地址、宿主端口、容器端口。服务通常要监听 `0.0.0.0:8080`，仅监听容器内 `127.0.0.1` 时，其他容器及通常的端口转发无法进入。`EXPOSE` 是镜像元数据，不会自动创建宿主端口。
+
+同一自定义网络中的容器可通过名称和容器端口访问。下面是隔离实验，先设置仅用于实验的密码；两个容器共用网络，数据库不向宿主发布端口：
 
 ```bash
-docker network create order-net
-docker run -d --name db --network order-net postgres:16
-docker run --rm --network order-net order-api:dev \
-  --db.url=jdbc:postgresql://db:5432/postgres
+printf '实验数据库密码: '
+read -r -s POSTGRES_PASSWORD
+printf '\n'
+export POSTGRES_PASSWORD
+docker network create order-doc-net
+docker run -d --name order-doc-db --network order-doc-net \
+  -e POSTGRES_PASSWORD -e POSTGRES_USER=orders -e POSTGRES_DB=orders \
+  --mount type=volume,src=order-doc-db-data,dst=/var/lib/postgresql/data \
+  postgres:16-alpine
+docker exec order-doc-db pg_isready -h 127.0.0.1 -U orders -d orders
 ```
 
-这个链路可分为五层检查：应用是否监听、容器端口是否正确、目标名称能否解析、网络是否相连、主机端口是否发布。`EXPOSE` 只记录镜像预期端口，不会自动创建主机端口映射。
+这里的静默输入适用于 Bash 或 zsh。`pg_isready` 失败时先查看数据库日志，等待初始化后重试。指定 TCP 地址可以避开初始化期间临时服务的 Unix socket，减少提前就绪的误判。它证明服务能否接收连接，不证明应用密码和 SQL 权限正确；还要用真实应用身份建立连接。环境变量可被有管理权限的人读取，生产凭据应采用受控分发方式。
 
-## 用 Compose 固化多服务环境
+## Compose 声明的合同
 
-Compose 把服务、网络、卷、配置和依赖关系写进一个声明文件。它适合本地开发、集成测试和单机多服务部署，不提供跨节点调度和集群故障迁移。
+Compose 适合本地开发、集成测试和单机组合部署，不提供跨节点故障迁移。下面是订单应用的结构模板，前提是应用已经实现 `DB_PASSWORD_FILE` 的读取，并且提供相应健康端点；这些不是 Docker 或 Spring Boot 自动支持的自定义变量。
 
 ```yaml
 services:
@@ -66,64 +63,75 @@ services:
       DB_PASSWORD_FILE: /run/secrets/db_password
     secrets:
       - db_password
+    volumes:
+      - exports:/exports
     depends_on:
       db:
         condition: service_healthy
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/actuator/health"]
-      interval: 10s
-      timeout: 3s
-      retries: 12
     restart: unless-stopped
 
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: orders
       POSTGRES_USER: orders
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
-    volumes:
-      - db-data:/var/lib/postgresql/data
     secrets:
       - db_password
+    volumes:
+      - db-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U orders -d orders"]
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U orders -d orders"]
       interval: 5s
       timeout: 3s
       retries: 20
+    restart: unless-stopped
 
 volumes:
   db-data:
+  exports:
 
 secrets:
   db_password:
     file: ./secrets/db_password.txt
 ```
 
-`depends_on` 的健康条件可以控制启动顺序，但应用仍然要能处理数据库连接短暂失败。依赖在运行期间可能重启，只有重试、超时和熔断能覆盖这种情况。
+PostgreSQL 官方镜像实现了 `POSTGRES_PASSWORD_FILE`，API 需要自行实现对应配置。实验中把密码文件存于权限受控且未纳入版本库的目录。普通本地 Compose 的文件型 secret 并非加密保险箱，仍依赖宿主文件和 Docker 管理权限。
 
-## 操作与验证
+`service_healthy` 控制启动依赖门槛；数据库之后仍可能重启或断连，API 必须处理重连、超时和重复请求。`restart` 策略处理进程退出，单独变成 unhealthy 通常不会触发 Docker 自动重启。若给 API 加健康检查，必须确认镜像存在所用探测程序，不能默认 JRE 镜像自带 `curl` 或 `wget`。
+
+## 创建、重建与数据验收
 
 ```bash
-docker compose config
+docker compose config --quiet
 docker compose up -d
 docker compose ps
-docker compose logs -f api
-docker compose exec db psql -U orders -d orders
+docker compose logs --since 10m --tail 100 api db
+docker compose exec db pg_isready -h 127.0.0.1 -U orders -d orders
 docker compose down
 ```
 
-`docker compose config` 会展开变量并检查合并后的模型，应在启动前执行。`down` 默认删除容器和网络，不删除命名卷；只有明确确认数据可以清空时才使用 `down -v`。
+先验证合并模型，再启动并检查原始请求、应用连接和文件结果。`config` 的完整输出可能展开敏感环境变量，检查结构可先用 `--quiet`。配置或镜像更新通常需要 `up -d` 触发对应重建；单纯 `restart` 不会应用新环境变量。
 
-## 排查闭环
+`down` 默认删除容器和网络，保留普通命名卷；外部卷由外部管理。`down -v` 会扩大卷清理范围，不能用于希望保留数据库的正常重建。项目名变化也可能创建另一组卷，看起来像“数据丢失”，应先核对实际卷名和挂载关系。
 
-| 现象 | 验证入口 | 常见原因 |
-| --- | --- | --- |
-| API 无法连接数据库 | `docker compose exec api getent hosts db` | 服务名错误、网络不同、数据库未就绪 |
-| 主机访问 8080 失败 | `docker compose ps`、应用日志 | 未发布端口、应用只监听回环地址、进程退出 |
-| 数据重建后消失 | `docker volume ls`、检查挂载点 | 写入了容器层、执行了 `down -v`、挂载路径错误 |
-| 挂载目录无权限 | `docker inspect`、容器内 `id` | 主机目录 UID/GID 与容器用户不匹配 |
-| 服务反复重启 | `docker compose logs`、检查退出码 | 启动参数错误、依赖不可用、健康检查命令错误 |
-| 修改配置不生效 | `docker compose config` | 变量来源、旧容器、Bind Mount 覆盖镜像文件 |
+## 排查与退出实验
 
-当单机已经不能满足节点故障恢复、多副本、滚动发布和统一权限治理时，再把相同的镜像迁移到 Kubernetes。迁移的是部署模型，不应在迁移时重新制作应用制品。
+| 现象 | 先取证，再修复 |
+| --- | --- |
+| API 连不上数据库 | 内部名称、同网关系、监听、就绪、认证与应用连接错误 |
+| 宿主 8080 不通 | 实际发布地址、应用监听、进程状态和防火墙 |
+| CSV 重建后消失 | 是否写到 `/exports` 挂载、项目名及卷对象是否改变 |
+| 数据库修改密码后仍认证失败 | 初始化变量是否仅对新数据目录生效，核对数据库内账号状态 |
+| unhealthy 但没有重启 | 区分健康状态和进程退出，检查探针是否存在及退出码 |
+
+前面的独立数据库实验结束后，先停止并删除实验容器、再删除专用网络：
+
+```bash
+docker stop order-doc-db
+docker rm order-doc-db
+docker network rm order-doc-net
+unset POSTGRES_PASSWORD
+```
+
+专用命名卷 `order-doc-db-data` 此时保留。确认其中只有可丢弃实验数据后，才执行 `docker volume rm order-doc-db-data`。不要用全局 prune 代替精确清理。

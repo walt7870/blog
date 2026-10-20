@@ -1,7 +1,7 @@
 # 变量和类型怎么服务业务字段
 
 > 示例文件：`field_types.py`  
-> 最后核验：2026-08-02
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 这篇文章把字符串、数字、布尔值和空值放回客户字段里。重点不是背类型名，而是判断字段应该怎样被使用。
 
@@ -18,12 +18,7 @@
 
 ## 核心判断
 
-```text
-用于展示和匹配 -> 字符串
-用于计算和比较 -> 数字
-用于是否判断 -> 布尔值
-用于缺失状态 -> 空值或默认值
-```
+![原始字符串经过字段校验后转换成业务类型](/python/field-conversion-contract.svg)
 
 先问字段要做什么，再决定类型。
 
@@ -42,7 +37,7 @@ python3 field_types.py
 ```python
 from __future__ import annotations
 
-from datetime import date
+from decimal import Decimal
 
 
 customer = {
@@ -60,11 +55,14 @@ field_specs = [
     ("name", customer["name"], "str", "展示客户姓名"),
     ("phone", customer["phone"], "str", "保留前导零和格式"),
     ("city", customer["city"], "str", "筛选和分组"),
-    ("order_amount", float(customer["order_amount_text"]), "float", "计算订单金额"),
+    ("order_amount", Decimal(customer["order_amount_text"]), "Decimal", "精确十进制金额"),
     ("order_count", int(customer["order_count_text"]), "int", "计算购买次数"),
     ("is_vip", customer["is_vip"], "bool", "判断会员状态"),
     ("last_contact", customer["last_contact"], "None", "表示暂时没有联系记录"),
 ]
+
+for field, value, type_name, purpose in field_specs:
+    print(f"{field}: {value!r} | {type_name} | {purpose}")
 ```
 
 ## 字段类型说明表
@@ -74,10 +72,14 @@ field_specs = [
 | `name` | `李雷` | `str` | 用于展示和匹配 |
 | `phone` | `013800000001` | `str` | 不用于计算，要保留格式 |
 | `city` | `上海` | `str` | 用于筛选和分组 |
-| `order_amount` | `1200.50` | `float` | 需要求和和比较 |
+| `order_amount` | `1200.50` | `Decimal` | 用十进制金额求和和比较 |
 | `order_count` | `3` | `int` | 表示次数 |
 | `is_vip` | `True` | `bool` | 表示是否 |
 | `last_contact` | `None` | `None` 或日期 | 表示缺失或日期 |
+
+金额也可以按最小货币单位存为整数，例如人民币 `120050` 分。`float` 适合近似测量值，`0.1 + 0.2` 并不精确等于 `0.3`；若使用 `Decimal`，从原始字符串构造，避免先转成浮点。结算还要单独约定币种、舍入方式和发生舍入的步骤。
+
+接口文本 `"false"` 不会因为内容像否定词就自动变成布尔值，`bool("false")` 仍是 `True`。需明确映射允许的文本；`None`、空字符串和金额 `0` 也不是同一种业务状态，不能全部用 `if not value` 当成缺失。
 
 ## 常见误区
 

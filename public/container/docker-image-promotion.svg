@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">按镜像摘要晋级的交付关系</title><desc id="desc">构建接收受控源码、依赖和基础镜像，生成内容并记录摘要；测试验证后晋级同一摘要，由部署策略检查来源与风险。失败回退到上一已验证制品及兼容配置。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="600" fill="#f8fafc"/><text class="h" x="40" y="51">验收一份制品，晋级同一份内容</text><text class="t muted" x="40" y="84">标签可移动；本地 image ID、平台清单摘要和多平台索引摘要属于不同对象。</text>
+  <path class="line" d="M275 199H330"/><path class="line" d="M585 199H640"/><path class="line" d="M895 199H942Q950 199 950 207V340"/>
+  <rect class="box" x="40" y="139" width="235" height="120" rx="6"/><text class="n" x="60" y="175">受控输入</text><text class="t" x="60" y="209">源码提交、依赖与上下文</text><text class="t" x="60" y="238">基础镜像、目标平台</text>
+  <rect class="blue" x="330" y="139" width="255" height="120" rx="6"/><text class="n" x="350" y="175">构建与内容记录</text><text class="t" x="350" y="209">确定产物、推送与记录摘要</text><text class="t" x="350" y="238">SBOM、扫描、签名及证明</text>
+  <rect class="green" x="640" y="139" width="255" height="120" rx="6"/><text class="n" x="660" y="175">测试验收</text><text class="t" x="660" y="209">进程、请求、数据与停止</text><text class="t" x="660" y="238">记录实际摘要及运行平台</text>
+  <text class="t muted" x="970" y="295">通过后晋级</text>
+  <rect class="green" x="760" y="340" width="320" height="120" rx="6"/><text class="n" x="780" y="376">部署策略与生产实例</text><text class="t" x="780" y="410">检查来源、签名与风险策略</text><text class="t" x="780" y="439">注入环境配置，不重新构建</text>
+  <rect class="box" x="380" y="340" width="320" height="120" rx="6"/><text class="n" x="400" y="376">上一份已验证制品</text><text class="t" x="400" y="410">保留摘要、配置与恢复方法</text><text class="t" x="400" y="439">先核对数据库模式兼容性</text>
+  <path class="line" d="M760 400H700"/>
+  <text class="t muted" x="710" y="383">回退</text>
+  <text class="t muted" x="40" y="525">签名核验来源，扫描识别已知风险，SBOM 描述内容；单项通过不等于全部可信。</text><text class="t muted" x="40" y="557">跨仓库复制后核对目标摘要与平台；秘密只在必要步骤临时挂载，并约束命令与日志。</text>
+</svg>

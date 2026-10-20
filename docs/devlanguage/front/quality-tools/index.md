@@ -1,601 +1,106 @@
-# 前端代码质量工具指南
+# 前端代码质量工具
 
-## 代码质量概览
+订单金额写成字符串拼接、遗漏请求失败分支、格式不统一，是三种不同问题。格式化、静态规则、类型和测试各自负责一部分；再多工具也不能证明价格与权限业务正确。先建立能稳定执行的最小检查链，再补框架规则和团队约束。
 
-代码质量是前端项目成功的关键因素之一。通过使用合适的代码质量工具，可以确保代码的一致性、可维护性和可靠性，减少bug和技术债务，提高团队协作效率。
+![格式、静态规则、类型与行为验证的职责](/front/engineering/quality-gates.svg)
 
-## 代码格式化工具
+## 工具职责
 
-### Prettier
+| 检查层 | 适合发现 | 不能证明 |
+| --- | --- | --- |
+| Prettier | 缩进、引号、换行等格式差异 | 业务逻辑正确 |
+| ESLint | 未声明变量、危险语法、部分框架约束 | 所有异步时序和接口合同正确 |
+| TypeScript | 类型不匹配、缺字段、不可达分支线索 | 远端JSON一定符合声明 |
+| Stylelint | CSS语法与项目样式规则 | 每种屏幕都没有遮挡 |
+| 测试与浏览器验收 | 可执行行为、关键流程和布局 | 未覆盖条件全部安全 |
 
-Prettier是一个固执己见的代码格式化工具，支持多种语言，能够确保代码风格的一致性。
+统一检查入口放在`package.json`，CI按锁文件安装。编辑器提供即时反馈，本地hook减少等待，CI承担可重复门禁；hook可被跳过，不能作为唯一验收。
 
-#### 安装配置
+## 可运行的JavaScript基线
+
+以下示例固定ESLint10、Prettier3和Stylelint16系列，使用flat config。ESLint10要求Node `^20.19.0 || ^22.13.0 || >=24`；新环境优先选仍受维护且满足要求的Node。已有旧项目先核对实际主版本，不直接混用`.eslintrc`、`.eslintignore`与新配置规则。
+
 ```bash
-npm install --save-dev prettier
+npm install -D eslint@10 @eslint/js@10 prettier@3 \
+  stylelint@16 stylelint-config-standard@38
 ```
 
-#### 配置文件
+在项目根目录创建`eslint.config.mjs`：
+
+```js
+import js from '@eslint/js';
+
+export default [
+  { ignores: ['dist/**', 'coverage/**'] },
+  {
+    files: ['src/**/*.js'],
+    ...js.configs.recommended,
+    rules: {
+      ...js.configs.recommended.rules,
+      eqeqeq: 'error',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+];
+```
+
+这个最小配置面向纯ES模块，不自动声明`window`、`process`等环境变量，也不解析TS或Vue。浏览器/Node环境、React Hooks、Vue SFC和TypeScript应按各插件的flat config接入；语法能解析与启用类型感知规则也是两件事。
+
+`.prettierrc.json`只放格式选项，`.prettierignore`排除`dist/`、`coverage/`等生成目录。不要让多个工具同时争抢缩进和引号；若引入了包含格式规则的ESLint预设，检查与Prettier的冲突。
+
 ```json
-// .prettierrc
 {
-  "semi": true,
-  "trailingComma": "es5",
   "singleQuote": true,
-  "printWidth": 80,
-  "tabWidth": 2,
-  "useTabs": false,
-  "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "endOfLine": "lf"
+  "semi": true,
+  "trailingComma": "all"
 }
 ```
 
-#### 忽略文件
-```
-# .prettierignore
-node_modules
-dist
-build
-coverage
-*.min.js
-*.min.css
+`.stylelintrc.json`：
+
+```json
+{
+  "extends": ["stylelint-config-standard"],
+  "ignoreFiles": ["dist/**", "coverage/**"]
+}
 ```
 
-#### 集成到开发流程
+SCSS、Less或Vue内嵌样式另配对应语法与规则包，不复制已经删除的旧格式规则。先用一份正确CSS和一份错误CSS证明配置生效，再扩大扫描范围。
+
+## 统一命令与失败验证
+
 ```json
-// package.json
 {
   "scripts": {
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,css,md}": ["prettier --write"]
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "check": "npm run lint && npm run format:check && npm run lint:css"
   }
 }
 ```
 
-### ESLint
+在`src/quote.js`写入未声明变量，`npm run lint`应失败；故意改坏缩进，`format:check`应失败但不修改文件。修正后再运行`check`。如果始终成功，优先检查文件匹配、忽略规则和实际工作目录，不能只看工具是否安装。
 
-ESLint是最流行的JavaScript代码检查工具，可以识别和报告代码中的模式问题。
+TypeScript项目另外执行`tsc --noEmit`，Vue组件使用匹配版本的`vue-tsc`。在构建工具只移除类型而不检查类型的项目中，打包成功不能替代这一步。
 
-#### 安装和初始化
-```bash
-npm install --save-dev eslint
-npx eslint --init
-```
+## 提交与CI
 
-#### React项目配置
-```javascript
-// .eslintrc.js
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
-  extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'prettier',
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    'jsx-a11y',
-    'import',
-  ],
-  rules: {
-    'react/react-in-jsx-scope': 'off',
-    'react/prop-types': 'off',
-    'import/order': [
-      'error',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-        ],
-        'newlines-between': 'always',
-      },
-    ],
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-};
-```
+使用Husky9时，初始化入口是`npx husky init`，再把`.husky/pre-commit`内容设为`npx lint-staged`；旧的`husky install/add`流程不应直接复制到新项目。只有在团队确认需要时才接入hook，命令本身仍可独立运行。
 
-#### Vue项目配置
-```javascript
-// .eslintrc.js
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
-  extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended',
-    'plugin:vue/vue3-recommended',
-    'prettier',
-  ],
-  parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  plugins: ['vue', '@typescript-eslint'],
-  rules: {
-    'vue/multi-word-component-names': 'off',
-  },
-};
-```
+`lint-staged`面向暂存文件做快速检查，CI对提交快照做完整检查、测试与构建。避免在CI自动修复后继续发布未审查的文件；格式化和自动修复应在提交前完成并审查差异。
 
-#### 忽略文件
-```
-# .eslintignore
-node_modules
-dist
-build
-*.min.js
-*.min.css
-public
-```
+## 依赖风险与排错
 
-### TypeScript集成
+`npm audit`报告已知漏洞线索，需检查依赖路径、构建机执行权限及实际调用。`npm audit fix`可能修改依赖图，不能把自动升级当成无风险操作；开发依赖也可能在安装、测试和构建阶段执行代码。
 
-#### 安装TypeScript ESLint
-```bash
-npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin
-```
+| 现象 | 排查方向 |
+| --- | --- |
+| 编辑器报错、CI通过 | 编辑器工作目录、插件版本、是否读取同一配置 |
+| TS文件全部被忽略 | flat config的files、parser与插件是否覆盖扩展名 |
+| 两工具反复改同一行 | 格式规则冲突，明确格式化归属 |
+| 本机通过、CI找不到包 | 锁文件、开发依赖、Node和安装器版本 |
+| 覆盖率高但线上仍错 | 是否断言真实结果、异常路径和多用户边界 |
 
-#### TypeScript配置
-```javascript
-// .eslintrc.js
-module.exports = {
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended',
-    '@typescript-eslint/recommended-requiring-type-checking',
-  ],
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    project: './tsconfig.json',
-  },
-  rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'warn',
-    '@typescript-eslint/no-explicit-any': 'warn',
-  },
-};
-```
-
-## 代码风格检查
-
-### Stylelint
-
-Stylelint是强大的现代CSS检查工具，支持CSS、SCSS、Less等预处理器。
-
-#### 安装配置
-```bash
-npm install --save-dev stylelint stylelint-config-standard
-```
-
-#### 配置文件
-```json
-// .stylelintrc.json
-{
-  "extends": [
-    "stylelint-config-standard",
-    "stylelint-config-recommended-scss",
-    "stylelint-config-recommended-vue"
-  ],
-  "plugins": [
-    "stylelint-order",
-    "stylelint-scss"
-  ],
-  "rules": {
-    "order/properties-alphabetical-order": true,
-    "color-hex-case": "lower",
-    "color-hex-length": "short",
-    "declaration-colon-space-after": "always",
-    "declaration-colon-space-before": "never",
-    "block-opening-brace-space-before": "always",
-    "block-closing-brace-newline-after": "always"
-  },
-  "ignoreFiles": [
-    "dist/**/*",
-    "node_modules/**/*",
-    "*.min.css"
-  ]
-}
-```
-
-#### SCSS支持
-```bash
-npm install --save-dev stylelint-config-standard-scss stylelint-config-recommended-vue
-```
-
-### 代码复杂度检查
-
-#### ESLint复杂度规则
-```javascript
-// .eslintrc.js
-module.exports = {
-  rules: {
-    'complexity': ['error', 10],
-    'max-depth': ['error', 4],
-    'max-lines': ['error', 300],
-    'max-lines-per-function': ['error', 50],
-    'max-nested-callbacks': ['error', 3],
-    'max-params': ['error', 4],
-    'max-statements': ['error', 25],
-  },
-};
-```
-
-## 代码质量分析
-
-### SonarQube
-
-SonarQube是一个开源的代码质量管理平台，支持多种编程语言。
-
-#### 配置示例
-```properties
-# sonar-project.properties
-sonar.projectKey=my-project
-sonar.projectName=My Project
-sonar.projectVersion=1.0
-
-sonar.sources=src
-sonar.tests=__tests__
-sonar.exclusions=node_modules/**,dist/**
-
-sonar.javascript.lcov.reportPaths=coverage/lcov.info
-sonar.coverage.exclusions=**/*.test.js,**/*.spec.js
-```
-
-#### GitHub Actions集成
-```yaml
-# .github/workflows/sonar.yml
-name: SonarQube Analysis
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install dependencies
-        run: npm ci
-      - name: Test and coverage
-        run: npm run test:coverage
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-```
-
-### 代码重复检测
-
-#### jscpd
-```bash
-npm install --save-dev jscpd
-```
-
-#### 配置
-```json
-// .jscpd.json
-{
-  "threshold": 0.1,
-  "reporters": ["html", "console"],
-  "ignore": [
-    "**/*.test.js",
-    "**/*.spec.js",
-    "**/node_modules/**",
-    "**/dist/**"
-  ],
-  "absolute": true
-}
-```
-
-## 安全扫描
-
-### npm audit
-```bash
-# 检查安全漏洞
-npm audit
-
-# 自动修复
-npm audit fix
-
-# 检查特定包
-npm audit --package package-name
-```
-
-### Snyk
-```bash
-# 安装
-npm install -g snyk
-
-# 认证
-snyk auth
-
-# 扫描项目
-snyk test
-
-# 监控项目
-snyk monitor
-```
-
-### OWASP依赖检查
-```bash
-# 安装
-npm install -g owasp-dependency-check
-
-# 运行检查
-dependency-check --project MyApp --scan . --format ALL
-```
-
-## 自动化工作流
-
-### Husky
-
-Husky可以让你在Git hooks中运行脚本，确保代码质量。
-
-#### 安装配置
-```bash
-npm install --save-dev husky
-npx husky install
-```
-
-#### 添加Git hooks
-```bash
-# 添加pre-commit hook
-npx husky add .husky/pre-commit "npx lint-staged"
-
-# 添加pre-push hook
-npx husky add .husky/pre-push "npm run test"
-```
-
-### lint-staged
-```bash
-npm install --save-dev lint-staged
-```
-
-#### 配置
-```json
-// package.json
-{
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{css,scss,less}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
-  }
-}
-```
-
-### Commitizen
-```bash
-npm install --save-dev commitizen @commitlint/config-conventional
-```
-
-#### 配置
-```javascript
-// commitlint.config.js
-module.exports = {
-  extends: ['@commitlint/config-conventional'],
-  rules: {
-    'type-enum': [
-      2,
-      'always',
-      [
-        'feat',
-        'fix',
-        'docs',
-        'style',
-        'refactor',
-        'test',
-        'chore',
-      ],
-    ],
-  },
-};
-```
-
-## IDE集成
-
-### VS Code配置
-
-#### 扩展推荐
-```json
-// .vscode/extensions.json
-{
-  "recommendations": [
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint",
-    "ms-vscode.vscode-typescript-next",
-    "bradlc.vscode-tailwindcss"
-  ]
-}
-```
-
-#### 设置
-```json
-// .vscode/settings.json
-{
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
-  },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "stylelint.validate": [
-    "css",
-    "scss",
-    "vue"
-  ]
-}
-```
-
-## 性能优化
-
-### 构建优化
-```javascript
-// webpack.config.js
-module.exports = {
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
-  },
-};
-```
-
-### 包大小分析
-```bash
-# 分析包大小
-npm install --save-dev webpack-bundle-analyzer
-
-# 添加到构建脚本
-"analyze": "npm run build -- --analyze"
-```
-
-## 最佳实践总结
-
-### 1. 分层配置
-- **基础规则**: ESLint推荐规则
-- **框架规则**: React/Vue/Angular特定规则
-- **团队规则**: 自定义团队规范
-
-### 2. 渐进式采用
-```javascript
-// .eslintrc.js - 渐进式配置
-module.exports = {
-  extends: [
-    'eslint:recommended',
-  ],
-  rules: {
-    // 从警告开始
-    'no-console': 'warn',
-    'no-unused-vars': 'warn',
-    
-    // 逐步提升为错误
-    'no-console': 'error',
-    'no-unused-vars': 'error',
-  },
-};
-```
-
-### 3. 文档化规范
-```markdown
-# 代码规范文档
-
-## JavaScript规范
-- 使用ESLint + Prettier
-- 遵循Airbnb规范
-- 强制分号和单引号
-
-## CSS规范
-- 使用Stylelint
-- BEM命名规范
-- 属性排序
-
-## Git规范
-- 使用Commitizen
-- 遵循Conventional Commits
-- 强制代码审查
-```
-
-### 4. 持续集成
-```yaml
-# .github/workflows/quality.yml
-name: Code Quality
-on: [push, pull_request]
-
-jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm run test
-```
-
-## 监控和报告
-
-### 质量指标
-- **代码覆盖率**: 80%以上
-- **复杂度**: 函数复杂度<10
-- **重复代码**: <5%
-- **技术债务**: 定期清理
-
-### 报告工具
-```bash
-# 生成质量报告
-npm install --save-dev eslint-formatter-html
-eslint --format html --output-file eslint-report.html src/
-```
-
-通过合理使用这些代码质量工具，可以显著提高代码质量，减少bug，提升团队协作效率。关键是选择适合项目需求的工具组合，并建立可持续的质量保障流程。
+复杂度、重复率和覆盖率是定位线索，没有适合所有项目的固定达标数字。订单确认、支付结果和权限检查应按失败后果补行为测试，见[测试策略](../testing/)；工具版本与依赖信任见[包管理器](../package-managers/)。

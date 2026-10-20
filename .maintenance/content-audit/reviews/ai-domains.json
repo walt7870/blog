@@ -1,0 +1,92 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/domains/index.md",
+      "status": "verified",
+      "pageType": "领域与业务链路导读",
+      "decision": "重绘三条电商链路，区分输入、领域能力、业务验收；补售后选型例子并保留七个细节入口。",
+      "findings": [],
+      "validation": [
+        "全文与图中文字审查；四种显示、客户端分页、双视口键盘放大和1120px原尺寸通过。"
+      ],
+      "reviewedHash": "927ed2e3ac29764e263164a68f88d164fb100be285c2734dccb3c60c5fa59d54"
+    },
+    {
+      "file": "docs/ai/domains/computer-vision.md",
+      "status": "verified",
+      "pageType": "视觉输入与坐标合同",
+      "decision": "用1280×720到640方形的letterbox例子解释逆变换；明确NMS按实现、坐标格式和同物体相邻帧泄漏。",
+      "findings": [],
+      "validation": [
+        "坐标手算核对：[100,200,300,300]→[200,120,600,320]；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "83255197723acbfda3ae2c0fb361309ff75c263237475197a12283d132f1b8eb"
+    },
+    {
+      "file": "docs/ai/domains/nlp.md",
+      "status": "verified",
+      "pageType": "语言任务与证据边界",
+      "decision": "订单A102和19.90元贯穿抽取、证据和授权三层；清洗保留位置映射、缺失不同于0，补多标签分类边界。",
+      "findings": [],
+      "validation": [
+        "全文及抽取字段审查；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "25e4856d6dea41915f161bc52e537b7031194398c0075e0a1f2f4ea34332ec53"
+    },
+    {
+      "file": "docs/ai/domains/multimodal.md",
+      "status": "verified",
+      "pageType": "多模态证据对齐",
+      "decision": "以12.4至13.2秒声音与13秒画面说明融合、缺帧、证据冲突与指令权限；不把统一向量空间视为所有架构前提。",
+      "findings": [],
+      "validation": [
+        "全文与时间线审查；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "bdfa6d69ee78a33dbe7be46ceefe9db63f3824a239b5f48ab46632c9f073c592"
+    },
+    {
+      "file": "docs/ai/domains/recommendation.md",
+      "status": "verified",
+      "pageType": "推荐反馈与硬约束",
+      "decision": "区分返回、可见曝光与点击；未曝光候选不直接作负例，补库存快照、交易核对和指标采样口径。",
+      "findings": [],
+      "validation": [
+        "全文及反馈箭头审查；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "373cd27e28fe5d5b5b857b95cfb4551822d8283e849d426ef56a14060beaf2a7"
+    },
+    {
+      "file": "docs/ai/domains/reinforcement-learning.md",
+      "status": "verified",
+      "pageType": "连续决策与安全边界",
+      "decision": "澄清MDP与部分可观测、离线RL覆盖、DPO边界；机器人电量约束与折扣回报例子解释奖励不能代替硬约束。",
+      "findings": [],
+      "validation": [
+        "两步奖励[-1,10]折扣0.9回报8手算核对；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "81d0cd3900886c416da024c8f26bd5a81228d64f76af7e6b7b83803207320f56"
+    },
+    {
+      "file": "docs/ai/domains/speech.md",
+      "status": "verified",
+      "pageType": "语音运行时概览",
+      "decision": "区分VAD静音、输入结束和final；A10修订A102不提前执行，补热词解码、可选时间戳及打断清理迟到音频。",
+      "findings": [],
+      "validation": [
+        "全文及模块顺序与取消方向审查；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "a60eea104d7fca5473f51dc861e414a9d17cc6f5a6c4e85490fa5080917740f5"
+    },
+    {
+      "file": "docs/ai/domains/time-series.md",
+      "status": "verified",
+      "pageType": "时间可见性与回测",
+      "decision": "补可用时间、外生变量与滚动回测；零值示例计算MAE4/WAPE40%，分开预测与补货决策。",
+      "findings": [],
+      "validation": [
+        "[10,0,20]与[8,5,25]误差核算；四种显示、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "ecc02fa6408a74b6fea208484b5af90b2777a0226637f9dc66a281c1a50037f4"
+    }
+  ]
+}

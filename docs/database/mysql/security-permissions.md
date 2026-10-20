@@ -1,990 +1,190 @@
 # MySQL 安全与权限管理
 
-## 安全概述
+订单客服需要查询订单状态，却不应顺带导出手机号、修改金额或删除表。把连接密码交给客服，再授予整个数据库的 `ALL PRIVILEGES`，会把这些不同能力捆在一起。安全配置要把“谁能连上、连接的是谁、允许操作什么、操作能否追溯”分别落实。
 
-MySQL 安全是数据库系统的重要组成部分，涉及用户认证、权限控制、数据加密、网络安全等多个方面。完善的安全机制能够保护数据免受未授权访问、数据泄露和恶意攻击，确保数据的机密性、完整性和可用性。
+本文以 MySQL 8.4 LTS 为基线。数据库连接账号与应用注册用户是两套身份：前者由 MySQL 认证，后者由应用认证并决定租户、订单归属。共享一个数据库账号的多个应用用户，在 MySQL 看来通常仍是同一个主体。
 
-### 安全威胁分析
+## 从连接到数据的边界
 
-#### 外部威胁
+![网络、TLS、账号与角色各自控制不同的访问边界](/database/mysql-security-boundaries.svg)
 
-**网络攻击**：
-- SQL 注入攻击
-- 暴力破解密码
-- 拒绝服务攻击（DoS/DDoS）
-- 中间人攻击
-- 网络嗅探和窃听
+防火墙限制哪些来源能到达数据库端口，TLS 防止传输途中被读取和篡改，账号认证确认连接身份，角色和对象权限约束 SQL。前一关通过，不代表后一关自动通过；拥有 `SELECT` 也不意味着应用用户可以查询任意租户的数据。
 
-**恶意用户**：
-- 未授权的数据访问
-- 数据窃取和泄露
-- 恶意数据修改
-- 系统资源滥用
-- 权限提升攻击
+例如，客服接口即使使用只读数据库账号，仍须绑定当前客服负责的店铺，再构造参数化查询。列级权限可以隐藏手机号，却不能自动实现“只读本店订单”的行级规则。需要通过受控查询、视图或服务边界实现该规则，并验证所有入口；不能让客户端自由传入店铺编号就算完成授权。
 
-**系统漏洞**：
-- 软件版本漏洞
-- 配置错误
-- 默认密码和设置
-- 不安全的网络协议
-- 缺乏安全更新
+## 账号是用户名与来源的组合
 
-#### 内部威胁
+`'support'@'localhost'` 与 `'support'@'192.0.2.10'` 是不同账号。服务端根据实际连接来源选择匹配记录，再校验凭据；不是先把所有同名账户的权限合并。精确地址、网段和通配模式有专门排序规则，不能仅按字符串长度推断命中了谁。
 
-**内部人员**：
-- 员工的恶意行为
-- 权限滥用
-- 数据泄露
-- 误操作和错误
-- 离职员工的访问权限
+排查时，在发生问题的连接里执行：
 
-**管理疏漏**：
-- 权限管理不当
-- 审计日志缺失
-- 安全策略执行不力
-- 培训和意识不足
-- 应急响应不及时
-
-### 安全防护原则
-
-#### 最小权限原则
-
-**权限最小化**：
-- 用户只获得完成工作所需的最小权限
-- 避免过度授权
-- 定期审查和调整权限
-- 实施权限分离
-
-**职责分离**：
-- 将关键操作分配给不同的用户
-- 避免单点权限集中
-- 实施多人审批机制
-- 建立制衡机制
-
-**时间限制**：
-- 设置权限的有效期
-- 定期重新认证
-- 临时权限的自动回收
-- 基于时间的访问控制
-
-#### 深度防御原则
-
-**多层防护**：
-- 网络层安全控制
-- 应用层安全验证
-- 数据库层权限管理
-- 操作系统层安全加固
-
-**冗余保护**：
-- 多种认证方式
-- 备份安全机制
-- 故障转移方案
-- 安全监控和告警
-
-**持续改进**：
-- 定期安全评估
-- 漏洞扫描和修复
-- 安全策略更新
-- 员工安全培训
-
-## 用户管理系统
-
-MySQL 的用户管理系统提供了完整的用户认证和授权机制，支持细粒度的权限控制和灵活的用户管理策略。
-
-### 用户账户结构
-
-#### 用户标识
-
-**用户名和主机名**：
-- 用户账户由用户名和主机名组成
-- 格式：'username'@'hostname'
-- 主机名支持通配符和 IP 地址
-- 不同主机的同名用户是不同的账户
-
-**主机名匹配规则**：
-- **精确匹配**：'user'@'192.168.1.100'
-- **通配符匹配**：'user'@'192.168.1.%'
-- **域名匹配**：'user'@'%.example.com'
-- **本地连接**：'user'@'localhost'
-- **任意主机**：'user'@'%'
-
-**匹配优先级**：
-- 更具体的主机名具有更高的优先级
-- 精确匹配优先于通配符匹配
-- 较长的匹配模式优先于较短的
-- 系统按照优先级顺序进行匹配
-
-#### 认证信息
-
-**密码存储**：
-- 密码以哈希形式存储在 mysql.user 表中
-- 支持多种哈希算法（SHA-256、caching_sha2_password 等）
-- 密码验证插件可配置
-- 支持密码历史和复杂度要求
-
-**认证插件**：
-- **mysql_native_password**：传统的密码认证
-- **caching_sha2_password**：MySQL 8.0 默认认证插件
-- **sha256_password**：SHA-256 密码认证
-- **auth_socket**：基于操作系统用户的认证
-- **LDAP 认证**：企业级目录服务认证
-
-**SSL/TLS 支持**：
-- 加密的客户端连接
-- 证书认证
-- 强制 SSL 连接
-- 证书验证和管理
-
-### 用户操作管理
-
-#### 创建用户
-
-**基本语法**：
 ```sql
-CREATE USER 'username'@'hostname' 
-IDENTIFIED BY 'password';
+SELECT USER() AS client_identity,
+       CURRENT_USER() AS matched_account,
+       CURRENT_ROLE() AS active_roles;
+SHOW GRANTS;
 ```
 
-**高级选项**：
+`USER()` 反映客户端提交的用户名与连接来源，`CURRENT_USER()` 通常反映用于权限检查的匹配账号；在带 `DEFINER` 的存储对象上下文中还要考虑执行身份。经代理、容器或 NAT 连接时，服务端看到的地址可能不是开发机地址。Unix socket 与 TCP 也不能混作一种来源测试。
+
+生产账号优先使用明确来源或受控网段，网络层同步限制访问。MySQL 8.4 中主机名里的 `%`、`_` 通配形式已弃用，不宜继续扩大依赖。启用 `skip_name_resolve` 时须检查基于主机名的授权是否仍匹配，不能改完后只验证本地 root。
+
+8.4 默认认证插件是 `caching_sha2_password`；`mysql_native_password` 默认禁用，老驱动连接失败时优先升级驱动并检查 TLS。认证插件负责连接握手，`validate_password` 组件负责密码规则，两者职责不同。不要直接更新 `mysql.user` 保存密码或授权。
+
+## 练习：客服只读，临时修改状态
+
+以下在独立练习实例中由管理员初始化。`security_demo` 是示例库，不指向生产订单。生成的随机密码只在创建结果中交付给对应账号的凭据管理流程，不写进 SQL 文件、代码仓库或终端历史。
+
 ```sql
-CREATE USER 'username'@'hostname'
-IDENTIFIED WITH authentication_plugin BY 'password'
-REQUIRE SSL
-WITH MAX_QUERIES_PER_HOUR 1000
-     MAX_UPDATES_PER_HOUR 100
-     MAX_CONNECTIONS_PER_HOUR 10
-     MAX_USER_CONNECTIONS 5;
+CREATE DATABASE security_demo;
+CREATE TABLE security_demo.orders (
+    id BIGINT UNSIGNED PRIMARY KEY,
+    status VARCHAR(20) NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    phone VARCHAR(20) NOT NULL
+) ENGINE=InnoDB;
+INSERT INTO security_demo.orders VALUES (1001, 'PENDING', 39.90, '示例号码');
+
+CREATE ROLE 'support_read'@'localhost', 'support_status'@'localhost';
+GRANT SELECT (id, status) ON security_demo.orders
+    TO 'support_read'@'localhost';
+GRANT UPDATE (status) ON security_demo.orders
+    TO 'support_status'@'localhost';
+
+CREATE USER 'support_demo'@'localhost' IDENTIFIED BY RANDOM PASSWORD;
+GRANT 'support_read'@'localhost', 'support_status'@'localhost'
+    TO 'support_demo'@'localhost';
+SET DEFAULT ROLE 'support_read'@'localhost'
+    TO 'support_demo'@'localhost';
 ```
 
-**创建选项说明**：
-- **IDENTIFIED BY**：设置密码
-- **IDENTIFIED WITH**：指定认证插件
-- **REQUIRE SSL**：强制 SSL 连接
-- **MAX_QUERIES_PER_HOUR**：每小时最大查询数
-- **MAX_UPDATES_PER_HOUR**：每小时最大更新数
-- **MAX_CONNECTIONS_PER_HOUR**：每小时最大连接数
-- **MAX_USER_CONNECTIONS**：同时最大连接数
+随后使用新账号重新连接。在默认 `activate_all_roles_on_login=OFF` 的实例里，只读角色随登录激活，状态修改角色仅被授予，还没有激活。如果实例开启了该开关，登录激活范围会不同，不能直接照预期判断。
 
-#### 修改用户
-
-**修改密码**：
 ```sql
--- 修改当前用户密码
-ALTER USER USER() IDENTIFIED BY 'new_password';
-
--- 修改指定用户密码
-ALTER USER 'username'@'hostname' IDENTIFIED BY 'new_password';
-
--- 设置密码过期
-ALTER USER 'username'@'hostname' PASSWORD EXPIRE;
+SELECT CURRENT_ROLE();
+SELECT id, status FROM security_demo.orders;
 ```
 
-**修改认证方式**：
+这时应该能读到 `1001 / PENDING`；查询 `amount`、`phone` 或 `SELECT *` 应被拒绝。`UPDATE ... SET status=...` 与 `DROP TABLE` 同样不应成功。拒绝测试要单独执行，避免第一个错误中断后续测试后被误报为全部通过。
+
+临时处理任务时，在该账号会话中显式激活两个角色：
+
 ```sql
-ALTER USER 'username'@'hostname' 
-IDENTIFIED WITH caching_sha2_password BY 'password';
+SET ROLE 'support_read'@'localhost', 'support_status'@'localhost';
+UPDATE security_demo.orders SET status='PROCESSING' WHERE id=1001;
+SELECT id, status FROM security_demo.orders;
+SET ROLE DEFAULT;
+SELECT CURRENT_ROLE();
 ```
 
-**修改资源限制**：
+修改 `status` 应成功，修改 `amount` 仍应被拒绝。这里验证的是列范围，**没有实现业务状态机**：仅有 `UPDATE(status)` 的账号仍可能把状态写为其他字符串，应用应验证合法迁移，必要时只授予受控存储过程的 `EXECUTE`。
+
+同样，`SET ROLE` 只是会话内的权限开关。账号已经持有该角色时，可以自行再次激活；真正的限时授权需要管理员按任务授予、到期撤销，并核查连接池，不应把“默认没激活”当成审批制度。
+
+## 回收权限与终止访问
+
+管理员可以查看角色本身与账号经角色获得的权限：
+
 ```sql
-ALTER USER 'username'@'hostname'
-WITH MAX_QUERIES_PER_HOUR 2000
-     MAX_USER_CONNECTIONS 10;
+SHOW GRANTS FOR 'support_read'@'localhost';
+SHOW GRANTS FOR 'support_demo'@'localhost'
+    USING 'support_read'@'localhost', 'support_status'@'localhost';
+
+REVOKE 'support_status'@'localhost' FROM 'support_demo'@'localhost';
+ALTER USER 'support_demo'@'localhost' ACCOUNT LOCK;
 ```
 
-**账户锁定和解锁**：
-```sql
--- 锁定账户
-ALTER USER 'username'@'hostname' ACCOUNT LOCK;
+撤销后应在既有连接和新连接分别测试。账号锁定拒绝新登录，但不等于已经终止全部旧连接。紧急回收时还要定位该账号的连接，核对连接编号后由有权限的管理会话执行 `KILL CONNECTION`，并检查后台任务、连接池重连和其他同名来源账号。
 
--- 解锁账户
-ALTER USER 'username'@'hostname' ACCOUNT UNLOCK;
-```
+`GRANT`、`REVOKE` 等账号管理语句会让服务端重载相应授权信息，正常操作不需要额外 `FLUSH PRIVILEGES`。对既有会话，权限层级影响生效时点：
 
-#### 删除用户
+| 变化 | 既有连接的处理边界 |
+| --- | --- |
+| 表、列权限 | 下一次请求使用更新后的权限 |
+| 数据库级权限 | 下次实际执行 `USE 数据库` 时更新；驱动可能缓存库名 |
+| 静态全局权限、密码 | 既有连接不受这类变化影响，新连接使用新状态 |
+| 动态全局权限 | 立即应用变化 |
+| 会话内 `SET ROLE` | 立即影响该会话，不改变其他会话的激活角色 |
 
-**删除用户语法**：
-```sql
-DROP USER 'username'@'hostname';
+因此不能笼统写成“撤销立即切断访问”或“一律必须重连才有效”。权限与账号管理还可能隐式提交，必须使用独立管理会话，不夹在业务事务里期望 `ROLLBACK` 撤销授权。删除账号前检查视图、触发器和存储程序的 `DEFINER`，这些对象不会因为删账号就自动消失。
 
--- 删除多个用户
-DROP USER 'user1'@'host1', 'user2'@'host2';
+权限范围优先缩小到库、表、列或特定过程。应用账号不持有 `GRANT OPTION`、`FILE`、账号管理或关闭服务器权限；监控、迁移、备份各自使用专用账号。`ALL PRIVILEGES` 的含义取决于授予层级，也不自动包含 `GRANT OPTION`，不能当成统一的“管理员模板”。
 
--- 如果用户存在则删除
-DROP USER IF EXISTS 'username'@'hostname';
-```
+## TLS：加密与身份验证要同时成立
 
-**删除注意事项**：
-- 删除用户会自动撤销所有权限
-- 删除用户不会删除用户创建的对象
-- 建议在删除前备份用户权限信息
-- 考虑对应用程序的影响
+下面是已签发证书环境的配置模板，文件必须存在、可由 mysqld 读取，私钥仅允许必要的系统身份访问。地址使用保留示例地址，按实际私网接口替换；防火墙同时限制来源。
 
-### 密码管理策略
-
-#### 密码策略配置
-
-**密码复杂度要求**：
-- 最小密码长度
-- 必须包含大小写字母
-- 必须包含数字和特殊字符
-- 禁止使用常见密码
-- 禁止使用用户名作为密码
-
-**密码历史管理**：
-- 记录密码历史
-- 禁止重复使用最近的密码
-- 设置密码历史保留数量
-- 定期清理过期的密码历史
-
-**密码过期策略**：
-- 设置密码有效期
-- 强制定期更改密码
-- 密码过期前的提醒
-- 过期后的宽限期
-
-#### 密码安全实践
-
-**强密码生成**：
-- 使用密码生成工具
-- 避免使用个人信息
-- 定期更换密码
-- 不同系统使用不同密码
-
-**密码存储安全**：
-- 使用密码管理器
-- 避免明文存储密码
-- 加密配置文件中的密码
-- 限制密码文件的访问权限
-
-**密码传输安全**：
-- 使用 SSL/TLS 加密连接
-- 避免在不安全的网络中传输密码
-- 使用安全的认证协议
-- 定期更新 SSL 证书
-
-## 权限控制机制
-
-MySQL 提供了细粒度的权限控制机制，支持从全局到列级别的权限管理，能够满足不同安全级别的需求。
-
-### 权限层次结构
-
-#### 全局权限
-
-**管理权限**：
-- **ALL PRIVILEGES**：所有权限（除 GRANT OPTION 外）
-- **SUPER**：超级用户权限，可以终止其他用户的连接
-- **PROCESS**：查看所有进程的权限
-- **RELOAD**：重新加载权限表和日志文件
-- **SHUTDOWN**：关闭服务器的权限
-- **FILE**：读写服务器文件的权限
-
-**复制权限**：
-- **REPLICATION SLAVE**：作为从服务器连接主服务器
-- **REPLICATION CLIENT**：查询主从服务器状态
-- **BINLOG_ADMIN**：管理二进制日志
-- **REPLICATION_SLAVE_ADMIN**：管理从服务器
-
-**安全权限**：
-- **CREATE USER**：创建、删除、重命名用户
-- **GRANT OPTION**：授予和撤销权限
-- **PROXY**：代理其他用户
-- **ROLE_ADMIN**：管理角色
-
-#### 数据库权限
-
-**数据库级别权限**：
-- **CREATE**：创建数据库和表
-- **DROP**：删除数据库和表
-- **ALTER**：修改表结构
-- **INDEX**：创建和删除索引
-- **REFERENCES**：创建外键引用
-- **CREATE TEMPORARY TABLES**：创建临时表
-- **LOCK TABLES**：锁定表
-- **CREATE VIEW**：创建视图
-- **SHOW VIEW**：查看视图定义
-- **CREATE ROUTINE**：创建存储过程和函数
-- **ALTER ROUTINE**：修改存储过程和函数
-- **EXECUTE**：执行存储过程和函数
-- **EVENT**：创建、修改、删除事件
-- **TRIGGER**：创建、删除触发器
-
-#### 表权限
-
-**数据操作权限**：
-- **SELECT**：查询表数据
-- **INSERT**：插入数据
-- **UPDATE**：更新数据
-- **DELETE**：删除数据
-
-**表结构权限**：
-- **CREATE**：在数据库中创建表
-- **DROP**：删除表
-- **ALTER**：修改表结构
-- **INDEX**：创建和删除索引
-- **REFERENCES**：创建外键引用
-
-#### 列权限
-
-**列级别控制**：
-- **SELECT (column_list)**：查询指定列
-- **INSERT (column_list)**：插入指定列
-- **UPDATE (column_list)**：更新指定列
-- **REFERENCES (column_list)**：引用指定列
-
-**列权限特点**：
-- 提供最细粒度的权限控制
-- 适用于敏感数据的保护
-- 管理复杂度较高
-- 性能开销相对较大
-
-### 权限授予和撤销
-
-#### GRANT 语句
-
-**基本语法**：
-```sql
-GRANT privilege_list 
-ON database.table 
-TO 'username'@'hostname'
-[WITH GRANT OPTION];
-```
-
-**权限授予示例**：
-```sql
--- 授予数据库的所有权限
-GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'localhost';
-
--- 授予特定表的查询和插入权限
-GRANT SELECT, INSERT ON mydb.mytable TO 'user'@'%';
-
--- 授予特定列的权限
-GRANT SELECT (id, name), UPDATE (name) ON mydb.users TO 'user'@'localhost';
-
--- 授予存储过程执行权限
-GRANT EXECUTE ON PROCEDURE mydb.my_procedure TO 'user'@'localhost';
-
--- 授予全局权限
-GRANT PROCESS, REPLICATION CLIENT ON *.* TO 'monitor'@'%';
-```
-
-**WITH GRANT OPTION**：
-- 允许用户将权限授予其他用户
-- 创建权限传播链
-- 需要谨慎使用
-- 可能导致权限扩散
-
-#### REVOKE 语句
-
-**撤销权限语法**：
-```sql
-REVOKE privilege_list 
-ON database.table 
-FROM 'username'@'hostname';
-```
-
-**撤销权限示例**：
-```sql
--- 撤销特定权限
-REVOKE INSERT, UPDATE ON mydb.* FROM 'user'@'localhost';
-
--- 撤销所有权限
-REVOKE ALL PRIVILEGES ON mydb.* FROM 'user'@'localhost';
-
--- 撤销 GRANT OPTION
-REVOKE GRANT OPTION ON mydb.* FROM 'user'@'localhost';
-
--- 撤销全局权限
-REVOKE PROCESS ON *.* FROM 'monitor'@'%';
-```
-
-**撤销注意事项**：
-- 撤销权限立即生效
-- 不会影响已建立的连接
-- 需要重新连接才能生效
-- 考虑对应用程序的影响
-
-### 角色管理（MySQL 8.0+）
-
-#### 角色概念
-
-**角色定义**：
-- 角色是权限的集合
-- 可以授予给用户或其他角色
-- 简化权限管理
-- 提高安全性和可维护性
-
-**角色优势**：
-- 简化权限分配
-- 统一权限管理
-- 减少权限错误
-- 便于权限审计
-
-#### 角色操作
-
-**创建角色**：
-```sql
--- 创建角色
-CREATE ROLE 'app_developer', 'app_read', 'app_write';
-
--- 为角色授予权限
-GRANT SELECT ON mydb.* TO 'app_read';
-GRANT INSERT, UPDATE, DELETE ON mydb.* TO 'app_write';
-GRANT ALL PRIVILEGES ON mydb.* TO 'app_developer';
-```
-
-**角色授予**：
-```sql
--- 将角色授予用户
-GRANT 'app_read' TO 'user1'@'localhost';
-GRANT 'app_write', 'app_read' TO 'user2'@'localhost';
-
--- 设置默认角色
-SET DEFAULT ROLE 'app_read' TO 'user1'@'localhost';
-
--- 激活角色
-SET ROLE 'app_write';
-```
-
-**角色管理**：
-```sql
--- 查看角色
-SHOW GRANTS FOR 'app_developer';
-
--- 撤销角色
-REVOKE 'app_write' FROM 'user2'@'localhost';
-
--- 删除角色
-DROP ROLE 'app_developer';
-```
-
-#### 角色继承
-
-**角色层次**：
-- 角色可以授予给其他角色
-- 形成角色继承层次
-- 简化复杂权限结构
-- 便于权限管理
-
-**继承示例**：
-```sql
--- 创建角色层次
-CREATE ROLE 'base_user', 'power_user', 'admin_user';
-
--- 基础权限
-GRANT SELECT ON mydb.* TO 'base_user';
-
--- 高级权限继承基础权限
-GRANT 'base_user' TO 'power_user';
-GRANT INSERT, UPDATE ON mydb.* TO 'power_user';
-
--- 管理员权限继承高级权限
-GRANT 'power_user' TO 'admin_user';
-GRANT DELETE, DROP ON mydb.* TO 'admin_user';
-```
-
-## 网络安全配置
-
-### SSL/TLS 加密
-
-#### SSL 配置
-
-**启用 SSL**：
-- 生成 SSL 证书和密钥
-- 配置服务器 SSL 参数
-- 客户端 SSL 连接配置
-- 证书验证和管理
-
-**服务器配置**：
 ```ini
 [mysqld]
-ssl-ca=/path/to/ca-cert.pem
-ssl-cert=/path/to/server-cert.pem
-ssl-key=/path/to/server-key.pem
-ssl-cipher=ECDHE-RSA-AES128-GCM-SHA256
+bind_address=192.0.2.20
+ssl_ca=/etc/mysql/tls/ca.pem
+ssl_cert=/etc/mysql/tls/server-cert.pem
+ssl_key=/etc/mysql/tls/server-key.pem
+tls_version=TLSv1.2,TLSv1.3
+require_secure_transport=ON
 ```
 
-**客户端连接**：
+`require_secure_transport` 允许 TLS TCP，也允许 Unix socket 等安全传输；它不是“所有连接都有 TLS”。针对远程服务账号还可设置 `REQUIRE SSL`，要求其使用加密连接；需要客户端证书时再选择 `REQUIRE X509` 等约束。
+
+客户端需使用与证书名称相符的主机名，并校验受信 CA 与服务端身份：
+
 ```bash
-mysql --ssl-ca=/path/to/ca-cert.pem \
-      --ssl-cert=/path/to/client-cert.pem \
-      --ssl-key=/path/to/client-key.pem \
-      -h hostname -u username -p
+mysql --host=db.example.test --user=order_app --password \
+  --ssl-mode=VERIFY_IDENTITY --ssl-ca=/etc/app/tls/mysql-ca.pem
 ```
 
-**强制 SSL**：
+`REQUIRED` 只要求加密，`VERIFY_CA` 进一步验证证书链，`VERIFY_IDENTITY` 还校验主机身份。`REQUIRE SSL` 不会替客户端启用主机身份校验，服务端自动生成的证书也不一定含有可匹配的名称。连接后执行：
+
 ```sql
--- 创建要求 SSL 的用户
-CREATE USER 'secure_user'@'%' 
-IDENTIFIED BY 'password' 
-REQUIRE SSL;
-
--- 修改现有用户要求 SSL
-ALTER USER 'username'@'hostname' REQUIRE SSL;
+SHOW SESSION STATUS LIKE 'Ssl_version';
+SHOW SESSION STATUS LIKE 'Ssl_cipher';
 ```
 
-#### 证书管理
+非空值能证明当前会话协商了 TLS，不能单独证明客户端使用了 `VERIFY_IDENTITY`。验收还需反向测试：错误 CA、错误主机名应失败，禁用 TLS 的远程连接应失败。证书轮换时检查有效期、名称和链，使用支持的 TLS 重载流程，再以**新连接**确认；旧连接不会自动重新握手。
 
-**证书生成**：
-- 使用 mysql_ssl_rsa_setup 工具
-- 手动生成 CA 和服务器证书
-- 配置证书有效期
-- 管理证书撤销列表
+## 磁盘、日志与备份的加密范围
 
-**证书验证**：
-- 验证证书链的完整性
-- 检查证书有效期
-- 验证证书主体信息
-- 监控证书过期时间
+表空间加密防护的是存储介质被取得后的部分风险，正常获授权的查询仍能读到明文。它不能补救过宽的 `SELECT` 或应用越权。
 
-**证书更新**：
-- 定期更新证书
-- 无缝证书轮换
-- 客户端证书分发
-- 证书备份和恢复
+MySQL 8.4 使用 keyring 组件或支持的 keyring 插件管理密钥。社区版可使用 `component_keyring_file`，其本地文件必须独立保护；企业版还有其他后端能力。不要继续照搬旧版 `early-plugin-load=keyring_file.so`。InnoDB 在启动早期就可能需要密钥，应通过部署包对应的 `mysqld.my` 清单和组件配置文件完成早期加载，核对组件库路径、keyring 路径、系统权限与启动日志；不能把运行后执行一条 `INSTALL COMPONENT` 当成完整加密部署。
 
-### 防火墙配置
+| 对象 | 需要单独核实的配置与恢复输入 |
+| --- | --- |
+| InnoDB 表空间 | 表空间加密状态、keyring、主密钥版本及恢复兼容性 |
+| redo、undo | 各自的加密配置；不随 binlog 开关自动覆盖 |
+| binlog、relay log | `binlog_encryption` 与对应 keyring 密钥；已有文件与新文件的生效范围 |
+| 逻辑导出、归档、异地副本 | 备份工具/存储加密、访问控制、密钥与独立恢复演练 |
 
-#### 网络访问控制
+备份仅有密文文件、却丢失密钥，同样无法恢复。数据和密钥分别控制访问，但必须有可配对、可验证的恢复版本。详细恢复流程见[备份与恢复](./backup-recovery.md)。本地 keyring 文件不自动等价于合规密钥托管，不能仅因“开启加密”就宣称满足某法规。
 
-**IP 地址限制**：
-- 限制允许连接的 IP 地址范围
-- 使用防火墙规则控制访问
-- 配置网络 ACL
-- 实施网络分段
+对于身份证件等需在应用边界保护的字段，可在应用侧使用成熟库完成带认证的加密，例如 AEAD，并由 KMS 管理密钥。保存密文、nonce、密钥版本等必要元数据，保证 nonce 使用规则和轮换策略；精确查询、排序及去重能力也要重新设计。不要把密钥硬编码在 `AES_ENCRYPT` SQL 中，SQL 日志、备份或诊断记录可能扩大泄露范围。
 
-**端口安全**：
-- 更改默认端口（3306）
-- 关闭不必要的网络服务
-- 使用非标准端口
-- 配置端口扫描检测
+## 应用用户的密码不能交给 SHA2
 
-**网络监控**：
-- 监控网络连接
-- 检测异常访问模式
-- 记录连接日志
-- 实施入侵检测
+`SHA2(password, 256)` 是快速摘要，不适合直接保存应用注册用户的密码。数据库泄露后，攻击者可以高速试猜；加盐也不能替代专门的密码派生成本。
 
-#### 连接限制
+使用成熟认证库的 Argon2id、scrypt、bcrypt 或符合要求的 PBKDF2 实现，按库的参数和硬件预算评估。数据库只保存包含算法、参数、盐和结果的完整编码，由库的验证函数核验；不要在 SQL 中重算普通摘要来登录。编码字段长度应覆盖选用格式和后续升级，不能为所有算法固定为 64 字符。
 
-**连接数控制**：
+数据库连接密码则由账号认证插件管理。应用通过凭据系统注入连接信息，避免命令行明文参数和源码内常量；轮换时验证新旧凭据切换、连接池续连及回滚路径。密码复杂度组件和账号失败锁定规则需要按实际风险配置，不应替代泄露后立即吊销与隔离。
+
+## 审计与故障排查
+
+MySQL Enterprise Audit 是有版本与许可边界的能力，不是社区版默认自带。使用它时按对应版本配置过滤器并分配给账号，验证成功登录、失败登录、授权修改、敏感读取和失败操作分别留下什么记录；不能设置一个并不存在的通用 `audit_log_filter` 变量就算启用。
+
+社区环境可以结合代理、应用审计和受支持的审计扩展，但要核实是否存在绕过入口。general log、slow log、binlog 分别面向请求记录、慢查询和变更恢复，覆盖范围不同，不是可互换的完整安全审计。SQL 和导出文件本身也可能含隐私，需限制读取、保留周期并防止日志被同一业务账号篡改。
+
+排查按下列顺序收敛，避免一遇到拒绝就授予全库权限：
+
+1. **连接不到**：核对监听接口、实际来源、路由、防火墙和端口。改成非默认端口不能代替访问控制。
+2. **TLS 失败**：核对客户端模式、CA、证书名称/期限和驱动支持，保留原验证错误。
+3. **认证失败**：检查匹配账号、认证插件、账号锁定/密码过期与连接池旧凭据。
+4. **连接成功但 SQL 拒绝**：查看 `CURRENT_USER()`、`CURRENT_ROLE()` 和对象/列权限，再检查视图或过程的执行身份。
+5. **疑似泄露**：保存证据，锁定对应来源账号、按需终止旧会话、轮换凭据，复查其他入口与备份访问，最后验证业务和审计链路恢复。
+
+完成练习后，由管理员在独立实例清理示例对象：
+
 ```sql
--- 设置全局连接限制
-SET GLOBAL max_connections = 1000;
-
--- 设置用户连接限制
-ALTER USER 'username'@'hostname' 
-WITH MAX_USER_CONNECTIONS 10;
+DROP USER 'support_demo'@'localhost';
+DROP ROLE 'support_read'@'localhost', 'support_status'@'localhost';
+DROP DATABASE security_demo;
 ```
-
-**连接超时**：
-```ini
-[mysqld]
-connect_timeout = 10
-interactive_timeout = 28800
-wait_timeout = 28800
-```
-
-**连接监控**：
-- 监控活动连接数
-- 检测连接异常
-- 记录连接历史
-- 分析连接模式
-
-## 数据加密
-
-### 传输加密
-
-#### SSL/TLS 加密
-
-**加密协议**：
-- TLS 1.2 和 TLS 1.3 支持
-- 强加密算法选择
-- 完美前向保密
-- 证书验证机制
-
-**加密配置**：
-```ini
-[mysqld]
-# 启用 SSL
-ssl = 1
-# 指定 TLS 版本
-tls_version = TLSv1.2,TLSv1.3
-# 配置加密套件
-ssl_cipher = ECDHE-RSA-AES256-GCM-SHA384
-```
-
-**性能考虑**：
-- SSL 握手开销
-- 加密解密 CPU 消耗
-- 网络延迟影响
-- 硬件加速支持
-
-### 存储加密
-
-#### 透明数据加密（TDE）
-
-**InnoDB 表空间加密**：
-```sql
--- 创建加密表
-CREATE TABLE encrypted_table (
-    id INT PRIMARY KEY,
-    sensitive_data VARCHAR(255)
-) ENCRYPTION='Y';
-
--- 修改表加密状态
-ALTER TABLE existing_table ENCRYPTION='Y';
-```
-
-**加密配置**：
-```ini
-[mysqld]
-# 启用表空间加密
-early-plugin-load = keyring_file.so
-keyring_file_data = /var/lib/mysql-keyring/keyring
-```
-
-**密钥管理**：
-- 主密钥轮换
-- 密钥备份和恢复
-- 硬件安全模块（HSM）集成
-- 密钥生命周期管理
-
-#### 二进制日志加密
-
-**启用日志加密**：
-```sql
--- 启用二进制日志加密
-SET GLOBAL binlog_encryption = ON;
-
--- 轮换二进制日志主密钥
-ALTER INSTANCE ROTATE BINLOG MASTER KEY;
-```
-
-**加密范围**：
-- 二进制日志文件
-- 中继日志文件
-- undo 日志文件
-- redo 日志文件
-
-### 应用层加密
-
-#### 字段级加密
-
-**加密函数**：
-```sql
--- 使用 AES 加密
-INSERT INTO users (name, encrypted_ssn) 
-VALUES ('John', AES_ENCRYPT('123-45-6789', 'encryption_key'));
-
--- 解密查询
-SELECT name, AES_DECRYPT(encrypted_ssn, 'encryption_key') as ssn 
-FROM users;
-```
-
-**加密策略**：
-- 选择合适的加密算法
-- 密钥管理和轮换
-- 性能影响评估
-- 索引和查询考虑
-
-#### 哈希函数
-
-**密码哈希**：
-```sql
--- 使用 SHA-2 哈希
-INSERT INTO users (username, password_hash) 
-VALUES ('user1', SHA2('password', 256));
-
--- 密码验证
-SELECT * FROM users 
-WHERE username = 'user1' 
-AND password_hash = SHA2('input_password', 256);
-```
-
-**哈希选择**：
-- SHA-256、SHA-512
-- bcrypt、scrypt
-- PBKDF2
-- Argon2
-
-## 审计与监控
-
-### 审计日志
-
-#### 审计配置
-
-**启用审计**：
-```ini
-[mysqld]
-# 加载审计插件
-plugin-load = audit_log.so
-# 审计日志文件
-audit_log_file = /var/log/mysql/audit.log
-# 审计策略
-audit_log_policy = ALL
-```
-
-**审计策略**：
-- **NONE**：不记录审计日志
-- **LOGINS**：只记录登录事件
-- **ALL**：记录所有事件
-- **QUERIES**：记录查询事件
-
-**审计过滤**：
-```sql
--- 设置审计过滤规则
-SET GLOBAL audit_log_filter = 'log_filter';
-
--- 创建过滤规则
-SELECT audit_log_filter_set_filter('log_filter', 
-'{ "filter": { "class": { "name": "connection" } } }');
-```
-
-#### 审计内容
-
-**登录审计**：
-- 用户登录和注销
-- 登录失败记录
-- 连接来源信息
-- 认证方式记录
-
-**操作审计**：
-- SQL 语句执行
-- 数据修改操作
-- 权限变更
-- 配置修改
-
-**访问审计**：
-- 数据访问记录
-- 敏感表访问
-- 权限使用情况
-- 异常访问模式
-
-### 安全监控
-
-#### 实时监控
-
-**连接监控**：
-```sql
--- 查看当前连接
-SHOW PROCESSLIST;
-
--- 查看连接统计
-SHOW STATUS LIKE 'Connections';
-SHOW STATUS LIKE 'Threads_connected';
-```
-
-**权限监控**：
-```sql
--- 查看用户权限
-SHOW GRANTS FOR 'username'@'hostname';
-
--- 查看所有用户
-SELECT user, host FROM mysql.user;
-```
-
-**异常检测**：
-- 登录失败次数
-- 异常访问时间
-- 大量数据访问
-- 权限提升尝试
-
-#### 告警机制
-
-**告警规则**：
-- 登录失败阈值
-- 连接数异常
-- 权限变更告警
-- 敏感操作告警
-
-**告警方式**：
-- 邮件通知
-- 短信告警
-- 系统日志
-- 监控平台集成
-
-**响应流程**：
-- 自动响应机制
-- 人工干预流程
-- 事件升级策略
-- 恢复验证程序
-
-## 安全最佳实践
-
-### 安装和配置安全
-
-#### 安全安装
-
-**mysql_secure_installation**：
-- 设置 root 密码
-- 删除匿名用户
-- 禁用远程 root 登录
-- 删除测试数据库
-- 重新加载权限表
-
-**配置文件安全**：
-- 设置适当的文件权限
-- 保护配置文件
-- 加密敏感配置
-- 定期备份配置
-
-**目录权限**：
-```bash
-# 设置数据目录权限
-chown -R mysql:mysql /var/lib/mysql
-chmod 750 /var/lib/mysql
-
-# 设置配置文件权限
-chown root:mysql /etc/mysql/my.cnf
-chmod 640 /etc/mysql/my.cnf
-```
-
-#### 网络安全
-
-**绑定地址**：
-```ini
-[mysqld]
-# 只绑定本地地址
-bind-address = 127.0.0.1
-# 或指定特定网络接口
-bind-address = 192.168.1.100
-```
-
-**端口配置**：
-```ini
-[mysqld]
-# 使用非默认端口
-port = 3307
-# 禁用命名管道（Windows）
-skip-named-pipe
-```
-
-### 用户管理最佳实践
-
-#### 账户策略
-
-**最小权限原则**：
-- 只授予必要的权限
-- 定期审查用户权限
-- 使用角色管理权限
-- 实施权限分离
-
-**账户生命周期**：
-- 及时创建新用户账户
-- 定期审查账户状态
-- 及时删除不用的账户
-- 管理临时账户
-
-**密码策略**：
-- 强制复杂密码
-- 定期更换密码
-- 禁止密码重用
-- 实施账户锁定
-
-#### 权限管理
-
-**权限分配**：
-- 按职能分配权限
-- 使用数据库级权限
-- 避免使用通配符主机
-- 定期权限审计
-
-**权限监控**：
-- 监控权限使用情况
-- 检测权限异常
-- 记录权限变更
-- 实施权限回收
-
-### 数据保护策略
-
-#### 敏感数据处理
-
-**数据分类**：
-- 识别敏感数据
-- 制定分类标准
-- 实施分级保护
-- 定期重新评估
-
-**数据脱敏**：
-- 开发环境数据脱敏
-- 测试数据匿名化
-- 生产数据保护
-- 数据导出控制
-
-**数据备份安全**：
-- 加密备份数据
-- 安全存储备份
-- 控制备份访问
-- 定期测试恢复
-
-#### 合规性要求
-
-**法规遵循**：
-- GDPR 合规性
-- HIPAA 要求
-- SOX 法案
-- 行业标准
-
-**审计准备**：
-- 完整的审计日志
-- 权限变更记录
-- 数据访问追踪
-- 安全事件记录
-
-### 应急响应
-
-#### 安全事件响应
-
-**事件分类**：
-- 未授权访问
-- 数据泄露
-- 系统入侵
-- 服务中断
-
-**响应流程**：
-1. **检测和确认**：识别安全事件
-2. **隔离和控制**：限制事件影响
-3. **调查和分析**：确定事件原因
-4. **恢复和修复**：恢复正常服务
-5. **总结和改进**：完善安全措施
-
-**应急工具**：
-- 账户锁定脚本
-- 权限撤销工具
-- 连接终止命令
-- 数据备份恢复
-
-#### 业务连续性
-
-**备份策略**：
-- 定期数据备份
-- 异地备份存储
-- 备份完整性验证
-- 快速恢复能力
-
-**灾难恢复**：
-- 制定恢复计划
-- 定期演练测试
-- 备用系统准备
-- 数据同步机制
-
-## 总结
-
-MySQL 安全与权限管理是一个综合性的系统工程，需要从多个维度进行全面考虑：
-
-1. **用户管理**：建立完善的用户认证和授权机制
-2. **权限控制**：实施细粒度的权限管理策略
-3. **网络安全**：配置安全的网络连接和访问控制
-4. **数据加密**：保护数据在传输和存储过程中的安全
-5. **审计监控**：建立全面的安全监控和审计体系
-6. **最佳实践**：遵循安全配置和管理的最佳实践
-
-**关键要点**：
-- 安全是一个持续的过程，需要不断改进
-- 平衡安全性和可用性的需求
-- 定期进行安全评估和漏洞扫描
-- 建立完善的安全培训和意识提升机制
-- 制定详细的安全策略和应急响应计划
-
-通过系统性的安全管理，可以构建一个安全、可靠、合规的 MySQL 数据库环境，保护企业的核心数据资产。

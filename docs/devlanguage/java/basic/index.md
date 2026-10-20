@@ -1,971 +1,143 @@
 # Java 基础
 
-## 概述
+一段订单程序要把输入转换为对象，判断状态，累计金额，再报告成功或失败。变量、分支、循环、方法和异常都可以放进这条处理链理解；先能解释数据在哪里变化，再进入框架，才容易判断一次请求为何得到某个结果。
 
-Java 基础不只包含语法，还包含 JDK、核心 API、语言特性和日常开发中会反复使用的基础工具类。学习顺序应先建立开发环境和版本认知，再进入语法、类型、对象模型、集合、异常、泛型、反射、Lambda、Stream 等内容。
+本专题覆盖 JDK、基础语法、标准 API 和语言特性。本页以 JDK 17 为练习基线，用一个可编译的订单例子串起语法与对象引用；金额、集合和时间等 API 的细节放在工具类页，避免在不同文章重复维护。
 
 ## 阅读路径
 
-| 模块 | 解决的问题 | 入口 |
+| 当前问题 | 阅读入口 | 读完后应能完成 |
 | --- | --- | --- |
-| JDK 与版本 | 明确 Java 代码依赖哪个 JDK 编译、运行和发布 | [JDK 概述](./jdk/) |
-| JDK 版本变化 | 判断项目该选哪个 LTS、升级时关注哪些语言和运行时变化 | [JDK 版本变化](./jdk/upgrade.md) |
-| 基础语法 | 掌握类、方法、变量、流程控制、异常等基本写法 | 本页 |
-| 基础工具类 | 理解 `Object`、`String`、集合、日期、数学、随机数等常用 API | [基础工具类](./base-class.md) |
-| 语言特性 | 理解泛型、注解、反射、枚举、Lambda、Stream、Optional 等能力 | [语言特性](./special.md) |
+| `java`、`javac` 和项目版本不一致 | [JDK 概述](./jdk/index.md) | 查清编译器、运行时和目标版本 |
+| 旧项目需要升级 JDK | [JDK 版本变化](./jdk/upgrade.md) | 区分语言、API、字节码与运行参数变化 |
+| 如何把规则写成程序 | 本页 | 独立编译运行，并解释变量、引用与失败路径 |
+| 相等、金额、集合与日期有什么陷阱 | [基础工具类](./base-class.md) | 验证精度、共享和生命周期边界 |
+| 泛型、注解、反射、Lambda、Stream 如何协作 | [语言特性](./special.md) | 判断编译期约束与运行期行为 |
+| 类加载、内存和 GC 如何影响程序 | [JVM](../jvm/index.md) | 从运行过程定位实际故障 |
 
-JDK 是 Java 开发的底座：`javac` 负责编译，`java` 负责启动，标准库提供基础 API，JVM 负责运行时行为。语法学习和框架学习都依赖 JDK 版本，因此 JDK 应放在基础链路里，而不是作为独立进阶主题。
+## 从两笔订单开始
 
-## 基础语法详解
-
-## 1. 基本程序结构
-
-### 1.1 Hello World 程序
+以下是完整的 `OrderBasics.java`。订单金额以分存储，状态使用枚举；构造器拒绝负金额和空身份，支付方法只允许待支付状态变成已支付，统计方法只累计已支付订单。这里仅演示单线程、内存内的数据变化，不涉及数据库事务、支付回调或并发控制。
 
 ```java
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
+import java.util.Objects;
 
-**语法要点：**
-- `public class` 定义公共类
-- 类名必须与文件名相同
-- `main` 方法是程序入口点
-- `System.out.println()` 用于输出
+public class OrderBasics {
+    enum Status { PENDING, PAID, CANCELLED }
 
-### 1.2 包声明和导入
+    static final class Order {
+        private final String id;
+        private final long amountCent;
+        private Status status;
 
-```java
-package com.example.demo;  // 包声明
-
-import java.util.List;     // 导入单个类
-import java.util.*;        // 导入整个包
-import static java.lang.Math.PI;  // 静态导入
-
-public class PackageExample {
-    public static void main(String[] args) {
-        System.out.println("PI = " + PI);
-    }
-}
-```
-
-## 2. 变量和数据类型
-
-### 2.1 基本数据类型
-
-```java
-public class DataTypes {
-    public static void main(String[] args) {
-        // 整数类型
-        byte b = 127;           // 8位，-128 到 127
-        short s = 32767;        // 16位，-32768 到 32767
-        int i = 2147483647;     // 32位，-2^31 到 2^31-1
-        long l = 9223372036854775807L;  // 64位，需要L后缀
-        
-        // 浮点类型
-        float f = 3.14f;        // 32位，需要f后缀
-        double d = 3.14159;     // 64位，默认浮点类型
-        
-        // 字符类型
-        char c = 'A';           // 16位Unicode字符
-        char unicode = '\u0041'; // Unicode表示法
-        
-        // 布尔类型
-        boolean flag = true;    // 只有true和false
-        
-        System.out.println("byte: " + b);
-        System.out.println("short: " + s);
-        System.out.println("int: " + i);
-        System.out.println("long: " + l);
-        System.out.println("float: " + f);
-        System.out.println("double: " + d);
-        System.out.println("char: " + c);
-        System.out.println("boolean: " + flag);
-    }
-}
-```
-
-### 2.2 引用数据类型
-
-```java
-public class ReferenceTypes {
-    public static void main(String[] args) {
-        // 字符串
-        String str1 = "Hello";          // 字符串字面量
-        String str2 = new String("World"); // 通过构造器创建
-        
-        // 数组
-        int[] numbers = {1, 2, 3, 4, 5};  // 数组初始化
-        String[] names = new String[3];   // 指定长度的数组
-        names[0] = "Alice";
-        names[1] = "Bob";
-        names[2] = "Charlie";
-        
-        // 多维数组
-        int[][] matrix = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9}
-        };
-        
-        System.out.println("String: " + str1 + " " + str2);
-        System.out.println("Array length: " + numbers.length);
-        System.out.println("Matrix[1][1]: " + matrix[1][1]);
-    }
-}
-```
-
-### 2.3 变量声明和初始化
-
-```java
-public class Variables {
-    // 实例变量（成员变量）
-    private int instanceVar = 10;
-    
-    // 静态变量（类变量）
-    private static String staticVar = "Static";
-    
-    // 常量
-    private static final double PI = 3.14159;
-    
-    public void method() {
-        // 局部变量
-        int localVar = 20;
-        
-        // final 局部变量（常量）
-        final int CONSTANT = 100;
-        
-        System.out.println("Instance: " + instanceVar);
-        System.out.println("Static: " + staticVar);
-        System.out.println("Local: " + localVar);
-        System.out.println("Constant: " + CONSTANT);
-    }
-}
-```
-
-## 3. 运算符
-
-### 3.1 算术运算符
-
-```java
-public class ArithmeticOperators {
-    public static void main(String[] args) {
-        int a = 10, b = 3;
-        
-        System.out.println("a + b = " + (a + b));  // 加法：13
-        System.out.println("a - b = " + (a - b));  // 减法：7
-        System.out.println("a * b = " + (a * b));  // 乘法：30
-        System.out.println("a / b = " + (a / b));  // 除法：3（整数除法）
-        System.out.println("a % b = " + (a % b));  // 取模：1
-        
-        // 自增自减
-        int c = 5;
-        System.out.println("c++ = " + (c++));     // 后置自增：5
-        System.out.println("c = " + c);           // 6
-        System.out.println("++c = " + (++c));     // 前置自增：7
-        System.out.println("c-- = " + (c--));     // 后置自减：7
-        System.out.println("--c = " + (--c));     // 前置自减：5
-    }
-}
-```
-
-### 3.2 关系运算符
-
-```java
-public class RelationalOperators {
-    public static void main(String[] args) {
-        int x = 10, y = 20;
-        
-        System.out.println("x == y: " + (x == y));  // 等于：false
-        System.out.println("x != y: " + (x != y));  // 不等于：true
-        System.out.println("x > y: " + (x > y));    // 大于：false
-        System.out.println("x < y: " + (x < y));    // 小于：true
-        System.out.println("x >= y: " + (x >= y));  // 大于等于：false
-        System.out.println("x <= y: " + (x <= y));  // 小于等于：true
-        
-        // 字符串比较
-        String str1 = "Hello";
-        String str2 = "Hello";
-        String str3 = new String("Hello");
-        
-        System.out.println("str1 == str2: " + (str1 == str2));        // true（字符串池）
-        System.out.println("str1 == str3: " + (str1 == str3));        // false（不同对象）
-        System.out.println("str1.equals(str3): " + str1.equals(str3)); // true（内容相同）
-    }
-}
-```
-
-### 3.3 逻辑运算符
-
-```java
-public class LogicalOperators {
-    public static void main(String[] args) {
-        boolean a = true, b = false;
-        
-        System.out.println("a && b: " + (a && b));  // 逻辑与：false
-        System.out.println("a || b: " + (a || b));  // 逻辑或：true
-        System.out.println("!a: " + (!a));          // 逻辑非：false
-        
-        // 短路运算
-        int x = 5, y = 0;
-        if (y != 0 && x / y > 2) {  // 短路与，y != 0 为false，不会执行 x / y
-            System.out.println("This won't print");
-        }
-        
-        if (y == 0 || x / y > 2) {  // 短路或，y == 0 为true，不会执行 x / y
-            System.out.println("Short circuit OR works");
-        }
-    }
-}
-```
-
-### 3.4 位运算符
-
-```java
-public class BitwiseOperators {
-    public static void main(String[] args) {
-        int a = 60;  // 0011 1100
-        int b = 13;  // 0000 1101
-        
-        System.out.println("a & b: " + (a & b));   // 按位与：12 (0000 1100)
-        System.out.println("a | b: " + (a | b));   // 按位或：61 (0011 1101)
-        System.out.println("a ^ b: " + (a ^ b));   // 按位异或：49 (0011 0001)
-        System.out.println("~a: " + (~a));         // 按位取反：-61
-        System.out.println("a << 2: " + (a << 2)); // 左移：240 (1111 0000)
-        System.out.println("a >> 2: " + (a >> 2)); // 右移：15 (0000 1111)
-        System.out.println("a >>> 2: " + (a >>> 2)); // 无符号右移：15
-    }
-}
-```
-
-### 3.5 赋值运算符
-
-```java
-public class AssignmentOperators {
-    public static void main(String[] args) {
-        int a = 10;
-        
-        a += 5;  // a = a + 5，结果：15
-        System.out.println("a += 5: " + a);
-        
-        a -= 3;  // a = a - 3，结果：12
-        System.out.println("a -= 3: " + a);
-        
-        a *= 2;  // a = a * 2，结果：24
-        System.out.println("a *= 2: " + a);
-        
-        a /= 4;  // a = a / 4，结果：6
-        System.out.println("a /= 4: " + a);
-        
-        a %= 4;  // a = a % 4，结果：2
-        System.out.println("a %= 4: " + a);
-        
-        a <<= 2; // a = a << 2，结果：8
-        System.out.println("a <<= 2: " + a);
-        
-        a >>= 1; // a = a >> 1，结果：4
-        System.out.println("a >>= 1: " + a);
-    }
-}
-```
-
-## 4. 控制结构
-
-### 4.1 条件语句
-
-```java
-public class ConditionalStatements {
-    public static void main(String[] args) {
-        int score = 85;
-        
-        // if-else 语句
-        if (score >= 90) {
-            System.out.println("优秀");
-        } else if (score >= 80) {
-            System.out.println("良好");
-        } else if (score >= 70) {
-            System.out.println("中等");
-        } else if (score >= 60) {
-            System.out.println("及格");
-        } else {
-            System.out.println("不及格");
-        }
-        
-        // 三元运算符
-        String result = score >= 60 ? "及格" : "不及格";
-        System.out.println("三元运算符结果: " + result);
-        
-        // switch 语句
-        int dayOfWeek = 3;
-        switch (dayOfWeek) {
-            case 1:
-                System.out.println("星期一");
-                break;
-            case 2:
-                System.out.println("星期二");
-                break;
-            case 3:
-                System.out.println("星期三");
-                break;
-            case 4:
-                System.out.println("星期四");
-                break;
-            case 5:
-                System.out.println("星期五");
-                break;
-            case 6:
-            case 7:
-                System.out.println("周末");
-                break;
-            default:
-                System.out.println("无效的日期");
-        }
-        
-        // Java 14+ switch 表达式
-        String dayName = switch (dayOfWeek) {
-            case 1 -> "星期一";
-            case 2 -> "星期二";
-            case 3 -> "星期三";
-            case 4 -> "星期四";
-            case 5 -> "星期五";
-            case 6, 7 -> "周末";
-            default -> "无效日期";
-        };
-        System.out.println("Switch表达式: " + dayName);
-    }
-}
-```
-
-### 4.2 循环语句
-
-```java
-public class LoopStatements {
-    public static void main(String[] args) {
-        // for 循环
-        System.out.println("=== for 循环 ===");
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("i = " + i);
-        }
-        
-        // 增强型 for 循环（for-each）
-        System.out.println("\n=== 增强型 for 循环 ===");
-        int[] numbers = {1, 2, 3, 4, 5};
-        for (int num : numbers) {
-            System.out.println("num = " + num);
-        }
-        
-        // while 循环
-        System.out.println("\n=== while 循环 ===");
-        int j = 1;
-        while (j <= 3) {
-            System.out.println("j = " + j);
-            j++;
-        }
-        
-        // do-while 循环
-        System.out.println("\n=== do-while 循环 ===");
-        int k = 1;
-        do {
-            System.out.println("k = " + k);
-            k++;
-        } while (k <= 3);
-        
-        // 嵌套循环
-        System.out.println("\n=== 嵌套循环（九九乘法表） ===");
-        for (int x = 1; x <= 9; x++) {
-            for (int y = 1; y <= x; y++) {
-                System.out.print(y + "×" + x + "=" + (x * y) + "\t");
+        Order(String id, long amountCent, Status status) {
+            this.id = Objects.requireNonNull(id, "订单号不能为空");
+            if (id.isBlank() || amountCent < 0) {
+                throw new IllegalArgumentException("订单号或金额不合法");
             }
-            System.out.println();
+            this.amountCent = amountCent;
+            this.status = Objects.requireNonNull(status, "状态不能为空");
         }
     }
-}
-```
 
-### 4.3 跳转语句
-
-```java
-public class JumpStatements {
-    public static void main(String[] args) {
-        // break 语句
-        System.out.println("=== break 语句 ===");
-        for (int i = 1; i <= 10; i++) {
-            if (i == 5) {
-                break;  // 跳出循环
-            }
-            System.out.println("i = " + i);
+    static void markPaid(Order order) {
+        Objects.requireNonNull(order, "订单不能为空");
+        if (order.status != Status.PENDING) {
+            throw new IllegalStateException("只有待支付订单允许支付");
         }
-        
-        // continue 语句
-        System.out.println("\n=== continue 语句 ===");
-        for (int i = 1; i <= 5; i++) {
-            if (i == 3) {
-                continue;  // 跳过本次循环
-            }
-            System.out.println("i = " + i);
-        }
-        
-        // 标签和 break
-        System.out.println("\n=== 标签和 break ===");
-        outer: for (int i = 1; i <= 3; i++) {
-            for (int j = 1; j <= 3; j++) {
-                if (i == 2 && j == 2) {
-                    break outer;  // 跳出外层循环
-                }
-                System.out.println("i=" + i + ", j=" + j);
-            }
-        }
-        
-        // return 语句
-        System.out.println("\n=== return 语句 ===");
-        int result = calculateSum(5);
-        System.out.println("Sum = " + result);
+        order.status = Status.PAID;
     }
-    
-    public static int calculateSum(int n) {
-        int sum = 0;
-        for (int i = 1; i <= n; i++) {
-            sum += i;
-            if (sum > 10) {
-                return sum;  // 提前返回
-            }
-        }
-        return sum;
-    }
-}
-```
 
-## 5. 方法（函数）
+    static void replaceLocal(Order order) {
+        order = new Order("999", 0, Status.PENDING);
+    }
 
-### 5.1 方法定义和调用
-
-```java
-public class Methods {
-    // 无参数无返回值的方法
-    public static void sayHello() {
-        System.out.println("Hello, World!");
-    }
-    
-    // 有参数无返回值的方法
-    public static void greet(String name) {
-        System.out.println("Hello, " + name + "!");
-    }
-    
-    // 有参数有返回值的方法
-    public static int add(int a, int b) {
-        return a + b;
-    }
-    
-    // 多个参数的方法
-    public static double calculateArea(double length, double width) {
-        return length * width;
-    }
-    
-    // 可变参数的方法
-    public static int sum(int... numbers) {
-        int total = 0;
-        for (int num : numbers) {
-            total += num;
+    static long paidTotal(Order[] orders) {
+        long total = 0;
+        for (Order order : orders) {
+            if (order.status != Status.PAID) continue;
+            total = Math.addExact(total, order.amountCent);
         }
         return total;
     }
-    
-    // 方法重载
-    public static int multiply(int a, int b) {
-        return a * b;
-    }
-    
-    public static double multiply(double a, double b) {
-        return a * b;
-    }
-    
-    public static int multiply(int a, int b, int c) {
-        return a * b * c;
-    }
-    
+
     public static void main(String[] args) {
-        // 调用方法
-        sayHello();
-        greet("Alice");
-        
-        int result = add(5, 3);
-        System.out.println("5 + 3 = " + result);
-        
-        double area = calculateArea(5.5, 3.2);
-        System.out.println("面积 = " + area);
-        
-        // 可变参数调用
-        int sum1 = sum(1, 2, 3);
-        int sum2 = sum(1, 2, 3, 4, 5);
-        System.out.println("Sum1 = " + sum1);
-        System.out.println("Sum2 = " + sum2);
-        
-        // 方法重载调用
-        System.out.println("int multiply: " + multiply(3, 4));
-        System.out.println("double multiply: " + multiply(3.5, 2.5));
-        System.out.println("three int multiply: " + multiply(2, 3, 4));
-    }
-}
-```
-
-### 5.2 递归方法
-
-```java
-public class RecursiveMethods {
-    // 计算阶乘
-    public static long factorial(int n) {
-        if (n <= 1) {
-            return 1;  // 基础情况
-        }
-        return n * factorial(n - 1);  // 递归调用
-    }
-    
-    // 计算斐波那契数列
-    public static int fibonacci(int n) {
-        if (n <= 1) {
-            return n;
-        }
-        return fibonacci(n - 1) + fibonacci(n - 2);
-    }
-    
-    // 二分查找（递归实现）
-    public static int binarySearch(int[] arr, int target, int left, int right) {
-        if (left > right) {
-            return -1;  // 未找到
-        }
-        
-        int mid = left + (right - left) / 2;
-        
-        if (arr[mid] == target) {
-            return mid;
-        } else if (arr[mid] > target) {
-            return binarySearch(arr, target, left, mid - 1);
-        } else {
-            return binarySearch(arr, target, mid + 1, right);
-        }
-    }
-    
-    public static void main(String[] args) {
-        // 阶乘示例
-        System.out.println("5! = " + factorial(5));
-        
-        // 斐波那契数列
-        System.out.print("斐波那契数列前10项: ");
-        for (int i = 0; i < 10; i++) {
-            System.out.print(fibonacci(i) + " ");
-        }
-        System.out.println();
-        
-        // 二分查找
-        int[] sortedArray = {1, 3, 5, 7, 9, 11, 13, 15};
-        int index = binarySearch(sortedArray, 7, 0, sortedArray.length - 1);
-        System.out.println("元素7的索引: " + index);
-    }
-}
-```
-
-## 6. 数组操作
-
-### 6.1 一维数组
-
-```java
-import java.util.Arrays;
-
-public class ArrayOperations {
-    public static void main(String[] args) {
-        // 数组声明和初始化
-        int[] numbers1 = {1, 2, 3, 4, 5};  // 直接初始化
-        int[] numbers2 = new int[5];       // 指定长度
-        int[] numbers3 = new int[]{6, 7, 8, 9, 10};  // 匿名数组
-        
-        // 数组赋值
-        for (int i = 0; i < numbers2.length; i++) {
-            numbers2[i] = (i + 1) * 10;
-        }
-        
-        // 数组遍历
-        System.out.println("=== 传统for循环遍历 ===");
-        for (int i = 0; i < numbers1.length; i++) {
-            System.out.println("numbers1[" + i + "] = " + numbers1[i]);
-        }
-        
-        System.out.println("\n=== 增强型for循环遍历 ===");
-        for (int num : numbers2) {
-            System.out.println("num = " + num);
-        }
-        
-        // 数组工具类使用
-        System.out.println("\n=== Arrays工具类 ===");
-        System.out.println("numbers1: " + Arrays.toString(numbers1));
-        
-        // 数组排序
-        int[] unsorted = {5, 2, 8, 1, 9, 3};
-        System.out.println("排序前: " + Arrays.toString(unsorted));
-        Arrays.sort(unsorted);
-        System.out.println("排序后: " + Arrays.toString(unsorted));
-        
-        // 数组查找
-        int index = Arrays.binarySearch(unsorted, 5);
-        System.out.println("元素5的索引: " + index);
-        
-        // 数组复制
-        int[] copied = Arrays.copyOf(numbers1, numbers1.length);
-        System.out.println("复制的数组: " + Arrays.toString(copied));
-        
-        // 数组填充
-        int[] filled = new int[5];
-        Arrays.fill(filled, 100);
-        System.out.println("填充的数组: " + Arrays.toString(filled));
-    }
-}
-```
-
-### 6.2 多维数组
-
-```java
-public class MultiDimensionalArrays {
-    public static void main(String[] args) {
-        // 二维数组
-        int[][] matrix = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9}
+        var order = new Order("102", 5000, Status.PENDING);
+        markPaid(order);
+        replaceLocal(order);
+        Order[] orders = {
+            order, new Order("103", 3000, Status.PAID)
         };
-        
-        // 动态创建二维数组
-        int[][] dynamicMatrix = new int[3][3];
-        int value = 1;
-        for (int i = 0; i < dynamicMatrix.length; i++) {
-            for (int j = 0; j < dynamicMatrix[i].length; j++) {
-                dynamicMatrix[i][j] = value++;
-            }
-        }
-        
-        // 遍历二维数组
-        System.out.println("=== 二维数组遍历 ===");
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
-        
-        // 增强型for循环遍历二维数组
-        System.out.println("\n=== 增强型for循环遍历 ===");
-        for (int[] row : matrix) {
-            for (int element : row) {
-                System.out.print(element + " ");
-            }
-            System.out.println();
-        }
-        
-        // 不规则数组（锯齿数组）
-        int[][] jaggedArray = new int[3][];
-        jaggedArray[0] = new int[2];
-        jaggedArray[1] = new int[3];
-        jaggedArray[2] = new int[4];
-        
-        // 填充锯齿数组
-        for (int i = 0; i < jaggedArray.length; i++) {
-            for (int j = 0; j < jaggedArray[i].length; j++) {
-                jaggedArray[i][j] = (i + 1) * (j + 1);
-            }
-        }
-        
-        System.out.println("\n=== 锯齿数组 ===");
-        for (int[] row : jaggedArray) {
-            System.out.println(Arrays.toString(row));
-        }
-        
-        // 三维数组
-        int[][][] cube = new int[2][3][4];
-        int count = 1;
-        for (int i = 0; i < cube.length; i++) {
-            for (int j = 0; j < cube[i].length; j++) {
-                for (int k = 0; k < cube[i][j].length; k++) {
-                    cube[i][j][k] = count++;
-                }
-            }
-        }
-        
-        System.out.println("\n=== 三维数组 ===");
-        for (int i = 0; i < cube.length; i++) {
-            System.out.println("层 " + i + ":");
-            for (int j = 0; j < cube[i].length; j++) {
-                System.out.println(Arrays.toString(cube[i][j]));
-            }
-        }
+        System.out.println("原订单=" + order.id + "，状态=" + order.status);
+        System.out.println("已支付总额=" + paidTotal(orders) + "分");
     }
 }
 ```
 
-## 7. 字符串操作
+```bash
+java -version
+javac -version
+javac --release 17 -encoding UTF-8 OrderBasics.java
+java OrderBasics
+```
 
-### 7.1 字符串基本操作
+结果应为原订单仍是 `102`，状态变成 `PAID`，总额为 `8000` 分。`replaceLocal` 是专门说明参数语义的教学方法：它创建并赋值了新对象，却没有把调用者的变量换掉。它不应出现在真实支付处理流程中。
+
+编译时文件名与这里的公共类名一致，运行时传类名 `OrderBasics`，不带 `.class`。这个例子不声明包，因此在输出 class 所在目录运行；进入正式项目后，`package` 决定全限定类名，启动时还需要正确的 classpath。`import` 让源码可使用短类名，并不会下载依赖，也不会把子包自动一起导入。
+
+## 变量、对象与参数传递
+
+![Java方法参数按值传递与对象共享](/java/method-value-reference.svg)
+
+Java 的参数按值传递。基本类型传递数值副本，引用类型传递引用值的副本；后者可以让两个变量访问同一个对象。`markPaid(order)` 改的是共享对象里的字段，所以调用者能看到 `PAID`。`replaceLocal(order)` 改的是形参变量保存的引用，所以不会让调用者的 `order` 指向新订单。
+
+`this.id = id` 左侧是当前对象字段，右侧是构造器参数。构造器用来建立对象的不变量，不声明返回类型。`static` 方法属于类，不依赖某个实例的 `this`，但可以显式接收对象；实例方法则通常把操作组织到对象自身。这里只把订单封装在一个文件里，真正业务类仍应通过受控方法维护状态。
+
+`final` 字段只允许在规定的初始化位置赋值，不意味着它指向的对象不可变。`final Order[] orders` 不能重新指向另一个数组，但数组中的元素仍可替换，对象里的非 final 字段仍可变化。数组长度固定，数组引用可以为 `null`，数组中的引用元素也可以为 `null`，应按入口合同决定是否允许；本例的 `paidTotal` 要求传入非空数组和非空元素。
+
+实例字段和数组元素有默认值，例如整数为 0、引用为 `null`；局部变量必须在使用前完成确定赋值。`var` 仍是静态类型推断，不是动态类型，也不能用 `var value = null` 表达未知类型。重载依据编译期可见的参数类型等规则选择方法，不能只靠返回类型区分；实例方法的重写才参与运行时多态分派。
+
+## 类型和运算的业务含义
+
+| 类型或表达式 | 需要掌握的行为 | 在订单中的判断 |
+| --- | --- | --- |
+| `byte/short/int/long` | 有符号整数范围有限，普通溢出不自动报错 | 金额与中间乘法检查范围，必要时使用 exact 方法 |
+| `float/double` | 二进制浮点，不精确表示所有十进制小数 | 不直接承担精确货币累计 |
+| `char` | 一个 UTF-16 代码单元，不保证是一整个可见字符 | 文本截断需考虑代码点或字形 |
+| `boolean` | 只有真和假，整数不能直接作条件 | 用明确条件表达是否可支付 |
+| `10 / 3` | 整数除法得到 3 | 换成 `double` 也要在除法发生前完成转换 |
+| `a == b` | 引用类型比较对象身份 | 业务值通常通过适当的 `equals` 比较 |
+| `amount += delta` | 复合赋值包含隐式转换，不等同任意场景下的普通赋值 | 小整数类型与溢出尤其需要检查 |
+| `& / \| / ^ / << / >> / >>>` | 整数的位运算，移位距离会按类型规则截取 | 适合明确定义的位标志和协议编码，不代替普通业务判断 |
+
+`Integer` 是引用类型，拆箱遇到 `null` 会抛空指针异常，装箱缓存也不能作为 `==` 比较业务数值的依据。一个外部字符串即使能 `Long.parseLong`，也还要验证是否为允许的金额、数量或标识符；解析成功与业务合法是两个步骤。精度、编码与范围的可运行反例见[基础工具类](./base-class.md)。
+
+## 分支、循环与方法边界
+
+`if` 适合表达状态和范围判断，`&&`、`||` 短路可以避免在空值或零除数情况下继续访问；对 boolean 使用 `&`、`|` 时两边都会求值。条件的顺序因此会影响是否抛出异常，不能机械互换。
+
+有限状态的展示可使用 `switch` 表达式；本例基线 JDK 17 支持下列不需要预览特性的写法：
 
 ```java
-public class StringOperations {
-    public static void main(String[] args) {
-        // 字符串创建
-        String str1 = "Hello";
-        String str2 = new String("World");
-        String str3 = "Hello";
-        
-        // 字符串比较
-        System.out.println("=== 字符串比较 ===");
-        System.out.println("str1 == str3: " + (str1 == str3));        // true（字符串池）
-        System.out.println("str1.equals(str3): " + str1.equals(str3)); // true
-        System.out.println("str1.equalsIgnoreCase(\"HELLO\"): " + 
-                          str1.equalsIgnoreCase("HELLO"));           // true
-        
-        // 字符串长度和字符访问
-        System.out.println("\n=== 字符串长度和字符访问 ===");
-        String text = "Java Programming";
-        System.out.println("长度: " + text.length());
-        System.out.println("第一个字符: " + text.charAt(0));
-        System.out.println("最后一个字符: " + text.charAt(text.length() - 1));
-        
-        // 字符串查找
-        System.out.println("\n=== 字符串查找 ===");
-        System.out.println("indexOf('a'): " + text.indexOf('a'));
-        System.out.println("lastIndexOf('a'): " + text.lastIndexOf('a'));
-        System.out.println("indexOf(\"Pro\"): " + text.indexOf("Pro"));
-        System.out.println("contains(\"Java\"): " + text.contains("Java"));
-        System.out.println("startsWith(\"Java\"): " + text.startsWith("Java"));
-        System.out.println("endsWith(\"ing\"): " + text.endsWith("ing"));
-        
-        // 字符串截取
-        System.out.println("\n=== 字符串截取 ===");
-        System.out.println("substring(5): " + text.substring(5));
-        System.out.println("substring(0, 4): " + text.substring(0, 4));
-        
-        // 字符串转换
-        System.out.println("\n=== 字符串转换 ===");
-        System.out.println("toUpperCase(): " + text.toUpperCase());
-        System.out.println("toLowerCase(): " + text.toLowerCase());
-        System.out.println("trim(): '" + "  Hello World  ".trim() + "'");
-        System.out.println("replace('a', 'A'): " + text.replace('a', 'A'));
-        System.out.println("replaceAll(\"[aeiou]\", \"*\"): " + 
-                          text.replaceAll("[aeiou]", "*"));
-        
-        // 字符串分割
-        System.out.println("\n=== 字符串分割 ===");
-        String sentence = "apple,banana,orange,grape";
-        String[] fruits = sentence.split(",");
-        for (String fruit : fruits) {
-            System.out.println("水果: " + fruit);
-        }
-        
-        // 字符串连接
-        System.out.println("\n=== 字符串连接 ===");
-        String joined = String.join("-", fruits);
-        System.out.println("连接后: " + joined);
-    }
-}
+String label = switch (status) {
+    case PENDING -> "待支付";
+    case PAID -> "已支付";
+    case CANCELLED -> "已取消";
+};
 ```
 
-### 7.2 StringBuilder 和 StringBuffer
+这是方法体片段，`status` 必须是非空的 `Status`。`->` 分支不会像传统冒号分支那样贯穿到下一分支；多语句分支可用代码块和 `yield` 返回表达式结果。状态展示与状态变更是两种职责，界面文案改变不应该同时触发支付动作。
 
-```java
-public class StringBuilderExample {
-    public static void main(String[] args) {
-        // StringBuilder（非线程安全，性能更好）
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hello");
-        sb.append(" ");
-        sb.append("World");
-        sb.append("!");
-        
-        System.out.println("StringBuilder结果: " + sb.toString());
-        
-        // StringBuilder 方法链
-        StringBuilder sb2 = new StringBuilder()
-            .append("Java")
-            .append(" is")
-            .append(" awesome!");
-        
-        System.out.println("方法链结果: " + sb2.toString());
-        
-        // StringBuilder 其他操作
-        StringBuilder sb3 = new StringBuilder("Hello World");
-        System.out.println("原始: " + sb3);
-        
-        sb3.insert(5, ",");  // 在索引5处插入
-        System.out.println("插入后: " + sb3);
-        
-        sb3.delete(5, 6);    // 删除索引5到6之间的字符
-        System.out.println("删除后: " + sb3);
-        
-        sb3.reverse();       // 反转
-        System.out.println("反转后: " + sb3);
-        
-        // StringBuffer（线程安全）
-        StringBuffer sbf = new StringBuffer("Thread Safe");
-        sbf.append(" String");
-        System.out.println("StringBuffer结果: " + sbf.toString());
-        
-        // 性能比较示例
-        long startTime, endTime;
-        
-        // String 连接（性能较差）
-        startTime = System.currentTimeMillis();
-        String str = "";
-        for (int i = 0; i < 10000; i++) {
-            str += "a";
-        }
-        endTime = System.currentTimeMillis();
-        System.out.println("String连接耗时: " + (endTime - startTime) + "ms");
-        
-        // StringBuilder 连接（性能较好）
-        startTime = System.currentTimeMillis();
-        StringBuilder sbPerf = new StringBuilder();
-        for (int i = 0; i < 10000; i++) {
-            sbPerf.append("a");
-        }
-        String result = sbPerf.toString();
-        endTime = System.currentTimeMillis();
-        System.out.println("StringBuilder连接耗时: " + (endTime - startTime) + "ms");
-    }
-}
-```
+已知元素集合可以使用增强 for，按下标处理数组时使用 `i < array.length`，不用 `<=`；二维数组在 Java 中是“数组的数组”，每行可能不同长度或为空。`while` 适合次数尚未确定但结束条件明确的过程，`do-while` 至少执行一次。`continue` 跳过本轮，`break` 离开相应循环，`return` 则结束整个方法。遇到非法订单时选择跳过还是整批失败，必须由数据合同决定，不能为让总额看起来可用而默默忽略。
 
-## 8. 输入输出
+方法应表达有独立输入、输出与失败条件的操作。`paidTotal` 不修改订单，只返回合计；`markPaid` 不负责打印界面文案或发送消息。递归需要终止条件和输入范围，层数过深可能耗尽栈；斐波那契和二分查找的复杂度、范围与正确实现进入[算法专题](../../../algorithm/index.md)，避免把指数递归作为通用计算方案。
 
-### 8.1 控制台输入输出
+## 输入、异常与可验证的结果
 
-```java
-import java.util.Scanner;
+练习中将 `"102"` 改成空串，应在构造器失败；将 5000 改成负数，应拒绝创建；连续调用两次 `markPaid`，第二次应因状态不符失败；把多笔金额加到超出 `long` 范围，应由 `addExact` 抛异常。真实系统可能将重复的支付通知处理为幂等成功，但那需要稳定业务身份及持久结果，不能仅靠这段内存方法实现。
 
-public class InputOutput {
-    public static void main(String[] args) {
-        // 输出
-        System.out.println("这是一行输出");
-        System.out.print("这是不换行输出");
-        System.out.print(" 继续在同一行\n");
-        
-        // 格式化输出
-        String name = "Alice";
-        int age = 25;
-        double salary = 5000.50;
-        
-        System.out.printf("姓名: %s, 年龄: %d, 薪水: %.2f\n", name, age, salary);
-        System.out.printf("十六进制: %x, 八进制: %o, 科学计数法: %e\n", 255, 255, 1234.5);
-        
-        // 输入
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.print("请输入您的姓名: ");
-        String inputName = scanner.nextLine();
-        
-        System.out.print("请输入您的年龄: ");
-        int inputAge = scanner.nextInt();
-        
-        System.out.print("请输入您的身高(米): ");
-        double inputHeight = scanner.nextDouble();
-        
-        System.out.print("您是学生吗？(true/false): ");
-        boolean isStudent = scanner.nextBoolean();
-        
-        // 输出输入的信息
-        System.out.println("\n=== 您输入的信息 ===");
-        System.out.println("姓名: " + inputName);
-        System.out.println("年龄: " + inputAge);
-        System.out.println("身高: " + inputHeight + "米");
-        System.out.println("是否为学生: " + isStudent);
-        
-        scanner.close();
-    }
-}
-```
+`throw` 产生异常，`throws` 声明方法可能向上传播的相应异常，`try/catch` 则在能够处理的边界接住它。异常使后面的正常路径停止，不能在 catch 中只打印信息后返回一个正常总额；保留原因和明确失败结果，调用者才能决定回退、修复或重试。`finally` 通常用于离开 try 时的清理，但进程强杀、断电等情况下没有必然执行保证，也不应在其中用 `return` 覆盖原来的返回值或异常。
 
-## 9. 异常处理基础
+控制台交互可由程序入口拥有一个 `Scanner`，但 `nextInt`、`nextLine` 混用时要理解换行残留，非法输入还需要处理。业务工具方法不要随意关闭由调用者管理的 `System.in`。文件和网络资源则使用明确编码与 try-with-resources，细节见[异常与资源关闭](./base-class.md#异常与资源关闭)。
 
-### 9.1 try-catch-finally
-
-```java
-public class ExceptionHandling {
-    public static void main(String[] args) {
-        // 基本异常处理
-        try {
-            int result = 10 / 0;  // 会抛出 ArithmeticException
-            System.out.println("结果: " + result);
-        } catch (ArithmeticException e) {
-            System.out.println("捕获到算术异常: " + e.getMessage());
-        } finally {
-            System.out.println("finally块总是会执行");
-        }
-        
-        // 多个catch块
-        try {
-            String str = null;
-            System.out.println(str.length());  // NullPointerException
-            
-            int[] arr = new int[5];
-            System.out.println(arr[10]);       // ArrayIndexOutOfBoundsException
-        } catch (NullPointerException e) {
-            System.out.println("空指针异常: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("数组越界异常: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("其他异常: " + e.getMessage());
-        }
-        
-        // try-with-resources（Java 7+）
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("资源会自动关闭");
-        } catch (Exception e) {
-            System.out.println("异常: " + e.getMessage());
-        }
-        
-        // 方法调用中的异常处理
-        try {
-            int result = divide(10, 0);
-            System.out.println("除法结果: " + result);
-        } catch (IllegalArgumentException e) {
-            System.out.println("参数异常: " + e.getMessage());
-        }
-    }
-    
-    public static int divide(int a, int b) {
-        if (b == 0) {
-            throw new IllegalArgumentException("除数不能为零");
-        }
-        return a / b;
-    }
-}
-```
-
-## 10. 总结
-
-Java 基础语法涵盖了以下核心要素：
-
-### 10.1 语法特点
-
-- **强类型语言**：变量必须声明类型
-- **面向对象**：一切皆对象（除基本类型）
-- **平台无关**："一次编写，到处运行"
-- **自动内存管理**：垃圾回收机制
-
-### 10.2 编程规范
-
-- **命名规范**：类名大驼峰，方法名小驼峰，常量全大写
-- **代码风格**：适当的缩进和空格
-- **注释规范**：单行 `//`，多行 `/* */`，文档 `/** */`
-
-### 10.3 最佳实践
-
-- 合理使用访问修饰符
-- 优先使用局部变量
-- 及时关闭资源
-- 适当的异常处理
-- 使用 StringBuilder 进行字符串拼接
-
-### 10.4 学习建议
-
-1. **循序渐进**：从基础语法开始，逐步深入
-2. **多练习**：通过编写代码加深理解
-3. **阅读源码**：学习优秀的代码风格
-4. **项目实践**：将知识应用到实际项目中
+出现“编译失败”时先看错误行和实际 `javac` 版本，再判断语法、类型、依赖或导入；出现“找不到主类”时检查包名、输出目录和 classpath；出现 `UnsupportedClassVersionError` 时检查 class 的目标版本与运行 JDK。不要通过重复安装另一个 JDK 或删除全部依赖来替代定位。能解释正常输出和这些失败路径，才说明程序的基础行为已被掌握。

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">Deployment 滚动发布与资源占用</title>
+  <desc id="desc">目标三个副本，maxSurge一、maxUnavailable零。新副本不可用时保留三个旧副本；新副本可用后缩旧副本，终止中的旧进程仍会消耗资源。图选取四个状态，省略中间替换。</desc>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.p{font-size:17px;text-anchor:middle}.old{fill:#eaf4fc;stroke:#5686a6}.new{fill:#edf8f1;stroke:#729c87}.wait{fill:#fff4e4;stroke:#c29551}.stop{fill:#f7f9fb;stroke:#8b9ba6;stroke-dasharray:5 4}</style>
+  <rect width="1120" height="600" fill="#f7f9fb"/>
+  <text class="title" x="48" y="54">可用副本数与进程资源占用，要分开计算</text>
+  <text class="t" x="48" y="90">replicas=3，maxSurge=1，maxUnavailable=0；四个状态快照，省略中间替换。</text>
+  <path d="M294 135V395M558 135V395M822 135V395" stroke="#d2dce3"/>
+  <text class="h" x="48" y="157">1. 发布前</text><text class="h" x="312" y="157">2. 等新副本就绪</text><text class="h" x="576" y="157">3. 开始缩旧副本</text><text class="h" x="840" y="157">4. 发布完成</text>
+  <rect class="old" x="48" y="195" width="68" height="60" rx="6"/><rect class="old" x="126" y="195" width="68" height="60" rx="6"/><rect class="old" x="204" y="195" width="68" height="60" rx="6"/>
+  <text class="p" x="82" y="231">旧</text><text class="p" x="160" y="231">旧</text><text class="p" x="238" y="231">旧</text>
+  <rect class="old" x="312" y="195" width="68" height="60" rx="6"/><rect class="old" x="390" y="195" width="68" height="60" rx="6"/><rect class="old" x="468" y="195" width="68" height="60" rx="6"/>
+  <text class="p" x="346" y="231">旧</text><text class="p" x="424" y="231">旧</text><text class="p" x="502" y="231">旧</text>
+  <rect class="wait" x="312" y="278" width="224" height="60" rx="6"/><text class="p" x="424" y="314">新 Pod：未就绪</text>
+  <rect class="old" x="576" y="195" width="68" height="60" rx="6"/><rect class="old" x="654" y="195" width="68" height="60" rx="6"/><rect class="new" x="732" y="195" width="68" height="60" rx="6"/>
+  <text class="p" x="610" y="231">旧</text><text class="p" x="688" y="231">旧</text><text class="p" x="766" y="231">新</text>
+  <rect class="stop" x="576" y="278" width="224" height="60" rx="6"/><text class="p" x="688" y="314">旧 Pod：终止中</text>
+  <rect class="new" x="840" y="195" width="68" height="60" rx="6"/><rect class="new" x="918" y="195" width="68" height="60" rx="6"/><rect class="new" x="996" y="195" width="68" height="60" rx="6"/>
+  <text class="p" x="874" y="231">新</text><text class="p" x="952" y="231">新</text><text class="p" x="1030" y="231">新</text>
+  <text class="t" x="48" y="378">3 个旧副本可用</text><text class="t" x="312" y="378">仍保留 3 个可用旧副本</text><text class="t" x="576" y="378">2 旧 + 1 新可用</text><text class="t" x="840" y="378">3 个新副本可用</text>
+  <rect x="48" y="445" width="1024" height="110" rx="6" fill="#fff4e4" stroke="#c29551"/>
+  <text class="h" x="68" y="482">终止中仍可能占资源，不能只按“最多 4 个 Pod”预留节点容量</text>
+  <text class="t" x="68" y="518">新副本满足可用条件后继续替换；终止宽限期、摘流和连接排空需要独立验证。</text>
+</svg>

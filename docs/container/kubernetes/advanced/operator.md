@@ -8,6 +8,8 @@ date: 2026-07-18
 
 Operator 是使用 Kubernetes 控制循环管理应用及其组件的软件扩展。它通常监听一种或多种 CR，并创建 Kubernetes 对象、调用外部 API、执行备份升级等领域动作。Operator 的价值不在于生成 YAML，而在于异常和重启之后仍能根据当前事实恢复收敛。
 
+例如AppRelease为订单服务申请云数据库：外部创建成功后进程退出，status还没写回；下一轮如果只凭status为空就再创建，会产生第二份数据库和费用。可靠控制器先用CR UID查找同一项操作，再从外部事实继续。
+
 ![Operator 调谐状态机](/container/kubernetes-operator-state-machine.svg)
 
 ## Manager、Scheme 与高可用实例
@@ -18,8 +20,10 @@ controller-runtime 的 Manager 统一启动共享缓存、Client、Controller、
 
 ```bash
 kubectl get lease -A
-kubectl get deploy,pod -n <operator-namespace> -o wide
-kubectl logs -n <operator-namespace> deploy/<operator> --all-containers
+operator_namespace=替换为控制器命名空间
+operator_name=替换为Deployment名称
+kubectl get deploy,pod -n "$operator_namespace" -o wide
+kubectl logs -n "$operator_namespace" "deploy/$operator_name" --all-containers
 ```
 
 ## Reconcile 的输入和输出
@@ -54,7 +58,7 @@ func (r *AppReleaseReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 }
 ```
 
-示例表达结构而非可直接复制的完整实现。生产代码还要处理 patch、冲突、缓存陈旧、权限和指标。
+示例表达结构而非可直接复制的完整实现，辅助函数与返回类型尚需实现。生产代码还要处理 patch、冲突、缓存陈旧、权限和指标。必须先成功持久化finalizer，再发起需要删除清理的外部副作用；否则在两者之间删除CR会失去清理机会。删除分支也要先确认本控制器的finalizer存在，不接管其他控制器的职责。
 
 ## 幂等不是“重复调用同一接口”
 
@@ -68,13 +72,15 @@ Reconcile 可能在外部动作成功但 Status 写回前崩溃。下一轮无�
 | 发送通知 | 按事件版本或状态迁移去重 |
 | 更新 Status | Patch 自己负责的字段，冲突后重新读取 |
 
-如果外部 API 不支持幂等，Operator 必须先建立自己的操作记录和查询协议，否则超时重试可能创建重复数据库、DNS 或账单资源。
+如果外部 API 不支持幂等，操作记录还必须能关联外部已提交结果。仅在本地写“准备创建”无法消除“外部已成功、响应丢失”的窗口；需要可查询的唯一标识、外部约束或人工对账路径，否则超时重试仍可能创建重复数据库、DNS或账单资源。
 
 ## 缓存、并发和字段所有权
 
 controller-runtime 的默认 Client 通常读缓存、写 API Server。写入成功后立即从缓存读取，可能暂时看不到新状态。代码应接受这种最终一致性，不用固定 sleep 猜传播时间。
 
-多个 Reconcile 或多个控制器可能同时修改对象。常见做法包括：
+同一个controller的标准工作队列通常避免同一对象键同时被两个worker处理；这不排除不同对象争用同一云资源、多控制器写同一字段或旧leader外部请求仍在执行。外部唯一键和并发控制必须按真实资源身份设计。
+
+多个控制循环可能同时修改对象，常见做法包括：
 
 - 用 Patch 缩小写入范围，不整对象 Update 覆盖他人字段。
 - 使用 Server-Side Apply 声明明确 field manager。
@@ -134,8 +140,3 @@ Kubebuilder 与 Operator SDK 都能搭建 controller-runtime 项目，差别主�
 评估现成 Operator 时，优先检查它是否真的编码了领域生命周期。CloudNativePG 管理 PostgreSQL 实例、复制、备份和故障切换；Strimzi 管理 Kafka 组件和滚动变更。这类价值来自持续观察和领域动作，不只是把 Helm 包再包一层 CR。
 
 自研前至少回答：模板和 GitOps 是否已经够用；上游 Operator 的 CRD 升级与备份模型是否满足要求；团队能否长期承担 API 兼容、值班和恢复演练。没有长期所有者的 Operator 会把一次性 YAML 成本换成永久控制面成本。
-
-## 官方资料
-
-- [Kubebuilder: Starting the Manager](https://book.kubebuilder.io/cronjob-tutorial/empty-main)
-- [controller-runtime](https://pkg.go.dev/sigs.k8s.io/controller-runtime)

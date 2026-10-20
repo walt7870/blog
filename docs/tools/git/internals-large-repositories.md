@@ -6,7 +6,7 @@ Git 的日常命令最终都落到两类数据上：不可变的对象和可移�
 
 ## 对象关系
 
-Git 对象库位于 `.git/objects/`。核心对象有四类：
+普通 Clone 的对象库通常位于 `.git/objects/`，Worktree、Submodule 或替代对象目录的布局可能不同。用 `git rev-parse --git-path objects` 定位对象目录，用 `git rev-parse --git-common-dir` 定位共享管理目录。核心对象有四类：
 
 | 对象 | 保存内容 | 典型关系 |
 | --- | --- | --- |
@@ -80,7 +80,11 @@ Reflog 不是长期备份。记录会过期，不可达对象也可能在后续�
 
 ```bash
 git count-objects -vH
-git verify-pack -v .git/objects/pack/pack-*.idx
+object_dir=$(git rev-parse --git-path objects)
+for pack_index in "$object_dir"/pack/*.idx; do
+  [ -f "$pack_index" ] || continue
+  git verify-pack -v "$pack_index"
+done
 ```
 
 不要手工删除 `.git/objects/pack/` 下的文件。索引、Packfile、多包索引和提交图之间存在配套关系，缺少其中一部分可能让对象无法读取。
@@ -94,7 +98,7 @@ git maintenance run --auto
 git gc
 ```
 
-它们会根据仓库状态整理松散对象、重打包并清理满足条件的不可达数据。日常不应频繁运行：
+`maintenance run --auto` 按启用任务的条件决定是否执行，可能不做任何工作；不能把一次调用当成已完成全量压缩和清理。`gc` 则协调对象打包及满足保留条件的数据清理，仍受配置、并发写入和过期时间影响。日常不应频繁运行：
 
 ```bash
 git gc --aggressive
@@ -105,7 +109,7 @@ git gc --aggressive
 维护前先测量：
 
 ```bash
-du -sh .git
+du -sh "$(git rev-parse --git-common-dir)"
 git count-objects -vH
 git status -sb
 ```
@@ -124,12 +128,14 @@ git fsck --full
 
 | 结果 | 含义 | 下一步 |
 | --- | --- | --- |
-| `dangling commit` | 对象存在，但没有普通引用指向 | 结合 Reflog 判断是否需要恢复 |
+| `dangling commit` | 检查范围内没有其他对象或根直接使用该提交 | 检查内容并建立恢复引用；不代表所有不可达提交都会单独列出 |
 | `missing blob` | 提交或目录树引用的文件对象缺失 | 从可靠远端或备份补回对象 |
 | `bad object` | 对象损坏或引用指向无效对象 | 停止写入，保存现场并检查存储 |
 | 无输出 | 没有发现需要报告的完整性问题 | 再检查工作区、远端和业务制品 |
 
 对象损坏时不要立刻复制文件覆盖 `.git/`。先保留损坏仓库副本，再确认可靠远端、其他 Clone 或备份是否包含缺失对象。
+
+`unreachable` 与 `dangling` 不同：一串失去引用的提交中，后一个仍引用前一个，前一个不可达却未必悬空。默认 `fsck` 还会把索引和 Reflog 等作为根；使用 `--no-reflogs` 会改变结果。`missing blob` 在完整仓库中是故障线索，Partial Clone 中还要核对 Promisor 对象约定和按需下载能力，不能直接删除引用“消除报错”。
 
 ## 大型仓库的四个维度
 
@@ -150,6 +156,7 @@ git branch -a
 git tag --list | wc -l
 git rev-list --objects --all |
   git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |
+  awk '$1 == "blob"' |
   sort -k3 -nr |
   head
 ```
@@ -162,7 +169,7 @@ git rev-list --objects --all |
 | --- | --- | --- | --- |
 | Shallow Clone | 旧提交 | 否 | 历史、合并基线和 Bisect 受限 |
 | Partial Clone | 部分 Blob 或 Tree | 提交历史可以完整，对象按需补取 | 离线能力下降，服务器需支持过滤 |
-| Sparse Checkout | 工作区中的路径 | 对象库可能仍完整 | 仓库外路径不出现在工作区 |
+| Sparse Checkout | 规则未选中的工作区路径 | 对象库可能仍完整 | 隐藏路径仍被版本管理；锥形模式也保留部分上级目录文件 |
 | Git LFS | 大文件正文进入独立存储 | Git 保存指针和普通历史 | 依赖 LFS 服务、配额和权限 |
 
 ### Partial Clone
@@ -173,7 +180,7 @@ git rev-list --objects --all |
 git clone --filter=blob:none <repository-url>
 ```
 
-缺失 Blob 在命令真正需要时从 Promisor Remote 获取。断网前需要确认将要访问的对象已经在本地，CI 和备份流程也不能把 Partial Clone 误认为完整副本。
+缺失 Blob 在命令真正需要时从 Promisor Remote 获取。普通 Clone 最后的检出仍会下载当前版本需要的文件；过滤主要减少历史 Blob 的预取。断网前需要确认将要访问的对象已经在本地，CI 和备份流程也不能把 Partial Clone 误认为完整副本。
 
 ### Sparse Checkout
 
@@ -195,7 +202,7 @@ Sparse Checkout 不会让其他路径停止被跟踪，只是控制哪些路径�
 git lfs install
 git lfs track "*.psd"
 git add .gitattributes
-git commit -m "chore: track design assets with lfs"
+git commit -m "chore: 使用 LFS 管理设计资源"
 ```
 
 已经进入普通 Git 历史的大文件不会自动迁移。迁移会改写历史，需要单独评估协作者、Fork、CI 缓存和发布引用。

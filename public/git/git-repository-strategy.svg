@@ -1,62 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" role="img" aria-labelledby="title desc">
-  <title id="title">Git 仓库组织策略</title>
-  <desc id="desc">依据制品边界、原子修改、源码引用和克隆体验选择包管理器、Monorepo、Submodule、Subtree 或多仓库。</desc>
-  <defs>
-    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f8fafc"/>
-      <stop offset="1" stop-color="#f0fdf4"/>
-    </linearGradient>
-    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
-    </marker>
-    <style>
-      .title { font: 700 24px system-ui, sans-serif; fill: #14532d; }
-      .label { font: 700 16px system-ui, sans-serif; fill: #1e293b; }
-      .small { font: 14px system-ui, sans-serif; fill: #475569; }
-      .yesno { font: 700 13px system-ui, sans-serif; fill: #64748b; }
-      .line { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrow2); }
-    </style>
-  </defs>
-  <rect width="960" height="460" rx="24" fill="url(#bg2)"/>
-  <text x="48" y="50" class="title">仓库组织选型：先判断边界，再选择工具</text>
-
-  <rect x="342" y="78" width="276" height="66" rx="16" fill="#dcfce7" stroke="#22c55e"/>
-  <text x="480" y="106" text-anchor="middle" class="label">依赖是否已有稳定制品？</text>
-  <text x="480" y="129" text-anchor="middle" class="small">版本、来源、摘要、兼容范围</text>
-
-  <rect x="70" y="190" width="220" height="84" rx="16" fill="#dbeafe" stroke="#3b82f6"/>
-  <text x="180" y="222" text-anchor="middle" class="label">包管理器 / 制品库</text>
-  <text x="180" y="248" text-anchor="middle" class="small">接口稳定 · 独立发布</text>
-
-  <rect x="370" y="178" width="220" height="106" rx="16" fill="#fef3c7" stroke="#f59e0b"/>
-  <text x="480" y="211" text-anchor="middle" class="label">是否高频原子修改？</text>
-  <text x="480" y="238" text-anchor="middle" class="small">同一提交修改多个模块</text>
-  <text x="480" y="261" text-anchor="middle" class="small">共享 CI 与发布门禁</text>
-
-  <rect x="670" y="190" width="220" height="84" rx="16" fill="#ede9fe" stroke="#8b5cf6"/>
-  <text x="780" y="222" text-anchor="middle" class="label">Monorepo</text>
-  <text x="780" y="248" text-anchor="middle" class="small">统一历史 · 影响分析</text>
-
-  <rect x="220" y="340" width="168" height="78" rx="16" fill="#fff" stroke="#ec4899"/>
-  <text x="304" y="371" text-anchor="middle" class="label">Submodule</text>
-  <text x="304" y="396" text-anchor="middle" class="small">固定外部提交</text>
-
-  <rect x="396" y="340" width="168" height="78" rx="16" fill="#fff" stroke="#0ea5e9"/>
-  <text x="480" y="371" text-anchor="middle" class="label">Subtree</text>
-  <text x="480" y="396" text-anchor="middle" class="small">普通 Clone 完整</text>
-
-  <rect x="572" y="340" width="168" height="78" rx="16" fill="#fff" stroke="#64748b"/>
-  <text x="656" y="371" text-anchor="middle" class="label">多仓库</text>
-  <text x="656" y="396" text-anchor="middle" class="small">团队与发布独立</text>
-
-  <path d="M405 144 L220 190" class="line"/>
-  <text x="301" y="160" class="yesno">是</text>
-  <path d="M480 144 V178" class="line"/>
-  <text x="492" y="165" class="yesno">否</text>
-  <path d="M590 231 H670" class="line"/>
-  <text x="624" y="220" class="yesno">是</text>
-  <path d="M480 284 V318 H304 V340" class="line"/>
-  <path d="M480 318 V340" class="line"/>
-  <path d="M480 318 H656 V340" class="line"/>
-  <text x="493" y="310" class="yesno">否：按源码引用和所有权选择</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="git-repository-strategy-title git-repository-strategy-desc">
+  <title id="git-repository-strategy-title">按交付边界选择仓库组织方式</title><desc id="git-repository-strategy-desc">先判断是否需要依赖源码。不需要时使用版本化制品；需要且权限一致、高频联动时评估Monorepo，否则保持独立仓库。独立源码嵌入主仓库时，Submodule锁定外部提交，Subtree内置代码。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs><rect width="1120" height="600" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="54" font-size="27" font-weight="700">先看交付边界，再选目录组织</text><text x="48" y="89" font-size="17" fill="#536470">包管理器可与各种仓库组织并用；统一提交不等于跨服务同时部署。</text>
+    <g fill="none" stroke="#596b78" stroke-width="2" marker-end="url(#a)"><path d="M380 180H650"/><path d="M230 236V280"/><path d="M380 336H650"/><path d="M230 392V438"/></g>
+    <path d="M230 124L380 180L230 236L80 180Z" fill="#edf4fc" stroke="#819bb6"/><text x="230" y="187" text-anchor="middle" font-size="20">需要依赖源码？</text>
+    <rect x="650" y="140" width="410" height="80" rx="6" fill="#e9f5f0" stroke="#7caaa0"/><text x="674" y="173" font-size="21" font-weight="700">版本化包 / 制品仓库</text><text x="674" y="201" font-size="17">例如协议包：锁定版本，按兼容范围升级</text>
+    <rect x="462" y="165" width="82" height="28" fill="#f7f9fb"/><text x="503" y="185" text-anchor="middle" font-size="17">不需要</text><text x="250" y="267" font-size="17">需要</text>
+    <path d="M230 280L380 336L230 392L80 336Z" fill="#fff" stroke="#a4b3be"/><text x="230" y="330" text-anchor="middle" font-size="18">权限一致且</text><text x="230" y="355" text-anchor="middle" font-size="18">源码高频联动？</text>
+    <rect x="650" y="296" width="410" height="80" rx="6" fill="#fff" stroke="#a4b3be"/><text x="674" y="329" font-size="21" font-weight="700">评估 Monorepo</text><text x="674" y="357" font-size="17">共享 CI，保留模块负责人和接口边界</text>
+    <rect x="480" y="322" width="48" height="28" fill="#f7f9fb"/><text x="504" y="342" text-anchor="middle" font-size="17">是</text><text x="250" y="422" font-size="17">否</text>
+    <rect x="68" y="438" width="334" height="88" rx="6" fill="#fff" stroke="#a4b3be"/><text x="90" y="472" font-size="21" font-weight="700">独立仓库 + 版本契约</text><text x="90" y="504" font-size="17">独立权限、发布顺序与集成测试</text>
+    <text x="470" y="459" font-size="19" font-weight="700">确需内嵌外部源码时再选择：</text><text x="470" y="492" font-size="18">Submodule：Gitlink 固定提交，子仓单独下载</text><text x="470" y="522" font-size="18">Subtree：代码并入主仓，明确同步与回流责任</text>
+    <text x="48" y="570" font-size="17" fill="#536470">用一次升级演练检验：能否获取依赖、构建、发布，并恢复到上一组兼容版本。</text>
+  </g>
 </svg>

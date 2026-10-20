@@ -1,967 +1,166 @@
 # MySQL 数据类型与字段设计
 
-## 概述
+字段类型首先表达业务允许什么值，其次才是省多少空间。一笔订单的金额不能近似，支付时间在付款前确实未知，手机号不能因为“只有数字”就丢掉加号与前导零。把这些含义定下来，类型、精度、空值、排序规则和约束才有选择依据。以下面向 MySQL 8.4 LTS、InnoDB。
 
-数据类型与字段设计是 MySQL 数据库设计的基础，直接影响数据存储效率、查询性能、存储空间占用以及数据完整性。合理的数据类型选择和字段设计不仅能够优化存储空间，还能提高查询效率，确保数据的准确性和一致性。
+## 从订单值确定字段合同
 
-### 数据类型的重要性
+![用户和订单字段的类型、唯一性与引用约束](/database/mysql-field-contract.svg)
 
-**存储效率**：
-- 不同数据类型占用的存储空间差异巨大
-- 合适的数据类型可以显著减少存储开销
-- 存储空间的优化直接影响 I/O 性能和缓存效率
+图中只展示与字段合同有关的列，完整建表见后面的实验。订单引用用户，但金额、币种和支付时间属于订单本身；它们不能依赖用户资料或商品当前价格重新推算。类型检查也不等于业务检查：`TINYINT` 可以容纳状态 `9`，却不能说明系统是否支持该状态。
 
-**查询性能**：
-- 数据类型影响索引的效率和大小
-- 类型转换会增加 CPU 开销
-- 合适的数据类型有助于查询优化器生成更好的执行计划
+| 业务值 | 常用表达 | 必须确定的边界 |
+| --- | --- | --- |
+| 订单编号 | `BIGINT` 或具有明确排序规则的字符串 | 生成方式、最大范围、唯一性；是否通过 JSON/JavaScript 传输 |
+| 件数 | 整数、`NOT NULL`、正数检查 | 允许零吗，最大单量是多少，扣减是否可能下溢 |
+| 金额 | `DECIMAL(p,s)` 或整数最小货币单位 | 币种、精度、舍入时点、税费与退款范围 |
+| 手机号、邮编、外部编码 | `VARCHAR` | 规范化、前导零、国际格式和比较方式 |
+| 生日、结算日期 | `DATE` | 这是哪一个业务地区的日期 |
+| 支付时刻 | `DATETIME(fsp)` 或 `TIMESTAMP(fsp)` | 会话时区、UTC 合同、2038 边界、精度 |
+| 可扩展商品属性 | `JSON` | 对象结构、必填项、大小、查询路径和结构版本 |
+| 哈希、UUID、网络地址 | `BINARY` / `VARBINARY` 或文本 | 字节数、编码、UUID 版本和转换方式 |
 
-**数据完整性**：
-- 严格的数据类型约束可以防止无效数据的插入
-- 合理的长度限制避免数据溢出
-- 类型检查是数据质量保证的第一道防线
+## 数值：准确性、范围和传输
 
-**应用兼容性**：
-- 数据类型的选择影响应用程序的开发复杂度
-- 不同编程语言对 MySQL 数据类型的支持程度不同
-- 合理的类型选择有助于跨平台兼容性
+有符号 `TINYINT/SMALLINT/MEDIUMINT/INT/BIGINT` 分别用 `1/2/3/4/8` 字节，范围分别是 `-2^7…2^7-1`、`-2^15…2^15-1`、`-2^23…2^23-1`、`-2^31…2^31-1`、`-2^63…2^63-1`。整数 `UNSIGNED` 把范围改为 `0…2^n-1`，不会让存储变小。选型要留增长余量，关联列的类型与符号必须匹配；自增值可能有空洞，耗尽后不会自动回绕成安全的新编号。
 
-## 数值类型详解
+大整数进入 JavaScript 时，超出 `Number.MAX_SAFE_INTEGER` 的值可能在数据库之外丢精度。可在 API 用十进制字符串传输，客户端按约定处理；不要只验证数据库能插入就认定整条链路准确。`BOOLEAN` 是 `TINYINT(1)` 的同义表达，单靠它仍能存 `2`，需要 `CHECK` 才能限制为 `0/1`。
 
-### 整数类型
-
-**类型特征与选择**：
-
-MySQL 提供了多种整数类型，每种类型都有其特定的存储范围和空间占用：
-
-- **TINYINT**：1字节存储，范围 -128 到 127（有符号）或 0 到 255（无符号）
-- **SMALLINT**：2字节存储，范围 -32,768 到 32,767（有符号）或 0 到 65,535（无符号）
-- **MEDIUMINT**：3字节存储，范围 -8,388,608 到 8,388,607（有符号）或 0 到 16,777,215（无符号）
-- **INT/INTEGER**：4字节存储，范围 -2,147,483,648 到 2,147,483,647（有符号）或 0 到 4,294,967,295（无符号）
-- **BIGINT**：8字节存储，范围 -9,223,372,036,854,775,808 到 9,223,372,036,854,775,807（有符号）
-
-**选择原则**：
-
-1. **最小够用原则**：选择能够满足业务需求的最小数据类型
-2. **增长预期**：考虑数据的未来增长，留有适当余量
-3. **业务语义**：根据字段的业务含义选择合适的类型
-4. **性能考虑**：较小的数据类型通常有更好的性能表现
-
-**实际应用场景**：
-
-- **用户ID**：如果用户数量预期在千万级别，使用 INT UNSIGNED；如果可能超过42亿，使用 BIGINT
-- **状态字段**：如订单状态、用户状态等，通常使用 TINYINT 即可
-- **计数器**：如点击量、访问量等，根据预期最大值选择 INT 或 BIGINT
-- **年龄字段**：使用 TINYINT UNSIGNED，范围 0-255 完全满足需求
-- **价格分**：如果以分为单位存储价格，INT 可以表示到千万级别的金额
-
-**UNSIGNED 属性的使用**：
-
-无符号整数类型可以将正数范围扩大一倍，适用于永远不会为负数的字段：
-- 主键 ID
-- 计数器
-- 年龄、数量等自然数
-- 时间戳（UNIX 时间戳）
-
-**AUTO_INCREMENT 的设计考虑**：
-
-自增字段的设计需要考虑以下因素：
-- **类型选择**：根据预期的记录数量选择合适的整数类型
-- **起始值设置**：可以通过 AUTO_INCREMENT = n 设置起始值
-- **步长控制**：通过 auto_increment_increment 控制步长
-- **回绕处理**：当达到类型最大值时的处理策略
-
-### 浮点数类型
-
-**FLOAT 与 DOUBLE**：
-
-- **FLOAT**：4字节，单精度浮点数，大约7位有效数字
-- **DOUBLE**：8字节，双精度浮点数，大约15位有效数字
-
-**精度问题与解决方案**：
-
-浮点数存在精度问题，不适合存储需要精确计算的数值：
+`FLOAT` 和 `DOUBLE` 是近似数，适合传感器测量和允许误差的计算。`DECIMAL` 表达精确的十进制值，但写入超过小数位的输入仍会舍入，除法和中间结果也受精度规则限制。MySQL 的 `0.1` 是精确数值字面量；用它证明二进制浮点误差是不成立的。下面分别使用普通小数与科学记数法，后者进入近似计算：
 
 ```sql
--- 浮点数精度问题示例
-SELECT 0.1 + 0.2;  -- 结果可能不是精确的 0.3
+SELECT 0.1 + 0.2 = 0.3 AS exact_equal,
+       0.1E0 + 0.2E0 = 0.3E0 AS approximate_equal;
+SELECT CAST(19.995 AS DECIMAL(10,2)) AS rounded_amount;
 ```
 
-**适用场景**：
-- 科学计算中的近似值
-- 地理坐标（经纬度）
-- 统计数据的平均值、比率等
-- 对精度要求不高的测量数据
+结果依次为 `1、0`，金额转换为 `20.00`。`DECIMAL(12,2)` 总共十二位，其中两位是小数，最大正值为 `9,999,999,999.99`；负数是否允许由业务决定。`DECIMAL(5,4)` 最大为 `9.9999`，存比例 `0.9999` 与存百分数 `99.99` 是不同的单位合同。先规定币种和单位，再规定精度；并非所有币种都采用两位小数。
 
-**不适用场景**：
-- 货币金额
-- 需要精确计算的财务数据
-- 库存数量等需要精确计数的场景
+DECIMAL 整数和小数部分分别按每九位四字节、余数按分组字节数编码，不是简单“位数乘固定比例”。精确金额通过字符串或十进制库进入驱动，避免先变成浮点数。整数分方案同样要控制乘数量、累加和转换时的范围，不能因为不用 DECIMAL 就省略溢出检查。
 
-### 定点数类型
+## 字符串：字符数、字节和比较规则
 
-**DECIMAL/NUMERIC**：
+`CHAR(n)` 和 `VARCHAR(n)` 的 `n` 是字符数，二进制类型长度按字节。`utf8mb4` 每字符最多四字节，`VARCHAR(255)` 不是最多 255 字节。VARCHAR 长度前缀为一或两字节，受最大字节长度影响；MySQL 逻辑行上限 65,535 字节还要计入其他列和开销，InnoDB 页内记录另有限制，不能把它误写成“VARCHAR 最多 65,535 个字符”。
 
-DECIMAL 类型提供精确的数值存储，适合财务计算：
+`CHAR` 适合固定长度的代码，但取值通常会去掉尾随空格，物理占用还受字符集、行格式和引擎影响，不存在“小于十字符就一定更快”的规则。`VARCHAR` 是否把尾空格视为相同，取决于排序规则的 PAD 属性。`utf8mb4_0900_ai_ci` 忽略重音和大小写；需要区分的业务编码应选择合适的二进制排序规则或二进制列，不应无意中继承默认比较语义。
 
-- **语法**：DECIMAL(M, D)，其中 M 是总位数，D 是小数位数
-- **存储**：每9位十进制数字使用4字节存储
-- **精度**：完全精确，无舍入误差
-- **范围**：M 最大为65，D 最大为30
+邮箱不能只靠 `VARCHAR(255)` 就声称满足全部标准；还要明确国际化邮箱、域名规范化、本地部分比较政策与应用长度校验。手机号保留国际格式，生日用日期而不是不断过期的年龄。密码字段保存密码库生成的完整编码串，例如包含算法、参数和盐的结果，长度按所用库预留；不要把所有密码算法都限定为 `CHAR(60)`，也不要用 MD5/SHA1 替代密码哈希。
 
-**存储空间计算**：
+`TEXT` 家族上限分别为 255、65,535、16,777,215、4,294,967,295 **字节**，实际还受包大小、内存和应用限制。大列是否在行外取决于行格式与值大小，不能一律描述为“表里只剩指针”；BLOB/TEXT 对行大小计算仍有描述符等开销。8.4 可以用表达式默认值，如 `TEXT DEFAULT ('')`，不是完全禁止默认值。普通索引通常需要前缀，全文搜索另看 FULLTEXT 的分词与长度限制；前缀索引不等于全文搜索。
 
-DECIMAL 的存储空间计算相对复杂：
-- 整数部分和小数部分分别计算
-- 每9位数字占用4字节
-- 剩余位数按比例占用空间
+二进制内容用 BLOB，文本用 TEXT；原生 JSON 比把对象当 TEXT 多了格式验证与路径操作。大附件放对象存储时，要处理对象与数据库记录之间的失败补偿、权限、保留和孤儿清理，存一个 URL 并不自动解决一致性。列表页避免无条件加载大列，是否拆表需看访问频率与事务边界。
 
-**应用场景**：
-- **货币金额**：DECIMAL(10,2) 可以存储最大99,999,999.99的金额
-- **汇率**：DECIMAL(10,6) 可以存储精确到6位小数的汇率
-- **百分比**：DECIMAL(5,4) 可以存储如99.9999%的精确百分比
-- **财务计算**：所有涉及精确计算的财务数据
+`BINARY(n)` 不足长度会补零字节，`VARBINARY(n)` 保留实际字节长度；UUID 的 16 字节与 36 字符文本是两种表示。使用 `UUID_TO_BIN` 的交换参数时要匹配 UUID 版本及反向转换，不能把针对时间型 UUID 的重排当成所有 UUID 的优化。IPv4/IPv6 可用 `INET6_ATON` 和 `INET6_NTOA` 转换，字段长度与地址格式按接口合同验证。
 
-**性能考虑**：
-- DECIMAL 的计算性能低于浮点数
-- 存储空间通常大于等价的浮点数
-- 在不需要精确计算的场景下，可以考虑使用整数存储（如以分为单位存储金额）
+`ENUM` 适合变动少、集合明确的值，比较和默认排序涉及内部枚举序号，不能把数字写入时的序号解释与字符串业务码混用。频繁变化的订单状态可用整数加检查约束或引用字典表；状态是否合法与状态能否从“取消”转为“已支付”是两项约束，后者仍需要状态机和事务。`SET` 表达有限集合的组合，但不适合替代需要单项属性、关联查询与独立演进的关系表。
 
-## 字符串类型详解
+## 时间：日期、墙上时间和时刻
 
-### 定长字符串类型
+| 类型 | 用途与范围 | 时区及存储边界 |
+| --- | --- | --- |
+| `DATE` | 1000-01-01 至 9999-12-31 的日期 | 不做时区转换，3 字节 |
+| `TIME(fsp)` | 一天内时间或约 ±838 小时的时长 | 不是任意长的持续时间容器，基础 3 字节 |
+| `DATETIME(fsp)` | 1000 至 9999 年的日期时间 | 保存字面时间，不自动转换，基础 5 字节 |
+| `TIMESTAMP(fsp)` | UTC 1970-01-01 00:00:01 至 2038-01-19 03:14:07 | 写入/读取按会话时区转换，基础 4 字节 |
+| `YEAR` | 1901 至 2155，以及特殊零值 | 只用于确实只有年份的值 |
 
-**CHAR 类型特征**：
+小数秒精度 `fsp` 为 0～6，每 1～2、3～4、5～6 位分别额外占 1、2、3 字节。`DATETIME(6)` 因而是 8 字节，不能把所有 DATETIME 都写成 8 字节。零日期等特殊值受 SQL mode 约束，生产接口应拒绝不合法日期。
 
-- **固定长度**：无论实际存储多少字符，都占用指定的空间
-- **空间填充**：不足长度的部分用空格填充
-- **检索时处理**：检索时会自动去除尾部空格
-- **最大长度**：255个字符
-
-**CHAR 的优势**：
-
-1. **存储效率**：对于长度固定或变化很小的数据，存储效率高
-2. **查询性能**：由于长度固定，某些操作的性能更好
-3. **内存对齐**：有利于内存对齐，提高访问效率
-
-**适用场景**：
-- **固定长度编码**：如国家代码（CN、US）、货币代码（CNY、USD）
-- **状态标识**：如性别（M、F）、是否标志（Y、N）
-- **固定格式ID**：如员工工号、产品编码等
-- **MD5哈希值**：32位固定长度的哈希值
-
-### 变长字符串类型
-
-**VARCHAR 类型特征**：
-
-- **变长存储**：根据实际内容长度存储，节省空间
-- **长度前缀**：使用1-2字节存储实际长度信息
-- **最大长度**：65,535个字符（受行大小限制）
-- **字符集影响**：实际可存储字符数受字符集影响
-
-**长度选择策略**：
-
-1. **业务需求分析**：分析字段的实际使用情况
-2. **预留空间**：为未来可能的需求变化预留适当空间
-3. **性能平衡**：过长的 VARCHAR 可能影响性能
-4. **索引考虑**：VARCHAR 字段的索引长度限制
-
-**常见长度设计**：
-- **用户名**：VARCHAR(50) - 通常足够，也便于显示
-- **邮箱地址**：VARCHAR(255) - 符合邮箱标准的最大长度
-- **手机号码**：VARCHAR(20) - 考虑国际号码格式
-- **地址信息**：VARCHAR(500) - 详细地址通常需要较长空间
-- **商品名称**：VARCHAR(200) - 平衡SEO需求和存储效率
-
-**VARCHAR vs CHAR 选择原则**：
-
-- 长度固定且较短（<10字符）：优先考虑 CHAR
-- 长度变化较大：使用 VARCHAR
-- 频繁更新且长度变化大：VARCHAR 可能产生碎片
-- 对存储空间敏感：使用 VARCHAR
-
-### 大文本类型
-
-**TEXT 类型家族**：
-
-- **TINYTEXT**：最大255字节
-- **TEXT**：最大65,535字节（约64KB）
-- **MEDIUMTEXT**：最大16,777,215字节（约16MB）
-- **LONGTEXT**：最大4,294,967,295字节（约4GB）
-
-**TEXT 类型的特点**：
-
-1. **存储方式**：TEXT 数据存储在行外，表中只存储指针
-2. **排序限制**：排序时只使用前 max_sort_length 字节
-3. **索引限制**：只能对前缀创建索引
-4. **默认值限制**：不能有默认值
-
-**使用场景与注意事项**：
-
-**适用场景**：
-- **文章内容**：博客文章、新闻内容等
-- **商品描述**：详细的商品描述信息
-- **用户评论**：长篇用户评论或反馈
-- **日志记录**：详细的操作日志或错误信息
-- **配置信息**：JSON格式的配置数据
-
-**性能考虑**：
-- TEXT 字段会影响临时表的创建（可能强制使用磁盘临时表）
-- 大量 TEXT 字段的查询可能影响内存使用
-- 考虑将 TEXT 字段分离到单独的表中
-
-**设计建议**：
-- 评估是否真的需要 TEXT 类型
-- 考虑使用 VARCHAR 替代较短的 TEXT
-- 对于超大文本，考虑存储到文件系统，数据库只存储路径
-- 建立合适的前缀索引以支持搜索需求
-
-## 日期时间类型详解
-
-### 日期时间类型概览
-
-**MySQL 日期时间类型**：
-
-- **DATE**：日期，格式 YYYY-MM-DD，范围 1000-01-01 到 9999-12-31
-- **TIME**：时间，格式 HH:MM:SS，范围 -838:59:59 到 838:59:59
-- **DATETIME**：日期时间，格式 YYYY-MM-DD HH:MM:SS，范围 1000-01-01 00:00:00 到 9999-12-31 23:59:59
-- **TIMESTAMP**：时间戳，格式同 DATETIME，但范围 1970-01-01 00:00:01 到 2038-01-19 03:14:07
-- **YEAR**：年份，格式 YYYY，范围 1901 到 2155
-
-### DATETIME vs TIMESTAMP
-
-**存储空间对比**：
-- **DATETIME**：8字节，不受时区影响
-- **TIMESTAMP**：4字节，自动时区转换
-
-**时区处理**：
-
-**DATETIME 特点**：
-- 存储的是字面值，不进行时区转换
-- 适合存储与时区无关的时间（如生日、纪念日）
-- 跨时区应用需要应用层处理时区转换
-
-**TIMESTAMP 特点**：
-- 存储时转换为 UTC，检索时转换为当前时区
-- 自动处理时区转换，适合全球化应用
-- 受系统时区设置影响
-- 2038年问题：最大值为2038-01-19 03:14:07 UTC
-
-**选择建议**：
-
-1. **全球化应用**：优先使用 TIMESTAMP，利用其自动时区转换特性
-2. **本地化应用**：可以使用 DATETIME，简化时区处理
-3. **历史数据**：对于1970年之前或2038年之后的数据，必须使用 DATETIME
-4. **存储空间敏感**：TIMESTAMP 占用空间更小
-
-### 时间精度与微秒
-
-**微秒精度支持**：
-
-MySQL 5.6.4 开始支持微秒精度：
+全球化应用既可以用 TIMESTAMP，也可以约定 DATETIME 存 UTC。关键是驱动与会话时区一致、API 带清楚的时间含义、显示时转换，并用真实驱动做往返验证。预约“某地区每天九点”还需要地区时区标识及夏令时政策，只有一个 UTC 时间值不足以表达重复规则。以下比较同一记录在两个会话时区下的读取：
 
 ```sql
--- 支持微秒精度的类型定义
-DATETIME(6)    -- 精确到微秒
-TIMESTAMP(3)   -- 精确到毫秒
-TIME(6)        -- 精确到微秒
+CREATE DATABASE field_demo CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE field_demo;
+SET time_zone = '+00:00';
+CREATE TABLE clock_probe (wall_time DATETIME, instant TIMESTAMP);
+INSERT INTO clock_probe VALUES ('2026-10-01 00:00:00', '2026-10-01 00:00:00');
+SET time_zone = '+08:00';
+SELECT wall_time, instant FROM clock_probe;
+SET time_zone = '+00:00';
 ```
 
-**精度选择考虑**：
-- **业务需求**：根据实际业务对时间精度的要求
-- **存储开销**：更高精度需要更多存储空间
-- **性能影响**：高精度时间的比较和计算开销更大
-- **应用兼容性**：确保应用程序支持相应精度
+结果分别是 `00:00:00` 与 `08:00:00`。支付时间尚未知时允许 NULL，不用零日期冒充；支付状态变更与支付时间应在同一事务维护。`ON UPDATE CURRENT_TIMESTAMP` 只在其他列的值实际变化等条件下自动更新，无变化赋值不一定刷新；它不是完整审计日志，也不是并发控制版本号。
 
-**常见精度应用**：
-- **秒级精度**：一般业务记录，如用户注册时间、订单创建时间
-- **毫秒精度**：需要较高时间精度的业务，如交易记录、日志记录
-- **微秒精度**：高频交易、性能监控、科学计算等场景
+## NULL、约束和 JSON 的职责
 
-### 自动时间戳功能
+NULL 表示未知或不适用，不能用 `= NULL` 比较；`COUNT(*)` 数记录，`COUNT(paid_at)` 只数非空支付时间。InnoDB 普通索引包含 NULL，`IS NULL` 可以使用索引，唯一键通常允许多个 NULL。`CHECK` 在表达式为 TRUE 或 UNKNOWN 时通过，因此“必须大于零”要配合 `NOT NULL`，不能只写 `CHECK(quantity > 0)`。
 
-**DEFAULT CURRENT_TIMESTAMP**：
+不要为了避免 NULL 而塞入假手机号、`-1` 用户编号或空支付日期。默认值也表达业务决定：订单缺了金额应报错时，不应默认为零；可选备注默认为空对象或空文本，则应清楚说明它与未知值的差别。严格模式下仍需检查驱动错误和告警，不能依靠静默截断纠正输入。
 
-自动设置创建时间：
+JSON 验证语法，不自动保证对象中有正确类型的币种和价格。稳定、经常参与关联或约束的字段应独立成列；灵活属性可用 JSON，并在应用或适当的数据库检查中验证结构。JSON 数字、字符串、JSON null、SQL NULL 是不同值。存储可能规范化键顺序、处理重复键，不能把 JSON 列当作保留原始签名报文的容器。
 
-```sql
-CREATE TABLE orders (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    order_no VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-```
+对 JSON 路径查询可用生成列或符合限制的函数索引；生成列要先规定类型、缺失值和转换失败策略。`STORED` 是存储生成列，`VIRTUAL` 是虚拟生成列，二者不要混称。下面用有界字符串属性建索引，不把金额藏进 JSON 再勉强转换。
 
-**ON UPDATE CURRENT_TIMESTAMP**：
+## 可运行的用户与订单实验
 
-自动更新修改时间，适用于需要跟踪记录最后修改时间的场景。
-
-**设计模式**：
-
-1. **创建时间 + 更新时间**：最常见的模式，便于审计和调试
-2. **仅创建时间**：对于不可变记录，如日志、历史记录
-3. **版本控制**：结合版本号字段，实现乐观锁机制
-
-**注意事项**：
-- ON UPDATE CURRENT_TIMESTAMP 在任何字段更新时都会触发
-- 批量更新时需要注意时间戳的变化
-- 在数据迁移时可能需要特殊处理
-
-## 二进制类型详解
-
-### 二进制字符串类型
-
-**BINARY 和 VARBINARY**：
-
-- **BINARY(M)**：固定长度二进制字符串，类似于 CHAR
-- **VARBINARY(M)**：变长二进制字符串，类似于 VARCHAR
-- **存储特点**：按字节存储，不受字符集影响
-- **填充方式**：BINARY 用 \0 填充，而不是空格
-
-**应用场景**：
-- **哈希值存储**：MD5、SHA1等哈希值的二进制存储
-- **加密数据**：加密后的二进制数据
-- **二进制标识符**：UUID的二进制表示
-- **网络地址**：IP地址的二进制存储
-
-### BLOB 类型家族
-
-**BLOB 类型分类**：
-
-- **TINYBLOB**：最大255字节
-- **BLOB**：最大65,535字节
-- **MEDIUMBLOB**：最大16,777,215字节
-- **LONGBLOB**：最大4,294,967,295字节
-
-**BLOB vs TEXT 对比**：
-
-| 特性 | BLOB | TEXT |
-|------|------|------|
-| 数据类型 | 二进制数据 | 文本数据 |
-| 字符集 | 无关 | 相关 |
-| 排序规则 | 按字节值 | 按字符集规则 |
-| 大小写敏感 | 是 | 取决于排序规则 |
-
-**使用场景**：
-
-**适合 BLOB 的场景**：
-- **图片存储**：小图片、图标、头像等
-- **文档存储**：PDF、Word文档等二进制文件
-- **音频视频**：短音频片段、小视频文件
-- **序列化数据**：对象序列化后的二进制数据
-
-**不适合 BLOB 的场景**：
-- **大文件存储**：建议存储到文件系统，数据库只存储路径
-- **频繁访问的大数据**：会影响查询性能和内存使用
-- **需要全文搜索的内容**：应该使用 TEXT 类型
-
-**性能优化建议**：
-
-1. **分离存储**：将 BLOB 字段分离到单独的表
-2. **延迟加载**：只在需要时才查询 BLOB 字段
-3. **压缩存储**：对于可压缩的数据，先压缩再存储
-4. **缓存策略**：对频繁访问的 BLOB 数据建立缓存
-
-## JSON 类型详解
-
-### JSON 类型特性
-
-MySQL 5.7 引入了原生 JSON 数据类型，提供了高效的 JSON 数据存储和操作能力。
-
-**JSON 类型优势**：
-
-1. **自动验证**：插入时自动验证 JSON 格式的有效性
-2. **高效存储**：使用二进制格式存储，比 TEXT 存储 JSON 更高效
-3. **快速访问**：支持通过路径快速访问 JSON 文档的特定部分
-4. **丰富函数**：提供大量 JSON 操作函数
-5. **索引支持**：支持对 JSON 文档的特定路径创建索引
-
-**存储格式**：
-
-JSON 类型使用二进制格式存储，具有以下特点：
-- 自动去除多余空格
-- 键值对可能重新排序
-- 重复键会被去除（保留最后一个）
-
-### JSON 操作与函数
-
-**基本操作函数**：
-
-1. **JSON_EXTRACT()**：提取 JSON 文档中的数据
-2. **JSON_SET()**：设置 JSON 文档中的值
-3. **JSON_INSERT()**：插入新的键值对
-4. **JSON_REPLACE()**：替换现有的值
-5. **JSON_REMOVE()**：删除指定路径的数据
-
-**查询优化**：
+在前面的 `field_demo` 中继续执行。这里采用“只有活跃用户名必须唯一”的规则，大小写是否相同由生成列的排序规则决定；外键限制误删用户。示例金额按 CNY 的两位小数设计，不是通用多币种账务模型。
 
 ```sql
--- 创建虚拟列和索引以优化 JSON 查询
-ALTER TABLE products 
-ADD COLUMN price_virtual DECIMAL(10,2) 
-GENERATED ALWAYS AS (JSON_EXTRACT(attributes, '$.price')) STORED,
-ADD INDEX idx_price (price_virtual);
-```
-
-**适用场景**：
-
-1. **配置存储**：应用配置、用户偏好设置
-2. **属性存储**：商品属性、用户扩展属性
-3. **日志记录**：结构化日志数据
-4. **API 数据**：来自第三方 API 的 JSON 响应
-5. **灵活字段**：需要动态字段的业务场景
-
-**设计注意事项**：
-
-1. **避免过度使用**：不要将所有数据都存储为 JSON
-2. **索引策略**：为常用查询路径创建虚拟列和索引
-3. **数据验证**：在应用层进行额外的数据验证
-4. **版本兼容**：考虑 JSON 结构变化的向后兼容性
-
-## 字段设计最佳实践
-
-### 命名规范
-
-**字段命名原则**：
-
-1. **语义明确**：字段名应该清楚表达其含义
-2. **一致性**：在整个数据库中保持命名风格一致
-3. **简洁性**：避免过长的字段名，但不能牺牲可读性
-4. **避免关键字**：不使用 MySQL 保留关键字作为字段名
-
-**常用命名约定**：
-
-- **下划线分隔**：user_name, created_at, order_status
-- **驼峰命名**：userName, createdAt, orderStatus
-- **前缀约定**：is_active, has_permission, can_edit
-- **后缀约定**：_id, _at, _count, _flag
-
-**特殊字段命名**：
-
-- **主键**：id 或 {table_name}_id
-- **外键**：{referenced_table}_id
-- **时间字段**：created_at, updated_at, deleted_at
-- **状态字段**：status, state, is_active
-- **计数字段**：{item}_count, total_{item}
-
-### NULL 值处理
-
-**NULL 的含义与影响**：
-
-NULL 表示"未知"或"不适用"，与空字符串或0不同：
-
-- **存储空间**：NULL 值需要额外的存储空间来标记
-- **索引影响**：NULL 值不会被包含在大多数索引中
-- **查询复杂性**：需要使用 IS NULL 或 IS NOT NULL 进行查询
-- **聚合函数**：大多数聚合函数会忽略 NULL 值
-
-**NULL vs NOT NULL 选择**：
-
-**使用 NULL 的场景**：
-- 字段在业务逻辑上确实可能为空
-- 可选的用户信息字段
-- 外键字段（表示关联关系可能不存在）
-- 计算字段（可能无法计算出结果）
-
-**使用 NOT NULL 的场景**：
-- 主键字段（必须非空）
-- 业务上必须有值的字段
-- 状态字段（可以用默认值表示初始状态）
-- 计数器字段（可以默认为0）
-
-**NULL 值的替代方案**：
-
-1. **使用默认值**：为字段设置合理的默认值
-2. **使用特殊值**：如用-1表示无效ID，用空字符串表示未填写
-3. **分离可选字段**：将可选字段放到单独的表中
-
-### 默认值设计
-
-**默认值的作用**：
-
-1. **简化插入操作**：减少必须指定的字段
-2. **保证数据一致性**：确保字段有合理的初始值
-3. **提高查询效率**：避免 NULL 值带来的复杂性
-4. **业务逻辑支持**：体现业务规则和约定
-
-**常见默认值设计**：
-
-```sql
--- 状态字段默认值
-status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：1-正常，0-禁用',
-
--- 计数器默认值
-view_count INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览次数',
-
--- 布尔字段默认值
-is_active BOOLEAN NOT NULL DEFAULT TRUE COMMENT '是否激活',
-
--- 时间字段默认值
-created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-
--- 字符串字段默认值
-country VARCHAR(10) NOT NULL DEFAULT 'CN' COMMENT '国家代码',
-
--- 数值字段默认值
-sort_order INT NOT NULL DEFAULT 0 COMMENT '排序序号'
-```
-
-**默认值设计原则**：
-
-1. **业务合理性**：默认值应该符合业务逻辑
-2. **类型匹配**：默认值必须与字段类型匹配
-3. **避免歧义**：默认值不应该与有效业务值产生歧义
-4. **便于查询**：选择便于查询和统计的默认值
-
-### 约束设计
-
-**主键约束**：
-
-主键的选择对表的性能和设计有重要影响：
-
-1. **自增整数主键**：
-   - 优点：简单、高效、聚簇索引友好
-   - 缺点：可能暴露业务信息、分布式环境下可能冲突
-
-2. **UUID 主键**：
-   - 优点：全局唯一、不暴露业务信息
-   - 缺点：存储空间大、随机性影响插入性能
-
-3. **业务主键**：
-   - 优点：有业务含义、便于理解
-   - 缺点：可能变化、复合主键复杂
-
-**外键约束**：
-
-外键约束可以保证引用完整性，但也带来性能开销：
-
-**使用外键的优势**：
-- 自动保证引用完整性
-- 防止孤儿记录的产生
-- 提供清晰的表关系文档
-
-**不使用外键的考虑**：
-- 提高插入和删除性能
-- 避免锁竞争
-- 便于数据库分片
-- 应用层控制更灵活
-
-**唯一约束**：
-
-唯一约束用于保证字段值的唯一性：
-
-```sql
--- 单字段唯一约束
-ALTER TABLE users ADD UNIQUE KEY uk_email (email);
-
--- 复合唯一约束
-ALTER TABLE user_roles ADD UNIQUE KEY uk_user_role (user_id, role_id);
-
--- 条件唯一约束（MySQL 8.0+）
-CREATE UNIQUE INDEX uk_active_username ON users (username) WHERE is_active = 1;
-```
-
-**检查约束**：
-
-MySQL 8.0.16 开始支持检查约束：
-
-```sql
--- 年龄检查约束
-ALTER TABLE users ADD CONSTRAINT chk_age CHECK (age >= 0 AND age <= 150);
-
--- 状态检查约束
-ALTER TABLE orders ADD CONSTRAINT chk_status CHECK (status IN ('pending', 'paid', 'shipped', 'completed', 'cancelled'));
-
--- 日期检查约束
-ALTER TABLE events ADD CONSTRAINT chk_dates CHECK (end_date >= start_date);
-```
-
-## 性能优化考虑
-
-### 存储空间优化
-
-**数据类型选择对存储的影响**：
-
-不同数据类型的存储空间差异巨大，合理选择可以显著减少存储开销：
-
-```sql
--- 存储空间对比示例
--- 方案1：使用较大的数据类型
-CREATE TABLE users_large (
-    id BIGINT,                    -- 8字节
-    age INT,                      -- 4字节
-    status VARCHAR(255),          -- 最多255字节 + 长度信息
-    balance DOUBLE,               -- 8字节
-    created_at DATETIME(6)        -- 8字节
-);  -- 总计：最多283字节
-
--- 方案2：优化后的数据类型
-CREATE TABLE users_optimized (
-    id INT UNSIGNED,              -- 4字节
-    age TINYINT UNSIGNED,         -- 1字节
-    status TINYINT,               -- 1字节
-    balance DECIMAL(10,2),        -- 5字节
-    created_at TIMESTAMP          -- 4字节
-);  -- 总计：15字节
-```
-
-**行大小限制**：
-
-MySQL 的行大小限制为65,535字节，需要合理设计：
-
-- **VARCHAR 字段总长度限制**：所有 VARCHAR 字段的最大长度总和不能超过65,535字节
-- **TEXT/BLOB 字段**：不计入行大小限制，但会影响性能
-- **字符集影响**：UTF8MB4 字符集中，一个字符最多占用4字节
-
-**存储引擎差异**：
-
-不同存储引擎对数据类型的处理有所不同：
-
-- **InnoDB**：支持行压缩，对大字段有优化
-- **MyISAM**：固定长度记录格式性能更好
-- **Memory**：所有数据存储在内存中，类型选择影响内存使用
-
-### 索引效率优化
-
-**数据类型对索引的影响**：
-
-1. **索引大小**：较小的数据类型创建的索引更小，查询更快
-2. **比较效率**：整数比较比字符串比较更快
-3. **排序性能**：数值类型的排序比字符串排序更高效
-
-**前缀索引设计**：
-
-对于长字符串字段，可以使用前缀索引：
-
-```sql
--- 分析前缀长度的选择性
-SELECT 
-    COUNT(DISTINCT LEFT(email, 5)) / COUNT(*) AS prefix_5,
-    COUNT(DISTINCT LEFT(email, 10)) / COUNT(*) AS prefix_10,
-    COUNT(DISTINCT LEFT(email, 15)) / COUNT(*) AS prefix_15,
-    COUNT(DISTINCT email) / COUNT(*) AS full_column
-FROM users;
-
--- 创建前缀索引
-CREATE INDEX idx_email_prefix ON users (email(10));
-```
-
-**复合索引中的字段顺序**：
-
-字段的数据类型和选择性影响复合索引中的字段顺序：
-
-1. **选择性高的字段在前**：能够更快过滤数据
-2. **查询频率高的字段在前**：匹配更多查询模式
-3. **数据类型考虑**：整数类型的比较通常比字符串快
-
-### 查询性能优化
-
-**类型转换的性能影响**：
-
-隐式类型转换会影响查询性能：
-
-```sql
--- 避免隐式类型转换
--- 不好的例子：字符串字段与数字比较
-SELECT * FROM users WHERE user_id = '123';  -- 如果user_id是INT类型
-
--- 好的例子：类型匹配
-SELECT * FROM users WHERE user_id = 123;
-
--- 避免在索引字段上使用函数
--- 不好的例子
-SELECT * FROM orders WHERE YEAR(created_at) = 2023;
-
--- 好的例子
-SELECT * FROM orders WHERE created_at >= '2023-01-01' AND created_at < '2024-01-01';
-```
-
-**范围查询优化**：
-
-不同数据类型的范围查询性能差异：
-
-1. **整数范围查询**：性能最好，索引利用率高
-2. **日期范围查询**：性能良好，注意时区处理
-3. **字符串范围查询**：性能相对较差，考虑前缀索引
-
-**聚合查询优化**：
-
-数据类型影响聚合函数的性能：
-
-```sql
--- 数值类型的聚合查询性能更好
-SELECT AVG(price) FROM products;  -- DECIMAL类型
-
--- 避免对字符串类型进行数值聚合
--- 不好的例子
-SELECT AVG(CAST(price_str AS DECIMAL)) FROM products;
-
--- 好的例子：使用合适的数据类型存储
-SELECT AVG(price) FROM products;  -- price字段本身就是DECIMAL类型
-```
-
-## 实际应用案例
-
-### 用户表设计
-
-**基础用户表设计**：
-
-```sql
+USE field_demo;
+SET time_zone = '+00:00';
 CREATE TABLE users (
-    -- 主键：使用自增整数，便于性能和分页
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    
-    -- 用户名：变长字符串，考虑国际化
-    username VARCHAR(50) NOT NULL UNIQUE COMMENT '用户名',
-    
-    -- 邮箱：标准长度，用于登录和通知
-    email VARCHAR(255) NOT NULL UNIQUE COMMENT '邮箱地址',
-    
-    -- 密码哈希：固定长度，存储哈希值
-    password_hash CHAR(60) NOT NULL COMMENT '密码哈希值',
-    
-    -- 手机号：考虑国际格式
-    phone VARCHAR(20) NULL COMMENT '手机号码',
-    
-    -- 姓名：支持多语言字符
-    full_name VARCHAR(100) NULL COMMENT '真实姓名',
-    
-    -- 性别：使用枚举值，节省空间
-    gender ENUM('M', 'F', 'O') NULL COMMENT '性别：M-男，F-女，O-其他',
-    
-    -- 生日：只需要日期，不需要时间
-    birth_date DATE NULL COMMENT '出生日期',
-    
-    -- 头像：存储文件路径，而不是二进制数据
-    avatar_url VARCHAR(500) NULL COMMENT '头像URL',
-    
-    -- 状态：使用小整数，便于扩展
-    status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：1-正常，0-禁用，2-待验证',
-    
-    -- 是否验证邮箱：布尔值
-    email_verified BOOLEAN NOT NULL DEFAULT FALSE COMMENT '邮箱是否已验证',
-    
-    -- 最后登录时间：使用TIMESTAMP自动处理时区
-    last_login_at TIMESTAMP NULL COMMENT '最后登录时间',
-    
-    -- 创建和更新时间：标准的审计字段
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    
-    -- 索引设计
-    INDEX idx_email (email),
-    INDEX idx_phone (phone),
-    INDEX idx_status (status),
-    INDEX idx_created_at (created_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户基础信息表';
-```
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    active_username VARCHAR(50)
+      GENERATED ALWAYS AS (CASE WHEN is_active = 1 THEN username ELSE NULL END) VIRTUAL,
+    phone VARCHAR(20) NULL,
+    birth_date DATE NULL,
+    CONSTRAINT chk_active CHECK (is_active IN (0, 1)),
+    UNIQUE KEY uk_active_username (active_username)
+) ENGINE=InnoDB;
 
-**设计要点说明**：
-
-1. **主键选择**：使用自增整数主键，简单高效
-2. **字符集选择**：utf8mb4 支持完整的 Unicode 字符集
-3. **长度设计**：根据实际需求和标准规范确定字段长度
-4. **NULL 处理**：必填字段设为 NOT NULL，可选字段允许 NULL
-5. **默认值**：为状态字段设置合理默认值
-6. **索引策略**：为常用查询字段创建索引
-
-### 订单表设计
-
-**订单主表设计**：
-
-```sql
 CREATE TABLE orders (
-    -- 主键：使用自增整数
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    
-    -- 订单号：业务唯一标识，便于用户查询
-    order_no VARCHAR(32) NOT NULL UNIQUE COMMENT '订单号',
-    
-    -- 用户ID：外键关联
-    user_id INT UNSIGNED NOT NULL COMMENT '用户ID',
-    
-    -- 订单状态：使用小整数，便于扩展和查询
-    status TINYINT NOT NULL DEFAULT 1 COMMENT '订单状态：1-待付款，2-已付款，3-已发货，4-已完成，5-已取消',
-    
-    -- 订单类型：区分不同业务类型
-    order_type TINYINT NOT NULL DEFAULT 1 COMMENT '订单类型：1-普通订单，2-预售订单，3-团购订单',
-    
-    -- 金额字段：使用DECIMAL确保精度
-    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '订单总金额',
-    discount_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '优惠金额',
-    shipping_fee DECIMAL(8,2) NOT NULL DEFAULT 0.00 COMMENT '运费',
-    actual_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '实付金额',
-    
-    -- 收货信息：考虑长度和实际使用
-    receiver_name VARCHAR(50) NOT NULL COMMENT '收货人姓名',
-    receiver_phone VARCHAR(20) NOT NULL COMMENT '收货人电话',
-    receiver_address VARCHAR(500) NOT NULL COMMENT '收货地址',
-    receiver_zipcode VARCHAR(10) NULL COMMENT '邮政编码',
-    
-    -- 备注信息：使用TEXT存储较长文本
-    buyer_note TEXT NULL COMMENT '买家备注',
-    seller_note TEXT NULL COMMENT '卖家备注',
-    
-    -- 时间字段：记录订单生命周期
-    paid_at TIMESTAMP NULL COMMENT '付款时间',
-    shipped_at TIMESTAMP NULL COMMENT '发货时间',
-    completed_at TIMESTAMP NULL COMMENT '完成时间',
-    cancelled_at TIMESTAMP NULL COMMENT '取消时间',
-    
-    -- 审计字段
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    
-    -- 索引设计
-    INDEX idx_order_no (order_no),
-    INDEX idx_user_id (user_id),
-    INDEX idx_status (status),
-    INDEX idx_created_at (created_at),
-    INDEX idx_user_status (user_id, status),
-    
-    -- 外键约束（可选）
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单主表';
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY,
+    order_no VARCHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+    user_id BIGINT UNSIGNED NOT NULL,
+    currency CHAR(3) CHARACTER SET ascii NOT NULL DEFAULT 'CNY',
+    amount DECIMAL(12,2) NOT NULL,
+    paid_at DATETIME(6) NULL,
+    created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+      ON UPDATE CURRENT_TIMESTAMP(6),
+    version INT UNSIGNED NOT NULL DEFAULT 0,
+    metadata JSON NOT NULL DEFAULT (JSON_OBJECT()),
+    channel VARCHAR(20) GENERATED ALWAYS AS
+      (JSON_UNQUOTE(JSON_EXTRACT(metadata, '$.channel'))) VIRTUAL,
+    UNIQUE KEY uk_order_no (order_no),
+    INDEX idx_user_created (user_id, created_at),
+    INDEX idx_channel (channel),
+    CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT,
+    CONSTRAINT chk_amount CHECK (amount >= 0),
+    CONSTRAINT chk_currency CHECK (currency = 'CNY'),
+    CONSTRAINT chk_metadata CHECK (JSON_TYPE(metadata) = 'OBJECT')
+) ENGINE=InnoDB;
+
+INSERT INTO users (id, username, is_active) VALUES
+(1, 'alice', 1), (2, 'alice', 0), (3, 'alice', 0);
+INSERT INTO orders (id, order_no, user_id, amount, metadata) VALUES
+(101, 'O20261001001', 1, 39.90, JSON_OBJECT('channel', 'web')),
+(102, 'O20261001002', 1, 20.00, JSON_OBJECT());
+SELECT COUNT(*) AS orders_count, COUNT(paid_at) AS paid_count FROM orders;
+SELECT id, channel FROM orders WHERE channel = 'web';
 ```
 
-**订单商品明细表**：
+订单总数为 `2`、已知支付时间数量为 `0`，渠道查询返回 `101、web`。非活跃的两个 alice 对应生成列 NULL，因此可以共存；再创建一个活跃 alice，或把编号 2 激活，会触发唯一键冲突。MySQL 没有通用的 `CREATE UNIQUE INDEX ... WHERE ...` 语法，这种条件唯一性通过受约束的生成列来表达。
+
+JSON 示例只强制对象形状，未限制所有可用键，也没有证明整个 JSON 文档符合业务 schema；`channel` 超长、错误类型和 null 的处理要在正式接口中明确。`currency` 比较仍受该列排序规则影响，若要求原始输入严格大写，应用层也应校验规范化后的值。
 
 ```sql
-CREATE TABLE order_items (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    
-    -- 关联订单
-    order_id BIGINT UNSIGNED NOT NULL COMMENT '订单ID',
-    
-    -- 商品信息：冗余存储，避免商品信息变更影响历史订单
-    product_id INT UNSIGNED NOT NULL COMMENT '商品ID',
-    product_name VARCHAR(200) NOT NULL COMMENT '商品名称',
-    product_sku VARCHAR(100) NOT NULL COMMENT '商品SKU',
-    product_image VARCHAR(500) NULL COMMENT '商品图片',
-    
-    -- 价格和数量：使用合适的精度
-    unit_price DECIMAL(10,2) NOT NULL COMMENT '单价',
-    quantity SMALLINT UNSIGNED NOT NULL COMMENT '数量',
-    total_price DECIMAL(10,2) NOT NULL COMMENT '小计金额',
-    
-    -- 商品规格：使用JSON存储灵活的规格信息
-    product_specs JSON NULL COMMENT '商品规格信息',
-    
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    
-    -- 索引设计
-    INDEX idx_order_id (order_id),
-    INDEX idx_product_id (product_id),
-    
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单商品明细表';
+UPDATE field_demo.orders
+SET paid_at = '2026-10-01 10:30:00.123456', version = version + 1
+WHERE id = 101 AND version = 0 AND paid_at IS NULL;
+SELECT ROW_COUNT() AS changed_rows;
+
+UPDATE field_demo.orders
+SET paid_at = '2026-10-01 10:30:00.123456', version = version + 1
+WHERE id = 101 AND version = 0 AND paid_at IS NULL;
+SELECT ROW_COUNT() AS changed_rows;
 ```
 
-### 商品表设计
+结果为 `1`、`0`。版本列表达乐观并发条件，调用方必须检查影响行数；更新时间精度再高也不能保证每次更新值都不同。这个实验只表达支付字段更新，完整支付还需要订单状态、支付流水唯一键、回调幂等和同一事务的不变量，见[事务系统](./transaction-system.md)。订单明细应保存成交时商品名称、单价与规格快照，单价乘数量的行内约束和跨行总额对账要分别处理。
 
-**商品基础信息表**：
+## 结构演进与验收
 
-```sql
-CREATE TABLE products (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    
-    -- 商品编码：业务标识
-    product_code VARCHAR(50) NOT NULL UNIQUE COMMENT '商品编码',
-    
-    -- 基础信息
-    name VARCHAR(200) NOT NULL COMMENT '商品名称',
-    subtitle VARCHAR(500) NULL COMMENT '商品副标题',
-    description TEXT NULL COMMENT '商品描述',
-    
-    -- 分类信息
-    category_id INT UNSIGNED NOT NULL COMMENT '分类ID',
-    brand_id INT UNSIGNED NULL COMMENT '品牌ID',
-    
-    -- 价格信息：支持多种价格类型
-    market_price DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '市场价',
-    selling_price DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '销售价',
-    cost_price DECIMAL(10,2) NULL COMMENT '成本价',
-    
-    -- 库存信息
-    stock_quantity INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '库存数量',
-    warning_stock INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '库存预警值',
-    
-    -- 商品属性：使用JSON存储灵活的属性信息
-    attributes JSON NULL COMMENT '商品属性',
-    
-    -- 图片信息：存储多张图片的URL
-    images JSON NULL COMMENT '商品图片列表',
-    
-    -- 重量和尺寸：用于物流计算
-    weight DECIMAL(8,3) NULL COMMENT '重量(kg)',
-    length DECIMAL(8,2) NULL COMMENT '长度(cm)',
-    width DECIMAL(8,2) NULL COMMENT '宽度(cm)',
-    height DECIMAL(8,2) NULL COMMENT '高度(cm)',
-    
-    -- 状态信息
-    status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：1-正常，0-下架，2-缺货',
-    is_featured BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否推荐',
-    
-    -- 统计信息
-    view_count INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '浏览次数',
-    sale_count INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '销售数量',
-    
-    -- SEO信息
-    seo_title VARCHAR(200) NULL COMMENT 'SEO标题',
-    seo_keywords VARCHAR(500) NULL COMMENT 'SEO关键词',
-    seo_description VARCHAR(1000) NULL COMMENT 'SEO描述',
-    
-    -- 时间信息
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    -- 索引设计
-    INDEX idx_product_code (product_code),
-    INDEX idx_category_id (category_id),
-    INDEX idx_brand_id (brand_id),
-    INDEX idx_status (status),
-    INDEX idx_price (selling_price),
-    INDEX idx_stock (stock_quantity),
-    INDEX idx_featured (is_featured),
-    INDEX idx_created_at (created_at),
-    
-    -- 复合索引
-    INDEX idx_category_status (category_id, status),
-    INDEX idx_status_featured (status, is_featured),
-    
-    -- 全文索引（用于商品搜索）
-    FULLTEXT INDEX ft_search (name, subtitle, description)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='商品基础信息表';
-```
+新增字段先确认旧代码能否读写，再决定允许 NULL、回填与 NOT NULL 的顺序；改变精度、长度或排序规则之前，统计超界值和规范化后冲突。把金额从 DOUBLE 改成 DECIMAL 不能恢复已经丢失的精度，需从权威账务记录重建或对账。DDL 是否重建、锁表或可立即完成取决于具体操作，先在同版本副本验证，评估空间、锁等待和复制影响。
 
-**设计亮点**：
-
-1. **JSON 字段应用**：商品属性和图片列表使用 JSON 存储，提供灵活性
-2. **价格精度**：使用 DECIMAL 确保价格计算的准确性
-3. **库存管理**：包含库存数量和预警值，支持库存管理
-4. **SEO 支持**：包含 SEO 相关字段，支持搜索引擎优化
-5. **统计信息**：内置浏览和销售统计，便于数据分析
-6. **全文索引**：支持商品名称和描述的全文搜索
-
-## 总结
-
-MySQL 数据类型与字段设计是数据库设计的基础，需要综合考虑业务需求、性能要求、存储效率和维护成本。
-
-**关键设计原则**：
-
-1. **合适性原则**：选择最适合业务需求的数据类型，避免过度设计
-2. **效率原则**：在满足需求的前提下，选择存储空间最小、性能最好的类型
-3. **扩展性原则**：考虑未来业务发展，为数据增长预留适当空间
-4. **一致性原则**：在整个系统中保持数据类型使用的一致性
-5. **可维护性原则**：选择便于理解和维护的设计方案
-
-**实践建议**：
-
-1. **深入理解业务**：充分了解业务需求和数据特征
-2. **性能测试**：对关键字段进行性能测试，验证设计选择
-3. **监控优化**：持续监控数据库性能，根据实际情况调整设计
-4. **文档维护**：维护详细的数据字典和设计文档
-5. **版本管理**：建立数据库结构变更的版本管理机制
-
-通过合理的数据类型选择和字段设计，可以构建高效、稳定、可扩展的 MySQL 数据库系统，为业务发展提供坚实的数据基础。
+验收至少覆盖最小/最大值、超界、小数舍入、空值、大小写与尾空格、重复并发写入、外键拒绝、时间跨会话读取和 API 往返。实验表应拒绝负金额、非布尔活跃值、孤儿用户编号和重复活跃用户名；修改 SQL mode 后重新检查错误行为。索引顺序按查询的等值、范围和排序需求确定，不机械按“选择性最高放前面”排列，细节见[索引系统](./index-system.md)。

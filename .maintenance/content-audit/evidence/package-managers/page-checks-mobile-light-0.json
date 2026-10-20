@@ -1,0 +1,100 @@
+[
+  {
+    "file": "docs/devlanguage/front/package-managers/index.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端包管理器概览",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/corepack.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Corepack",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/npm.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "npm",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/pnpm.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "pnpm",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/yarn.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Yarn",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/bun.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Bun",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/registry.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "镜像与私有源",
+    "width": 390
+  }
+]

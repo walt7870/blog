@@ -8,6 +8,8 @@ date: 2026-07-18
 
 CustomResourceDefinition（CRD）向 Kubernetes API 注册新的资源类型，Custom Resource（CR）是该类型的实例。CRD 解决的是 API 结构、校验、版本、存储和通用元数据，不会自动创建 Deployment，也不会凭空获得备份、升级或恢复逻辑；这些行为必须由控制器实现。
 
+假设平台用AppRelease声明订单服务。用户把replicas从3改成5后，API接受请求只代表意图已保存；控制器创建了几个副本、几个已经Ready，要分别写进status。API契约必须让这几个状态能被区分。
+
 ## 先判断是否需要 CRD
 
 CRD 适合表达低频、声明式、需要被控制器观察的平台意图，例如 `DatabaseCluster`、`Application` 或 `Certificate`。以下内容通常不适合写进 CR：
@@ -19,7 +21,9 @@ CRD 适合表达低频、声明式、需要被控制器观察的平台意图，�
 
 简单模板优先使用 Helm 或 Kustomize；需要更灵活 API 行为时再评估 Aggregated API。
 
-## 一个具备生产语义的最小 CRD
+## 定义结构与子资源
+
+下面展示API结构，尚不包含控制器实现。CRD是集群级对象，AppRelease实例受namespace约束；安装CRD本身不会启动订单服务。
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -62,6 +66,12 @@ spec:
                   format: int64
                 readyReplicas:
                   type: integer
+                  minimum: 0
+                replicas:
+                  type: integer
+                  minimum: 0
+                selector:
+                  type: string
                 conditions:
                   type: array
                   x-kubernetes-list-type: map
@@ -80,10 +90,15 @@ spec:
         status: {}
         scale:
           specReplicasPath: .spec.replicas
-          statusReplicasPath: .status.readyReplicas
+          statusReplicasPath: .status.replicas
+          labelSelectorPath: .status.selector
 ```
 
 CRD 名称必须是 `<plural>.<group>`。schema 不只是文档，它在 API Server 端拒绝无效输入，并影响默认值、字段裁剪、Server-Side Apply 和客户端生成。
+
+scale的实际副本数指向 `status.replicas`，不能用 `readyReplicas` 代替。控制器还应维护字符串selector，例如 `app=order-api`，且与它实际管理的Pod集合一致；对接HPA/VPA时必须提供selector。只暴露scale子资源不会自动创建Pod或实现伸缩，控制器仍需消费 `spec.replicas`。
+
+未知字段可能被schema裁剪，也可能在严格字段校验下被拒绝；不要把“请求成功但字段不见了”当成字段已生效。对必须保留的自由结构要明确设计保留范围，避免把整个spec设成无校验字典。
 
 ## Spec、Status 和 Conditions
 
@@ -97,13 +112,26 @@ Conditions 适合表达多个可独立判断的方面，例如 `Ready`、`Progre
 
 OpenAPI schema 负责类型、必填、范围和格式；跨字段或更新前后比较可以使用 CRD 的 CEL validation rules。规则应快速、确定且不依赖外部网络。
 
+以下为另一个包含弹性范围和区域的spec schema片段，放在该spec的 `openAPIV3Schema.properties.spec` 下；不是直接追加到上方只有image/replicas的示例：
+
 ```yaml
+type: object
+required: [minReplicas, maxReplicas, region]
+properties:
+  minReplicas: { type: integer, minimum: 1, maximum: 20 }
+  maxReplicas: { type: integer, minimum: 1, maximum: 20 }
+  region:
+    type: string
+    maxLength: 32
+    x-kubernetes-validations:
+      - rule: "self == oldSelf"
+        message: "region 创建后不可修改"
 x-kubernetes-validations:
   - rule: "self.minReplicas <= self.maxReplicas"
     message: "minReplicas 不能大于 maxReplicas"
-  - rule: "self.region == oldSelf.region"
-    message: "region 创建后不可修改"
 ```
+
+这里self绑定到规则所在的schema位置：区域规则比较字符串自身，范围规则比较spec的两个字段。引用oldSelf的迁移规则用于更新；创建时仍由required和类型约束检查。对字符串、数组和嵌套遍历设置长度上限，避免校验成本无限增长。
 
 业务上允许但暂时无法执行的状态，不应伪装成 schema 错误。例如外部云配额不足应由控制器写入 Condition，而不是要求 API Server 调用外部服务校验。
 
@@ -119,11 +147,15 @@ x-kubernetes-validations:
 
 把 `storage` 从 `v1alpha1` 切到 `v1beta1` 不会自动重写旧对象。迁移应按以下顺序进行：
 
+![CRD双版本服务、存储切换、历史重写和旧版本退役的顺序](/container/crd-storage-migration.svg)
+
 1. 新版本先 `served: true`，保持旧版本可用。
 2. 部署并验证双向转换；无 schema 变化可以使用 `None`，复杂变化需要 Conversion Webhook。
 3. 切换 storage 版本，新写入开始使用新表示。
-4. 读取并重写历史对象，确认 `storedVersions` 已收敛。
+4. 用已验证的迁移程序枚举并重写历史对象，保留冲突重试和完成证据；仅GET不会改变存储版本。
 5. 检查所有客户端和控制器不再使用旧版本，再停止 served。
+
+手工重写对象不会自动把旧条目从 `status.storedVersions` 中删掉；确认所有旧对象迁移完成后，再受控更新该状态。支持StorageVersionMigration的集群也可使用对应迁移控制器，并按其完成状态核对结果。不能先删除storedVersions条目来“制造迁移成功”，也不能在旧存储尚未清理时直接移除旧version定义。
 
 Conversion Webhook 不可用可能阻断对应 CR 的读取、写入和删除。它需要高可用、短超时、证书轮换、监控和不依赖自身 CR 才能启动的部署路径。
 
@@ -148,13 +180,14 @@ Finalizer 把删除变成一个状态机。对象收到删除请求后出现 `de
 
 ```bash
 kubectl apply -f apprelease-crd.yaml
+kubectl wait --for=condition=Established crd/appreleases.platform.example.com --timeout=60s
 kubectl explain apprelease.spec
 kubectl get crd appreleases.platform.example.com -o yaml
 kubectl get apprelease -A -o custom-columns='NS:.metadata.namespace,NAME:.metadata.name,GEN:.metadata.generation,OBS:.status.observedGeneration,READY:.status.conditions[?(@.type=="Ready")].status'
 ```
 
 - 无效字段、越界值和跨字段错误会在 API Server 端被拒绝。
-- Status 子资源只能由具备对应权限的控制器更新。
+- 普通更新不能借主资源接口改写status；仅向状态维护者授予对应子资源更新权限。RBAC实际授权到身份，并不会按“是不是控制器进程”自动识别。
 - 重复创建、修改、删除和控制器重启后对象仍能收敛。
 - 新旧版本往返转换不丢字段，历史对象完成存储迁移。
 - 删除外部依赖失败时对象保留证据，而不是永久无解释地 Terminating。

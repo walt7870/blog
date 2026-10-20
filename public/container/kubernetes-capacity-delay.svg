@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">扩容决策到就绪容量之间存在等待窗口</title>
+  <desc id="desc">假设负载在0秒上升，30秒HPA增加副本，60秒确认缺少节点，180秒节点到位，240秒应用预热就绪。时间轴按秒等比例，示例不是性能承诺。</desc>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.axis{stroke:#526779;stroke-width:2}.tick{fill:#526779}.focus{fill:#2d7564}</style>
+  <rect width="1120" height="620" fill="#f7f9fb"/>
+  <text class="title" x="48" y="54">副本数已经增加，就绪容量仍可能没有增加</text>
+  <text class="t" x="48" y="89">订单 API 的假设时间线；横轴按秒等比例，用于定位等待阶段，不是通用耗时。</text>
+  <rect x="80" y="260" width="960" height="30" rx="4" fill="#f9e8d2"/>
+  <path class="axis" d="M80 275H1040"/>
+  <path class="axis" d="M80 275V205M200 275V345M320 275V205M800 275V345M1040 275V205"/>
+  <circle class="tick" cx="80" cy="275" r="5"/><circle class="tick" cx="200" cy="275" r="5"/><circle class="tick" cx="320" cy="275" r="5"/><circle class="tick" cx="800" cy="275" r="5"/><circle class="focus" cx="1040" cy="275" r="7"/>
+  <text class="h" x="80" y="151">负载上升</text><text class="t" x="80" y="182">0 秒</text>
+  <text class="h" x="90" y="380">HPA 增加副本</text><text class="t" x="90" y="411">30 秒：指标与计算</text>
+  <text class="h" x="320" y="151">Pod 等待节点</text><text class="t" x="320" y="182">60 秒：确认容量不足</text>
+  <text class="h" x="720" y="380">新节点可用</text><text class="t" x="720" y="411">180 秒：申请与初始化</text>
+  <text class="h" x="1040" y="151" text-anchor="end">新增容量 Ready</text><text class="t" x="1040" y="182" text-anchor="end">240 秒：镜像、启动与预热</text>
+  <rect x="48" y="470" width="1024" height="102" rx="6" fill="#edf8f1" stroke="#729c87"/>
+  <text class="h" x="70" y="508">这 240 秒由什么承接？</text>
+  <text class="t" x="70" y="542">现有 Ready 余量、受限队列或限流；HPA 的 desiredReplicas 本身不能处理请求。</text>
+</svg>

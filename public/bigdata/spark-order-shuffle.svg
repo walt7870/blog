@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="spark-order-title spark-order-desc">
+  <title id="spark-order-title">Spark 订单版本去重与汇总的 Shuffle</title>
+  <desc id="spark-order-desc">七条订单变更先按租户与订单重分布，取最大版本收敛成四单，再筛选三单paid，按业务日期重新分布并汇总为两行。过滤paid必须在取最新版本之后，否则取消订单会保留旧支付状态。</desc>
+  <defs><marker id="spark-order-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#spark-order-arrow)}</style></defs>
+  <rect width="1200" height="680" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">先确定每笔订单的最新状态，再计算日报</text><text x="36" y="78" class="small">这是逻辑数据流；实际Stage、Exchange与AQE调整要以explain和运行中的SQL UI为准。</text>
+  <path d="M340 232H448" class="line"/><path d="M752 232H860" class="line"/>
+  <path d="M1012 312V384Q1012 392 1004 392H196Q188 392 188 400V452" class="line"/>
+  <path d="M340 520H448" class="line"/><path d="M752 520H860" class="line"/>
+  <rect x="36" y="148" width="304" height="164" class="box"/><text x="56" y="188" class="head">原始 7 条变更</text><text x="56" y="230">102 v2 重复，104 后来取消</text><text x="56" y="270">校验字段与同版本内容冲突</text><text x="56" y="298" class="small">原始paid事件不能直接累加</text>
+  <rect x="448" y="148" width="304" height="164" class="focus"/><text x="468" y="188" class="head">按订单键汇集版本</text><text x="468" y="230">tenantId + orderId</text><text x="468" y="270">按version取最新 → 4 单</text><text x="468" y="298" class="small">通常涉及Exchange与排序</text>
+  <rect x="860" y="148" width="304" height="164" class="box"/><text x="880" y="188" class="head">筛选最新状态为 paid</text><text x="880" y="230">101、102、103 → 3 单</text><text x="880" y="270">104 的最新版本是 cancelled</text><text x="880" y="298" class="small">过滤提前会错误留下旧paid</text>
+  <rect x="36" y="452" width="304" height="136" class="box"/><text x="56" y="492" class="head">生成业务日期</text><text x="56" y="532">按 Asia/Shanghai 解析日期</text><text x="56" y="568" class="small">UTC19日20点属于本地20日</text>
+  <rect x="448" y="452" width="304" height="136" class="focus"/><text x="468" y="492" class="head">按租户与日期聚合</text><text x="468" y="532">局部合并 → Shuffle → 汇总</text><text x="468" y="568" class="small">不同日期的订单可能来自各分区</text>
+  <rect x="860" y="452" width="304" height="136" class="box"/><text x="880" y="492" class="head">两行日报候选结果</text><text x="880" y="532">19日：2 单 / 8000 分</text><text x="880" y="568">20日：1 单 / 3990 分</text>
+  <text x="36" y="644" class="small">实线：逻辑计算顺序。青绿：按键重新组织数据的位置。Task失败可重算，报表发布仍需提交协议。</text>
+</svg>

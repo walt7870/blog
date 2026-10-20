@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="464" viewBox="0 0 1000 464" role="img" aria-labelledby="program-counter-frames-title program-counter-frames-desc">
+  <title id="program-counter-frames-title">两个线程的执行位置与方法返回</title>
+  <desc id="program-counter-frames-desc">线程 A 与线程 B 各自保存当前方法、参数和执行位置，可以停在同一个方法的不同指令；返回时继续调用者流程，native 方法中的 JVM pc 未定义。</desc>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.code{font:17px Menlo,Consolas,monospace;fill:#334155}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}</style>
+  <rect width="1000" height="464" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">同一个方法，不同的执行现场</text>
+  <text class="body" x="32" y="76">解释执行的概念快照：pc 是 JVM 指令位置，不是源码行号，也不是 CPU 地址。</text>
+  <rect x="32" y="112" width="288" height="252" rx="8" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="name" x="52" y="148">线程 A · total(199, 10)</text>
+  <rect class="node" x="52" y="172" width="248" height="84" rx="6"/><text class="body" x="68" y="204">当前帧：total</text><text class="code" x="68" y="236">pc = 2 · iadd</text>
+  <text class="body" x="52" y="300">操作数栈：199、10</text><text class="note" x="52" y="332">等待执行加法</text>
+  <rect x="356" y="112" width="288" height="252" rx="8" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="376" y="148">线程 B · total(50, 5)</text>
+  <rect class="node" x="376" y="172" width="248" height="84" rx="6"/><text class="body" x="392" y="204">当前帧：total</text><text class="code" x="392" y="236">pc = 1 · iload_1</text>
+  <text class="body" x="376" y="300">操作数栈：50</text><text class="note" x="376" y="332">等待把 freight 压栈</text>
+  <rect class="node" x="680" y="112" width="288" height="252" rx="6"/>
+  <text class="name" x="700" y="148">共享的方法字节码</text>
+  <text class="code" x="704" y="196">0: iload_0</text><text class="code" x="704" y="232">1: iload_1</text><text class="code" x="704" y="268">2: iadd</text><text class="code" x="704" y="304">3: ireturn</text>
+  <text class="body" x="32" y="408">ireturn 后恢复调用者现场，继续调用之后的流程；不是从 total 开头再次执行。</text>
+  <text class="note" x="32" y="440">native 方法中 JVM pc 未定义；JIT 机器码的位置需要通过运行时元数据映射回 Java 现场。</text>
+</svg>

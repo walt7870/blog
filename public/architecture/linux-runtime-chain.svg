@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">Linux 服务从产物到可用</title><desc id="desc">服务管理器以指定身份启动产物，内核和加载器匹配架构与依赖后建立进程。进程读取配置和数据，初始化依赖并通过业务检查后才可接收任务。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="640" fill="#f8fafc"/><text class="title" x="56" y="58">Linux：启动了进程，还要确认业务可以工作</text><text class="note" x="56" y="91">例：订单导出服务；每一步都有独立的失败证据，不能只看 PID</text>
+<path class="line" d="M326 220H416"/><path class="line" d="M686 220H776"/><path class="line" d="M191 375V275"/>
+<path class="line" d="M686 430H724Q732 430 732 422V258Q732 250 740 250H776"/><path class="line" d="M920 275V375"/>
+<rect class="box" x="56" y="165" width="270" height="110" rx="5"/><text class="h" x="80" y="202">版本化构建产物</text><text class="t" x="80" y="239">ELF、依赖与 CPU 基线</text>
+<rect class="box" x="416" y="165" width="270" height="110" rx="5"/><text class="h" x="440" y="202">内核与动态加载器</text><text class="t" x="440" y="239">格式、解释器与符号匹配</text>
+<rect class="box" x="776" y="165" width="288" height="110" rx="5"/><text class="h" x="800" y="202">应用进程</text><text class="t" x="800" y="239">配置、连接与任务恢复</text>
+<rect class="box" x="56" y="375" width="270" height="110" rx="5"/><text class="h" x="80" y="412">systemd 等进程管理器</text><text class="t" x="80" y="449">账号、工作目录、环境与限额</text>
+<text class="note" x="215" y="332">指定入口启动</text>
+<rect class="box" x="416" y="375" width="270" height="110" rx="5"/><text class="h" x="440" y="412">配置与持久数据</text><text class="t" x="440" y="449">与可替换程序目录分离</text>
+<rect x="776" y="375" width="288" height="110" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="800" y="412">接收导出任务</text><text class="t" x="800" y="449">就绪后仍需核对实际提交</text>
+<text class="note" x="794" y="318">完成初始化</text><text class="note" x="794" y="345">业务探测</text>
+<path d="M56 530H1064" stroke="#dce3df"/><text class="t" x="56" y="570">停止链：停止接收 → 完成提交或保存恢复点 → 退出 → 重启核对任务。</text><text class="note" x="56" y="607">自动重启不修复缺失依赖，也不代替幂等、事务恢复和升级回退兼容。</text>
+</svg>

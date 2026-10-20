@@ -1,0 +1,81 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
+import { build, createServer, preview } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+const root = '/tmp/blog-toolchain-fixtures';
+fs.mkdirSync(root, { recursive: true });
+const source = new URL('../../docs/devlanguage/front/frontend-foundations-series/', import.meta.url);
+const names = fs.readdirSync(source).filter(n => /^(17|18|19|20|21|22)-/.test(n));
+const blocks = n => [...fs.readFileSync(new URL(names.find(s => s.startsWith(n)), source), 'utf8').matchAll(/```(\w+)\n([\s\S]*?)```/g)].map(([, lang, code]) => ({ lang, code }));
+const write = (name, text) => fs.writeFileSync(path.join(root, name), text);
+const tsc = '/tmp/blog-toolchain-checker/node_modules/typescript/bin/tsc';
+function check(file, expected) {
+  const result = spawnSync(process.execPath, [tsc, '--strict', '--noUncheckedIndexedAccess', '--noEmit', '--target', 'ES2022', '--module', 'ESNext', '--moduleResolution', 'Bundler', file], { cwd: root, encoding: 'utf8' });
+  assert.equal(result.status === 0, expected, result.stdout + result.stderr);
+  return { file, exit: result.status, diagnostics: result.stdout.trim() };
+}
+write('package.json', JSON.stringify({ type: 'module', private: true }));
+if (!fs.existsSync(path.join(root, 'node_modules'))) fs.symlinkSync(path.resolve('node_modules'), path.join(root, 'node_modules'), 'dir');
+
+const types = blocks('18').filter(x => x.lang === 'ts').map(x => x.code).join('\n');
+write('contracts.ts', types + '\nexport {parseProduct,describe,formatPrice};');
+const typeChecks = [check('contracts.ts', true)];
+write('bad-types.ts', types + '\nformatPrice("1290");');
+typeChecks.push(check('bad-types.ts', false));
+write('missing-state.ts', types.replace('| { status: "loading" }', '| { status: "empty" }\n  | { status: "loading" }'));
+typeChecks.push(check('missing-state.ts', false));
+const emit = spawnSync(process.execPath, [tsc, '--strict', '--target', 'ES2022', '--module', 'ESNext', '--moduleResolution', 'Bundler', '--outDir', 'compiled', 'contracts.ts'], { cwd: root, encoding: 'utf8' });
+assert.equal(emit.status, 0, emit.stdout + emit.stderr);
+const contracts = await import(pathToFileURL(path.join(root, 'compiled/contracts.js')));
+assert.deepEqual(contracts.parseProduct({id:'p1',name:'茶杯',priceCents:1290,extra:1}), {id:'p1',name:'茶杯',priceCents:1290});
+for (const bad of [null, {}, {id:'p1',name:'茶杯',priceCents:'1290'}, {id:'p1',name:'茶杯',priceCents:-1}, {id:'p1',name:'茶杯',priceCents:12.5}]) assert.throws(() => contracts.parseProduct(bad));
+assert.equal(contracts.describe({status:'ready',product:{name:'茶杯'}}), '茶杯');
+
+const quality = blocks('21').filter(x => x.lang === 'js');
+write('price.js', quality[0].code);
+write('price.test.js', quality[1].code);
+const price = spawnSync(process.execPath, ['--test', 'price.test.js'], { cwd: root, encoding:'utf8' });
+assert.equal(price.status, 0, price.stdout + price.stderr);
+const original = quality[0].code;
+write('price.js', original.replace('/ 100', '/ 1'));
+const mutation = spawnSync(process.execPath, ['--test', 'price.test.js'], { cwd: root, encoding:'utf8' });
+assert.notEqual(mutation.status, 0);
+write('price.js', original);
+
+const modules = blocks('17');
+write('module.html', modules[0].code.replace('</html>', '<button id="export">导出</button><p id="status" role="status"></p><script type="module" src="./export.js"></script></html>'));
+write('cart.js', modules[1].code);
+write('app.js', modules[2].code);
+write('export.js', modules[3].code);
+write('report.js', 'export async function exportReport(){ document.body.dataset.exported="true"; }');
+write('failure.html', '<meta charset="utf-8"><button id="export">导出</button><p id="status" role="status"></p><script type="module" src="./failure.js"></script>');
+write('failure.js', modules[3].code.replace('./report.js', './broken.js'));
+write('broken.js', 'throw new Error("受控模块求值失败"); export function exportReport(){}');
+write('identity.html', '<output id="result"></output><script type="module" src="./identity.js"></script>');
+write('identity.js', 'import * as a from "./cart.js"; import * as b from "./cart.js"; import * as c from "./cart.js?v=2";a.add();document.querySelector("#result").textContent=JSON.stringify({same:a===b,different:a!==c,a:a.quantity,b:b.quantity,c:c.quantity});');
+
+const components = blocks('22').filter(x => x.lang === 'vue');
+write('QuantityInput.vue', components[0].code);
+write('App.vue', components[1].code);
+write('RejectApp.vue', components[1].code.replace('Number.isSafeInteger(next)', 'false && Number.isSafeInteger(next)'));
+write('reject.js', 'import {createApp} from "vue";import App from "./RejectApp.vue";createApp(App).mount("#app");');
+write('reject.html', '<meta charset="utf-8"><div id="app"></div><script type="module" src="./reject.js"></script>');
+write('main.js', 'import {createApp} from "vue";import App from "./App.vue";createApp(App).mount("#app");');
+write('index.html', '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><div id="app"></div><script type="module" src="./main.js"></script></html>');
+write('bad.ts', 'const price: number = "类型错误仍能转换"; document.querySelector("#app").textContent = String(price);');
+write('bad.html', '<div id="app"></div><script type="module" src="./bad.ts"></script>');
+typeChecks.push(check('bad.ts', false));
+await build({ root, configFile:false, plugins:[vue()], base:'/shop/', build:{outDir:'dist',emptyOutDir:true,rolldownOptions:{input:{index:path.join(root,'index.html'),bad:path.join(root,'bad.html')}}}, logLevel:'warn' });
+assert.ok(fs.readFileSync(path.join(root,'dist/index.html'),'utf8').includes('/shop/assets/'));
+assert.ok(fs.existsSync(path.join(root,'dist/bad.html')));
+const results = { pages:names, checkerVersion: JSON.parse(fs.readFileSync('/tmp/blog-toolchain-checker/node_modules/typescript/package.json')).version, typeChecks, contractCases:7, priceTests:2, mutationCaught:mutation.status !== 0, viteBuildAcceptsTypeError:true, base:'/shop/' };
+fs.writeFileSync('/tmp/blog-frontend-toolchain-results.json',JSON.stringify(results,null,2));
+console.log(JSON.stringify(results));
+const dev = await createServer({root,configFile:false,plugins:[vue()],server:{host:'127.0.0.1',port:5183,strictPort:true},logLevel:'warn'});
+await dev.listen();
+await preview({root,configFile:false,base:'/shop/',preview:{host:'127.0.0.1',port:5184,strictPort:true},logLevel:'warn'});
+console.log('受控夹具：开发5183；生产产物 /shop/ 预览5184。');

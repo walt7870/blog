@@ -1,333 +1,125 @@
-# 桥接模式 (Bridge Pattern)
+# 桥接模式
 
-## 历史脉络
+桥接（Bridge）把高层抽象与底层实现分开，让两个变化维度可以独立扩展。例如，通知可以分为摘要、完整两种形式，发送渠道又可以分为邮件、站内信。若为每种组合定义一个子类，类别会随着组合增加；桥接让通知形式持有渠道接口，通过委托完成发送。
 
-桥接模式是 GoF 结构型模式之一，用于解决两个维度同时变化造成的继承爆炸。它常见于跨平台 UI、消息发送、图形渲染、设备驱动、存储后端切换等场景。
+![通知形式与发送渠道的桥接关系](/design-pattern/patterns/bridge.svg)
 
-![桥接模式结构图](/design-pattern/patterns/bridge.svg)
+## 先确认两个维度是否独立
 
-## 准确理解
+摘要通知关心展示哪些字段，渠道关心内容交给哪个发送入口。新增摘要形式不应要求复制全部渠道实现；新增渠道也不应要求重写全部通知形式。这种独立扩展是桥接的价值。
 
-桥接模式把抽象部分和实现部分拆开，让它们可以独立变化。它不是简单“加一层接口”，而是识别出两个变化轴：例如消息类型会变，发送渠道也会变；如果用继承组合，会出现普通短信、普通邮件、加急短信、加急邮件等大量子类。
+不过，组合数量减少不代表所有组合天然合法。若短信存在长度限制、某渠道不支持附件，应在接口合同或创建阶段明确能力边界。不能让“完整通知通过短信发送”静默丢掉关键内容。只有一个算法变化时，用[策略](../behavioral/strategy.md)通常更直接。
 
-## 问题识别
+## 两种通知形式组合两种渠道
 
-适合使用桥接的信号：
+下面的 `Notice` 是抽象部分，`SummaryNotice`、`FullNotice` 扩展消息形式；`Channel` 是实现接口，邮件与站内信分别实现它。抽象部分持有实现接口，调用方向从 `Notice` 到 `Channel`，不是渠道反向调用通知。
 
-- 一个类层次中存在两个或多个独立变化维度。
-- 子类数量随着维度组合快速增长。
-- 抽象业务和底层实现需要独立扩展。
-- 希望运行时切换实现维度。
-
-不适合的情况：
-
-- 只有一个变化维度，策略或普通接口已经足够。
-- 抽象和实现并没有独立变化，只是人为拆层。
-- 团队无法清楚识别两个维度，桥接会让结构更难读。
-
-## 落地要点
-
-- 先命名两个变化维度，再设计抽象和实现接口。
-- 抽象对象持有实现接口，通过委托完成底层操作。
-- 避免让实现接口反向依赖抽象对象。
-- 桥接常与依赖注入结合，由配置决定具体实现。
-
-## 概述
-
-将抽象部分与它的实现部分分离，使它们可以独立变化。
-
-简单说，就是用“桥”把抽象和实现解耦，避免继承层次过深，从而使系统更加灵活。
-
-桥接模式通过组合方式将“抽象”和“实现”解耦，适用于多维度扩展、避免子类爆炸的复杂系统，是面向接口编程的经典实践。
-
-桥接模式不仅适用于理论中的“抽象 × 实现”组合，在实际工程中，它广泛应用于框架设计、UI 多平台适配、行为结构分离等场景，并可与策略等模式组合打造高度灵活的系统架构。
-
-## 使用场景
-
-- 类的维度有多个变化（如：品牌 × 类型），想让这两个维度独立扩展；
-
-- 系统不希望将抽象和实现绑定在一起；
-
-- 希望通过组合替代继承，降低耦合；
-
-- 需要跨平台操作接口，如操作系统驱动、图形绘制等。
-
-## 类图结构
-
-``` plaintext
-      抽象部分                   实现部分
-┌───────────────────┐     ┌────────────────────┐
-│  Abstraction      │◄────│  Implementor        │
-└────────┬──────────┘     └────────┬───────────┘
-         │                         │
-┌────────▼─────────┐       ┌───────▼─────────────┐
-│ RefinedAbstraction│      │ ConcreteImplementor │
-└──────────────────┘       └─────────────────────┘
-
-```
-
-- Abstraction：抽象类，包含对实现部分的引用（Bridge）
-
-- Implementor：实现接口（定义具体行为）
-
-- RefinedAbstraction：扩展抽象类
-
-- ConcreteImplementor：具体实现类
-
-
-## 示例
-
-**遥控器 × 电视**
-遥控器有开关、调频道等行为，而电视有不同品牌（小米、索尼等），我们想遥控器和电视可以独立扩展，不能用多层继承。
-
-### 1. 实现接口（Implementor）
+示例只输出本地提交记录，不连接邮件服务器，也不证明消息已送达。保存为 `BridgeDemo.java`，可在 Java 17+ 编译运行：
 
 ```java
-public interface TV {
-    void on();
-    void off();
-    void tuneChannel(int channel);
-}
-```
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-### 2. 具体实现类（ConcreteImplementor）
-
-```java
-public class SonyTV implements TV {
-    public void on() {
-        System.out.println("Sony TV 打开");
+public class BridgeDemo {
+    record Export(String orderNo, int rows) {
+        Export {
+            if (orderNo == null || orderNo.isBlank() || rows < 0) {
+                throw new IllegalArgumentException("订单号或行数无效");
+            }
+        }
     }
 
-    public void off() {
-        System.out.println("Sony TV 关闭");
+    interface Channel {
+        void submit(String recipient, String content);
     }
 
-    public void tuneChannel(int channel) {
-        System.out.println("Sony TV 切换频道：" + channel);
-    }
-}
-
-public class XiaomiTV implements TV {
-    public void on() {
-        System.out.println("小米 TV 打开");
+    static final class MailChannel implements Channel {
+        public void submit(String recipient, String content) {
+            System.out.println("邮件提交给 " + recipient + ": " + content);
+        }
     }
 
-    public void off() {
-        System.out.println("小米 TV 关闭");
+    static final class InboxChannel implements Channel {
+        private final List<String> records = new ArrayList<>();
+
+        public void submit(String recipient, String content) {
+            records.add(recipient + ": " + content);
+        }
+
+        List<String> records() { return List.copyOf(records); }
     }
 
-    public void tuneChannel(int channel) {
-        System.out.println("小米 TV 切换频道：" + channel);
-    }
-}
+    abstract static class Notice {
+        private final Channel channel;
 
-}
-```
+        Notice(Channel channel) {
+            this.channel = Objects.requireNonNull(channel);
+        }
 
-### 3. 抽象遥控器（Abstraction）
+        final void send(String recipient, Export export) {
+            if (recipient == null || recipient.isBlank()) {
+                throw new IllegalArgumentException("收件标识不能为空");
+            }
+            channel.submit(recipient, format(Objects.requireNonNull(export)));
+        }
 
-```java
-public abstract class RemoteControl {
-    protected TV tv;
-
-    public RemoteControl(TV tv) {
-        this.tv = tv;
-    }
-
-    public abstract void turnOn();
-    public abstract void turnOff();
-    public abstract void setChannel(int channel);
-}
-
-```
-
-### 4. 扩展遥控器类型（RefinedAbstraction）
-
-```java
-public class BasicRemoteControl extends RemoteControl {
-    public BasicRemoteControl(TV tv) {
-        super(tv);
+        protected abstract String format(Export export);
     }
 
-    public void turnOn() {
-        tv.on();
+    static final class SummaryNotice extends Notice {
+        SummaryNotice(Channel channel) { super(channel); }
+
+        protected String format(Export export) {
+            return "订单 " + export.orderNo() + " 的导出已完成";
+        }
     }
 
-    public void turnOff() {
-        tv.off();
+    static final class FullNotice extends Notice {
+        FullNotice(Channel channel) { super(channel); }
+
+        protected String format(Export export) {
+            return "订单 " + export.orderNo() + " 已导出 " + export.rows() + " 行";
+        }
     }
 
-    public void setChannel(int channel) {
-        tv.tuneChannel(channel);
-    }
-}
-
-```
-
-### 客户端调用
-
-```java
-public class Client {
     public static void main(String[] args) {
-        TV sony = new SonyTV();
-        RemoteControl remote1 = new BasicRemoteControl(sony);
-        remote1.turnOn();
-        remote1.setChannel(5);
-        remote1.turnOff();
-
-        System.out.println("-------------");
-
-        TV xiaomi = new XiaomiTV();
-        RemoteControl remote2 = new BasicRemoteControl(xiaomi);
-        remote2.turnOn();
-        remote2.setChannel(10);
-        remote2.turnOff();
+        Export export = new Export("O-1001", 120);
+        Channel mail = new MailChannel();
+        InboxChannel inbox = new InboxChannel();
+        new SummaryNotice(mail).send("user@example.com", export);
+        new FullNotice(mail).send("user@example.com", export);
+        new SummaryNotice(inbox).send("user-1", export);
+        new FullNotice(inbox).send("user-1", export);
+        if (inbox.records().size() != 2
+                || !inbox.records().get(1).endsWith("已导出 120 行")) {
+            throw new AssertionError("站内信组合结果不符合合同");
+        }
+        inbox.records().forEach(System.out::println);
     }
 }
 ```
 
-## 优缺点分析
+调用方在装配时选择渠道，通知对象只负责该形式的内容生成。这里没有提供运行时更换渠道的 setter，因为每次发送中途切换实现会使行为难以追踪；需要不同渠道时创建另一份通知对象即可。
 
-### ✅ 优点
+`send()` 与 `format()` 同时使用了固定流程和可覆盖步骤，也体现了[模板方法](../behavioral/template-method.md)的组织方式。模式可以协作，但“模板方法”解释步骤扩展，“桥接”解释通知与渠道两个维度的关系，不能混为同一个判断。
 
-| 优点              | 说明                    |
-| --------------- | --------------------- |
-| **1. 解耦抽象与实现**  | 抽象与实现可以独立扩展，互不影响      |
-| **2. 更灵活的结构组合** | 用组合代替继承，避免类爆炸         |
-| **3. 提高系统可扩展性** | 新增遥控器/电视品牌，只需新增类，互不干扰 |
-| **4. 符合开闭原则**   | 可以独立添加功能，且不会影响已有类     |
+## 如何判断是不是桥接
 
-### ❌ 缺点
+| 观察到的关系 | 判断 |
+| --- | --- |
+| 两个稳定命名的维度，分别扩展，再通过组合协作 | 符合桥接的设计意图 |
+| 仅将一种促销算法注入订单结算 | 通常是策略，不足以认定桥接 |
+| 把旧 SDK 转成新的内部接口 | 主要是适配器 |
+| 为对象包上缓存或审计层 | 主要看代理或装饰器 |
+| 为每个品牌和类型创建完整交叉子类 | 仍保留了组合膨胀问题 |
 
-| 缺点              | 说明                     |
-| --------------- | ---------------------- |
-| **1. 增加系统复杂度**  | 多了很多中间抽象类、组合关系，初学者不易理解 |
-| **2. 不适用于简单对象** | 对于结构简单的系统反而“过度设计”      |
+JDBC 将访问接口与驱动实现分离，可以帮助理解这种思想；但 `JdbcTemplate` 实际经由 `DataSource` 获取 `Connection`，不是直接调用 `Driver`，源码关系需要按真实链路解释。Spring AOP 把不同 `Advice` 转成拦截器的机制，核心是适配，不能因为发生了委托就称为桥接。
 
-## 和其他模式对比
+跨平台控件也有同样边界：若每个控件仍对应每个平台的一份完整实现，平台工作量并未消失。桥接可以复用上层控件逻辑与公共渲染原语，但不会自动省掉所有平台差异。
 
-| 模式    | 本质思想         | 与桥接的区别                |
-| ----- | ------------ | --------------------- |
-| 装饰器模式 | 动态增强对象功能     | 关注对象“功能”的扩展，不是抽象与实现分离 |
-| 适配器模式 | 改变已有类接口兼容性   | 解决接口不兼容，不关注抽象/实现结构    |
-| 桥接模式  | 抽象与实现分离，解耦结构 | 强调多维度独立扩展             |
+## 失败、并发与验收
 
-## 在Spring中的应用
+真实渠道应明确提交失败、结果未知与后续送达状态，决定异常如何传播。通知形式层不应擅自换渠道重发：这可能造成重复通知，也可能把本应在站内展示的内容发送到外部。重试、幂等、限流与状态持久化应有独立协议。
 
-### 1. JDBC 框架中的桥接结构
-
-Spring 的 JdbcTemplate 是访问数据库的核心工具，它背后通过桥接模式，将 **SQL 执行逻辑（抽象）与数据库驱动实现（实现部分）**分离：
-
-#### 类图理解（简化）
-
-```plaintext
-       抽象层                            实现层
-┌─────────────────┐          ┌────────────────────────┐
-│   JdbcTemplate   │◄────────│  java.sql.Driver       │
-└─────────────────┘          └────────────┬───────────┘
-                                          │
-                              ┌───────────▼────────────┐
-                              │  MysqlDriver、PgDriver │
-                              └────────────────────────┘
-```
-
-- JdbcTemplate 提供通用数据库操作接口（抽象层）
-
-- java.sql.Driver 是 JDBC 驱动接口（实现层）
-
-- 两者通过桥梁（Connection、DataSource）连接
-
-- 新增驱动无需改动 JdbcTemplate，体现了桥接模式的“独立变化”思想
-
-### Spring AOP 中的桥接思路
-
-Spring AOP 中的 Advice（通知）与 MethodInterceptor（方法执行器）之间的组合，也体现了桥接的思想：
-
-```txt
-    通知类型（抽象）               方法拦截器（实现）
-┌──────────────────┐     ┌─────────────────────────────┐
-│ BeforeAdvice      │◄────│ MethodBeforeAdviceInterceptor │
-│ AfterAdvice       │     │ AfterReturningAdviceInterceptor │
-└──────────────────┘     └─────────────────────────────┘
-```
-
-Spring 会根据不同的通知类型“桥接”到不同的底层拦截器执行逻辑。
-
-### 桥接模式在 GUI 框架中的应用
-
-GUI（图形界面）常涉及多个平台（Windows、Mac、Linux）和多个控件（按钮、滑块、文本框），如何设计才能扩展新平台和新控件时不互相影响？
-
-```plaintext
-        抽象层                         实现层
-┌────────────────────┐    ┌────────────────────────────┐
-│    Button（按钮）     │    │   WindowsButtonImpl        │
-│    Slider（滑块）     │    │   MacButtonImpl            │
-│    TextBox（文本框）   │    │   LinuxButtonImpl          │
-└────────────────────┘    └────────────────────────────┘
-```
-
-- 每个控件都有平台实现版本
-
-- 可以任意组合控件和平台，实现跨平台 UI
-
-- 如果用继承，则需每种控件 × 每个平台都写一个类
-
-桥接模式让控件与平台独立扩展，实现了 GUI 框架的高可扩展性
-
-### 桥接 + 策略模式组合使用
-
-这两个模式经常联合使用，桥接负责结构解耦，策略负责行为可切换。
-
-#### 示例：订单支付系统
-
-场景：多个支付平台（微信/支付宝/银联）+ 多种促销策略（满减/打折）
-
-桥接：支付方式
-
-``` java
-public interface PayPlatform {
-    void pay(BigDecimal amount);
-}
-
-public class WeChatPay implements PayPlatform { ... }
-public class AliPay implements PayPlatform { ... }
-```
-
-策略：促销策略
-
-```java
-public interface PromotionStrategy {
-    BigDecimal applyDiscount(BigDecimal price);
-}
-
-public class Discount10Percent implements PromotionStrategy { ... }
-public class FullMinus50 implements PromotionStrategy { ... }
-
-```
-
-```java
-public class Order {
-    private PayPlatform payPlatform;
-    private PromotionStrategy promotionStrategy;
-
-    public Order(PayPlatform payPlatform, PromotionStrategy promotionStrategy) {
-        this.payPlatform = payPlatform;
-        this.promotionStrategy = promotionStrategy;
-    }
-
-    public void checkout(BigDecimal originalPrice) {
-        BigDecimal finalPrice = promotionStrategy.applyDiscount(originalPrice);
-        payPlatform.pay(finalPrice);
-    }
-}
-```
-
-可以灵活组合：
-
-1. 微信 + 满减
-
-2. 支付宝 + 打折
-
-3. 银联 + 无促销
-
-桥接负责结构组合（支付平台），策略负责行为切换（促销算法），两者职责清晰，系统灵活。
+样例的内存渠道只供单线程演示，不能直接作为并发消息队列。验收时应覆盖每种允许的形式与渠道组合、空接收者、非法数据、渠道失败和不支持的能力。收益要看新增一种形式或渠道能否局部修改，而不是只数接口数量。

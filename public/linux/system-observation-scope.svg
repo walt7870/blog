@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="scope-title scope-desc">
+<title id="scope-title">系统查询先核对观察范围</title>
+<desc id="scope-desc">宿主机内核提供资源，命名空间决定可见对象，cgroup限制预算。订单进程查询所见信息不自动等于实际限额。</desc>
+<defs><marker id="scope-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.focus{fill:#e7f3ef;stroke:#69978c;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#scope-arrow)}</style></defs>
+<rect width="1120" height="620" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">宿主机有资源，不代表服务能使用同样的预算</text>
+<text class="b" x="36" y="80">命名空间控制可见对象；cgroup 控制资源预算与计费，两者需要分别核对。</text>
+<rect x="36" y="116" width="1048" height="444" rx="8" fill="none" stroke="#a4b9cc" stroke-dasharray="6 4"/>
+<text class="n" x="56" y="150">宿主机内核与资源</text>
+<path class="edge" d="M338 254H438"/><path class="edge" d="M714 254H808"/>
+<path class="edge" d="M576 320V378"/>
+<rect class="box" x="60" y="190" width="278" height="130" rx="6"/>
+<text class="n" x="78" y="224">命名空间</text><text class="b" x="78" y="256">PID、挂载、网络等视图</text><text class="b" x="78" y="286">容器内的路径与对象</text>
+<rect class="focus" x="438" y="190" width="276" height="130" rx="6"/>
+<text class="n" x="456" y="224">订单导出进程</text><text class="b" x="456" y="256">运行身份、输入与输出路径</text><text class="b" x="456" y="286">在实际上下文执行查询</text>
+<rect class="box" x="808" y="190" width="252" height="130" rx="6"/>
+<text class="n" x="826" y="224">可见信息</text><text class="b" x="826" y="256">uname / df / free</text><text class="b" x="826" y="286">并非完整的服务限额</text>
+<rect class="box" x="438" y="378" width="622" height="132" rx="6"/>
+<text class="n" x="456" y="412">所属 cgroup 与祖先组</text><text class="b" x="456" y="446">cpu.max、有效 CPU 集、memory.max、事件增量</text><text class="b" x="456" y="478">核对组路径、控制器挂载与祖先限制</text>
+<text class="b" x="60" y="418">先定位服务，再定位：</text><text class="b" x="60" y="450">真实挂载与存储配额</text><text class="b" x="60" y="482">设备、凭据及可用权限</text>
+<text class="b" x="36" y="596">例如：宿主剩余内存很多，服务仍可能触及 1 GB 组上限；容器路径也可能落到另一块卷。</text>
+</svg>

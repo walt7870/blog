@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="480" viewBox="0 0 1120 480" role="img" aria-labelledby="es-level-title es-level-desc">
+  <title id="es-level-title">按问题选择事件风暴的深度</title><desc id="es-level-desc">业务全景探索流程与争议，流程建模补命令策略和异常，软件设计明确聚合与不变量；它们按需要选择，再把已确认规则转成场景验证。</desc>
+  <defs><marker id="es-level-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="480" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="40" y="48" font-size="26" font-weight="600">事件风暴：先选择问题，再选择建模深度</text>
+    <text x="40" y="80" font-size="16" fill="#5d6f64">工作坊形式可独立使用；箭头表示需要时继续细化，不是强制流程</text>
+    <g fill="none" stroke="#657768" stroke-width="2" marker-end="url(#es-level-arrow)"><path d="M272 224H312"/><path d="M544 224H584"/><path d="M816 224H856"/></g>
+    <g fill="#fff" stroke="#c4cdd5"><rect x="40" y="140" width="232" height="168" rx="6"/><rect x="312" y="140" width="232" height="168" rx="6"/><rect x="584" y="140" width="232" height="168" rx="6"/><rect x="856" y="140" width="232" height="168" rx="6" fill="#e5f3e9" stroke="#468363"/></g>
+    <g font-size="22" font-weight="600"><text x="64" y="180">业务全景</text><text x="336" y="180">流程建模</text><text x="608" y="180">软件设计</text><text x="880" y="180">场景验证</text></g>
+    <g font-size="17" fill="#5d6f64"><text x="64" y="220">业务事件、参与者</text><text x="64" y="252">等待、瓶颈与争议</text><text x="336" y="220">命令、策略与信息</text><text x="336" y="252">正常与异常路径</text><text x="608" y="220">聚合、不变量和契约</text><text x="608" y="252">提交与协作边界</text><text x="880" y="220">规则进入代码和测试</text><text x="880" y="252">反例与恢复有证据</text></g>
+    <text x="40" y="372" font-size="18">看清退货为何等待三天，可以停在流程；要实现支付关闭竞争，需要继续细化和验证。</text>
+    <text x="40" y="416" font-size="17" fill="#5d6f64">贴纸靠近不自动形成聚合，模型边界不自动对应一个微服务。</text>
+  </g>
+</svg>

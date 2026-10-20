@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/data-layering.md",
+      "status": "verified",
+      "reviewedHash": "a6d3ecc07604239d9be3eb9e07396adc38b6d20a49f113d438a0f94cd7dc30ce",
+      "pageType": "数据分层、事实粒度与可追溯发布",
+      "decision": "旧885行全文阅读后重写，修三层图实为四层、把数据中台当物理层、混用增量与全表覆盖、金额异常改零、订单与商品粒度混用、AVG日均值算周均值、Hive/Parquet通用索引、权限元数据冒充强制授权、未定义文件大小字段、不可运行调度模板等问题。七条订单变更贯穿ODS/DWD/DWS/ADS，补横向独立SVG及完整SQLite练习，解释维度历史、增量合并、墓碑、迟到取消、零日清理和并发发布边界。",
+      "validation": [
+        "CLI读取SQLite官方资料失败，浏览器核对windowfunctions的row_number/PARTITION与History3.25.0，以及lang_createtable的CHECK/NOT NULL及默认ABORT。本机SQLite3.50.6完整正文bash运行通过；/tmp/blog-layering-check.mjs验证重放、重复版本不多算、同版本冲突与负金额非零退出、迟到取消重算历史及最后一单取消后无该日行，全部通过。未外推真实CDC、时区解析、分布式提交或湖表恢复。",
+        "18.04秒根目录完整构建并重启preview。SVG self_check、实际中文画布及节点留白、截图通过；生产页1280桌面和390×844手机亮深色、图示预览/原尺寸/关闭、代码局部滚动通过，无破图、全页溢出或客户端error，viewport已reset。正文复读与5个本地引用扫描通过。"
+      ]
+    }
+  ]
+}

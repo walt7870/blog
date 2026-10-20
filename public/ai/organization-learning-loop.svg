@@ -28,10 +28,10 @@
   <rect class="box" x="320" y="320" width="180" height="90"/>
   <text class="text h" x="410" y="354" text-anchor="middle">反馈评估</text>
   <text class="text b" x="410" y="380" text-anchor="middle">CI 通过率、返工率</text>
-  <path class="line" d="M260 215 C300 170 310 140 320 125"/>
+  <path class="line" d="M260 215H282Q290 215 290 207V133Q290 125 298 125H320"/>
   <path class="line" d="M500 125 L590 125"/>
-  <path class="line" d="M770 125 C840 135 900 165 920 190"/>
-  <path class="line" d="M920 280 C895 330 820 360 770 365"/>
+  <path class="line" d="M770 125H912Q920 125 920 133V190"/>
+  <path class="line" d="M920 280V357Q920 365 912 365H770"/>
   <path class="line" d="M590 365 L500 365"/>
-  <path class="line" d="M320 365 C220 350 170 300 170 280"/>
+  <path class="line" d="M320 365H178Q170 365 170 357V280"/>
 </svg>

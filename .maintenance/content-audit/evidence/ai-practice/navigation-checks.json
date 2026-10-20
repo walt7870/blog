@@ -1,0 +1,26 @@
+[
+  {
+    "page": "",
+    "href": "/blog/docs/ai/practice/vision-project.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/practice/vision-project.html",
+    "title": "视觉项目：产品质量分类\n​"
+  },
+  {
+    "page": "agent-project.html",
+    "href": "/blog/docs/ai/skill/",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/skill/",
+    "title": "Agent Skill\n​"
+  },
+  {
+    "page": "machine-learning-project.html",
+    "href": "/blog/docs/ai/deep-learning/",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/deep-learning/",
+    "title": "深度学习\n​"
+  },
+  {
+    "page": "vision-project.html",
+    "href": "/blog/docs/ai/practice/agent-project.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/practice/agent-project.html",
+    "title": "Agent 项目：工单处理助手\n​"
+  }
+]

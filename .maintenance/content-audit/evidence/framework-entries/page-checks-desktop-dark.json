@@ -1,0 +1,93 @@
+[
+  {
+    "file": "docs/devlanguage/front/framework/react.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "React：组件合同与应用状态",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/vue.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Vue：响应式状态与组件合同",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/angular.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Angular：独立组件、表单与服务边界",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/svelte.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Svelte：编译、响应式与应用生命周期",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/meta-frameworks.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "元框架与全栈框架",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/lightweight-frameworks.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "轻量框架与 Web Components",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/framework/cross-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "跨端框架",
+    "width": 1280
+  }
+]

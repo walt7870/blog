@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+  <title id="title">Service 命名端口与多个 EndpointSlice</title>
+  <desc id="desc">客户端始终访问Service端口80。旧新版Pod的http命名端口分别为8080和9090，控制器生成不同端口的Slice，Service数据面读取配置并连接实际Pod端口。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#arrow)}.dash{stroke-dasharray:6 5}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <text class="title" x="48" y="54">客户端端口不变，后端端口可以随版本变化</text>
+  <text class="t" x="48" y="88">同名 http 在两个版本分别声明为 8080 和 9090；应用进程仍须实际监听。</text>
+  <path class="edge dash" d="M340 190H480"/>
+  <path class="edge dash" d="M640 230V312Q640 320 632 320H528Q520 320 520 328V380"/>
+  <path class="edge" d="M268 440H380"/>
+  <path class="edge" d="M660 420H750Q758 420 758 412V406Q758 398 766 398H830"/>
+  <path class="edge" d="M660 460H750Q758 460 758 468V492Q758 500 766 500H830"/>
+  <rect class="api" x="48" y="130" width="292" height="120" rx="6"/>
+  <text class="h" x="68" y="164">Service：order-api</text><text class="t" x="68" y="198">port: 80 → targetPort: http</text><text class="t" x="68" y="230">selector: app=order-api</text>
+  <rect class="box" x="480" y="130" width="590" height="100" rx="6"/>
+  <text class="h" x="500" y="164">EndpointSlice：按端口组合分片</text><text class="t" x="500" y="198">旧版地址 + port 8080　｜　新版地址 + port 9090</text>
+  <text class="t" x="370" y="170">配置生成</text><text class="t" x="48" y="294">数据面监听全部 Slice，聚合并去重端点</text>
+  <rect class="box" x="48" y="390" width="220" height="100" rx="6"/>
+  <text class="h" x="68" y="425">客户端</text><text class="t" x="68" y="460">order-api.orders:80</text>
+  <rect class="api" x="380" y="380" width="280" height="120" rx="6"/>
+  <text class="h" x="400" y="419">Service 数据面</text><text class="t" x="400" y="453">根据地址、端口和状态</text><text class="t" x="400" y="483">选择实际后端</text>
+  <rect class="box" x="830" y="358" width="240" height="80" rx="6"/>
+  <text class="h" x="850" y="390">旧版 Pod</text><text class="t" x="850" y="420">http → 8080</text>
+  <rect class="run" x="830" y="460" width="240" height="80" rx="6"/>
+  <text class="h" x="850" y="492">新版 Pod</text><text class="t" x="850" y="522">http → 9090</text>
+  <text class="h" x="48" y="578">虚线是配置同步，实线是新连接的可能路径</text>
+  <text class="t" x="48" y="612">Slice 是 API 对象，不转发业务请求；已有连接、就绪状态和规则传播仍需单独观察。</text>
+</svg>

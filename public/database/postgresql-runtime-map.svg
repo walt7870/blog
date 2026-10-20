@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="pg-runtime-title pg-runtime-desc">
+  <title id="pg-runtime-title">PostgreSQL 查询、版本与恢复链路</title>
+  <desc id="pg-runtime-desc">应用向事务与查询执行层发送SQL。执行层按计划使用索引和读取关系数据，修改产生WAL。MVCC让旧快照继续读取旧版本，VACUUM只回收不再需要的版本。物理恢复需要一致的基础备份及连续WAL，副本和索引不能代替备份。</desc>
+  <defs>
+    <marker id="pg-runtime-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#pg-runtime-arrow)}</style>
+  </defs>
+  <rect width="1200" height="620" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">一笔订单：查询路径、行版本与恢复材料</text>
+  <text x="36" y="78" class="small">索引降低访问成本；MVCC 决定可见版本；WAL 与基础备份承担恢复，各有边界。</text>
+  <path d="M296 212H440" class="line"/>
+  <path d="M740 212H904" class="line"/>
+  <path d="M440 248H368Q360 248 360 256V420Q360 428 352 428H296" class="line"/>
+  <path d="M592 284V364" class="line"/>
+  <path d="M1034 284V364" class="line"/>
+  <path d="M740 440H904" class="line"/>
+  <rect x="328" y="170" width="76" height="28" fill="#f7f9fa"/><text x="366" y="191" text-anchor="middle" class="small">SQL</text>
+  <rect x="772" y="170" width="100" height="28" fill="#f7f9fa"/><text x="822" y="191" text-anchor="middle" class="small">记录修改</text>
+  <rect x="608" y="310" width="100" height="28" fill="#f7f9fa"/><text x="658" y="331" text-anchor="middle" class="small">版本读写</text>
+  <rect x="1048" y="310" width="112" height="28" fill="#f7f9fa"/><text x="1104" y="331" text-anchor="middle" class="small">连续归档</text>
+  <rect x="764" y="398" width="116" height="28" fill="#f7f9fa"/><text x="822" y="419" text-anchor="middle" class="small">基础备份</text>
+  <rect x="36" y="144" width="260" height="140" class="box"/>
+  <text x="56" y="184" class="head">应用与连接池</text><text x="56" y="224">订单查询、支付事务</text><text x="56" y="260" class="small">参数绑定与事务收尾</text>
+  <rect x="440" y="144" width="300" height="140" class="focus"/>
+  <text x="460" y="184" class="head">事务与查询执行</text><text x="460" y="224">快照、锁、计划与约束</text><text x="460" y="260" class="small">合法 SQL 仍可能返回错误金额</text>
+  <rect x="904" y="144" width="260" height="140" class="box"/>
+  <text x="924" y="184" class="head">WAL</text><text x="924" y="224">预写日志与复制进度</text><text x="924" y="260" class="small">接收不等于已回放</text>
+  <rect x="36" y="364" width="260" height="148" class="box"/>
+  <text x="56" y="404" class="head">按计划访问索引</text><text x="56" y="444">B-tree / GIN 等</text><text x="56" y="484" class="small">条件与操作符必须匹配</text>
+  <rect x="440" y="364" width="300" height="148" class="box"/>
+  <text x="460" y="404" class="head">关系数据与行版本</text><text x="460" y="444">关系字段、JSONB、旧版本</text><text x="460" y="484" class="small">VACUUM 等待旧版本不再被需要</text>
+  <rect x="904" y="364" width="260" height="148" class="focus"/>
+  <text x="924" y="404" class="head">物理恢复输入</text><text x="924" y="444">一致基础备份 + 连续 WAL</text><text x="924" y="484" class="small">还需时间线、目标与恢复验证</text>
+  <text x="36" y="562">慢请求先区分阻塞与访问成本；空间增长再区分数据、索引、行版本和 WAL 保留。</text>
+  <text x="36" y="598" class="small">这里只画核心关系。逻辑 dump 是另一条恢复路径；远端复制、账号和 TLS 需要独立部署配置。</text>
+</svg>

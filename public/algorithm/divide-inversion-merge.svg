@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="484" viewBox="0 0 1040 484" role="img" aria-labelledby="divide-inversion-merge-title divide-inversion-merge-desc">
+<title id="divide-inversion-merge-title">归并时统计跨边界逆序对</title>
+<desc id="divide-inversion-merge-desc">序列104、101、103、102分为左右两半，各自有一个逆序对。归并时右侧102和103分别越过左侧104，增加两对，总数为4。</desc>
+<defs><marker id="di-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7Z" fill="#71838c"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:19px;font-weight:600}.sub{font-size:16px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.line{fill:none;stroke:#71838c;stroke-width:1.4;marker-end:url(#di-arrow)}</style>
+<rect width="1040" height="484" fill="#f8fafb"/>
+<text class="title" x="36" y="44">分治计数：左边 + 右边 + 跨边界，三类不重不漏</text>
+<text class="sub" x="36" y="74">原到达顺序：[104, 101, 103, 102]；逆序对要求前项严格大于后项。</text>
+<path class="line" d="M360 172H456 Q464 172 464 180V208 Q464 216 472 216H548"/>
+<path class="line" d="M360 320H488 Q496 320 496 312V288 Q496 280 504 280H548"/>
+<rect class="box" x="36" y="124" width="324" height="100" rx="6"/>
+<text class="name" x="56" y="154">左半：[104, 101]</text><text class="sub" x="56" y="182">内部 1 对：104 &gt; 101</text><text class="sub" x="56" y="209">排序结果：[101, 104]</text>
+<rect class="box" x="36" y="272" width="324" height="100" rx="6"/>
+<text class="name" x="56" y="302">右半：[103, 102]</text><text class="sub" x="56" y="330">内部 1 对：103 &gt; 102</text><text class="sub" x="56" y="357">排序结果：[102, 103]</text>
+<rect class="focus" x="548" y="164" width="456" height="172" rx="6"/>
+<text class="name" x="568" y="195">归并：[101, 102, 103, 104]</text>
+<text class="sub" x="568" y="228">取右边 102：左边剩余 [104]，加 1</text>
+<text class="sub" x="568" y="259">取右边 103：左边仍剩 [104]，加 1</text>
+<text class="name" x="568" y="307">总计：1 + 1 + 2 = 4 对</text>
+<text class="sub" x="36" y="424">右边当前值小于左边当前值时，也小于左边所有未取出的值：一次增加 mid − i。</text>
+<text class="sub" x="36" y="457">相等时先取左边，不计逆序；共享 O(n) 缓冲区，不是常量空间的原地排序。</text>
+</svg>

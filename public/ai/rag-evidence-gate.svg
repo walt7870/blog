@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="510" viewBox="0 0 1120 510" role="img" aria-labelledby="rag-evidence-gate-title rag-evidence-gate-desc"><title id="rag-evidence-gate-title">RAG：候选片段经过门控才成为回答证据</title><desc id="rag-evidence-gate-desc">展示文档版本、权限检索、证据是否足够及拒答分支；引用存在还需核对结论支持。</desc><defs><marker id="rag-evidence-gate-a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526678"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#243746}.h{font-size:26px;font-weight:700}.t{font-size:19px;font-weight:700}.s{font-size:16px;fill:#526678}.b{fill:#fff;stroke:#b9cbd4;stroke-width:1.5}.f{fill:#e5f4ee;stroke:#43836e;stroke-width:1.5}.l{fill:none;stroke:#526678;stroke-width:2;marker-end:url(#rag-evidence-gate-a)}.d{stroke-dasharray:6 5}</style></defs><rect width="1120" height="510" fill="#f4f8fa"/><text x="36" y="48" class="h">RAG：候选片段经过门控才成为回答证据</text><text x="36" y="80" class="s">例：政策写“审核通过后3–5个工作日”，不能回答“申请后3天保证到账”。</text>
+<path class="l" d="M250 166H320"/><path class="l" d="M570 166H650"/><path class="l" d="M860 166H920"/>
+<rect x="36" y="120" width="214" height="92" rx="6" class="b"/><text x="52" y="151" class="t">提取与切分</text><text x="52" y="177" class="s">文档ID、版本、片段ID</text>
+<rect x="320" y="120" width="250" height="92" rx="6" class="b"/><text x="336" y="151" class="t">索引与访问标签</text><text x="336" y="177" class="s">先构建新版本，再切换</text>
+<path d="M755 108L860 166L755 224L650 166Z" class="f"/><text x="755" y="163" text-anchor="middle" class="t">证据足够？</text><text x="755" y="188" text-anchor="middle" class="s">相关、有效、无冲突</text>
+<rect x="920" y="120" width="164" height="92" rx="6" class="b"/><text x="936" y="151" class="t">生成回答</text><text x="936" y="177" class="s">限定证据与引用</text>
+<text x="878" y="150" class="s">是</text>
+<path class="l" d="M755 224V320"/><text x="772" y="276" class="s">否</text>
+<rect x="650" y="320" width="210" height="92" rx="6" class="b"/><text x="666" y="351" class="t">资料不足</text><text x="666" y="377" class="s">拒答 / 追问 / 转人工</text>
+<rect x="36" y="304" width="214" height="108" rx="6" class="b"/><text x="52" y="335" class="t">用户问题 + 身份</text><text x="52" y="361" class="s">身份来自服务端会话</text><text x="52" y="386" class="s">检索前生成权限过滤</text>
+<path class="l" d="M250 356H445V212"/>
+<rect x="920" y="320" width="164" height="92" rx="6" class="b"/><text x="936" y="351" class="t">核对引用</text><text x="936" y="377" class="s">ID存在且支持结论</text>
+<path class="l" d="M1002 212V320"/>
+<text x="36" y="468" class="s">小词表离线示例验证门控，不代表向量召回效果；检索内容不能提供工具调用授权。</text></svg>

@@ -1,0 +1,50 @@
+[
+  {
+    "page": "",
+    "expected": "/blog/docs/ai/domains/nlp.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/nlp.html",
+    "title": "自然语言处理\n​"
+  },
+  {
+    "page": "nlp.html",
+    "expected": "/blog/docs/ai/domains/computer-vision.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/computer-vision.html",
+    "title": "计算机视觉\n​"
+  },
+  {
+    "page": "computer-vision.html",
+    "expected": "/blog/docs/ai/domains/speech.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/speech.html",
+    "title": "语音识别与语音合成\n​"
+  },
+  {
+    "page": "speech.html",
+    "expected": "/blog/docs/ai/domains/recommendation.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/recommendation.html",
+    "title": "推荐系统\n​"
+  },
+  {
+    "page": "recommendation.html",
+    "expected": "/blog/docs/ai/domains/time-series.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/time-series.html",
+    "title": "时间序列与预测\n​"
+  },
+  {
+    "page": "time-series.html",
+    "expected": "/blog/docs/ai/domains/reinforcement-learning.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/reinforcement-learning.html",
+    "title": "强化学习\n​"
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "expected": "/blog/docs/ai/domains/multimodal.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/domains/multimodal.html",
+    "title": "多模态模型\n​"
+  },
+  {
+    "page": "multimodal.html",
+    "expected": "/blog/docs/ai/speech-engineering/",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/speech-engineering/",
+    "title": "流式语音系统技术实践\n​"
+  }
+]

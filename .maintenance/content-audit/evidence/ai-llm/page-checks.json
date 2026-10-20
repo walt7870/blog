@@ -1,0 +1,266 @@
+[
+  {
+    "page": "llm/",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/llm-token-flow.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "大语言模型 ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/llm-concept-map.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "大模型核心概念分类 ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/lora-parameter-path.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "大模型训练与微调 ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/sft-training-position.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "监督微调 SFT ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/kv-cache-memory-contract.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "大模型推理与部署 ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "images": [
+      {
+        "ok": true,
+        "src": "/blog/ai/rag-tool-responsibilities.svg"
+      }
+    ],
+    "overflow": false,
+    "title": "RAG 与工具调用 ​",
+    "width": 1280
+  },
+  {
+    "page": "llm/",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "llm/",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "images": [
+      true
+    ],
+    "overflow": false,
+    "width": 390
+  }
+]

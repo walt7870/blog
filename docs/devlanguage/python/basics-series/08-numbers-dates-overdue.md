@@ -1,9 +1,7 @@
 # 数字和日期：金额、天数和超期
 
 > 示例文件：`overdue_check.py`  
-> 最后核验：2026-08-02
-
-本文围绕“订单金额和最近联系时间怎样计算”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
@@ -13,13 +11,11 @@
 
 ## 核心判断
 
-- `int` 要服务于真实客户数据处理。
-- `float` 要服务于真实客户数据处理。
-- `datetime` 要服务于真实客户数据处理。
-- `日期差` 要服务于真实客户数据处理。
-- `格式转换` 要服务于真实客户数据处理。
+客户表里的日期先按约定格式解析成 `date`，才能计算自然日差；不要对 `"2026-7-9"` 这样的原始文本直接排序比较。示例固定业务日期为 2026-08-02，保证每次练习结果一致；生产运行可用业务时区下的当天日期，而不是依赖电脑的任意时区。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![日期解析、缺失与未来日期的处理路径](/python/contact-date-decision.svg)
+
+金额从文本转为 `Decimal`，不先经过 `float`。未来联系日期不属于“联系正常”，应先标记数据异常；“超过 14 天”用 `> 14`，第 14 天仍在正常范围。此处用自然日，若要精确到 24 小时或跨时区计算，应使用带时区的 `datetime` 并另定规则。
 
 ## 运行示例
 
@@ -27,11 +23,7 @@
 python3 overdue_check.py
 ```
 
-运行后检查三件事：
-
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+预期李雷 3 天未联系、正常；韩梅梅 23 天、超期；王芳没有联系记录。再使用 2026-07-19、2026-07-18 和 2026-08-03，分别验证 14 天正常、15 天超期、未来日期异常。非法日期会抛出 `ValueError`，逐行继续处理的方法见异常处理章节。
 
 ## 完整示例
 
@@ -41,6 +33,7 @@ python3 overdue_check.py
 from __future__ import annotations
 
 from datetime import date, datetime
+from decimal import Decimal
 
 today = date(2026, 8, 2)
 customers = [
@@ -59,12 +52,15 @@ def parse_date(text: str) -> date | None:
 def main() -> None:
     for customer in customers:
         contact_date = parse_date(customer["last_contact"])
-        amount = float(customer["amount"])
+        amount = Decimal(customer["amount"])
         if contact_date is None:
             print(f"{customer['name']}：没有联系记录，金额 {amount:.2f}")
             continue
 
         days = (today - contact_date).days
+        if days < 0:
+            print(f"{customer['name']}：联系日期晚于业务日期，需要核对")
+            continue
         status = "超期" if days > 14 else "正常"
         print(f"{customer['name']}：{days} 天未联系，{status}，金额 {amount:.2f}")
 
@@ -72,28 +68,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

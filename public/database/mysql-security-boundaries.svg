@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">MySQL 连接与权限边界</title>
+  <desc id="desc">客服通过应用访问订单。网络允许来源后，TLS校验服务器身份，MySQL认证匹配账号，激活角色决定可访问的列。示例只读角色允许id和status，拒绝金额、手机号和删除表。租户行权限及状态迁移由应用另行校验。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{font-size:15px;fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}
+      .line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="520" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">连得上、验明身份、获得权限，是不同的检查</text>
+  <text x="36" y="78" class="small">应用端决定订单归属；MySQL 按数据库账号及当前激活角色检查对象权限。</text>
+  <path d="M224 182H276" class="line"/><path d="M464 182H516" class="line"/><path d="M704 182H756" class="line"/>
+  <rect x="36" y="126" width="188" height="112" class="box"/>
+  <text x="56" y="158" class="head">来源控制</text><text x="56" y="190">监听接口 / 防火墙</text><text x="56" y="218" class="small">仅允许指定来源到达</text>
+  <rect x="276" y="126" width="188" height="112" class="box"/>
+  <text x="296" y="158" class="head">TLS 连接</text><text x="296" y="190">VERIFY_IDENTITY</text><text x="296" y="218" class="small">加密 + 验证服务端</text>
+  <rect x="516" y="126" width="188" height="112" class="box"/>
+  <text x="536" y="158" class="head">账号认证</text><text x="536" y="190">用户名 + 来源</text><text x="536" y="218" class="small">核对 CURRENT_USER()</text>
+  <rect x="756" y="126" width="328" height="112" class="focus"/>
+  <text x="776" y="158" class="head">角色与对象授权</text><text x="776" y="190">support_read → SELECT(id, status)</text><text x="776" y="218" class="small">先授予角色，再按会话激活</text>
+  <path d="M836 238V294" class="line"/>
+  <rect x="36" y="294" width="668" height="120" class="box"/>
+  <text x="56" y="326" class="head">应用仍需检查</text>
+  <text x="56" y="358">当前客服能否查看这家店？订单是否允许从 PENDING 改到 PROCESSING？</text>
+  <text x="56" y="390" class="small">列级授权没有自动实现租户行隔离，也没有实现完整业务状态机。</text>
+  <rect x="756" y="294" width="328" height="120" class="box"/>
+  <text x="776" y="326" class="head">默认只读的结果</text>
+  <text x="776" y="358">允许：订单编号、状态</text><text x="776" y="390">拒绝：金额、手机号、修改、删表</text>
+  <text x="36" y="466" class="small">临时角色已授予就能自行激活；真正限时授权须由管理员授予、到期回收并检查旧连接。</text>
+  <text x="36" y="496" class="small">传输加密不代替存储加密；存储加密也不阻止正常获授权的查询读取明文。</text>
+</svg>

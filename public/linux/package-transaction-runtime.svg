@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="package-title package-desc">
+<title id="package-title">软件包安装与运行升级的不同阶段</title>
+<desc id="package-desc">可信仓库提供签名元数据与包，解析器生成依赖计划，安装事务更新文件与包数据库；运行服务仍需按维护策略重启并验证业务，包降级不能自动撤销数据迁移。</desc>
+<defs><marker id="package-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#package-arrow)}</style></defs>
+<rect width="1120" height="600" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">磁盘上的库已更新，订单服务仍可能使用旧映射</text>
+<text class="b" x="36" y="82">刷新索引、安装事务、运行升级，分别记录来源、状态和验收结果。</text>
+<path class="edge" d="M324 206H416"/><path class="edge" d="M704 206H800"/>
+<path class="edge" d="M942 278V402Q942 410 934 410H704"/>
+<path class="edge" d="M416 410H324"/>
+<rect class="box" x="36" y="134" width="288" height="144" rx="6"/>
+<text class="n" x="54" y="170">可信仓库与索引</text><text class="b" x="54" y="208">来源、签名、版本与架构</text><text class="b" x="54" y="242">刷新索引不等于升级软件</text>
+<rect class="box" x="416" y="134" width="288" height="144" rx="6"/>
+<text class="n" x="434" y="170">依赖计划</text><text class="b" x="434" y="208">候选版本 / 增加 / 删除</text><text class="b" x="434" y="242">先模拟并核对影响范围</text>
+<rect x="800" y="134" width="284" height="144" rx="6" fill="#eff5fc" stroke="#a4b9cc" stroke-width="1.5"/>
+<text class="n" x="818" y="170">安装事务</text><text class="b" x="818" y="208">校验、解包、维护脚本</text><text class="b" x="818" y="242">更新磁盘与包数据库</text>
+<rect x="416" y="338" width="288" height="144" rx="6" fill="#e7f3ef" stroke="#69978c" stroke-width="1.5"/>
+<text class="n" x="434" y="374">运行服务升级</text><text class="b" x="434" y="412">排空、重启或维护重启</text><text class="b" x="434" y="446">确认实际版本与库映射</text>
+<rect class="box" x="36" y="338" width="288" height="144" rx="6"/>
+<text class="n" x="54" y="374">业务验收</text><text class="b" x="54" y="412">健康、真实请求与错误率</text><text class="b" x="54" y="446">失败按预案恢复再验证</text>
+<text class="b" x="36" y="550">回退还依赖旧包、配置与数据兼容；包降级或历史 undo 不自动撤销数据库迁移和脚本副作用。</text>
+</svg>

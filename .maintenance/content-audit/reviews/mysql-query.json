@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/query-optimization.md",
+      "status": "verified",
+      "reviewedHash": "1d5fb9c48a2c54f48562ae28c1aad301f42be03a0a91698abcdd6fd6ceb4952b",
+      "pageType": "查询等价性、订单分页与执行计划实操",
+      "decision": "完整阅读旧3529行，重写为买家订单分页及商品/包裹分别聚合。修先分页再过滤、双一对多重复SUM、SUM DISTINCT误修、同时间游标漏单、跨月/NULL边界、WHERE/HAVING混淆、cost当毫秒、filesort等于落盘、EXPLAIN id时间轴、旧查询缓存/BNL菜单、WHERE顺序及NOT/OR禁止词、无依据固定性能数字等。补业务一致性、计划解释、采样增量、缓存失效与验收边界，新增基数关系SVG。",
+      "validation": [
+        "Oracle8.4 EXPLAIN官方浏览器核对TREE/ANALYZE实际执行/多loop均值及包含子节点。临时脚本/tmp/blog-mysql-query-check.mjs在8.4.11执行全部9个SQL围栏，10007订单验证范围等价、页104/103及102/101、扫描到反向索引范围、错误关联100与正确50、零明细保留、同价SUM DISTINCT反例、NULL/EXISTS/HAVING/先过滤后分页边界。ANALYZE JSON返回1235，不外推生产吞吐或延迟",
+        "xmllint与浏览器全部中文文字画布边界通过；补主页面集合直连最终LEFT JOIN后重新截图核对。生产构建19.70秒，1280桌面、实际390×844手机亮深色、代码横向滚动、图片放大/原尺寸/关闭通过，无破图/全页横向溢出/客户端error日志；viewport reset"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "ai-domain-map",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "vision-coordinate-contract",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "nlp-evidence-contract",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "multimodal-evidence-alignment",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "recommendation-feedback-boundaries",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "rl-state-action-loop",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "speech-runtime-contract",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "time-series-backtest",
+    "mode": "desktop",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  }
+]

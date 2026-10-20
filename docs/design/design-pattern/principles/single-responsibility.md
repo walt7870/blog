@@ -34,6 +34,8 @@
 
 问题代码：
 
+以下是结构片段，`Order` 等业务类型以及持久化实现省略。它展示职责位置，不表示数据库写入、通知和审计已经具备原子性。
+
 ```java
 public class OrderService {
     public void create(OrderCommand command) {
@@ -56,6 +58,16 @@ public class OrderApplicationService {
     private final OrderCreatedNotifier notifier;
     private final AuditLogger auditLogger;
 
+    public OrderApplicationService(OrderValidator validator,
+            PriceCalculator priceCalculator, OrderRepository orderRepository,
+            OrderCreatedNotifier notifier, AuditLogger auditLogger) {
+        this.validator = validator;
+        this.priceCalculator = priceCalculator;
+        this.orderRepository = orderRepository;
+        this.notifier = notifier;
+        this.auditLogger = auditLogger;
+    }
+
     public void create(OrderCommand command) {
         validator.validate(command);
         BigDecimal amount = priceCalculator.calculate(command);
@@ -67,6 +79,8 @@ public class OrderApplicationService {
 ```
 
 拆分后不是方法更少，而是变化更清楚：价格规则改 `PriceCalculator`，通知模板改 `OrderCreatedNotifier`，审计字段改 `AuditLogger`。
+
+流程编排本身也是职责，不必把应用服务拆空。若通知失败不能撤销已创建订单，应把订单与待发送事件在本地事务中提交，再异步通知；需要与业务变更一起保存的审计记录也应进入相应事务。单一职责负责组织代码，可靠交付由[事务与事件机制](../../architecture/event-driven-architecture.md)保证。
 
 ## 落地步骤
 

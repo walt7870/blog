@@ -1,10 +1,8 @@
 # 进程池与 CPU 密集任务：什么时候绕开线程
 
 > 对应视频：EP09《进程池与 CPU 密集任务》  
-> 视频入口：[B站 EP09 定时稿](https://www.bilibili.com/video/BV1QEu76xEFi)（计划公开：2026-08-13 18:49）。
+> 视频入口：[B站 EP09](https://www.bilibili.com/video/BV1QEu76xEFi)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
 
 视频解释进程池为什么适合一部分 CPU 密集任务。文章补充成本判断、任务粒度和音频处理里的边界。
 
@@ -22,30 +20,6 @@
 | 每个任务耗时足够长吗 | 能覆盖调度和序列化开销 |
 | 是否需要共享巨大模型或缓存 | 小心内存放大 |
 
-## 最小模板
-
-```python
-from concurrent.futures import ProcessPoolExecutor
-
-
-def cpu_heavy(n: int) -> int:
-    total = 0
-    for value in range(n):
-        total += value * value
-    return total
-
-
-def main() -> None:
-    inputs = [500_000, 600_000, 700_000, 800_000]
-    with ProcessPoolExecutor(max_workers=4) as pool:
-        for result in pool.map(cpu_heavy, inputs):
-            print(result)
-
-
-if __name__ == "__main__":
-    main()
-```
-
 ## 和音频处理的关系
 
 | 音频任务 | 推荐方向 | 原因 |
@@ -56,36 +30,11 @@ if __name__ == "__main__":
 | PyTorch 推理 | GPU 队列或 batch | 瓶颈可能在 GPU/显存 |
 | 大模型重复加载 | 谨慎多进程 | 内存可能放大 |
 
+## 启动方式与示例输出
 
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
+下方显式使用spawn上下文，以便在Linux、macOS和Windows上讲解相同的模块导入边界。入口必须放在__main__守卫内，worker函数位于模块顶层；在交互式终端定义的函数可能无法被子进程导入。Python3.14中默认启动方式发生变化，不应依赖旧的隐式fork行为。
 
-**读图方式**
-
-- 进程池适合大粒度 CPU 任务，任务太小时，序列化和调度成本可能比计算本身还高。
-- 如果每个进程都加载大模型或大缓存，RSS 会被放大，机器可能先被内存打满。
-- 音频特征提取、波形计算、CPU 转码前处理可以试进程池；GPU 推理通常要谨慎。
-
-**排查路径**
-
-- 先用 `cProfile` 或 `py-spy` 确认瓶颈真在 CPU 计算，而不是磁盘或 API 等待。
-- 比较不同 `max_workers` 和 `chunksize`，记录吞吐、CPU util、RSS 和单任务耗时。
-- 如果 worker 启动慢，考虑 initializer 预加载；如果参数太大，考虑传路径而不是传大对象。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 小任务提交特别多 | 单任务耗时、pickle 时间 | 合并任务或设置 `chunksize` |
-| 内存突然翻倍 | 每进程 RSS、模型加载次数 | 减少 worker、共享只读文件或预加载策略 |
-| CPU 没跑满 | 磁盘 util、输入读取耗时 | 先优化 I/O 或批量读取 |
-| 结果回传很慢 | 返回对象大小 | 结果落盘传路径，避免大对象跨进程 |
-
-**落地边界**
-
-- 进程池不是线程池的高级版，它是为 CPU 密集和隔离准备的。
-- 生产环境要考虑进程退出、异常重启和中间结果恢复。
-<!-- concurrency-series-engineering-supplement:end -->
+四项结果应依次为41666541666750000、71999820000100000、114333088333450000、170666346666800000。map按输入顺序返回，因此一个慢任务可能阻止后面的已完成结果被消费；需要完成即处理时使用as_completed。这个小例子验证结果，不能用一次运行证明多进程更快。
 
 ## 常见失败模式
 
@@ -110,13 +59,13 @@ if __name__ == "__main__":
 - 能说出进程池的启动、序列化和内存成本。
 - 能为音频转码、特征提取、本地推理选择不同执行模型。
 
-## 配套示例代码
+## 运行示例
 
-源码文件：`examples/ep09/processpool_cpu_template.py`
+示例保存为`examples/ep09/processpool_cpu_template.py`；目录和文件名由本地自行创建。
 
 ```python
 from concurrent.futures import ProcessPoolExecutor
-
+from multiprocessing import get_context
 
 def cpu_heavy(n: int) -> int:
     total = 0
@@ -124,13 +73,11 @@ def cpu_heavy(n: int) -> int:
         total += value * value
     return total
 
-
 def main() -> None:
     inputs = [500_000, 600_000, 700_000, 800_000]
-    with ProcessPoolExecutor(max_workers=4) as pool:
+    with ProcessPoolExecutor(max_workers=4, mp_context=get_context("spawn")) as pool:
         for result in pool.map(cpu_heavy, inputs):
             print(result)
-
 
 if __name__ == "__main__":
     main()

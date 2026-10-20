@@ -1,467 +1,135 @@
-# Apache Spark 详解
+# Apache Spark 执行与订单批处理
 
-## 概述
+订单数据库不适合在交易高峰扫描几年的明细生成报表。把已提交的订单变更落到原始存储，Spark读取确定范围的数据、按业务规则去重，再关联维度并汇总，是常见的离线处理路径。它负责分布式计算，数据持久化、任务依赖和发布验收仍需要存储、调度器与数据合同配合。
 
-Apache Spark 是一个开源的分布式计算框架，专为大规模数据处理而设计。它提供了比传统 MapReduce 更快的内存计算能力，支持批处理、流处理、机器学习和图计算等多种工作负载。
+本文以 **Spark 4.0.1、PySpark和Java 17** 为练习基线。本地模式便于验证语义，不能证明多节点吞吐、网络故障恢复或生产连接器兼容性。升级3.x应用时同时检查Java/Python版本、ANSI SQL行为、时间解析和连接器的Scala二进制版本。
 
-## Spark 架构
+## 谁申请资源，谁执行任务
 
-### 核心架构组件
+![Spark Driver 与 Executor 执行边界](/bigdata/spark-execution-boundaries.svg)
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                  Spark 架构图                           │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  Driver Program                                         │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │              SparkContext                       │   │
-│  │  ┌─────────────┐  ┌─────────────┐              │   │
-│  │  │    DAG      │  │  Task       │              │   │
-│  │  │  Scheduler  │  │ Scheduler   │              │   │
-│  │  └─────────────┘  └─────────────┘              │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  Cluster Manager                                        │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │  Standalone / YARN / Mesos / Kubernetes        │   │
-│  └─────────────────────────────────────────────────┘   │
-│                           │                             │
-│                           ▼                             │
-│  Worker Nodes                                           │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐   │
-│  │   Executor  │  │   Executor  │  │   Executor  │   │
-│  │  ┌───────┐  │  │  ┌───────┐  │  │  ┌───────┐  │   │
-│  │  │ Task  │  │  │  │ Task  │  │  │  │ Task  │  │   │
-│  │  └───────┘  │  │  └───────┘  │  │  └───────┘  │   │
-│  │  ┌───────┐  │  │  ┌───────┐  │  │  ┌───────┐  │   │
-│  │  │ Cache │  │  │  │ Cache │  │  │  │ Cache │  │   │
-│  │  └───────┘  │  │  └───────┘  │  │  └───────┘  │   │
-│  └─────────────┘  └─────────────┘  └─────────────┘   │
-└─────────────────────────────────────────────────────────┘
-```
+Driver运行主程序，创建SparkSession、构建计划并调度Task。集群管理器负责为应用分配Executor资源，**Task由Driver直接调度给Executor**，不是每次经由集群管理器转发。Executor执行分区计算，保存应用缓存、Shuffle数据并反馈状态。Standalone、YARN和Kubernetes是不同的资源管理选择；不沿用已经移除的Mesos部署路径。
 
-### 组件说明
+`client`与`cluster`部署模式决定Driver在哪里运行，不决定数据是否分布式。client模式的提交进程结束或网络不可达会影响Driver；cluster模式由集群运行Driver，但不自动解决业务输出的重复提交。生产Driver UI、History Server、资源管理与存储入口需要权限控制，不能把4040端口公开当监控方案。
 
-1. **Driver Program**
-   - 包含应用程序的 main 函数
-   - 创建 SparkContext
-   - 定义 RDD 和操作
-   - 调度任务到集群
+## 从惰性计划到 Shuffle
 
-2. **SparkContext**
-   - Spark 应用程序的入口点
-   - 连接到集群管理器
-   - 获取 Executor
-   - 发送应用代码到 Executor
+DataFrame描述有字段的分布式数据及其计算计划。`select/filter/withColumn`通常先构建计划，`count/show/write`等Action才触发执行。一个应用可以有多个Job，Job按依赖拆成Stage，Stage中的Task处理分区；不能把“一行代码”当成“一个节点上的一个任务”。
 
-3. **Cluster Manager**
-   - 负责资源分配
-   - 支持多种模式：Standalone、YARN、Mesos、Kubernetes
+SQL/DataFrame可以由Catalyst优化并生成执行代码；RDD保留更底层的分区变换能力。Scala/Java的Dataset提供编码器与类型化API，PySpark没有同样的类型化Dataset接口。Parquet、JSON、JDBC等有内置入口；Kafka、湖仓表和其他数据库常需要额外连接器，不能假定一个`format`名称就代表依赖已经齐全。
 
-4. **Executor**
-   - 运行在 Worker 节点上的进程
-   - 执行任务
-   - 存储数据在内存或磁盘
+![Spark 订单版本去重与汇总的 Shuffle](/bigdata/spark-order-shuffle.svg)
 
-## 核心概念
+过滤本地记录通常不需要重新分布数据；按订单号求最新版本、按日期汇总或大表关联，往往需要按键交换数据，即Shuffle。它会产生网络、序列化、磁盘与合并成本，但并非应当一律避免：正确地聚合同一订单的所有版本，通常就需要把相关数据汇到一起。
 
-### 1. RDD (Resilient Distributed Dataset)
+## 可运行的订单日报
 
-**特性：**
-- **弹性**：自动容错和恢复
-- **分布式**：数据分布在集群中
-- **不可变**：创建后不能修改
-- **惰性求值**：只有在 Action 操作时才计算
+准备Java17和独立Python环境后安装`pyspark==4.0.1`，把下面完整程序放在`order_daily.py`，用相同环境的`spark-submit --master 'local[2]' order_daily.py`运行。JAVA_HOME指向实际JDK安装目录；`local[2]`是两个本地执行线程，不是两个远程Executor。
 
-**RDD 操作类型：**
+练习输入7条变更：102版本2重复一次，104从paid变成cancelled。指标定义为**按当前有效订单状态，统计下单业务日期上的已支付订单金额**，不是支付流水或财务结算。时区为Asia/Shanghai；同一业务键同一版本内容必须相同，冲突时停止而不是随机选一条。
 
-1. **Transformation（转换操作）**
-   ```scala
-   // 示例
-   val rdd1 = sc.textFile("input.txt")
-   val rdd2 = rdd1.filter(_.contains("error"))
-   val rdd3 = rdd2.map(_.toUpperCase)
-   ```
+```python
+from pathlib import Path
+from tempfile import mkdtemp
+from pyspark.sql import SparkSession, Window, functions as F
 
-2. **Action（行动操作）**
-   ```scala
-   // 示例
-   val count = rdd3.count()
-   val results = rdd3.collect()
-   rdd3.saveAsTextFile("output")
-   ```
+spark = (SparkSession.builder.appName("order-daily-lab")
+         .config("spark.sql.session.timeZone", "Asia/Shanghai")
+         .config("spark.sql.shuffle.partitions", "4")
+         .getOrCreate())
+spark.sparkContext.setLogLevel("WARN")
+work = Path(mkdtemp(prefix="spark-order-lab-"))
 
-### 2. DataFrame 和 Dataset
+try:
+    schema = "tenantId string, orderId string, version long, status string, amountCents long, createdAt string"
+    rows = [
+        ("t1", "101", 1, "paid", 5000, "2026-10-19T01:00:00Z"),
+        ("t1", "102", 1, "pending", 3000, "2026-10-19T02:00:00Z"),
+        ("t1", "102", 2, "paid", 3000, "2026-10-19T02:00:00Z"),
+        ("t1", "102", 2, "paid", 3000, "2026-10-19T02:00:00Z"),
+        ("t1", "103", 1, "paid", 3990, "2026-10-19T20:00:00Z"),
+        ("t1", "104", 1, "paid", 2000, "2026-10-19T20:00:00Z"),
+        ("t1", "104", 2, "cancelled", 2000, "2026-10-19T20:00:00Z"),
+    ]
+    raw = spark.createDataFrame(rows, schema)
+    invalid = raw.filter(
+        F.col("tenantId").isNull() | F.col("orderId").isNull()
+        | F.col("version").isNull() | (F.col("version") < 1)
+        | F.col("amountCents").isNull() | (F.col("amountCents") < 0)
+        | F.col("status").isNull()
+        | ~F.col("status").isin("pending", "paid", "cancelled")
+        | F.col("createdAt").isNull()
+    )
+    if invalid.limit(1).count():
+        raise ValueError("订单输入不满足字段合同")
+    conflicts = (raw.groupBy("tenantId", "orderId", "version")
+                 .agg(F.countDistinct(F.struct("status", "amountCents", "createdAt"))
+                      .alias("variants"))
+                 .filter("variants > 1"))
+    if conflicts.limit(1).count():
+        raise ValueError("同一订单版本出现不同内容")
 
-**DataFrame：**
-- 结构化数据抽象
-- 类似关系型数据库的表
-- 支持 SQL 查询
-- 优化的执行引擎
+    latest_window = Window.partitionBy("tenantId", "orderId").orderBy(F.desc("version"))
+    latest = (raw.dropDuplicates()
+              .withColumn("rn", F.row_number().over(latest_window))
+              .filter("rn = 1").drop("rn"))
+    daily = (latest.filter(F.col("status") == "paid")
+             .withColumn("bizDate", F.to_date(F.to_timestamp("createdAt")))
+             .groupBy("tenantId", "bizDate")
+             .agg(F.count("*").alias("orders"), F.sum("amountCents").alias("amountCents")))
+    daily.explain(mode="formatted")
+    daily.orderBy("tenantId", "bizDate").show()
 
-```scala
-// DataFrame 示例
-val df = spark.read.json("people.json")
-df.select("name", "age").filter($"age" > 21).show()
-
-// SQL 查询
-df.createOrReplaceTempView("people")
-spark.sql("SELECT name, age FROM people WHERE age > 21").show()
+    output = str(work / "daily")
+    daily.write.mode("errorifexists").partitionBy("bizDate").parquet(output)
+    restored = spark.read.parquet(output)
+    actual = {(str(r.bizDate), r.orders, r.amountCents) for r in restored.collect()}
+    assert actual == {("2026-10-19", 2, 8000), ("2026-10-20", 1, 3990)}
+    print("日报校验通过：3单，11990分；输出目录：", output)
+finally:
+    spark.stop()
 ```
 
-**Dataset：**
-- 类型安全的 DataFrame
-- 编译时类型检查
-- 结合了 RDD 和 DataFrame 的优点
+7条变更收敛成4单，最终3单paid，共11990分。103在UTC的19日20点下单，属于北京时间20日。先筛paid再取最新版本会让104的取消消失，错误保留旧paid；直接对原始paid事件求和还会重复计算102。程序里的`collect()`只用于两个结果行的练习校验，不能用于把海量明细全部搬到Driver。
 
-```scala
-// Dataset 示例
-case class Person(name: String, age: Int)
-val ds = spark.read.json("people.json").as[Person]
-ds.filter(_.age > 21).map(_.name).show()
-```
+严格时间解析异常应使批次失败或进入隔离区；生产可以用`try_to_timestamp`识别坏时间后显式处理，不能让null日期悄悄进入默认分区。输入合同还要约束空白业务键、合法状态迁移、删除事件和源记录版本的完整性。只读某天的增量文件不一定包含所有订单最新状态，需要已有状态表或湖仓upsert机制配合。
 
-### 3. Spark SQL
+## 执行成功以后怎样发布
 
-**特性：**
-- 支持标准 SQL
-- 多数据源支持
-- 查询优化器（Catalyst）
-- 代码生成
+练习写入新临时目录，不覆盖生产数据。真实日报记录源快照/位点、任务版本、业务日期与运行号，写到独立候选版本，检查去重数、金额和分区范围，再发布。失败重试不能无条件append到已有日报，也不应对整张表直接overwrite。
 
-**数据源支持：**
-- JSON、Parquet、ORC
-- Hive、JDBC
-- Cassandra、HBase
-- Kafka、Elasticsearch
+HDFS的目录重命名、对象存储的文件提交、Iceberg/Delta/Hudi的表事务是不同的发布机制。湖仓表需要对应Catalog、连接器和提交协议，单纯写一批Parquet文件不会自动获得多写者事务。分区覆盖也要限制影响范围；删除或纠正导致空分区时，必须明确旧结果怎样移除。
 
-```scala
-// 多数据源示例
-val jdbcDF = spark.read
-  .format("jdbc")
-  .option("url", "jdbc:postgresql:dbserver")
-  .option("dbtable", "schema.tablename")
-  .option("user", "username")
-  .option("password", "password")
-  .load()
+Task失败可按血缘重算丢失分区，但不能自动撤销对外发信、扣款或JDBC逐行写入。在`foreachPartition`中访问外部系统要设计稳定业务键、批量提交、幂等与失败恢复；Task重试和推测执行可能重复触发副作用。累加器适合诊断，不作为准确结算计数器。
 
-val parquetDF = spark.read.parquet("path/to/file.parquet")
-```
+## 根据计划和运行数据调优
 
-## Spark 生态系统
+先在Spark UI的SQL/Stages中定位耗时Stage，再比较Task输入量、Shuffle读写、spill、GC和长尾。一个Task处理了大部分热门用户的数据，增加Executor数量也不会自动拆开那个键；空分区很多时盲增并行度反而增加调度成本。
 
-### 1. Spark Streaming
+| 现象 | 判断入口 | 对应处理与边界 |
+| --- | --- | --- |
+| 大量小Task | 输入文件大小、任务启动耗时、分区数 | 合并小文件、调整读分区；不强行`coalesce(1)`制造单点 |
+| 一个Task特别慢 | 键分布、Shuffle分区行数与spill | 评估预聚合、AQE倾斜Join、热点拆分；随机加盐后必须按原键再聚合 |
+| Driver内存不足 | collect/toPandas、本地大列表、任务元数据 | 分布式输出或有界采样，不靠增加Executor内存修Driver问题 |
+| Executor被杀 | 堆、off-heap、Python进程、容器上限与memoryOverhead | 一起核算容器预算，不能把executor.memory当全部进程内存 |
+| 广播关联失败 | 实际维表大小、统计信息、超时与并发 | 小表才评估broadcast；Hint不是容量保证 |
+| 缓存无收益 | 是否重复使用、Storage占用、重算/读取成本 | 多次复用昂贵中间结果才persist，并及时unpersist |
 
-**特性：**
-- 微批处理模型
-- 容错性
-- 与批处理 API 统一
+`groupByKey`后把分区所有值拉成列表、或在Python的`mapPartitions`中对整个迭代器做无界分组，都可能放大内存。求和优先考虑能做局部合并的聚合；平均数加盐拆分后保留sum/count，再按原键合并，不能直接平均各盐桶的均值。
 
-```scala
-// Spark Streaming 示例
-val ssc = new StreamingContext(sc, Seconds(1))
-val lines = ssc.socketTextStream("localhost", 9999)
-val words = lines.flatMap(_.split(" "))
-val wordCounts = words.map(x => (x, 1)).reduceByKey(_ + _)
-wordCounts.print()
-ssc.start()
-ssc.awaitTermination()
-```
+AQE默认开启并能利用运行时统计合并部分Shuffle分区、调整Join策略，但不是所有算子都可自动消除倾斜。输入分区、Shuffle分区和输出文件数量是三个相关但不同的控制点；示例的4个Shuffle分区只适合小样本。旧的`spark.executor.memoryFraction`、`spark.storage.memoryFraction`和固定“每个Executor多少核”的模板不应直接沿用。
 
-### 2. Structured Streaming
+## 流处理与部署边界
 
-**特性：**
-- 真正的流处理
-- 事件时间处理
-- 端到端一致性保证
+Structured Streaming复用DataFrame/SQL模型，默认主要以微批处理执行；不能简单称为“真正流式，所以没有批”。检查点记录进度与状态，端到端恰好一次还依赖可重放源和支持正确提交协议的sink。`foreachBatch`的外部写入通常要用batchId或业务键实现幂等；连续处理模式的算子和交付语义另有限制。DStream/Spark Streaming属于旧API，维护已有任务时再按对应版本处理。
 
-```scala
-// Structured Streaming 示例
-val df = spark
-  .readStream
-  .format("kafka")
-  .option("kafka.bootstrap.servers", "host1:port1,host2:port2")
-  .option("subscribe", "topic1")
-  .load()
+| 位置 | 应当核对 |
+| --- | --- |
+| 提交端 | spark-submit与运行包版本、Python依赖、连接器坐标、配置与凭据注入 |
+| Driver | 可被Executor访问的地址、资源预算、重启策略、UI和日志权限 |
+| Executor | 输入/输出存储权限、运行环境一致性、磁盘/网络/容器内存 |
+| 历史记录 | event log持久化、History Server权限、日志保留与敏感数据控制 |
 
-val query = df.writeStream
-  .outputMode("append")
-  .format("console")
-  .start()
+Standalone使用当前的`start-worker.sh`入口；YARN和Kubernetes要按实际队列、命名空间与服务身份提交，不能拿一个`latest`镜像和不存在的示例JAR当部署闭环。Spark4使用Log4j2配置体系，不再复制旧Log4j1的`log4j.properties`模板。
 
-query.awaitTermination()
-```
-
-### 3. MLlib (Machine Learning)
-
-**功能模块：**
-- 分类和回归
-- 聚类
-- 协同过滤
-- 特征提取和转换
-- 模型评估
-
-```scala
-// MLlib 示例
-import org.apache.spark.ml.classification.LogisticRegression
-import org.apache.spark.ml.feature.VectorAssembler
-
-// 特征工程
-val assembler = new VectorAssembler()
-  .setInputCols(Array("feature1", "feature2", "feature3"))
-  .setOutputCol("features")
-
-val featureDF = assembler.transform(rawDF)
-
-// 训练模型
-val lr = new LogisticRegression()
-  .setLabelCol("label")
-  .setFeaturesCol("features")
-
-val model = lr.fit(featureDF)
-
-// 预测
-val predictions = model.transform(testDF)
-```
-
-### 4. GraphX (图计算)
-
-**特性：**
-- 图数据结构
-- 图算法库
-- 图并行计算
-
-```scala
-// GraphX 示例
-import org.apache.spark.graphx._
-
-// 创建图
-val vertices = sc.parallelize(Array((1L, "Alice"), (2L, "Bob")))
-val edges = sc.parallelize(Array(Edge(1L, 2L, "friend")))
-val graph = Graph(vertices, edges)
-
-// PageRank 算法
-val ranks = graph.pageRank(0.0001).vertices
-```
-
-## 性能优化
-
-### 1. 内存管理
-
-**存储级别：**
-```scala
-// 不同的存储级别
-rdd.persist(StorageLevel.MEMORY_ONLY)
-rdd.persist(StorageLevel.MEMORY_AND_DISK)
-rdd.persist(StorageLevel.MEMORY_ONLY_SER)
-rdd.persist(StorageLevel.DISK_ONLY)
-```
-
-**内存配置：**
-```bash
-# 执行内存配置
-spark.executor.memory=4g
-spark.executor.memoryFraction=0.8
-spark.storage.memoryFraction=0.6
-```
-
-### 2. 并行度调优
-
-```scala
-// 设置分区数
-val rdd = sc.textFile("input.txt", minPartitions = 100)
-
-// 重新分区
-val repartitionedRDD = rdd.repartition(200)
-val coalescedRDD = rdd.coalesce(50)
-```
-
-### 3. 数据倾斜处理
-
-**解决方案：**
-1. **加盐技术**
-   ```scala
-   // 为 key 添加随机前缀
-   val saltedRDD = rdd.map { case (key, value) =>
-     val salt = Random.nextInt(100)
-     (s"${salt}_${key}", value)
-   }
-   ```
-
-2. **预聚合**
-   ```scala
-   // 先进行局部聚合
-   val preAggregated = rdd.mapPartitions { iter =>
-     iter.groupBy(_._1).map { case (key, values) =>
-       (key, values.map(_._2).sum)
-     }.iterator
-   }
-   ```
-
-### 4. 广播变量和累加器
-
-```scala
-// 广播变量
-val broadcastVar = sc.broadcast(Array(1, 2, 3))
-val result = rdd.map(x => x * broadcastVar.value.sum)
-
-// 累加器
-val accum = sc.longAccumulator("My Accumulator")
-rdd.foreach(x => accum.add(x))
-println(accum.value)
-```
-
-## 部署模式
-
-### 1. Standalone 模式
-
-```bash
-# 启动 Master
-./sbin/start-master.sh
-
-# 启动 Worker
-./sbin/start-slave.sh spark://master:7077
-
-# 提交应用
-./bin/spark-submit \
-  --class MyApp \
-  --master spark://master:7077 \
-  --executor-memory 2g \
-  --total-executor-cores 4 \
-  myapp.jar
-```
-
-### 2. YARN 模式
-
-```bash
-# Cluster 模式
-./bin/spark-submit \
-  --class MyApp \
-  --master yarn \
-  --deploy-mode cluster \
-  --executor-memory 2g \
-  --num-executors 10 \
-  myapp.jar
-
-# Client 模式
-./bin/spark-submit \
-  --class MyApp \
-  --master yarn \
-  --deploy-mode client \
-  --executor-memory 2g \
-  --num-executors 10 \
-  myapp.jar
-```
-
-### 3. Kubernetes 模式
-
-```bash
-# K8s 部署
-./bin/spark-submit \
-  --master k8s://https://kubernetes-api-server:443 \
-  --deploy-mode cluster \
-  --name spark-pi \
-  --class org.apache.spark.examples.SparkPi \
-  --conf spark.executor.instances=2 \
-  --conf spark.kubernetes.container.image=spark:latest \
-  local:///opt/spark/examples/jars/spark-examples.jar
-```
-
-## 监控和调试
-
-### 1. Spark UI
-
-**主要功能：**
-- Jobs 监控
-- Stages 详情
-- Storage 使用情况
-- Executors 状态
-- SQL 查询计划
-
-**访问地址：**
-- Driver UI: http://driver:4040
-- History Server: http://history-server:18080
-
-### 2. 日志配置
-
-```properties
-# log4j.properties
-log4j.rootCategory=INFO, console
-log4j.appender.console=org.apache.log4j.ConsoleAppender
-log4j.appender.console.target=System.err
-log4j.appender.console.layout=org.apache.log4j.PatternLayout
-log4j.appender.console.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c{1}: %m%n
-
-# 设置特定包的日志级别
-log4j.logger.org.apache.spark.repl.Main=WARN
-log4j.logger.org.spark_project.jetty=WARN
-```
-
-### 3. 性能调优工具
-
-**常用工具：**
-- Spark History Server
-- Ganglia
-- Grafana + Prometheus
-- Dr. Elephant
-
-## 最佳实践
-
-### 1. 开发建议
-
-1. **选择合适的数据结构**
-   - 结构化数据使用 DataFrame/Dataset
-   - 非结构化数据使用 RDD
-
-2. **避免 Shuffle 操作**
-   ```scala
-   // 避免
-   rdd.groupByKey().mapValues(_.sum)
-   
-   // 推荐
-   rdd.reduceByKey(_ + _)
-   ```
-
-3. **合理使用缓存**
-   ```scala
-   // 多次使用的 RDD 进行缓存
-   val cachedRDD = rdd.filter(_.contains("error")).cache()
-   cachedRDD.count()
-   cachedRDD.collect()
-   ```
-
-### 2. 生产环境配置
-
-```bash
-# 推荐配置
-spark.sql.adaptive.enabled=true
-spark.sql.adaptive.coalescePartitions.enabled=true
-spark.sql.adaptive.skewJoin.enabled=true
-spark.serializer=org.apache.spark.serializer.KryoSerializer
-spark.sql.execution.arrow.pyspark.enabled=true
-```
-
-### 3. 资源规划
-
-**内存规划：**
-- Executor 内存 = 堆内存 + 堆外内存
-- 堆内存 = 存储内存 + 执行内存 + 其他内存
-- 建议 Executor 内存不超过 64GB
-
-**CPU 规划：**
-- 每个 Executor 2-5 个 CPU 核心
-- 避免单个 Executor 占用过多资源
-
-## 总结
-
-Apache Spark 作为现代大数据处理的核心框架，具有以下优势：
-
-1. **统一的计算引擎**：支持批处理、流处理、机器学习和图计算
-2. **高性能**：内存计算和优化的执行引擎
-3. **易用性**：丰富的 API 和 SQL 支持
-4. **容错性**：自动故障恢复机制
-5. **可扩展性**：支持从单机到数千节点的集群
-
-掌握 Spark 的核心概念和最佳实践，对于构建高效的大数据处理系统至关重要。随着技术的不断发展，Spark 也在持续演进，向着更加智能化和自动化的方向发展。
+验收应先重放同一输入得到相同结果，再加入重复版本、冲突版本、取消、跨日和坏时间数据，验证去重与失败边界。之后才用真实数据量评估倾斜、Shuffle、存储提交和多节点恢复；本地小样本正确与生产任务可恢复需要分别证明。

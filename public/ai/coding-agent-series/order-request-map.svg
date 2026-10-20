@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="order-request-map-title order-request-map-desc">
+  <title id="order-request-map-title">订单取消示例的调用关系</title>
+  <desc id="order-request-map-desc">HTTP 进入 Controller，由 Service 查询 Repository，再由 Order 判断状态；异常由 Advice 分别映射为 404 和 409。内存查询与保存不构成原子事务。</desc>
+  <defs><marker id="order-request-map-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="#64748b"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a;letter-spacing:0}.title{font-size:26px;font-weight:700}.h{font-size:19px;font-weight:700}.b{font-size:16px;fill:#475569}.box{fill:white;stroke:#cbd5e1;stroke-width:1.5}.core{fill:#ecfdf5;stroke:#0f766e;stroke-width:2}.line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#order-request-map-arrow)}</style></defs>
+  <rect width="1120" height="500" fill="#f8fafc"/>
+  <text class="title" x="40" y="48">取消订单：协议适配、用例编排与状态判断</text>
+  <path class="line" d="M280 175H380"/><path class="line" d="M620 165H770"/>
+  <path class="line" d="M500 230V285"/>
+  <rect class="box" x="40" y="120" width="240" height="110" rx="6"/>
+  <text class="h" x="160" y="157" text-anchor="middle">OrderController</text><text class="b" x="160" y="188" text-anchor="middle">UUID、路由、响应</text><text class="b" x="160" y="212" text-anchor="middle">POST /{id}/cancel</text>
+  <rect class="core" x="380" y="120" width="240" height="110" rx="6"/>
+  <text class="h" x="500" y="158" text-anchor="middle">OrderService.cancel</text><text class="b" x="500" y="188" text-anchor="middle">查询、调用领域、按需保存</text>
+  <rect class="box" x="770" y="120" width="300" height="110" rx="6"/>
+  <text class="h" x="920" y="158" text-anchor="middle">OrderRepository</text><text class="b" x="920" y="188" text-anchor="middle">findById / save</text><text class="b" x="920" y="212" text-anchor="middle">实现：ConcurrentHashMap</text>
+  <rect class="box" x="380" y="285" width="240" height="110" rx="6"/>
+  <text class="h" x="500" y="323" text-anchor="middle">Order.cancel</text><text class="b" x="500" y="353" text-anchor="middle">状态规则与不可变副本</text><text class="b" x="500" y="378" text-anchor="middle">不依赖 HTTP 或存储</text>
+  <rect class="box" x="40" y="285" width="240" height="110" rx="6"/>
+  <text class="h" x="160" y="323" text-anchor="middle">Review 重点</text><text class="b" x="160" y="353" text-anchor="middle">规则是否绕过领域对象？</text><text class="b" x="160" y="378" text-anchor="middle">重复取消是否额外保存？</text>
+  <text class="b" x="770" y="315">异常映射由 Advice 独立承担：</text><text class="b" x="770" y="347">查无订单 → 404</text><text class="b" x="770" y="379">已支付冲突 → 409</text>
+  <path d="M40 430H1080" stroke="#cbd5e1"/><text class="b" x="40" y="465">内存读写分别安全，不代表“读取 → 判断 → 保存”具备事务或并发 CAS。</text>
+</svg>

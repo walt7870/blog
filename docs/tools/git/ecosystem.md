@@ -2,6 +2,10 @@
 
 Git 本体提供版本控制能力，围绕它形成了托管平台、评审、CI/CD、Hooks、大文件、图形化客户端和 GitOps 等生态。选工具时先看团队要解决的问题，不要只按热度堆工具。
 
+![Git 工具在提交和交付中的职责](/git/tool-delivery-boundaries.svg)
+
+以订单导出为例：本地 Hook 提前检查参数校验代码，平台 CI 在评审提交上重跑测试，构建作业保存对应提交的镜像 digest，部署作业再用专用身份切换环境。四步分别减少反馈等待、实施合并门禁、固定产物和控制发布权限；安装一个本地工具不能替代整条链路。
+
 ## 托管平台
 
 常见平台：
@@ -39,18 +43,19 @@ Git Hooks 是 Git 操作前后自动执行的脚本。
 示例：
 
 ```bash
-# .git/hooks/pre-commit
 #!/bin/sh
 npm test
 ```
 
-需要可执行权限：
+上面是 `pre-commit` 文件正文。默认 Hook 路径可用以下命令定位；若配置了 `core.hooksPath`，应按该配置使用的目录管理：
 
 ```bash
-chmod +x .git/hooks/pre-commit
+git config --show-origin --get core.hooksPath
+git rev-parse --git-path hooks
+# 保存脚本后，对实际路径下的 pre-commit 设置可执行权限
 ```
 
-团队项目通常不用直接提交 `.git/hooks`，而是使用 Husky、pre-commit 等工具把 Hook 配置纳入仓库。
+团队项目通常使用 Husky、pre-commit 等工具把 Hook 配置纳入仓库，而不依赖手动复制内部文件。Worktree 或 Submodule 中 `.git` 可以是指向管理目录的文件，不能假定它总是目录。本地 Hook 可跳过，也可能未安装，强制规则仍由服务端实施。
 
 ## Husky 与 lint-staged
 
@@ -78,7 +83,7 @@ npx husky init
 npx lint-staged
 ```
 
-用途：只检查本次提交涉及的文件，减少提交前等待时间。
+lint-staged 按暂存路径选择文件。默认会为部分暂存文件临时隐藏未暂存变化，并暂存任务修改的文件，因此格式化器可能改变本次提交内容。提交前查看 `git diff --cached`，不要把“选择了文件”理解为格式化器只修改选中的行。关闭备份或隐藏机制会改变失败恢复行为，应先用一次部分暂存场景验证。
 
 ## pre-commit
 
@@ -103,7 +108,7 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-适合 Python、Go、Java、前端混合仓库。
+适合 Python、Go、Java、前端混合仓库。`rev` 是固定版本示例，升级时审查 Hook 变更并通过锁定版本的 CI 复验，不用浮动分支代替版本。
 
 ## Git LFS
 
@@ -123,11 +128,13 @@ git lfs install
 git lfs track "*.mp4"
 git add .gitattributes
 git add demo.mp4
-git commit -m "chore: add demo video"
+git commit -m "chore: 纳入演示视频"
 git lfs ls-files
 ```
 
 大文件治理细节见 [安全与仓库治理](./security.md)。
+
+LFS 指针进入 Git 不代表二进制已能下载。CI、备份和协作者还需要 LFS 服务访问权限；额度耗尽或对象缺失时，Git 历史可读而文件内容仍不可用。无需保留源码版本关系的构建包应放制品仓库。
 
 ## 命令行增强
 
@@ -231,6 +238,8 @@ GitOps 把 Git 仓库作为系统期望状态来源。常见于 Kubernetes 部�
 - 生产密钥不应明文提交。
 - 环境差异要清晰拆分。
 - 自动同步前要有审查和回滚策略。
+
+例如把订单 API 的镜像 digest 从 A 改到 B，控制器会尝试收敛到 B；把配置提交恢复到 A，只会再次声明旧配置。已执行的数据库迁移、外部消息或数据写入不会自动撤销。验收要同时核对控制器同步结果、工作负载就绪和真实业务响应，不能只看 Git 提交已合并。
 
 ## 选型
 

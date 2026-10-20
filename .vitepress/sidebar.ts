@@ -223,6 +223,26 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
+          text: '模型推理系列',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/inference-series/' },
+            { text: '01. 推理系统的分工', link: '/docs/ai/inference-series/01-landscape' },
+            { text: '02. 从输入到逐步生成', link: '/docs/ai/inference-series/02-lifecycle' },
+            { text: '03. GPU 与显存预算', link: '/docs/ai/inference-series/03-memory' },
+            { text: '04. 注意力与 KV 缓存', link: '/docs/ai/inference-series/04-cache-attention' },
+            { text: '05. 批处理与调度', link: '/docs/ai/inference-series/05-scheduling' },
+            { text: '06. 量化、算子与编译', link: '/docs/ai/inference-series/06-quantization' },
+            { text: '07. 推测解码', link: '/docs/ai/inference-series/07-speculative' },
+            { text: '08. vLLM 的执行机制', link: '/docs/ai/inference-series/08-vllm' },
+            { text: '09. SGLang 的执行机制', link: '/docs/ai/inference-series/09-sglang' },
+            { text: '10. 多卡、MoE 与分离部署', link: '/docs/ai/inference-series/10-distributed' },
+            { text: '11. 语音与多模态推理', link: '/docs/ai/inference-series/11-speech' },
+            { text: '12. 框架对比与版本', link: '/docs/ai/inference-series/12-selection-versions' },
+            { text: '13. 部署、压测与排错', link: '/docs/ai/inference-series/13-practice' },
+          ],
+        },
+        {
           text: '大模型',
           collapsed: true,
           items: [
@@ -303,9 +323,9 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: true,
           items: [
             { text: '系列导读', link: '/docs/ai/coding-agent-series/' },
-            { text: '01. AI 编程进入 Agent 时代', link: '/docs/ai/coding-agent-series/01-ai-coding-agent-era' },
+            { text: '01. 任务闭环与自治边界', link: '/docs/ai/coding-agent-series/01-ai-coding-agent-era' },
             { text: '02. Coding Agent 怎样工作', link: '/docs/ai/coding-agent-series/02-coding-agent-internals' },
-            { text: '03. 2026 工具生态与选型', link: '/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026' },
+            { text: '03. 工具工作流选型', link: '/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026' },
             { text: '04. Vibe、Agentic 与 Spec-Driven', link: '/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven' },
             { text: '05. Agent 可执行的任务契约', link: '/docs/ai/coding-agent-series/05-executable-task-contract' },
             { text: '06. Context Engineering', link: '/docs/ai/coding-agent-series/06-context-engineering' },
@@ -320,10 +340,11 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
-          text: 'Vibe Coding',
+          text: 'AI 编程工程化',
           collapsed: true,
           items: [
-            { text: '概述', link: '/docs/ai/vibe-coding/' },
+            { text: '工程化导读', link: '/docs/ai/vibe-coding/' },
+            { text: '开发方式与选型', link: '/docs/design/develop-pattern/ai-coding' },
             { text: '原型快速验证', link: '/docs/ai/vibe-coding/vibe-coding' },
             { text: '提示词工程', link: '/docs/ai/vibe-coding/prompt-engineering' },
             { text: '上下文工程', link: '/docs/ai/vibe-coding/context-engineering' },
@@ -347,7 +368,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: '视频学习系列', link: '/docs/container/video-series' },
         {
           text: 'Basic',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: '基础导览', link: '/docs/container/basic/' },
             { text: '核心概念', link: '/docs/container/basic/concepts' },
@@ -357,7 +378,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         },
         {
           text: 'Docker',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Docker 导览', link: '/docs/container/docker/' },
             { text: '常用命令', link: '/docs/container/docker/command' },
@@ -368,13 +389,13 @@ export const sidebar: DefaultTheme.Sidebar = {
         },
         {
           text: 'Kubernetes',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: 'Kubernetes 导览', link: '/docs/container/kubernetes/' },
             { text: 'Kubernetes 进阶视频系列', link: '/docs/container/kubernetes/video-series' },
             {
               text: '核心机制',
-              collapsed: false,
+              collapsed: true,
               items: [
                 { text: '控制面、API 与调谐', link: '/docs/container/kubernetes/control-plane' },
                 { text: '调度与节点生命周期', link: '/docs/container/kubernetes/scheduling-node-lifecycle' },
@@ -431,7 +452,7 @@ export const sidebar: DefaultTheme.Sidebar = {
         },
         {
           text: 'Tools',
-          collapsed: false,
+          collapsed: true,
           items: [
             { text: '工具导览', link: '/docs/container/tools/' },
             { text: 'Colima', link: '/docs/container/tools/colima' },
@@ -556,7 +577,7 @@ export const sidebar: DefaultTheme.Sidebar = {
       items: [
       { text: '创建型概述', link: '/docs/design/design-pattern/creational/' },
       { text: '工厂方法', link: '/docs/design/design-pattern/creational/factory-method' },
-      { text: '抽象方法', link: '/docs/design/design-pattern/creational/abstract-method' },
+      { text: '抽象工厂', link: '/docs/design/design-pattern/creational/abstract-method' },
       { text: '单例模式', link: '/docs/design/design-pattern/creational/singleton' },
       { text: '建造者模式', link: '/docs/design/design-pattern/creational/builder' },
       { text: '原型模式', link: '/docs/design/design-pattern/creational/prototype' },
@@ -786,6 +807,7 @@ export const sidebar: DefaultTheme.Sidebar = {
               collapsed: true,
               items: [
                 { text: '系列导读', link: '/docs/devlanguage/python/basics-series/' },
+                { text: '00. 基础工具能力地图', link: '/docs/devlanguage/python/basics-series/00-python-basics-course-map' },
                 { text: '01. 客户名单数据检查', link: '/docs/devlanguage/python/basics-series/01-customer-list-data-cleaning' },
                 { text: '02. 安装、运行和脚本文件', link: '/docs/devlanguage/python/basics-series/02-run-python-script' },
                 { text: '03. 变量和字段类型', link: '/docs/devlanguage/python/basics-series/03-field-types' },
@@ -810,6 +832,8 @@ export const sidebar: DefaultTheme.Sidebar = {
                 { text: '22. 批量文件自动化', link: '/docs/devlanguage/python/basics-series/22-batch-files' },
                 { text: '23. 参数配置', link: '/docs/devlanguage/python/basics-series/23-argparse-config' },
                 { text: '24. 交付可用小工具', link: '/docs/devlanguage/python/basics-series/24-delivery-package' },
+                { text: '25. 类与对象', link: '/docs/devlanguage/python/basics-series/25-classes-and-objects' },
+                { text: '26. 第一个可用工具', link: '/docs/devlanguage/python/basics-series/26-first-usable-tool' },
               ],
             },
             {
@@ -863,39 +887,39 @@ export const sidebar: DefaultTheme.Sidebar = {
               collapsed: true,
               items: [
                 { text: '系列导读', link: '/docs/devlanguage/front/frontend-foundations-series/' },
-                { text: '01. 现代前端技术全景：Web 平台、工程化与框架生态', link: '/docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview' },
-                { text: '02. 浏览器导航流程：URL、DNS、HTTP、DOM 与', link: '/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline' },
-                { text: '03. Web 平台的三门语言：HTML、CSS 与 Jav', link: '/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities' },
-                { text: '04. 浏览器 DevTools 技术体系：DOM、网络、运', link: '/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain' },
+                { text: '01. 前端技术全景', link: '/docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview' },
+                { text: '02. 浏览器导航与渲染', link: '/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline' },
+                { text: '03. HTML、CSS 与 JavaScript', link: '/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities' },
+                { text: '04. DevTools 排查入口', link: '/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain' },
                 { text: '05. 语义 HTML 与 DOM 结构', link: '/docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure' },
-                { text: '06. HTML 表单模型：label、输入控件与原生校验', link: '/docs/devlanguage/front/frontend-foundations-series/06-html-form-model' },
+                { text: '06. HTML 表单与原生校验', link: '/docs/devlanguage/front/frontend-foundations-series/06-html-form-model' },
                 { text: '07. CSS 层叠、选择器与样式计算', link: '/docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity' },
-                { text: '08. CSS 布局系统：盒模型、Flex 与 Grid', link: '/docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid' },
-                { text: '09. 响应式设计：视口、媒体查询与容器查询', link: '/docs/devlanguage/front/frontend-foundations-series/09-responsive-design' },
-                { text: '10. Web 可访问性基础：语义、键盘与可感知界面', link: '/docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics' },
-                { text: '11. JavaScript 语言基础：值、函数、对象与作用', link: '/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model' },
-                { text: '12. DOM 编程：节点、查询、修改与渲染影响', link: '/docs/devlanguage/front/frontend-foundations-series/12-dom-programming' },
-                { text: '13. 浏览器事件系统：监听、冒泡、委托与默认行为', link: '/docs/devlanguage/front/frontend-foundations-series/13-browser-event-system' },
-                { text: '14. 事件循环：调用栈、任务队列、微任务与渲染', link: '/docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop' },
-                { text: '15. Fetch 与网络请求：Request、Respon', link: '/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests' },
-                { text: '16. 浏览器存储：Cookie、localStorage、', link: '/docs/devlanguage/front/frontend-foundations-series/16-browser-storage' },
-                { text: '17. JavaScript 模块系统：import、exp', link: '/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules' },
-                { text: '18. TypeScript 静态类型系统：推断、收窄、泛型', link: '/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types' },
-                { text: '19. Node.js 与包管理：npm、pnpm、依赖树和', link: '/docs/devlanguage/front/frontend-foundations-series/19-node-package-management' },
-                { text: '20. Vite 构建流水线：原生 ESM、HMR、转换与打', link: '/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline' },
-                { text: '21. 前端代码质量工具链：Formatter、Lint、类', link: '/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain' },
+                { text: '08. 盒模型、Flex 与 Grid', link: '/docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid' },
+                { text: '09. 响应式与容器查询', link: '/docs/devlanguage/front/frontend-foundations-series/09-responsive-design' },
+                { text: '10. Web 可访问性', link: '/docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics' },
+                { text: '11. JavaScript 值与作用域', link: '/docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model' },
+                { text: '12. DOM 节点与更新', link: '/docs/devlanguage/front/frontend-foundations-series/12-dom-programming' },
+                { text: '13. 事件传播与默认行为', link: '/docs/devlanguage/front/frontend-foundations-series/13-browser-event-system' },
+                { text: '14. 事件循环与渲染', link: '/docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop' },
+                { text: '15. Fetch 请求与响应', link: '/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests' },
+                { text: '16. 浏览器存储边界', link: '/docs/devlanguage/front/frontend-foundations-series/16-browser-storage' },
+                { text: '17. JavaScript 模块', link: '/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules' },
+                { text: '18. TypeScript 类型检查', link: '/docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types' },
+                { text: '19. Node.js 与包管理', link: '/docs/devlanguage/front/frontend-foundations-series/19-node-package-management' },
+                { text: '20. Vite 开发与构建', link: '/docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline' },
+                { text: '21. 前端质量门禁', link: '/docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain' },
                 { text: '22. 组件化 UI 与响应式更新模型', link: '/docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui' },
-                { text: '23. 前端框架架构比较：React、Vue、Angular', link: '/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison' },
-                { text: '24. Web 渲染架构：CSR、SSR、SSG、Hydra', link: '/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture' },
-                { text: '25. 前端应用层架构：路由、数据获取、状态管理与表单', link: '/docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture' },
-                { text: '26. 前端测试分层：单元、组件、集成、E2E 与视觉回归', link: '/docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers' },
-                { text: '27. Web 性能工程：加载、渲染、交互与 Core We', link: '/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering' },
-                { text: '28. Web 前端安全：XSS、CSRF、CSP 与依赖供', link: '/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security' },
-                { text: '29. 前端交付与可观测性：构建产物、CDN、缓存、Sour', link: '/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability' },
-                { text: '30. AI 辅助前端工程与学习路线：生成、验证与质量边界', link: '/docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path' },
-                { text: '31. React 深讲：组件函数、Hooks、状态更新与生', link: '/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state' },
-                { text: '32. Vue 深讲：单文件组件、响应式系统、Composi', link: '/docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition' },
-                { text: '33. Angular 深讲：完整框架、组件模板、依赖注入、', link: '/docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure' },
+                { text: '23. 四种框架的架构比较', link: '/docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison' },
+                { text: '24. Web 渲染架构', link: '/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture' },
+                { text: '25. 路由、快照与编辑草稿', link: '/docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture' },
+                { text: '26. 前端测试分层', link: '/docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers' },
+                { text: '27. Web 性能与指标', link: '/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering' },
+                { text: '28. 前端安全边界', link: '/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security' },
+                { text: '29. 前端交付与可观测性', link: '/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability' },
+                { text: '30. AI 协作与能力验证', link: '/docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path' },
+                { text: '31. React 状态与外部同步', link: '/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state' },
+                { text: '32. Vue 依赖追踪与复用', link: '/docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition' },
+                { text: '33. Angular 注入与状态', link: '/docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure' },
               ],
             },
             {
@@ -1196,19 +1220,38 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
-  // 开发模式
+  // 开发方法
   '/docs/design/develop-pattern/': [
     {
-      text: '开发模式',
+      text: '开发方法',
       collapsed: false,
       items: [
-        { text: '概述', link: '/docs/design/develop-pattern/index' },
-        { text: '瀑布模型', link: '/docs/design/develop-pattern/waterfall' },
-        { text: '敏捷开发', link: '/docs/design/develop-pattern/agile' },
-        { text: '迭代模型', link: '/docs/design/develop-pattern/iterative' },
-        { text: '螺旋模型', link: '/docs/design/develop-pattern/spiral' },
-        { text: 'DevOps模式', link: '/docs/design/develop-pattern/devops' },
-        { text: '精益开发', link: '/docs/design/develop-pattern/lean' }
+        { text: '总览与阅读路径', link: '/docs/design/develop-pattern/' },
+        {
+          text: '生命周期与工作组织', collapsed: true,
+          items: [
+            { text: '瀑布与 V 模型', link: '/docs/design/develop-pattern/waterfall' },
+            { text: '迭代与增量', link: '/docs/design/develop-pattern/iterative' },
+            { text: '螺旋与风险验证', link: '/docs/design/develop-pattern/spiral' },
+            { text: '敏捷、Scrum 与看板', link: '/docs/design/develop-pattern/agile' },
+            { text: '精益与价值流', link: '/docs/design/develop-pattern/lean' },
+          ]
+        },
+        {
+          text: '实现、验证与交付', collapsed: true,
+          items: [
+            { text: 'XP、TDD、BDD 与契约测试', link: '/docs/design/develop-pattern/engineering-practices' },
+            { text: 'DevOps 与持续交付', link: '/docs/design/develop-pattern/devops' },
+          ]
+        },
+        {
+          text: 'AI 编程与组合实践', collapsed: true,
+          items: [
+            { text: 'AI 编程方式', link: '/docs/design/develop-pattern/ai-coding' },
+            { text: '方法选型与组合实践', link: '/docs/design/develop-pattern/selection-practice' },
+            { text: 'AI 编程工程化导读', link: '/docs/ai/vibe-coding/' },
+          ]
+        }
       ]
     }
   ]

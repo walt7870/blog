@@ -1,0 +1,67 @@
+[
+  {
+    "path": "/blog/rust/resource-delivery.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/safety-boundaries.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/stability-timeline.svg",
+    "texts": 11,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/ecosystem-boundaries.svg",
+    "texts": 15,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/order-input-flow.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/ownership-lifecycle.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/type-validation-boundary.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/bounded-work-lifecycle.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/toolchain-gates.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/cli-contract.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/diagnostic-path.svg",
+    "texts": 21,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/project-adapters.svg",
+    "texts": 18,
+    "violations": []
+  },
+  {
+    "path": "/blog/rust/learning-delivery-route.svg",
+    "texts": 21,
+    "violations": []
+  }
+]

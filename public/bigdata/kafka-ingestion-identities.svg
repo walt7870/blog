@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="kafka-id-title kafka-id-desc">
+  <title id="kafka-id-title">Kafka 订单接入的位置与业务身份</title>
+  <desc id="kafka-id-desc">数据库通过CDC或outbox可靠发布到Kafka，原始归档与订单当前状态各自消费；源位点、分区offset和订单业务版本属于不同层次，重复和低版本不能直接累计为新订单。</desc>
+  <defs><marker id="kafka-id-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#kafka-id-arrow)}</style></defs>
+  <rect width="1200" height="640" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">源位置、日志位置与业务版本，分别记录</text><text x="36" y="78" class="small">同一订单v2被重新投递，可以有新的Kafka offset，但不会变成第二笔订单。</text>
+  <path d="M260 300H324" class="line"/><path d="M556 300H620" class="line"/>
+  <path d="M868 256H900Q908 256 908 248V224Q908 216 916 216H940" class="line"/>
+  <path d="M868 348H900Q908 348 908 356V440Q908 448 916 448H940" class="line"/>
+  <rect x="36" y="208" width="224" height="184" class="box"/><text x="56" y="248" class="head">订单数据库</text><text x="56" y="292">102：pending → paid</text><text x="56" y="332">事务提交与业务版本</text><text x="56" y="372" class="small">业务表与outbox同事务</text>
+  <rect x="324" y="208" width="232" height="184" class="box"/><text x="344" y="248" class="head">CDC / outbox relay</text><text x="344" y="292">读取并发布已提交事实</text><text x="344" y="332">保存源位置与发布进度</text><text x="344" y="372" class="small">binlog / WAL位点等</text>
+  <rect x="620" y="208" width="248" height="184" class="focus"/><text x="640" y="248" class="head">Kafka 事件日志</text><text x="640" y="292">Key = 租户:订单号</text><text x="640" y="332">位置 = 分区 + offset</text><text x="640" y="372" class="small">保留期限内可重放</text>
+  <rect x="940" y="144" width="224" height="144" class="box"/><text x="960" y="184" class="head">原始归档消费者组</text><text x="960" y="224">保留事件与来源身份</text><text x="960" y="264" class="small">独立进度、归档范围与校验</text>
+  <rect x="940" y="376" width="224" height="144" class="focus"/><text x="960" y="416" class="head">当前状态消费者组</text><text x="960" y="456">按业务键 + 版本收敛</text><text x="960" y="496" class="small">低版本不能覆盖高版本</text>
+  <text x="36" y="472" class="head">业务判断</text><text x="36" y="512">102 v1 → v2 → 重复v2 → 迟到v1，当前状态仍是v2。</text><text x="36" y="552">同一版本内容冲突需要隔离；删除、快照与Schema演进需要单独约定。</text>
+  <path d="M36 588H1164" stroke="#bac4c9"/><text x="36" y="620" class="small">箭头：事实流转。不同消费者组分别读取同一日志；源位点、消费offset和业务版本不能相互替代。</text>
+</svg>

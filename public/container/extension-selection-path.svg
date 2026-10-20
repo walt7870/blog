@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="extension-selection-path-title extension-selection-path-desc">
+  <title id="extension-selection-path-title">从模板复用到领域控制器的选择</title>
+  <desc id="extension-selection-path-desc">先判断是否只是复用清单；否则区分稳定平台API与需要持续观察和恢复的领域动作。入口和节点问题应另查运行路径扩展。</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+  <rect width="1120" height="680" fill="#f7f9fb"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+    <text x="48" y="56" font-size="28" font-weight="700">先判断要复用什么，再承担对应的长期责任</text>
+    <text x="48" y="91" font-size="17" fill="#52616d">订单服务示例：复用清单、注册平台意图、持续申请和恢复外部数据库，是不同需求。</text>
+    <g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M440 188H580"/>
+      <path d="M260 256V300"/>
+      <path d="M440 368H580"/>
+      <path d="M260 436V484"/>
+    </g>
+    <g fill="#f7f9fb"><rect x="487" y="172" width="32" height="28"/><rect x="244" y="264" width="32" height="28"/><rect x="487" y="352" width="32" height="28"/><rect x="244" y="444" width="32" height="28"/></g>
+    <g font-size="17" fill="#52616d"><text x="495" y="192">是</text><text x="252" y="284">否</text><text x="495" y="372">是</text><text x="252" y="464">否</text></g>
+    <path d="M260 120L440 188L260 256L80 188Z" fill="#eaf3fb" stroke="#7694aa"/>
+    <text x="260" y="183" text-anchor="middle" font-size="21" font-weight="700">只需复用一组</text><text x="260" y="213" text-anchor="middle" font-size="21" font-weight="700">现有资源清单？</text>
+    <rect x="580" y="132" width="492" height="112" rx="6" fill="#fff" stroke="#9aaab5"/>
+    <text x="604" y="168" font-size="22" font-weight="700">Helm / Kustomize</text><text x="604" y="202" font-size="18" fill="#52616d">组合 Deployment、Service、HPA；不另造 API。</text>
+    <path d="M260 300L440 368L260 436L80 368Z" fill="#eaf3fb" stroke="#7694aa"/>
+    <text x="260" y="363" text-anchor="middle" font-size="21" font-weight="700">需要持续观察</text><text x="260" y="393" text-anchor="middle" font-size="21" font-weight="700">外部领域动作？</text>
+    <rect x="580" y="312" width="492" height="112" rx="6" fill="#eef8f1" stroke="#7a9e87"/>
+    <text x="604" y="348" font-size="22" font-weight="700">CRD + Controller / Operator</text><text x="604" y="382" font-size="18" fill="#52616d">例如申请数据库、备份和恢复；承担幂等与清理。</text>
+    <rect x="80" y="484" width="360" height="112" rx="6" fill="#fff" stroke="#9aaab5"/>
+    <text x="104" y="520" font-size="22" font-weight="700">稳定意图 API：评估 CRD</text><text x="104" y="554" font-size="17" fill="#52616d">类型与校验不自带执行逻辑。</text><text x="104" y="580" font-size="17" fill="#52616d">仍要明确谁消费意图、如何反馈状态。</text>
+    <text x="580" y="499" font-size="20" font-weight="700">入口、网络、存储或设备问题</text><text x="580" y="532" font-size="18" fill="#52616d">先定位 Gateway / CNI / CSI / 调度等运行路径，</text><text x="580" y="562" font-size="18" fill="#52616d">不因它们也使用 CRD 就混成一套业务 Operator。</text>
+    <text x="48" y="646" font-size="17" fill="#52616d">所有方案都先检查内置能力；自定义存储或特殊 API 行为，再评估 Aggregated API。</text>
+  </g>
+</svg>

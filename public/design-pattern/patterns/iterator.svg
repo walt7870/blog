@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc"><title id="title">迭代器模式结构图</title><desc id="desc">展示客户端通过迭代器顺序访问集合元素，而不暴露集合内部结构。</desc><style>.bg{fill:#f8fafc}.it{fill:#e0f2fe;stroke:#0284c7}.col{fill:#dcfce7;stroke:#22c55e}.box{fill:#fff;stroke:#94a3b8;stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style><rect class="bg" width="1040" height="520" rx="22"/><text class="t" x="48" y="52">迭代器：统一遍历入口，隐藏集合内部结构</text><rect class="box" x="90" y="210" width="170" height="70" rx="14"/><text class="t" x="132" y="253">客户端</text><rect class="it" x="370" y="190" width="220" height="110" rx="14"/><text class="t" x="432" y="232">Iterator</text><text class="s" x="422" y="260">hasNext() / next()</text><rect class="col" x="720" y="190" width="220" height="110" rx="14"/><text class="t" x="784" y="232">Collection</text><text class="s" x="772" y="260">数组 / 链表 / 树</text><line class="line" x1="260" y1="245" x2="370" y2="245"/><polygon class="arrow" points="370,245 357,237 357,253"/><line class="line" x1="590" y1="245" x2="720" y2="245"/><polygon class="arrow" points="720,245 707,237 707,253"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="510" viewBox="0 0 1040 510" role="img" aria-labelledby="title desc">
+<title id="title">商品目录的独立游标与两种遍历顺序</title>
+<desc id="desc">不可变目录有商城、数码、图书与手机。两个迭代器共享目录但拥有独立待访问队列，深度与广度的顺序不同。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7" fill="none" stroke="#64748b"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:18px;font-weight:600}.sub{font-size:15px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.line{fill:none;stroke:#71838c;stroke-width:1.4}.call{fill:none;stroke:#64748b;stroke-width:1.4;marker-end:url(#arrow)}</style>
+<rect width="1040" height="510" fill="#f8fafb"/>
+<text class="title" x="38" y="44">迭代器：共享目录，各自保存进度</text>
+<text class="sub" x="38" y="73">每次 iterator() 都创建新游标；不可变结构固定本例的遍历视图。</text>
+<path class="line" d="M244 178 V194 Q244 202 236 202 H145 Q137 202 137 210 V240"/>
+<path class="line" d="M300 178 V214 Q300 222 308 222 H370 Q378 222 378 230 V240"/>
+<path class="line" d="M137 298 V342"/>
+<path class="call" d="M360 136 H588"/>
+<rect x="424" y="103" width="112" height="24" fill="#f8fafb"/><text class="sub" x="434" y="121">创建游标 A</text>
+<path class="call" d="M360 161 H482 Q490 161 490 169 V270 Q490 278 498 278 H588"/>
+<rect x="501" y="243" width="76" height="24" fill="#f8fafb"/><text class="sub" x="509" y="261">游标 B</text>
+<rect class="box" x="200" y="120" width="160" height="58" rx="6"/><text class="name" x="222" y="146">商城</text><text class="sub" x="222" y="168">目录根节点</text>
+<rect class="box" x="57" y="240" width="160" height="58" rx="6"/><text class="name" x="79" y="275">数码</text>
+<rect class="box" x="298" y="240" width="160" height="58" rx="6"/><text class="name" x="320" y="275">图书</text>
+<rect class="box" x="57" y="342" width="160" height="58" rx="6"/><text class="name" x="79" y="377">手机</text>
+<rect class="focus" x="588" y="112" width="410" height="94" rx="6"/><text class="name" x="608" y="141">A：深度优先，已经读取商城</text><text class="sub" x="608" y="169">pending = [数码, 图书]</text><text class="sub" x="608" y="191">下次读取数码，再把手机放到队头</text>
+<rect class="box" x="588" y="256" width="410" height="88" rx="6"/><text class="name" x="608" y="285">B：尚未读取</text><text class="sub" x="608" y="312">pending = [商城]</text><text class="sub" x="608" y="333">A 的 next() 不推进 B</text>
+<text class="sub" x="38" y="449">深度优先：商城 → 数码 → 手机 → 图书</text>
+<text class="sub" x="38" y="477">广度优先：商城 → 数码 → 图书 → 手机</text>
+<text class="sub" x="588" y="449">独立进度不等于共享游标线程安全。</text>
+<text class="sub" x="588" y="477">远程分页与文件遍历另需超时和关闭合同。</text>
+</svg>

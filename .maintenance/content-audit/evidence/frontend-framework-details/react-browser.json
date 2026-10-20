@@ -1,0 +1,25 @@
+{
+  "reactFour": "咖啡豆：4 件，共 79.60 元",
+  "reactFive": {
+    "text": "咖啡豆：5 件，共 99.50 元",
+    "disabled": true
+  },
+  "reset": "茶：1 件，共 19.90 元",
+  "reactIdentity": [
+    {
+      "label": null,
+      "value": "茶"
+    },
+    {
+      "label": "备注p2",
+      "value": ""
+    },
+    {
+      "label": "备注p1",
+      "value": "留给p1"
+    }
+  ],
+  "liveInitial": "1",
+  "liveStopped": "0",
+  "liveAgain": "1"
+}

@@ -1,7 +1,3 @@
-<script setup>
-import { withBase } from 'vitepress'
-</script>
-
 # TOGAF 营销系统实践：从活动烟囱到可度量的增长能力
 
 一家拥有 1200 家门店、商城、App 和小程序的零售企业，在年度会员节结束后拿到了一组看似漂亮的数字：活动页面访问量增长 86%，领券人数增长 63%，活动期间成交额同比增长 27%。营销负责人准备把这套打法复制到更多区域，财务团队却给出了完全不同的结论。
@@ -12,12 +8,7 @@ import { withBase } from 'vitepress'
 
 营销系统的复杂性不主要来自页面数量或规则数量，而来自它同时跨越客户、商品、价格、权益、渠道、交易、财务和分析多个责任域。局部系统都可能运行正常，组合结果却仍然失控。TOGAF 在这里提供的不是一套活动模板，而是一条从业务驱动到运行证据的可追踪决策链。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-decision-chain.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-decision-chain.svg')" alt="从增长目标到运行证据的营销架构决策链"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![从增长目标到运行证据的营销架构决策链](/architecture/togaf/marketing-decision-chain.svg)
 
 > 读图：先从业务结果向下追到能力、事实责任和运行证据，再沿反馈线回到下一轮策略；任一层断裂，增长结论都无法被证明。
 
@@ -135,26 +126,19 @@ import { withBase } from 'vitepress'
 指标之间必须建立关系。成交额增长不等于增量收入，增量收入也不等于增量毛利。可以用下面的简化表达检查活动是否真正创造价值：
 
 ```text
-活动增量毛利
-= 实验组毛利 - 对照组基准毛利
-- 优惠与赠品成本
-- 渠道发送和广告成本
-- 额外履约与客服成本
-- 退款和撤销回冲
+单客净贡献 = 按实付和退款确认的净收入 - 商品成本
+           - 尚未计入净收入或商品成本的营销、赠品、渠道与履约成本
+
+单客增量净贡献 = 实验组人均净贡献 - 对照组人均净贡献
 ```
 
-真实计算会处理客户结构、实验偏差和时间窗口，但这个表达已经说明：活动页面 PV、领券率和活动期 GMV 都只是过程信号，不能独立成为企业收益证据。
+收入已经按折后实付计算时，不再次扣减同一笔优惠；退款和费用回冲也要按统一口径计入，避免重复扣减或增加。两组人数不同不能直接比较总毛利，应使用可比的实验单元与观察窗口。随机分组下优先按原始分组分析，不只比较实际领券或曝光的人；总体收益估计还需样本规模、不确定区间与推广范围。PV、领券率和活动期 GMV 只能作为过程信号。
 
 ## 从价值流识别能力断点
 
 营销价值不是“创建活动后发送消息”，而是从策略假设到证据学习的完整流动。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-value-capability-map.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-value-capability-map.svg')" alt="营销价值流、业务能力与常见断点"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![营销价值流、业务能力与常见断点](/architecture/togaf/marketing-value-capability-map.svg)
 
 > 读图：横向是营销价值产生的顺序，纵向是每一步必须留下的事实和支撑能力；红色断点说明上游缺失会怎样污染后续决策。
 
@@ -212,12 +196,7 @@ import { withBase } from 'vitepress'
 
 CDP 经常被描述成“统一客户数据中心”，但统一视图不等于统一写入权。客户姓名来自会员资料，支付结果来自支付域，订单金额来自订单域，退订来自 Consent 或渠道反馈。CDP 可以组合这些事实形成画像，却不能因为保存了副本就成为所有对象的最终裁决者。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-data-application-boundary.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-data-application-boundary.svg')" alt="营销核心数据权威与应用责任边界"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![营销核心数据权威与应用责任边界](/architecture/togaf/marketing-data-application-boundary.svg)
 
 > 读图：上层系统裁决业务事实，中层应用围绕事实完成决策，底层平台只消费并解释；读取关系不等于拥有反向修改权。
 
@@ -300,14 +279,9 @@ CDP 经常被描述成“统一客户数据中心”，但统一视图不等于�
 
 营销决策不是“从候选列表随机返回一条广告”。当结果包含专属价格、优惠券或赠品时，系统实际上正在代表企业作出有限期承诺。决策链需要同时处理客户授权、数据新鲜度、活动状态、人群资格、商品范围、渠道能力、互斥优先级、频控、预算和权益可用性。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-realtime-decision-flow.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-realtime-decision-flow.svg')" alt="实时营销决策、权益预留与结果记录"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![实时营销决策、权益预留与结果记录](/architecture/togaf/marketing-realtime-decision-flow.svg)
 
-> 读图：黑色实线是 100ms 内的同步承诺链，红色和橙色分别表示拒绝与降级，青色虚线表示渠道展示后的异步曝光事实。
+图中阶段预算用于定位耗时，端到端目标为 p99 不高于 80ms；各阶段预算之外仍需保留网络、日志持久化和组装余量。单阶段分位数不能直接相加得到端到端 p99，最终以完整请求压测判断。红色和橙色表示拒绝与降级，青色虚线表示渠道展示后的异步曝光事实。
 
 一次 App 商品详情页决策可以按下面的责任顺序执行：
 
@@ -326,10 +300,9 @@ CDP 经常被描述成“统一客户数据中心”，但统一视图不等于�
 
 ## 决策接口必须返回理由和版本
 
-接口只返回 `offerId` 无法支持客服解释、故障排查和策略复盘。一个简化请求可以是：
+接口只返回 `offerId` 无法支持客服解释、故障排查和策略复盘。向 `POST /marketing-decisions` 提交的简化 JSON 请求体可以是：
 
 ```json
-POST /marketing-decisions
 {
   "requestId": "req-01J2MKT8N7D3",
   "customerId": "cus-18002341",
@@ -373,6 +346,8 @@ POST /marketing-decisions
 
 对于未选择 Offer 的请求，`reasonCodes` 可能是 `CONSENT_DENIED`、`FREQUENCY_LIMITED`、`NO_ELIGIBLE_CAMPAIGN`、`BUDGET_EXHAUSTED` 或 `FEATURE_TOO_STALE`。理由码属于业务契约，需要版本化和统计，不能只写进日志字符串。
 
+服务端从认证上下文确定租户与允许操作的客户范围，不能信任请求中的 `customerId` 和 `policyVersion` 作为授权证明。`requestId` 在租户、调用方与操作范围内唯一，重复键还需校验输入摘要；真正的 Consent 由服务端权威记录判断。理由码对外只暴露适当信息，敏感人群标签留在受控审计中。
+
 决策响应还要声明有效期。客户在页面停留 30 分钟后才下单，原优惠可能已过期、预算可能已耗尽。订单不能仅凭前端传来的优惠金额结算，应携带 `decisionId` 或价格凭证回到定价与权益责任方验证。
 
 ## 规则引擎不负责替企业作价值判断
@@ -415,14 +390,9 @@ POST /marketing-decisions
 
 优惠券总量、活动预算和财务费用是三个不同对象。券模板可以剩余，但活动预算可能已经耗尽；预算已占用，客户却可能没有最终领取；券已核销，订单退款后又需要返还或回冲费用。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-benefit-ledger-state.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-benefit-ledger-state.svg')" alt="优惠权益与预算账本的状态和守恒关系"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![优惠权益与预算账本的状态和守恒关系](/architecture/togaf/marketing-benefit-ledger-state.svg)
 
-> 读图：主干描述权益从可用到结算，向下分支处理超时、失败和退款；每次转换都必须同时保持客户权益、预算和限量额度一致。
+预留、发放与核销通过业务凭证关联；预算结算另有账务记录。单服务内用事务保护相关变化，跨服务则明确协调、补偿和对账，不能从一条图示箭头推断所有系统原子提交。
 
 可以把一次营销承诺拆成以下对象：
 
@@ -443,7 +413,7 @@ POST /marketing-decisions
 客户权益：同一 grantId 在任一时刻只能处于一个有效状态
 ```
 
-这些公式比“发券接口成功率”更接近业务正确性。系统即使所有接口都返回 200，只要预留长期不释放、重复发放或退款未回冲，企业状态仍然错误。
+这里“已确认费用”和“已发放数量”采用累计毛额，回冲与返还单独累计；若系统使用净额字段，就不能在等式右侧再次增加回冲。真实账本还要明确失效、预算转移和已发未核销权益是否继续占用预算，不能把不同口径相加。金额使用最小货币单位整数或受控十进制。系统即使所有接口都返回 200，只要预留长期不释放、重复发放或退款未回冲，企业状态仍然错误。
 
 ### 权益生命周期
 
@@ -456,14 +426,14 @@ POST /marketing-decisions
   -> REDEEMING     交易正在尝试核销
   -> REDEEMED      核销成功并形成费用凭证
 
-RESERVED -> RELEASED   决策过期或渠道未展示
+RESERVED -> RELEASED   预留到期且未转为已发放
 GRANTED  -> EXPIRED    客户未在有效期内使用
 REDEEMING -> GRANTED   交易失败，恢复可用
 REDEEMED -> RETURNED   退款政策允许返还
 REDEEMED -> REVERSED   费用回冲但权益不再可用
 ```
 
-状态变化必须由明确命令触发，并保留 `decisionId`、`campaignId`、`customerId`、预算账户、订单和策略版本。直接更新 `status` 字段而不校验前置状态，会让重复回调、乱序事件和人工补偿破坏不变量。
+状态变化必须由明确命令触发，并保留 `decisionId`、`campaignId`、`customerId`、预算账户、订单和策略版本。曝光未回传不证明渠道未展示，不能据此提前撤销有效承诺；到期、发放和核销需按同一版本条件裁决。RETURNED 表示原核销记录已返还，是否生成新的可用权益由政策决定，不能简单把旧核销历史擦除。直接更新 `status` 字段而不校验前置状态，会让重复回调、乱序事件和人工补偿破坏不变量。
 
 ### 预留事务与幂等
 
@@ -474,27 +444,33 @@ create unique index uk_benefit_reservation_request
 on benefit_reservation(decision_id, benefit_definition_id, customer_id);
 ```
 
-在同一事务内，服务先创建或读取已有 Reservation，再以条件更新扣减预算和权益额度，最后写入待发布事件。条件更新失败表示预算或库存不足，不应先返回成功再异步补救。
+以下是事务机制伪代码，不是可直接执行的 SQL。服务先以唯一约束占用请求键，校验金额为正、币种、租户和账户权限，再以条件更新扣减预算和权益额度，最后保存 Reservation、请求结果和 Outbox。任一条件更新未命中都回滚整笔事务，不得留下只扣预算的部分结果；重试读取已有请求时也必须核对输入摘要。
 
 ```text
 begin transaction
-  assert request idempotency key is unique
+  insert request key and input digest
+  if duplicate: rollback this attempt; verify input and return stored result
   update budget_account
      set available = available - :amount,
          reserved = reserved + :amount
    where account_id = :accountId
      and available >= :amount
+  if affected rows != 1: rollback entire transaction; return insufficient budget
 
   update benefit_quota
      set available = available - 1,
          reserved = reserved + 1
    where definition_id = :definitionId
      and available > 0
+  if affected rows != 1: rollback entire transaction; return insufficient quota
 
   insert benefit_reservation(..., status = 'RESERVED')
   insert outbox_event(..., type = 'BenefitReserved')
 commit
+return durable reservation result
 ```
+
+提交成功但响应丢失时，调用方用同一请求键查询结果，不能生成新键再次预留。账本超时后的替代 Offer 也要关联未知预留，查询或到期回收，防止长期占用。
 
 如果预算与权益由不同服务负责，就无法依靠一个本地事务同时提交。此时需要明确哪一个是流程协调者，以及失败如何补偿。可以先预留预算，再预留权益；权益失败后释放预算。流程中每一步都要幂等，并由超时扫描和对账发现长期停留状态。把两个 RPC 放进一个方法并不能获得分布式原子性。
 
@@ -653,12 +629,7 @@ customerId
 
 客户看到活动后下单，只能证明接触和购买存在时间关联。归因模型按照规则分配贡献，但仍不必然证明活动造成购买。只有合理实验或准实验设计，才能估计“如果没有活动，客户是否仍会购买”。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-measurement-loop.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-measurement-loop.svg')" alt="从实验分组、曝光和转化到策略反馈的测量闭环"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![从实验分组、曝光和转化到策略反馈的测量闭环](/architecture/togaf/marketing-measurement-loop.svg)
 
 > 读图：上轨只记录发生过的交易事实，下轨分别回答过程转化、触点解释和因果增量；分析结论通过策略反馈生效，不能改写订单事实。
 
@@ -757,12 +728,7 @@ exit_criteria:
 
 企业不能停掉 300 个活动后重建。迁移路线需要让每个阶段都能运行、对账和回退，并明确谁在当前范围内拥有最终裁决权。
 
-<figure class="marketing-flow-figure">
-  <div class="marketing-flow-scroll">
-    <a :href="withBase('/architecture/togaf/marketing-migration-roadmap.svg')" target="_blank" rel="noopener"><img :src="withBase('/architecture/togaf/marketing-migration-roadmap.svg')" alt="从活动烟囱到统一营销能力的七阶段迁移路线"></a>
-  </div>
-  <figcaption>横向滚动查看完整流程 · 点击打开高清原图</figcaption>
-</figure>
+![从活动烟囱到统一营销能力的七阶段迁移路线](/architecture/togaf/marketing-migration-roadmap.svg)
 
 > 读图：迁移不是七次系统上线，而是七次责任接管；只有进入条件、对账结果、回退点和退出证据齐备，写入口才能继续向新平台移动。
 
@@ -925,53 +891,3 @@ ADM 在这里是控制不确定性的循环。影子决策可能证明目标规�
 TOGAF 把这件事从单个系统建设扩展成企业变化：业务架构定义结果、价值流和能力；数据架构确定身份、人群、权益、曝光和转化的权威；应用架构划分活动、决策、账本、渠道和测量责任；技术架构从业务损失推导一致性、容量、降级和可观测性；Gap 与过渡架构安排责任接管顺序；治理再用实验、对账、投诉和运行偏差把真实结果带回下一轮决策。
 
 当每个 Offer 都能回到目标和规则版本，每笔权益都能回到预算和业务凭证，每次曝光都能回到真实展示，每个转化结论都能说明模型与证据，营销平台才不再是活动功能的集合，而成为企业可持续学习和增长的能力。
-
-<style scoped>
-.marketing-flow-figure {
-  max-width: 100%;
-  margin: 24px 0 12px;
-}
-
-.marketing-flow-scroll {
-  max-width: 100%;
-  overflow-x: auto;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 12px;
-  background: var(--vp-c-bg-soft);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
-  -webkit-overflow-scrolling: touch;
-}
-
-.marketing-flow-scroll a {
-  display: block;
-  width: 1180px;
-}
-
-.marketing-flow-scroll img {
-  display: block;
-  box-sizing: border-box;
-  width: 1180px;
-  max-width: none;
-  height: auto;
-  margin: 0;
-  padding: 12px;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  filter: none;
-}
-
-.marketing-flow-figure figcaption {
-  margin-top: 7px;
-  color: var(--vp-c-text-3);
-  font-size: 12px;
-  text-align: right;
-}
-
-@media (max-width: 767px) {
-  .marketing-flow-scroll a,
-  .marketing-flow-scroll img {
-    width: 920px;
-  }
-}
-</style>

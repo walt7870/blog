@@ -1,0 +1,58 @@
+[
+  {
+    "case": "module-evaluation-failure",
+    "enabled": true,
+    "text": "报表暂时不可用，请重新尝试"
+  },
+  {
+    "case": "quantity-two",
+    "quantity": "2",
+    "total": "合计：¥25.80"
+  },
+  {
+    "case": "quantity-limit",
+    "disabled": true,
+    "quantity": "5",
+    "total": "合计：¥64.50"
+  },
+  {
+    "case": "template-change-observed-full-reload",
+    "disabled": false,
+    "quantity": "1",
+    "total": "总额：¥12.90"
+  },
+  {
+    "case": "parent-rejects-change",
+    "quantity": "1",
+    "total": "合计：¥12.90"
+  },
+  {
+    "case": "production-subpath",
+    "assets": [
+      "http://127.0.0.1:5184/shop/assets/index-BDETNAyA.js"
+    ],
+    "quantity": "2",
+    "total": "合计：¥25.80"
+  },
+  {
+    "case": "type-error-build-output",
+    "text": "类型错误仍能转换"
+  },
+  {
+    "case": "module-live-binding",
+    "quantity": 2,
+    "sameBinding": true
+  },
+  {
+    "case": "module-identity",
+    "same": true,
+    "different": true,
+    "a": 2,
+    "b": 2,
+    "c": 1
+  },
+  {
+    "case": "dynamic-import-success",
+    "status": "报表已生成"
+  }
+]

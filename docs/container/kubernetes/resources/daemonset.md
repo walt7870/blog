@@ -1,7 +1,7 @@
 ---
 title: Kubernetes DaemonSet
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes DaemonSet
@@ -10,7 +10,11 @@ DaemonSet 确保每个符合条件的节点运行一个 Pod，适合节点级日
 
 ## 选择目标节点
 
-DaemonSet 默认覆盖可调度的匹配节点。用 nodeSelector 或 nodeAffinity 选择节点池，用 tolerations 决定是否允许进入带污点的节点。
+DaemonSet 按 nodeSelector 或 nodeAffinity 选择节点，再结合污点容忍等条件创建 Pod；通常仍由调度器绑定。控制器会自动补充一些节点状态污点的容忍，包括 `node.kubernetes.io/unschedulable:NoSchedule`，所以 cordon 不会阻止匹配的 DaemonSet Pod 运行。它不是普通 Deployment 调度规则的简单复制。
+
+![DaemonSet 节点标签、cordon 与覆盖范围](/container/daemonset-node-coverage.svg)
+
+下面只覆盖具有 `node-pool: workers` 标签的节点，需先创建 `observability` namespace、核实标签并替换镜像 digest。镜像必须支持非 root 用户；这份清单本身不包含主机日志挂载或具体采集配置。
 
 ```yaml
 apiVersion: apps/v1
@@ -29,9 +33,8 @@ spec:
     metadata:
       labels: { app: node-agent }
     spec:
-      priorityClassName: system-node-critical
-      tolerations:
-        - operator: Exists
+      nodeSelector:
+        node-pool: workers
       containers:
         - name: agent
           image: registry.example.com/node-agent@sha256:replace-with-digest
@@ -43,7 +46,7 @@ spec:
             allowPrivilegeEscalation: false
 ```
 
-示例中的全污点容忍和高优先级只适合真正必须覆盖所有节点的系统代理。普通代理应限制容忍范围，避免进入控制面、GPU 或隔离节点。
+若还存在专用节点污点，应按实际需要增加特定 toleration；容忍只是解除排斥，不会主动选中节点。`system-node-critical` 和全污点容忍会扩大调度影响，不能作为普通日志代理的默认配置。
 
 ## 主机访问是高风险边界
 
@@ -67,6 +70,8 @@ DaemonSet 更新会逐节点替换 Pod。网络或存储代理可能直接影响
 4. 观察至少一个完整负载周期，再扩大范围。
 
 OnDelete 策略只在需要外部系统逐节点控制更新时使用；它不会自动替换旧 Pod。
+
+例如十个匹配节点设置 `maxUnavailable: 10%`，更新预算为一个不可用节点代理；若已有一个代理不 Ready，更新可能停住。DaemonSet 还可配置 `maxSurge` 让新旧代理短暂共存，但主机端口、锁文件和节点规则写入必须允许共存，否则应采用经过验证的替换方式。
 
 ## 排障
 

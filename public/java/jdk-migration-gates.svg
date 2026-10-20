@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760" role="img" aria-labelledby="jdk-gate-title jdk-gate-desc">
+  <title id="jdk-gate-title">JDK升级中的验证与回退边界</title>
+  <desc id="jdk-gate-desc">从旧环境基线到候选构建、业务验证和灰度，逐阶段保留输入、检查和输出。旧产物先在隔离的新JDK试跑，再重建候选。前一阶段检查通过才进入下一阶段。灰度异常时恢复保留的旧镜像和旧产物，前提是新旧版本的数据合同兼容，不能把新class直接交给旧JDK运行。</desc>
+  <defs><marker id="jdk-gate-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.4;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#jdk-gate-arrow)}</style></defs>
+  <rect width="1240" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">迁移验证逐阶段收敛，旧环境保留到回退演练通过</text>
+  <text x="36" y="80" class="small">同一订单合同：状态正确、金额一致、中文导出和账期不变；启动成功只完成了其中一小部分。</text>
+  <path d="M328 128H584" class="line"/><path d="M620 128H876" class="line"/><path d="M912 128H1168" class="line"/>
+  <text x="200" y="164" class="head">① 旧环境基线</text><text x="456" y="164" class="head">② 候选构建</text><text x="712" y="164" class="head">③ 业务验证</text><text x="968" y="164" class="head">④ 灰度切换</text>
+  <path d="M36 190H1204M36 314H1204M36 438H1204M36 562H1204" stroke="#bac4c9" fill="none"/>
+  <text x="36" y="240" class="head">输入</text>
+  <text x="200" y="232">旧产物、旧镜像</text><text x="200" y="268" class="small">JDK、依赖、运行参数</text>
+  <text x="456" y="232">隔离试跑的问题</text><text x="456" y="268" class="small">目标JDK与明确release</text>
+  <text x="712" y="232">独立候选产物</text><text x="712" y="268" class="small">同数据、同请求及配额</text>
+  <text x="968" y="232">已通过回归的镜像</text><text x="968" y="268" class="small">可用的旧实例与旧镜像</text>
+  <text x="36" y="364" class="head">检查</text>
+  <text x="200" y="356">重现正常和失败结果</text><text x="200" y="392" class="small">记录启动、延迟与内存</text>
+  <text x="456" y="356">依赖、代理、JNI、参数</text><text x="456" y="392" class="small">编译、单测、产物检查</text>
+  <text x="712" y="356">订单与文件合同</text><text x="712" y="392" class="small">TLS、超时、性能与资源</text>
+  <text x="968" y="356">小流量观察与回退演练</text><text x="968" y="392" class="small">验证新旧数据合同兼容</text>
+  <text x="36" y="488" class="head">输出</text>
+  <text x="200" y="480">可复现的对照基线</text><text x="200" y="516" class="small">保留旧环境，供后续比较</text>
+  <text x="456" y="480">可追溯候选产物</text><text x="456" y="516" class="small">不混入无关框架/GC变更</text>
+  <text x="712" y="480">通过或具体失败证据</text><text x="712" y="516" class="small">失败修复后重新验证</text>
+  <text x="968" y="480">受控扩大流量</text><text x="968" y="516" class="small">异常触发既定回退条件</text>
+  <rect x="36" y="604" width="1168" height="80" class="focus"/>
+  <text x="56" y="638" class="head">回退使用保留的旧镜像与旧产物</text>
+  <text x="56" y="668" class="small">新class若以25为目标，不能只把java换回17；不可逆的数据变化也不能由镜像回退自动恢复。</text>
+  <text x="36" y="736" class="small">上方箭头表示通过当前检查后再推进；各阶段发现失败先停止推进。回退不是跳过业务验证的替代方案。</text>
+</svg>

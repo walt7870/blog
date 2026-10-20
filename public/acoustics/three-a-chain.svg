@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
-  <title id="title">3A 音频前处理链路</title>
-  <desc id="desc">展示 AEC、ANS 和 AGC 在语音前处理链路中的职责、输入输出和相互影响</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="three-a-chain-title three-a-chain-desc">
+  <title id="three-a-chain-title">3A 音频前处理链路</title>
+  <desc id="three-a-chain-desc">展示 AEC、ANS 和 AGC 在语音前处理链路中的职责、输入输出和相互影响</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <marker id="three-a-chain-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M0 0 10 5 0 10z" fill="#334155"/>
     </marker>
     <style>
@@ -12,8 +12,8 @@
       .ans{fill:#ecfdf5;stroke:#86efac;stroke-width:1.6;rx:10}
       .agc{fill:#fff7ed;stroke:#fdba74;stroke-width:1.6;rx:10}
       .out{fill:#f5f3ff;stroke:#c4b5fd;stroke-width:1.6;rx:10}
-      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}
-      .dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#three-a-chain-arrow)}
+      .dash{stroke:#64748b;stroke-width:1.7;stroke-dasharray:6 6;fill:none;marker-end:url(#three-a-chain-arrow)}
       .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
       .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
       .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}
@@ -55,5 +55,6 @@
   <path class="dash" d="M831 286 V188"/>
 
   <rect class="box" x="92" y="420" width="936" height="58"/>
-  <text class="txt" x="118" y="455">顺序通常是 AEC -> ANS -> AGC：先去掉系统自己的声音，再压环境噪声，最后调响度。顺序错了会互相放大问题，例如 AGC 放大残留回声，ANS 把回声误当噪声处理。</text>
+  <text class="txt" x="118" y="446">常见基线为 AEC → ANS → AGC；集成处理器可能采用分级增益、联合波束形成等其他结构。</text>
+  <text class="txt" x="118" y="468">先验证参考与双讲，再比较降噪保真和增益；避免残留回声、底噪被后级放大。</text>
 </svg>

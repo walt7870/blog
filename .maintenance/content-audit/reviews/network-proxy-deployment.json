@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/network-proxy/certificate.md",
+      "status": "verified",
+      "reviewedHash": "912459241de71e8bee9699c54f91bba2ddebfc97b6eeb0de4ed35a37d8fd1478",
+      "pageType": "证书签发安装与续期实操",
+      "decision": "全文重写为root统一管理的acme.sh路径，补官方release入口、DNS插件环境、ECC安装、文件权限、先验收再登记加载命令和手工DNS续期边界；新增签发安装图，区分文件更新、服务加载和客户端信任。",
+      "validation": ["acme.sh官方README及手工DNS说明全文核对，Bash语法通过。1120宽SVG独立原尺寸截图通过；桌面1280及手机390浅深色全页、图片原尺寸加载关闭、手机9个长代码横滚及分页通过。最终整站构建13.59秒通过。未签发真实证书或执行续期。"]
+    },
+    {
+      "file": "docs/network-proxy/server-systemd.md",
+      "status": "verified",
+      "reviewedHash": "124019b0d107b1cac01273b150b053ce6de614c9f0f4fbdfff137180bed371b5",
+      "pageType": "宿主机进程部署实操",
+      "decision": "全文核对并重写安装、unit、用户与路径核对，给出Trojan最小JSON，明确配置检查不证明公网与业务可用；新增unit与数据文件关系图，链接证书和用户管理，补错误凭据及重启验收。",
+      "validation": ["sing-box官方安装正文核对，Bash与JSON语法通过。1120宽SVG独立原尺寸截图通过；桌面/手机双主题全页、图片原尺寸关闭、手机6个长代码横滚和分页通过。整站构建通过，未安装或启动真实服务。"]
+    },
+    {
+      "file": "docs/network-proxy/server-docker.md",
+      "status": "verified",
+      "reviewedHash": "499739fe9737aa796c1449e0729087931becc62a47794c348f240d0bb33901e6",
+      "pageType": "容器部署与变更实操",
+      "decision": "全文重写固定镜像及身份核验、两目录只读挂载、证书路径与宿主端口映射；区分临时check、restart与重建，不假定已验证镜像入口和用户，新增容器边界图。",
+      "validation": ["sing-box官方Docker说明全文核对，Bash/YAML语法通过。1120宽SVG原尺寸独立截图通过；桌面/手机双主题、原尺寸关闭、手机7个长代码横滚和分页通过。整站构建通过；未拉取镜像或运行容器。"]
+    },
+    {
+      "file": "docs/network-proxy/user-management.md",
+      "status": "verified",
+      "reviewedHash": "f80d40936b47067024f36b6118f78945d0c883f7205413cbc2bc308b2fc8b17b",
+      "pageType": "凭据变更与撤销操作",
+      "decision": "全文核对并区分计划轮换与泄漏先撤销，新增双路径图；补受限备份、最小JSON项、多个入口与已有连接撤销边界，禁止恢复泄漏凭据，不再用日志缺失证明撤销成功。",
+      "validation": ["Bash及JSON语法通过，1120宽SVG独立截图通过。桌面/手机双主题、图片原尺寸关闭、手机5个长代码横滚及分页通过。整站构建通过，未对真实账号做变更。手机宽表位于自身滚动区，后续全站UI阶段统一检查。"]
+    },
+    {
+      "file": "docs/network-proxy/clash-verge.md",
+      "status": "verified",
+      "reviewedHash": "85fa8c9bb8bc3932f5e75f0727185c450cb68a8240fb3d620ebdae88ec4a08c7",
+      "pageType": "客户端接入与验证实操",
+      "decision": "全文改为Clash Verge Rev与Mihomo边界，给出可独立起步的本地Trojan YAML；区分地址/SNI、系统代理/TUN/规则模式，明确CONNECT/目标TLS/HTTP结果和自动策略适用边界，复用分流图。",
+      "validation": ["Mihomo Trojan官方正文核对，Bash/YAML语法通过。桌面/手机浅深色全页、1120图原尺寸关闭、手机长命令横滚及分页通过，整站构建通过。未在真实客户端导入或执行代理请求。"]
+    },
+    {
+      "file": "docs/network-proxy/operations.md",
+      "status": "verified",
+      "reviewedHash": "f886eeb664bbc0da27584fd3b9abfd47f866987ed90f9f43a5faff06982e4086",
+      "pageType": "分层排障与运维机制",
+      "decision": "全文重写证据链与401业务案例，新增排查图；修正journal配置节和全机作用域、Docker日志与重建边界，容量按活跃负载评估，区分凭据和私钥事故，禁止按停顿直接关闭PMTUD或将tx0判故障。",
+      "validation": ["Bash及YAML语法通过；1120宽SVG独立截图通过。桌面/手机双主题全页、图片原尺寸关闭、手机2个长代码横滚与分页通过。最终整站构建13.59秒通过，未运行真实负载或网络实验。"]
+    }
+  ]
+}

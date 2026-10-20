@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="tool-delivery-boundaries-title tool-delivery-boundaries-desc">
+  <title id="tool-delivery-boundaries-title">Git 工具与交付门禁的职责</title><desc id="tool-delivery-boundaries-desc">订单导出变更先经本地Hook反馈，再经平台评审和CI门禁，构建出带摘要的制品，最后由独立身份部署并验收。Hook可跳过，强制规则必须在服务端执行。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs><rect width="1120" height="450" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="55" font-size="27" font-weight="700">同一次变更，四种不同责任</text><text x="48" y="91" font-size="17" fill="#536470">例如订单导出超时修复：缩短本地反馈，实施合并门禁，固定产物，再控制环境变更。</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M260 211H316"/><path d="M520 211H576"/><path d="M780 211H836"/></g>
+    <rect x="48" y="146" width="212" height="132" rx="6" fill="#fff" stroke="#a4b3be"/><text x="68" y="181" font-size="21" font-weight="700">本地 Hook</text><text x="68" y="219" font-size="17">Husky / pre-commit</text><text x="68" y="252" font-size="17">提前检查，可被跳过</text>
+    <rect x="316" y="146" width="204" height="132" rx="6" fill="#edf4fc" stroke="#819bb6"/><text x="336" y="181" font-size="21" font-weight="700">评审 + 平台 CI</text><text x="336" y="219" font-size="17">对待合并版本验收</text><text x="336" y="252" font-size="17">保护分支执行门禁</text>
+    <rect x="576" y="146" width="204" height="132" rx="6" fill="#fff" stroke="#a4b3be"/><text x="596" y="181" font-size="21" font-weight="700">制品仓库</text><text x="596" y="219" font-size="17">提交 → 产物 digest</text><text x="596" y="252" font-size="17">保留可回滚版本</text>
+    <rect x="836" y="146" width="236" height="132" rx="6" fill="#e9f5f0" stroke="#7caaa0"/><text x="856" y="181" font-size="21" font-weight="700">部署与业务验收</text><text x="856" y="219" font-size="17">环境专用身份 + 版本锁</text><text x="856" y="252" font-size="17">记录实际运行版本</text>
+    <path d="M48 324H1072" stroke="#c9d3dc"/><text x="48" y="362" font-size="18">代码检查失败：修正提交后重验。部署失败：按发布记录恢复，并核对真实业务响应。</text><text x="48" y="405" font-size="17" fill="#536470">GUI、tig、delta 帮助阅读历史；LFS 管理大文件正文；这些工具不授予合并或发布权限。</text>
+  </g>
+</svg>

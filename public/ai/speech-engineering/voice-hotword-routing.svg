@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="630" viewBox="0 0 1040 630" role="img" aria-labelledby="title desc">
-  <title id="title">热词进入提示之后，两种路径如何处理</title>
-  <desc id="desc">普通 Final 先解码，仅对未进入提示的内置同音候选补召并重解一次，未达到采用条件保留原文。目标 TS-ASR 不走该重解路径，使用受限同音纠正后进入 ITN。</desc>
-  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:25px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;stroke-width:1.5;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#a)}.g{fill:#eaf5ed;stroke:#488661}.r{fill:#f5eef2;stroke:#a46a84}</style></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="630" viewBox="0 0 1040 630" role="img" aria-labelledby="voice-hotword-routing-title voice-hotword-routing-desc">
+  <title id="voice-hotword-routing-title">热词进入提示之后，两种路径如何处理</title>
+  <desc id="voice-hotword-routing-desc">普通 Final 先解码，仅对未进入提示的内置同音候选补召并重解一次，未达到采用条件保留原文。目标 TS-ASR 不走该重解路径，使用受限同音纠正后进入 ITN。</desc>
+  <defs><marker id="voice-hotword-routing-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52616b"/></marker><style>text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;fill:#17252a;letter-spacing:0}.h{font-size:25px;font-weight:600}.t{font-size:20px;font-weight:600}.s{font-size:17px;fill:#43545b}.b{fill:#edf4fa;stroke:#4280a8;stroke-width:1.5;rx:6}.e{fill:none;stroke:#52616b;stroke-width:2;marker-end:url(#voice-hotword-routing-arrow)}.g{fill:#eaf5ed;stroke:#488661}.r{fill:#f5eef2;stroke:#a46a84}</style></defs>
   <rect width="1040" height="630" fill="#fff"/>
   <text x="32" y="43" class="h">同一词库，不同纠错边界</text>
   <text x="32" y="76" class="s">共享解析器：显式词 + 按场景选池 + 当前 PCM 召回 → 请求局部提示</text>

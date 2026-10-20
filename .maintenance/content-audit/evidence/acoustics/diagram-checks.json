@@ -1,0 +1,116 @@
+[
+  {
+    "name": "acoustic-system-map",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 10
+  },
+  {
+    "name": "aec-adaptive-filter",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 14
+  },
+  {
+    "name": "asr-decoding",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "capture-playback-reference",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 22
+  },
+  {
+    "name": "engineering-deployment-choice",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 27
+  },
+  {
+    "name": "kws-threshold",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 9
+  },
+  {
+    "name": "preprocessing-principles",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 26
+  },
+  {
+    "name": "sherpa-onnx-architecture",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 34
+  },
+  {
+    "name": "sherpa-onnx-recognition-modes",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 21
+  },
+  {
+    "name": "sherpa-onnx-selection-flow",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 32
+  },
+  {
+    "name": "silero-vad-streaming",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 20
+  },
+  {
+    "name": "speech-ai-modules",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 19
+  },
+  {
+    "name": "speech-pipeline",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 18
+  },
+  {
+    "name": "structure-sound-paths",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 16
+  },
+  {
+    "name": "three-a-chain",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 19
+  },
+  {
+    "name": "troubleshooting-flow",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 18
+  },
+  {
+    "name": "tts-acoustic-vocoder",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 24
+  },
+  {
+    "name": "vad-state-flow",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 20
+  },
+  {
+    "name": "wave-sampling",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 11
+  }
+]

@@ -1,199 +1,60 @@
 # 浏览器事件系统：监听、冒泡、委托与默认行为
 
-&gt; 视频入口：B站合集《前端全链路：从浏览器基础到现代生态》上传并核验后回填正式链接。
-&gt; 本文是 EP13 的博客深讲版，包含视频主线，但比视频补充更多机制、流程图、边界判断和排查清单。
+购物车每行有“移除”按钮，按钮里还包含图标。点击图标时，事件目标可能是内部元素，监听器却放在整个列表上。理解传播路径与默认行为，才能让新增行、键盘操作和嵌套组件都按预期工作。
 
-![浏览器事件系统：监听、冒泡、委托与默认行为 技术流程图](/front/frontend-foundations-series/ep13-flow.svg)
+![捕获、目标与冒泡期间的监听器位置](/front/frontend-foundations-series/ep13-flow.svg)
 
-## 这篇文章解决什么问题
+## 监听器在传播途中执行
 
-这期解释浏览器事件怎样把用户操作送进 JavaScript，以及冒泡、委托和默认行为为什么重要。
+事件沿传播路径进入捕获、到达目标，并在事件允许冒泡时向外传播。捕获监听使用capture:true，默认监听通常在目标或冒泡阶段执行。监听器不是等整条传播结束后才统一运行。
 
-这一篇的中心问题可以概括成：浏览器事件系统如何把用户操作传给 JavaScript，并通过传播和默认行为影响页面？
+target是在当前上下文看到的事件目标，currentTarget是当前监听器所在对象；后者在回调执行之外通常为null。Shadow DOM会产生事件重定向，是否跨边界还受composed影响，因此target不总能当成最内部原始节点。异步逻辑要提前保存所需节点或业务ID。
 
-关键词：event、addEventListener、bubbling、click、target、currentTarget、capture、bubble、stopPropagation、delegation
+## 动态列表使用有边界的委托
 
-## 视频主线回顾
-
-### 1. 监听器是事件入口
-
-`addEventListener` 把处理函数挂到指定事件上，事件发生时浏览器调用它。
-
-### 2. target 和 currentTarget 要分清
-
-`target` 是触发源，`currentTarget` 是当前监听器所在节点。
-
-### 3. 冒泡支撑事件委托
-
-把监听器放在父级，通过 `closest` 判断子项，可以处理动态列表。
-
-### 4. 默认行为需要谨慎阻止
-
-`preventDefault` 会阻止浏览器原生行为，必须确认替代体验完整。
-
-## 技术流程图
-
-先用一张图把本期内容串起来。它不是背诵路线，而是排查问题时可以顺着走的证据路线。
-
-```mermaid
-flowchart TD
-    s1["本期内容：事件把用户操作变成可处理的程序入口"]
-    s2["事件监听：addEventListener 把函数挂到事件上"]
-    s3["target：target 是触发源，currentTarget 是监听者"]
-    s4["事件传播：事件会经历捕获、目标和冒泡"]
-    s5["事件委托：事件委托把监听器放在共同父级"]
-    s6["默认行为：有些事件自带浏览器默认行为"]
-    s7["整体总结：事件系统连接用户动作和页面逻辑"]
-    s1 --> s2
-    s2 --> s3
-    s3 --> s4
-    s4 --> s5
-    s5 --> s6
-    s6 --> s7
-    s7 --> check{"能否解释当前页面现象？"}
-    check -->|能| action["记录证据并进入下一步"]
-    check -.->|不能| back["回到上一层重新定位"]
-    back -.-> s1
+```html
+<ul id="cart-lines">
+  <li><span>桌面收纳盒</span>
+    <button type="button" data-remove="box"><span>移除收纳盒</span></button>
+  </li>
+  <li><span>文件收纳架</span>
+    <button type="button" data-remove="rack"><span>移除收纳架</span></button>
+  </li>
+</ul>
+<p id="cart-status" role="status" tabindex="-1"></p>
+<script>
+  const cartLines = document.querySelector('#cart-lines');
+  cartLines.addEventListener('click', event => {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest('button[data-remove]');
+    if (!button || !cartLines.contains(button) ||
+        button.closest('ul') !== cartLines) return;
+    const line = button.closest('li');
+    const nextFocus = line.nextElementSibling?.querySelector('button') ??
+      line.previousElementSibling?.querySelector('button');
+    const id = button.dataset.remove;
+    line.remove();
+    const status = document.querySelector('#cart-status');
+    status.textContent = '已移除：' + id;
+    (nextFocus ?? status).focus();
+  });
+</script>
 ```
 
+closest可以从内部span回到按钮；contains和最近列表判断限制委托范围，避免嵌套列表或外部祖先被误处理。示例有意只演示本地删除，服务端购物车应先设计失败恢复与并发更新。删除后把焦点移到相邻操作；最后一项删除后聚焦状态文字，实际产品还应提供空态与明确的后续入口。
 
-## 深入展开
+## 阻止传播与取消默认动作分别处理
 
-### 1. 事件把用户操作变成可处理的程序入口
+stopPropagation阻止事件继续沿路径传播，不会自动阻止同一节点其他监听器，也不会取消默认导航。stopImmediatePropagation还阻止同节点后续监听器。preventDefault只在事件可取消且监听器允许取消时有效，不停止传播；passive监听器中不能用它取消滚动等默认动作。
 
-这一期看浏览器事件系统。我们会讲 addEventListener 怎样注册监听，event.target 和 currentTarget 有什么区别，事件捕获和冒泡怎样传播，事件委托为什么常用，以及 preventDefault 和 stopPropagation 分别会改变什么。事件是前端交互的入口，理解它，组件通信和表单交互都会清楚很多。
+注册函数返回false通常不能代替这些API。前端路由拦截链接时，还应保留修饰键、新标签、外部链接和下载等原生行为；不要对页面所有click一律preventDefault。
 
-这里可以多看一层：先找输入，再看处理过程，最后确认输出。前端很多问题之所以绕，是因为现象出现在页面上，原因却可能藏在网络、样式计算、运行时或构建结果里。
+## 选择适合的事件与生命周期
 
-```mermaid
-flowchart LR
-    v1["用户操作：点击、输入、键盘"]
-    v2["生成事件：浏览器创建 event"]
-    v3["传播：捕获、目标、冒泡"]
-    v4["监听器：JavaScript 处理"]
-    v1 --> v2
-    v2 --> v3
-    v3 --> v4
-```
+focus和blur不按普通冒泡处理，委托可考虑focusin/focusout或捕获监听。mouseenter也不等同于mouseover的冒泡规则，不能把所有事件都套成click模型。原生button的键盘激活会产生click，通常无需再给Enter和Space重复绑定相同业务动作，否则可能执行两次。
 
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
+临时组件销毁时应移除长期对象上的监听器。可用AbortController的signal集中管理，也可用同一个函数引用及对应capture值removeEventListener。重新创建同样源码的匿名箭头函数不是同一个引用，不能据此移除旧监听器。
 
-### 2. addEventListener 把函数挂到事件上
+## 验证一次操作只处理一次
 
-addEventListener 接收事件名和处理函数。比如 button.addEventListener("click", handleClick)，意思是当按钮点击事件发生时，浏览器调用 handleClick。处理函数会拿到 event 对象，里面包含事件类型、目标元素、按键、坐标等信息。调试事件时，先确认监听挂在谁身上，再看事件何时触发。
-
-把这段机制放到工程里看，最实用的切口是证据。不要急着猜是哪一行代码错了，先确认浏览器或工具实际拿到了什么、计算了什么、丢出了什么结果。
-
-```js
-button.addEventListener("click", (event) => {
-  console.log(event.type);
-  console.log(event.target);
-});
-```
-
-- 事件发生时调用函数。
-- event 保存事件上下文。
-- 监听对象影响 currentTarget。
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 3. target 是触发源，currentTarget 是监听者
-
-event.target 指向最初触发事件的节点，currentTarget 指向当前正在执行监听器的节点。一个列表项里有按钮，点击按钮时 target 可能是 button，但如果监听器挂在 ul 上，currentTarget 就是 ul。理解这个区别，才能写对事件委托，也能避免误判到底点中了哪个元素。
-
-这个点在真实项目里常常不是孤立问题。它会和状态、缓存、布局、依赖或团队约束连在一起，所以博客版更强调边界：什么归它管，什么应该交给下一层机制判断。
-
-| 维度 | 含义 |
-| --- | --- |
-| target | 真正被点到的内部元素。 |
-| currentTarget | 当前监听器挂载的元素。 |
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 4. 事件会经历捕获、目标和冒泡
-
-事件传播通常分为捕获阶段、目标阶段和冒泡阶段。捕获从外层往目标走，冒泡从目标往外层走。默认 addEventListener 多数监听在冒泡阶段执行，所以子元素触发的点击，会一路冒泡到父元素。stopPropagation 可以阻止继续传播，但不要滥用，否则会让组件之间的事件关系变得很难调试。
-
-如果要把它讲给别人听，可以按“现象—证据—机制—边界”的顺序。先让对方看到问题，再解释浏览器或工具为什么会给出这样的结果。
-
-```mermaid
-flowchart LR
-    v1["capture：外层到目标"]
-    v2["target：事件到达触发节点"]
-    v3["bubble：目标向外冒泡"]
-    v4["listener：对应阶段执行"]
-    v1 --> v2
-    v2 --> v3
-    v3 --> v4
-```
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 5. 事件委托把监听器放在共同父级
-
-事件委托利用冒泡，把监听器挂在共同父级上，再通过 event.target 判断具体点中了哪个子项。这样新插入的列表项不需要单独绑定监听，也能减少大量重复监听器。委托适合列表、菜单和表格操作，但也要注意选择器判断要准确，避免点到内部图标时识别失败。
-
-这里可以多看一层：先找输入，再看处理过程，最后确认输出。前端很多问题之所以绕，是因为现象出现在页面上，原因却可能藏在网络、样式计算、运行时或构建结果里。
-
-```js
-list.addEventListener("click", (event) => {
-  const item = event.target.closest("[data-id]");
-  if (!item) return;
-  selectItem(item.dataset.id);
-});
-```
-
-- 监听父级 list。
-- closest 找到目标子项。
-- 动态新增项也能响应。
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-### 6. 有些事件自带浏览器默认行为
-
-很多事件有默认行为。点击 a 会跳转，提交 form 会发送数据，键盘输入会改变输入框内容。preventDefault 可以阻止默认行为，比如前端路由拦截链接跳转，或自定义表单提交。但阻止默认行为之前要确定自己真的补上了等价体验，否则会破坏浏览器原生能力。
-
-把这段机制放到工程里看，最实用的切口是证据。不要急着猜是哪一行代码错了，先确认浏览器或工具实际拿到了什么、计算了什么、丢出了什么结果。
-
-| 维度 | 含义 |
-| --- | --- |
-| link | 点击默认导航。 |
-| form | 提交默认发送数据。 |
-| input | 键盘默认编辑文本。 |
-
-排查时可以顺着这条线问：当前现象是输入不对、处理过程不对，还是最终结果不对。只要能把问题归到其中一格，后面的工具选择就会轻很多。
-
-## 常见误区与边界
-
-- 不要滥用 stopPropagation。
-- 不要阻止默认行为却不提供替代体验。
-- 不要混淆 target 和 currentTarget。
-- 这一篇不展开：框架合成事件实现细节。
-- 这一篇不展开：Pointer Events 深度实践。
-- 这一篇不展开：复杂手势识别和拖拽库。
-
-## 排查和验证清单
-
-- 先确认问题发生在哪一层：页面结构、样式计算、JavaScript 运行、网络请求、构建产物还是线上交付。
-- 用浏览器或工具拿到证据，不只凭肉眼判断。能截图、能看到日志、能看到请求和产物，结论才稳。
-- 把最小例子缩到只剩一个变量。变量越少，越容易看清机制。
-- 记录输入、处理过程和输出。前端问题往往不是“某个 API 错了”，而是链路中某一步的假设不成立。
-- 如果准备把结论放到项目里，再补一层测试、类型检查、可访问性或性能验证。
-
-## 动手练习
-
-1. 用一个最小 HTML 页面复现 浏览器事件系统 里的核心现象。
-2. 打开 DevTools，分别记录结构、样式、控制台、网络或性能面板里的一个证据点。
-3. 改一个变量，再观察结果是否符合这篇文章里的流程图；如果不符合，把差异写下来。
-
-## 参考来源与本系列依据
-
-- 标准：DOM Standard Events：事件传播和监听基线
-- 浏览器文档：MDN Events：开发者解释
-- 实验：列表事件委托示例：可复现演示
-
-## 总结
-
-事件系统是前端交互入口。理解监听、传播、委托和默认行为，才能写出稳定的用户操作逻辑。
-
-博客版到这里就把视频主线扩成了可复习的技术笔记：先知道它在链路里的位置，再知道它怎么运行，最后知道遇到问题该从哪里查。
+分别用鼠标点击内部span、用Tab加Enter或Space激活按钮，检查每次只删除一项且状态对应正确ID。再插入新行，不增加监听器也应能删除；嵌套列表不应误触外层处理。排查时记录eventPhase、target与currentTarget，再决定是传播问题还是业务分支问题。

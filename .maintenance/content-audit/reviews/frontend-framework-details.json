@@ -1,0 +1,40 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
+      "pageType": "React机制与实践",
+      "decision": "全文和旧图阅读后重写，补状态快照/队列反例、render与commit、稳定key、Hook例外及Effect清理边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "文中React19.2组件真实浏览器验证1→4→5上限、金额和重置；错误替换值版本只到2、反例被发现；稳定key排序保留备注、StrictMode订阅有效数1→0→1。",
+        "构建16.36秒通过；3页12份四模式全文截图、6组原尺寸和3次分页均通过并查看联系表；三张SVG中文边界与独立自检通过。详见batches/frontend-framework-details.md。"
+      ],
+      "reviewedHash": "40effb03d1757c0a3f76f60bbb1ce5bfe95d77ee5969b401aa13e61973579a36"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
+      "pageType": "Vue机制与实践",
+      "decision": "全文和旧图阅读后重写，补本地筛选、动态依赖、普通解构/props编译例外及watch清理与共享状态。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "真实Vue浏览器筛选2→1、无结果和空格恢复通过；提取正文watch代码，验证旧请求即便返回也不覆盖、HTTP500、坏字段和scope停止后迟到结果；不冒称真实商品HTTP验收。",
+        "构建16.36秒通过；3页12份四模式全文截图、6组原尺寸和3次分页均通过并查看联系表；三张SVG中文边界与独立自检通过。详见batches/frontend-framework-details.md。"
+      ],
+      "reviewedHash": "ad0857ce0a406b2f4989b5caa11c0ba511e83f7a1e20c49f3edca47f155ff541"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
+      "pageType": "Angular机制与实践",
+      "decision": "全文和旧图阅读后重写，补可运行购物车、根与局部提供者作用域、注入上下文、Signals/RxJS/表单边界和OnPush误区。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "Angular21.2正文代码转译后真实浏览器启动，根消费者共享、两局部消费者独立、数量5上限及金额/重置通过；Node真实Injector验证作用域与销毁。不声称完整AngularCLI/AOT、真实路由表单HTTP集成。",
+        "构建16.36秒通过；3页12份四模式全文截图、6组原尺寸和3次分页均通过并查看联系表；三张SVG中文边界与独立自检通过。详见batches/frontend-framework-details.md。"
+      ],
+      "reviewedHash": "b4359884b2bd5d47864a718569e33949f423404e803dfebea5615127317dd603"
+    }
+  ]
+}

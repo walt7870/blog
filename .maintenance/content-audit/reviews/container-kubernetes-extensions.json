@@ -1,0 +1,85 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/customresource.md",
+      "status": "verified",
+      "reviewedHash": "bf73c42b8f6ad9899c1aa330744edc37d8c786aa1f12a7a5973272296cd273cb",
+      "pageType": "机制专题阅读入口",
+      "decision": "完整阅读，补AppRelease实例和CRD不带控制逻辑的边界，删除旧URL制作旁白，保留三条机制入口；短入口无需重复画图。",
+      "findings": [],
+      "validation": ["1280×900与390×844双主题全页检查，手机三条正文链接实际客户端跳转及两端分页通过；无图片和代码。完整构建13.72秒通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/index.md",
+      "status": "verified",
+      "reviewedHash": "1fc88453e03633dd151a9ba837eaf61148b9d79e8e1351b879db914ee1492b54",
+      "pageType": "扩展机制选型与阅读地图",
+      "decision": "完整阅读，以订单模板、数据库长期动作和入口404区分扩展需求，补选型流程图及问题到机制页的阅读路径。",
+      "findings": [],
+      "validation": ["新图自检和独立原尺寸浏览器字体/截图通过。桌面手机双主题全页、完整缩略图、两端图片原尺寸1120加载关闭、分页通过；页面宽1280/390。构建13.72秒通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/CR-CRD.md",
+      "status": "verified",
+      "reviewedHash": "d208ac4a263e5889445ebbecf66f81c8e0c31881b03d912ea925edf060647816",
+      "pageType": "API合同、校验和存储迁移",
+      "decision": "完整阅读，修正scale使用readyReplicas与缺失selector、CEL未定义字段和存储切换自动迁移的误导，补存储重写证据、storedVersions清理与版本退役图。",
+      "findings": [],
+      "validation": ["官方CRD的scale、CEL、裁剪及版本迁移相关段核对。YAML/Bash解析通过；新图自检及实际字体截图通过。两端双主题全页、1120原尺寸图片加载关闭、手机3个长代码scrollLeft均40、分页通过。构建13.72秒；未安装CRD或运行集群迁移。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/operator.md",
+      "status": "verified",
+      "reviewedHash": "504f6ad5309911f457cfb983683b894400bf606fe0baa36011c61c5df5afbc31",
+      "pageType": "调谐恢复、外部幂等和删除状态机",
+      "decision": "完整阅读，补云数据库成功但status前崩溃的恢复例子，修正shell重定向占位，明确先持久化finalizer、仅处理自身finalizer及外部查询身份要求，修复图中读取连线和删除恢复语义。",
+      "findings": [{"kind":"mobile-diagram-layout","status":"resolved","detail":"删除手机固定宽度；390px浏览器截图确认Operator图完整缩略，图片和容器均342px。共享主题最终逐页复验仍待完成。"}],
+      "validation": ["修改图自检、原尺寸实际字体及截图通过。两端双主题全页、两端1280原尺寸图片加载关闭、手机代码scrollLeft40/37、分页通过；页面宽390。构建13.72秒；Go为结构片段，辅助函数未实现，未编译或进行故障注入。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/extension-points.md",
+      "status": "verified",
+      "reviewedHash": "55f3ba9fc164b7f85b66006f4ac40993d985ec3ea046b5b303ab18213fd9014c",
+      "pageType": "API同步、异步、调度和节点故障边界",
+      "decision": "完整阅读，修正CRD永远异步可写及设备不健康自动迁移的误导，补Conversion/Admission阻断条件和领域动作例子，修改扩展边界图。",
+      "findings": [{"kind":"mobile-diagram-layout","status":"resolved","detail":"删除手机固定宽度；390px浏览器截图确认扩展点图完整缩略，图片和容器均342px。共享主题最终逐页复验仍待完成。"}],
+      "validation": ["修改图自检及原尺寸实际字体截图通过。两端双主题全页、两端1280原尺寸图片加载关闭、分页通过；页面宽390，无代码块。构建13.72秒；未安装扩展组件或运行故障实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/traffic-engineering.md",
+      "status": "verified",
+      "reviewedHash": "8b98a3bad6cf02f59e66f00dd9e35dfb77c599afd756d378dd8da656e6d836ae",
+      "pageType": "入口配置、网络数据面和Ambient请求证据",
+      "decision": "完整阅读，区分allowedRoutes与ReferenceGrant，补HTTPRoute依赖和Condition归属，修正本地cilium命令为目标节点Agent内cilium-dbg，注明连通测试副作用，重画配置关系与Ambient路径，去掉固定串行代理链。",
+      "findings": [],
+      "validation": ["官方Gateway角色与Ambient数据面全文，Cilium排障相关命令段核对。YAML和Bash解析通过；新图自检、实际字体截图通过。两端双主题全页、1120原尺寸图片加载关闭、手机长代码scrollLeft30.5、分页通过。构建13.72秒；无真实网格或网络测试。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/delivery-security.md",
+      "status": "verified",
+      "reviewedHash": "f214b999ec2f73d0f7929bf2dea48004c728e0538d8a4dc8321378ce3b667c6a",
+      "pageType": "GitOps、准入和制品信任证据",
+      "decision": "完整阅读，补签名通过而Secret缺失的反例，将digest包含检查改为64位摘要正则并覆盖init容器，限定namespace试运行、区分Warn/Deny与Audit，固定PSA示例版本并补身份模拟组，新增控制链图。",
+      "findings": [],
+      "validation": ["官方ValidatingAdmissionPolicy actions、Binding和failurePolicy相关段核对。YAML/Bash解析通过；新图自检与实际字体截图通过。两端双主题全页、1120原尺寸图片加载关闭、手机3个长代码scrollLeft40/40/32、分页通过。构建13.72秒；未在集群启用准入策略。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/platform-engineering.md",
+      "status": "verified",
+      "reviewedHash": "47881dcfa6cd3ac32a77f1a87034c50e9b363c5177fcc1611063aeb90e18635b",
+      "pageType": "平台意图、字段所有权和状态反馈",
+      "decision": "完整阅读，声明Application为自研API草图，补3副本/PDB2/HPAmin3约束、GitOps/平台/HPA写入主体和外部回滚边界；平台图移除竖排压线、修正反馈线和能力分层含义。",
+      "findings": [{"kind":"mobile-diagram-layout","status":"resolved","detail":"删除手机固定宽度；390px浏览器截图确认平台工程图完整缩略，图片和容器均342px。共享主题最终逐页复验仍待完成。"}],
+      "validation": ["YAML解析通过；最新1280×660图自检与独立浏览器截图通过。两端双主题全页、1280原尺寸图片加载关闭、手机代码scrollLeft19、分页通过。构建13.72秒；未创建平台API或外部资源。"]
+    },
+    {
+      "file": "docs/container/kubernetes/advanced/ecosystem.md",
+      "status": "verified",
+      "reviewedHash": "832573a28c0194d69921f5a730dcb9ef85d27818f9dff7553c9b4e75a090892f",
+      "pageType": "云原生生态横向选型",
+      "decision": "完整阅读，以订单发布、入口不可达、策略拒绝和GitOps回写区分证据，引用扩展选择图，保留生态横向比较职责并链接机制页。",
+      "findings": [],
+      "validation": ["两端双主题全页、完整缩略图、两端1120原尺寸图片加载关闭、手机代码scrollLeft40、分页通过；页面宽390。构建13.72秒；生态选型不声明实测性能。"]
+    }
+  ]
+}

@@ -2,15 +2,19 @@
 
 Electron 应用从源码到用户可下载文件至少经过三层：Package 生成可运行应用目录，Make 生成平台分发物，Publish 把分发物和元数据传到远端。命令成功只证明当前一层完成，不能替后面的层背书。
 
+![Forge产物阶段与签名位置](/electron/forge-delivery-chain.svg)
+
+例如把编辑器发给同事：复制源码不包含运行时，复制 `.app` 也不等于可下载的安装器。先确认目标是可运行目录、ZIP 还是系统安装包，再选对应命令与 Maker。
+
 ## DeskLab 的实际构建结果
 
-实验环境为 Electron 43.3.0、Electron Forge 7.11.2、macOS arm64。
+以下是历史实验样本：Electron 43.3.0、Electron Forge 7.11.2、macOS arm64，不能外推为其他版本或平台的验收结果。
 
 | 阶段 | 产物 | 实测结果 |
 |---|---|---:|
 | Package | `DeskLab.app` | 276 MB |
 | Package | `Contents/Resources/app.asar` | 232 KB |
-| Make | arm64 ZIP | 119,923,785 bytes，约 128 MB |
+| Make | arm64 ZIP | 119,923,785 bytes，约 119.92 MB / 114.37 MiB |
 
 ~~~bash
 npm run package
@@ -44,6 +48,8 @@ Maker 接收 Package 目录并输出 ZIP、DMG、Squirrel、deb、rpm 等文件�
 | Windows | x64 | installer | 待验证 | 待验证 | 待验证 |
 
 空白格比一个笼统的“构建成功”更准确。
+
+签名应在应用目录的二进制与 Fuse 已固定后执行，Forge 可通过 Packager 配置在 Package 中完成应用签名；安装器还有自己的签名或公证要求。Make 并不是所有签名的统一起点。版本变化后要从真实日志确认各 hook 顺序，再验证最终分发物。
 
 ## Publish：上传及更新元数据
 

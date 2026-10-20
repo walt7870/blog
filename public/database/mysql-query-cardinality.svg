@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">订单分页与明细聚合的基数边界</title>
+  <desc id="desc">错误路径先把订单103的两条商品与两个包裹关联成四行，商品20与30各重复两次，金额误算为100。正确路径先选订单104和103，商品和包裹各自聚合为每订单一行，最后左连接仍返回两订单，103金额50、包裹2，104零明细也保留。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{font-size:15px;fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}
+      .line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="600" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">分页单位是订单，商品和包裹不能交叉放大</text>
+  <text x="36" y="78" class="small">订单 103：商品金额 20 + 30，两个包裹；订单 104：暂无商品和包裹。</text>
+  <path d="M316 172H396" class="line"/><path d="M716 172H796" class="line"/>
+  <rect x="36" y="116" width="280" height="112" class="box"/>
+  <text x="56" y="149" class="head">先关联两组明细</text><text x="56" y="181">103 × 两条商品 × 两个包裹</text><text x="56" y="211" class="small">每条商品都匹配两个包裹</text>
+  <rect x="396" y="116" width="320" height="112" class="box"/>
+  <text x="416" y="149" class="head">中间集合变成四行</text><text x="416" y="181">20 / 包裹 1，20 / 包裹 2</text><text x="416" y="211">30 / 包裹 1，30 / 包裹 2</text>
+  <rect x="796" y="116" width="288" height="112" class="box"/>
+  <text x="816" y="149" class="head">汇总结果错误</text><text x="816" y="181">SUM 商品金额 = 100</text><text x="816" y="211">COUNT 商品 / 包裹 = 4</text>
+  <path d="M316 388H390Q398 388 398 380V335Q398 327 406 327H476" class="line"/>
+  <path d="M316 420H382Q390 420 390 428V471Q390 479 398 479H476" class="line"/>
+  <path d="M716 327H750Q758 327 758 335V372Q758 380 766 380H804" class="line"/>
+  <path d="M716 479H750Q758 479 758 471V432Q758 424 766 424H804" class="line"/>
+  <path d="M176 460V532Q176 540 184 540H936Q944 540 944 532V462" class="line"/>
+  <rect x="344" y="530" width="136" height="20" fill="#f7f9fa"/>
+  <text x="412" y="545" text-anchor="middle" class="small">页面主集合</text>
+  <rect x="36" y="352" width="280" height="108" class="focus"/>
+  <text x="56" y="385" class="head">先按完整条件选订单页</text><text x="56" y="417">104、103：两笔订单</text><text x="56" y="447" class="small">买家、时间边界、稳定排序</text>
+  <rect x="476" y="280" width="240" height="96" class="box"/>
+  <text x="496" y="313" class="head">商品按订单聚合</text><text x="496" y="346">103 → 2 条，金额 50</text>
+  <rect x="476" y="432" width="240" height="96" class="box"/>
+  <text x="496" y="465" class="head">包裹按订单聚合</text><text x="496" y="498">103 → 2 个包裹</text>
+  <rect x="804" y="346" width="280" height="116" class="focus"/>
+  <text x="824" y="379" class="head">按订单左连接，仍是两行</text><text x="824" y="411">103 → 2 条 / 50 / 2 个</text><text x="824" y="443">104 → 0 条 / 0 / 0 个</text>
+  <text x="36" y="567" class="small">展示明细可在分页后读取；决定哪些订单能入选的条件，必须在选订单页时就应用。</text>
+</svg>

@@ -1,263 +1,68 @@
 # 工具链与工程实践
 
-Rust 的工程体验很大程度来自统一工具链。对团队来说，Rust 的价值不只是语言安全，也包括构建、测试、格式化、静态检查、文档和发布流程的一致性。
+Cargo统一构建与测试入口，但复现一次构建还需要固定编译器、依赖、feature和系统环境。以订单CLI为例，开发机成功只证明当前环境；CI必须从同一提交与锁文件重建，并验证真实可执行文件。
 
-## rustup
+![Rust固定输入、质量检查与交付链路](/rust/toolchain-gates.svg)
 
-`rustup` 用于安装和管理 Rust 工具链：
+## 固定项目输入
 
-```bash
-rustup update
-rustup default stable
-rustup toolchain install nightly
-```
+`rustup` 管工具链，`rustc` 编译代码，`cargo` 管项目与依赖。先运行 `rustc --version --verbose`、`cargo --version`、`rustup show active-toolchain`，确认当前实际选择，避免全局默认值掩盖目录覆盖。
 
-常见用途：
-
-- 切换 stable、beta、nightly。
-- 安装交叉编译目标。
-- 安装 rustfmt、Clippy 等组件。
-- 为项目固定工具链。
-
-项目可以用 `rust-toolchain.toml` 固定版本：
+项目可在 `rust-toolchain.toml` 指定经团队验证的精确版本。下面固定1.85.0是可复现配置示例，不是推荐长期停留在这个版本：
 
 ```toml
 [toolchain]
-channel = "stable"
+channel = "1.85.0"
+profile = "minimal"
 components = ["rustfmt", "clippy"]
 ```
 
-## Cargo 常用命令
+`stable`、`beta`、`nightly` 是会移动的通道；需要Nightly能力时也应评估按日期固定。`edition = "2024"` 是每个crate的语言规则，`rust-version` 是最低支持版本，二者不等于实际编译器版本，见[发展历程](./history.md)。
+
+## 清单、锁文件与依赖
+
+`Cargo.toml` 表达允许的版本范围，`Cargo.lock` 记录解析图；`--locked` 在需要改变锁文件时拒绝执行，不负责冻结系统库、环境变量或远程服务。应用应提交锁文件，库也可为自身CI保留锁文件，但下游不会被强制使用这份解析结果。
 
 ```bash
-cargo new hello-rust
-cargo build
-cargo run
-cargo test
-cargo check
-cargo fmt
-cargo clippy
-cargo doc --open
+cargo check --locked
+cargo tree -e features
+cargo tree -d
+cargo metadata --locked --format-version 1
 ```
 
-常见命令含义：
+重复依赖版本不一定是解析失败，需判断API、类型身份和体积影响。依赖的 `build.rs` 与过程宏会在构建机执行，拉取后编译也是执行第三方代码；锁文件和内存安全不能代替构建机隔离与依赖审查。`--frozen` 同时约束锁文件与网络访问，干净缓存下可能直接失败。
 
-| 命令 | 用途 |
-| --- | --- |
-| `cargo check` | 快速类型检查，不生成最终二进制 |
-| `cargo build` | 编译项目 |
-| `cargo run` | 编译并运行 |
-| `cargo test` | 运行测试 |
-| `cargo fmt` | 格式化代码 |
-| `cargo clippy` | 静态检查 |
-| `cargo doc` | 生成文档 |
+## 不同检查分别覆盖什么
 
-开发中应优先频繁运行 `cargo check`，它比完整构建更快。
-
-## Cargo.toml
-
-`Cargo.toml` 是 Rust 项目的清单文件：
-
-```toml
-[package]
-name = "hello-rust"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-serde = { version = "1", features = ["derive"] }
+```bash
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
+cargo test --workspace --locked
+cargo build --release --locked
+cargo doc --workspace --no-deps --locked
 ```
 
-依赖版本采用语义化版本规则。Rust 生态通常把公共 API 兼容性看得比较重，但生产项目仍应结合 lockfile、审计和 CI 控制升级风险。
+格式检查只看排版，Clippy补充静态诊断，测试验证断言，release构建验证优化后的链接与产物。把警告升为错误适合已收敛规则的工程；新编译器可能带来新诊断，升级时需要评估。
 
-## Cargo.lock
+`cargo test` 默认也运行符合条件的库文档测试；`cargo test --all-targets` 选择目标测试，不包含文档测试。若CI使用后者，应单独运行 `cargo test --doc --locked`。README中的代码不会自动成为文档测试，除非项目明确把它纳入rustdoc输入或另有校验。
 
-`Cargo.lock` 记录精确依赖版本。
+## Feature与workspace
 
-- 应用项目通常提交 `Cargo.lock`。
-- 库项目是否提交取决于团队策略，但发布到 crates.io 时不会强制下游使用你的 lockfile。
-
-提交 lockfile 可以提高构建可复现性。
-
-## Workspace
-
-大型项目通常使用 workspace 管理多个 crate：
+Feature是编译期能力组合，通常应设计为可叠加。不能把 `--all-features` 当成覆盖全部组合：互斥后端可能无法同时编译，全部打开也不会验证缺省或单项关闭的路径。按支持合同分别测试默认、无默认与指定组合。
 
 ```toml
 [workspace]
-members = [
-    "crates/api",
-    "crates/core",
-    "crates/cli",
-]
-resolver = "2"
+members = ["crates/core", "crates/cli"]
+resolver = "3"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
 ```
 
-优势：
+这是2024 Edition工程的虚拟workspace片段；resolver3需要支持它的工具链。成员只有声明 `serde.workspace = true` 才继承对应依赖。共享锁文件和目标目录不等于强制所有crate使用同一版本，还应检查实际解析图。
 
-- 共享 lockfile。
-- 统一构建和测试。
-- 拆分模块边界。
-- 多个可执行文件和库协同开发。
+## 发布与供应链
 
-## rustfmt
+`cargo audit`、`cargo deny`、`cargo vet`、`cargo outdated` 是单独安装的扩展工具，不属于Cargo内置命令。安装前核对来源、版本、所需MSRV和权限，在CI固定工具版本；审计库还需要更新，扫描通过不证明没有未知漏洞。
 
-`rustfmt` 负责统一格式：
-
-```bash
-cargo fmt
-```
-
-团队不应在格式上花太多讨论。让自动格式化成为提交前和 CI 的固定步骤。
-
-## Clippy
-
-Clippy 是 Rust 官方 lint 工具：
-
-```bash
-cargo clippy --all-targets --all-features
-```
-
-它能发现很多可读性、性能和潜在错误问题。常见 CI 配置会把 warning 当作失败：
-
-```bash
-cargo clippy --all-targets --all-features -- -D warnings
-```
-
-但对历史项目要谨慎启用 `-D warnings`，避免一次性引入大量无关修改。
-
-## 测试
-
-Rust 支持单元测试、集成测试和文档测试。
-
-单元测试通常写在同一文件：
-
-```rust
-pub fn add(left: i32, right: i32) -> i32 {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn add_two_numbers() {
-        assert_eq!(add(1, 2), 3);
-    }
-}
-```
-
-集成测试放在 `tests/` 目录：
-
-```text
-tests/
-└── api_test.rs
-```
-
-文档测试写在注释示例中，`cargo test` 会自动运行：
-
-```rust
-/// Adds two numbers.
-///
-/// ```
-/// assert_eq!(my_crate::add(1, 2), 3);
-/// ```
-pub fn add(left: i32, right: i32) -> i32 {
-    left + right
-}
-```
-
-## 文档
-
-Rust 文档注释使用 `///`：
-
-```rust
-/// User account in the system.
-pub struct User {
-    /// Unique user id.
-    pub id: u64,
-}
-```
-
-生成文档：
-
-```bash
-cargo doc --no-deps --open
-```
-
-公共库应重视文档示例，因为示例能被测试，减少文档和真实 API 脱节。
-
-## Feature Flags
-
-Cargo feature 用于条件启用功能：
-
-```toml
-[features]
-default = ["json"]
-json = ["serde_json"]
-
-[dependencies]
-serde_json = { version = "1", optional = true }
-```
-
-Feature 适合控制可选依赖、平台能力、协议支持。不要滥用 feature 表达运行时配置，否则构建矩阵会变复杂。
-
-## Release 构建
-
-默认 debug 构建偏向编译速度和调试体验，release 构建开启优化：
-
-```bash
-cargo build --release
-```
-
-可以在 `Cargo.toml` 中配置 profile：
-
-```toml
-[profile.release]
-lto = true
-codegen-units = 1
-strip = true
-```
-
-这些选项可能提升运行性能或减小体积，但会增加编译时间，需结合项目目标选择。
-
-## 安全与供应链
-
-Rust 项目也要关注依赖安全。常用工具包括：
-
-- `cargo audit`：检查已知安全漏洞。
-- `cargo deny`：检查许可证、重复依赖、漏洞和来源。
-- `cargo vet`：供应链审查流程。
-
-基础设施项目尤其应把依赖审计纳入 CI。
-
-## CI 建议
-
-一个常见 Rust CI 至少包含：
-
-```bash
-cargo fmt --check
-cargo clippy --all-targets --all-features -- -D warnings
-cargo test --all-features
-cargo build --release
-```
-
-如果项目支持多个平台，还应加入 Linux、macOS、Windows 或目标架构矩阵。
-
-## 工程实践建议
-
-- 应用项目提交 `Cargo.lock`。
-- 提交前运行 `cargo fmt` 和 `cargo clippy`。
-- 模块边界优先用可见性控制，而不是约定。
-- 对公共 API 写文档和示例。
-- 对核心逻辑使用单元测试，对外部行为使用集成测试。
-- 不要过早拆太多 crate，小项目先保持简单。
-
-## 参考资料
-
-- rustup：https://rustup.rs/
-- Cargo Book：https://doc.rust-lang.org/cargo/
-- rustfmt：https://github.com/rust-lang/rustfmt
-- Clippy：https://doc.rust-lang.org/clippy/
-- Rustdoc：https://doc.rust-lang.org/rustdoc/
+release默认优化，但不自动成为可跨系统运行的静态二进制。明确目标三元组、CPU、系统库、TLS后端与签名要求，在目标环境验证。LTO、strip、codegen-units等配置应以体积、性能和排错需求测量后选择，不机械复制“最优配置”。完整例子见[动手实践](./hands-on.md)和[项目实战](./project-practice.md)。

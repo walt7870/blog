@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="monitor-title monitor-desc">
+<title id="monitor-title">订单导出变慢的证据链</title>
+<desc id="monitor-desc">业务现象与有限采样在同一时间窗内关联，分别核对CPU限流、内存压力、I/O和下游等待，然后验证明确假设并重复业务验收。</desc>
+<defs><marker id="monitor-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.focus{fill:#e7f3ef;stroke:#69978c;stroke-width:1.5}.blue{fill:#eff5fc;stroke:#a4b9cc;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#monitor-arrow)}</style></defs>
+<rect width="1120" height="600" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">导出从 2 秒变成 20 秒：先对齐同一个时间窗</text>
+<text class="b" x="36" y="80">箭头表示排查证据的汇集与复验顺序；单个指标不能直接证明根因。</text>
+<path class="edge" d="M316 200H412"/><path class="edge" d="M708 200H800"/>
+<path class="edge" d="M560 270V332"/><path class="edge" d="M708 402H800"/>
+<rect class="box" x="36" y="130" width="280" height="140" rx="6"/>
+<text class="n" x="54" y="166">业务现象</text><text class="b" x="54" y="200">吞吐、错误率、尾延迟</text><text class="b" x="54" y="232">输入规模、变更与时间</text>
+<rect class="focus" x="412" y="130" width="296" height="140" rx="6"/>
+<text class="n" x="430" y="166">同窗有限采样</text><text class="b" x="430" y="200">目标进程、组限额与路径</text><text class="b" x="430" y="232">分清累计、首样本与增量</text>
+<rect class="blue" x="800" y="130" width="284" height="140" rx="6"/>
+<text class="n" x="818" y="166">CPU 与内存</text><text class="b" x="818" y="200">运行队列 / 限流增量</text><text class="b" x="818" y="232">计费上限 / PSI / OOM</text>
+<rect class="blue" x="412" y="332" width="296" height="140" rx="6"/>
+<text class="n" x="430" y="368">I/O 与下游</text><text class="b" x="430" y="402">路径对应设备 / await</text><text class="b" x="430" y="434">连接池等待 / 请求追踪</text>
+<rect class="box" x="800" y="332" width="284" height="140" rx="6"/>
+<text class="n" x="818" y="368">验证明确假设</text><text class="b" x="818" y="402">相同输入、负载与预算</text><text class="b" x="818" y="434">结果正确 + 延迟与成本</text>
+<path class="edge" d="M942 270V332"/>
+<text class="b" x="36" y="374">先处理已确认的瓶颈</text><text class="b" x="36" y="408">例如：限制导出并发</text><text class="b" x="36" y="442">观察在线请求是否恢复</text>
+<text class="b" x="36" y="536">复验后重新采样；若证据不支持假设，回到目标与时间窗重新定位。</text>
+<text class="b" x="36" y="568">历史数据需提前采集；当前 sar 采样不能补出过去的故障曲线。</text>
+</svg>

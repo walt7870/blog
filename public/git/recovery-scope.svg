@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="git-recovery-title git-recovery-desc">
+  <title id="git-recovery-title">按修改所在位置选择恢复操作</title><desc id="git-recovery-desc">先保护文件和提交，再按工作区修改、索引候选、本地未共享提交或公共历史选择restore、restore staged、reset或revert。分支仅保护提交，reflog不能备份未提交文件。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="540" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="56" font-size="27" font-weight="700">先确定要恢复哪份内容</text><text x="48" y="92" font-size="17" fill="#536470">未提交文件另存、stash 或临时提交；分支只保护已有提交引用。</text>
+    <rect x="388" y="128" width="344" height="64" rx="20" fill="#e9f5f0" stroke="#7caaa0"/><text x="560" y="168" text-anchor="middle" font-size="21" font-weight="700">status 与两份 diff 确认范围</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M416 192V212Q416 220 408 220H168Q160 220 160 228V280"/><path d="M512 192V236Q512 244 504 244H432Q424 244 424 252V280"/><path d="M608 192V236Q608 244 616 244H680Q688 244 688 252V280"/><path d="M704 192V212Q704 220 712 220H944Q952 220 952 228V280"/></g>
+    <text x="56" y="266" font-size="17">工作区</text><text x="340" y="270" font-size="17">索引</text><text x="584" y="270" font-size="17">未共享历史</text><text x="848" y="266" font-size="17">公共历史</text>
+    <rect x="56" y="280" width="208" height="136" rx="6" fill="#fff" stroke="#a4b3be"/><text x="76" y="316" font-size="21" font-weight="700">restore</text><text x="76" y="350" font-size="17">默认从索引覆盖文件</text><text x="76" y="384" font-size="16">确认不要的修改再丢弃</text>
+    <rect x="320" y="280" width="208" height="136" rx="6" fill="#fff" stroke="#a4b3be"/><text x="340" y="316" font-size="21" font-weight="700">restore --staged</text><text x="340" y="350" font-size="17">默认按 HEAD 重建索引</text><text x="340" y="384" font-size="16">工作区内容保留</text>
+    <rect x="584" y="280" width="208" height="136" rx="6" fill="#fff" stroke="#a4b3be"/><text x="604" y="316" font-size="21" font-weight="700">reset / amend</text><text x="604" y="350" font-size="17">调整引用或替换尖端</text><text x="604" y="384" font-size="16">先保存现场和旧提交</text>
+    <rect x="848" y="280" width="208" height="136" rx="6" fill="#edf4fc" stroke="#819bb6"/><text x="868" y="316" font-size="21" font-weight="700">revert</text><text x="868" y="350" font-size="17">新增反向修改提交</text><text x="868" y="384" font-size="16">仍需检查冲突和副作用</text>
+    <text x="48" y="474" font-size="18">误操作后先找仍存在的提交，再建 recovery 分支；不要直接覆盖当前现场。</text><text x="48" y="510" font-size="17" fill="#536470">reflog 会过期；clean 或 restore 删除的未提交内容不能承诺由 Git 找回。</text>
+  </g>
+</svg>

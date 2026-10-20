@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="bp-title bp-desc">
+<title id="bp-title">慢消费者的积压与背压</title><desc id="bp-desc">业务生产进入有界应用队列，再经Socket与网络交给客户端。队列满时要根据数据语义合并、暂停、持久化或断开，TCP确认不代表业务处理完成。</desc>
+<defs><marker id="bp-arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+<rect width="1120" height="600" fill="#f7f9fb"/>
+<g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+<text x="48" y="56" font-size="28" font-weight="700">生产速度超过消费速度，差额先变成队列</text>
+<text x="48" y="92" font-size="18" fill="#52616d">示例：每秒 20 条进入、5 条消费，净积压每秒 15 条。</text>
+<g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#bp-arrow)">
+<path d="M248 218H310"/><path d="M550 218H612"/><path d="M812 218H874"/>
+<path d="M430 294V356"/><path d="M310 458H148Q140 458 140 450V294"/>
+</g>
+<g fill="#fff" stroke="#8fa3b1"><rect x="48" y="150" width="200" height="144" rx="6"/><rect x="612" y="150" width="200" height="144" rx="6"/><rect x="874" y="150" width="198" height="144" rx="6"/></g>
+<rect x="310" y="150" width="240" height="144" rx="6" fill="#eaf3fb" stroke="#7694aa"/>
+<rect x="310" y="356" width="660" height="150" rx="6" fill="#e8f5ef" stroke="#74a28b"/>
+<g font-size="22" font-weight="600"><text x="68" y="192">业务生产</text><text x="330" y="192">有界应用队列</text><text x="632" y="192">Socket / 网络</text><text x="894" y="192">客户端</text><text x="334" y="398">到达上限：按数据语义选择动作</text></g>
+<g font-size="18" fill="#52616d"><text x="68" y="234">20 条/秒</text><text x="68" y="266">限制生产速率</text><text x="330" y="234">计数、字节、最长等待</text><text x="330" y="266">满时显式反馈</text><text x="632" y="234">窗口与在途字节</text><text x="632" y="266">发送完成非业务 ACK</text><text x="894" y="234">5 条/秒</text><text x="894" y="266">处理后确认游标</text>
+<text x="334" y="438">当前状态：按对象合并或丢弃过期值。</text><text x="334" y="476">支付流水：持久化、暂停生产，或断开后按游标恢复。</text>
+<text x="48" y="560">反向反馈要传回业务入口；仅扩大缓冲区只会延后故障，并增加等待时间。</text></g></g></svg>

@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/basic/special.md",
+      "status": "verified",
+      "reviewedHash": "49b9e8aa917c3e93968d60769a196598536cec07d83f712c13feb9396ee91d28",
+      "pageType": "Java语言特性的对象合同与运行机制",
+      "decision": "旧2520行全文阅读后重写。修内部类/外部方法无终止互调、反射复制缺无参构造器且写static/final、函数式示例变量未定义、并行流int立方溢出、吞失败返回0和Optional/断言验证泛化。保留类/接口/枚举/泛型/内部类/Lambda/Stream/Optional/注解反射范围，用两个完整订单程序和纯计算管线SVG串联，区分编译约束、元数据与执行者。",
+      "validation": [
+        "web-read三页失败，改用浏览器读取Oracle JDK17 Stream包的惰性、终结、侧效应省略和归约合同，Method.invoke完整说明与异常，JLS9保留策略/Inherited相关正文；未将失败抓取当成已读。",
+        "/tmp/blog-java-features-check.mjs显式Temurin17.0.20.1从正文提取两个完整类编译运行通过；订单102/103合8000分、首笔102、直接调用与显式包装器/CLASS注解不可反射读取通过。空/非法输入、不可修改结果、流复用、Optional求值、反射原始运行异常与溢出负例通过；泛型不变性及捕获非effectively-final变量的编译失败通过。首次负例诊断匹配受中文环境影响，已固定javac诊断语言重跑通过。",
+        "最终完整构建15.02秒退出0并重启preview。SVG自检、实际中文全文截图和边界/连线通过；1280和390×844亮深色、图片放大/原尺寸/关闭及长代码局部滚动通过，无破图或全页溢出。未声明框架、数据库或真实导出业务测试。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "page": "",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "nlp.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "speech.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "time-series.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "nlp.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "computer-vision.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "speech.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "recommendation.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "time-series.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "reinforcement-learning.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "multimodal.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  }
+]

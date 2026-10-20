@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="influx-point-title influx-point-desc">
+  <title id="influx-point-title">InfluxDB 数据点身份与重复写入</title>
+  <desc id="influx-point-desc">2.x以measurement、完整tag set与timestamp识别数据点。相同身份重写会合并字段并覆盖相同field，不能当成追加事件；timestamp的单位由写入precision指定。</desc>
+  <defs>
+    <marker id="influx-point-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#influx-point-arrow)}</style>
+  </defs>
+  <rect width="1200" height="640" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">同一采样重写会合并字段，时间单位错误会写到另一时刻</text>
+  <text x="36" y="78" class="small">范围：InfluxDB OSS 2.x 的数据点语义；示例以秒精度写入。</text>
+  <rect x="36" y="116" width="1128" height="88" class="focus"/>
+  <text x="56" y="152" class="head">数据点身份 = measurement + 完整 tag set + timestamp</text>
+  <text x="56" y="184">merge_demo + device=d1 + 1792368000 秒（2026-10-19 00:00:00 UTC）</text>
+  <path d="M324 328H432" class="line"/><path d="M768 328H876" class="line"/>
+  <rect x="36" y="256" width="288" height="156" class="box"/>
+  <text x="56" y="296" class="head">原有字段</text><text x="56" y="338">temperature = 20.0</text><text x="56" y="378">humidity = 40.0</text>
+  <rect x="432" y="256" width="336" height="156" class="box"/>
+  <text x="452" y="296" class="head">相同身份的新写入</text><text x="452" y="338">temperature = 21.0</text><text x="452" y="378">voltage = 3.3</text>
+  <rect x="876" y="240" width="288" height="188" class="focus"/>
+  <text x="896" y="280" class="head">最后仍是同一个点</text><text x="896" y="322">temperature = 21.0</text><text x="896" y="362">humidity = 40.0</text><text x="896" y="402">voltage = 3.3</text>
+  <text x="36" y="480" class="head">稳定采样合同</text><text x="36" y="518">设备标识与原始采样时刻在重试中保持不变；同一字段的不同值需要定义覆盖顺序。</text>
+  <path d="M36 552H1164" stroke="#bac4c9"/>
+  <text x="36" y="586" class="small">precision=s / ms / ns 要与整数单位一致。改变时间戳或增加唯一 UUID 标签，会改变点的身份。</text>
+  <text x="36" y="616" class="small">实线：按相同身份合并字段的写入过程；青绿：身份合同与最终结果。</text>
+</svg>

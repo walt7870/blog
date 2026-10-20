@@ -6,7 +6,7 @@ date: 2026-07-18
 
 # Custom Resource 阅读入口
 
-Custom Resource 已从资源清单页迁入进阶扩展专题。旧 URL 保留，避免既有链接失效。
+Custom Resource是通过CRD注册的自定义资源实例，例如平台的AppRelease。类型定义、版本迁移和控制器生命周期集中在进阶扩展专题。
 
 完整内容见：
 

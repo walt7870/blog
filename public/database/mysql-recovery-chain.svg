@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="550" viewBox="0 0 1120 550" role="img" aria-labelledby="title desc">
+  <title id="title">全量备份与连续日志的恢复链</title>
+  <desc id="desc">示例时间轴从02点全量一致性快照到13点正常订单、14点误删，再到15点恢复。隔离实例先还原全量，再回放从快照位点到误删前完整事务边界的日志，保留正常订单而不执行误删，最后做业务验收。时间间距按小时比例，恢复耗时不按比例。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{font-size:15px;fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}
+      .line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="550" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">恢复到误删之前：基线数据 + 其后的正常事务</text>
+  <text x="36" y="78" class="small">示例源端时间（小时比例）；全量备份需记录一致性快照对应的日志位点。</text>
+  <path d="M76 204H1051" fill="none" stroke="#bac4c9"/>
+  <path d="M76 204V139M901 204V139M976 204V250M1051 204V109" fill="none" stroke="#bac4c9"/>
+  <circle cx="76" cy="204" r="6" fill="#3b8573"/><circle cx="901" cy="204" r="4" fill="#74818a"/>
+  <circle cx="976" cy="204" r="6" fill="#27343b"/><circle cx="1051" cy="204" r="4" fill="#74818a"/>
+  <text x="56" y="232" class="small">02:00</text><text x="877" y="232" class="small">13:00</text>
+  <text x="950" y="279" class="small">14:00</text><text x="1026" y="232" class="small">15:00</text>
+  <text x="36" y="120" class="head">全量快照</text><text x="36" y="147" class="small">订单 1001 在基线中</text>
+  <text x="817" y="120" class="head">正常新增 1002</text><text x="918" y="305" class="head">误删 1001</text>
+  <text x="1028" y="100" class="small">开始恢复</text>
+  <path d="M96 262H877" class="line"/>
+  <rect x="340" y="246" width="380" height="32" fill="#f7f9fa"/>
+  <text x="530" y="268" text-anchor="middle">归档连续日志，停止于误删事务之前</text>
+  <text x="36" y="320" class="small">隔离恢复顺序（步骤宽度不代表耗时）</text>
+  <path d="M316 394H364" class="line"/><path d="M704 394H752" class="line"/>
+  <rect x="36" y="350" width="280" height="92" class="box"/>
+  <text x="56" y="382" class="head">1. 还原一致性全量</text><text x="56" y="414">订单 1001：39.90</text>
+  <rect x="364" y="350" width="340" height="92" class="focus"/>
+  <text x="384" y="382" class="head">2. 回放已核准的正常事务</text><text x="384" y="414">补入订单 1002：20.00</text>
+  <rect x="752" y="350" width="332" height="92" class="box"/>
+  <text x="772" y="382" class="head">3. 对账并验证应用</text><text x="772" y="414">两笔订单存在，金额合计 59.90</text>
+  <text x="36" y="488" class="small">没有执行误删，不等于可以直接跳过该事务再回放所有后续操作；必须检查业务依赖。</text>
+  <text x="36" y="520" class="small">全量文件、日志中间任一段、位点或加密密钥缺失，都会影响最终可恢复范围。</text>
+</svg>

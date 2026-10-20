@@ -6,7 +6,7 @@
 
 ![Spring 启动期与请求期总结图](/spring/summary/runtime-model-overview.webp)
 
-上图用于先建立全局分区：启动期形成可复用的对象图、代理、路由和服务器，请求期沿已有运行系统完成一次业务调用。下面的 SVG 继续展示更精确的调用链与对象关系。
+上图以启用 JDBC 事务的 Servlet 应用建立全局分区：启动期形成非懒加载单例、代理、路由和服务器，请求期沿已有运行系统完成业务调用。短作用域与懒加载对象可能在请求时才创建；没有事务设施的内存订单练习也不会产生事务代理。下面的 SVG 继续展示阶段关系。
 
 ![Spring 启动链与请求链](/spring/spring-runtime-chains.svg)
 
@@ -14,7 +14,7 @@
 
 ## 先准备一个可以追踪的订单接口
 
-项目只需要 Web、Validation、JDBC 和 H2。Controller 负责协议转换，Service 定义事务边界，Repository 执行数据库写入：
+下面是调用链片段，需要 Web、Validation、JDBC 和 H2 等依赖。省略了导入、启动类、数据库建表以及 OrderRepository、请求/响应和领域模型的实现，不能单独编译为完整应用。Controller 负责协议转换，Service 定义事务边界，Repository 执行数据库写入：
 
 ```java
 @RestController
@@ -51,7 +51,7 @@ class OrderService {
 }
 ```
 
-这段代码看不到 DataSource、事务拦截器、JSON 转换器和 Tomcat，但运行时缺少其中任何一个，请求都不能完成。它们一部分来自用户代码，一部分来自自动配置，最后都进入同一个 ApplicationContext。
+这条 JDBC、JSON、Servlet 示例链还需要 DataSource、事务拦截器、JSON 转换器和 Servlet 容器；Tomcat 可以由兼容的其他容器替换。它们一部分来自用户配置，一部分来自自动配置，共同形成运行系统。
 
 ## 时间轴一：启动阶段形成运行系统
 

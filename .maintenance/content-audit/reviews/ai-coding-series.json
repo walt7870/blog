@@ -1,0 +1,326 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/coding-agent-series/01-ai-coding-agent-era.md",
+      "status": "verified",
+      "pageType": "执行闭环与自治边界",
+      "decision": "区分Review横切角色与自治层级；修正测试真理和脚本低风险断言，按影响面验证，替换错误层级图。",
+      "findings": [],
+      "validation": [
+        "完整正文及原图逐张审查；双视口浅深色截图、资源加载、客户端分页通过；复用闭环图原尺寸与键盘放大通过。"
+      ],
+      "reviewedHash": "3d12f35482578c2a074b6321ea5a2b8a1d55239c84aa0d60e36dc14fb0d2bc24"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/02-coding-agent-internals.md",
+      "status": "verified",
+      "pageType": "Agent运行机制",
+      "decision": "修正上下文压缩、权限与停止条件；禁止清除用户脏工作，区分运行时控制和订单教学源码。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；双视口浅深色全文截图、图片和站内分页通过；控制面图原尺寸与关闭通过。"
+      ],
+      "reviewedHash": "5c204f9f483d6e4f82b5c696a1ffaf5b76e455389f2b352a7408c8379a3955d2"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.md",
+      "status": "verified",
+      "pageType": "产品工作流选型",
+      "decision": "按实际运行入口评估；撤下未证实的改名及能力清单，Copilot和Codex改试点评估问题；核对Cursor、Gemini、Devin和Claude有效官网正文。",
+      "findings": [],
+      "validation": [
+        "全文及易变能力核对；双视口浅深色全文截图、图片与分页通过；新运行边界SVG独立原尺寸和双视口放大通过。"
+      ],
+      "reviewedHash": "69ed4b29fb49db806cbe659ffe7522f8333773e4fec461a8a7956832fc250fee"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.md",
+      "status": "verified",
+      "pageType": "开发方法边界",
+      "decision": "修正脚本风险与授权；用实际可下载订单合同替代旧历史声明，替换压字图并保留方法选择图。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；双视口浅深色全文截图、图片和分页通过；选择图双视口原尺寸操作通过。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "63495d76a4b015344c45ab0d17c5c16735f4c63b65c0b4631cd35c9191fea512"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/05-executable-task-contract.md",
+      "status": "verified",
+      "pageType": "任务与验收合同",
+      "decision": "任务模板中文化，按风险选择复现、截图或回归；Given/When/Then不再画成时序参与者，改状态与结果图。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；双视口浅深色截图、资源与分页通过；状态图独立原尺寸及双视口键盘放大通过。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "a2b3df18e84a6ada91f5602ed681bd0ad8d6ebefe088e4f6df47d36603973cc4"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/06-context-engineering.md",
+      "status": "verified",
+      "pageType": "上下文组织与失效",
+      "decision": "纠正追加文本能删除污染、压缩必丢信息等断言；明确只撤自身Diff；订单上下文改为实际baseline/final及clean测试入口。",
+      "findings": [],
+      "validation": [
+        "全文与图示已审；双视口浅深色全文截图、资源与分页通过；上下文包图双视口原尺寸操作通过。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "1b351a9b4db465137441c78bc15a9f3b50cd6eeb2af6bbdbf644be56d6360f95"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/07-agents-rules-skills-hooks.md",
+      "status": "verified",
+      "pageType": "指令与确定性门禁",
+      "decision": "不再声称跨产品统一指令优先级；示例中文化，Hook需实际配置，既有授权内继续，退出码结合跳过与范围判读。",
+      "findings": [],
+      "validation": [
+        "全文及图示已审；双视口浅深色全文截图、图片与客户端分页通过。"
+      ],
+      "reviewedHash": "daaa9cb8f50f9bfd5c6beeaa6ea424298a4ec13d94ad5cad142a649696405ebd"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.md",
+      "status": "verified",
+      "pageType": "工具协议与权限边界",
+      "decision": "修正本地Server权限来自进程环境，Prompt Injection也可直接泄露已有上下文；替换叠字层级图，保留稳定协议职责。",
+      "findings": [],
+      "validation": [
+        "全文与MCP有效规范正文核对；双视口浅深色全文截图、资源、分页与架构图原尺寸操作通过。"
+      ],
+      "reviewedHash": "5b0a3d3b512a975a950c7f816f55dd2cdb02c971b7c24653ef35f49abbee7f99"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/09-brownfield-understand-before-edit.md",
+      "status": "verified",
+      "pageType": "可运行旧代码探索",
+      "decision": "完整重写为可下载Java源码教程，去掉无源码支持的五个旧SHA；实际基线8测试、职责地图、状态矩阵和范围约束。",
+      "findings": [],
+      "validation": [
+        "全文与源码、请求图和状态图核对；Java17目标在本机JDK21运行，baseline8通过；下载ZIP浏览器SHA与源一致。",
+        "双视口浅深色全文截图、资源、分页和图示原尺寸通过；完整构建15.05秒。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "d94799ffe7277ded1d01aa098e2ee014a2918b24a3fd113800b9e2496e55d69a"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.md",
+      "status": "verified",
+      "pageType": "可执行行为合同",
+      "decision": "重写为复制取消合同后的真实testCompile红灯和final16测试；解释不可变状态、身份短路、保存次数及MockMvc409边界。",
+      "findings": [],
+      "validation": [
+        "缺少契约符号的编译红灯及最终16测试通过；PAID放行、重复保存和错误404/409四种变异被行为断言拒绝。",
+        "双视口浅深色全文截图、图片与分页通过；验证阶段图和状态图双视口放大通过。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "c80d7ccdf939667a1be0eae2a90ea040c2baa0a0112065caed68a8b8ca61f451"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.md",
+      "status": "verified",
+      "pageType": "反证与交付范围",
+      "decision": "重写为实际mutation、jar启动与HTTP，删旧统计及历史PR草稿；明确409是MockMvc、无认证持久化并发验证。",
+      "findings": [],
+      "validation": [
+        "4种变异预期失败、恢复后16测试及package通过；真实HTTP201/200/重复200/404/非法UUID400/金额400通过，进程已停止。",
+        "双视口浅深色全文截图、资源、分页与图示原尺寸通过；源码下载SHA一致。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "ba56439856a77222b78af737418364dd0dc0a49c9ff647ff44597a7ab5ca4204"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.md",
+      "status": "verified",
+      "pageType": "异步隔离与集成",
+      "decision": "替换错误的Worktree串行图；两分支基于HEAD，说明文件树不隔离运行资源，订单分工仅为方案不冒充已执行历史。",
+      "findings": [],
+      "validation": [
+        "全文与原图已审；双视口浅深色全文截图、资源和分页通过；新Worktree和运行边界SVG独立检查及双视口原尺寸操作通过。"
+      ],
+      "reviewedHash": "10f6483fbdbdffddb5fb1d1fdee917e2ea795ea0b6700e2de7e3a3ad5840b33a"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/13-ai-coding-security-governance.md",
+      "status": "verified",
+      "pageType": "威胁建模与治理",
+      "decision": "按既有授权和实际政策控制审批，修正跨边界一律重新授权；移除压字图，区分Agent运行安全与业务授权。",
+      "findings": [],
+      "validation": [
+        "全文与全部原图审查；双视口浅深色全文截图、图片加载和客户端分页通过。"
+      ],
+      "reviewedHash": "0e8dc7a8cad9a12ee45ee42edc5336c1b0d2d2aba81f0ca40f722cd6cc394b85"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.md",
+      "status": "verified",
+      "pageType": "研究外推与计量",
+      "decision": "核对GitHub2022、METR2025及2026原文；撤未有效取证的DORA2025与信任百分比；分开人工时间、墙钟和货币，以教学数值SVG解释净节省。",
+      "findings": [],
+      "validation": [
+        "全文、研究样本和区间核对；双视口浅深色全文截图、资源及分页通过；净节省SVG独立原尺寸与双视口放大通过。"
+      ],
+      "reviewedHash": "9b04a98be9d3c384d66dba14fdcb97bd25f3849b44683df27d2784afd97ee2c4"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/index.md",
+      "status": "verified",
+      "pageType": "系列导读",
+      "decision": "去掉132图计数和五Git节点声明，增加带/blog的源码下载、实际快照与红绿验证路线；保留14篇完整入口。",
+      "findings": [],
+      "validation": [
+        "全文与14篇入口核对；双视口浅深色全文截图、图片加载及首篇客户端跳转通过；实际下载ZIP SHA256一致。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "reviewedHash": "ea9210100f8f98cc2262268e96d4d54db599f4890e820771ccd5102e07c967c9"
+    }
+  ]
+}

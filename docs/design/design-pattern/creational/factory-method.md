@@ -1,230 +1,92 @@
-# 工厂方法 (Factory Method Pattern)
+# 工厂方法
 
-## 历史脉络
+工厂方法让具体创建者决定产品实现，高层流程通过产品接口完成工作。核心是把可覆盖的创建操作留给扩展点，而不仅仅是给 `new` 换个位置。
 
-工厂方法是 GoF 经典设计模式之一，出现在面向对象框架大量发展的阶段。它解决的核心问题是：框架或高层流程知道“需要一个产品”，但不应该知道“具体创建哪一个产品类”。很多框架扩展点、插件系统、驱动加载机制都能看到它的影子。
+![日志流程、工厂方法与产品的关系](/design-pattern/patterns/factory-method.svg)
 
-![工厂方法模式结构图](/design-pattern/patterns/factory-method.svg)
+## 从稳定流程中分离创建
 
-## 概括
+假设导出完成后要记录一条日志。日志写入流程不想知道具体输出对象，但控制台与内存记录的创建方式不同。抽象创建者可以固定“取得记录器、记录消息”的流程，具体创建者覆盖 `createLogger()`。
 
-工厂方法模式定义了一个创建对象的接口，但由子类决定要实例化的类。这样，父类可以将实例化的职责交给子类，实现了对象创建的延迟和扩展性。
+简单工厂则通常在一个方法内按类型选择产品；注册表按键查找创建者或供应器。它们都能集中创建逻辑，但不必被归为经典工厂方法。注册表也不天然符合开闭原则，新增实现仍需装配与配置验证。
 
-更准确地说，工厂方法不是为了简单隐藏 `new`，而是为了把“产品选择逻辑”从“产品使用逻辑”中隔离出去。
+## 可运行示例
 
-## 问题识别
-
-适合考虑工厂方法的典型信号：
-
-- 创建对象前需要根据类型、配置、环境选择不同实现。
-- 多个产品类实现同一接口，调用方只关心接口能力。
-- 新增产品时，总要修改核心业务类里的分支。
-- 创建过程包含校验、初始化、资源准备等细节。
-
-不适合的情况：
-
-- 只有一个产品类，短期也没有扩展计划。
-- 创建逻辑只是简单 `new`，没有额外变化点。
-- 分支数量很少且稳定，直接构造更清楚。
-
-## 使用场景
-
-工厂方法模式适用于以下场景：
-
-* 对象的创建逻辑复杂，需要封装；
-* 系统中存在多个产品类，但它们都继承自一个共同的接口或父类；
-* 希望代码遵循开闭原则，对扩展开放、对修改封闭。
-
-## 重构前后对比
-
-问题代码通常长这样：
+以下 Java 17+ 程序只演示控制台与内存记录，不接入真实文件或数据库。每次 `execute()` 都创建一个记录器，内存记录器也不会跨调用保留内容。
 
 ```java
-public class LoggerService {
-    public Logger create(String type) {
-        if ("file".equals(type)) {
-            return new FileLogger();
+import java.util.ArrayList;
+import java.util.List;
+
+public final class FactoryMethodDemo {
+    interface Logger {
+        void log(String message);
+    }
+
+    static final class ConsoleLogger implements Logger {
+        public void log(String message) {
+            System.out.println("控制台: " + message);
         }
-        if ("db".equals(type)) {
-            return new DatabaseLogger();
+    }
+
+    static final class MemoryLogger implements Logger {
+        private final List<String> messages = new ArrayList<>();
+
+        public void log(String message) {
+            messages.add(message);
+            System.out.println("内存记录数: " + messages.size());
         }
-        throw new IllegalArgumentException("不支持的日志类型");
-    }
-}
-```
-
-如果日志类型会继续扩展，可以把创建逻辑移动到工厂：
-
-```java
-public interface LoggerFactory {
-    String type();
-    Logger createLogger();
-}
-
-public class FileLoggerFactory implements LoggerFactory {
-    public String type() {
-        return "file";
     }
 
-    public Logger createLogger() {
-        return new FileLogger();
-    }
-}
-```
+    abstract static class LogJob {
+        protected abstract Logger createLogger();
 
-再用注册表统一选择：
-
-```java
-public class LoggerFactoryRegistry {
-    private final Map<String, LoggerFactory> factories;
-
-    public LoggerFactoryRegistry(List<LoggerFactory> factoryList) {
-        this.factories = factoryList.stream()
-                .collect(Collectors.toMap(LoggerFactory::type, factory -> factory));
-    }
-
-    public Logger create(String type) {
-        LoggerFactory factory = factories.get(type);
-        if (factory == null) {
-            throw new IllegalArgumentException("不支持的日志类型");
+        final void execute(String message) {
+            Logger logger = createLogger();
+            logger.log(message);
         }
-        return factory.createLogger();
     }
-}
-```
 
-这样新增 `KafkaLogger` 时，只需要新增 `KafkaLoggerFactory` 并注册，不需要改原有分支。
-
-## 类图说明
-
-```plaintext
-          +-------------------+
-          |   Product         |<----------------+
-          +-------------------+                 |
-                  ▲                            |
-      +-----------+-----------+                |
-      |                       |                |
-+------------+        +---------------+        |
-| ConcreteA  |        |  ConcreteB     |        |
-+------------+        +---------------+        |
-                                               |
-        +----------------------+
-        | Creator（工厂接口）  |---------------------> createProduct()
-        +----------------------+
-                  ▲
-       +----------+----------+
-       |                     |
-+----------------+  +----------------+
-| FactoryA        |  | FactoryB        |
-+----------------+  +----------------+
-| createProduct() |  | createProduct() |
-+----------------+  +----------------+
-
-```
-
-## 使用示例
-
-我们以一个日志系统为例，支持两种日志：文件日志 和 数据库日志。
-
-
-
-1. 抽象产品接口
-
-```java
-public interface Logger {
-    void log(String message);
-}
-
-```
-
-2. 具体产品类
-
-```java
-public class FileLogger implements Logger {
-    public void log(String message) {
-        System.out.println("写入文件日志: " + message);
+    static final class ConsoleLogJob extends LogJob {
+        protected Logger createLogger() {
+            return new ConsoleLogger();
+        }
     }
-}
 
-public class DatabaseLogger implements Logger {
-    public void log(String message) {
-        System.out.println("写入数据库日志: " + message);
+    static final class MemoryLogJob extends LogJob {
+        protected Logger createLogger() {
+            return new MemoryLogger();
+        }
     }
-}
 
-```
-
-3. 抽象工厂接口
-
-```java
-public interface LoggerFactory {
-    Logger createLogger();  // 工厂方法
-}
-
-
-```
-
-4. 具体工厂类
-
-```java
-public class FileLoggerFactory implements LoggerFactory {
-    public Logger createLogger() {
-        // 可加入一些初始化逻辑，如检查路径等
-        return new FileLogger();
-    }
-}
-
-public class DatabaseLoggerFactory implements LoggerFactory {
-    public Logger createLogger() {
-        // 可加入数据库连接检查等逻辑
-        return new DatabaseLogger();
-    }
-}
-
-
-```
-
-5. 客户端调用
-
-```java
-public class Client {
     public static void main(String[] args) {
-        LoggerFactory factory;
-
-        // 假设从配置读取
-        String logType = "file";  // 可改为 "db"
-
-        if (logType.equals("file")) {
-            factory = new FileLoggerFactory();
-        } else {
-            factory = new DatabaseLoggerFactory();
+        List<LogJob> jobs = List.of(new ConsoleLogJob(), new MemoryLogJob());
+        for (LogJob job : jobs) {
+            job.execute("订单导出完成");
         }
-
-        Logger logger = factory.createLogger();
-        logger.log("这是一条日志消息。");
     }
 }
-
 ```
 
-## 优缺点分析
+使用 `javac FactoryMethodDemo.java && java FactoryMethodDemo` 运行，输出 `控制台: 订单导出完成` 和 `内存记录数: 1`。稳定流程位于 `LogJob.execute()`，具体创建位于子类的工厂方法。启动装配仍要选择子类，模式并没有消除选择点。
 
-**✅ 优点**
-符合开闭原则：新增产品时不修改已有工厂和产品代码；
+## 资源产品怎么处理
 
-封装对象创建逻辑，易于维护；
+若产品改成文件写入器，工厂方法需要约定新建还是共享，以及谁关闭。新建并由当前流程拥有的 `AutoCloseable` 产品可以在流程内使用 `try-with-resources`；共享连接池则不能被每次调用顺手关闭。
 
-降低耦合度：客户端依赖抽象，不依赖具体类。
+创建失败时应停止当前操作并报告原因，不能返回 `null` 把失败推迟到日志调用处。若日志是业务审计的必要部分，还需要定义写入失败对主业务的影响；“只是记录日志”不能替代一致性要求。
 
-**❌ 缺点**
-每新增一个产品类，就必须新增一个对应的工厂类，增加类数量；
+## 与相近结构的区别
 
-简单场景下使用可能显得过度设计。
+| 结构 | 创建决定放在哪里 | 适用边界 |
+| --- | --- | --- |
+| 简单工厂 | 集中方法中的分支或配置 | 类型少且稳定时容易理解 |
+| 工厂方法 | 具体创建者覆盖创建操作 | 稳定流程允许扩展产品实现 |
+| 抽象工厂 | 一组相关创建操作的具体实现 | 多个配套产品要整体切换 |
+| 供应器注册表 | 键对应的供应器与装配 | 按配置查找实现，需处理重复键和未知键 |
 
-## 与简单工厂的区别
+工厂方法不要求每个产品都必须有一个单独工厂类，也不规定每次必须新建实例；应把这些选择写进合同。若系统只有一个产品且创建逻辑稳定，直接构造更少跳转。
 
-| 简单工厂          | 工厂方法            |
-| ------------- | --------------- |
-| 使用一个工厂类生产所有产品 | 每个具体工厂类生产一个具体产品 |
-| 不符合开闭原则       | 符合开闭原则          |
-| 适合产品数量固定      | 适合产品种类不断扩展的系统   |
+## 验收
+
+用所有具体创建者运行相同流程测试，检查产品契约、创建失败、重复调用与关闭责任。新增一种日志产品后，稳定流程应能继续运行；装配入口的变化应可定位，不能只证明“没改旧类”就忽略漏注册或未知配置。

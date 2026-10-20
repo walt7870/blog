@@ -6,7 +6,7 @@
 
 > 配套视频：[EP12：自动配置候选怎样进入配置解析链](https://www.bilibili.com/video/BV1RhKu6eENY) 与 [EP13：用户 Bean 为什么能让默认配置退让](https://www.bilibili.com/video/BV1RhKu6eE14)。
 
-## 四个容易混淆的阶段
+## 五个容易混淆的阶段
 
 Starter 只负责依赖组合，让框架类、驱动和自动配置模块进入 classpath。`@EnableAutoConfiguration` 触发 AutoConfigurationImportSelector 读取候选配置；条件评估决定哪些配置和 `@Bean` 方法成立；BeanFactory 最后才根据 BeanDefinition 创建对象。
 
@@ -92,17 +92,17 @@ public class PaymentAutoConfiguration {
 
 ## 用 DataSource 追踪一次装配
 
-引入 JDBC Starter 后，JDBC API、连接池和数据源自动配置进入依赖图。配置类解析阶段导入相关自动配置，并判断必要类是否存在、当前是否缺少用户 DataSource、连接信息能否确定。条件成立后才登记 DataSource BeanDefinition，刷新后半段再创建连接池对象。
+引入 JDBC Starter 后，JDBC API、连接池和数据源自动配置进入依赖图。配置类解析阶段导入相关自动配置，根据必要类、已有 DataSource 等条件决定是否登记定义。后续创建数据源时才进一步解析连接参数、选择驱动并初始化连接池；默认定义成立不保证数据库地址有效，更不保证数据库可连接。
 
 如果用户显式声明 DataSource，`@ConditionalOnMissingBean` 让默认定义退出。这不是用户 Bean 创建后替换默认对象，而是条件评估时根本不登记默认定义。理解这个时间点，才能正确分析“为什么我的 Bean 没覆盖默认配置”和自动配置顺序问题。
 
 完整链路可以拆成：
 
 1. JDBC Starter 让 JDBC API、连接池实现与数据源自动配置模块进入 classpath。
-2. Config Data 把 `spring.datasource.*` 绑定为数据源属性。
-3. 数据源自动配置检查必要类、应用类型和已有 DataSource 定义。
-4. 条件成立后，配置类登记连接池 DataSource 的 BeanDefinition。
-5. BeanFactory 创建 DataSource，应用属性和 Customizer。
+2. Config Data 把 `spring.datasource.*` 配置文档加入 Environment，此时不等于属性 Bean 已完成绑定。
+3. 数据源自动配置检查必要类、应用类型和已有数据访问定义等条件。
+4. 条件成立后，配置类登记连接池与属性对象等 BeanDefinition。
+5. BeanFactory 创建相关 Bean 时完成属性绑定，再按创建逻辑配置 DataSource。
 6. 健康、指标与 JdbcTemplate 等后续自动配置根据 DataSource 继续装配。
 
 用户手写 DataSource 后，默认连接池定义可能退让，但指标绑定、健康检查或事务管理器是否继续存在，需要看各自独立条件。替换一个核心 Bean 不等于关闭整套相关自动配置。
@@ -279,9 +279,9 @@ class PaymentClientAutoConfigurationTest {
 
 即使 B 声明在 A 之后解析，B 创建的 Bean 仍可能先实例化。增加构造器依赖后顺序才由对象图明确表达。
 
-### 完整替换 ObjectMapper
+### 完整替换 JSON Mapper
 
-应用声明新 ObjectMapper 后接口能返回 JSON，却丢失 Boot 原先应用的模块和 Customizer。验证不应只看 200，还要覆盖日期、枚举、命名策略和错误响应等真实序列化契约。
+Boot 4 默认使用 Jackson 3 的 `tools.jackson.databind.json.JsonMapper`；Boot 3.5 常见的是 Jackson 2 的 `com.fasterxml.jackson.databind.ObjectMapper`。二者包名和定制 API 不相同。声明新的 JSON Mapper 后，即使接口能返回 JSON，也要核对 Boot 的模块和定制链是否保留，覆盖日期、枚举、命名策略和错误响应等真实序列化合同，不能只看 200。
 
 ## 排错闭环
 

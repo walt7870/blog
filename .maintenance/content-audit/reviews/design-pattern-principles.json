@@ -1,0 +1,105 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/index.md",
+      "status": "verified",
+      "reviewedHash": "269afec4bd14fafa178c3bde9f064c75fae3223ade05ca20f406e9c083e89ad1",
+      "pageType": "专题总览",
+      "decision": "压缩重复定义、长代码与列表，保留全部23模式入口，以订单导出串联创建、适配与算法变化，明确单例范围、撤销与可靠交付边界。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/index.md",
+      "status": "verified",
+      "reviewedHash": "ae361da721911777dee2d282d167ec1eccb8b9d97592e0bb8c57908da1c6b112",
+      "pageType": "原则导读",
+      "decision": "全文核对七原则与模式关系，增加三类判断图和导出契约案例，修正点号与分支数量不能机械判定违规。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/single-responsibility.md",
+      "status": "verified",
+      "reviewedHash": "21c721f5e2e31d3877f5aeb787a41d24b3ec64521f34ae5d5df4241be3720639",
+      "pageType": "原则机制",
+      "decision": "完整阅读并补构造器、结构片段范围、编排职责及订单通知审计事务边界，配图补齐审计职责。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/open-closed.md",
+      "status": "verified",
+      "reviewedHash": "22d5d84049ba80d67cc6b59d576b9e1fb631e83e1035541a761e614df4769e6f",
+      "pageType": "原则机制",
+      "decision": "完整阅读并修正优惠负数、重复注册、未知策略和金额返回契约，补构造器，删除按实现数量判断收益的阈值。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/liskov-substitution.md",
+      "status": "verified",
+      "reviewedHash": "78567c6faed1e7757a957b9df504be567ab3563ae663b811fbf42c4308d2a791",
+      "pageType": "原则机制",
+      "decision": "完整阅读并修正不支持操作的绝对断言，区分可选操作契约；用存储共同契约测试替代仅更改变量声明的验证标准。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/interface-segregation.md",
+      "status": "verified",
+      "reviewedHash": "da95740b14bc2fade13cca2cd14a1df6ca1d37bc0fe89984128102af3b626356",
+      "pageType": "原则机制",
+      "decision": "完整核对用户查询审批等角色，图文统一，补接口拆分不等于拆进程或权限控制的边界。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/dependency-inversion.md",
+      "status": "verified",
+      "reviewedHash": "32dc665c49cb86decdb0bbd9f5a2c48db269b48cac8bb102b2551260e4bd7538",
+      "pageType": "原则机制",
+      "decision": "完整阅读并补两类构造器、示意SDK范围，区分源码方向、运行时调用与依赖注入。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/law-of-demeter.md",
+      "status": "verified",
+      "reviewedHash": "b9d3a0cf84f195d0330d635e3ebd07ddc9fafb531667f5afe5944e8cad57f4ef",
+      "pageType": "原则机制与示例",
+      "decision": "以订单配送地址快照替换隐含跨聚合事务的钱包扣款例，补独立编译Java例、知识边界与验收方式。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误",
+        "Java地址与标签示例独立javac编译通过"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/principles/composite-reuse.md",
+      "status": "verified",
+      "reviewedHash": "ea9b5a54802f8a2f0142b90fd93e7ae780ac10b1280c932d032a5465896aaf3f",
+      "pageType": "原则机制与示例",
+      "decision": "以日志前缀、有限字段遮盖和输出委托替换无实现的字符串加密压缩例，补可运行Java程序、顺序和资源边界。",
+      "validation": [
+        "完整正文与全部代码审查；10 张独立SVG浏览器逐图检查中文边界、布局和连线，xmllint通过",
+        "生产构建26.36秒通过；9页逐页桌面亮色全页、深色视口、390×844手机亮深色截图及首图原尺寸/关闭交互通过，无横向溢出、破图或控制台错误",
+        "javac通过，java输出“[订单] 创建成功 token=***”符合正文"
+      ]
+    }
+  ]
+}

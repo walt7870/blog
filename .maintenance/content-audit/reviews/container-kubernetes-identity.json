@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/resources/namespace.md",
+      "status": "verified",
+      "reviewedHash": "b96c40e86dba5e292ec0dfec97ec61916c1f0c7442d9d00c7cf1f4cd2ca71c87",
+      "pageType": "命名、策略与删除作用范围",
+      "decision": "完整阅读后以orders/payments同名Service区分命名、网络、授权和配额；引用新RBAC范围图，补PSA版本固定和现存Pod边界、集群域、同空间引用与跨空间API、删除Conditions/APIService及PVC回收。",
+      "validation": ["Namespaces及Pod Security Admission官方全文阅读。1段YAML、2段Bash分别通过Ruby解析和bash/zsh语法。引用SVG自检、1120原尺寸字体矩形和全图截图通过。1280×900/390×844双主题全页、图片两端放大关闭、3处手机超宽代码scrollLeft40、整页宽390、分页至ServiceAccount通过。构建14.13秒通过；未对真实集群执行策略或删除操作。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/rbac.md",
+      "status": "verified",
+      "reviewedHash": "493200586bf438c1135945fd15b2f71e5eabc2512aaeee7808552b3dea9d4920",
+      "pageType": "主体、规则、绑定与权限合并",
+      "decision": "完整阅读后补日志值班场景、ClusterRole复用和Namespace绑定图、组身份前提、允许集合合并、apiGroups/subresource、resourceNames的list/watch字段选择边界、完整组模拟、允许拒绝验收及roleRef变更影响。",
+      "validation": ["RBAC官方相关规则段与kubectl auth can-i官方全文核对。1段YAML含2对象、1段Bash解析通过；SVG实际字体边界与原尺寸截图通过。桌面/手机双主题全页、图片两端放大关闭、手机超宽代码scrollLeft33和整页宽390、分页至NetworkPolicy通过。14.13秒构建通过；未将示例预期授权结果记为真实集群测试。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/serviceaccount.md",
+      "status": "verified",
+      "reviewedHash": "730caa31843f2d2f594432365c242ead9d90eae7008bcd73eb7e17119507ca93",
+      "pageType": "机器身份、投影轮换与接收方授权",
+      "decision": "完整阅读后新增Token签发/投影与API和外部audience消费图；修复只有volumes无挂载的片段，补automount优先级、应用重读/subPath、离线撤销边界、临时Token输出、get与list/watch及挂载权限区别。",
+      "validation": ["官方ServiceAccount配置、投影和Token相关段核对。4段YAML含5对象、2段Bash解析通过；新SVG自检、1120原尺寸字体矩形及连线跳线截图通过。桌面/手机双主题全页、两端放大关闭、手机3处超宽代码scrollLeft40/40/18及整页宽390、分页至RBAC通过。构建14.13秒通过；未执行create token或真实身份轮换。"]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420" role="img" aria-labelledby="title desc">
-  <title id="title">Spring 学习路径</title>
-  <desc id="desc">从 IoC 到 AOP、MVC、Spring Boot 和排错入口的学习路径</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420" role="img" aria-labelledby="spring-learning-map-title spring-learning-map-desc">
+  <title id="spring-learning-map-title">Spring 学习路径</title>
+  <desc id="spring-learning-map-desc">建议阅读顺序，不是运行时调用链：先理解 IoC，再理解 AOP 与 MVC，最后连接 Boot 的装配和诊断。</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#2563eb"/>
@@ -43,9 +43,10 @@
   <text class="text body" x="905" y="220" text-anchor="middle">Bean、代理、请求链</text>
   <text class="text small" x="905" y="245" text-anchor="middle">日志、Actuator、依赖树</text>
 
-  <path class="line" d="M230 205 C250 160 265 130 290 130"/>
-  <path class="line" d="M230 215 C250 260 265 290 290 290"/>
-  <path class="line" d="M480 130 C515 145 515 190 540 190"/>
-  <path class="line" d="M480 290 C515 275 515 230 540 230"/>
+  <path class="line" d="M230 185 H260 V130 H290"/>
+  <path class="line" d="M230 235 H250 V290 H290"/>
+  <path class="line" d="M480 130 H510 V185 H540"/>
+  <path class="line" d="M480 290 H520 V235 H540"/>
   <path class="line" d="M750 210 L810 210"/>
+  <text class="text small" x="40" y="35">建议阅读顺序 · 箭头不表示运行时依赖或调用</text>
 </svg>

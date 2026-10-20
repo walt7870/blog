@@ -1,246 +1,125 @@
-# 适配器模式 (Adapter Pattern)
+# 适配器模式
 
-## 历史脉络
+适配器（Adapter）把已有接口转换成调用方需要的接口。它常用于接入第三方 SDK、替换旧系统或隔离协议差异。转换的对象包括参数、返回值、异常和状态语义，不能只把方法改个名字。
 
-适配器模式是 GoF 结构型模式之一，长期用于遗留系统改造、第三方 SDK 接入、接口迁移和跨系统集成。它的核心价值是让已有能力在不修改原代码的情况下接入新接口。
+![通知适配器的调用与状态转换](/design-pattern/patterns/adapter.svg)
 
-![适配器模式结构图](/design-pattern/patterns/adapter.svg)
+## 接入厂商通知接口
 
-## 准确理解
+订单导出完成后，业务希望调用 `NotificationPort.submit()` 提交通知。旧 SDK 却使用 `push(address, template, values)`，返回状态码和请求编号。若业务到处判断这些字段，换厂商时就必须修改每个调用点。
 
-适配器解决的是接口不兼容，而不是增强功能。客户端依赖目标接口，适配器内部调用被适配对象，把参数、返回值、异常和语义转换成系统期望的形式。
+对象适配器实现内部接口，并持有旧 SDK。业务只看内部合同：返回回执表示厂商已受理，不能据此断言用户已收到消息；明确限流可按上层策略延后，未知状态必须暴露为失败。厂商若只提供同步“已送达”结果，也要先核对其定义，不能机械映射。
 
-## 问题识别
-
-适合使用适配器的信号：
-
-- 第三方 SDK 方法名、参数结构和内部接口不一致。
-- 老系统接口无法修改，但新系统希望统一调用方式。
-- 转换逻辑散落在多个业务类里。
-- 需要隔离外部错误码、协议字段和数据格式。
-
-不适合的情况：
-
-- 接口语义本身不一致，强行转换会误导调用方。
-- 只是为了换个方法名，没有实际兼容边界。
-- 适配层越来越厚，说明边界模型需要重新设计。
-
-## 落地要点
-
-- 目标接口应按内部业务语义设计，不要照搬外部 SDK。
-- 外部异常和错误码应在适配器内转换。
-- 适配器不要承载复杂业务规则，只做边界转换。
-- 多个厂商实现同一能力时，可配合工厂或策略选择适配器。
-
-## 概述
-
-将一个类的接口转换成客户端期望的另一个接口，使原本接口不兼容的类可以一起工作。
-
-简单说，就是**让对接不上的接口也能对上**，像一个插头转换器，把A接口转换成B接口。
-
-适配器模式是桥梁设计工具，它让“不兼容”的类也能协作，是在不修改原有代码的前提下实现代码复用的强力武器，适用于系统集成和系统改造中。
-
-## 使用场景
-
-- 使用一个已有类，但它的接口和当前系统要求不兼容；
-
-- 想复用一些老代码系统、第三方库，但不想改它们；
-
-- 希望解耦“目标系统”和“被适配者”的耦合关系。
-
-## 类图结构（以类适配器为例）
-
-```plaintext
-       ┌──────────────┐
-       │   Target     │ ← 客户端期望的接口（目标）
-       └──────┬───────┘
-              │
-       ┌──────▼────────┐
-       │  Adapter      │ ← 适配器，实现 Target，内部调用 Adaptee
-       └──────┬────────┘
-              │
-       ┌──────▼────────┐
-       │  Adaptee      │ ← 被适配者，已有类
-       └───────────────┘
-
-```
-
-## 示例
-
-假设我们有一个 220V 电源（Adaptee），现在手机只能使用 5V 电压（Target），我们用适配器将其转换。
-
-### 1. 目标接口（Target）
-
-``` java
-public interface DC5 {
-    int output5V();
-}
-```
-
-### 2. 被适配者（Adaptee）
-
-``` java
-public class AC220 {
-    public int output220V() {
-        return 220;
-    }
-}
-```
-
-### 3. 适配器（Adapter）
-
-``` java
-public class PowerAdapter implements DC5 {
-    private AC220 ac220;
-
-    public PowerAdapter(AC220 ac220) {
-        this.ac220 = ac220;
-    }
-
-    @Override
-    public int output5V() {
-        int src = ac220.output220V();
-        // 模拟变压处理
-        int dst = src / 44;
-        System.out.println("适配器：将" + src + "V转换为" + dst + "V");
-        return dst;
-    }
-}
-
-```
-
-### 4. 客户端调用
+下例用本地类模拟 SDK，不连接真实邮件服务。保存为 `AdapterDemo.java`，可在 Java 17+ 编译运行：
 
 ```java
-public class Client {
+import java.util.Map;
+import java.util.Objects;
+
+public class AdapterDemo {
+    record Notification(String address, String orderNo) {
+        Notification {
+            if (address == null || address.isBlank()
+                    || orderNo == null || orderNo.isBlank()) {
+                throw new IllegalArgumentException("收件地址和订单号不能为空");
+            }
+        }
+    }
+
+    record Receipt(String requestId) {}
+    record VendorReply(int code, String requestId) {}
+
+    interface NotificationPort {
+        Receipt submit(Notification notification);
+    }
+
+    static final class RateLimited extends RuntimeException {
+        RateLimited() { super("厂商限流，交由上层安排后续处理"); }
+    }
+
+    static final class VendorFailure extends RuntimeException {
+        VendorFailure(String message) { super(message); }
+    }
+
+    static final class LegacyMailSdk {
+        private final VendorReply reply;
+
+        LegacyMailSdk(VendorReply reply) { this.reply = reply; }
+
+        VendorReply push(String address, String template,
+                         Map<String, String> values) {
+            System.out.println("旧接口: " + template + " / " + values.get("order"));
+            return reply;
+        }
+    }
+
+    static final class MailAdapter implements NotificationPort {
+        private final LegacyMailSdk sdk;
+
+        MailAdapter(LegacyMailSdk sdk) {
+            this.sdk = Objects.requireNonNull(sdk);
+        }
+
+        public Receipt submit(Notification notification) {
+            Objects.requireNonNull(notification);
+            VendorReply reply = sdk.push(notification.address(), "EXPORT_READY",
+                    Map.of("order", notification.orderNo()));
+            if (reply == null) throw new VendorFailure("厂商回执为空");
+            if (reply.code() == 429) throw new RateLimited();
+            if (reply.code() != 202 || reply.requestId() == null
+                    || reply.requestId().isBlank()) {
+                throw new VendorFailure("无法确认受理状态: " + reply.code());
+            }
+            return new Receipt(reply.requestId());
+        }
+    }
+
     public static void main(String[] args) {
-        AC220 ac220 = new AC220();
-        DC5 adapter = new PowerAdapter(ac220);
+        Notification message = new Notification("user@example.com", "O-1001");
+        NotificationPort port = new MailAdapter(
+                new LegacyMailSdk(new VendorReply(202, "request-1")));
+        System.out.println("已受理: " + port.submit(message).requestId());
 
-        int voltage = adapter.output5V();
-        System.out.println("手机接收到电压：" + voltage + "V");
+        try {
+            new MailAdapter(new LegacyMailSdk(new VendorReply(429, null)))
+                    .submit(message);
+            throw new AssertionError("限流必须显式返回失败");
+        } catch (RateLimited expected) {
+            System.out.println(expected.getMessage());
+        }
+        try {
+            new MailAdapter(new LegacyMailSdk(new VendorReply(500, null)))
+                    .submit(message);
+            throw new AssertionError("未知失败不能伪装成成功");
+        } catch (VendorFailure expected) {
+            System.out.println(expected.getMessage());
+        }
     }
 }
-
 ```
 
-## 优缺点分析
+`NotificationPort` 是目标接口，`LegacyMailSdk` 是被适配对象，`MailAdapter` 承担转换。样例中的 202、429 与模板名是这个模拟厂商的合同，不能直接套用到其他 SDK。真实接入还要验证地址格式、模板字段、错误码、超时与返回编号的可信度。
 
-### ✅ 优点
+## 类适配、对象适配与默认回调
 
-| 优点               | 说明                      |
-| ---------------- | ----------------------- |
-| **1. 解耦客户端与旧接口** | 客户端依赖的是目标接口而不是被适配者，松耦合。 |
-| **2. 提高复用性**     | 适配器可以复用旧代码/第三方类，无需改动它们。 |
-| **3. 符合开闭原则**    | 新增适配器即可扩展系统，原有代码无须修改。   |
+| 实现形式 | 结构 | 适用边界 |
+| --- | --- | --- |
+| 对象适配 | `Adapter implements Target`，内部持有 `Adaptee` | 组合已有实例，可注入不同实现；上例属于此类 |
+| 类适配 | `Adapter extends Adaptee implements Target` | Java只能继承一个类，且被适配类不能是 `final` |
+| 默认回调适配类 | 抽象类为监听器提供空方法，子类按需覆盖 | 减少回调样板，不一定承担两个业务接口之间的语义转换 |
 
-### ❌ 缺点
+不必为每个外部类都创建适配器。若目标接口和外部接口已经一致，增加纯转发对象未必有价值。若一个厂商支持撤回，另一个不支持，就不能让后者静默返回“撤回成功”；应缩小共同合同，或把能力查询与撤回能力单独建模。
 
-| 缺点                 | 说明                     |
-| ------------------ | ---------------------- |
-| **1. 增加代码复杂性**     | 系统中多出一层适配器代码，增加维护成本。   |
-| **2. 多重适配嵌套时结构复杂** | 如果需要多层适配，结构容易混乱、不易追踪。  |
-| **3. 不支持所有情况**     | 某些接口结构差异太大时，适配不现实或效率低。 |
+## Spring MVC 的处理器适配
 
-## 适配器分类（按实现方式）
+Spring MVC 中，`DispatcherServlet` 先通过 `HandlerMapping` 找到处理器，再寻找能处理它的 `HandlerAdapter`。`RequestMappingHandlerAdapter` 支持注解控制器对应的 `HandlerMethod`；`SimpleControllerHandlerAdapter` 对接传统 `Controller`，`HandlerFunctionAdapter` 对接函数式处理器。
 
-| 类型        | 特点                                    | 实现方式示例                                            |
-| --------- | ------------------------------------- | ------------------------------------------------- |
-| **类适配器**  | 使用**继承**实现适配（只能适配一个类）                 | `class Adapter extends Adaptee implements Target` |
-| **对象适配器** | 使用**组合**方式持有被适配对象，更灵活，推荐 使用            | 见上面代码中的 PowerAdapter                              |
-| **接口适配器** | 针对接口中的多个方法，**只实现部分方法**（通常用于框架回调，如监听器） | Java 中常通过抽象类默认实现接口所有方法                            |
+这里的适配使前端控制器无需实现每种处理器的调用细节。实际适配器还会处理参数解析、返回值等机制，不能用“直接反射调用一个方法”代替其完整实现。Starter 自动配置、视图解析与消息转换各自有独立职责，不能笼统归为同一种适配器。
 
+## 失败与验收
 
-## Spring中的应用 HandlerAdapter
+先确认“已受理、已发送、已送达”的状态区别，再验证成功、限流、参数错误、空回执和未知错误码。若调用超时，结果可能是未知：厂商可能已经接收请求。自动重试需要稳定幂等键或厂商查询能力，不能由适配器无条件再次发送。
 
-### 背景
+适配层记录外部请求编号与内部业务编号，便于追踪；日志避免写入完整收件地址与敏感消息。目标接口的测试应检查共同语义，厂商适配测试则检查字段与错误映射。上线前仍需用真实 SDK 的测试环境验证，模拟程序只能证明本地转换逻辑。
 
-Spring MVC 中的 HandlerAdapter 是对适配器模式的经典实现，它将控制器（各种风格）和前端控制器解耦，使整个处理器调用机制灵活、可扩展、符合开闭原则，类似设置还有ViewResolver、HttpMessageConverter，及SpringBoot 中对 starter 的自动装配适配。
-
-在 Spring MVC 中，前端控制器 DispatcherServlet 的职责是根据用户请求，调用对应的处理器（即 Controller）。
-但问题是：处理器有多种风格/类型（传统 Controller、注解 Controller、函数式 Handler 等），如何统一调用呢？
-
-👉 这就引出了 HandlerAdapter（适配器）机制。
-
-
-
-### 类结构图
-
-``` plaintext
-                     ┌────────────────────────┐
-                     │    DispatcherServlet    │
-                     └────────────┬────────────┘
-                                  │
-                          find适配器（遍历列表）
-                                  │
-                     ┌────────────▼────────────┐
-                     │     HandlerAdapter      │ ← 目标接口
-                     └────────────┬────────────┘
-                                  │
-        ┌─────────────────────────┴─────────────────────────┐
-        │                        │                          │
-┌──────────────┐     ┌─────────────────────┐     ┌────────────────────┐
-│ SimpleController│  │ RequestMappingAdapter │     │ FunctionHandlerAdapter │
-└────────────────┘   └─────────────────────┘     └────────────────────┘
-      （适配传统 Controller）     （适配注解 Controller）        （适配函数式 Handler）
-
-```
-
-### 核心接口：HandlerAdapter
-
-```java
-public interface HandlerAdapter {
-    boolean supports(Object handler);       // 是否支持该处理器对象
-    ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception;
-    long getLastModified(HttpServletRequest request, Object handler);
-}
-```
-
-#### 说明
-
-1. supports()：判断是否支持某种类型的处理器（如是否是HandlerMethod）
-
-2. handle()：具体适配执行
-
-3. DispatcherServlet 并不关心 handler 是什么类型，它只需要找到对应的 HandlerAdapter，交给它去处理
-
-
-#### 典型实现：RequestMappingHandlerAdapter
-
-这是我们平时最常用的注解风格 Controller（@Controller @RequestMapping）的适配器：
-
-```java
-public class RequestMappingHandlerAdapter implements HandlerAdapter {
-    @Override
-    public boolean supports(Object handler) {
-        return handler instanceof HandlerMethod;  // 支持注解风格的方法
-    }
-
-    @Override
-    public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        // 执行 Controller 方法
-    }
-}
-
-```
-
-#### DispatcherServlet 中的调用流程（简化）
-
-```java
-// 核心伪代码：
-Object handler = getHandler(request);  // 查找 Controller（可能是 HandlerMethod 等）
-
-for (HandlerAdapter adapter : handlerAdapters) {
-    if (adapter.supports(handler)) {
-        adapter.handle(request, response, handler);  // 调用匹配适配器
-        break;
-    }
-}
-
-```
-
-##### 说明
-
-- DispatcherServlet 并不关心 handler 的具体类型；
-
-- 它只需要找到合适的适配器来执行吗，这正是典型的适配器模式应用。
+需要简化多个子系统的常用调用时看[外观](./facade.md)；需要给同接口对象叠加处理能力时看[装饰器](./decorator.md)。

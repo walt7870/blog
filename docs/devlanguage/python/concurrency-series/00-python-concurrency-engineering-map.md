@@ -1,12 +1,8 @@
 # Python 并发工程全景图：从任务瓶颈到工程流水线
 
 > 对应视频：EP00《Python 并发工程全景图》  
-> 视频入口：[B站 EP00 定时稿](https://www.bilibili.com/video/BV1ueu56UEFd)（计划公开：2026-08-09 13:06）。
+> 视频入口：[B站 EP00](https://www.bilibili.com/video/BV1ueu56UEFd)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
-
-这篇文章是视频的工程展开版。视频先说明这一集讲什么、为什么需要并发工程地图，再进入批量语音处理示例；文章补充完整的选型地图、判断表、失败模式和迁移清单，方便你把这套方法用到自己的批量文件、语音处理、接口调用或模型推理任务里。
 
 ## 这篇解决什么问题
 
@@ -82,7 +78,7 @@
 | 网络 I/O | CPU 很低，大量时间在等响应 | 线程池或 `asyncio` |
 | 磁盘 I/O | 读写抖动，任务越多越慢 | 有界线程池、分批处理 |
 | CPU 计算 | 单核或多核 CPU 被打满 | 进程池、外部工具、释放 GIL 的库 |
-| API 限流 | 429、超时、失败率随并发上升 | `asyncio` + Semaphore + 重试退避 |
+| API限流 | 429、超时、失败率随并发上升 | 在途上限、速率配额与重试退避 |
 | GPU/显存 | GPU 利用率波动，显存接近满载 | 有界队列、batch、显存水位控制 |
 | 内存 | 待处理任务堆积，进程占用持续上涨 | 有界队列、流式处理、checkpoint |
 
@@ -136,7 +132,6 @@
 ```python
 from dataclasses import dataclass
 
-
 @dataclass(frozen=True)
 class TaskProfile:
     name: str
@@ -147,7 +142,6 @@ class TaskProfile:
     gpu_heavy: bool = False
     many_pipeline_stages: bool = False
     needs_recovery: bool = False
-
 
 def recommend(profile: TaskProfile) -> list[str]:
     choices: list[str] = []
@@ -177,7 +171,6 @@ def recommend(profile: TaskProfile) -> list[str]:
 
     return choices
 
-
 if __name__ == "__main__":
     speech_pipeline = TaskProfile(
         name="batch speech transcription",
@@ -204,36 +197,11 @@ if __name__ == "__main__":
 
 这个输出看起来“不唯一”，这正是真实系统的特点。批量语音处理不是一个单模型问题，而是多阶段协作问题。
 
+## 分阶段配置的例子
 
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
+处理1000份录音时，可以让扫描器只传路径，2个转码进程生成标准音频，4个API请求等待识别，1个写入者落盘。这里的2和4只是起始实验参数，不代表硬件容量。若API平均2秒且同时最多4个请求，忽略其他开销时吞吐上限约2份/秒；提高扫描速度不能突破这个上限。
 
-**读图方式**
-
-- 把自己的任务先写成阶段：输入从哪里来，哪个阶段等待外部资源，哪个阶段真正计算，哪个阶段写结果。
-- 每个阶段只贴一个主要瓶颈，不要一开始就给整个系统贴“异步”或“多线程”的标签。
-- 从总图往下读时，顺序永远是证据、模型、控制、验证；API 名称放在第三步以后。
-
-**排查路径**
-
-- 用 `time.perf_counter` 建立顺序版本 baseline，至少记录总耗时、成功数、失败数和单阶段耗时。
-- 用 `top`、`iostat`、`nvidia-smi`、服务端 429/timeout 日志判断第一个到上限的资源。
-- 改并发数时一次只改一个旋钮，并记录吞吐、p95/p99、错误率和队列长度。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 阶段很多但写在一个大循环里 | 单阶段耗时、失败位置、内存曲线 | 拆成流水线，用有界队列连接阶段 |
-| worker 增加后只增加错误 | 429、timeout、retry_count | 加 `Semaphore`、timeout、backoff 和 retry budget |
-| CPU 已满但线程数继续加 | CPU util、py-spy、cProfile | 换进程池、外部命令池或释放 GIL 的原生库 |
-| 任务中断后只能重跑 | 状态表、已完成输出、失败输入 | 加 checkpoint、幂等写入和失败归档 |
-
-**落地边界**
-
-- 不要把“总耗时下降”当作唯一结论，尾延迟和错误率恶化时，系统并没有真正变稳。
-- 不要让线程池、进程池、API 请求和 GPU 推理共享一个无边界任务入口。
-<!-- concurrency-series-engineering-supplement:end -->
+队列还要有字节预算：100条路径只占少量内存，100段完整PCM可能占数百MB。checkpoint解决重新启动后的进度恢复，不会降低当前进程里已经堆积的任务数量。
 
 ## 常见失败模式
 
@@ -267,77 +235,4 @@ if __name__ == "__main__":
 - 能为批量语音处理、批量文件处理或 API 调用任务画出第一版并发架构图。
 
 如果只能说出某个 API 的名字，却不能判断瓶颈和控制压力，说明还没有进入并发实战。这个系列后面的每一集，都会围绕这张地图补全一个工程能力。
-
-## 参考资料
-
-- Python `threading` 官方文档：https://docs.python.org/3/library/threading.html
-- Python `concurrent.futures` 官方文档：https://docs.python.org/3/library/concurrent.futures.html
-- Python `asyncio` 官方文档：https://docs.python.org/3/library/asyncio.html
-- Python `multiprocessing` 官方文档：https://docs.python.org/3/library/multiprocessing.html
-- PEP 703：Making the Global Interpreter Lock Optional in CPython：https://peps.python.org/pep-0703/
-
-## 配套示例代码
-
-源码文件：`examples/ep00/concurrency_model_selector.py`
-
-```python
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class TaskProfile:
-    name: str
-    waits_for_network: bool = False
-    waits_for_disk: bool = False
-    calls_rate_limited_api: bool = False
-    cpu_heavy: bool = False
-    gpu_heavy: bool = False
-    many_pipeline_stages: bool = False
-    needs_recovery: bool = False
-
-
-def recommend(profile: TaskProfile) -> list[str]:
-    choices: list[str] = []
-
-    if profile.calls_rate_limited_api:
-        choices.append("asyncio + Semaphore + timeout + retry backoff")
-    elif profile.waits_for_network:
-        choices.append("ThreadPoolExecutor or asyncio, depending on library support")
-
-    if profile.waits_for_disk:
-        choices.append("bounded ThreadPoolExecutor with batch scanning")
-
-    if profile.cpu_heavy:
-        choices.append(
-            "ProcessPoolExecutor, external command pool, or native library that releases the GIL"
-        )
-
-    if profile.gpu_heavy:
-        choices.append("bounded queue + batch scheduling + GPU memory guard")
-
-    if profile.many_pipeline_stages:
-        choices.append("producer-consumer pipeline with bounded queues")
-
-    if profile.needs_recovery:
-        choices.append("checkpoint + idempotent result writes + failed-task table")
-
-    if not choices:
-        choices.append("start with simple sequential code and measure before adding concurrency")
-
-    return choices
-
-
-if __name__ == "__main__":
-    speech_pipeline = TaskProfile(
-        name="batch speech transcription",
-        waits_for_disk=True,
-        calls_rate_limited_api=True,
-        cpu_heavy=True,
-        many_pipeline_stages=True,
-        needs_recovery=True,
-    )
-
-    for item in recommend(speech_pipeline):
-        print("-", item)
-```
 

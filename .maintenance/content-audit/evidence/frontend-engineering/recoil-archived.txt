@@ -1,0 +1,138 @@
+- link "Skip to content":
+  - /url: "#start-of-content"
+- banner:
+  - heading "Navigation Menu" [level=2]
+  - link "Homepage":
+    - /url: /
+  - navigation "Global":
+    - list:
+      - button "Platform":
+        - text: Platform
+      - button "Solutions":
+        - text: Solutions
+      - button "Resources":
+        - text: Resources
+      - button "Open Source":
+        - text: Open Source
+      - button "Enterprise":
+        - text: Enterprise
+      - link "Pricing":
+        - /url: https://github.com/pricing
+  - button "Search or jump to, type / to search":
+  - link "Sign in":
+    - /url: /login?return_to=https%3A%2F%2Fgithub.com%2Ffacebookexperimental%2FRecoil
+    - generic: Sign in
+  - link "Sign up":
+    - /url: /signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=facebookexperimental%2FRecoil
+    - generic: Sign up
+  - button "Appearance settings":
+- main:
+  - generic: This repository was archived by the owner on Jan 1, 2025. It is now read-only.
+  - generic "Global navigation menu":
+    - navigation "Breadcrumbs":
+      - list:
+        - link "facebookexperimental":
+          - /url: /facebookexperimental
+          - generic: facebookexperimental
+        - link "Recoil":
+          - /url: /facebookexperimental/Recoil
+          - generic: Recoil
+    - heading "Repository navigation" [level=2]
+    - navigation "Repository":
+      - list:
+        - link "Code":
+          - /url: /facebookexperimental/Recoil
+          - generic: Code
+        - link "Issues (255)":
+          - /url: /facebookexperimental/Recoil/issues
+          - generic: Issues
+          - generic: "255"
+          - generic: (255)
+        - link "Pull requests (65)":
+          - /url: /facebookexperimental/Recoil/pulls
+          - generic: Pull requests
+          - generic: "65"
+          - generic: (65)
+        - link "Discussions":
+          - /url: /facebookexperimental/Recoil/discussions
+          - generic: Discussions
+        - link "Actions":
+          - /url: /facebookexperimental/Recoil/actions
+          - generic: Actions
+        - link "Projects":
+          - /url: /facebookexperimental/Recoil/projects
+          - generic: Projects
+        - link "Security and quality":
+          - /url: /facebookexperimental/Recoil/security
+          - generic: Security and quality
+        - link "Insights":
+          - /url: /facebookexperimental/Recoil/pulse
+          - generic: Insights
+  - img "facebookexperimental"
+  - generic "Recoil":
+    - strong:
+      - link "Recoil":
+        - /url: /facebookexperimental/Recoil
+  - generic: Public archive
+  - list:
+    - link "You must be signed in to change notification settings":
+      - /url: /login?return_to=%2Ffacebookexperimental%2FRecoil
+      - generic: Notifications
+    - link "You must be signed in to fork a repository":
+      - /url: /login?return_to=%2Ffacebookexperimental%2FRecoil
+      - text: Fork
+      - generic: 1.2k
+      - generic: (1.2k)
+    - link "Star (19.4k)":
+      - /url: /login?return_to=%2Ffacebookexperimental%2FRecoil
+      - text: Star
+      - generic: 19.4k
+      - generic: (19.4k)
+  - button "main branch":
+    - generic: main
+  - link "33 Branches":
+    - /url: /facebookexperimental/Recoil/branches
+    - strong: "33"
+    - text: Branches
+  - link "27 Tags":
+    - /url: /facebookexperimental/Recoil/tags
+    - strong: "27"
+    - text: Tags
+  - combobox "Go to file"
+  - button "Code":
+    - generic: Code
+  - heading "Latest commit" [level=2]
+  - link "pieterv":
+    - /url: /pieterv
+    - img "pieterv"
+  - link "commits by pieterv":
+    - /url: /facebookexperimental/Recoil/commits?author=pieterv
+    - text: pieterv
+  - link "presuppress Recoil Flow error for Flow 0.216 deploy":
+    - /url: /facebookexperimental/Recoil/commit/c1b97f3a0117cad76cbc6ab3cb06d89a9ce717af
+  - button "Open commit details":
+  - link "Commit c1b97f3":
+    - /url: /facebookexperimental/Recoil/commit/c1b97f3a0117cad76cbc6ab3cb06d89a9ce717af
+    - text: c1b97f3
+  - text: ·
+  - generic "Sep 8, 2023, 03:31 GMT+8": Sep 7, 20233 years ago
+  - heading "History" [level=2]
+  - link "958 Commits":
+    - /url: /facebookexperimental/Recoil/commits/main/
+    - generic: 958 Commits
+  - heading "Folders and files" [level=2]
+  - table "Folders and files":
+    - rowgroup:
+      - row "Name Last commit message Last commit date":
+        - columnheader "Name"
+        - columnheader "Last commit message":
+          - generic "Last commit message"
+        - columnheader "Last commit date":
+          - generic "Last commit date"
+    - rowgroup:
+      - 'row ".github/workflows, (Directory) CI: remove Node.js 14, add Node.js 18 (#2245) Jun 8, 20233 years ago"':
+        - cell ".github/workflows, (Directory)":
+          - link ".github/workflows, (Directory)":
+            - /url: /facebookexperimental/Recoil/tree/main/.github/workflows
+            - text: .github/workflows
+        - 'cell "CI: remove Node.js 14, add Node.js 18 (#2245)"':

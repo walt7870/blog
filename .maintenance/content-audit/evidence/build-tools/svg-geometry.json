@@ -1,0 +1,27 @@
+[
+  {
+    "name": "vite-delivery",
+    "issues": [],
+    "title": "Vite开发与生产使用不同的资源路径"
+  },
+  {
+    "name": "webpack-chunks",
+    "issues": [],
+    "title": "Webpack产物由HTML与运行时共同加载"
+  },
+  {
+    "name": "rollup-library",
+    "issues": [],
+    "title": "库发布需要同时满足生成与消费合同"
+  },
+  {
+    "name": "parcel-targets",
+    "issues": [],
+    "title": "Parcel沿资源图为目标环境生成产物"
+  },
+  {
+    "name": "ecosystem-boundaries",
+    "issues": [],
+    "title": "从组件到交付，各层负责不同问题"
+  }
+]

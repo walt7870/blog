@@ -1,0 +1,625 @@
+[
+  {
+    "file": "docs/ai/rsi/01-recursive-self-improvement.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rsi/two-round-feedback.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 1280,
+    "text": 5037,
+    "title": "RSI 递归自我改进：机制、实践与影响",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/rsi/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rsi/two-round-feedback.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 1280,
+    "text": 484,
+    "title": "RSI 递归自我改进",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/skill/claude-code-best-practices.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/skill-review-execution.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2690,
+    "title": "Claude Code Skill 实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/skill/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/skill-layer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1669,
+    "title": "Agent Skill",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/skill/recommendations.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/skill-selection-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1808,
+    "title": "Skill 推荐与选型",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/architecture-and-workflow.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+        "width": 1320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 1280,
+    "text": 1989,
+    "title": "处理链路与运行架构",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/delivery-and-handoff.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-offline-runtime.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-delivery-build.svg",
+        "width": 1040
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-delivery-validation.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 3246,
+    "title": "离线推理容器与工件一致性",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/evidence-driven-validation.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-validation-layers.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 1280,
+    "text": 4000,
+    "title": "音频回放与质量回归",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/hotword-routing.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-hotword-routing.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 2852,
+    "title": "共享热词召回与请求隔离",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/incident-playbook.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 161,
+    "title": "语音故障的技术定位",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-end-to-end-architecture.svg",
+        "width": 1320
+      }
+    ],
+    "scroll": 1280,
+    "text": 1294,
+    "title": "流式语音系统技术实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-inference-ownership.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 1280,
+    "text": 2271,
+    "title": "推理输入合同与资源生命周期",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/latency-and-finalization.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-final-lifecycle.svg",
+        "width": 1000
+      }
+    ],
+    "scroll": 1280,
+    "text": 2423,
+    "title": "断句、收尾与逐句时延",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/performance-and-capacity.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-decoder-queue.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2920,
+    "title": "动态批处理与推理调度",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/pipeline-boundaries.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-role-model-contract.svg",
+        "width": 1000
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-engineering/voice-target-input-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3275,
+    "title": "角色证据与目标说话人识别",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/speech-engineering/release-and-collaboration.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 109,
+    "title": "离线运行技术",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/context-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/context-package-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2864,
+    "title": "上下文工程：让 AI 看到真实情况",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/harness-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/harness-control-plane.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2823,
+    "title": "Harness 工程：规格的强制执行体系",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/vibe-coding-position-map.svg",
+        "width": 1180
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/vibe-order-export-loop.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 1030,
+    "title": "AI 编程工程化",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/organizational-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/organization-learning-loop.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 2447,
+    "title": "组织流程工程：让规格成为团队常识",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/project-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-delivery-practice-flow.svg",
+        "width": 1180
+      }
+    ],
+    "scroll": 1280,
+    "text": 5090,
+    "title": "项目实战：从需求到部署的 AI 交付闭环",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/prompt-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/prompt-spec-conversion.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 2724,
+    "title": "提示词工程：把导出需求说清楚",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/spec-driven.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/spec-driven-acceptance-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2678,
+    "title": "Spec-Driven 开发：订单导出什么时候算完成",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/tool-agent-engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/agent-verification-loop.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 2421,
+    "title": "工具与 Agent 工程：可验证的行动闭环",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/vibe-coding/vibe-coding.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/vibe-order-export-loop.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 1913,
+    "title": "Vibe Coding：原型快速验证",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/backtracking.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/backtracking-task-tree.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4837,
+    "title": "回溯算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/complexity-analysis.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/complexity-growth.svg",
+        "width": 960
+      }
+    ],
+    "scroll": 1280,
+    "text": 3789,
+    "title": "算法复杂度分析",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/divide-and-conquer.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/divide-inversion-merge.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 3596,
+    "title": "分治算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/dynamic-programming.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/dp-task-transition.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4519,
+    "title": "动态规划",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/graph-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/graph-path-model.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 5517,
+    "title": "图算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/greedy-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/greedy-booking-timeline.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 3719,
+    "title": "贪心算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/problem-map.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 1690,
+    "title": "算法概览",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/mathematical-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/math-modular-power.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4390,
+    "title": "数学算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/search-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/search-boundaries.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 3770,
+    "title": "搜索算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/sorting-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/sorting-stability.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 4511,
+    "title": "排序算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/algorithm/string-algorithms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/algorithm/string-stream-boundary.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 1280,
+    "text": 5595,
+    "title": "字符串算法",
+    "width": 1280
+  },
+  {
+    "file": "docs/basic/acoustics/capture-playback.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/capture-playback-reference.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2297,
+    "title": "采集与播放链路",
+    "width": 1280
+  },
+  {
+    "file": "docs/basic/acoustics/engineering.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/engineering-deployment-choice.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1661,
+    "title": "工程选型",
+    "width": 1280
+  },
+  {
+    "file": "docs/basic/acoustics/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/acoustic-system-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/speech-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1967,
+    "title": "声学概览",
+    "width": 1280
+  },
+  {
+    "file": "docs/basic/acoustics/noise-reduction.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/three-a-chain.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/acoustics/aec-adaptive-filter.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 4215,
+    "title": "降噪与前处理",
+    "width": 1280
+  }
+]

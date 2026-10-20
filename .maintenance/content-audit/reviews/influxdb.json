@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/influxdb.md",
+      "status": "verified",
+      "reviewedHash": "60661a1eeb95a3af97b68d09bfd65664ac37def9f1e67361665f349bfd22c397",
+      "pageType": "时序身份、窗口分组、降采样补数与恢复",
+      "decision": "旧1456行全文阅读。以设备采样重写，明确1/2/3产品边界与Flux维护状态；修字段键误入序列身份、默认纳秒与固定过期样本、同点覆盖、无限标签、温湿度/设备混合聚合、InfluxQL CASE、异步写前查询、缺依赖Go/金融片段、虚构监控measurement和恢复模板。补双SVG、6点确定数据、分钟/pivot/重复写、2小时重算与补数合同、Node示例和新桶恢复。",
+      "validation": [
+        "官方duplicate-points、restore、3 Core InfluxQL、task-options、aggregateWindow、3 Core查询入口与future-of-flux全文核对，注意现行2.9哈希Token恢复不能照搬2.7。/tmp/blog-influxdb-check.mjs独立2.7.12运行数据/CLI/四段Flux及完整Node示例，客户端@influxdata/influxdb-client1.35.0仅装/tmp。分钟d1 22/26与d2 32/36、pivot3配对、合并21/40/3.3、同分片字段类型拒绝、误纳秒落1970通过",
+        "真实创建inactive任务every1h/offset10m，并用固定now执行原查询，迟到后d1小时70/3变25且摘要仍2点；不是墙钟调度/重启验证。Node等待close后查询25成功；停写bucket备份并恢复新桶，温度6点/分钟4结果/pivot3行/合并字段一致。镜像digest b8d940ca9376f85118260f5b6bd236b8a00b1749c3350c5578d4cde8e27f31f2。未测HA/TLS/1或3迁移/full元数据恢复，实验管理员凭据随机且未打印入正文",
+        "双SVG XML/结构/中文实际字体边界/截图通过。新增Flux高亮不支持改text围栏，19.29秒正确根目录完整构建通过并重启preview。桌面1280和真实390×844手机亮深色、两图放大/原尺寸/关闭与局部代码表格滚动通过，无破图/全页溢出/客户端error。首次视口切换中间帧不计验收，最终稳定状态复验通过，viewport已reset"
+      ]
+    }
+  ]
+}

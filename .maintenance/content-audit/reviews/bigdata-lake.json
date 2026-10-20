@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/data-warehouse-lake.md",
+      "status": "verified",
+      "reviewedHash": "e85b5fd0f698e2ad63702daa1b28986bb7cbc3ba2a44b916595342d861dc450c",
+      "pageType": "仓库湖仓选型、快照提交与迁移验收",
+      "decision": "旧906行全文阅读后重写。移除重排维度代理键、replace维度后append事实、金额float/折扣冒充利润、固定节假日、原始重复累加、清洗静默丢数据及覆盖旧分区等错误长模板。修仓库与湖成本/延迟/质量绝对化比较，明确存储/文件/表格式/目录引擎，补快照42引用A/B与43引用A/C图；Delta合并示例增加租户与版本条件并注明冲突预检和唯一性边界。",
+      "validation": [
+        "CLI官方读取失败后浏览器核对Delta update的Upsert与完整Operation semantics、Iceberg spec的Overview/Optimistic Concurrency/Commit Conflict Resolution/Deleting Files及Table Metadata。正文SQL明确是已有表与已完成预检前提下的机制片段，未启动Delta集群，不把文档语法核对称为事务/并发/恢复测试。迁移、跨表一致性、墓碑、保留期与备份边界逐项核查。",
+        "18.03秒根目录完整构建并重启生产preview；横向SVG self_check/实际中文画布及截图通过，连线已避免交叉。1280桌面及390×844手机亮深色、预览/原尺寸/关闭与局部代码滚动通过，无破图、全页溢出或客户端error，viewport已reset；4个本地引用扫描通过。"
+      ]
+    }
+  ]
+}

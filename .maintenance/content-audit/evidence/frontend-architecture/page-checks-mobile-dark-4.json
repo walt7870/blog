@@ -1,0 +1,58 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Web 性能工程：加载、交互与布局稳定性",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Web 前端安全：输入、会话、浏览器策略与构建",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端交付：版本、缓存、错误定位与回滚",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "AI 辅助前端工程：任务合同、验证与学习路线",
+    "width": 390
+  }
+]

@@ -1,14 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="460" viewBox="0 0 1080 460" role="img" aria-labelledby="title desc">
-  <title id="title">智能体工作循环</title>
-  <desc id="desc">展示观察、计划、行动、反馈和记忆构成的智能体循环</desc>
-  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/></marker>
-    <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.core{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:20px;font-weight:700}.body{font-size:14px}.small{font-size:12px;fill:#475569}.line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style></defs>
-  <rect class="bg" width="1080" height="460"/>
-  <rect class="core" x="455" y="175" width="170" height="100"/><text class="text title" x="540" y="215" text-anchor="middle">模型</text><text class="text body" x="540" y="242" text-anchor="middle">推理与决策</text>
-  <rect class="box" x="455" y="35" width="170" height="85"/><text class="text title" x="540" y="68" text-anchor="middle">观察</text><text class="text body" x="540" y="95" text-anchor="middle">任务、文件、日志</text>
-  <rect class="box" x="760" y="175" width="170" height="85"/><text class="text title" x="845" y="208" text-anchor="middle">计划</text><text class="text body" x="845" y="235" text-anchor="middle">拆步骤与风险</text>
-  <rect class="box" x="455" y="335" width="170" height="85"/><text class="text title" x="540" y="368" text-anchor="middle">行动</text><text class="text body" x="540" y="395" text-anchor="middle">工具、API、命令</text>
-  <rect class="box" x="150" y="175" width="170" height="85"/><text class="text title" x="235" y="208" text-anchor="middle">反馈</text><text class="text body" x="235" y="235" text-anchor="middle">结果、错误、测试</text>
-  <rect class="box" x="760" y="335" width="170" height="60"/><text class="text title" x="845" y="373" text-anchor="middle">记忆 / 状态</text>
-  <path class="line" d="M540 120 L540 175"/><path class="line" d="M625 225 L760 218"/><path class="line" d="M845 260 C820 325 700 372 625 378"/><path class="line" d="M455 378 C350 360 250 305 235 260"/><path class="line" d="M235 175 C260 90 370 72 455 78"/><path class="line" d="M760 365 L625 250"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="agent-loop-title agent-loop-desc"><title id="agent-loop-title">智能体：提议动作，检查权限，读取结果</title><desc id="agent-loop-desc">观察、模型提议、执行检查、受控工具与结果回读；预算或权限不满足则停止或等待。</desc><defs><marker id="agent-loop-a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526678"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#243746}.h{font-size:26px;font-weight:700}.t{font-size:19px;font-weight:700}.s{font-size:16px;fill:#526678}.b{fill:#fff;stroke:#b9cbd4;stroke-width:1.5}.f{fill:#e5f4ee;stroke:#43836e;stroke-width:1.5}.l{fill:none;stroke:#526678;stroke-width:2;marker-end:url(#agent-loop-a)}.d{stroke-dasharray:6 5}</style></defs><rect width="1120" height="470" fill="#f4f8fa"/><text x="36" y="48" class="h">智能体：提议动作，检查权限，读取结果</text><text x="36" y="80" class="s">例：调查订单通知失败。读取日志可以继续；重发通知前检查授权、幂等与当前状态。</text>
+<path class="l" d="M250 172H310"/><path class="l" d="M530 172H590"/><path class="l" d="M830 172H890"/>
+<rect x="36" y="126" width="214" height="92" rx="6" class="b"/><text x="52" y="157" class="t">观察当前状态</text><text x="52" y="183" class="s">目标、日志、任务进度</text>
+<rect x="310" y="126" width="220" height="92" rx="6" class="b"/><text x="326" y="157" class="t">模型提议下一步</text><text x="326" y="183" class="s">查日志 / 查状态 / 回复</text>
+<rect x="590" y="126" width="240" height="118" rx="6" class="f"/><text x="606" y="157" class="t">执行检查</text><text x="606" y="183" class="s">工具白名单、参数、权限</text><text x="606" y="208" class="s">轮数、时间、费用预算</text>
+<rect x="890" y="126" width="194" height="118" rx="6" class="b"/><text x="906" y="157" class="t">执行受控工具</text><text x="906" y="183" class="s">查询或已授权写入</text><text x="906" y="208" class="s">结果不等于最终成功</text>
+<path class="l" d="M988 244V420H450V402"/>
+<rect x="310" y="300" width="280" height="102" rx="6" class="b"/><text x="326" y="331" class="t">回读结果并更新状态</text><text x="326" y="357" class="s">错误、证据与真实业务状态</text><text x="326" y="382" class="s">必要时继续观察</text>
+<path class="l d" d="M310 351H143V218"/>
+<path class="l" d="M710 244V300"/><text x="838" y="155" class="s">允许</text><text x="724" y="278" class="s">结束或不允许</text>
+<rect x="650" y="300" width="200" height="102" rx="6" class="b"/><text x="666" y="331" class="t">停止 / 等待</text><text x="666" y="357" class="s">完成、缺权限、超预算</text><text x="666" y="382" class="s">说明已完成与未完成</text>
+<text x="36" y="444" class="s">外部网页与工具结果提供数据，不能提升权限；状态保存、重试与副作用幂等由运行系统负责。</text></svg>

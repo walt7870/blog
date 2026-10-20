@@ -1,61 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
-  <title id="title">Pod 从调度到终止的生命周期</title>
-  <desc id="desc">展示 API、调度周期、绑定、节点准备、就绪服务和终止六个阶段及其负责组件。</desc>
-  <rect width="1280" height="520" fill="#f7f8fa"/>
-  <text x="64" y="62" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#17212b">Pod 生命周期不是一个原子动作</text>
-  <text x="64" y="96" font-family="Arial, sans-serif" font-size="16" fill="#53606d">每一段都有独立状态、失败方式和证据来源</text>
-  <path d="M154 250H1128" stroke="#aab3bc" stroke-width="4"/>
-  <g font-family="Arial, sans-serif">
-    <g transform="translate(44 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#2f6f61" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#2f6f61"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">1. API 接受</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">Pod 无 nodeName</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：对象版本</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">审计、Admission</text>
-    </g>
-    <g transform="translate(246 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#c66a3d" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#c66a3d"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">2. 调度周期</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">Filter / Score</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：PodScheduled</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">FailedScheduling</text>
-    </g>
-    <g transform="translate(448 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#936f18" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#936f18"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">3. 绑定周期</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">Reserve / Bind</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：nodeName</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">卷与绑定 Event</text>
-    </g>
-    <g transform="translate(650 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#356a9a" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#356a9a"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">4. 节点准备</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">CRI / CNI / CSI</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：kubelet</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">容器与卷状态</text>
-    </g>
-    <g transform="translate(852 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#2f6f61" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#2f6f61"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">5. 就绪服务</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">Probe / EndpointSlice</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：Ready</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">真实请求 SLI</text>
-    </g>
-    <g transform="translate(1054 154)">
-      <rect width="178" height="184" rx="8" fill="#ffffff" stroke="#a64b4b" stroke-width="2"/>
-      <circle cx="89" cy="96" r="17" fill="#a64b4b"/>
-      <text x="18" y="35" font-size="17" font-weight="700" fill="#17212b">6. 摘流终止</text>
-      <text x="18" y="61" font-size="14" fill="#53606d">preStop / grace</text>
-      <text x="18" y="143" font-size="13" fill="#53606d">证据：流量变化</text>
-      <text x="18" y="164" font-size="13" fill="#53606d">进程退出时间</text>
-    </g>
-  </g>
-  <text x="64" y="405" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#17212b">判断边界</text>
-  <text x="64" y="438" font-family="Arial, sans-serif" font-size="15" fill="#53606d">Scheduled ≠ Running　　Running ≠ Ready　　删除请求 ≠ 进程和连接已清理</text>
-  <rect x="64" y="465" width="1152" height="4" fill="#2f6f61"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+  <title id="title">Pod 从接受到终止的阶段与证据</title>
+  <desc id="desc">调度周期包括 Reserve 和 Permit，绑定周期等待许可后绑定。节点准备、就绪传播和终止各自异步收敛，失败时按所在阶段排查。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.focus{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="700" fill="#f7f9fb"/><text class="title" x="48" y="54">一次 Pod 落地跨过多个独立完成条件</text><text class="t" x="48" y="89">图中是正常推进路径；失败、重试和节点故障不会自动跳过中间验收。</text>
+  <path class="edge" d="M348 220H410"/><path class="edge" d="M710 220H772"/><path class="edge" d="M922 300V390"/><path class="edge" d="M772 470H710"/><path class="edge" d="M410 470H348"/>
+  <rect class="box" x="48" y="140" width="300" height="160" rx="6"/><text class="h" x="68" y="177">1. API 接受对象</text><text class="t" x="68" y="212">身份、准入与字段校验通过</text><text class="t" x="68" y="243">尚未绑定，等待入队条件</text><text class="t" x="68" y="278">证据：对象 UID、版本、审计</text>
+  <rect class="focus" x="410" y="140" width="300" height="160" rx="6"/><text class="h" x="430" y="177">2. 调度周期</text><text class="t" x="430" y="212">Filter / Score 选择节点</text><text class="t" x="430" y="243">Reserve / Permit 在末段执行</text><text class="t" x="430" y="278">失败：Unreserve、回队列重试</text>
+  <rect class="box" x="772" y="140" width="300" height="160" rx="6"/><text class="h" x="792" y="177">3. 绑定周期</text><text class="t" x="792" y="212">等待 Permit 许可</text><text class="t" x="792" y="243">PreBind / Bind / PostBind</text><text class="t" x="792" y="278">证据：nodeName、调度事件</text>
+  <text class="t" x="946" y="350">绑定到节点</text>
+  <rect class="run" x="772" y="390" width="300" height="160" rx="6"/><text class="h" x="792" y="427">4. 节点准备与运行</text><text class="t" x="792" y="462">kubelet / CRI / CNI / 卷</text><text class="t" x="792" y="493">配置、镜像与挂载可能交错</text><text class="t" x="792" y="528">证据：容器状态、节点日志</text>
+  <rect class="run" x="410" y="390" width="300" height="160" rx="6"/><text class="h" x="430" y="427">5. 就绪与服务</text><text class="t" x="430" y="462">探针、Ready、端点条件传播</text><text class="t" x="430" y="493">数据面规则选择可服务端点</text><text class="t" x="430" y="528">证据：真实响应与业务指标</text>
+  <rect class="box" x="48" y="390" width="300" height="160" rx="6"/><text class="h" x="68" y="427">6. 删除、摘流与停止</text><text class="t" x="68" y="462">端点传播与节点停止并行</text><text class="t" x="68" y="493">preStop 计入终止宽限期</text><text class="t" x="68" y="528">证据：连接排空与进程退出</text>
+  <text class="h" x="48" y="605">Scheduled ≠ Running；Running ≠ Ready；删除对象 ≠ 节点已清理</text><text class="t" x="48" y="643">同一 UID 的 Pod 不迁移节点；节点故障后由控制器创建替代 Pod，再经历自己的落地过程。</text>
 </svg>

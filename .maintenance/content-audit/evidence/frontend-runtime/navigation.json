@@ -1,0 +1,32 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/12-dom-programming.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/12-dom-programming.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/16-browser-storage.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/16-browser-storage.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.html"
+  }
+]

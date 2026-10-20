@@ -1,154 +1,97 @@
 # JVM GC
 
-GC（Garbage Collection）负责自动识别不再使用的对象，并回收它们占用的内存。学习 GC 不需要先背所有参数，先理解三个问题：对象怎么判断存活、回收会停顿多久、不同回收器在吞吐和延迟之间如何取舍。
+订单导出结束后，临时列表已经没有业务价值，Java 堆却还在增长。GC 能判断的是对象是否仍被引用，而不是业务还需不需要它：只要导出任务仍挂在一个可达的集合里，其中的数据就可能一直存活。理解 GC 要先分清引用关系，再看回收器如何在暂停、吞吐、CPU 和内存之间取舍。
 
-![GC 选型思路](/jvm/gc-selection.svg)
+## 对象为什么仍然存活
 
-## GC 解决什么问题
+![导出任务的强引用与可达性](/jvm/gc-reachability.svg)
 
-| 问题 | GC 的作用 |
-| --- | --- |
-| 对象不用了谁释放 | 自动发现不可达对象并回收 |
-| 内存碎片怎么办 | 复制、整理或分区回收 |
-| 应用能不能继续跑 | 在 STW、并行、并发之间取舍 |
-| 停顿能不能变短 | 使用并发标记、分区回收、读写屏障等技术 |
+HotSpot 从线程执行状态、JNI 强全局引用、VM 内部结构等根出发，识别可达对象。图中任务已完成，但长寿命的任务表仍强引用任务及结果，因此 GC 不能替业务删除结果。移除那条引用后，如果也没有别的存活路径，结果才具备被回收的条件；这不保证立刻回收或马上降低进程 RSS。
 
-GC 不保证没有内存泄漏。只要对象仍然被可达引用链持有，GC 就不能回收。
+局部变量写在源码里不代表在整个方法期间都保持为 GC 根，JIT 会考虑实际存活性。静态字段也不等于所有对象永久存活：字段所在类及其类加载器能否卸载同样要分析。弱引用、软引用、终结处理等有额外规则，不能把所有引用都当成强引用。具体泄漏分析看 [对象生命周期](../object-lifecycle.md) 和 [诊断案例](../diagnostic-cases.md)。
 
-## 对象存活判断
+GC 管 Java 堆中的对象，不自动关闭文件、数据库连接或 JNI 会话。堆使用下降、堆容量下降和 RSS 下降也是三件不同的事，见 [堆](../runtime-area/heap.md) 与 [直接内存](../runtime-area/direct-memory.md)。
 
-HotSpot 主要使用可达性分析。GC 从 GC Roots 出发，沿引用链遍历对象：
+## 暂停、并行与并发是不同维度
 
-```text
-GC Roots -> 可达对象 -> 继续遍历
-```
+STW 表示暂停应用线程；并行表示多个 GC 线程一起工作；并发表示 GC 与应用可以同时推进。Parallel GC 可以在 STW 中并行回收，G1 则既有并发标记，也有暂停中的并行转移。不能只按名字把回收器归成互斥的三类。
 
-不可达对象才可能被回收。
-
-常见 GC Roots：
-
-- 当前线程栈帧中的局部变量和参数。
-- 静态字段引用的对象。
-- JNI 引用。
-- 活跃线程对象。
-- 被锁持有的对象。
-- JVM 内部结构引用的对象。
-
-排查内存泄漏时，关键不是“对象很大”，而是“谁一直引用它”。heap dump 分析的核心就是找引用链。
-
-## STW、并行、并发
-
-| 概念 | 含义 | 关注点 |
-| --- | --- | --- |
-| STW | 暂停应用线程，GC 独占执行 | 停顿时间 |
-| 并行 | 多个 GC 线程一起工作，但应用线程通常暂停 | 缩短 GC 工作时间 |
-| 并发 | GC 线程和应用线程同时运行 | 降低停顿 |
-
-并发回收器也不是完全不停顿。初始标记、最终标记、引用处理、类卸载等阶段仍可能 STW。
-
-## 常见回收器定位
-
-| 回收器 | 定位 | 常见场景 |
-| --- | --- | --- |
-| [Serial](./serial.md) | 简单、单线程、低资源占用 | 小堆、工具程序、单核环境 |
-| [Parallel](./parallel.md) | 吞吐量优先 | 批处理、离线计算 |
-| [ParNew](./parnew.md) | CMS 时代的新生代并行收集器 | 维护老系统 |
-| [CMS](./cms.md) | 老年代并发标记清除 | 维护低延迟老系统 |
-| [G1](./g1.md) | 分区、可控停顿、通用服务端 | 大多数服务端应用 |
-| [ZGC](./zgc.md) | 超低延迟、大堆并发回收 | 延迟敏感服务 |
-| [Shenandoah](./shenandoah.md) | 超低延迟并发回收 | 延迟敏感服务 |
-| [Epsilon](./epsilon.md) | 不回收 | 性能测试、短生命周期进程 |
+并发回收也会消耗 CPU、内存带宽和屏障成本，并需要为回收完成前的新分配留空间。如果应用在 100 ms 内又分配了大量数据，回收器还没释放空间就可能出现分配等待或退化回收。业务 P99 延迟还包含排队、锁、I/O 和调度，不等于 GC 暂停时间。
 
 ## 选型
 
-### 小应用或命令行工具
+![GC 候选与验证约束](/jvm/gc-selection.svg)
 
-优先考虑 Serial。它简单、开销低，复杂回收器的并发能力在小堆上不一定划算。
+先保留当前可工作的基线，再根据真实负载选候选。下面的定位是试验入口，不是按堆大小直接决定的规则。
 
-```bash
--XX:+UseSerialGC
+| 候选 | 可考虑的场景 | 必须检查的约束 |
+| --- | --- | --- |
+| [Serial](./serial.md) | 小工具、CPU 有限且能容忍暂停 | 存活量增长后的暂停、整个任务耗时 |
+| [Parallel](./parallel.md) | 对账、报表等吞吐优先任务 | 最大暂停是否仍满足任务约束 |
+| [G1](./g1.md) | 需要兼顾吞吐与停顿的服务 | Young/Mixed 暂停、存活量、大对象与复制空间 |
+| [ZGC](./zgc.md)、[Shenandoah](./shenandoah.md) | 已证实 GC 长暂停影响业务的服务 | 发行版和版本、并发 CPU、分配余量、端到端延迟 |
+| [ParNew](./parnew.md)、[CMS](./cms.md) | 解释和迁移历史服务 | 旧 JDK 参数，不能照搬到新版本 |
+| [Epsilon](./epsilon.md) | 有限分配实验或经过预算的短任务 | 不回收，总分配量必须受控 |
+
+例如夜间对账可以接受一次较长暂停，但要求四十分钟内完成，应比较总耗时、GC 时间与 CPU；支付接口若已经证实慢请求覆盖 GC 暂停，则比较延迟分布、超时率及回收成本。两者都要保持输入、堆预算、CPU 限额和预热条件可比，不能只拿单次跑分判断。
+
+## 用有限实验认识日志
+
+保存 `GcLoad.java`，用 JDK 17 编译。程序分配 32 KiB 数组，环形数组仅保留最近 64 块；静态 `volatile` 字段让数组逃逸，避免把实验退化为容易消除的无用分配。它是分配与引用实验，不代表业务压测。
+
+```java
+public class GcLoad {
+    private static volatile byte[] last;
+
+    public static void main(String[] args) {
+        int rounds = args.length == 0 ? 20000 : Integer.parseInt(args[0]);
+        if (rounds < 1 || rounds > 100000) {
+            throw new IllegalArgumentException("rounds: 1..100000");
+        }
+        byte[][] recent = new byte[64][];
+        long checksum = 0;
+        for (int i = 0; i < rounds; i++) {
+            byte[] block = new byte[32 * 1024];
+            block[0] = (byte) i;
+            recent[i % recent.length] = block;
+            last = block;
+            checksum += last[0] & 0xff;
+        }
+        System.out.println("checksum=" + checksum);
+        System.out.println("last=" + recent[(rounds - 1) % 64][0]);
+    }
+}
 ```
 
-### 批处理或吞吐优先
-
-优先考虑 Parallel。目标是总处理时间更短，而不是每次暂停都很短。
-
 ```bash
--XX:+UseParallelGC
+javac GcLoad.java
+java -Xms128m -Xmx128m -XX:+UseG1GC \
+  '-Xlog:gc*:file=gc-g1.log:time,uptime,level,tags:filecount=3,filesize=10M' \
+  GcLoad 20000
 ```
 
-### 通用服务端
+正常结束时输出 `checksum=2546416`、`last=31`。日志中的 `Using G1` 确认实际回收器；按 GC ID、时间和原因串起一次回收，看前后已用空间和暂停。`128m` 只是这个有限实验的堆配置，不能复制成服务容量模板。切换候选时只改回收器及日志文件名，并保留相同输入。
 
-优先考虑 G1。它在吞吐和停顿之间比较均衡，也是现代服务端常见选择。
+JDK 9+ 的统一日志可设置滚动，写入位置应由进程用户可写并具有容量预算。Young、Mixed、Full、Allocation Stall 并非所有回收器共享的分类；ZGC 和 Shenandoah 的字段也随模式和版本变化。监控解析器升级时应拿目标版本的真实日志验证，不能把 `jstat` 的每一列固定理解为 Eden/Survivor。
 
-```bash
--XX:+UseG1GC
--XX:MaxGCPauseMillis=200
-```
+## 从现象回到原因
 
-`MaxGCPauseMillis` 是目标，不是硬保证。设置过低可能导致 GC 更频繁、CPU 更高。
+先把 GC 日志时间与请求、吞吐、CPU、容器限流及堆曲线对齐。若暂停没有覆盖慢请求，转查线程、下游和调度；若回收后占用基线持续增长，再追存活对象及持有链。短时间分配很多但很快死亡，与长期存活量不断增长，需要不同的改法。
 
-### 极低延迟
-
-考虑 ZGC 或 Shenandoah。它们把大部分工作并发化，适合对长暂停敏感的服务。
+已有服务可在相同用户、可附加且能看到目标 PID 的环境中，先看低成本入口：
 
 ```bash
--XX:+UseZGC
+jcmd 12345 VM.flags
+jcmd 12345 GC.heap_info
+# 仅采样5次；列的含义取决于目标JDK和回收器
+jstat -gcutil 12345 1000 5
 ```
 
-低延迟回收器可能用更多 CPU 或牺牲部分吞吐，迁移前要压测。
+`12345` 要替换成实际 Java PID。对象直方图和 heap dump 可能带来停顿，默认采集还可能请求 Full GC，不能作为每次告警后的自动第一步。先确认命令帮助、磁盘、数据访问范围和可接受窗口，再按 [诊断案例](../diagnostic-cases.md) 采集。
 
-## GC 日志
+处理后用相同负载验证：结果是否正确、暂停和请求尾延迟是否改善、回收后的存活量是否稳定、CPU 与 RSS 是否在预算内。只把 `MaxGCPauseMillis` 改小，既不能回收仍被引用的对象，也不能保证业务延迟。
 
-JDK 9+ 推荐统一日志：
-
-```bash
--Xlog:gc*:file=gc.log:time,uptime,level,tags
-```
-
-关注字段：
-
-| 指标 | 含义 |
-| --- | --- |
-| Pause 时间 | 应用线程暂停多久 |
-| Young / Mixed / Full | 回收类型 |
-| before/after | 回收前后内存变化 |
-| allocation failure | 是否分配失败触发 |
-| humongous | G1 大对象相关问题 |
-| concurrent cycle | 并发周期是否来得及完成 |
-
-## 排查路径
-
-### Full GC 频繁
-
-1. 看 GC 日志确认 Full GC 触发原因。
-2. 抓 heap dump，分析老年代大对象和引用链。
-3. 判断是内存泄漏、对象生命周期过长，还是堆太小。
-4. 再调整堆大小、晋升策略或回收器。
-
-### 停顿过长
-
-1. 先确认停顿发生在 Young、Mixed 还是 Full GC。
-2. 看对象存活率和回收后释放空间。
-3. 看是否有大对象、类卸载、引用处理或系统压力。
-4. 调整目标停顿、堆大小或换低延迟回收器。
-
-### GC 后内存不下降
-
-可能原因：
-
-- 对象仍被静态集合、缓存、线程本地变量持有。
-- 类加载器泄漏。
-- 直接内存或 native 内存增长，不体现在堆里。
-- heap dump 抓取时机不对。
-
-## 常用命令
-
-```bash
-jstat -gcutil <pid> 1000
-jcmd <pid> GC.heap_info
-jcmd <pid> GC.class_histogram
-jcmd <pid> GC.heap_dump /tmp/app.hprof
-```
-
-生产环境抓 dump 前确认磁盘空间和停顿风险。
+<style scoped>
+:deep(table) { display: block; overflow-x: auto; }
+:deep(th), :deep(td) { min-width: 7em; }
+</style>

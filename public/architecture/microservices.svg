@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620" role="img" aria-labelledby="title desc"><title id="title">微服务架构结构图</title><desc id="desc">展示网关、独立服务、独立数据库和平台治理能力。</desc><style>.bg{fill:#f8fafc}.svc{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.db{fill:#dcfce7;stroke:#22c55e;stroke-width:2}.plat{fill:#fff7ed;stroke:#f97316;stroke-width:2}.h{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}</style><rect class="bg" width="1040" height="620" rx="22"/><text class="h" x="56" y="55">微服务：按业务能力拆分独立交付单元</text><rect class="plat" x="420" y="95" width="210" height="64" rx="14"/><text class="t" x="480" y="134">API 网关</text><rect class="svc" x="110" y="230" width="200" height="82" rx="14"/><text class="h" x="155" y="266">订单服务</text><text class="t" x="150" y="290">订单数据所有者</text><rect class="svc" x="420" y="230" width="200" height="82" rx="14"/><text class="h" x="465" y="266">库存服务</text><text class="t" x="460" y="290">库存数据所有者</text><rect class="svc" x="730" y="230" width="200" height="82" rx="14"/><text class="h" x="775" y="266">支付服务</text><text class="t" x="770" y="290">支付数据所有者</text><rect class="db" x="125" y="385" width="170" height="64" rx="14"/><text class="t" x="175" y="423">订单库</text><rect class="db" x="435" y="385" width="170" height="64" rx="14"/><text class="t" x="485" y="423">库存库</text><rect class="db" x="745" y="385" width="170" height="64" rx="14"/><text class="t" x="795" y="423">支付库</text><rect class="plat" x="250" y="500" width="540" height="62" rx="14"/><text class="t" x="310" y="538">平台治理：注册发现、配置、日志、指标、链路追踪、灰度、熔断</text><line class="line" x1="525" y1="159" x2="210" y2="230"/><line class="line" x1="525" y1="159" x2="520" y2="230"/><line class="line" x1="525" y1="159" x2="830" y2="230"/><line class="line" x1="210" y1="312" x2="210" y2="385"/><line class="line" x1="520" y1="312" x2="520" y2="385"/><line class="line" x1="830" y1="312" x2="830" y2="385"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">微服务的数据归属与协作</title><desc id="desc">订单、库存和支付各自拥有数据库写入权。订单通过契约预占库存，支付提供已核验的收款事实，订单仍需判断能否接受。独立进程不自动保证故障隔离。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:21px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}.async{stroke-dasharray:5 4}</style>
+<rect width="1120" height="640" fill="#f8fafc"/>
+<text class="title" x="56" y="58">微服务：数据有主人，跨边界走业务契约</text>
+<text class="note" x="56" y="90">书店示例；实线表示请求 / 写入，虚线表示可靠传递的事实</text>
+<rect x="56" y="144" width="292" height="354" rx="6" fill="#f0f5f2" stroke="#cbd5d0"/>
+<rect x="414" y="144" width="292" height="354" rx="6" fill="#f0f5f2" stroke="#cbd5d0"/>
+<rect x="772" y="144" width="292" height="354" rx="6" fill="#f0f5f2" stroke="#cbd5d0"/>
+<text class="note" x="78" y="177">订单团队与交付单元</text><text class="note" x="436" y="177">库存团队与交付单元</text><text class="note" x="794" y="177">支付团队与交付单元</text>
+<path class="line" d="M326 256H436"/><path class="line" d="M202 316V392"/><path class="line" d="M560 316V392"/><path class="line" d="M918 316V392"/>
+<path class="line async" d="M918 212V119Q918 111 910 111H210Q202 111 202 119V212"/>
+<rect x="461" y="100" width="330" height="24" fill="#f8fafc"/><text class="note" x="475" y="118">核验后的支付事实；可重投</text>
+<rect x="78" y="212" width="248" height="104" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="100" y="247">订单服务</text><text class="t" x="100" y="276">成交快照、状态与接受支付</text><text class="note" x="100" y="301">关闭后收款进入核对</text>
+<rect class="box" x="436" y="212" width="248" height="104" rx="5"/><text class="h" x="458" y="247">库存服务</text><text class="t" x="458" y="276">预占、确认与释放</text><text class="note" x="458" y="301">按稳定预占标识处理</text>
+<rect class="box" x="794" y="212" width="248" height="104" rx="5"/><text class="h" x="816" y="247">支付服务</text><text class="t" x="816" y="276">渠道交易、核验与对账</text><text class="note" x="816" y="301">收款不等于订单已接受</text>
+<text class="note" x="340" y="239">预占请求</text>
+<rect class="box" x="96" y="392" width="212" height="72" rx="5"/><text class="h" x="118" y="425">订单数据 + Outbox</text><text class="note" x="118" y="450">只由订单边界写入</text>
+<rect class="box" x="454" y="392" width="212" height="72" rx="5"/><text class="h" x="476" y="425">库存与预占数据</text><text class="note" x="476" y="450">只由库存边界写入</text>
+<rect class="box" x="812" y="392" width="212" height="72" rx="5"/><text class="h" x="834" y="425">支付流水</text><text class="note" x="834" y="450">只由支付边界写入</text>
+<text class="t" x="56" y="547">数据库实例可以共享，但账号、写入权和模型契约必须明确。</text>
+<text class="note" x="56" y="581">超时未知、重复消息、契约兼容、资源隔离与补偿都需另外实现和验证。</text>
+<text class="note" x="56" y="610">图省略边缘入口与消息中间件；详细可靠投递链路见事件驱动与支付实践。</text>
+</svg>

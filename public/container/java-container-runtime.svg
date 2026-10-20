@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">Java 容器的产物与运行合同</title><desc id="desc">确定的可执行JAR和JRE组成运行镜像，外部配置注入JVM及应用；Java进程直接接收停止信号。容器内存预算除堆还要覆盖线程栈、元空间、直接内存和本地库。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="600" fill="#f8fafc"/><text class="h" x="40" y="51">固定交付内容，为运行与停止留出空间</text><text class="t muted" x="40" y="84">相同摘要保证对应内容身份；用户权限、外部依赖与请求行为仍需验收。</text>
+  <path class="line" d="M285 211H345"/><path class="line" d="M665 211H725"/>
+  <rect class="box" x="40" y="151" width="245" height="120" rx="6"/><text class="n" x="60" y="187">可执行 app.jar</text><text class="t" x="60" y="221">编译、测试与打包验证</text><text class="t" x="60" y="250">复制确定文件，避免多 JAR</text>
+  <rect class="blue" x="345" y="151" width="320" height="120" rx="6"/><text class="n" x="365" y="187">JRE + JAR 运行镜像</text><text class="t" x="365" y="221">匹配平台，固定 UID 与文件权限</text><text class="t" x="365" y="250">ENTRYPOINT 直接运行 Java</text>
+  <rect class="green" x="725" y="151" width="355" height="120" rx="6"/><text class="n" x="745" y="187">Java 进程与订单请求</text><text class="t" x="745" y="221">JAVA_TOOL_OPTIONS → JVM 参数</text><text class="t" x="745" y="250">应用配置 → 数据库、端口与业务</text>
+  <path class="line" d="M902 350V271"/>
+  <rect class="box" x="725" y="350" width="355" height="130" rx="6"/><text class="n" x="745" y="386">停止信号 → 优雅退出</text><text class="t" x="745" y="420">JSON 入口或脚本最终 exec</text><text class="t" x="745" y="450">应用等待窗口要匹配外部停止期限</text>
+  <rect class="blue" x="40" y="350" width="625" height="130" rx="6"/><text class="n" x="60" y="386">容器内存预算：最大堆只是其中一部分</text><text class="t" x="60" y="420">堆 + 线程栈 + 元空间 + 代码缓存 + 直接内存 + 本地库</text><text class="t" x="60" y="450">例如限制 512 MiB、最大堆 256 MiB，剩余空间仍要实测</text>
+  <text class="t muted" x="40" y="542">JVM OOM 与 cgroup OOM 的证据不同；被强制终止时可能来不及生成堆转储。</text><text class="t muted" x="40" y="573">验证一次真实请求、挂载写入与在途请求退出；单看进程运行或 stop 返回成功还不够。</text>
+</svg>

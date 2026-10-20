@@ -1,0 +1,27 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/interpreter.md",
+      "status": "verified",
+      "reviewedHash": "c01e65106a0d0f3bdcc4f411e09faf0e502191f069f550548a3e7bbcee9a4484",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读1876行旧正文和代码，合并输出截断段941至1410单独补读。修代码落在围栏外、未验证Object比较、可变Context结果缓存、吞异常默认值、SQL越界/大小写/LIKE误义和伪解析。改为订单资格不可变表达式树，分清配置校验、解析、求值、发券及规则版本。",
+      "validation": [
+        "JDK21下javac --release 17编译运行InterpreterDemo和InterpreterIteratorCheck，会员与金额10组边界、非法值、空上下文和子列表复制通过；无文本解析器或真实发券集成",
+        "SVG独立浏览器边界和连线、xmllint通过；生产构建23.10秒通过；两页逐页桌面及390×844手机亮深色、首图原尺寸及关闭通过，无破图、横向溢出或控制台错误；无全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/iterator.md",
+      "status": "verified",
+      "reviewedHash": "eb49a072d4a02f959e3d889b0d78d61703a99f056b6e0451afa837245e2601e3",
+      "pageType": "模式机制与资源合同",
+      "decision": "完整阅读1621行旧正文和代码；修自定义同名接口导致增强for不可用、零容量扩容、后序等同反向、Arrays.asList删除、目录流泄漏、拼接迭代器误删除预读项、共享游标伪线程安全、零批大小不前进、无限缓存与Stream归类错误。改为不可变商品目录的标准Java独立游标与两种遍历顺序，补资源关闭和一致性合同。",
+      "validation": [
+        "JDK21下javac --release 17编译运行IteratorDemo和InterpreterIteratorCheck，深度/广度顺序、单元素、重复hasNext、独立游标、耗尽和不支持删除通过；未连接数据库或远程分页服务",
+        "Oracle网页读取失败后核对本机Corretto21.0.8 OpenJDK源码：Iterator全文，Files.walk及相关关闭说明完整段；未声称Files全文已读",
+        "SVG独立浏览器边界和连线、xmllint通过；生产构建23.10秒通过；两页逐页桌面及390×844手机亮深色、首图原尺寸及关闭通过，无破图、横向溢出或控制台错误；无全页截图"
+      ]
+    }
+  ]
+}

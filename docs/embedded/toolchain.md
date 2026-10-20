@@ -6,284 +6,82 @@ date: 2026-05-17
 
 # 开发工具链
 
-嵌入式开发的工具链和 Web/后端开发完全不同。你的代码在 PC 上编译，但要在另一个架构（ARM/RISC-V）的芯片上运行，这叫交叉编译。编译完还要把二进制烧录到 MCU 的 Flash 里，调试时通过专用硬件接口（JTAG/SWD）连接。
+主机把 C 源码编译成目标指令，链接器按芯片存储布局生成 ELF，调试器再通过 SWD/JTAG 连接设备。ELF 含地址和符号，BIN 只是一串字节；同一个 BIN 写到错误地址，可能校验通过却无法启动。工具链应同时管理“怎么构建”和“怎么解释故障”。
 
-## 一、交叉编译工具链
+![源码、ELF、烧录与故障定位的对应关系](/embedded/toolchain-artifact-flow.svg)
 
-### GCC ARM Embedded
+## 固定编译合同
 
-ARM 官方维护的 GCC 工具链，免费开源，支持所有 Cortex-M/R/A。
+先确定完整芯片、CPU、指令集、FPU、浮点 ABI、运行库与链接脚本。STM32F407 常用 `-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard`，但不是所有 M4 都带 FPU。所有目标文件和库必须 ABI 兼容，不能只给最终链接命令补参数。
 
-**安装**
-
-```bash
-# macOS
-brew install --cask gcc-arm-embedded
-
-# Ubuntu/Debian
-sudo apt install gcc-arm-none-eabi
-
-# 或从 ARM 官网下载
-# https://developer.arm.com/downloads/-/gnu-rm
-```
-
-**核心工具**
-
-| 工具                    | 用途                    |
-| --------------------- | --------------------- |
-| arm-none-eabi-gcc     | C 编译器                 |
-| arm-none-eabi-g++     | C++ 编译器               |
-| arm-none-eabi-as      | 汇编器                   |
-| arm-none-eabi-ld      | 链接器                   |
-| arm-none-eabi-objcopy | 格式转换（ELF → BIN/HEX）  |
-| arm-none-eabi-objdump | 反汇编、查看段信息             |
-| arm-none-eabi-size    | 查看代码/数据占用大小           |
-| arm-none-eabi-gdb     | 调试器                   |
-
-**编译一个裸机程序**
+安装 Arm GNU Toolchain 后记录实际版本和下载校验；系统包管理器提供的版本可能不同。不要把“支持 Arm”理解成一个裸机工具链可无条件编译所有 Linux 用户程序。
 
 ```bash
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-    -O2 -Wall -g \
-    -DSTM32F407xx \
-    -Iinc \
-    -T STM32F407VGTx_FLASH.ld \
-    -o firmware.elf \
-    src/*.c startup_stm32f407xx.s
-
-arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
-arm-none-eabi-size firmware.elf
+arm-none-eabi-gcc --version
+arm-none-eabi-gcc -dumpmachine
+arm-none-eabi-gcc -print-multi-lib
 ```
 
-### RISC-V 工具链
+RISC-V 同样要匹配 `-march`、`-mabi`、启动文件和厂商中断实现。工具链名称中的 64 不必然限制其不能生成 32 位代码，实际支持取决于发行版的 multilib。
 
-```bash
-# Ubuntu
-sudo apt install gcc-riscv64-unknown-elf
+## 构建系统与目标文件
 
-# 或用 xPack 预编译包
-# https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack
-```
+STM32CubeMX 按所选版本和工具链生成工程，并非所有输出都默认有 Makefile。保留 `.ioc`、生成器版本、SDK/HAL 版本、链接脚本和业务源码，重新生成后检查差异。不要修改完生成文件就忘记其来源。
 
-## 二、构建系统
-
-### Makefile
-
-最基础的构建方式，STM32CubeMX 生成的项目默认带 Makefile。
-
-```makefile
-TARGET = firmware
-BUILD_DIR = build
-
-C_SOURCES = $(wildcard src/*.c)
-ASM_SOURCES = startup_stm32f407xx.s
-
-PREFIX = arm-none-eabi-
-CC = $(PREFIX)gcc
-AS = $(PREFIX)gcc -x assembler-with-cpp
-CP = $(PREFIX)objcopy
-SZ = $(PREFIX)size
-
-CPU = -mcpu=cortex-m4
-FPU = -mfpu=fpv4-sp-d16
-FLOAT-ABI = -mfloat-abi=hard
-MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
-
-C_DEFS = -DSTM32F407xx
-C_INCLUDES = -Iinc -IDrivers/CMSIS/Include
-
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) -O2 -Wall -g -fdata-sections -ffunction-sections
-LDFLAGS = $(MCU) -T STM32F407VGTx_FLASH.ld -Wl,--gc-sections -lnosys
-
-all: $(BUILD_DIR)/$(TARGET).bin
-
-$(BUILD_DIR)/$(TARGET).elf: $(C_SOURCES) $(ASM_SOURCES)
-	@mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
-	$(SZ) $@
-
-$(BUILD_DIR)/$(TARGET).bin: $(BUILD_DIR)/$(TARGET).elf
-	$(CP) -O binary $< $@
-
-clean:
-	rm -rf $(BUILD_DIR)
-
-flash: $(BUILD_DIR)/$(TARGET).bin
-	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg \
-	    -c "program $< 0x08000000 verify reset exit"
-```
-
-### CMake
-
-更现代的选择，跨平台、IDE 支持好。
+下面是 GNU Arm 裸机的 CMake 工具链文件示例，文件名 `cmake/arm-m4.cmake`。`STATIC_LIBRARY` 避免编译器探测阶段依赖尚未提供的板级入口；它也意味着配置成功不证明最终能链接和启动。
 
 ```cmake
-cmake_minimum_required(VERSION 3.20)
 set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_C_COMPILER arm-none-eabi-gcc)
 set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
-
-project(firmware C ASM)
-
-set(MCU_FLAGS "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
-set(CMAKE_C_FLAGS "${MCU_FLAGS} -O2 -Wall -g -fdata-sections -ffunction-sections")
-set(CMAKE_EXE_LINKER_FLAGS "${MCU_FLAGS} -T${CMAKE_SOURCE_DIR}/STM32F407.ld -Wl,--gc-sections")
-
-add_executable(firmware.elf
-    src/main.c
-    src/system_stm32f4xx.c
-    startup_stm32f407xx.s
-)
-target_include_directories(firmware.elf PRIVATE inc)
-target_compile_definitions(firmware.elf PRIVATE STM32F407xx)
-
-add_custom_command(TARGET firmware.elf POST_BUILD
-    COMMAND arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
-    COMMAND arm-none-eabi-size firmware.elf
-)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(CMAKE_C_FLAGS_INIT "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
+set(CMAKE_ASM_FLAGS_INIT "-mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard")
 ```
 
-## 三、烧录工具
-
-### OpenOCD
-
-开源的片上调试器，支持几乎所有 MCU 和调试器硬件。
+主工程还要显式列出业务文件、厂商启动文件、系统初始化、头文件与目标定义，并给链接设置同一组 CPU/ABI 参数、目标 `.ld`、map 输出和所需运行库。不要用一份缺少中断向量、syscall 与时钟配置的“通用 main”冒充整板工程。
 
 ```bash
-# 安装
-brew install openocd   # macOS
-sudo apt install openocd  # Ubuntu
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=cmake/arm-m4.cmake
+cmake --build build
+arm-none-eabi-size -A build/firmware.elf
+arm-none-eabi-objdump -h build/firmware.elf
+arm-none-eabi-objcopy -O binary build/firmware.elf build/firmware.bin
+```
 
-# 烧录 STM32（通过 ST-Link）
+检查 `.data` 的运行地址与加载地址、向量表、栈/堆和段大小。BIN 中间的地址空洞会变成填充，体积不能简单等于 `.text`。归档 ELF、map、BIN/HEX、SHA-256、完整工具链信息与源码提交，线上故障必须用同一构建的符号解释。
+
+## 烧录与调试入口
+
+下面只适用于所选目标确为 STM32F4、OpenOCD 配置匹配且已连好 ST-Link 的工程；执行会改写目标固件。ELF 的加载地址来自文件本身，BIN 则需显式指定地址。
+
+```bash
 openocd -f interface/stlink.cfg -f target/stm32f4x.cfg \
-    -c "program firmware.bin 0x08000000 verify reset exit"
-
-# 启动 GDB Server
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
-# 然后在另一个终端连接 GDB
-arm-none-eabi-gdb firmware.elf -ex "target remote :3333"
+  -c 'program build/firmware.elf verify reset exit'
 ```
 
-### J-Link
-
-SEGGER 出品的商业调试器，速度快、稳定性好。教育版免费。
+调试时先保持 OpenOCD server 运行，再从另一个终端连接；不要同时让 IDE 和命令行争用同一探针。
 
 ```bash
-# J-Link Commander 烧录
-JLinkExe -device STM32F407VG -if SWD -speed 4000 \
-    -CommandFile flash.jlink
-
-# flash.jlink 内容：
-# loadbin firmware.bin, 0x08000000
-# r
-# g
-# exit
+arm-none-eabi-gdb build/firmware.elf
 ```
 
-### ST-Link
-
-ST 官方调试器，STM32 开发板自带。配合 `st-flash` 或 OpenOCD 使用。
-
-```bash
-# 使用 stlink 工具
-st-flash write firmware.bin 0x08000000
-st-flash reset
+```gdb
+target remote :3333
+monitor reset halt
+break main
+continue
+info registers
+backtrace
 ```
 
-## 四、调试
+断点停住 CPU 时，外设、看门狗和 DMA 是否停取决于芯片调试冻结配置，单步行为可能与正常运行不同。查看有读清副作用的寄存器也可能改变现场。崩溃时先保存故障寄存器与栈帧，再用 ELF 定位地址，不能只靠一段不完整 backtrace 下结论。
 
-### GDB 调试
+## IDE、CI 与验收
 
-```bash
-# 启动 OpenOCD（保持运行）
-openocd -f interface/stlink.cfg -f target/stm32f4x.cfg &
+Keil、IAR、CubeIDE、VS Code/Cortex-Debug 和其他工具各有目标支持、授权与调试集成差异。优化质量要用同一工程测量代码体积、延迟和功耗，不能宣布某编译器永远“最好”。J-Link EDU 是有用途限制的产品，并非可免费用于商业项目。
 
-# 连接 GDB
-arm-none-eabi-gdb firmware.elf
-(gdb) target remote :3333
-(gdb) monitor reset halt
-(gdb) break main
-(gdb) continue
-(gdb) print variable_name
-(gdb) x/16xw 0x40020000    # 查看外设寄存器
-(gdb) info registers
-(gdb) backtrace             # 查看调用栈（HardFault 排查）
-```
+CI 可在固定版本的原生工具链环境运行，记录安装包摘要、SDK 提交与构建命令；不依赖虚构的 `latest` 镜像。流水线分开主机逻辑测试、交叉编译和板上硬件测试：前两项不能替代真实启动、中断、外设和掉电验证。固件和符号作为同一版本的发布工件保留，构建目录通常不进源码仓库。
 
-### VS Code 调试配置
-
-安装 Cortex-Debug 扩展后，配置 `.vscode/launch.json`：
-
-```json
-{
-    "version": "0.2.0",
-    "configurations": [{
-        "name": "Debug (OpenOCD)",
-        "type": "cortex-debug",
-        "request": "launch",
-        "servertype": "openocd",
-        "cwd": "${workspaceFolder}",
-        "executable": "build/firmware.elf",
-        "configFiles": [
-            "interface/stlink.cfg",
-            "target/stm32f4x.cfg"
-        ],
-        "svdFile": "STM32F407.svd",
-        "runToEntryPoint": "main"
-    }]
-}
-```
-
-SVD 文件让你在调试时能以结构化方式查看外设寄存器，而不是手动算地址。
-
-### 常用调试手段
-
-| 手段          | 适用场景                    | 工具                    |
-| ----------- | ----------------------- | --------------------- |
-| printf 重定向  | 快速打印变量值                 | 串口 + 终端               |
-| SWO/ITM 输出  | 不占用串口的 printf           | SWV Viewer            |
-| 断点 + 单步     | 逻辑错误、流程排查               | GDB / IDE             |
-| 寄存器查看       | 外设配置是否正确                | SVD + Cortex-Debug    |
-| 逻辑分析仪       | 时序问题、协议解码               | Saleae / PulseView   |
-| 示波器         | 信号质量、电源纹波               | Rigol DS1054Z        |
-| HardFault 分析 | 程序崩溃                   | 查看 LR/PC/CFSR 寄存器    |
-
-## 五、IDE 选择
-
-| IDE            | 优点                          | 缺点                    | 适合场景          |
-| -------------- | --------------------------- | --------------------- | ------------- |
-| Keil MDK       | 编译优化好、调试强、ST 官方支持          | 收费、仅 Windows          | 公司项目、量产优化     |
-| IAR EWARM      | 编译质量最高、代码密度最小              | 贵、仅 Windows           | 对代码大小敏感的产品    |
-| STM32CubeIDE   | 免费、集成 CubeMX 配置            | 基于 Eclipse，略重         | STM32 入门      |
-| VS Code        | 轻量、跨平台、扩展丰富               | 需要自己配置工具链             | 熟悉命令行的开发者     |
-| CLion           | 智能补全强、CMake 原生支持           | 收费、资源占用大              | 大型嵌入式项目       |
-| PlatformIO     | 跨平台跨芯片、库管理方便              | 对底层控制不够精细             | 快速原型、Arduino 生态 |
-
-推荐路线：入门用 STM32CubeIDE（零配置），熟悉后切 VS Code + Makefile/CMake（灵活高效）。
-
-## 六、版本管理与 CI
-
-嵌入式项目同样需要 Git 管理。注意事项：
-
-- `.gitignore` 排除 `build/`、`*.o`、`*.elf`、IDE 生成文件
-- 固件版本号写入代码，构建时自动从 git tag 注入
-- CI 用 Docker 镜像封装工具链，保证构建可复现
-
-```yaml
-# GitHub Actions 示例
-name: Build Firmware
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    container: ghcr.io/xpack-dev-tools/arm-none-eabi-gcc:latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: make all
-      - uses: actions/upload-artifact@v4
-        with:
-          name: firmware
-          path: build/firmware.bin
-```
-
-返回 [总览与学习路线](./index.md)
+返回[总览](./index.md)。

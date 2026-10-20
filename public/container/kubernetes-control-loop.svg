@@ -1,32 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes 控制循环</title>
-  <desc id="desc">展示用户声明资源、API Server 存储期望状态、控制器调谐、节点运行 Pod 的控制循环。</desc>
-  <style>
-    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.api{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.ctrl{fill:#fef3c7;stroke:#f59e0b;stroke-width:2}.node{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.h{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:3;fill:none}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:8 6;fill:none}.arrow{fill:#64748b}
-  </style>
-  <rect class="bg" width="1120" height="620" rx="24"/>
-  <text class="title" x="56" y="62">Kubernetes 的控制循环</text>
-  <rect class="box" x="70" y="155" width="190" height="110" rx="16"/>
-  <text class="h" x="122" y="198">声明资源</text>
-  <text class="t" x="105" y="230">YAML / kubectl</text>
-  <path class="line" d="M260 210h95"/><polygon class="arrow" points="355,210 339,200 339,220"/>
-  <rect class="api" x="355" y="130" width="220" height="160" rx="18"/>
-  <text class="h" x="420" y="178">API Server</text>
-  <text class="t" x="402" y="210">校验、鉴权、准入</text>
-  <text class="t" x="402" y="238">写入 etcd</text>
-  <path class="line" d="M575 210h95"/><polygon class="arrow" points="670,210 654,200 654,220"/>
-  <rect class="ctrl" x="670" y="130" width="220" height="160" rx="18"/>
-  <text class="h" x="742" y="178">Controller</text>
-  <text class="t" x="716" y="210">观察期望状态</text>
-  <text class="t" x="716" y="238">创建或修正资源</text>
-  <path class="line" d="M780 290v90"/><polygon class="arrow" points="780,380 770,364 790,364"/>
-  <rect class="node" x="640" y="380" width="280" height="140" rx="18"/>
-  <text class="h" x="745" y="425">Node</text>
-  <text class="t" x="700" y="456">kubelet 调用运行时</text>
-  <text class="t" x="700" y="484">启动 Pod 并回报状态</text>
-  <path class="dash" d="M640 450H465V290"/><polygon class="arrow" points="465,290 455,306 475,306"/>
-  <rect class="box" x="140" y="390" width="270" height="105" rx="16"/>
-  <text class="h" x="208" y="432">核心判断</text>
-  <text class="t" x="174" y="464">期望状态和当前状态不断对齐</text>
-  <text class="t" x="174" y="488">资源对象是平台的操作入口</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 的 API 控制关系</title>
+  <desc id="desc">客户端、控制器、调度器和 kubelet 都通过 API Server 观察与更新对象。只有 API Server 连接 etcd；kubelet 另外通过 CRI 驱动运行时。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="680" fill="#f7f9fb"/>
+  <text class="title" x="48" y="54">组件通过 API 协作，不直接把命令传给下一层控制器</text>
+  <text class="t" x="48" y="88">箭头表示请求方向；list/watch、对象更新与状态回报都以 API Server 为入口。</text>
+  <path class="edge" d="M238 190H370"/><path class="edge" d="M740 190H860"/>
+  <path class="edge" d="M190 370V298Q190 290 198 290H402Q410 290 410 282V250"/>
+  <path class="edge" d="M560 370V250"/>
+  <path class="edge" d="M930 370V298Q930 290 922 290H708Q700 290 700 282V250"/>
+  <path class="edge" d="M930 495V550"/>
+  <rect class="box" x="48" y="140" width="190" height="100" rx="6"/><text class="h" x="66" y="178">kubectl / 客户端</text><text class="t" x="66" y="211">提交与查询对象</text>
+  <rect class="api" x="370" y="120" width="370" height="130" rx="6"/><text class="h" x="396" y="162">kube-apiserver</text><text class="t" x="396" y="195">认证、授权、准入与对象存储</text><text class="t" x="396" y="226">list/watch 服务与并发控制</text>
+  <rect class="box" x="860" y="140" width="210" height="100" rx="6"/><text class="h" x="880" y="178">etcd</text><text class="t" x="880" y="211">API 持久状态</text>
+  <rect class="box" x="48" y="370" width="284" height="125" rx="6"/><text class="h" x="70" y="406">控制器 / Operator</text><text class="t" x="70" y="439">观察事实，计算差异</text><text class="t" x="70" y="470">经 API 创建对象、写回状态</text>
+  <rect class="box" x="418" y="370" width="284" height="125" rx="6"/><text class="h" x="440" y="406">kube-scheduler</text><text class="t" x="440" y="439">观察未绑定 Pod 与节点</text><text class="t" x="440" y="470">经 API 提交绑定结果</text>
+  <rect class="run" x="788" y="370" width="284" height="125" rx="6"/><text class="h" x="810" y="406">节点 kubelet</text><text class="t" x="810" y="439">观察分配到本节点的 Pod</text><text class="t" x="810" y="470">协调本地执行、经 API 报状态</text>
+  <rect class="run" x="788" y="550" width="284" height="70" rx="6"/><text class="h" x="810" y="579">CRI 实现 → 容器进程</text><text class="t" x="810" y="605">镜像与容器的节点执行路径</text>
+  <text class="t" x="950" y="528">CRI</text>
+  <text class="h" x="48" y="570">订单 API 发布的判断边界</text><text class="t" x="48" y="606">对象已写入 ≠ Pod 已调度 ≠ 节点已启动 ≠ 业务已就绪</text>
+  <text class="t" x="48" y="648">控制器、scheduler、kubelet 不直接读取 etcd；图中省略响应箭头与多副本部署。</text>
 </svg>

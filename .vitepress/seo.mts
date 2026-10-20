@@ -11,6 +11,7 @@ export function pageRoute(source: string) {
 }
 
 export function publicRoute(route: string) {
+  if (route.startsWith('docs/superpowers/')) return false;
   return route === '' || route === 'notes.html' || /^(docs|profile|projects)\//.test(route);
 }
 

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="control-title control-desc">
+<title id="control-title">进程控制先核对作用范围</title>
+<desc id="control-desc">交互终端通过shell作业表管理进程组，服务管理器通过unit和cgroup监督服务。向单个PID发送信号不自动控制全部成员，也不自动完成业务排空。</desc>
+<defs><marker id="control-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.focus{fill:#e7f3ef;stroke:#69978c;stroke-width:1.5}.blue{fill:#eff5fc;stroke:#a4b9cc;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#control-arrow)}</style></defs>
+<rect width="1120" height="600" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">终端作业、单个进程与受管服务，是不同操作范围</text>
+<text class="b" x="36" y="80">父子关系不自动等于进程组；单个 PID 退出也不等于整个订单服务已停止。</text>
+<path class="edge" d="M324 206H416"/><path class="edge" d="M704 206H800"/>
+<path class="edge" d="M324 414H416"/><path class="edge" d="M704 414H800"/>
+<rect class="box" x="36" y="134" width="288" height="144" rx="6"/>
+<text class="n" x="54" y="170">交互 shell</text><text class="b" x="54" y="206">jobs / fg / bg</text><text class="b" x="54" y="240">当前 shell 的作业编号</text>
+<rect class="blue" x="416" y="134" width="288" height="144" rx="6"/>
+<text class="n" x="434" y="170">作业与进程组</text><text class="b" x="434" y="206">前台组接收终端信号</text><text class="b" x="434" y="240">可含管道中的多个进程</text>
+<rect class="box" x="800" y="134" width="284" height="144" rx="6"/>
+<text class="n" x="818" y="170">具体进程</text><text class="b" x="818" y="206">PID / PPID / PGID / SID</text><text class="b" x="818" y="240">核对身份、启动时间与状态</text>
+<rect class="box" x="36" y="342" width="288" height="144" rx="6"/>
+<text class="n" x="54" y="378">服务管理器</text><text class="b" x="54" y="414">systemctl stop order-api</text><text class="b" x="54" y="448">按 unit 配置监督生命周期</text>
+<rect class="focus" x="416" y="342" width="288" height="144" rx="6"/>
+<text class="n" x="434" y="378">服务成员与停止合同</text><text class="b" x="434" y="414">cgroup / 排空 / 超时策略</text><text class="b" x="434" y="448">核对自动重启与触发器</text>
+<rect class="box" x="800" y="342" width="284" height="144" rx="6"/>
+<text class="n" x="818" y="378">业务验收</text><text class="b" x="818" y="414">成员退出、请求停止</text><text class="b" x="818" y="448">订单结果与重试正确</text>
+<text class="b" x="36" y="550">kill 发送信号；wait 获取自己子进程的退出状态。发送成功、进程退出、业务完成分别验证。</text>
+</svg>

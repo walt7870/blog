@@ -1,0 +1,162 @@
+- link "Skip to content":
+  - /url: "#VPContent"
+- banner:
+  - link "Husky":
+    - /url: /husky/
+    - generic: Husky
+  - navigation "Main Navigation":
+    - generic: Main Navigation
+    - link "Sponsor":
+      - /url: https://github.com/sponsors/typicode
+      - generic: Sponsor
+  - button "Change language"
+  - switch "Switch to dark theme"
+  - link "github":
+    - /url: https://github.com/typicode/husky
+  - link "twitter":
+    - /url: https://x.com/typicode
+- complementary:
+  - navigation "Sidebar Navigation":
+    - generic: Sidebar Navigation
+    - link "Introduction":
+      - /url: /husky/
+      - paragraph: Introduction
+    - link "Get Started":
+      - /url: /husky/get-started.html
+      - paragraph: Get Started
+    - link "How To":
+      - /url: /husky/how-to.html
+      - paragraph: How To
+    - link "Troubleshoot":
+      - /url: /husky/troubleshoot.html
+      - paragraph: Troubleshoot
+    - link "Migrate from v4":
+      - /url: /husky/migrate-from-v4.html
+      - paragraph: Migrate from v4
+- navigation "On this page":
+  - heading "On this page" [level=2]
+  - list:
+    - link "Install":
+      - /url: "#install"
+    - link "husky init (recommended)":
+      - /url: "#husky-init-recommended"
+    - link "Try it":
+      - /url: "#try-it"
+    - link "A few words...":
+      - /url: "#a-few-words"
+- main:
+  - heading "Get started Permalink to \"Get started\"" [level=1]:
+    - text: Get started
+    - link "Permalink to \"Get started\"":
+      - /url: "#get-started"
+      - text: "#"
+  - heading "Install Permalink to \"Install\"" [level=2]:
+    - text: Install
+    - link "Permalink to \"Install\"":
+      - /url: "#install"
+      - text: "#"
+  - radio "npm" [checked]
+  - generic: npm
+  - radio "pnpm"
+  - generic: pnpm
+  - radio "yarn"
+  - generic: yarn
+  - radio "bun"
+  - generic: bun
+  - button "Copy Code"
+  - generic: shell
+  - code:
+    - generic: npm install --save-dev husky
+  - 'heading "husky init (recommended) Permalink to \"`husky init` (recommended)\"" [level=2]':
+    - code: husky init
+    - text: (recommended)
+    - 'link "Permalink to \"`husky init` (recommended)\""':
+      - /url: "#husky-init-recommended"
+      - text: "#"
+  - paragraph:
+    - text: The
+    - code: init
+    - text: command simplifies setting up husky in a project. It creates a
+    - code: pre-commit
+    - text: script in
+    - code: .husky/
+    - text: and updates the
+    - code: prepare
+    - text: script in
+    - code: package.json
+    - text: . Modifications can be made later to suit your workflow.
+  - radio "npm" [checked]
+  - generic: npm
+  - radio "pnpm"
+  - generic: pnpm
+  - radio "yarn"
+  - generic: yarn
+  - radio "bun"
+  - generic: bun
+  - button "Copy Code"
+  - generic: shell
+  - code:
+    - generic: npx husky init
+  - heading "Try it Permalink to \"Try it\"" [level=2]:
+    - text: Try it
+    - link "Permalink to \"Try it\"":
+      - /url: "#try-it"
+      - text: "#"
+  - paragraph: "Congratulations! You've successfully set up your first Git hook with just one command 🎉. Let's test it:"
+  - button "Copy Code"
+  - generic: shell
+  - code:
+    - generic: git commit -m "Keep calm and commit"
+    - generic: "# test script will run every time you commit"
+  - heading "A few words... Permalink to \"A few words...\"" [level=2]:
+    - text: A few words...
+    - link "Permalink to \"A few words...\"":
+      - /url: "#a-few-words"
+      - text: "#"
+  - heading "Scripting Permalink to \"Scripting\"" [level=3]:
+    - text: Scripting
+    - link "Permalink to \"Scripting\"":
+      - /url: "#scripting"
+      - text: "#"
+  - paragraph:
+    - text: While most of the time, you'll just run a few
+    - code: npm run
+    - text: or
+    - code: npx
+    - text: commands in your hooks, you can also script them using POSIX shell for custom workflows.
+  - paragraph: "For example, here's how you can lint your staged files on each commit with only two lines of shell code and no external dependency:"
+  - button "Copy Code"
+  - generic: shell
+  - code:
+    - generic: "# .husky/pre-commit"
+    - generic: prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
+    - generic: git update-index --again
+  - paragraph:
+    - emphasis:
+      - text: This is a basic but working example, check
+      - link "lint-staged":
+        - /url: https://github.com/lint-staged/lint-staged
+      - text: if you need more.
+  - heading "Disabling hooks Permalink to \"Disabling hooks\"" [level=3]:
+    - text: Disabling hooks
+    - link "Permalink to \"Disabling hooks\"":
+      - /url: "#disabling-hooks"
+      - text: "#"
+  - paragraph:
+    - text: Husky doesn't force Git hooks. It can be globally disabled (
+    - code: HUSKY=0
+    - text: ) or be opt-in if wanted. See the
+    - link "How To":
+      - /url: ./how-to.html
+    - text: section for manual setup and more information.
+- contentinfo:
+  - navigation "Pager":
+    - generic: Pager
+    - link "Previous page Introduction":
+      - /url: /husky/
+      - generic: Previous page
+      - generic: Introduction
+    - link "Next page How To":
+      - /url: /husky/how-to.html
+      - generic: Next page
+      - generic: How To

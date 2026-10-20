@@ -1,0 +1,32 @@
+[
+  {
+    "from": "mcp.html",
+    "target": "/blog/docs/ai/agent.html",
+    "title": "AI 智能体\n​"
+  },
+  {
+    "from": "skill/",
+    "target": "/blog/docs/ai/skill/recommendations.html",
+    "title": "Skill 推荐与选型\n​"
+  },
+  {
+    "from": "skill/recommendations.html",
+    "target": "/blog/docs/ai/skill/claude-code-best-practices.html",
+    "title": "Claude Code Skill 实践\n​"
+  },
+  {
+    "from": "skill/claude-code-best-practices.html",
+    "target": "/blog/docs/ai/coding-agent-series/",
+    "title": "AI 编程深度系列\n​"
+  },
+  {
+    "from": "rsi/",
+    "target": "/blog/docs/ai/rsi/01-recursive-self-improvement.html",
+    "title": "RSI 递归自我改进：机制、实践与影响\n​"
+  },
+  {
+    "from": "rsi/01-recursive-self-improvement.html",
+    "target": "/blog/docs/ai/applications/langchain/",
+    "title": "LangChain 从入门到工程实践\n​"
+  }
+]

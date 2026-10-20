@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 导览
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes 导览
@@ -50,10 +50,12 @@ Kubernetes 是一个以 API 和控制循环为核心的分布式系统。用户�
 3. Deployment 控制器观察到新期望，更新 ReplicaSet。
 4. ReplicaSet 控制器创建新 Pod，scheduler 为其选择节点。
 5. 目标节点上的 kubelet 拉取镜像并通过 CRI 创建容器。
-6. 就绪探针通过后，EndpointSlice 才把 Pod 纳入 Service 后端。
+6. kubelet 更新就绪条件，EndpointSlice 控制器更新端点条件，Service 数据面据此选择可用后端。EndpointSlice 可以已经包含未就绪 Pod 的地址，不是只在就绪后才出现。
 7. 发布控制器根据 `maxSurge`、`maxUnavailable` 和 Pod 状态继续推进。
 
-因此排查发布不能只看 `kubectl apply` 的返回值，应同时检查 rollout、Pod Conditions、Events、EndpointSlice 和应用指标。
+例如订单查询接口升级后，镜像已拉取但数据库连接池尚未初始化，Pod 可以 Running 而 Ready 为 false。默认路由应继续使用可服务的旧副本；如果 readiness 只探测一个提前开放的端口，新副本就可能过早接流量。排查发布应同时检查 rollout、Pod Conditions、Events、EndpointSlice 和业务响应。`publishNotReadyAddresses`、终止端点及数据面策略有例外，详见[数据面、存储与可靠性](./data-plane-reliability)。
+
+以下观察命令假设已经存在 `orders` namespace 和 `order-api` Deployment，不会创建应用：
 
 ```bash
 kubectl rollout status deploy/order-api -n orders
@@ -76,9 +78,7 @@ kubectl get events -n orders --sort-by=.metadata.creationTimestamp
 
 ## 当前版本基线
 
-截至 2026-07-18，Kubernetes 官方维护 1.36、1.35、1.34 三个小版本分支。本文只把这一信息作为阅读和实验基线；生产集群应选择受支持分支的当前补丁版本，并在升级前重新核对版本偏差、废弃 API 和生态组件兼容矩阵。
-
-版本相关判断集中在 [版本与升级](./version-upgrade)，避免把易变数字散落到所有长期文章。
+生产集群应选择受支持分支的当前补丁版本，并在升级前核对组件版本偏差、废弃 API 和生态兼容矩阵。分支号、支持期限和升级检查集中在[版本与升级](./version-upgrade)，总览中的控制循环不依赖某个固定小版本。
 
 ## 按现象进入文档
 

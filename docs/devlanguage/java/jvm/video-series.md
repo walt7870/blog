@@ -6,17 +6,9 @@
 
 ## 系列主线
 
-```text
-Java 源码
-  -> Class 文件
-  -> 字节码
-  -> 类加载
-  -> 运行时数据区
-  -> 方法调用与对象布局
-  -> 元空间与常量池
-  -> GC Roots 与回收器
-  -> G1 分区回收
-```
+![Java 程序在 JVM 中的运行关系](/jvm/jvm-overview.svg)
+
+视频的先后顺序用于组织学习，不代表运行时严格串行完成所有阶段。类可能按需加载，符号引用可以延迟解析，JIT 和 GC 也会在应用运行期间参与工作。遇到这些时机差异时，回到配套机制页核对，避免把阅读顺序当成调用顺序。
 
 ## 分集目录
 
@@ -37,7 +29,9 @@ Java 源码
 
 ## 如何配合文字学习
 
-先按分集顺序建立整体链路，再回到文字页查细节。遇到线上问题时，不需要从第一集重新看，可以按现象进入对应页面：
+首次学习可先运行 [最小 Java 实验](./hands-on.md)，再按分集顺序建立整体关系。比如 `javac` 能通过，但服务启动报 `NoSuchMethodError`，重点看第 02、04、05 集与二进制方法合同；订单导出后堆一直上涨，则从第 06、08、10 集追对象持有链。视频帮助建立模型，具体命令与版本边界以配套机制页的说明为准。
+
+遇到运行问题时，可按现象进入对应页面：
 
 | 现象 | 推荐入口 |
 | --- | --- |
@@ -58,3 +52,9 @@ JVM 学习最终要形成一个排查闭环：
 4. 最后再调参数或改代码：先改证据能证明的问题，不复制模板参数。
 
 完整文字路径可以按 [动手入门路径](./hands-on.md) -> [Class 文件与字节码](./class-file-bytecode.md) -> [类加载机制](./class-loading.md) -> [执行引擎与 JIT](./execution-engine-jit.md) -> [对象生命周期](./object-lifecycle.md) -> [诊断案例](./diagnostic-cases.md) 的顺序阅读。
+
+<style scoped>
+:deep(table) { display: block; overflow-x: auto; }
+:deep(th), :deep(td) { min-width: 6em; }
+:deep(th:first-child), :deep(td:first-child) { min-width: 3em; }
+</style>

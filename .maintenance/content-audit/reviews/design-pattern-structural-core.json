@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/structural/adapter.md",
+      "status": "verified",
+      "reviewedHash": "041d74aaa512988d992825c5a1c39bb7a2260f5c03445b901b06ac440a408703",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读并修正类适配与对象适配混用、虚构Spring实现名及版本接口片段，改为通知状态映射完整程序，补限流、未知结果与幂等边界。",
+      "validation": [
+        "完整正文及代码审查；Spring Framework 6.2.19 HandlerAdapter Javadoc和Spring Security过滤链官方机制核对（所需段完整，后者全页抽取截断）",
+        "3个完整Java程序使用本机JDK21 javac --release 17编译运行通过；4张SVG独立浏览器逐图中文边界、连线与画布检查，xmllint通过",
+        "生产构建26.14秒通过；4页逐页桌面及390×844手机亮深色视口、首图原尺寸和关闭交互通过，无页面横向溢出、破图或控制台错误；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/bridge.md",
+      "status": "verified",
+      "reviewedHash": "e151ea021ad97493539187d80d5a4bc527864ab73c8fd81abf8147dbf54251d2",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读并替换含多余括号的遥控器示例，以四种通知组合验证两个维度，修正JdbcTemplate直接Driver关系和AOP适配误归桥接。",
+      "validation": [
+        "完整正文及代码审查；Spring Framework 6.2.19 HandlerAdapter Javadoc和Spring Security过滤链官方机制核对（所需段完整，后者全页抽取截断）",
+        "3个完整Java程序使用本机JDK21 javac --release 17编译运行通过；4张SVG独立浏览器逐图中文边界、连线与画布检查，xmllint通过",
+        "生产构建26.14秒通过；4页逐页桌面及390×844手机亮深色视口、首图原尺寸和关闭交互通过，无页面横向溢出、破图或控制台错误；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/composite.md",
+      "status": "verified",
+      "reviewedHash": "9b9d8d1189e74fb070aae857eac63dc2b9d225c521c1afa05a4bbbb1b8b4e1bc",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读并改为不可变目录树完整程序，说明透明式/安全式共同合同、循环、共享节点、深度和溢出，修正过滤器for循环与虚构CompositeView归属。",
+      "validation": [
+        "完整正文及代码审查；Spring Framework 6.2.19 HandlerAdapter Javadoc和Spring Security过滤链官方机制核对（所需段完整，后者全页抽取截断）",
+        "3个完整Java程序使用本机JDK21 javac --release 17编译运行通过；4张SVG独立浏览器逐图中文边界、连线与画布检查，xmllint通过",
+        "生产构建26.14秒通过；4页逐页桌面及390×844手机亮深色视口、首图原尺寸和关闭交互通过，无页面横向溢出、破图或控制台错误；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/index.md",
+      "status": "verified",
+      "reviewedHash": "d9182e8db988b2cc4fb987889df5c79e09d2c385025627f91ee8a064d174456f",
+      "pageType": "结构型导读",
+      "decision": "完整阅读并压缩重复列表与未完成代码，以订单导出说明七类结构变化，补缓存权限和异步支付边界，保留全部详细页入口。",
+      "validation": [
+        "完整正文及代码审查；Spring Framework 6.2.19 HandlerAdapter Javadoc和Spring Security过滤链官方机制核对（所需段完整，后者全页抽取截断）",
+        "3个完整Java程序使用本机JDK21 javac --release 17编译运行通过；4张SVG独立浏览器逐图中文边界、连线与画布检查，xmllint通过",
+        "生产构建26.14秒通过；4页逐页桌面及390×844手机亮深色视口、首图原尺寸和关闭交互通过，无页面横向溢出、破图或控制台错误；本批未做全页截图"
+      ]
+    }
+  ]
+}

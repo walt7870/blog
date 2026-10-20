@@ -1,0 +1,72 @@
+[
+  {
+    "file": "docs/embedded/c-programming.md",
+    "href": "/blog/docs/embedded/mcu.html",
+    "title": "微控制器原理与选型\n​"
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "href": "/blog/docs/embedded/projects.html",
+    "title": "综合项目案例\n​"
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "href": "/blog/docs/embedded/rtos.html",
+    "title": "实时操作系统\n​"
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "href": "/blog/docs/embedded/",
+    "title": "嵌入式开发\n​"
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "href": "/blog/docs/embedded/linux-embedded.html",
+    "title": "嵌入式 Linux\n​"
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "href": "/blog/docs/embedded/electronics.html",
+    "title": "电子电路基础\n​"
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "href": "/blog/docs/embedded/communication.html",
+    "title": "通信协议实战\n​"
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "href": "/blog/docs/embedded/electronics.html",
+    "title": "电子电路基础\n​"
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "href": "/blog/docs/embedded/toolchain.html",
+    "title": "开发工具链\n​"
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "href": "/blog/docs/embedded/hardware-design.html",
+    "title": "硬件设计入门\n​"
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "href": "/blog/docs/embedded/platforms.html",
+    "title": "主流平台实战\n​"
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "href": "/blog/docs/embedded/peripherals.html",
+    "title": "外设驱动开发\n​"
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "href": "/blog/docs/embedded/c-programming.html",
+    "title": "嵌入式 C 编程\n​"
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "href": "/blog/docs/devlanguage/java/",
+    "title": "Java\n​"
+  }
+]

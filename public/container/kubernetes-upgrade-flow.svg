@@ -1,21 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes 升级验证链路</title>
-  <desc id="desc">展示从兼容矩阵、备份恢复、控制面、节点灰度到观察和清理的升级阶段。</desc>
-  <rect width="1280" height="520" fill="#f5f7fa"/>
-  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">升级完成的定义是整条依赖链重新通过验收</text>
-  <g font-family="sans-serif" text-anchor="middle" font-size="18">
-    <rect x="55" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="140" y="180" fill="#172033">兼容矩阵</text><text x="140" y="207" fill="#526078">API / CRD / 组件</text>
-    <rect x="255" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="340" y="180" fill="#172033">恢复预演</text><text x="340" y="207" fill="#526078">etcd / 平台 / 数据</text>
-    <rect x="455" y="145" width="170" height="88" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="540" y="180" fill="#172033">控制面灰度</text><text x="540" y="207" fill="#526078">API 与 Webhook</text>
-    <rect x="655" y="145" width="170" height="88" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="740" y="180" fill="#172033">节点池灰度</text><text x="740" y="207" fill="#526078">网络 / 卷 / 排空</text>
-    <rect x="855" y="145" width="170" height="88" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="940" y="180" fill="#172033">扩大范围</text><text x="940" y="207" fill="#526078">容量与业务 SLO</text>
-    <rect x="1055" y="145" width="170" height="88" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1140" y="180" fill="#172033">观察与清理</text><text x="1140" y="207" fill="#526078">旧 API / 节点池</text>
-  </g>
-  <g stroke="#326ce5" stroke-width="3"><path d="M225 189H245"/><path d="M425 189H445"/><path d="M625 189H645"/><path d="M825 189H845"/><path d="M1025 189H1045"/></g>
-  <g fill="#326ce5"><path d="M245 189l-11-7v14z"/><path d="M445 189l-11-7v14z"/><path d="M645 189l-11-7v14z"/><path d="M845 189l-11-7v14z"/><path d="M1045 189l-11-7v14z"/></g>
-  <rect x="80" y="310" width="1120" height="72" rx="8" fill="#fff4e5" stroke="#d88416" stroke-width="2"/>
-  <text x="640" y="340" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" fill="#7a4a00">任何阶段触发停止条件：暂停扩大范围，保存证据，判断前滚还是回退</text>
-  <text x="640" y="368" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#526078">API 5xx · Webhook P99 · Pending · 卷挂载失败 · 网络错误 · 业务尾延迟</text>
-  <rect x="80" y="414" width="1120" height="54" rx="8" fill="#fff" stroke="#b7c0ce"/>
-  <text x="640" y="448" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#526078">二进制可回退不等于状态可回退：存储版本、数据库和数据面切换必须单独验证</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">Kubernetes 分阶段升级与停止条件</title>
+  <desc id="desc">兼容矩阵和恢复预演通过后，先升级控制面，再灰度节点、扩大范围，最后观察清理。任一阶段越过停止阈值都暂停扩大，回退依赖已验证恢复方案。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.focus{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.ok{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="720" fill="#f7f9fb"/><text class="title" x="48" y="54">每跨过一个升级阶段，都重新验证依赖与业务</text><text class="t" x="48" y="89">逐小版本推进；版本偏差是临时兼容上限，不能替代发行版支持流程。</text>
+  <path class="edge" d="M348 205H410"/><path class="edge" d="M710 205H772"/><path class="edge" d="M922 275V350"/><path class="edge" d="M772 420H710"/><path class="edge" d="M410 420H348"/>
+  <rect class="box" x="48" y="135" width="300" height="140" rx="6"/><text class="h" x="68" y="173">1. 兼容矩阵</text><text class="t" x="68" y="210">API、CRD、Webhook</text><text class="t" x="68" y="245">CNI、CSI、插件、工作负载</text>
+  <rect class="box" x="410" y="135" width="300" height="140" rx="6"/><text class="h" x="430" y="173">2. 恢复预演</text><text class="t" x="430" y="210">隔离恢复快照、证书与数据</text><text class="t" x="430" y="245">测量恢复点与恢复时间</text>
+  <rect class="focus" x="772" y="135" width="300" height="140" rx="6"/><text class="h" x="792" y="173">3. 控制面升级</text><text class="t" x="792" y="210">先 API Server，再控制组件</text><text class="t" x="792" y="245">验证 API 与 Webhook 行为</text>
+  <rect class="focus" x="772" y="350" width="300" height="140" rx="6"/><text class="h" x="792" y="388">4. 节点池灰度</text><text class="t" x="792" y="425">排空、调度、网络、卷与探针</text><text class="t" x="792" y="460">保留旧池及故障容量余量</text>
+  <rect class="box" x="410" y="350" width="300" height="140" rx="6"/><text class="h" x="430" y="388">5. 扩大范围</text><text class="t" x="430" y="425">分池分区推进，持续看业务</text><text class="t" x="430" y="460">不能只看 Node 版本号</text>
+  <rect class="ok" x="48" y="350" width="300" height="140" rx="6"/><text class="h" x="68" y="388">6. 观察与清理</text><text class="t" x="68" y="425">完整业务周期重新验收</text><text class="t" x="68" y="460">确认后再清理旧池与旧 API</text>
+  <rect x="48" y="545" width="1024" height="122" rx="6" fill="#fff4e4" stroke="#c29551"/>
+  <text class="h" x="68" y="582">越过停止阈值：暂停扩大范围，保存证据，再选择前滚或已验证的恢复</text>
+  <text class="t" x="68" y="617">API 5xx、Webhook P99、Pending、挂卷失败、业务错误率和尾延迟。</text>
+  <text class="t" x="68" y="648">通过版本检查不等于完整恢复；API 快照不会撤销外部数据库与云资源副作用。</text>
 </svg>

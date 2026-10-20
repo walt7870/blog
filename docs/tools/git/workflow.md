@@ -1,226 +1,84 @@
 # Git 协作流程
 
-Git 协作流程要解决三个问题：每个人在哪里开发、什么时候同步、如何把变更合进主分支。流程不是越复杂越好，关键是匹配团队规模、发布频率和质量门禁。
+订单导出从开发到上线，会经过任务分支、评审、测试、集成和发布。Git 记录提交关系，平台管理评审和门禁，发布系统决定哪个制品进入哪个环境；三者需要用提交 ID 和制品摘要衔接。
 
-![Git 协作流程](/git/git-team-workflow.svg)
+![任务分支评审集成与发布闭环](/git/git-team-workflow.svg)
 
-## 单人到多人通用流程
+## 开始一个独立任务
 
-### 1. 开始任务
-
-```bash
-git switch main
-git pull --rebase
-git switch -c feature/order-export
-```
-
-要求：
-
-- 从最新主分支创建任务分支。
-- 分支名能看出任务类型和内容。
-- 一个分支只承载一个主要目标。
-
-### 2. 开发和提交
+先处理工作区修改，再确认 main 的上游。以下适用于本地 main 只跟随 origin/main 的常规场景，发生分叉会停止，需先理解双方提交。
 
 ```bash
 git status -sb
-git diff
-git add -p
-git commit
+git switch main
+git pull --ff-only
+git switch -c feature/order-export
 ```
 
-提交前检查：
+一个任务分支承载一个主要交付目标。实现导出时顺手升级全部依赖，会让评审、回滚和故障定位都失去明确边界。确需独立验证的重构，拆成先后依赖的变更，并在评审中说明关系。
 
-- 是否包含调试日志、临时文件、密钥。
-- 是否把格式化和业务变更混在一起。
-- 提交信息是否能说明意图。
+## 开发、同步和评审
 
-### 3. 同步主分支
+提交前检查 status、工作区 diff 和暂存 diff，按文件或补丁选取范围。提交应能说明意图，并带上权限、空结果和导出失败的测试。命令细节见 [日常命令](./git.md)，提交组织见 [提交规范](./conventions.md)。
 
 ```bash
 git fetch origin
-git rebase origin/main
-```
-
-如果团队禁止 rebase，也可以使用：
-
-```bash
 git merge origin/main
-```
-
-同步后运行测试，确保当前分支仍可工作。
-
-### 4. 推送并发起评审
-
-```bash
+# 检查差异并运行测试
 git push -u origin feature/order-export
 ```
 
-在 GitHub、GitLab 或类似平台发起 PR/MR，填写：
+这组同步保留已有提交 ID。个人未被依赖的分支可按团队约定选择 rebase；共享分支不能因为希望历史线性就直接改写。合并成功后仍要验证业务：同事新增的权限校验与自己的空列表处理可能在无文本冲突的情况下互相影响。
 
-- 改动目的。
-- 主要实现点。
-- 测试方式。
-- 风险点和回滚方式。
-- 关联 Issue 或需求。
+PR/MR 描述应交代触发问题、最终行为、验证方法和实际结果。涉及数据库或配置时，写清兼容窗口和上线顺序；测试未覆盖的外部系统应明确范围。评审批准和 CI 通过都要对应最终提交，后续又推送修改时需重新满足门禁。
 
-### 5. 合并和清理
+## 选择工作流
 
-合并后清理本地和远程分支：
+| 工作方式 | 历史与发布组织 | 适用条件与成本 |
+| --- | --- | --- |
+| 短任务分支与 PR | main 加短期 feature 分支，审核后集成 | 适合持续交付；main 可发布还取决于测试、迁移和配置兼容 |
+| 主干开发 | 频繁集成到主干，分支很短或直接受控提交 | 依赖快速测试、小步修改和有退出计划的功能开关 |
+| 发布分支 | main 持续开发，release 分支维护指定版本 | 适合发布窗口或多版本支持；需追踪修复回流 |
+| Git Flow | develop、release、hotfix 与 main 分工 | 适合明确版本节奏；长期分支增加同步与补丁遗漏成本 |
+
+团队规模不能单独决定工作流。若移动端等待商店审核，但服务端每天更新，可采用各自发布边界；无需强迫所有模块使用同一条长分支。仓库组织取舍见 [仓库策略](./repository-strategies.md)。
+
+## 合并方式决定历史形态
+
+merge commit 保留原提交和集成节点；squash merge 把功能的最终差异形成一个新提交；rebase merge 通常重放提交形成线性历史。选型看是否需要每个开发提交、评审边界和可回滚单元，而不是只看图形是否整齐。
+
+合并后先核对目标分支最终内容和 CI，再清理本地分支：
 
 ```bash
 git switch main
-git pull --rebase
+git pull --ff-only
 git branch -d feature/order-export
 git fetch origin --prune
 ```
 
-如果远程分支没有自动删除：
+`branch -d` 基于祖先关系检查。squash/rebase merge 后原提交可能未成为 main 祖先，删除会被拒绝；先核对评审记录和差异，保留还需要的内容，再决定是否删除。`fetch --prune` 清理远程跟踪引用，不会删除本地分支；远程分支删除也应符合团队策略。
+
+## 版本标签与实际发布
+
+正式版本应从已确认的提交打标签，并记录构建来源。下面假设该提交已通过发布检查：
 
 ```bash
-git push origin --delete feature/order-export
-```
-
-## 常见工作流
-
-### GitHub Flow
-
-结构：
-
-```text
-main
-feature/*
-```
-
-特点：
-
-- 主分支始终可部署。
-- 每个变更通过短生命周期分支完成。
-- 通过 PR 审查和 CI 后合并。
-
-适用：
-
-- Web 服务、SaaS、持续交付项目。
-- 团队希望流程简单，发布频繁。
-
-### Git Flow
-
-结构：
-
-```text
-main
-develop
-feature/*
-release/*
-hotfix/*
-```
-
-特点：
-
-- `develop` 承载集成开发。
-- `release/*` 做发布准备。
-- `hotfix/*` 从生产分支修复。
-
-适用：
-
-- 版本发布节奏固定。
-- 多版本并行维护。
-- 移动端、桌面端、嵌入式等发布窗口较重的项目。
-
-不适用：
-
-- 小团队高频发布的服务端项目，流程成本可能偏高。
-
-### 主干开发
-
-结构：
-
-```text
-main
-short-lived branches
-feature flags
-```
-
-特点：
-
-- 分支寿命很短，频繁集成。
-- 未完成能力通过 feature flag 隔离。
-- 强依赖自动化测试和持续集成。
-
-适用：
-
-- 工程能力较成熟的团队。
-- 需要快速集成和快速发布的项目。
-
-## 合并策略
-
-| 策略 | 历史形态 | 适用场景 |
-| --- | --- | --- |
-| Merge commit | 保留分支线 | 想保留完整开发过程 |
-| Squash merge | 多个提交压成一个 | PR 内提交杂乱，但变更目标单一 |
-| Rebase merge | 历史线性 | 团队偏好干净提交历史 |
-
-选择标准：
-
-- 如果 PR 内每个提交都有独立价值，保留提交。
-- 如果 PR 内有很多 `wip`、修正提交，用 squash。
-- 如果团队需要可追踪分支合并边界，用 merge commit。
-
-## 发布流程
-
-### 使用 tag 标记版本
-
-```bash
-git switch main
-git pull --rebase
-git tag -a v1.4.0 -m "release v1.4.0"
+git tag -a v1.4.0 REPLACE_WITH_RELEASE_COMMIT -m "发布 v1.4.0"
+git show v1.4.0
 git push origin v1.4.0
 ```
 
-查看 tag：
+tag 是引用，不等于部署完成，也不天然不可变。平台可保护标签并限制发布权限，流水线应把提交 ID、制品摘要和环境验收结果一起记录。回滚宜使用已验证的旧制品，不能假设同一 tag 再构建就得到完全相同的依赖与二进制。
+
+## 紧急修复从实际生产基线开始
+
+main 可能已包含未发布功能，因此先定位生产对应 tag 或提交，而不是直接从 main 创建 hotfix。以下占位值必须替换为实际生产提交：
 
 ```bash
-git tag
-git show v1.4.0
-```
-
-### hotfix 流程
-
-```bash
-git switch main
-git pull --rebase
-git switch -c hotfix/payment-timeout
-# 修改并测试
-git commit
+git fetch origin --tags
+git switch -c hotfix/payment-timeout REPLACE_WITH_PRODUCTION_COMMIT
+# 修复、测试、提交，再推送进行评审
 git push -u origin hotfix/payment-timeout
 ```
 
-合并到主分支并发布后，如果还有 release 或 develop 分支，要把修复同步过去：
-
-```bash
-git switch develop
-git pull --rebase
-git cherry-pick <hotfix-commit>
-```
-
-## 团队协作检查清单
-
-提交前：
-
-- `git status -sb` 确认只包含本次任务文件。
-- `git diff` 确认没有临时代码。
-- 本地测试通过。
-- 提交信息符合团队规范。
-
-发起 PR/MR 前：
-
-- 分支已同步目标分支。
-- CI 能通过。
-- PR 描述包含测试方式。
-- 涉及数据库、配置、兼容性时写清上线顺序。
-
-合并后：
-
-- 删除已合并分支。
-- 本地 `fetch --prune` 清理远程引用。
-- 需要发布时打 tag 或触发发布流水线。
+修复发布后，将相同意图带回 main 和仍受支持的 release 分支；可以 merge，也可对独立补丁使用 `cherry-pick -x`。回流前检查依赖和是否已包含等价修改，分别在各分支测试。只有生产修复、主干回流和其他维护版本的处理状态都可追踪，紧急修复才形成闭环。

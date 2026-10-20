@@ -1,0 +1,48 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/practice/index.md",
+      "status": "verified",
+      "pageType": "业务项目导读",
+      "decision": "将强制四级路线改为按业务输出选项目；补交付物与可回读证据，链接已有可运行教学例和框架实践。",
+      "findings": [],
+      "validation": [
+        "全文与本地入口审查；四模式全文截图、真实分页、图示实际字体测量和双视口键盘原尺寸通过。"
+      ],
+      "reviewedHash": "e19bd425776189576ddd7b9b2e2f61baa4098b8e36df22b1d5c834b2dbd05934"
+    },
+    {
+      "file": "docs/ai/practice/agent-project.md",
+      "status": "verified",
+      "pageType": "工单状态与写入合同实践",
+      "decision": "补草稿revision和参数绑定确认、修改失效、超时未知回查、原幂等键恢复与人工停止；用含恢复分支的SVG替换仅成功路径Mermaid。",
+      "findings": [],
+      "validation": [
+        "全文、状态转换和拒绝行为逐项审查；图示两处标签避让修订后重新测量截图；四模式排版、分页、双视口键盘原尺寸通过。本文为设计实践，不宣称已接真实工单。"
+      ],
+      "reviewedHash": "59ab3e6d648a6575a52eecdd7e12e0a79a0aed666782123dab5bd7d831c39a0d"
+    },
+    {
+      "file": "docs/ai/practice/machine-learning-project.md",
+      "status": "verified",
+      "pageType": "流失预测时间与运营容量实践",
+      "decision": "明确候选、业务时区、观察与标签窗口、事件可用时间、标签成熟和滚动切分；区分风险分数与干预收益，补Top-K与成本计算。",
+      "findings": [],
+      "validation": [
+        "日期边界和40%精确率、20%召回率、Lift2、2000元成本实际计算通过；四模式截图、真实分页与双视口原尺寸通过，教学数字不作真实成绩。"
+      ],
+      "reviewedHash": "ec1f4bfdd94e906cf2b5cfa1d75129907471c77b19328b0b39b6c8e505278316"
+    },
+    {
+      "file": "docs/ai/practice/vision-project.md",
+      "status": "verified",
+      "pageType": "多标签质检与部署验收实践",
+      "decision": "明确多缺陷标签、按泛化目标分组切分、预处理合同、冻结BN状态、增强含义和未知场景高分误判；用90/10/45/855展示准确率掩盖漏检。",
+      "findings": [],
+      "validation": [
+        "实际计算Recall90%、Precision66.7%、准确率94.5%；全文及图示审查；四模式截图、分页、双视口原尺寸通过，未宣称真实产线效果。"
+      ],
+      "reviewedHash": "5b8256a718e70bf9054ba6cda5e82d88d166b3faba8548f617346995d568d03d"
+    }
+  ]
+}

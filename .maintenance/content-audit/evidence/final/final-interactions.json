@@ -1,0 +1,22 @@
+{
+  "searchHits": [
+    "#开发方法",
+    "#AI 辅助前端工程：任务合同、验证与学习路线按风险选择协作方式",
+    "#软件架构设计导论按当前问题阅读",
+    "#开发方法从当前问题开始",
+    "#开发方法例子：给记账应用加账单导出",
+    "#工程验证：XP、TDD、BDD 与契约测试",
+    "#方法选型与组合实践失败反例与修正"
+  ],
+  "phoneSearch": "#\n大模型推理与部署\n#\n03. GPU 与显存预算\n#\n02. 从输入到逐步生成\n本篇回顾\n#\n模型推理系列\n同一个问题，逐层放大\n#\n03. GPU 与显存预算\n本篇导读\n#\n03. GPU 与显存预算\n工作台上不是只有模型\n#\n03. GPU 与显存预算\n从一个人变成三十二个人\n#\n03. GPU 与显存预算\n容量够，为什么还会慢\n#\n03. GPU 与显存预算\n便笺的大小怎样计算\n#\n03. GPU 与显存预算\n本篇回顾",
+  "bilibili": "https://space.bilibili.com/181407346",
+  "lightbox": {
+    "complete": true,
+    "natural": 300,
+    "src": "http://127.0.0.1:5177/blog/develop-method/devops-release.svg",
+    "width": 960
+  },
+  "searchNavigation": true,
+  "pagerNavigation": true,
+  "mobileSearchKeyboard": true
+}

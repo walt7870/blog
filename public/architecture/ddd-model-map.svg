@@ -1,61 +1,44 @@
-<svg width="1120" height="640" viewBox="0 0 1120 640" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1120" height="640" rx="18" fill="#F8FAFC"/>
-  <text x="54" y="58" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0F172A">DDD 模型元素之间的关系</text>
-  <text x="54" y="88" font-family="Arial, sans-serif" font-size="15" fill="#475569">上下文先划语义边界，聚合再保护一致性，事件负责把已发生的事实送到其他边界。</text>
-
-  <defs>
-    <marker id="arrow-ddd-model" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0L10 5L0 10Z" fill="#475569"/>
-    </marker>
-    <filter id="soft-ddd-model" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#94A3B8" flood-opacity="0.16"/>
-    </filter>
-  </defs>
-
-  <rect x="60" y="128" width="460" height="388" rx="18" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
-  <text x="88" y="164" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#1D4ED8">订单上下文</text>
-  <text x="88" y="190" font-family="Arial, sans-serif" font-size="14" fill="#1E3A8A">负责订单生命周期、订单金额、订单项规则</text>
-
-  <rect x="112" y="232" width="344" height="218" rx="16" fill="#FFFFFF" stroke="#2563EB" stroke-width="2" filter="url(#soft-ddd-model)"/>
-  <text x="142" y="268" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1E40AF">订单聚合</text>
-  <text x="142" y="294" font-family="Arial, sans-serif" font-size="13" fill="#475569">强一致边界：订单状态、订单项、订单金额</text>
-
-  <rect x="144" y="324" width="126" height="70" rx="12" fill="#DBEAFE" stroke="#60A5FA"/>
-  <text x="175" y="352" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1E3A8A">Order</text>
-  <text x="165" y="376" font-family="Arial, sans-serif" font-size="12" fill="#1E3A8A">聚合根</text>
-
-  <rect x="306" y="310" width="112" height="58" rx="10" fill="#F8FAFC" stroke="#94A3B8"/>
-  <text x="333" y="335" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">OrderLine</text>
-  <text x="345" y="355" font-family="Arial, sans-serif" font-size="12" fill="#64748B">实体</text>
-
-  <rect x="306" y="384" width="112" height="50" rx="10" fill="#F8FAFC" stroke="#94A3B8"/>
-  <text x="341" y="407" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">Money</text>
-  <text x="337" y="425" font-family="Arial, sans-serif" font-size="12" fill="#64748B">值对象</text>
-
-  <path d="M270 358H294" stroke="#475569" stroke-width="2" marker-end="url(#arrow-ddd-model)"/>
-  <path d="M270 366C284 366 286 408 294 408" stroke="#475569" stroke-width="2" marker-end="url(#arrow-ddd-model)"/>
-
-  <rect x="620" y="128" width="210" height="146" rx="16" fill="#F0FDF4" stroke="#86EFAC" stroke-width="2" filter="url(#soft-ddd-model)"/>
-  <text x="650" y="164" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#166534">库存上下文</text>
-  <text x="650" y="198" font-family="Arial, sans-serif" font-size="14" fill="#14532D">可售、锁定、释放</text>
-  <text x="650" y="224" font-family="Arial, sans-serif" font-size="14" fill="#14532D">仓库批次和库存规则</text>
-
-  <rect x="620" y="352" width="210" height="146" rx="16" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2" filter="url(#soft-ddd-model)"/>
-  <text x="650" y="388" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#9A3412">支付上下文</text>
-  <text x="650" y="422" font-family="Arial, sans-serif" font-size="14" fill="#7C2D12">支付单、交易流水</text>
-  <text x="650" y="448" font-family="Arial, sans-serif" font-size="14" fill="#7C2D12">退款、对账、渠道状态</text>
-
-  <rect x="896" y="240" width="170" height="146" rx="16" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="2" filter="url(#soft-ddd-model)"/>
-  <text x="926" y="276" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#6D28D9">履约上下文</text>
-  <text x="926" y="310" font-family="Arial, sans-serif" font-size="14" fill="#581C87">发货单、包裹</text>
-  <text x="926" y="336" font-family="Arial, sans-serif" font-size="14" fill="#581C87">配送和签收</text>
-
-  <rect x="440" y="548" width="240" height="52" rx="26" fill="#0F172A"/>
-  <text x="482" y="580" font-family="Arial, sans-serif" font-size="15" fill="#E2E8F0">OrderPaid：订单已支付</text>
-
-  <path d="M456 342C526 342 540 202 608 202" stroke="#475569" stroke-width="2.2" stroke-dasharray="7 7" marker-end="url(#arrow-ddd-model)"/>
-  <path d="M456 370C526 370 540 428 608 428" stroke="#475569" stroke-width="2.2" stroke-dasharray="7 7" marker-end="url(#arrow-ddd-model)"/>
-  <path d="M830 274C858 274 858 300 884 300" stroke="#475569" stroke-width="2.2" stroke-dasharray="7 7" marker-end="url(#arrow-ddd-model)"/>
-  <path d="M284 450C330 534 400 572 428 572" stroke="#475569" stroke-width="2.2" marker-end="url(#arrow-ddd-model)"/>
-  <path d="M680 572C770 572 862 432 910 390" stroke="#475569" stroke-width="2.2" marker-end="url(#arrow-ddd-model)"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="ddd-model-title ddd-model-desc">
+  <title id="ddd-model-title">上下文划语言边界，聚合保护内部规则</title>
+  <desc id="ddd-model-desc">订单上下文包含订单聚合及其他用例；订单根保护明细和金额规则。支付上下文提供核验后的收款事实，订单接受后通过可靠事件要求库存确认预占，跨上下文不是同一个事务。</desc>
+  <defs><marker id="ddd-model-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="640" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="32" y="48" font-size="26" font-weight="600">DDD 模型：包含关系与业务协作各有边界</text>
+    <text x="32" y="80" font-size="16" fill="#5d6f64">本例先预占库存，接受支付后确认扣减；上下文不要求独立部署</text>
+    <rect x="32" y="124" width="576" height="364" rx="8" fill="#edf4fc" stroke="#b4c7dc"/>
+    <text x="56" y="160" font-size="22" font-weight="600">订单上下文</text>
+    <text x="56" y="188" font-size="16">语言：成交快照、待支付、已支付、关闭</text>
+    <rect x="56" y="212" width="528" height="252" rx="8" fill="#fff" stroke="#468363" stroke-width="2"/>
+    <text x="80" y="244" font-size="20" font-weight="600">订单聚合：总额与状态规则</text>
+    <g fill="none" stroke="#657768" stroke-width="2" marker-end="url(#ddd-model-arrow)">
+      <path d="M232 316H312"/>
+      <path d="M232 344H264Q272 344 272 352V400Q272 408 280 408H312"/>
+      <path d="M720 220H608"/>
+      <path d="M608 384H720" stroke-dasharray="6 5"/>
+    </g>
+    <rect x="80" y="284" width="152" height="88" rx="6" fill="#e5f3e9" stroke="#468363"/>
+    <rect x="312" y="276" width="248" height="76" rx="6" fill="#f8fafc" stroke="#c4cdd5"/>
+    <rect x="312" y="376" width="248" height="64" rx="6" fill="#f8fafc" stroke="#c4cdd5"/>
+    <text x="104" y="320" font-size="20" font-weight="600">Order</text>
+    <text x="104" y="348" font-size="16">聚合根</text>
+    <text x="332" y="308" font-size="18" font-weight="600">OrderLine：成交明细</text>
+    <text x="332" y="334" font-size="15">本例为值；有行身份时用实体</text>
+    <text x="332" y="404" font-size="18" font-weight="600">Money：金额值对象</text>
+    <text x="332" y="428" font-size="15">数值、币种及本概念的校验</text>
+    <rect x="720" y="152" width="368" height="116" rx="8" fill="#fff" stroke="#c4cdd5"/>
+    <rect x="720" y="332" width="368" height="132" rx="8" fill="#fff" stroke="#c4cdd5"/>
+    <text x="744" y="188" font-size="22" font-weight="600">支付上下文</text>
+    <text x="744" y="220" font-size="16">支付单、收款、渠道核对与退款</text>
+    <text x="744" y="248" font-size="15" fill="#5d6f64">提供已核验的支付事实</text>
+    <text x="744" y="368" font-size="22" font-weight="600">库存上下文</text>
+    <text x="744" y="400" font-size="16">预占、确认扣减、过期与释放</text>
+    <text x="744" y="432" font-size="15" fill="#5d6f64">同一预占不能既扣减又释放</text>
+    <rect x="616" y="184" width="96" height="28" fill="#f8fafc"/><text x="664" y="204" font-size="16" text-anchor="middle">支付事实</text>
+    <rect x="616" y="348" width="96" height="28" fill="#f8fafc"/><text x="664" y="368" font-size="16" text-anchor="middle">确认预占</text>
+    <path d="M32 520H1088" stroke="#d5ded8"/>
+    <text x="32" y="556" font-size="17">包含关系：上下文内可有多个聚合；聚合根保护修改，不等于自动获得数据库事务。</text>
+    <text x="32" y="588" font-size="17">虚线：提交后可靠事件协作，允许重投；订单、支付和库存各自保护状态并处理失败。</text>
+    <text x="32" y="620" font-size="16" fill="#5d6f64">履约、营销等后续模型另有边界；本图只展开支付与库存的协作。</text>
+  </g>
 </svg>

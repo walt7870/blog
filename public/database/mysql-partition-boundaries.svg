@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">按月分区的裁剪与边界变化</title>
+  <desc id="desc">删除前，p_before保存十月一日之前，p202610保存十月，p202611保存十一月，p_future保存十二月及未来。十月查询只访问p202610。删除p_before后，p202610隐含下界扩展，九月迟到数据也能写入，必须由入口校验保留窗口。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="620" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">分区名不是边界，LESS THAN 只规定上界</text>
+  <text x="36" y="78" class="small">逻辑日期区间示意，非按时长比例；所有日期均为 2026 年。</text>
+  <text x="396" y="126" class="head">查询：10-01 ≤ log_date &lt; 11-01</text>
+  <path d="M526 138V178" class="line"/>
+  <rect x="36" y="178" width="260" height="104" class="box"/>
+  <rect x="310" y="178" width="260" height="104" fill="#eaf5ef" stroke="#478167" rx="6"/>
+  <rect x="584" y="178" width="240" height="104" class="box"/>
+  <rect x="838" y="178" width="246" height="104" class="box"/>
+  <text x="56" y="210" class="head">p_before</text><text x="56" y="242">log_date &lt; 10-01</text><text x="56" y="268" class="small">包含编号 1：09-30</text>
+  <text x="330" y="210" class="head">p202610 · 被访问</text><text x="330" y="242">10-01 ≤ 日期 &lt; 11-01</text><text x="330" y="268" class="small">编号 2、3：十月首尾</text>
+  <text x="604" y="210" class="head">p202611</text><text x="604" y="242">11-01 ≤ 日期 &lt; 12-01</text><text x="604" y="268" class="small">编号 4：11-01</text>
+  <text x="858" y="210" class="head">p_future</text><text x="858" y="242">12-01 ≤ 日期</text><text x="858" y="268" class="small">编号 5：12-01</text>
+  <text x="36" y="326" class="small">拆分 p_future 可以提前建立十二月分区；其中编号 5 随 REORGANIZE 重新归位。</text>
+  <text x="36" y="376" class="head">删除 p_before 以后：编号 1 删除，第一分区范围扩大</text>
+  <rect x="36" y="400" width="534" height="102" class="box"/>
+  <rect x="584" y="400" width="240" height="102" class="box"/>
+  <rect x="838" y="400" width="246" height="102" class="box"/>
+  <text x="56" y="434" class="head">p202610 · 现在接收所有日期 &lt; 11-01</text>
+  <text x="56" y="468" class="small">迟到的 09-30 仍能写入，不会因分区名是十月而被拒绝。</text>
+  <text x="604" y="434" class="head">p202611</text><text x="604" y="468" class="small">边界不变</text>
+  <text x="858" y="434" class="head">十二月与兜底</text><text x="858" y="468" class="small">此处合并展示后续分区</text>
+  <text x="36" y="548" class="small">写入入口：校验保留窗口；过期数据拒绝、隔离或归档。分区删除 DDL 不能靠 ROLLBACK 恢复。</text>
+  <text x="36" y="584" class="small">分区内仍需索引；没有日期条件的查询可能访问全部分区，分区不等于多机分片。</text>
+</svg>

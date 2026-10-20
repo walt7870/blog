@@ -1,0 +1,5 @@
+{
+  "url": "https://docs.python.org/3.14/whatsnew/3.14.html#whatsnew314-free-threaded-now-supported",
+  "element": "SPAN",
+  "section": "\nFree-threaded Python is officially supported¶\nThe free-threaded build of Python is now supported and no longer experimental.\nThis is the start of phase II where\nfree-threaded Python is officially supported but still optional.\nThe free-threading team are confident that the project is on the right path,\nand appreciate the continued dedication from everyone working to make\nfree-threading ready for broader adoption across the Python community.\nWith these recommendations and the acceptance of this PEP, the Python developer\ncommunity should broadly advertise that free-threading is a supported\nPython build option now and into the future, and that it will not be removed\nwithout a proper deprecation schedule.\nAny decision to transition to phase III,\nwith free-threading as the default or sole build of Python is still undecided,\nand dependent on many factors both within CPython itself and the community.\nThis decision is for the future.\n\nSee also\nPEP 779\nPEP 779’s acceptance\n\n"
+}

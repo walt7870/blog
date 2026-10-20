@@ -1,447 +1,62 @@
-# Linux 压缩和解压
+# 压缩归档速查
 
-## 概述
+多个文件交付先考虑归档容器，单个文本流缩小体积再选压缩算法。机制、恢复实验和备份边界见[归档、压缩与恢复验证](./archive.md)；本页保留常用入口与判断点，示例中的输入文件需要先准备。
 
-Linux 提供了多种压缩和解压工具，用于文件压缩、归档、备份等。不同的工具适用于不同的场景，掌握这些工具可以有效地管理文件大小和传输效率。
+![归档产物从源数据到恢复验收的步骤](/linux/archive-restore-contract.svg)
 
-## 常用压缩工具
+## 按任务选择入口
 
-### gzip - GNU 压缩工具
+| 任务 | 入口与边界 |
+| --- | --- |
+| 多文件按相对路径打包 | tar；先固定输入视图和顶层目录 |
+| 单个日志或CSV压缩 | gzip、bzip2、xz；通常默认替换输入，保留原件时明确选项 |
+| 跨平台接收 | ZIP；核对中文文件名、权限和接收端工具 |
+| 7z或RAR交付 | 核对对应工具、格式和许可支持，不按扩展名推断能力 |
+| 备份 | 还要保证一致性、副本、保留策略和恢复演练 |
 
-#### 基本语法
-```bash
-gzip [选项] 文件...
+不把xz、bzip2、gzip按固定压缩率排序；用代表性输入比较压缩大小、耗时、峰值内存和解压预算。视频、APK等已经压缩的内容可能没有明显收益。
+
+## 创建与解包
+
+下面是GNU tar模板，输出放在输入目录之外，目标目录需先创建。`orders`是归档里的顶层名称，`-C`后的相对路径按对应目录解释：
+
+```text
+tar -czf /backup/orders.tar.gz -C /snapshot orders
+tar -cJf /backup/orders.tar.xz -C /snapshot orders
+tar -tf /backup/orders.tar.gz
+tar -xzf /backup/orders.tar.gz -C /restore-empty
 ```
 
-#### 常用选项
-- `-d`：解压缩
-- `-r`：递归处理目录
-- `-v`：显示详细信息
-- `-l`：列出压缩文件信息
-- `-t`：测试压缩文件完整性
+GNU tar通常能在从文件读取时识别压缩格式；显式`-z/-j/-J`分别选择gzip、bzip2和xz，跨工具或从管道读取时核对实际支持。tar默认保存符号链接，`-h`跟随链接会扩大输入范围。`-p`不代表自动保存全部ACL、扩展属性与安全标签。
 
-#### 基本用法
-```bash
-# 压缩文件
-gzip file.txt
+ZIP常用`zip -r archive.zip orders/`创建，`unzip -l archive.zip`列成员，`unzip -t archive.zip`测试，`unzip archive.zip -d /restore-empty`恢复。7-Zip用`7z l`、`7z t`、`7z x`，输出目录选项写作`-o目录`；工具也可能名为`7zz`，先核对版本。
 
-# 解压缩文件
-gzip -d file.txt.gz
+不在命令参数中写明文密码，避免进入历史和进程参数；交互提示也不自动意味着加密方案足够强。传统ZIP加密保护有限，需要保密时按接收端合同选择现代加密及密钥交付方式。摘要与签名用于完整性/来源校验，不能代替加密。
 
-# 压缩并保留原文件
-gzip -c file.txt > file.txt.gz
+## 单文件保留原件的实验
 
-# 递归压缩目录
-gzip -r directory/
-
-# 显示压缩信息
-gzip -l file.txt.gz
-
-# 测试压缩文件
-gzip -t file.txt.gz
-```
-
-### bzip2 - 高压缩比工具
-
-#### 基本语法
-```bash
-bzip2 [选项] 文件...
-```
-
-#### 常用选项
-- `-d`：解压缩
-- `-k`：保留原文件
-- `-v`：显示详细信息
-- `-t`：测试压缩文件
-- `-s`：显示压缩统计
-
-#### 基本用法
-```bash
-# 压缩文件
-bzip2 file.txt
-
-# 解压缩文件
-bzip2 -d file.txt.bz2
-
-# 压缩并保留原文件
-bzip2 -k file.txt
-
-# 显示压缩信息
-bzip2 -s file.txt.bz2
-
-# 测试压缩文件
-bzip2 -t file.txt.bz2
-```
-
-### xz - 高压缩比工具
-
-#### 基本语法
-```bash
-xz [选项] 文件...
-```
-
-#### 常用选项
-- `-d`：解压缩
-- `-k`：保留原文件
-- `-v`：显示详细信息
-- `-t`：测试压缩文件
-- `-l`：列出压缩文件信息
-
-#### 基本用法
-```bash
-# 压缩文件
-xz file.txt
-
-# 解压缩文件
-xz -d file.txt.xz
-
-# 压缩并保留原文件
-xz -k file.txt
-
-# 显示压缩信息
-xz -l file.txt.xz
-
-# 测试压缩文件
-xz -t file.txt.xz
-```
-
-### zip - 跨平台压缩工具
-
-#### 基本语法
-```bash
-zip [选项] 压缩文件名 文件...
-```
-
-#### 常用选项
-- `-r`：递归处理目录
-- `-u`：更新压缩文件
-- `-d`：从压缩文件中删除文件
-- `-v`：显示详细信息
-- `-e`：加密压缩文件
-
-#### 基本用法
-```bash
-# 压缩文件
-zip archive.zip file1.txt file2.txt
-
-# 递归压缩目录
-zip -r archive.zip directory/
-
-# 更新压缩文件
-zip -u archive.zip newfile.txt
-
-# 从压缩文件中删除文件
-zip -d archive.zip oldfile.txt
-
-# 加密压缩文件
-zip -e secure.zip file.txt
-
-# 显示压缩文件内容
-unzip -l archive.zip
-```
-
-### unzip - 解压 zip 文件
-
-#### 基本语法
-```bash
-unzip [选项] 压缩文件
-```
-
-#### 常用选项
-- `-l`：列出压缩文件内容
-- `-d`：指定解压目录
-- `-o`：覆盖现有文件
-- `-q`：静默模式
-- `-P`：指定密码
-
-#### 基本用法
-```bash
-# 解压文件
-unzip archive.zip
-
-# 解压到指定目录
-unzip archive.zip -d /target/directory
-
-# 列出压缩文件内容
-unzip -l archive.zip
-
-# 覆盖解压
-unzip -o archive.zip
-
-# 解压加密文件
-unzip -P password secure.zip
-```
-
-## 归档工具
-
-### tar - 磁带归档工具
-
-#### 基本语法
-```bash
-tar [选项] 归档文件名 文件...
-```
-
-#### 常用选项
-- `-c`：创建归档
-- `-x`：提取归档
-- `-t`：列出归档内容
-- `-f`：指定归档文件名
-- `-v`：显示详细信息
-- `-z`：使用 gzip 压缩
-- `-j`：使用 bzip2 压缩
-- `-J`：使用 xz 压缩
-
-#### 基本用法
-
-##### 创建归档
-```bash
-# 创建 tar 归档
-tar -cf archive.tar file1.txt file2.txt
-
-# 创建压缩归档
-tar -czf archive.tar.gz file1.txt file2.txt
-tar -cjf archive.tar.bz2 file1.txt file2.txt
-tar -cJf archive.tar.xz file1.txt file2.txt
-
-# 递归归档目录
-tar -czf archive.tar.gz directory/
-
-# 排除特定文件
-tar -czf archive.tar.gz --exclude='*.tmp' directory/
-```
-
-##### 提取归档
-```bash
-# 提取 tar 归档
-tar -xf archive.tar
-
-# 提取压缩归档
-tar -xzf archive.tar.gz
-tar -xjf archive.tar.bz2
-tar -xJf archive.tar.xz
-
-# 提取到指定目录
-tar -xzf archive.tar.gz -C /target/directory
-
-# 只提取特定文件
-tar -xzf archive.tar.gz file1.txt
-```
-
-##### 查看归档内容
-```bash
-# 列出归档内容
-tar -tf archive.tar
-
-# 列出压缩归档内容
-tar -tzf archive.tar.gz
-tar -tjf archive.tar.bz2
-tar -tJf archive.tar.xz
-
-# 显示详细信息
-tar -tvf archive.tar
-```
-
-### 7z - 高压缩比归档工具
-
-#### 基本语法
-```bash
-7z [命令] [选项] 归档文件名 [文件...]
-```
-
-#### 常用命令
-- `a`：添加文件到归档
-- `x`：提取文件
-- `l`：列出归档内容
-- `t`：测试归档完整性
-- `d`：删除文件
-
-#### 基本用法
-```bash
-# 创建 7z 归档
-7z a archive.7z file1.txt file2.txt
-
-# 递归归档目录
-7z a archive.7z directory/
-
-# 提取归档
-7z x archive.7z
-
-# 提取到指定目录
-7z x archive.7z -o/target/directory
-
-# 列出归档内容
-7z l archive.7z
-
-# 测试归档完整性
-7z t archive.7z
-```
-
-## 高级压缩技巧
-
-### 压缩比比较
+以下Bash片段只在临时目录内运行，依赖gzip、bzip2、xz与coreutils。三个工具都从同一输入生成副本，不连续压缩已经不存在的原文件：
 
 ```bash
-# 测试不同工具的压缩比
-echo "测试数据" > test.txt
-gzip -c test.txt | wc -c
-bzip2 -c test.txt | wc -c
-xz -c test.txt | wc -c
-zip test.zip test.txt && wc -c test.zip
+set -euo pipefail
+blog_compress_dir=$(mktemp -d)
+trap 'rm -rf -- "$blog_compress_dir"' EXIT
+printf 'order_id,status\n1001,paid\n' > "$blog_compress_dir/orders.csv"
+gzip -c "$blog_compress_dir/orders.csv" > "$blog_compress_dir/orders.csv.gz"
+bzip2 -c "$blog_compress_dir/orders.csv" > "$blog_compress_dir/orders.csv.bz2"
+xz -c "$blog_compress_dir/orders.csv" > "$blog_compress_dir/orders.csv.xz"
+gzip -t "$blog_compress_dir/orders.csv.gz"
+bzip2 -t "$blog_compress_dir/orders.csv.bz2"
+xz -t "$blog_compress_dir/orders.csv.xz"
+gzip -dc "$blog_compress_dir/orders.csv.gz" > "$blog_compress_dir/restored.csv"
+cmp "$blog_compress_dir/orders.csv" "$blog_compress_dir/restored.csv"
+printf 'gzip_roundtrip_verified\n'
 ```
 
-### 并行压缩
+`-c`输出到标准输出，重定向文件由shell创建；失败时可能留下空文件或半成品，生产流程还要先写临时产物、检查成功再改名。上面的bzip2、xz只完成格式测试，完整恢复比较示例见[详细页](./archive.md)。bzip2的`-s`表示减少内存使用，不是“显示压缩统计”；gzip的`-l`也不是所有大文件或多成员流的通用精确原始大小统计。
 
-```bash
-# 使用 pigz (并行 gzip)
-pigz -p 4 file.txt
+## 测试通过之后仍要恢复验收
 
-# 使用 pbzip2 (并行 bzip2)
-pbzip2 -p 4 file.txt
+gzip、bzip2、xz的`-t`检查压缩数据，tar的`-t`读成员结构，ZIP/7z测试各自格式；这些都不证明归档业务数据一致、来源可信或恢复后应用可用。接收时先校验可信摘要/签名、查看路径和空间，再在空目录以普通用户解包，按内容、元数据和业务合同验收。
 
-# 使用 pixz (并行 xz)
-pixz file.txt
-```
-
-### 压缩脚本
-
-#### 批量压缩脚本
-```bash
-#!/bin/bash
-# 批量压缩文件
-for file in *.txt; do
-    if [ -f "$file" ]; then
-        echo "压缩 $file"
-        gzip "$file"
-    fi
-done
-```
-
-#### 压缩备份脚本
-```bash
-#!/bin/bash
-# 创建压缩备份
-backup_dir="/backup"
-date=$(date +%Y%m%d_%H%M%S)
-tar -czf "$backup_dir/backup_$date.tar.gz" /home/user/
-```
-
-## 压缩文件管理
-
-### 查看压缩文件信息
-
-```bash
-# 查看 gzip 文件信息
-gzip -l file.gz
-
-# 查看 bzip2 文件信息
-bzip2 -s file.bz2
-
-# 查看 xz 文件信息
-xz -l file.xz
-
-# 查看 zip 文件信息
-unzip -l file.zip
-
-# 查看 tar 归档信息
-tar -tvf archive.tar
-```
-
-### 压缩文件完整性检查
-
-```bash
-# 测试 gzip 文件
-gzip -t file.gz
-
-# 测试 bzip2 文件
-bzip2 -t file.bz2
-
-# 测试 xz 文件
-xz -t file.xz
-
-# 测试 tar 归档
-tar -tf archive.tar > /dev/null
-```
-
-## 性能优化
-
-### 压缩速度 vs 压缩比
-
-```bash
-# 快速压缩 (gzip)
-gzip -1 file.txt
-
-# 标准压缩 (gzip)
-gzip -6 file.txt
-
-# 最高压缩比 (gzip)
-gzip -9 file.txt
-
-# 快速压缩 (bzip2)
-bzip2 -1 file.txt
-
-# 最高压缩比 (bzip2)
-bzip2 -9 file.txt
-```
-
-### 内存使用优化
-
-```bash
-# 限制内存使用 (xz)
-xz --memlimit=50% file.txt
-
-# 使用较少内存 (bzip2)
-bzip2 -s file.txt
-```
-
-## 故障排除
-
-### 常见问题
-
-#### 压缩文件损坏
-```bash
-# 测试压缩文件完整性
-gzip -t file.gz
-bzip2 -t file.bz2
-xz -t file.xz
-
-# 尝试修复
-gzip -t file.gz || echo "文件损坏"
-```
-
-#### 空间不足
-```bash
-# 检查磁盘空间
-df -h
-
-# 使用流式压缩
-gzip -c large_file.txt | split -b 1G - large_file.txt.gz.part
-```
-
-#### 权限问题
-```bash
-# 检查文件权限
-ls -la file.txt
-
-# 使用 sudo 压缩
-sudo gzip file.txt
-```
-
-## 最佳实践
-
-### 压缩策略
-1. **选择合适的工具**：根据文件类型和大小选择压缩工具
-2. **考虑压缩比和速度**：平衡压缩比和压缩速度
-3. **使用并行压缩**：对于大文件使用并行压缩工具
-4. **定期测试**：定期测试压缩文件的完整性
-
-### 归档策略
-1. **使用 tar 归档**：对于多个文件使用 tar 归档
-2. **添加压缩**：归档时添加压缩以节省空间
-3. **排除临时文件**：归档时排除临时文件和缓存
-4. **添加时间戳**：备份文件添加时间戳便于管理
-
-### 性能考虑
-1. **选择合适的压缩级别**：根据需求选择压缩级别
-2. **使用并行工具**：对于大文件使用并行压缩
-3. **监控资源使用**：压缩时监控 CPU 和内存使用
-4. **分批处理**：大文件分批压缩避免内存不足
+`unzip -o`和tar的`--overwrite`会覆盖，不能用作损坏修复。未知包还要防范路径、链接、特殊文件与展开资源占用；列表过滤不能替代隔离环境。失败时保留原包、错误状态和校验信息，不默认用sudo重试。

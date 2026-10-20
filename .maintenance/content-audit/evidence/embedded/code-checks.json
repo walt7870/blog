@@ -1,0 +1,172 @@
+{
+  "root": "/tmp/blog-embedded-oP5EB2",
+  "commands": [
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "logic.c",
+        "-o",
+        "logic"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/logic",
+      "args": [],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "bad.c",
+        "-o",
+        "bad"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/bad",
+      "args": [],
+      "status": null,
+      "signal": "SIGABRT",
+      "output": "Assertion failed: (!set_mode(0, 4, &value)), function main, file bad.c, line 30.\n"
+    },
+    {
+      "cmd": "clang",
+      "args": [
+        "--target=arm-none-eabi",
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard",
+        "-ffreestanding",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "arm.c",
+        "-o",
+        "arm.o"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "range.c",
+        "-o",
+        "range"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/range",
+      "args": [],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "pi.c",
+        "-o",
+        "pi"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/pi",
+      "args": [],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Wno-unused-parameter",
+        "bad-pi.c",
+        "-o",
+        "bad-pi"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/bad-pi",
+      "args": [],
+      "status": null,
+      "signal": "SIGABRT",
+      "output": "Assertion failed: (p.integral==119&&out==99), function main, file bad-pi.c, line 16.\n"
+    },
+    {
+      "cmd": "cc",
+      "args": [
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "spi.c",
+        "-o",
+        "spi"
+      ],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    },
+    {
+      "cmd": "/tmp/blog-embedded-oP5EB2/spi",
+      "args": [],
+      "status": 0,
+      "signal": null,
+      "output": ""
+    }
+  ],
+  "calculations": {
+    "twoYearMah": 278.3674933333333,
+    "canBitrate": 500000,
+    "pwmHz": 1000,
+    "partitionBytes": 1048576,
+    "mainLogic": "host+Arm object",
+    "spi": "stub error propagation; no board or HAL integration claim"
+  },
+  "passed": true
+}

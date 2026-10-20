@@ -149,6 +149,8 @@ OrderService 不再形成 BeanDefinition，Controller 构造器依赖在单例�
 
 完整 `@SpringBootTest` 可以证明主要配置能形成 Context，但还应针对不同阶段使用更窄测试：配置属性用 ApplicationContextRunner，自动配置用条件矩阵，Web 服务器用随机端口测试，Runner 与事件用显式监听记录顺序。
 
+以下是测试片段：需要已有启动类、`spring-boot-starter-actuator` 与测试依赖，health 在业务端口开放且允许测试访问；独立管理端口需改用管理端口的测试注入。订单练习未加入 Actuator，不能直接复制该 URI 验证它。
+
 ```java
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class OrderApplicationStartupTest {

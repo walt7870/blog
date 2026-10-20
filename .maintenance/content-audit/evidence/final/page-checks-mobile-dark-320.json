@@ -1,0 +1,602 @@
+[
+  {
+    "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/native-module-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1827,
+    "title": "原生 Node 模块为什么在 Electron 中加载失败",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/signing-trust-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1513,
+    "title": "Electron 签名、公证和系统放行是三次检查",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/update-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1914,
+    "title": "自动更新的核心是一台可恢复状态机",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/performance-clock-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1547,
+    "title": "Electron 性能优化先建立可重复测量",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/electron/forge-delivery-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1306,
+    "title": "Electron 深度科普：从双击图标到签名更新",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/angular.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep33-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3837,
+    "title": "Angular：独立组件、表单与服务边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/cross-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/framework/platform-adapters.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1554,
+    "title": "跨端框架",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/build-tools/ecosystem-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1336,
+    "title": "前端框架与工具生态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/lightweight-frameworks.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/framework/component-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2886,
+    "title": "轻量框架与 Web Components",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/meta-frameworks.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/framework/rendering-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1823,
+    "title": "元框架与全栈框架",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/parcel.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/build-tools/parcel-targets.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2632,
+    "title": "Parcel：HTML 入口、目标环境与资源图",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/react.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep31-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3775,
+    "title": "React：组件合同与应用状态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/rollup.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/build-tools/rollup-library.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2815,
+    "title": "Rollup：库输出、外部依赖与 Tree Shaking",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/svelte.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/framework/svelte-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2641,
+    "title": "Svelte：编译、响应式与应用生命周期",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/vite.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/build-tools/vite-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3135,
+    "title": "Vite：开发反馈、生产构建与路径合同",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/vue.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep32-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2975,
+    "title": "Vue：响应式状态与组件合同",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/webpack.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/build-tools/webpack-chunks.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4219,
+    "title": "Webpack：模块图、转换规则与运行时资源",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep01-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1426,
+    "title": "现代前端技术全景：Web 平台、工程化与框架生态",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep02-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1951,
+    "title": "浏览器导航流程：URL、DNS、HTTP、DOM 与渲染管线",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep03-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1945,
+    "title": "Web 平台的三门语言：HTML、CSS 与 JavaScript",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep04-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2000,
+    "title": "浏览器 DevTools 技术体系：DOM、网络、运行时与性能",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep05-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1761,
+    "title": "语义 HTML 与 DOM 结构",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep06-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2189,
+    "title": "HTML 表单模型：label、输入控件与原生校验",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep07-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1838,
+    "title": "CSS 层叠、选择器与样式计算",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep08-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2101,
+    "title": "CSS 布局系统：盒模型、Flex 与 Grid",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep09-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2034,
+    "title": "响应式设计：视口、媒体查询与容器查询",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep10-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2520,
+    "title": "Web 可访问性基础：语义、键盘与可感知界面",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep11-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1879,
+    "title": "JavaScript 语言基础：值、函数、对象与作用域",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep12-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2037,
+    "title": "DOM 编程：节点、查询、修改与渲染影响",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep13-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2320,
+    "title": "浏览器事件系统：监听、冒泡、委托与默认行为",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep14-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1702,
+    "title": "事件循环：调用栈、任务队列、微任务与渲染",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep15-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2603,
+    "title": "Fetch 与网络请求：Request、Response、CORS 与错误处理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep16-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2459,
+    "title": "浏览器存储：Cookie、localStorage、IndexedDB 与 Cache",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep17-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3013,
+    "title": "JavaScript 模块系统：接口、依赖图与按需加载",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep18-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3192,
+    "title": "TypeScript 静态类型：推断、收窄与运行时边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep19-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2107,
+    "title": "Node.js 与包管理：运行环境、依赖树和锁文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep20-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2143,
+    "title": "Vite 流水线：开发模块、HMR 与生产产物",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep21-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2419,
+    "title": "前端质量工具链：格式、规则、类型与行为",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep22-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2601,
+    "title": "组件化 UI：状态归属与响应式更新",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/front/frontend-foundations-series/ep23-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1877,
+    "title": "前端框架比较：更新模型、生态与团队约束",
+    "width": 390
+  }
+]

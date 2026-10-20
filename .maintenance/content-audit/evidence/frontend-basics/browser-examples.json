@@ -1,0 +1,55 @@
+[
+  {
+    "case": "button-enter-space",
+    "count": "2"
+  },
+  {
+    "case": "empty-email",
+    "focused": true,
+    "invalid": true,
+    "missing": true
+  },
+  {
+    "case": "invalid-email",
+    "focused": true,
+    "typeMismatch": true
+  },
+  {
+    "case": "valid-unchecked",
+    "data": [
+      [
+        "email",
+        "reader@example.com"
+      ],
+      [
+        "note",
+        "工作日配送"
+      ],
+      [
+        "intent",
+        "save"
+      ]
+    ]
+  },
+  {
+    "case": "valid-checked",
+    "data": [
+      [
+        "email",
+        "reader@example.com"
+      ],
+      [
+        "note",
+        "工作日配送"
+      ],
+      [
+        "updates",
+        "yes"
+      ],
+      [
+        "intent",
+        "save"
+      ]
+    ]
+  }
+]

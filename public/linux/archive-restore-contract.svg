@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="archive-title archive-desc">
+<title id="archive-title">归档成功与恢复可用分别验证</title>
+<desc id="archive-desc">稳定源数据经过归档压缩产生待校验文件，再进入隔离恢复与业务验收。格式校验、摘要一致和恢复可用分别提供不同证据。</desc>
+<defs><marker id="archive-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#archive-arrow)}</style></defs>
+<rect width="1120" height="600" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">订单导出目录打成包，还没有完成备份验收</text>
+<text class="b" x="36" y="82">归档保存路径与元数据，压缩减少字节，恢复验证确认接收端能使用。</text>
+<path class="edge" d="M248 220H312"/><path class="edge" d="M524 220H588"/><path class="edge" d="M800 220H864"/>
+<rect class="box" x="36" y="140" width="212" height="160" rx="6"/>
+<text class="n" x="54" y="180">稳定源数据</text><text class="b" x="54" y="220">导出 / 快照</text><text class="b" x="54" y="260">固定顶层与相对路径</text>
+<rect class="box" x="312" y="140" width="212" height="160" rx="6"/>
+<text class="n" x="330" y="180">归档并压缩</text><text class="b" x="330" y="220">tar + gzip / xz</text><text class="b" x="330" y="260">输出在输入范围外</text>
+<rect x="588" y="140" width="212" height="160" rx="6" fill="#eff5fc" stroke="#a4b9cc" stroke-width="1.5"/>
+<text class="n" x="606" y="180">待校验产物</text><text class="b" x="606" y="220">检查状态、格式、摘要</text><text class="b" x="606" y="260">通过后发布正式名称</text>
+<rect x="864" y="140" width="220" height="160" rx="6" fill="#e7f3ef" stroke="#69978c" stroke-width="1.5"/>
+<text class="n" x="882" y="180">隔离恢复</text><text class="b" x="882" y="220">空目录 / 普通用户</text><text class="b" x="882" y="260">内容、元数据与业务</text>
+<path d="M36 354H1084" stroke="#c7d0d3"/>
+<text class="n" x="36" y="402">三类证据不能互相替代</text>
+<text class="b" x="36" y="446">格式测试：数据能解码、结构可读</text>
+<text class="b" x="36" y="484">可信摘要或签名：接收内容与可信发布内容相符</text>
+<text class="b" x="36" y="522">恢复验收：数据一致、权限正确、应用和订单结果符合合同</text>
+<text class="b" x="36" y="566">失败保留原包与错误证据；不以强制覆盖、root 解包或清理旧备份掩盖失败。</text>
+</svg>

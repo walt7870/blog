@@ -1,15 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
-  <title id="title">依赖倒置原则示意图</title>
-  <desc id="desc">展示高层业务不直接依赖底层实现，而是共同依赖抽象接口。</desc>
-  <style>.bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:2;rx:14}.abs{fill:#ede9fe;stroke:#8b5cf6}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
-  <rect class="bg" width="960" height="420" rx="20"/>
-  <text class="t" x="48" y="52">依赖倒置原则：业务策略依赖抽象，细节实现也依赖抽象</text>
-  <rect class="box" x="80" y="150" width="230" height="90" rx="14"/><text class="t" x="123" y="188">OrderService</text><text class="s" x="112" y="214">高层业务策略</text>
-  <rect class="abs" x="365" y="150" width="230" height="90" rx="14"/><text class="t" x="423" y="188">MessagePort</text><text class="s" x="418" y="214">稳定抽象接口</text>
-  <rect class="box" x="650" y="90" width="230" height="70" rx="14"/><text class="t" x="700" y="133">SmsSender</text>
-  <rect class="box" x="650" y="235" width="230" height="70" rx="14"/><text class="t" x="696" y="278">EmailSender</text>
-  <line class="line" x1="310" y1="195" x2="365" y2="195"/><polygon class="arrow" points="365,195 352,187 352,203"/>
-  <line class="line" x1="650" y1="125" x2="595" y2="175"/><polygon class="arrow" points="595,175 600,160 609,170"/>
-  <line class="line" x1="650" y1="270" x2="595" y2="215"/><polygon class="arrow" points="595,215 609,220 600,229"/>
-  <text class="s" x="92" y="350">这样替换短信、邮件、站内信实现时，订单业务不需要跟着改。</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="title desc"><title id="title">依赖倒置：抽象由业务意图决定</title><desc id="desc">箭头表示源码依赖方向，运行时仍由业务通过端口调用适配器。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.small{font-size:14px;fill:#526173}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.warn{fill:#fff2eb;stroke:#d28a66;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}.rule{stroke:#d4dee7;stroke-width:1}</style><rect width="1120" height="440" fill="#f8fafc"/><text class="title" x="40" y="52">依赖倒置：抽象由业务意图决定</text><text class="sub" x="40" y="84">箭头表示源码依赖方向，运行时仍由业务通过端口调用适配器。</text><path class="line" d="M340 235H420"/><path class="line" d="M820 235H740"/><rect class="box" x="40" y="165" width="300" height="140" rx="6"/><text class="h" x="60" y="197">OrderService</text><text class="t" x="60" y="226">发送订单创建通知</text><text class="t" x="60" y="252">不引用厂商 SDK</text><rect class="accent" x="420" y="165" width="320" height="140" rx="6"/><text class="h" x="440" y="197">OrderMessagePort</text><text class="t" x="440" y="226">由业务定义通知契约</text><text class="t" x="440" y="252">约定失败与结果未知</text><rect class="box" x="820" y="165" width="260" height="140" rx="6"/><text class="h" x="840" y="197">AliyunSmsAdapter</text><text class="t" x="840" y="226">实现业务端口</text><text class="t" x="840" y="252">内部调用 SDK</text><text class="sub" x="40" y="370">组装入口创建 SDK、适配器和业务服务；构造器注入负责把它们连接起来。</text><text class="sub" x="40" y="402">依赖注入是组装手段，依赖倒置是源码边界，两者不能等同。</text></svg>

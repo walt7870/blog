@@ -1,9 +1,7 @@
 # 日志：给别人运行时留下线索
 
 > 示例文件：`run_with_logging.py`  
-> 最后核验：2026-08-02
-
-本文围绕“脚本跑完为什么要留下记录”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
@@ -13,13 +11,11 @@
 
 ## 核心判断
 
-- `logging` 要服务于真实客户数据处理。
-- `INFO` 要服务于真实客户数据处理。
-- `WARNING` 要服务于真实客户数据处理。
-- `ERROR` 要服务于真实客户数据处理。
-- `日志文件` 要服务于真实客户数据处理。
+日志回答一次运行的时间、输入数量、处理数量、失败原因和输出去向。正常阶段用 `INFO`，可继续的单行异常用 `WARNING`，导致本批无法完成的错误用 `ERROR`；需要定位异常栈时，在 `except` 中调用 `logging.exception`。日志级别不会自动改变退出码，失败任务还需抛出异常或明确退出。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![一次运行留下开始、行级异常与数量对账记录](/python/run-log-evidence.svg)
+
+使用行号或内部编号关联异常清单，不把完整姓名、手机号或认证头写入普通日志。`basicConfig` 通常只在进程入口配置一次；长期运行程序还需轮转和保留期限，不能让 `run.log` 无限增长。此示例是短命令行脚本，文件默认追加。
 
 ## 运行示例
 
@@ -27,11 +23,7 @@
 python3 run_with_logging.py
 ```
 
-运行后检查三件事：
-
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+打开脚本旁的 `run.log`，应看到开始数量 2、第二行缺姓名警告、成功 1 与跳过 1 的结束记录。第二次运行追加新记录。中文编码显式使用 UTF-8；日志文件写入失败不能被报告成成功。
 
 ## 完整示例
 
@@ -47,6 +39,7 @@ log_file = Path(__file__).with_name("run.log")
 
 logging.basicConfig(
     filename=log_file,
+    encoding="utf-8",
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
 )
@@ -56,41 +49,22 @@ def main() -> None:
     customers = [{"name": "李雷"}, {"name": ""}]
     logging.info("开始处理客户，数量=%s", len(customers))
 
-    for customer in customers:
+    processed = skipped = 0
+    for number, customer in enumerate(customers, start=1):
         if not customer["name"]:
-            logging.warning("跳过缺姓名客户")
+            skipped += 1
+            logging.warning("跳过缺姓名客户，行号=%s", number)
             continue
-        logging.info("处理客户：%s", customer["name"])
+        processed += 1
+        logging.info("处理完成，行号=%s", number)
 
-    logging.info("处理完成")
+    logging.info("批次完成，成功=%s，跳过=%s", processed, skipped)
     print(f"日志已写入：{log_file}")
 
 
 if __name__ == "__main__":
     main()
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

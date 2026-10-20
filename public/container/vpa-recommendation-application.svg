@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="vpa-application-title vpa-application-desc">
+  <title id="vpa-application-title">VPA 建议到实际资源的生效链路</title>
+  <desc id="vpa-application-desc">Recommender将建议写到VPA状态。Off只供观察。Recreate模式下Updater读取建议，经Eviction API和PDB检查驱逐，工作负载控制器补建，准入Webhook读取建议修改新Pod资源。</desc>
+  <defs><marker id="vpa-application-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.s{font-size:16px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#vpa-application-arrow)}.ref{stroke-dasharray:6 5}.label{fill:#f7f9fb}</style>
+  <rect width="1120" height="680" fill="#f7f9fb"/>
+  <text class="title" x="48" y="52">有建议，不等于已有 Pod 的资源已经改变</text><text class="t" x="48" y="84">下方展开 Recreate 路径；Initial 只影响新 Pod，原地更新能力另按部署版本验证。</text>
+  <path class="edge" d="M288 184H416"/><path class="edge ref" d="M696 184H792"/>
+  <path class="edge ref" d="M480 244V288Q480 296 472 296H144Q136 296 136 304V392"/>
+  <path class="edge ref" d="M624 244V320Q624 328 632 328H776Q784 328 784 336V392"/>
+  <path class="edge" d="M224 452H264"/><path class="edge" d="M440 452H480"/><path class="edge" d="M656 452H696"/><path class="edge" d="M872 452H912"/>
+  <rect class="api" x="48" y="128" width="240" height="116" rx="6"/><text class="h" x="68" y="164">Recommender</text><text class="t" x="68" y="200">读取历史与当前资源样本</text><text class="t" x="68" y="232">计算容器级建议</text>
+  <rect class="api" x="416" y="128" width="280" height="116" rx="6"/><text class="h" x="436" y="164">VPA status</text><text class="t" x="436" y="200">recommendation</text><text class="t" x="436" y="232">target / lower / upper</text>
+  <rect class="box" x="792" y="128" width="280" height="116" rx="6"/><text class="h" x="812" y="164">Off：观察与评估</text><text class="t" x="812" y="200">读取建议，结合业务曲线</text><text class="t" x="812" y="232">不会自动改写 Pod 资源</text>
+  <rect class="label" x="200" y="280" width="208" height="28"/><text class="t" x="208" y="300">Updater 读取当前建议</text>
+  <rect class="label" x="652" y="340" width="264" height="28"/><text class="t" x="660" y="360">准入读取建议（启用更新时）</text>
+  <rect class="box" x="48" y="392" width="176" height="128" rx="6"/><text class="h" x="64" y="428">Updater</text><text class="s" x="64" y="464">判断是否需要更新</text><text class="s" x="64" y="496">Recreate 发起驱逐</text>
+  <rect class="box" x="264" y="392" width="176" height="128" rx="6"/><text class="h" x="280" y="428">Eviction API</text><text class="s" x="280" y="464">检查 PDB 等条件</text><text class="s" x="280" y="496">拒绝时保留旧 Pod</text>
+  <rect class="box" x="480" y="392" width="176" height="128" rx="6"/><text class="h" x="496" y="428">工作负载控制器</text><text class="s" x="496" y="464">旧 Pod 删除后补建</text><text class="s" x="496" y="496">不保证驱逐前先补建</text>
+  <rect class="api" x="696" y="392" width="176" height="128" rx="6"/><text class="h" x="712" y="428">VPA 准入</text><text class="s" x="712" y="464">Webhook 注入新值</text><text class="s" x="712" y="496">按 resourcePolicy</text>
+  <rect class="run" x="912" y="392" width="160" height="128" rx="6"/><text class="h" x="928" y="428">新 Pod</text><text class="s" x="928" y="464">检查实际资源字段</text><text class="s" x="928" y="496">再验调度与业务</text>
+  <text class="t" x="48" y="580">实线：写入或更新路径；虚线：建议读取。驱逐成功不代表替代 Pod 有节点空间或已就绪。</text>
+  <text class="t" x="48" y="624">RequestsOnly 仍需检查原 limit；RequestsAndLimits 可联动调整上限，两者必须显式选择。</text>
+</svg>

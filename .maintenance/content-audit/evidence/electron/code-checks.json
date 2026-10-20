@@ -1,0 +1,24 @@
+{
+  "pages": 11,
+  "syntaxBlocks": 13,
+  "checks": [
+    "unordered-highest-version",
+    "wrong-architecture-and-channel",
+    "stable-rejects-prerelease",
+    "no-downgrade",
+    "invalid-feed",
+    "invalid-client-version",
+    "fixed-file-read",
+    "wrong-window-rejected",
+    "subframe-rejected",
+    "missing-frame-rejected",
+    "wrong-url-rejected",
+    "destroyed-window-rejected",
+    "rejection-before-file-read",
+    "missing-file-rejects",
+    "platform-window-close-policy"
+  ],
+  "runtime": "v26.9.0",
+  "temporary": "/var/folders/9r/qpxb_c5n2_15q5fwmgg_fkgr0000gn/T/blog-electron-contract-j8q6Zs",
+  "scope": "Node隔离夹具验证文档函数与事件策略；未启动Electron、重建原生模块、执行平台签名、公证或真实自动更新。"
+}

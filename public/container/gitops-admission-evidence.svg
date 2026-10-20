@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="gitops-admission-evidence-title gitops-admission-evidence-desc">
+  <title id="gitops-admission-evidence-title">GitOps、准入与业务验收的状态边界</title>
+  <desc id="gitops-admission-evidence-desc">源代码经CI生成摘要制品，环境仓库选择版本，GitOps向API提交，准入后由控制器创建工作负载，再验证业务。状态用于反馈，不自动回写Git。</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+  <rect width="1120" height="680" fill="#f7f9fb"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+    <text x="48" y="56" font-size="28" font-weight="700">Synced、准入通过、Ready 和业务成功不能互相代替</text><text x="48" y="91" font-size="17" fill="#52616d">示例：订单镜像已签名，但 Secret 缺失；格式和签名通过，也可能无法启动。</text>
+    <g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#arrow)"><path d="M248 212H320"/><path d="M520 212H592"/><path d="M792 212H864"/><path d="M964 280V396"/><path d="M864 466H744"/><path d="M424 466H304"/></g>
+    <path d="M584 396V332Q584 324 592 324H900Q908 324 908 316V280" fill="none" stroke="#596775" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrow)"/>
+    <rect x="690" y="310" width="140" height="28" fill="#f7f9fb"/><text x="704" y="331" font-size="17" fill="#52616d">live state 比较</text>
+    <g fill="#fff" stroke="#8fa3b1"><rect x="48" y="140" width="200" height="140" rx="6"/><rect x="320" y="140" width="200" height="140" rx="6"/><rect x="592" y="140" width="200" height="140" rx="6"/><rect x="864" y="140" width="208" height="140" rx="6"/><rect x="424" y="396" width="320" height="140" rx="6"/><rect x="48" y="396" width="256" height="140" rx="6"/></g>
+    <rect x="864" y="396" width="208" height="140" rx="6" fill="#eaf3fb" stroke="#7694aa"/>
+    <g font-size="21" font-weight="700"><text x="68" y="178">源码提交</text><text x="340" y="178">CI / Registry</text><text x="612" y="178">环境期望</text><text x="884" y="178">GitOps 控制器</text><text x="884" y="434">API / Admission</text><text x="444" y="434">控制器与工作负载</text><text x="68" y="434">业务验收</text></g>
+    <g font-size="17" fill="#52616d"><text x="68" y="217">评审与构建输入</text><text x="68" y="249">提交不等于已发布</text><text x="340" y="217">digest、签名、SBOM</text><text x="340" y="249">证据不等于无漏洞</text><text x="612" y="217">选择 digest 与配置</text><text x="612" y="249">评审并晋级版本</text><text x="884" y="217">拉取、渲染、Apply</text><text x="884" y="249">按策略比较漂移</text><text x="884" y="473">匹配范围内校验</text><text x="884" y="505">拒绝时对象不落地</text><text x="444" y="473">调谐、调度、启动与 Ready</text><text x="444" y="505">缺 Secret 或容量仍可能失败</text><text x="68" y="473">真实请求、错误率与延迟</text><text x="68" y="505">验证数据及下游兼容</text><text x="48" y="589">虚线反馈不会自动改写 Git；需回退时修改期望来源，并核对数据库和外部副作用能否恢复。</text><text x="48" y="629">Apply 提交的是对象意图，控制器再持续收敛；镜像层由 kubelet 按策略从 Registry 拉取。</text></g>
+  </g>
+</svg>

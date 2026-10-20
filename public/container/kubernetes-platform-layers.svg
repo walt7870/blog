@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="580" viewBox="0 0 1280 580" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes 平台能力分层</title>
-  <desc id="desc">展示开发者意图、平台 API、交付与策略、Kubernetes 云资源和可观测反馈的分层关系。</desc>
-  <rect width="1280" height="580" fill="#f5f7fa"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="660" viewBox="0 0 1280 660" role="img" aria-labelledby="platform-layers-title platform-layers-desc">
+  <title id="platform-layers-title">Kubernetes 平台能力分层</title>
+  <desc id="platform-layers-desc">展示开发者意图、平台 API、交付与策略、Kubernetes 云资源和可观测反馈的分层关系；分层代表能力组合，不是HTTP请求逐层经过的代理链。</desc>
+  <rect width="1280" height="660" fill="#f5f7fa"/>
   <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">平台把底层能力组合成稳定意图，并把状态反馈给用户</text>
   <g font-family="sans-serif">
     <rect x="150" y="105" width="980" height="70" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="190" y="138" font-size="21" font-weight="700" fill="#172033">开发者任务</text><text x="370" y="138" font-size="19" fill="#526078">发布服务 · 暴露入口 · 配置弹性 · 查看状态 · 回滚版本</text>
@@ -9,9 +9,9 @@
     <rect x="150" y="295" width="980" height="70" rx="8" fill="#fff" stroke="#65738a" stroke-width="3"/><text x="190" y="328" font-size="21" font-weight="700" fill="#172033">交付与护栏</text><text x="370" y="328" font-size="19" fill="#526078">GitOps · Gateway · 策略 · 供应链 · Secret 引用</text>
     <rect x="150" y="390" width="980" height="70" rx="8" fill="#fff4e5" stroke="#d88416" stroke-width="3"/><text x="190" y="423" font-size="21" font-weight="700" fill="#172033">Kubernetes / 云资源</text><text x="430" y="423" font-size="19" fill="#526078">调度 · 网络 · 存储 · 集群生命周期 · 外部服务</text>
   </g>
-  <g stroke="#65738a" stroke-width="3" fill="none"><path d="M640 175V190"/><path d="M640 270V285"/><path d="M640 365V380"/></g>
-  <g fill="#65738a"><path d="M640 190l-8-12h16z"/><path d="M640 285l-8-12h16z"/><path d="M640 380l-8-12h16z"/></g>
-  <path d="M1150 425h65V140h-65" stroke="#326ce5" stroke-width="3" fill="none"/><path d="M1150 140l12-8v16z" fill="#326ce5"/>
-  <text x="1220" y="293" transform="rotate(-90 1220 293)" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#326ce5">状态、SLO、事件与支持证据反馈</text>
-  <rect x="150" y="500" width="980" height="46" rx="8" fill="#fff" stroke="#b7c0ce"/><text x="640" y="530" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#526078">抽象可以隐藏实现选择，但不能隐藏责任、故障层级和恢复边界</text>
+  <g stroke="#65738a" stroke-width="3" fill="none"><path d="M640 175V200"/><path d="M640 270V295"/><path d="M640 365V390"/></g>
+  <g fill="#65738a"><path d="M640 200l-8-12h16z"/><path d="M640 295l-8-12h16z"/><path d="M640 390l-8-12h16z"/></g>
+  <path d="M1130 425H1172Q1180 425 1180 417V148Q1180 140 1172 140H1130" stroke="#326ce5" stroke-width="3" fill="none"/><path d="M1130 140l12-8v16z" fill="#326ce5"/>
+  <text x="150" y="510" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" fill="#326ce5">蓝色反馈线：向开发者提供当前 generation 的状态、SLO、事件与恢复入口。</text>
+  <rect x="150" y="552" width="980" height="70" rx="8" fill="#fff" stroke="#b7c0ce"/><text x="174" y="581" font-family="sans-serif" font-size="18" fill="#526078">分层表达能力组合，不表示业务请求必须逐层经过。</text><text x="174" y="609" font-family="sans-serif" font-size="18" fill="#526078">抽象可以隐藏实现选择，但不能隐藏责任、故障层级和恢复边界。</text>
 </svg>

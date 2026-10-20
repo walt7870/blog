@@ -1,1573 +1,361 @@
 ---
-title: Elasticsearch 详解
+title: Elasticsearch 搜索、索引与恢复
 author: Walt
 date: 2024-12-19 10:00:00
-LastEditTime: 2024-12-19 10:00:00
+LastEditTime: 2026-10-19 00:00:00
 LastEditors: Walt
 ---
 
-# Elasticsearch 详解
+# Elasticsearch 搜索、索引与恢复
 
-Elasticsearch 是一个基于 Apache Lucene 的分布式搜索和分析引擎，能够实现近实时搜索。它是 Elastic Stack（ELK Stack）的核心组件，广泛用于全文搜索、日志分析、数据可视化等场景。
+用户输入“阅读灯”，希望按相关性找到商品；客服按状态、买家和下单时间筛选订单；运营统计每天的成交金额。这些查询可以交给 Elasticsearch，但“是否已经付款”“还能否扣库存”仍由交易数据库决定。搜索索引是适合检索的派生视图，需要同步、刷新和恢复机制。
 
-## 概述
+本文使用 Elasticsearch **8.19.6** 的 REST 接口演示。8.x 一个索引只有一套映射，不再用 mapping type 区分业务。练习是单节点，不代表高可用部署；9.x、托管服务的认证与运维入口需要按对应版本确认。
 
-### 核心概念
+## 索引里面保存了什么
 
-- **索引 (Index)**：类似数据库中的数据库，是文档的容器
-- **文档 (Document)**：基本的信息单元，以 JSON 格式存储
-- **字段 (Field)**：文档中的键值对
-- **映射 (Mapping)**：定义文档及其字段的存储和索引方式
-- **分片 (Shard)**：索引的水平分割单元
-- **副本 (Replica)**：分片的备份
-- **节点 (Node)**：集群中的单个服务器
-- **集群 (Cluster)**：一个或多个节点的集合
+索引包含 JSON 文档，映射决定字段怎样解析、检索、排序和聚合。一个主分片是一个 Lucene 索引，副本是该分片的另一份在线拷贝，不能替代独立快照：误删通常也会传播到副本。
 
-### 主要特性
+例如订单 101 的 `status` 是完整取值 `paid`，应使用 `keyword`；商品名称要拆词，应使用 `text`；金额用整数分；时间显式使用 `date`。`text` 可以再配 `keyword` 子字段，但不应把长正文默认复制一份用来排序。
 
-1. **分布式架构**：天然支持水平扩展
-2. **近实时搜索**：文档索引后几乎立即可搜索
-3. **RESTful API**：通过 HTTP REST API 进行所有操作
-4. **多租户**：支持多个索引和类型
-5. **丰富的查询 DSL**：强大的查询语言
-6. **聚合分析**：支持复杂的数据分析
-7. **高可用性**：自动故障检测和恢复
+![Elasticsearch 写入确认与搜索可见性](/database/elasticsearch-write-visibility.svg)
 
-## 安装与配置
+写入先路由到主分片，再按复制协议处理副本。响应成功、可搜索和有可恢复备份是三件事。默认的请求级 translog 持久化参与写入确认；refresh 让新数据对搜索器可见，flush 建立 Lucene 提交点并推进 translog 生命周期。**refresh 不是磁盘备份，flush 也不是 snapshot。**
 
-### 安装方式
+普通按 ID 的 GET 默认是实时读取，可以在 refresh 前读到刚写入的文档；`_search` 读取已打开的搜索视图。默认刷新通常约每秒一次，但取决于索引配置和是否近期被搜索，不能承诺每笔写入都在一秒内可见。`refresh=wait_for` 等待相关刷新，不是每笔都强制执行 refresh；禁用周期刷新后可能持续等待。
 
-#### 1. 官方安装包
-```bash
-# macOS
-brew install elasticsearch
+## 本机练习入口
 
-# Ubuntu/Debian
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
-sudo apt-get update
-sudo apt-get install elasticsearch
-
-# CentOS/RHEL
-sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
-echo '[elasticsearch]
-name=Elasticsearch repository for 8.x packages
-baseurl=https://artifacts.elastic.co/packages/8.x/yum
-gpgcheck=1
-gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
-enabled=0
-autorefresh=1
-type=rpm-md' | sudo tee /etc/yum.repos.d/elasticsearch.repo
-sudo yum install --enablerepo=elasticsearch elasticsearch
-```
-
-#### 2. Docker 安装
-```bash
-# 拉取镜像
-docker pull docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-
-# 单节点运行
-docker run --name elasticsearch \
-  -p 9200:9200 -p 9300:9300 \
-  -e "discovery.type=single-node" \
-  -e "xpack.security.enabled=false" \
-  docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-
-# 带数据持久化
-docker run --name elasticsearch \
-  -p 9200:9200 -p 9300:9300 \
-  -e "discovery.type=single-node" \
-  -e "xpack.security.enabled=false" \
-  -v /data/elasticsearch:/usr/share/elasticsearch/data \
-  docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-```
-
-#### 3. Docker Compose 集群
-```yaml
-# docker-compose.yml
-version: '3.8'
-services:
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    container_name: es01
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=false
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    networks:
-      - elastic
-
-  es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    container_name: es02
-    environment:
-      - node.name=es02
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=false
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data02:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-  es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    container_name: es03
-    environment:
-      - node.name=es03
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.security.enabled=false
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data03:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-volumes:
-  data01:
-    driver: local
-  data02:
-    driver: local
-  data03:
-    driver: local
-
-networks:
-  elastic:
-    driver: bridge
-```
-
-### 基本配置
-
-#### elasticsearch.yml 主要配置
-```yaml
-# 集群配置
-cluster.name: my-application
-node.name: node-1
-node.roles: [master, data, ingest]
-
-# 网络配置
-network.host: 0.0.0.0
-http.port: 9200
-transport.port: 9300
-
-# 发现配置
-discovery.seed_hosts: ["host1", "host2"]
-cluster.initial_master_nodes: ["node-1", "node-2"]
-
-# 路径配置
-path.data: /var/lib/elasticsearch
-path.logs: /var/log/elasticsearch
-
-# 内存配置
-bootstrap.memory_lock: true
-
-# 安全配置
-xpack.security.enabled: true
-xpack.security.transport.ssl.enabled: true
-xpack.security.http.ssl.enabled: true
-
-# 监控配置
-xpack.monitoring.collection.enabled: true
-```
-
-#### JVM 配置 (jvm.options)
-```
-# 堆内存设置（建议设置为物理内存的一半，但不超过 32GB）
--Xms2g
--Xmx2g
-
-# GC 配置
--XX:+UseG1GC
--XX:G1HeapRegionSize=16m
--XX:+UseG1OldGCMixedGCCount=16
--XX:+UseG1MixedGCLiveThresholdPercent=90
-
-# 其他优化
--Djava.io.tmpdir=${ES_TMPDIR}
--XX:+HeapDumpOnOutOfMemoryError
--XX:HeapDumpPath=/var/lib/elasticsearch
--XX:ErrorFile=/var/log/elasticsearch/hs_err_pid%p.log
-```
-
-## 基本操作
-
-### 集群和节点管理
+下面关闭安全功能的实例仅用于本机练习，端口只绑定 `127.0.0.1`，不发布节点传输端口 9300。具名卷保存实验数据和快照目录；容器内快照只是恢复练习，不具备离机容灾能力。
 
 ```bash
-# 检查集群健康状态
-GET /_cluster/health
+# 为实验快照卷设置容器用户权限，不修改宿主目录
+docker volume create es-order-snapshots
+docker run --rm --user 0 --entrypoint sh \
+  -v es-order-snapshots:/snapshots \
+  docker.elastic.co/elasticsearch/elasticsearch:8.19.6 \
+  -c 'chown 1000:0 /snapshots'
 
-# 查看集群状态
-GET /_cluster/state
+docker run -d --name es-order-lab --memory 2g \
+  -p 127.0.0.1:19200:9200 \
+  -e discovery.type=single-node \
+  -e xpack.security.enabled=false \
+  -e 'ES_JAVA_OPTS=-Xms512m -Xmx512m' \
+  -e path.repo=/usr/share/elasticsearch/snapshots \
+  -v es-order-data:/usr/share/elasticsearch/data \
+  -v es-order-snapshots:/usr/share/elasticsearch/snapshots \
+  docker.elastic.co/elasticsearch/elasticsearch:8.19.6
 
-# 查看节点信息
-GET /_nodes
-GET /_nodes/stats
-
-# 查看集群设置
-GET /_cluster/settings
-
-# 更新集群设置
-PUT /_cluster/settings
-{
-  "persistent": {
-    "cluster.routing.allocation.disk.watermark.low": "85%",
-    "cluster.routing.allocation.disk.watermark.high": "90%"
-  }
-}
+# 等待启动后确认版本；启动过程可能需要几十秒
+curl -fsS http://127.0.0.1:19200/
 ```
 
-### 索引管理
+若挂载目录报权限错误，确认容器用户对目录具有读写权限，不使用 `chmod -R 777`。生产必须启用认证、HTTP 与节点间 TLS，客户端使用 CA 验证与最小权限 API Key；凭据不能写入前端、日志或仓库。节点发现、证书、快照存储、容量和失败恢复需要一起设计。
+
+下列 `http` 块是 **Kibana Dev Tools Console 的请求语法**，依次在空白实验索引中执行，不是 shell 命令。没有 Kibana 时，将 JSON 保存为本地文件，通过 curl 发起等价请求，例如：
 
 ```bash
-# 创建索引
-PUT /my_index
+curl -fsS -X PUT http://127.0.0.1:19200/orders_lab \
+  -H 'Content-Type: application/json' \
+  --data-binary @mapping.json
+```
+
+`mapping.json` 内容是下一块请求体。重复练习应换一个新索引名，并同步修改请求；已有索引不能再次 `PUT` 创建，也不能原地把已索引的字段从 `text` 改成 `keyword`。
+
+## 用映射确定查询合同
+
+订单明细是一组对象。普通 `object` 数组可能把不同明细的字段展平，导致“商品是 book 且数量至少 2”由两条不同明细共同满足。`nested` 保留每个明细内部的配对关系，代价是额外的内部文档与查询成本；仅需要订单级关键词时也可以单独维护扁平的搜索字段。
+
+```http
+PUT /orders_lab
 {
   "settings": {
-    "number_of_shards": 3,
-    "number_of_replicas": 1,
-    "analysis": {
-      "analyzer": {
-        "my_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": ["lowercase", "stop"]
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "refresh_interval": "-1"
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "orderId": { "type": "keyword" },
+      "tenantId": { "type": "keyword" },
+      "customerId": { "type": "keyword" },
+      "name": { "type": "text", "analyzer": "standard" },
+      "status": { "type": "keyword" },
+      "amountCents": { "type": "long" },
+      "createdAt": { "type": "date" },
+      "version": { "type": "long" },
+      "items": {
+        "type": "nested",
+        "properties": {
+          "sku": { "type": "keyword" },
+          "qty": { "type": "integer" }
         }
       }
     }
-  },
-  "mappings": {
-    "properties": {
-      "title": {
-        "type": "text",
-        "analyzer": "my_analyzer"
-      },
-      "content": {
-        "type": "text"
-      },
-      "publish_date": {
-        "type": "date"
-      },
-      "author": {
-        "type": "keyword"
-      },
-      "tags": {
-        "type": "keyword"
-      },
-      "views": {
-        "type": "integer"
-      }
-    }
-  }
-}
-
-# 查看索引
-GET /_cat/indices?v
-GET /my_index
-
-# 查看索引设置
-GET /my_index/_settings
-
-# 查看索引映射
-GET /my_index/_mapping
-
-# 更新索引设置
-PUT /my_index/_settings
-{
-  "number_of_replicas": 2
-}
-
-# 删除索引
-DELETE /my_index
-
-# 关闭/打开索引
-POST /my_index/_close
-POST /my_index/_open
-```
-
-### 文档操作
-
-#### 索引文档
-```bash
-# 创建文档（指定 ID）
-PUT /my_index/_doc/1
-{
-  "title": "Elasticsearch 入门指南",
-  "content": "Elasticsearch 是一个强大的搜索引擎...",
-  "publish_date": "2024-12-19",
-  "author": "张三",
-  "tags": ["elasticsearch", "搜索", "教程"],
-  "views": 100
-}
-
-# 创建文档（自动生成 ID）
-POST /my_index/_doc
-{
-  "title": "高级搜索技巧",
-  "content": "本文介绍 Elasticsearch 的高级搜索功能...",
-  "publish_date": "2024-12-20",
-  "author": "李四",
-  "tags": ["elasticsearch", "高级", "技巧"],
-  "views": 50
-}
-
-# 批量索引
-POST /_bulk
-{"index":{"_index":"my_index","_id":"2"}}
-{"title":"搜索优化策略","content":"如何优化 Elasticsearch 搜索性能...","publish_date":"2024-12-21","author":"王五","tags":["优化","性能"],"views":75}
-{"index":{"_index":"my_index","_id":"3"}}
-{"title":"集群管理","content":"Elasticsearch 集群的配置和管理...","publish_date":"2024-12-22","author":"赵六","tags":["集群","管理"],"views":120}
-```
-
-#### 查询文档
-```bash
-# 根据 ID 获取文档
-GET /my_index/_doc/1
-
-# 检查文档是否存在
-HEAD /my_index/_doc/1
-
-# 获取文档的源数据
-GET /my_index/_source/1
-
-# 批量获取
-GET /_mget
-{
-  "docs": [
-    {"_index": "my_index", "_id": "1"},
-    {"_index": "my_index", "_id": "2"}
-  ]
-}
-```
-
-#### 更新文档
-```bash
-# 部分更新
-POST /my_index/_update/1
-{
-  "doc": {
-    "views": 150
-  }
-}
-
-# 脚本更新
-POST /my_index/_update/1
-{
-  "script": {
-    "source": "ctx._source.views += params.increment",
-    "params": {
-      "increment": 10
-    }
-  }
-}
-
-# Upsert（不存在则创建）
-POST /my_index/_update/4
-{
-  "doc": {
-    "title": "新文章",
-    "views": 1
-  },
-  "doc_as_upsert": true
-}
-```
-
-#### 删除文档
-```bash
-# 删除单个文档
-DELETE /my_index/_doc/1
-
-# 根据查询删除
-POST /my_index/_delete_by_query
-{
-  "query": {
-    "range": {
-      "views": {
-        "lt": 50
-      }
-    }
   }
 }
 ```
 
-## 搜索和查询
+副本数 0 和禁用自动 refresh 只是为了在单节点上稳定观察实验现象，后面会恢复刷新。生产副本要放到不同故障域，主分片数也不应照抄为 1。`dynamic: strict` 拒绝未知字段，却不是完整的业务校验器；正数金额、状态机、必填字段和租户权限仍须在写入端验证。
 
-### 基本搜索
+### 写入一批订单
 
-```bash
-# 搜索所有文档
-GET /my_index/_search
+Bulk 使用 NDJSON：动作行与文档行交替，每行是完整 JSON，**文件末尾也要换行**。以下将四笔订单写入，同一订单使用稳定 `_id`。初始版本号 1 对应源记录版本；没有版本协议时不要随意添加 `version_type`。
 
-# 简单查询字符串
-GET /my_index/_search?q=elasticsearch
+```http
+POST /orders_lab/_bulk
+{"index":{"_id":"101","version":1,"version_type":"external"}}
+{"orderId":"101","tenantId":"t1","customerId":"c1","name":"book and mug","status":"paid","amountCents":5000,"createdAt":"2026-10-01T01:00:00Z","version":1,"items":[{"sku":"book","qty":1},{"sku":"mug","qty":3}]}
+{"index":{"_id":"102","version":1,"version_type":"external"}}
+{"orderId":"102","tenantId":"t1","customerId":"c1","name":"mug","status":"pending","amountCents":3000,"createdAt":"2026-10-01T02:00:00Z","version":1,"items":[{"sku":"mug","qty":2}]}
+{"index":{"_id":"103","version":1,"version_type":"external"}}
+{"orderId":"103","tenantId":"t1","customerId":"c2","name":"reading lamp","status":"paid","amountCents":3990,"createdAt":"2026-10-02T01:00:00Z","version":1,"items":[{"sku":"lamp","qty":1}]}
+{"index":{"_id":"104","version":1,"version_type":"external"}}
+{"orderId":"104","tenantId":"t1","customerId":"c1","name":"book","status":"cancelled","amountCents":2000,"createdAt":"2026-10-02T02:00:00Z","version":1,"items":[{"sku":"book","qty":1}]}
 
-# 分页搜索
-GET /my_index/_search
+```
+
+HTTP 200 只表示批量请求得到处理。必须检查顶层 `errors` 和每个 `items` 的 `status/error`：映射错误进入失败队列，429/临时故障做有界退避；不能因为一条失败就无条件重放整批非幂等操作。完整覆盖写入与脚本“金额加一”的重试语义不同。
+
+现在可以观察 GET 与搜索的区别，再显式刷新：
+
+```http
+GET /orders_lab/_doc/101
+
+GET /orders_lab/_count
+
+POST /orders_lab/_refresh
+
+GET /orders_lab/_count
+
+PUT /orders_lab/_settings
 {
-  "from": 0,
-  "size": 10,
-  "query": {
-    "match_all": {}
-  }
-}
-
-# 排序
-GET /my_index/_search
-{
-  "query": {
-    "match_all": {}
-  },
-  "sort": [
-    {"publish_date": {"order": "desc"}},
-    {"views": {"order": "desc"}}
-  ]
-}
-
-# 字段过滤
-GET /my_index/_search
-{
-  "_source": ["title", "author", "publish_date"],
-  "query": {
-    "match_all": {}
-  }
+  "index": { "refresh_interval": "1s" }
 }
 ```
 
-### 查询 DSL
+禁用自动刷新时，GET 能取回 101，首次 count 为 0，显式 refresh 后为 4。通常不应在每次写入后调用 `_refresh`；需要立即展示本次变更时，可对有限请求使用 `refresh=wait_for`，并监控等待时间。
 
-#### 全文搜索
-```bash
-# match 查询
-GET /my_index/_search
-{
-  "query": {
-    "match": {
-      "title": "elasticsearch 搜索"
-    }
-  }
-}
+## 查询、分词与聚合
 
-# multi_match 查询
-GET /my_index/_search
-{
-  "query": {
-    "multi_match": {
-      "query": "elasticsearch",
-      "fields": ["title^2", "content"]
-    }
-  }
-}
+`match` 先分析查询文本，再构造检索条件；`term` 查索引中的精确词项。`term` 用在 `status` 这样的 `keyword` 上很合适，用它查询未经确认分词结果的正文，容易得不到预期结果。
 
-# match_phrase 查询（短语匹配）
-GET /my_index/_search
+```http
+GET /orders_lab/_search
 {
-  "query": {
-    "match_phrase": {
-      "content": "搜索引擎"
-    }
-  }
-}
-
-# query_string 查询
-GET /my_index/_search
-{
-  "query": {
-    "query_string": {
-      "query": "elasticsearch AND (搜索 OR 引擎)",
-      "fields": ["title", "content"]
-    }
-  }
-}
-```
-
-#### 精确匹配
-```bash
-# term 查询
-GET /my_index/_search
-{
-  "query": {
-    "term": {
-      "author": "张三"
-    }
-  }
-}
-
-# terms 查询
-GET /my_index/_search
-{
-  "query": {
-    "terms": {
-      "tags": ["elasticsearch", "搜索"]
-    }
-  }
-}
-
-# range 查询
-GET /my_index/_search
-{
-  "query": {
-    "range": {
-      "views": {
-        "gte": 50,
-        "lte": 200
-      }
-    }
-  }
-}
-
-# exists 查询
-GET /my_index/_search
-{
-  "query": {
-    "exists": {
-      "field": "tags"
-    }
-  }
-}
-```
-
-#### 复合查询
-```bash
-# bool 查询
-GET /my_index/_search
-{
+  "track_total_hits": true,
   "query": {
     "bool": {
-      "must": [
-        {"match": {"title": "elasticsearch"}}
-      ],
+      "must": [{ "match": { "name": "lamp" } }],
       "filter": [
-        {"range": {"views": {"gte": 50}}}
-      ],
-      "should": [
-        {"term": {"author": "张三"}}
-      ],
-      "must_not": [
-        {"term": {"tags": "过时"}}
+        { "term": { "tenantId": "t1" } },
+        { "term": { "status": "paid" } }
       ]
     }
   }
 }
 
-# boosting 查询
-GET /my_index/_search
+POST /orders_lab/_analyze
+{
+  "field": "name",
+  "text": ["Reading Lamp", "阅读灯"]
+}
+
+GET /orders_lab/_search
 {
   "query": {
-    "boosting": {
-      "positive": {
-        "match": {"content": "elasticsearch"}
-      },
-      "negative": {
-        "match": {"content": "过时"}
-      },
-      "negative_boost": 0.2
-    }
-  }
-}
-```
-
-### 聚合分析
-
-#### 指标聚合
-```bash
-# 基本统计
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "avg_views": {
-      "avg": {"field": "views"}
-    },
-    "max_views": {
-      "max": {"field": "views"}
-    },
-    "min_views": {
-      "min": {"field": "views"}
-    },
-    "sum_views": {
-      "sum": {"field": "views"}
-    },
-    "stats_views": {
-      "stats": {"field": "views"}
-    }
-  }
-}
-
-# 百分位数
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "views_percentiles": {
-      "percentiles": {
-        "field": "views",
-        "percents": [25, 50, 75, 95, 99]
-      }
-    }
-  }
-}
-```
-
-#### 桶聚合
-```bash
-# terms 聚合
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "authors": {
-      "terms": {
-        "field": "author",
-        "size": 10
-      }
-    }
-  }
-}
-
-# range 聚合
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "view_ranges": {
-      "range": {
-        "field": "views",
-        "ranges": [
-          {"to": 50},
-          {"from": 50, "to": 100},
-          {"from": 100}
-        ]
-      }
-    }
-  }
-}
-
-# date_histogram 聚合
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "articles_over_time": {
-      "date_histogram": {
-        "field": "publish_date",
-        "calendar_interval": "month"
-      }
-    }
-  }
-}
-```
-
-#### 嵌套聚合
-```bash
-# 按作者分组，计算每个作者的平均浏览量
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "authors": {
-      "terms": {
-        "field": "author"
-      },
-      "aggs": {
-        "avg_views": {
-          "avg": {"field": "views"}
-        },
-        "total_views": {
-          "sum": {"field": "views"}
-        }
-      }
-    }
-  }
-}
-
-# 复杂嵌套聚合
-GET /my_index/_search
-{
-  "size": 0,
-  "aggs": {
-    "monthly_stats": {
-      "date_histogram": {
-        "field": "publish_date",
-        "calendar_interval": "month"
-      },
-      "aggs": {
-        "authors": {
-          "terms": {
-            "field": "author"
-          },
-          "aggs": {
-            "avg_views": {
-              "avg": {"field": "views"}
-            }
-          }
-        },
-        "total_views": {
-          "sum": {"field": "views"}
-        }
-      }
-    }
-  }
-}
-```
-
-## 映射和分析
-
-### 映射管理
-
-```bash
-# 查看映射
-GET /my_index/_mapping
-
-# 添加字段映射
-PUT /my_index/_mapping
-{
-  "properties": {
-    "category": {
-      "type": "keyword"
-    },
-    "rating": {
-      "type": "float"
-    },
-    "location": {
-      "type": "geo_point"
-    }
-  }
-}
-
-# 动态模板
-PUT /my_index
-{
-  "mappings": {
-    "dynamic_templates": [
-      {
-        "strings_as_keywords": {
-          "match_mapping_type": "string",
-          "match": "*_keyword",
-          "mapping": {
-            "type": "keyword"
-          }
-        }
-      },
-      {
-        "strings_as_text": {
-          "match_mapping_type": "string",
-          "mapping": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "type": "keyword",
-                "ignore_above": 256
+    "bool": {
+      "filter": [
+        { "term": { "tenantId": "t1" } },
+        {
+          "nested": {
+            "path": "items",
+            "query": {
+              "bool": {
+                "filter": [
+                  { "term": { "items.sku": "book" } },
+                  { "range": { "items.qty": { "gte": 2 } } }
+                ]
               }
             }
           }
         }
-      }
-    ]
-  }
-}
-```
-
-### 分析器配置
-
-```bash
-# 自定义分析器
-PUT /my_index
-{
-  "settings": {
-    "analysis": {
-      "char_filter": {
-        "my_char_filter": {
-          "type": "mapping",
-          "mappings": [
-            "& => and",
-            "| => or"
-          ]
-        }
-      },
-      "tokenizer": {
-        "my_tokenizer": {
-          "type": "pattern",
-          "pattern": "[\\W|_]+"
-        }
-      },
-      "filter": {
-        "my_stopwords": {
-          "type": "stop",
-          "stopwords": ["is", "at", "the", "on"]
-        },
-        "my_stemmer": {
-          "type": "stemmer",
-          "language": "english"
-        }
-      },
-      "analyzer": {
-        "my_analyzer": {
-          "type": "custom",
-          "char_filter": ["my_char_filter"],
-          "tokenizer": "my_tokenizer",
-          "filter": [
-            "lowercase",
-            "my_stopwords",
-            "my_stemmer"
-          ]
-        }
-      }
-    }
-  }
-}
-
-# 测试分析器
-GET /my_index/_analyze
-{
-  "analyzer": "my_analyzer",
-  "text": "The quick brown foxes are running & jumping"
-}
-
-# 中文分析器（需要安装 IK 插件）
-PUT /chinese_index
-{
-  "settings": {
-    "analysis": {
-      "analyzer": {
-        "ik_smart_analyzer": {
-          "type": "ik_smart"
-        },
-        "ik_max_word_analyzer": {
-          "type": "ik_max_word"
-        }
-      }
-    }
-  },
-  "mappings": {
-    "properties": {
-      "title": {
-        "type": "text",
-        "analyzer": "ik_max_word",
-        "search_analyzer": "ik_smart"
-      },
-      "content": {
-        "type": "text",
-        "analyzer": "ik_max_word"
-      }
-    }
-  }
-}
-```
-
-## 性能优化
-
-### 索引优化
-
-```bash
-# 刷新间隔优化
-PUT /my_index/_settings
-{
-  "refresh_interval": "30s"
-}
-
-# 批量索引时禁用刷新
-PUT /my_index/_settings
-{
-  "refresh_interval": "-1"
-}
-
-# 批量索引完成后恢复
-PUT /my_index/_settings
-{
-  "refresh_interval": "1s"
-}
-
-# 副本数量优化
-PUT /my_index/_settings
-{
-  "number_of_replicas": 0
-}
-
-# 强制合并段
-POST /my_index/_forcemerge?max_num_segments=1
-
-# 索引模板
-PUT /_index_template/my_template
-{
-  "index_patterns": ["logs-*"],
-  "template": {
-    "settings": {
-      "number_of_shards": 1,
-      "number_of_replicas": 1,
-      "refresh_interval": "30s"
-    },
-    "mappings": {
-      "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
-        "message": {
-          "type": "text"
-        },
-        "level": {
-          "type": "keyword"
-        }
-      }
-    }
-  }
-}
-```
-
-### 查询优化
-
-```bash
-# 使用 filter 而不是 query（可缓存）
-GET /my_index/_search
-{
-  "query": {
-    "bool": {
-      "filter": [
-        {"term": {"author": "张三"}},
-        {"range": {"views": {"gte": 50}}}
       ]
     }
   }
 }
+```
 
-# 使用 constant_score 查询
-GET /my_index/_search
+第一条查询返回 103，最后一条没有结果：101 的 book 数量只有 1，不能借用 mug 的数量 3。所有租户查询都要有授权范围；过滤一个用户传入的 `tenantId` 本身不构成权限校验。
+
+`bool.filter` 仍属于 Query DSL，只是不计算相关性分数，部分结果可能被缓存，不保证每个过滤都命中缓存。`should` 在已有 `must` 或 `filter` 时默认可以完全不匹配；若其表达的是必要条件，显式设置 `minimum_should_match`，或放入合适的 `must/filter`。
+
+`standard` 可以演示英文小写化，但不是完整的中文分词方案。先用 `_analyze` 查看实际词项，再用自己的中文查询集验证召回、排序和专有名词。引入 IK 等社区插件前确认与 ES 精确版本匹配、所有相关节点一致、升级路径可用；仅安装成功不说明搜索质量合格。
+
+### 聚合算的是哪些订单
+
+下面只统计已支付订单，以北京时间的自然日分桶。两笔订单共 8990 分；不要在 `nested` 明细展开后把明细数当订单数，也不要用当前商品价重算历史成交额。
+
+```http
+GET /orders_lab/_search
 {
+  "size": 0,
   "query": {
-    "constant_score": {
-      "filter": {
-        "term": {"author": "张三"}
+    "bool": {
+      "filter": [
+        { "term": { "tenantId": "t1" } },
+        { "term": { "status": "paid" } }
+      ]
+    }
+  },
+  "aggs": {
+    "totalCents": { "sum": { "field": "amountCents" } },
+    "daily": {
+      "date_histogram": {
+        "field": "createdAt",
+        "calendar_interval": "day",
+        "time_zone": "Asia/Shanghai"
       },
-      "boost": 1.0
-    }
-  }
-}
-
-# 分页优化（使用 search_after）
-GET /my_index/_search
-{
-  "size": 10,
-  "sort": [
-    {"publish_date": "desc"},
-    {"_id": "desc"}
-  ]
-}
-
-# 后续页面
-GET /my_index/_search
-{
-  "size": 10,
-  "sort": [
-    {"publish_date": "desc"},
-    {"_id": "desc"}
-  ],
-  "search_after": ["2024-12-19T10:00:00Z", "doc_id_here"]
-}
-```
-
-### 硬件和配置优化
-
-```yaml
-# elasticsearch.yml 性能配置
-# 内存设置
-bootstrap.memory_lock: true
-
-# 线程池设置
-thread_pool:
-  write:
-    size: 8
-    queue_size: 1000
-  search:
-    size: 13
-    queue_size: 1000
-
-# 索引设置
-indices.memory.index_buffer_size: 20%
-indices.memory.min_index_buffer_size: 48mb
-
-# 网络设置
-network.tcp.keep_alive: true
-network.tcp.reuse_address: true
-
-# 发现设置
-discovery.zen.fd.ping_timeout: 120s
-discovery.zen.fd.ping_retries: 6
-```
-
-## 监控和运维
-
-### 集群监控
-
-```bash
-# 集群健康状态
-GET /_cluster/health?level=indices
-
-# 节点统计
-GET /_nodes/stats
-GET /_nodes/stats/indices,os,process,jvm,transport,http,fs,thread_pool
-
-# 索引统计
-GET /_stats
-GET /my_index/_stats
-
-# 分片分配
-GET /_cat/shards?v
-GET /_cluster/allocation/explain
-
-# 任务管理
-GET /_tasks
-GET /_tasks?actions=*search*&detailed
-
-# 热点线程
-GET /_nodes/hot_threads
-```
-
-### 性能分析
-
-```bash
-# 慢查询日志
-PUT /_cluster/settings
-{
-  "transient": {
-    "logger.org.elasticsearch.index.search.slowlog.query": "DEBUG",
-    "logger.org.elasticsearch.index.search.slowlog.fetch": "DEBUG",
-    "logger.org.elasticsearch.index.indexing.slowlog.index": "DEBUG"
-  }
-}
-
-# 索引级别的慢查询设置
-PUT /my_index/_settings
-{
-  "index.search.slowlog.threshold.query.warn": "10s",
-  "index.search.slowlog.threshold.query.info": "5s",
-  "index.search.slowlog.threshold.query.debug": "2s",
-  "index.search.slowlog.threshold.query.trace": "500ms",
-  "index.search.slowlog.threshold.fetch.warn": "1s",
-  "index.search.slowlog.threshold.fetch.info": "800ms",
-  "index.search.slowlog.threshold.fetch.debug": "500ms",
-  "index.search.slowlog.threshold.fetch.trace": "200ms"
-}
-
-# 查询分析
-GET /my_index/_search
-{
-  "profile": true,
-  "query": {
-    "match": {
-      "title": "elasticsearch"
+      "aggs": { "cents": { "sum": { "field": "amountCents" } } }
     }
   }
 }
 ```
 
-### 备份和恢复
+`terms` 通常取前 N 个桶，分布式统计可能有计数误差；查看误差指标并按需求调整 `shard_size`，枚举全部分组考虑 `composite` 和 `after_key`。`cardinality`、常用百分位聚合是近似统计。财务对账应由权威数据和明确口径完成，不能把搜索近似结果当总账。
 
-```bash
-# 创建快照仓库
-PUT /_snapshot/my_backup
+## 分页与同步都需要稳定边界
+
+![Elasticsearch 派生视图与 PIT 分页边界](/database/elasticsearch-derived-pagination.svg)
+
+浅分页可以使用 `from/size`，但深分页让各分片收集并合并大量候选。不能把 `index.max_result_window` 调很大作为常规导出方案。稳定遍历使用 PIT 固定搜索视图，再用 `search_after` 传递上页实际返回的排序值。
+
+```http
+POST /orders_lab/_pit?keep_alive=1m
+
+```
+
+将返回 `id` 放入下一请求的 `pit.id`。PIT 搜索使用 `/_search`，不在 URL 中再写索引名：
+
+```http
+POST /_search
+{
+  "size": 2,
+  "query": { "term": { "tenantId": "t1" } },
+  "pit": { "id": "替换为最新PIT_ID", "keep_alive": "1m" },
+  "sort": [{ "createdAt": "asc" }, { "orderId": "asc" }]
+}
+```
+
+这里 `orderId` 是租户内唯一且有 doc values 的 `keyword`，不直接按 `_id` 排序。PIT 还会增加 `_shard_doc` 作为平局裁决项，因此每条命中的 `sort` 可能包含第三个值。下一页保持查询与排序完全一致，**原样复制最后一条命中的整个 `sort` 数组**，并使用上次响应中最新的 `pit_id`：
+
+```http
+POST /_search
+{
+  "size": 2,
+  "query": { "term": { "tenantId": "t1" } },
+  "pit": { "id": "替换为最新PIT_ID", "keep_alive": "1m" },
+  "sort": [{ "createdAt": "asc" }, { "orderId": "asc" }],
+  "search_after": ["复制上页最后命中的全部sort值，并保留数字类型"]
+}
+
+DELETE /_pit
+{
+  "id": "替换为最新PIT_ID"
+}
+```
+
+这两处占位字段要由实际响应替换，不能把示意字符串直接发送。PIT 延续的是搜索视图，不是锁住源数据库；超时后需要重开并重新定义遍历边界。完成或取消导出时及时关闭 PIT，长期持有会保留旧段，增加磁盘与文件句柄占用。
+
+### 避免旧事件覆盖新状态
+
+源库事务提交后，CDC/outbox 消费者把订单完整视图写入索引。以稳定订单号作为 `_id` 避免重复插入，仍不能防止旧事件覆盖新状态。可以把**源记录单调递增版本**映射成 `external` 版本；下面版本 2 成功，同一版本重放或版本 1 迟到都会返回 409。
+
+```http
+PUT /orders_lab/_doc/102?version=2&version_type=external&refresh=wait_for
+{
+  "orderId": "102",
+  "tenantId": "t1",
+  "customerId": "c1",
+  "name": "mug",
+  "status": "paid",
+  "amountCents": 3000,
+  "createdAt": "2026-10-01T02:00:00Z",
+  "version": 2,
+  "items": [{ "sku": "mug", "qty": 2 }]
+}
+```
+
+409 只有在核对确实是旧事件或已处理重放后才能确认消费；映射冲突、权限错误不能按重复成功处理。`external_gte` 接受相同版本，只有同版本必定对应完全相同内容时才考虑使用。版本要覆盖整条记录生命周期，删后重建与删除墓碑的保留期要一起设计，避免旧事件在很久以后复活记录。
+
+如果直接修改 ES 中的文档，可使用返回的 `_seq_no`、`_primary_term` 做乐观并发控制；它们不等于源库业务版本。跨文档更新不具备关系库事务语义，不能用搜索索引协调扣库存和支付。
+
+## 快照与索引迁移
+
+索引可以从源库重建，不表示可以不备份。分词器、映射、别名和恢复所需配置也要管理；某些日志数据没有其他权威源，更需要明确 RPO/RTO。复制正在使用的数据目录不是受支持的集群备份方法。
+
+本机已设置 `path.repo`，先注册并验证文件系统仓库，再创建完成态快照。多节点共享文件仓库需要所有相关 master/data 节点挂载同一路径、正确权限和可见性；通常使用受支持的对象存储仓库做离机备份，并限制写入者。
+
+```http
+PUT /_snapshot/order_lab_repo
 {
   "type": "fs",
-  "settings": {
-    "location": "/mount/backups/my_backup",
-    "compress": true
-  }
+  "settings": { "location": "/usr/share/elasticsearch/snapshots" }
 }
 
-# 创建快照
-PUT /_snapshot/my_backup/snapshot_1
+POST /_snapshot/order_lab_repo/_verify
+
+PUT /_snapshot/order_lab_repo/orders_01?wait_for_completion=true
 {
-  "indices": "my_index,another_index",
-  "ignore_unavailable": true,
+  "indices": "orders_lab",
+  "include_global_state": false
+}
+
+GET /_snapshot/order_lab_repo/orders_01
+
+POST /_snapshot/order_lab_repo/orders_01/_restore?wait_for_completion=true
+{
+  "indices": "orders_lab",
   "include_global_state": false,
-  "metadata": {
-    "taken_by": "admin",
-    "taken_because": "backup before upgrade"
-  }
+  "include_aliases": false,
+  "rename_pattern": "orders_lab",
+  "rename_replacement": "orders_restored"
 }
 
-# 查看快照
-GET /_snapshot/my_backup/_all
-GET /_snapshot/my_backup/snapshot_1
+GET /orders_restored/_count
 
-# 恢复快照
-POST /_snapshot/my_backup/snapshot_1/_restore
-{
-  "indices": "my_index",
-  "ignore_unavailable": true,
-  "include_global_state": false,
-  "rename_pattern": "my_index",
-  "rename_replacement": "restored_my_index"
-}
-
-# 删除快照
-DELETE /_snapshot/my_backup/snapshot_1
+GET /orders_restored/_mapping
 ```
 
-## 实际应用案例
+必须确认快照状态为 `SUCCESS`、分片失败数为 0，再演练恢复。练习在版本 2 写入后备份，恢复新索引应有 4 单、总金额 13990 分，102 为 paid/version 2；检查映射和实际查询，不能只看恢复请求已被接受。这里排除了全局状态和别名，不代表备份了安全系统等全部 feature state，也未演示跨版本恢复。
 
-### 1. 日志分析系统
+生产更改映射通常建立新索引，回填历史数据、追平增量、核对计数/版本/查询，再原子切换读写别名。`_reindex` 不会自动复制目标映射和设置，也不会持续追踪期间新写入；回填期间的版本冲突、删除和切换窗口必须有协议。
 
-```bash
-# 创建日志索引模板
-PUT /_index_template/logs_template
-{
-  "index_patterns": ["logs-*"],
-  "template": {
-    "settings": {
-      "number_of_shards": 1,
-      "number_of_replicas": 1,
-      "index.lifecycle.name": "logs_policy",
-      "index.lifecycle.rollover_alias": "logs"
-    },
-    "mappings": {
-      "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
-        "level": {
-          "type": "keyword"
-        },
-        "message": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
-        },
-        "service": {
-          "type": "keyword"
-        },
-        "host": {
-          "type": "keyword"
-        },
-        "ip": {
-          "type": "ip"
-        },
-        "user_agent": {
-          "type": "text"
-        },
-        "response_time": {
-          "type": "float"
-        }
-      }
-    }
-  }
-}
+## 运维从现象进入
 
-# 创建索引生命周期策略
-PUT /_ilm/policy/logs_policy
-{
-  "policy": {
-    "phases": {
-      "hot": {
-        "actions": {
-          "rollover": {
-            "max_size": "5GB",
-            "max_age": "1d"
-          }
-        }
-      },
-      "warm": {
-        "min_age": "7d",
-        "actions": {
-          "allocate": {
-            "number_of_replicas": 0
-          },
-          "forcemerge": {
-            "max_num_segments": 1
-          }
-        }
-      },
-      "cold": {
-        "min_age": "30d",
-        "actions": {
-          "allocate": {
-            "number_of_replicas": 0
-          }
-        }
-      },
-      "delete": {
-        "min_age": "90d",
-        "actions": {
-          "delete": {}
-        }
-      }
-    }
-  }
-}
+集群 green 表示当前主副分片已分配，不证明搜索语义正确或备份可恢复；yellow 表示主分片已分配但存在未分配副本；red 表示至少一个主分片未分配。单节点设置 1 副本通常 yellow，因为同一分片的主副不能放在同一节点，不应拿这一实验结论推导生产可以长期去掉副本。
 
-# 日志分析查询
-GET /logs-*/_search
-{
-  "size": 0,
-  "query": {
-    "bool": {
-      "filter": [
-        {
-          "range": {
-            "@timestamp": {
-              "gte": "now-1h"
-            }
-          }
-        }
-      ]
-    }
-  },
-  "aggs": {
-    "error_count": {
-      "filter": {
-        "term": {"level": "ERROR"}
-      }
-    },
-    "services": {
-      "terms": {
-        "field": "service",
-        "size": 10
-      },
-      "aggs": {
-        "avg_response_time": {
-          "avg": {
-            "field": "response_time"
-          }
-        }
-      }
-    },
-    "timeline": {
-      "date_histogram": {
-        "field": "@timestamp",
-        "fixed_interval": "5m"
-      },
-      "aggs": {
-        "error_rate": {
-          "filter": {
-            "term": {"level": "ERROR"}
-          }
-        }
-      }
-    }
-  }
-}
+```http
+GET /_cluster/health
+
+GET /_cat/shards?v
+
+GET /orders_lab/_stats/indexing,search,refresh,segments
+
+GET /_nodes/stats/jvm,fs,thread_pool
 ```
 
-### 2. 电商搜索系统
+| 现象 | 检查顺序 | 避免的操作 |
+| --- | --- | --- |
+| 已写入但搜索不到 | 源记录、消费位点、Bulk逐项结果、查询/分词、refresh | 重复扣款、每秒对全索引强制刷新 |
+| 429 或队列增长 | 写入速率、单批大小、热点主分片、磁盘/JVM、客户端退避 | 盲目扩大线程池和队列，把过载转成更长等待 |
+| 分片未分配 | `_cat/shards` 后按具体分片用 allocation explain，查节点/故障域/磁盘水位 | 清除水位保护、删除数据目录或强制分配陈旧主分片 |
+| 聚合或排序很慢 | 时间与租户范围、keyword/doc values、桶数、Profile与慢日志 | 给所有text启用fielddata，大范围无界聚合 |
+| 空间增长 | 保留策略、段合并、旧PIT、分片数、快照容量与恢复需求 | 对活跃写索引频繁force merge、用副本代替备份 |
 
-```bash
-# 创建商品索引
-PUT /products
-{
-  "settings": {
-    "number_of_shards": 3,
-    "number_of_replicas": 1,
-    "analysis": {
-      "analyzer": {
-        "product_analyzer": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": ["lowercase", "stop", "synonym"]
-        }
-      },
-      "filter": {
-        "synonym": {
-          "type": "synonym",
-          "synonyms": [
-            "手机,mobile,phone",
-            "电脑,computer,pc",
-            "笔记本,laptop,notebook"
-          ]
-        }
-      }
-    }
-  },
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text",
-        "analyzer": "product_analyzer",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "description": {
-        "type": "text",
-        "analyzer": "product_analyzer"
-      },
-      "category": {
-        "type": "keyword"
-      },
-      "brand": {
-        "type": "keyword"
-      },
-      "price": {
-        "type": "float"
-      },
-      "rating": {
-        "type": "float"
-      },
-      "sales_count": {
-        "type": "integer"
-      },
-      "tags": {
-        "type": "keyword"
-      },
-      "created_at": {
-        "type": "date"
-      },
-      "in_stock": {
-        "type": "boolean"
-      }
-    }
-  }
-}
+新集群的 `cluster.initial_master_nodes` 只用于首次引导，成功后移除，不用于已有集群重启或新节点加入。不要沿用旧的 `discovery.zen.*` 参数。堆内存需要给文件系统缓存和原生内存留空间；优先理解版本自适应设置与容器内存限制，再依据实际GC和查询负载调整，不能照抄“一半内存”的固定模板。
 
-# 商品搜索查询
-GET /products/_search
-{
-  "query": {
-    "function_score": {
-      "query": {
-        "bool": {
-          "must": [
-            {
-              "multi_match": {
-                "query": "苹果手机",
-                "fields": ["name^3", "description", "tags^2"],
-                "type": "best_fields",
-                "fuzziness": "AUTO"
-              }
-            }
-          ],
-          "filter": [
-            {"term": {"in_stock": true}},
-            {"range": {"price": {"gte": 1000, "lte": 8000}}},
-            {"range": {"rating": {"gte": 4.0}}}
-          ]
-        }
-      },
-      "functions": [
-        {
-          "filter": {"range": {"sales_count": {"gte": 100}}},
-          "weight": 1.5
-        },
-        {
-          "gauss": {
-            "created_at": {
-              "origin": "now",
-              "scale": "30d",
-              "decay": 0.5
-            }
-          }
-        }
-      ],
-      "score_mode": "multiply",
-      "boost_mode": "multiply"
-    }
-  },
-  "sort": [
-    "_score",
-    {"sales_count": {"order": "desc"}}
-  ],
-  "aggs": {
-    "categories": {
-      "terms": {
-        "field": "category",
-        "size": 10
-      }
-    },
-    "brands": {
-      "terms": {
-        "field": "brand",
-        "size": 10
-      }
-    },
-    "price_ranges": {
-      "range": {
-        "field": "price",
-        "ranges": [
-          {"to": 1000},
-          {"from": 1000, "to": 3000},
-          {"from": 3000, "to": 5000},
-          {"from": 5000}
-        ]
-      }
-    }
-  },
-  "highlight": {
-    "fields": {
-      "name": {},
-      "description": {
-        "fragment_size": 150,
-        "number_of_fragments": 3
-      }
-    }
-  }
-}
-```
+日志类索引使用 ILM/数据流时，还要设计初始写入入口和匹配模板。使用 rollover alias 的方案必须有带 `is_write_index: true` 的初始索引；warm/cold 阶段要有相应数据层和容量。订单业务索引通常按业务键覆盖更新，不能直接照搬日志滚动策略，否则同一订单可能跨索引重复出现。
 
-### 3. 地理位置搜索
-
-```bash
-# 创建位置索引
-PUT /locations
-{
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text"
-      },
-      "location": {
-        "type": "geo_point"
-      },
-      "category": {
-        "type": "keyword"
-      },
-      "rating": {
-        "type": "float"
-      }
-    }
-  }
-}
-
-# 添加位置数据
-POST /locations/_bulk
-{"index":{"_id":"1"}}
-{"name":"星巴克咖啡","location":{"lat":39.9042,"lon":116.4074},"category":"咖啡店","rating":4.5}
-{"index":{"_id":"2"}}
-{"name":"麦当劳","location":{"lat":39.9052,"lon":116.4084},"category":"快餐","rating":4.2}
-{"index":{"_id":"3"}}
-{"name":"肯德基","location":{"lat":39.9032,"lon":116.4064},"category":"快餐","rating":4.1}
-
-# 地理位置搜索
-GET /locations/_search
-{
-  "query": {
-    "bool": {
-      "must": {
-        "match_all": {}
-      },
-      "filter": {
-        "geo_distance": {
-          "distance": "1km",
-          "location": {
-            "lat": 39.9042,
-            "lon": 116.4074
-          }
-        }
-      }
-    }
-  },
-  "sort": [
-    {
-      "_geo_distance": {
-        "location": {
-          "lat": 39.9042,
-          "lon": 116.4074
-        },
-        "order": "asc",
-        "unit": "km",
-        "mode": "min",
-        "distance_type": "arc"
-      }
-    }
-  ]
-}
-
-# 地理边界搜索
-GET /locations/_search
-{
-  "query": {
-    "geo_bounding_box": {
-      "location": {
-        "top_left": {
-          "lat": 39.91,
-          "lon": 116.40
-        },
-        "bottom_right": {
-          "lat": 39.90,
-          "lon": 116.42
-        }
-      }
-    }
-  }
-}
-```
-
-## 最佳实践
-
-### 1. 索引设计
-
-- **分片数量**：根据数据量和查询负载确定，通常每个分片 20-40GB
-- **副本数量**：根据可用性要求和查询负载确定
-- **映射设计**：合理设置字段类型，避免动态映射
-- **索引模板**：使用索引模板统一管理索引设置
-
-### 2. 查询优化
-
-- **使用 filter**：对于精确匹配使用 filter 而不是 query
-- **避免深分页**：使用 search_after 代替 from/size
-- **合理使用聚合**：避免高基数字段的 terms 聚合
-- **缓存利用**：充分利用查询缓存和请求缓存
-
-### 3. 性能调优
-
-- **内存设置**：JVM 堆内存不超过 32GB，设置为物理内存的一半
-- **磁盘优化**：使用 SSD，合理设置文件系统
-- **网络优化**：使用高速网络，调整网络参数
-- **监控告警**：设置关键指标监控和告警
-
-### 4. 运维管理
-
-- **定期备份**：制定备份策略和恢复测试
-- **索引生命周期**：使用 ILM 管理索引生命周期
-- **集群升级**：制定滚动升级策略
-- **容量规划**：监控资源使用，提前扩容
-
-## 总结
-
-Elasticsearch 是一个功能强大的分布式搜索和分析引擎，适用于全文搜索、日志分析、实时分析等多种场景。通过合理的索引设计、查询优化和集群管理，Elasticsearch 能够为应用提供高性能、高可用的搜索和分析能力。
-
-### 优势
-
-- 强大的全文搜索能力
-- 丰富的查询和聚合功能
-- 良好的水平扩展能力
-- 近实时的搜索响应
-- 活跃的社区和生态
-
-### 适用场景
-
-- 企业搜索平台
-- 日志分析系统
-- 电商搜索引擎
-- 实时数据分析
-- 监控和告警系统
-
-通过深入理解 Elasticsearch 的核心概念和最佳实践，可以充分发挥其在现代数据处理和搜索场景中的价值。
+一次完整练习应留下三个结果：搜索查询返回正确的业务集合；重复与乱序事件不会覆盖新版本；从快照恢复的新索引可以通过同一组查询。之后再用多节点故障演练、真实中文查询集和实际数据量评估可用性、召回率与性能。

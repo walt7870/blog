@@ -1,0 +1,352 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+      "status": "verified",
+      "pageType": "课程地图",
+      "decision": "说明各篇独立输入与后续文件依赖，补机制地图、实操路线和交付边界。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "ea19183a8c70086dc2192b7b60e2719ee66d8906e3af9e2aa739a22ea0796a92"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+      "status": "verified",
+      "pageType": "客户清洗入门",
+      "decision": "纠正只检查手机号却声称同时检查城市的范围，补名单和来源统计的确定输出。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "65d8ed09cbfd8922663febb143188860579b761492b4bc7621a7aba61b83a373"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+      "status": "verified",
+      "pageType": "脚本运行与路径",
+      "decision": "区分工作目录、脚本目录及解释器，补PowerShell入口和is_file检查。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "63fdf5e1bbb2808fa7ecba1262aa32daedad2a5300b2cb2cdafc191279a47e8f"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/03-field-types.md",
+      "status": "verified",
+      "pageType": "字段转换",
+      "decision": "补真正打印输出，金额使用Decimal，解释浮点、布尔字符串与缺失值。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "ac8f79aead99d2544a8252d639444cef1e64a63c955988688a5779d689815e78"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+      "status": "verified",
+      "pageType": "对象关系",
+      "decision": "补嵌套订单和可执行输出，解释get缺键默认及浅复制共享对象。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "7ce506b9b8e1d1be6d3a42de7c681a25f222eee26a8bf6cd919aafd17e6d6c2b"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+      "status": "verified",
+      "pageType": "规则分支",
+      "decision": "区分独立检查和互斥分类，用7/8天展示边界，替换模板文字。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "f0ec240ca7acd94858e8b3da325ed28a6bbfde27cf91e4c2f702aa269d1554df"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+      "status": "verified",
+      "pageType": "循环与累计",
+      "decision": "解释循环外初始化，完整与待补分类满足输入数量对账。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "e6cb120fc5cbadccd8fe8cf7a32e928e26a582d4295b8eb547f90d399b555e8b"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+      "status": "verified",
+      "pageType": "来源归一化",
+      "decision": "限定展会前缀规则，空白与未知分别归类，避免任意横线截断。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "2ae5715ec54bcf6c137874f6a3f2774b1f12b8a41166439a62fc7e87d42de381"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+      "status": "verified",
+      "pageType": "金额日期",
+      "decision": "补Decimal、自然日与时区合同，未来日期异常及14/15天边界。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "699d141cb576e17036bb21719a30f7da9957e05616cadd16efe23b8f769d5572"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+      "status": "verified",
+      "pageType": "函数合同",
+      "decision": "区分打印和返回值，阈值参数化，缺失联系时间不默认当天。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "fedd11a440f360a7cf7e1e351abf85798c7de14900b543dd053546849a6904eb"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+      "status": "verified",
+      "pageType": "模块依赖",
+      "decision": "补依赖树和入口守卫，解释导入副作用及三模块调用。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "a34a13a2f3dfbf4feec17450d93714da1bf4b9b510369415857e97f17bf7dff3"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+      "status": "verified",
+      "pageType": "CSV读写",
+      "decision": "补最小真实输入、BOM和newline，明确空表与缺列的不同失败方式。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "bd4b641d6d8016212e57d9aa3a0bcb8b5126c64de7ccfe4f60e1219bccb37daa"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+      "status": "verified",
+      "pageType": "JSON合同",
+      "decision": "补JSON输入并分层验证状态、对象、数组和记录，拒绝静默默认空列表。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "f8743b9740a0dd16dc08d794fca5f8526148b0cff1dd5fec2a6b88ad76ad5457"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+      "status": "verified",
+      "pageType": "表格校验",
+      "decision": "先验证空输入与字段再处理，实际映射列名，疑似重复不自动删除。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "e767e60b31f9df1a57edce5a9d3b8036f55d24d59961ac80ed3207cb6f339a8c"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+      "status": "verified",
+      "pageType": "分组口径",
+      "decision": "解释统计粒度、去重语义与分组数量对账。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "8e3003fe63e0d19d5686aa2e83bae3932d2b086456a7edb212b02bc1c7cd329d"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+      "status": "verified",
+      "pageType": "金额状态对账",
+      "decision": "限定amount为完成对账后的净实收，区分订单原价、应付及退款过程。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "ccfaef963906d634f970b8f2f0c764af043cb313178bb6711d9fbb157f212661"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+      "status": "verified",
+      "pageType": "日报组合",
+      "decision": "明确固定教学指标和模板渲染范围，移目录创建到入口。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "c562348273152fa704e427772a7572271cbe522ebc72ee295a5ad2963e4f9e9b"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+      "status": "verified",
+      "pageType": "环境依赖",
+      "decision": "补真实venv命令及同解释器pip，说明标准库与系统依赖边界。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "682ed63ff2b467ed346c18fc4c5f01165cf8f91d3707059a1ac57edcd3b5a1c7"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+      "status": "verified",
+      "pageType": "异常定位",
+      "decision": "补真实traceback，按类型、业务帧、输入和最小复现说明排查。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "70fa68d3381e800df2a7406e18392f5ca3b41bc17fee855e5c7ac5c58b8c1f57"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+      "status": "verified",
+      "pageType": "异常边界",
+      "decision": "区分行级继续和批级终止，窄范围捕获并处理类型、空白。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "b890dbc5164b60812edbbe82ddd2ba09c7d38d015b5970fc0704bd3ef1c60007"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/20-logging.md",
+      "status": "verified",
+      "pageType": "日志证据",
+      "decision": "UTF8与行号替代姓名，说明日志级别、退出码及成功跳过对账。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "3a84b453e0b80efcae4557d1beae837c18f7b9aac64f6936a19ce481a5cf26d5"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+      "status": "verified",
+      "pageType": "API获取",
+      "decision": "区分离线模拟与真实GET，补环境令牌、超时、JSON合同和分页边界。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "8e8ad11d18fb1ba38812f39b00e5b1b73a37ce00a12483ee12aa033f684524bc"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+      "status": "verified",
+      "pageType": "文件批处理",
+      "decision": "只读原件、独立结果、稳定命名与排他创建，空输入明确报错。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "d2968543a414f7cc38176332f1d6ef172d84cfa27f2c22890b5fc81892510131"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+      "status": "verified",
+      "pageType": "命令行合同",
+      "decision": "明确cwd，补表头校验、同文件和硬链接保护、显式覆盖开关。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "082d374cf7613a0d05f517560396dadf431ae64511fc771366ca3c4e00dcb892"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+      "status": "verified",
+      "pageType": "交付验收",
+      "decision": "去掉先造齐再检查的假验收，改只读检查和缺项退出1。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "57f8c11a9cb38f3b339187dea4856c0f799a2bcf0e59e39f32323d69799436b0"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+      "status": "verified",
+      "pageType": "实例状态",
+      "decision": "解释实例与类的共享可变属性及类型标注不自动验证。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "fb1ce40fe9670159dd33a273f05b5fd23c7fc568964164e30933b6d30096231c"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+      "status": "verified",
+      "pageType": "首个工具交付",
+      "decision": "复用EP23给出实际输入、命令、输出与五类失败验收。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "37e12202aaa24a266c4cdd3c05450bb81a7d08399e8a8672a1b9bf1a5a13031d"
+    },
+    {
+      "file": "docs/devlanguage/python/basics-series/index.md",
+      "status": "verified",
+      "pageType": "基础系列导读",
+      "decision": "补输入边界、阅读路线和各篇职责，纠正已有完整数据文件的暗示。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "dcde981e014bd773dfa25b8c5b28117438b2e23082f26f147fd92829616f10b8"
+    },
+    {
+      "file": "docs/devlanguage/python/index.md",
+      "status": "verified",
+      "pageType": "Python专题总览",
+      "decision": "整理基础与并发路线，明确输入合同和真实交付闭环。",
+      "findings": [],
+      "validation": [
+        "全文、代码和图示逐项审查；桌面明暗、真实分页和字体边界通过；窄屏证据已补为390像素iframe明暗全文截图与390×844图片键盘原尺寸/Escape检查，不代表物理手机测试。",
+        "Python3.14运行与3.10语法验证范围见evidence/python-basics/code-checks.json；未调用真实CRM。"
+      ],
+      "reviewedHash": "3488a25cb5bc9a0e009a15e6d41b83dbe48a90e21586c0fc42221bb0af869dcc"
+    }
+  ]
+}

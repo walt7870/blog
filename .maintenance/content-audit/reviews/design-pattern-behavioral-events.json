@@ -1,0 +1,27 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/command.md",
+      "status": "verified",
+      "reviewedHash": "479dce22f10353cf5dfedea68738173fb547ffbd6e3bc3e2f15b04cf471331c4",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分五段阅读1969行旧正文与全部代码；修插入撤销删文末、私有字段不可访问、共享命令覆盖旧态、天然撤销/事务的错误结论、宏命令原子性、未消费优先级队列、异步历史提前弹出及池化污染。改为不可变编辑请求与逐次Entry前后快照，说明本地恢复、事务回滚、外部补偿及可靠异步数据合同。",
+      "validation": [
+        "JDK21使用javac --release 17编译运行CommandDemo；重复插入逐次撤销、重做、越界失败不入历史、新编辑清空重做、容量限制通过；额外检查删除、替换和UTF-16代理对边界",
+        "SVG独立浏览器中文边界、连线与xmllint通过；生产构建24.20秒通过；两页逐页桌面和390×844手机亮深色视口、首图原尺寸及关闭通过，无破图或控制台错误，手机深色无横向溢出；未做全页截图或真实队列/数据库集成"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/observer.md",
+      "status": "verified",
+      "reviewedHash": "f8bc10a1de1042568e11944a041578786e3f6f808218db8cf305829d9b485ac7",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分四段阅读1408行旧正文和代码；修观察者与可靠消息混用、关键库存监听失败吞掉、Spring方法注解位置、异步Subject类型不匹配、错误泛型强转、关闭线程池后伪重启、弱引用泄漏及共享状态异步读取。改为有明确单线程边界的订阅快照、不可变事件、逐监听器结果、退订句柄和重入拒绝。",
+      "validation": [
+        "JDK21使用javac --release 17编译运行ObserverDemo，失败隔离和重复退订通过；额外验证空订阅、重复标识、通知期间增删从下一次生效、旧句柄不移除同ID新订阅和重入拒绝",
+        "核对Spring事件默认同步/可配置多播器的相关完整段及事务事件页面全文：AFTER_COMMIT默认、无事务默认不执行和fallbackExecution；不将本地通知视为可靠投递",
+        "SVG独立浏览器中文边界、连线与xmllint通过；生产构建24.20秒通过；逐页桌面和390×844手机亮深色视口、首图原尺寸及关闭通过，无破图或控制台错误，手机深色无横向溢出；未做全页截图或Spring真实集成"
+      ]
+    }
+  ]
+}

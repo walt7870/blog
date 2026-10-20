@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/security-permissions.md",
+      "status": "verified",
+      "reviewedHash": "fd2dccc82376c8e6f791057ef9b2c941e174abb2c255c27843f927ab3ef95518",
+      "pageType": "连接认证、最小权限与数据保护实操",
+      "decision": "全文审查旧989行，重写为客服列权限练习与连接边界SVG。修SHA2保存应用密码、账号匹配按字符串长度、角色授予等于激活、临时角色等于限时审批、REVOKE时点自相矛盾、账号锁定等于终止旧会话、TLS等于身份验证、旧keyring_file、binlog加密覆盖redo/undo、硬编码AES密钥、社区/企业审计混用等。补租户行授权及状态机边界、DEFINER、独立管理会话、失败排查与清理闭环。",
+      "validation": [
+        "Oracle8.4权限生效、TLS、keyring三页在CLI失败后用浏览器核对。MySQL8.4.11执行7个SQL围栏：默认只读、未激活拒绝、激活后状态修改、金额/手机号/SELECT*/DROP拒绝、角色回收不能再激活、新登录3118而旧socket会话仍可读，清理成功。随机凭据仅在测试进程传递，未打印或入库",
+        "SVG XML与实际中文字体/画布边界通过；生产构建20.69秒，1280桌面与实际390×844手机亮深色/表格、放大/原尺寸/关闭通过，无破图/全页横向溢出/本站console错误，viewport reset。仅执行TLS诊断SQL，未实测CA/SAN负例、企业审计或存储加密部署"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/backup-recovery.md",
+      "status": "verified",
+      "reviewedHash": "186d796430c90b2efd59ebfd6fa94f5f4e342083436731147d8dfba5a7bbea31",
+      "pageType": "备份恢复链、隔离还原与文件位点PITR",
+      "decision": "完整阅读旧1104行，重写为备份基线、正常订单、误删、隔离恢复贯穿。修热备无影响、复制等于零丢失、任意版本兼容、SHOW MASTER STATUS、按行split/用sed抽表、直接清空数据目录、恢复前降低持久性、假官方flashback、盲目跳事务、失败仍清历史、未确认归档即清binlog、mtime25小时实际24小时等。补pipefail/partial/摘要/完成标记、对象和密钥范围、GTID边界、日志连续性与业务验收，新增按小时比例的恢复链SVG。",
+      "validation": [
+        "Oracle8.4 mysqldump官方浏览器核对single-transaction/source-data/GTID与权限。独立双MySQL8.4.11执行全部5个围栏，login-path通过测试包装器替换为容器连接；全量gzip/摘要、基线1001、源误删后隔离PITR恢复1001+1002且合计59.90；视图/过程/触发器/禁用事件恢复；dump故障42无完成标记或partial，摘要损坏拒绝。归档前关闭源日志后复制；同版本官方mysqlbinlog RPM用容器既有MySQL公钥验证签名/摘要均OK",
+        "SVG XML、中文布局/画布边界通过；20.69秒生产构建，1280桌面和实际390×844手机亮深色、选型表格、放大/原尺寸/关闭通过，无破图/横向溢出/本站console错误，viewport reset。未验证跨文件/GTID回放、物理备份、异地/KMS或生产RTO，不作这些通过声明"
+      ]
+    }
+  ]
+}

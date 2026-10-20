@@ -1,0 +1,202 @@
+[
+  {
+    "file": "docs/embedded/c-programming.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "嵌入式 C 编程",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "职业发展与进阶",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "通信协议实战",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "电子电路基础",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "硬件设计入门",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "嵌入式开发",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "嵌入式 Linux",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "微控制器原理与选型",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "外设驱动开发",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "主流平台实战",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "综合项目案例",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "实时操作系统",
+    "width": 390
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "开发工具链",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "开发语言与运行平台",
+    "width": 390
+  }
+]

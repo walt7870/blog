@@ -1,0 +1,101 @@
+[
+  {
+    "name": "voice-end-to-end-architecture",
+    "check": {
+      "clip": [],
+      "height": 640,
+      "nodeOverflow": [],
+      "width": 1320
+    }
+  },
+  {
+    "name": "voice-final-lifecycle",
+    "check": {
+      "clip": [],
+      "height": 570,
+      "nodeOverflow": [],
+      "width": 1000
+    }
+  },
+  {
+    "name": "voice-offline-runtime",
+    "check": {
+      "clip": [],
+      "height": 480,
+      "nodeOverflow": [],
+      "width": 1200
+    }
+  },
+  {
+    "name": "voice-delivery-build",
+    "check": {
+      "clip": [],
+      "height": 420,
+      "nodeOverflow": [],
+      "width": 1040
+    }
+  },
+  {
+    "name": "voice-delivery-validation",
+    "check": {
+      "clip": [],
+      "height": 530,
+      "nodeOverflow": [],
+      "width": 1040
+    }
+  },
+  {
+    "name": "voice-validation-layers",
+    "check": {
+      "clip": [],
+      "height": 500,
+      "nodeOverflow": [],
+      "width": 1000
+    }
+  },
+  {
+    "name": "voice-hotword-routing",
+    "check": {
+      "clip": [],
+      "height": 630,
+      "nodeOverflow": [],
+      "width": 1040
+    }
+  },
+  {
+    "name": "voice-inference-ownership",
+    "check": {
+      "clip": [],
+      "height": 510,
+      "nodeOverflow": [],
+      "width": 1000
+    }
+  },
+  {
+    "name": "voice-decoder-queue",
+    "check": {
+      "clip": [],
+      "height": 628,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "voice-role-model-contract",
+    "check": {
+      "clip": [],
+      "height": 540,
+      "nodeOverflow": [],
+      "width": 1000
+    }
+  },
+  {
+    "name": "voice-target-input-contract",
+    "check": {
+      "clip": [],
+      "height": 626,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  }
+]

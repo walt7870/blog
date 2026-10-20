@@ -1,0 +1,101 @@
+[
+  {
+    "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/index.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "natural": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  }
+]

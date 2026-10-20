@@ -1,0 +1,162 @@
+[
+  {
+    "file": "index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 4159,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发实战：从基础模型到语音工程",
+    "width": 390
+  },
+  {
+    "file": "00-python-concurrency-engineering-map.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 10674,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发工程全景图：从任务瓶颈到工程流水线",
+    "width": 390
+  },
+  {
+    "file": "01-find-the-bottleneck-before-concurrency.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 11954,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep01-bottleneck-evidence-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "先判断瓶颈：I/O、CPU、API、GPU、内存",
+    "width": 390
+  },
+  {
+    "file": "02-concurrency-parallelism-async-pipeline.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 3882,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep02-four-concepts-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "并发、并行、异步、流水线：四个词不要混着用",
+    "width": 390
+  },
+  {
+    "file": "03-python-concurrency-tool-map.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 4363,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep03-tool-selection-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 并发工具地图：线程、协程、进程、队列怎么选",
+    "width": 390
+  },
+  {
+    "file": "04-threadpool-practice.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 3964,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep04-threadpool-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "线程与线程池实战：把等待时间叠起来",
+    "width": 390
+  },
+  {
+    "file": "05-thread-safety-shared-state.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 4261,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep05-shared-state-strategies.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "线程安全与共享状态：别让任务完成但结果写错",
+    "width": 390
+  },
+  {
+    "file": "06-asyncio-event-loop-model.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 4238,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep06-event-loop-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "asyncio 的事件循环模型：速度来自让出控制权",
+    "width": 390
+  },
+  {
+    "file": "07-async-task-orchestration.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 4410,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep07-async-task-state-machine.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "异步任务编排：成功、失败、超时和取消怎么收敛",
+    "width": 390
+  },
+  {
+    "file": "08-sync-blocking-in-async-system.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "height": 3938,
+    "images": [
+      {
+        "complete": true,
+        "src": "/blog/python/concurrency/ep08-sync-blocking-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "同步库与异步系统的边界：警惕伪异步",
+    "width": 390
+  }
+]

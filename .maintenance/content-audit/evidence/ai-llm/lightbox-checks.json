@@ -1,0 +1,74 @@
+[
+  {
+    "page": "llm/",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "mobile",
+    "imageWidth": 1080,
+    "width": 390
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "llm/",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "llm/concepts.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "llm/training.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "llm/sft.html",
+    "mode": "desktop",
+    "imageWidth": 1080,
+    "width": 1280
+  },
+  {
+    "page": "llm/inference.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  }
+]

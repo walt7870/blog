@@ -1,0 +1,86 @@
+[
+  {
+    "page": "engineering/",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "width": 390
+  },
+  {
+    "page": "engineering/",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  },
+  {
+    "page": "first-ai-app.html",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "width": 1280
+  }
+]

@@ -1,0 +1,502 @@
+{
+  "results": [
+    {
+      "chapter": "index",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "01-landscape",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "02-lifecycle",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "03-memory",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "04-cache-attention",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "05-scheduling",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "06-quantization",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "07-speculative",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "08-vllm",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "09-sglang",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "10-distributed",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "11-speech",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "12-selection-versions",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "13-practice",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    }
+  ],
+  "extraViewports": [
+    {
+      "chapter": "index",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "01-landscape",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "03-memory",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "04-cache-attention",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "05-scheduling",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "11-speech",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "index",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "01-landscape",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "03-memory",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "04-cache-attention",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "05-scheduling",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "11-speech",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "index",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "01-landscape",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "03-memory",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "04-cache-attention",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "05-scheduling",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "11-speech",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    }
+  ],
+  "diagramResults": [
+    {
+      "name": "attention-notebook-mobile",
+      "width": 480,
+      "height": 520,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "attention-notebook",
+      "width": 1120,
+      "height": 470,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "cache-questions",
+      "width": 1120,
+      "height": 560,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "chunked-prefill-mobile",
+      "width": 480,
+      "height": 624,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "chunked-prefill",
+      "width": 1120,
+      "height": 655,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "compute-and-move-mobile",
+      "width": 480,
+      "height": 557,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "compute-and-move",
+      "width": 1120,
+      "height": 450,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "engine-loop",
+      "width": 1120,
+      "height": 500,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "inference-stack",
+      "width": 1120,
+      "height": 640,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "latency-ruler-mobile",
+      "width": 480,
+      "height": 448,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "latency-ruler",
+      "width": 1120,
+      "height": 430,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "learn-and-use",
+      "width": 1120,
+      "height": 420,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "learning-route-mobile",
+      "width": 480,
+      "height": 568,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "learning-route",
+      "width": 1120,
+      "height": 460,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "measurement-path",
+      "width": 1120,
+      "height": 450,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "memory-workbench-mobile",
+      "width": 480,
+      "height": 524,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "memory-workbench",
+      "width": 1120,
+      "height": 510,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "paged-kv",
+      "width": 1120,
+      "height": 640,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "pd-deployment",
+      "width": 1120,
+      "height": 650,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "precision-ruler",
+      "width": 1120,
+      "height": 470,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "question-to-answer-mobile",
+      "width": 480,
+      "height": 615,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "question-to-answer",
+      "width": 1120,
+      "height": 480,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "radix-branches",
+      "width": 1120,
+      "height": 480,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "read-then-write-mobile",
+      "width": 480,
+      "height": 448,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "read-then-write",
+      "width": 1120,
+      "height": 480,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "request-lifecycle",
+      "width": 1120,
+      "height": 760,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "scaling-choices",
+      "width": 1120,
+      "height": 530,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "selection-gates",
+      "width": 1120,
+      "height": 400,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "speech-pipeline",
+      "width": 1120,
+      "height": 640,
+      "overflow": [],
+      "boxOverflow": []
+    }
+  ],
+  "errors": []
+}

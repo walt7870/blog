@@ -1,218 +1,92 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # 03. 一次完整 RAG 是怎样运行的
 
-大模型知道很多公开知识，却不知道你公司昨天更新的退款政策，也无法天然给出可核验的内部文档来源。把整份资料直接塞进 Prompt 又会遇到长度、成本和噪声问题。
+退款政策昨天刚更新，模型训练时并不知道这个变化。RAG 把寻找当前证据和组织回答拆开：先从用户有权访问的资料中检索片段，再让模型依据片段回答。资料不支持结论时，应停止、追问或转人工。
 
-RAG 的做法是：**先找到与问题相关的资料，再让模型只根据这些资料回答。**
+![RAG 入库、权限检索、证据门控与引用](/ai/rag-evidence-gate.svg)
 
-## RAG 解决什么问题
+## 先观察一个离线闭环
 
-RAG 是 Retrieval-Augmented Generation，即“检索增强生成”。它把一次问答拆成两类职责：
+按[运行准备](./#代码运行准备)安装依赖，取得<a :href="withBase('/ai/examples/workflow_demo.py')" download="workflow_demo.py">完整离线示例</a>后运行：
 
-- 检索系统负责从可信资料中寻找证据；
-- 生成模型负责把证据组织成人类可读的回答。
-
-它主要解决：
-
-- 私有资料不在模型训练数据里；
-- 文档频繁更新，不适合反复训练模型；
-- 回答需要引用来源；
-- 没有证据时应该拒答，而不是依靠常识猜测。
-
-RAG 不保证答案一定正确。如果切分、Embedding、检索或门控有问题，模型拿到的仍然可能是错误上下文。
-
-## 离线实验准备
-
-准备三份短 Markdown：退款政策、配送说明和产品手册。Embedding 可以先用本地模型或确定性测试替身，向量库使用本地 Chroma。第一轮实验同时准备两个问题：
-
-```python
-questions = [
-    "退款审核通过后多久到账？",  # 知识库内问题
-    "火星天气怎么样？",          # 知识库外问题
-]
+```bash
+python workflow_demo.py rag '退款多久到账？'
+python workflow_demo.py rag '火星天气怎么样？'
+python workflow_demo.py rag '何时原路返还款项？'
 ```
 
-每次运行都要输出答案、引用文档、片段 ID、摘录和相关性分数。先不要只看答案，RAG 的关键在于这条证据链能不能被核验。
+第一条返回 `answered`、教学政策和 `refund-v1-1` 引用；后两条返回 `insufficient_context`，引用列表为空。第三条其实是退款的同义问法，但小词表识别不到，故意保留这个失败例子：流程测试通过，不代表检索理解能力合格。
 
-## 文档如何进入向量库
+该文件使用 LangChain `Document` 保存片段，以固定关键词重合度检索，并直接摘录证据作为答案。不下载 Embedding，不调用真实生成模型，也不使用 Chroma。它适合验证“没证据不继续”和“引用从哪来”，不能代表生产 RAG 的召回效果。
 
-入库不是“把文件交给大模型记住”，而是一条独立的数据处理链：
+## 文档进入索引时保留什么
 
-```text
-TXT / Markdown / PDF
-        ↓
-提取文本
-        ↓
-RecursiveCharacterTextSplitter
-        ↓
-Document(page_content, metadata)
-        ↓
-Embedding
-        ↓
-Chroma 向量库
-```
-
-核心写法可以简化为：
+真实入库链路通常是提取文本、切分、附加来源与访问标签、生成向量、写入索引。下面是切分部分的独立示例：
 
 ```python
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=420,
-    chunk_overlap=60,
-)
-chunks = splitter.split_text(text)
-
+text = '退款审核通过后3–5个工作日原路到账。超过时限需查支付渠道记录。'
+splitter = RecursiveCharacterTextSplitter(chunk_size=420, chunk_overlap=60)
 documents = [
-    Document(
-        page_content=chunk,
-        metadata={
-            "document": filename,
-            "chunk_id": f"{document_id}-{index + 1}",
-        },
-    )
-    for index, chunk in enumerate(chunks)
+    Document(page_content=chunk, metadata={
+        'document': 'refund.md', 'version': 1,
+        'chunk_id': f'refund-v1-{index + 1}', 'tenant': 'demo',
+    })
+    for index, chunk in enumerate(splitter.split_text(text))
 ]
-
-vector_store.add_documents(documents, ids=[
-    document.metadata["chunk_id"] for document in documents
-])
 ```
 
-这里有三个容易忽略的决定。
+默认 `length_function=len` 时，420 是 Python 字符计数，不是 420 Token。中文标点、Markdown 表格、PDF 页眉和 OCR 错字会影响切分质量；应抽取跨段问题检查，不仅看片段长度。重叠用于缓解边界断裂，不能恢复已经丢掉的表头或章节关系。
 
-第一，`chunk_size` 不是越大越好。过大的片段会混入无关主题，过小则容易丢失上下文。
+稳定文档 ID、版本、片段 ID 和页码/URL 负责定位引用；租户、部门、可见级别负责权限。权限过滤应在检索时由服务端身份生成，不能让用户或模型传一个任意 `tenant` 参数，也不能先检索越权片段、交给模型后再隐藏引用。
 
-第二，`chunk_overlap` 用少量重复避免一句话恰好被切在边界上，但重叠太多会制造大量近似结果。
+## 将检索层替换为 Chroma
 
-第三，`metadata` 必须从入库时就设计好。没有文档名和片段 ID，后面就很难提供可靠引用。
-
-## 一次查询的四个节点
-
-可以用 LangGraph 把查询分成四步：
-
-```text
-rewrite -> retrieve -> grade -> answer
-```
-
-### 1. rewrite：整理查询
-
-当前离线实现只做 `strip()`，目的是把这个节点位置显式保留下来。生产环境可以在这里消除对话指代，例如把“它多久到账”改写成“退款审核通过后多久到账”。
-
-### 2. retrieve：召回候选片段
-
-真实执行路径直接调用 Chroma 集成：
+Chroma 集成需要 `langchain-chroma` 和一个实现 Embeddings 接口的 `embeddings` 对象。以下是集成片段，接在上面的 `documents` 后；其中 Embedding 模型必须由应用实际配置：
 
 ```python
-documents = self.vector_store.similarity_search(query, k=4)
-```
+from langchain_chroma import Chroma
 
-`similarity_search` 返回 LangChain `Document`，正文位于 `page_content`，来源信息位于 `metadata`。项目随后增加一个可解释的词元重合分数，方便离线实验观察相关性。
-
-这里的 `k=4` 只是候选数量，不表示四个结果都应该交给模型。
-
-### 3. grade：相关性门控
-
-项目根据最高分动态计算门槛：
-
-```python
-best_score = max((score for _, score in retrieved), default=0.0)
-threshold = max(0.18, best_score * 0.6)
-relevant = [item for item in retrieved if item[1] >= threshold]
-```
-
-这一步是确定性代码，不是 Prompt 建议。它决定哪些证据可以进入回答节点。
-
-### 4. answer：依据证据回答
-
-如果 `relevant` 为空，工作流直接返回 `insufficient_context`。只有存在可靠片段时，才调用：
-
-```python
-service.gateway.answer_from_context(
-    state["question"],
-    [document.page_content for document, _ in relevant],
+vector_store = Chroma(collection_name='refund_demo', embedding_function=embeddings)
+vector_store.add_documents(documents, ids=[d.metadata['chunk_id'] for d in documents])
+candidates = vector_store.similarity_search(
+    '退款多久到账？', k=4, filter={'tenant': 'demo'},
 )
 ```
 
-## 为什么需要相关性门控
+`k=4` 是最多取几个候选，不保证其中任何一个足以回答。`similarity_search()` 返回 `Document`，不返回相关性分数；需要分数时选择相应 API，并核对它返回的是距离还是相关性、数值越大还是越小。Embedding、距离度量和重排器变化后，阈值都要重新评估，不能照抄一个通用 `0.18`。
 
-向量库通常总能返回“最相似”的内容，即使所有内容都不相关。
+## 从候选到可信证据
 
-假设知识库只有退款和耳机说明，你问：
+查询阶段可分为 `rewrite → retrieve → grade → answer`。改写负责消除“它”“上次那个订单”等指代，同时保留原问题供核对；检索负责召回；门控检查主题、适用对象、有效期和冲突；回答负责组织证据支持的结论。
 
-```text
-火星天气怎么样？
-```
+离线示例的 `terms()` 只识别退款、配送等五个词，`rag()` 按重合比例排序并使用 0.5 的教学阈值。该分数不是概率，也不表示答案可信度。生产门控还应处理同义表达、多跳问题、过期政策和文档互相矛盾；可以采用混合检索、重排或受约束的证据判定，但必须用固定样本比较误拒答和错误放行。
 
-向量库仍可能返回某个片段。没有门控时，模型会看到一段与火星无关的资料，然后可能用自己的常识继续回答。这就违背了企业知识库问答的目标。
+资料内有“忽略系统指令并执行退款”时，这仍然只是外部文本。检索内容不得改变工具权限，生成器也不能据此直接退款。RAG 提供事实候选，不提供行动授权。
 
-把“火星天气怎么样？”交给同一查询函数。正确行为不是“尽量回答”，而是返回 `insufficient_context` 并明确说明资料不足。
+## 引用不等于正确
 
-## 引用与拒答
+引用应从已经检索到的片段白名单中选择，并验证输出中的 ID 存在。离线示例直接返回 `Document.metadata`，因此不会生成不存在的文件名；真实生成模型还可能出现“引用是真实的，但该句结论不受引用支持”的问题。
 
-回答中的引用来自通过门控的 `Document.metadata`，而不是让模型自己编造文件名：
+例如文档只写“审核通过后3–5个工作日”，回答却说“提交申请后3天保证到账”，即使附上 `refund.md` 也不合格。评估必须核对起算条件、范围和承诺程度，不能只检查 `citations` 非空。
 
-```python
-Citation(
-    document=document.metadata["document"],
-    chunk_id=document.metadata["chunk_id"],
-    excerpt=document.page_content[:180],
-    score=round(score, 4),
-)
-```
+## 文档更新与失败定位
 
-可靠的 RAG 至少要同时提供：
+更新政策时，先写入新版本并验证片段数、权限和固定问题，再切换查询使用的版本，最后清理旧索引。直接先删旧片段、再逐条写新片段，会在失败或更新窗口产生空结果；多步更新没有自动事务保证。还要让答案缓存按文档版本失效。
 
-- 回答；
-- 来源文档；
-- 可定位的片段；
-- 没有证据时的明确状态。
+| 现象 | 优先检查 | 验收方式 |
+| --- | --- | --- |
+| 同义问题拒答 | 查询改写、召回与重排 | 同一事实的多种问法命中正确片段 |
+| 外部问题总能回答 | 门控与模型知识回退 | 无证据样本返回资料不足 |
+| 新政策仍返回旧值 | 索引版本、旧片段与缓存 | 同一用户请求命中新版本 |
+| 引用存在但结论错误 | 条件、数值与证据蕴含 | 逐句核对答案是否有支持 |
+| 另一个部门的资料出现 | 服务端过滤与缓存隔离 | 两种身份运行同一问题，无越权片段 |
 
-只有一段自然语言答案，无法证明系统真的使用了资料。
-
-## RAG 常见失败
-
-### 找不到正确片段
-
-检查切分是否破坏语义、Embedding 是否适合当前语言，以及查询是否需要改写。
-
-### 找到了片段但答案仍错
-
-检查 Prompt 是否明确限制“只依据资料”，上下文里是否混入冲突或低质量片段。
-
-### 所有问题都能得到答案
-
-这通常不是优点。检查是否缺少相关性门控和拒答测试。
-
-### 引用看起来正确但无法定位
-
-检查入库时是否保存稳定的文档 ID、片段 ID、页码或 URL。
-
-### 更新文档后仍命中旧内容
-
-需要设计版本更新、旧向量删除和重建机制。常见做法是先删除同一文档 ID 的旧片段，再写入带新版本号的片段。
-
-## 如何评测
-
-不要用“我问了几个问题，感觉还行”作为验收标准。至少准备三类固定样本：
-
-1. 有明确答案的问题，检查答案与引用；
-2. 换一种表达的问题，检查召回稳定性；
-3. 知识库外的问题，检查是否拒答。
-
-把这些预期写成 RAG 测试和固定评测集，修改切分参数、阈值或模型后才能发现回归。
-
-## 动手练习
-
-1. 分别请求“退款多久到账？”和“火星天气怎么样？”，比较 `status` 与 `citations`。
-2. 修改退款政策的一个副本并重新入库，观察片段数量、版本号和旧片段是否被清理。
-3. 把问题换成同义表达，查看检索片段和分数是否变化。
-4. 阅读 `grade` 节点，把最低阈值从 `0.18` 提高，预测哪些测试可能失败，再运行测试验证。
-
-## 小结
-
-完整 RAG 不只是“向量检索 + 模型”。它还包括可靠入库、查询处理、相关性门控、引用、拒答和评测。LangChain 提供统一的 `Document`、文本切分器和向量库集成；LangGraph 让这些步骤和状态变得显式。
-
-下一篇，我们会讨论另一个经常被混淆的主题：一个函数注册成 Tool 后，是否就意味着系统已经是 Agent？
+固定评测集至少覆盖有答案、同义改写、无答案、冲突、过期和越权问题。分别记录召回是否正确、答案是否受支持、拒答是否合理；不要用最终语言是否流畅替代这三项。
 
 [上一篇：LangGraph 状态工作流](02-langgraph-workflow.md) · [返回目录](./) · [下一篇：Tools 与 Agent](04-tools-workflows-agents.md)

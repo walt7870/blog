@@ -45,10 +45,12 @@ HTTP/1.1 请求由请求行、Header、空行和可选 Body 组成。响应由�
 POST /orders HTTP/1.1
 Host: api.example.com
 Content-Type: application/json
-Content-Length: 28
+Content-Length: 24
 
 {"sku":"A100","count":2}
 ```
+
+这里 Body 按所示 ASCII 字节为 24 字节，不含展示代码块的末尾换行。实际客户端应让 HTTP 库计算长度，避免修改正文后遗漏长度字段。
 
 TCP 没有消息边界，HTTP 必须自己判断 Body 在哪里结束。常见方式包括 `Content-Length`、`Transfer-Encoding: chunked`、无 Body 状态码，以及连接关闭。
 
@@ -88,15 +90,17 @@ nghttp -nv https://example.com/
 
 HTTP/3 保留 HTTP 语义，使用 QUIC 取代 TCP。QUIC 在 UDP 之上实现安全连接、可靠传输、多路 Stream、拥塞控制和连接迁移。
 
+![HTTPS 在 TCP 与 QUIC 上的封装关系](/protocol/https-encapsulation.svg)
+
 ### QUIC Packet 与 Stream
 
 一个 UDP Datagram 可以包含多个 QUIC Packet，一个 QUIC Packet 可以包含多个 Frame。`STREAM` Frame 携带 Stream ID、Offset 和数据。
 
-每条 Stream 有自己的有序字节空间。某条 Stream 丢失数据时，只阻塞依赖该 Offset 的 Stream，其他 Stream 可以继续交付。所有 Stream 仍共享连接级拥塞控制，因此丢包会影响整体发送速度，但不会制造 TCP 那种全局交付阻塞。
+每条 Stream 有自己的有序字节空间。某条 Stream 丢失数据时，QUIC 只在该 Stream 内等待缺口补齐，其他 Stream 可以继续交付。所有 Stream 仍共享连接级拥塞控制；HTTP/3 的 QPACK 动态表依赖也可能让特定请求暂缓解码。因此它消除的是 TCP 造成的跨流交付阻塞，并非所有层面的等待。
 
 ### 握手与恢复
 
-QUIC 把 TLS 1.3 握手放在 CRYPTO Frame 中，首次连接通常约 1-RTT 建立安全通道。恢复会话可以发送 0-RTT 数据，但零往返数据可能被重放，只适合明确设计为幂等的操作。
+QUIC 把 TLS 1.3 握手放在 CRYPTO Frame 中，首次连接通常约 1-RTT 建立安全通道。恢复会话可以发送 0-RTT 数据，但零往返数据可能被重放，需要按操作的实际重放后果限制使用。查询库存一般比创建订单更容易满足条件；即使接口声明幂等，也要确认扣费、通知和审计等副作用能承受重复执行。
 
 ### 连接迁移
 
@@ -111,7 +115,7 @@ HTTP/3 依赖 UDP 可达。UDP 被阻断时，客户端通常回退 HTTP/2。验
 
 ## WebSocket：全双工消息
 
-WebSocket 先通过 HTTP/1.1 Upgrade 握手：
+WebSocket 在 HTTP/1.1 下通过 Upgrade 握手：
 
 ```http
 GET /socket HTTP/1.1
@@ -123,6 +127,8 @@ Sec-WebSocket-Version: 13
 ```
 
 服务器接受后返回 `101 Switching Protocols`。此后同一 TCP 连接按 WebSocket Frame 传输，不再是普通 HTTP 消息。
+
+HTTP/2 与 HTTP/3 也有基于扩展 CONNECT 的 WebSocket 建连机制，不使用上述 `101` 路径；是否可用取决于浏览器与整条代理链。排障应记录实际 HTTP 版本，不把缺少 Upgrade 头直接当作所有 WebSocket 连接失败的原因。
 
 Frame 包含 FIN、Opcode、Mask、Payload Length 和可选 Masking Key。Text 与 Binary 表示消息类型，Continuation 用于分片。客户端到服务器的 Frame 必须 Mask，但 Mask 不是加密；WSS 的安全性来自 TLS。
 
@@ -151,6 +157,8 @@ data: {"status":"paid"}
 ```
 
 浏览器 `EventSource` 会自动重连，并通过 `Last-Event-ID` 携带恢复位置。SSE 适合通知、日志和生成式文本流。客户端上行仍使用普通 HTTP。
+
+自动重连不等于自动补发。服务器需要保存事件、按 ID 查找游标，并定义游标过期后重新获取全量状态的方式；否则浏览器虽然重新连上，断线期间的订单状态仍可能漏掉。
 
 反向代理必须关闭或缩短响应缓冲，否则服务器已经发送的事件会被攒成大块。服务端还要定期发送注释心跳，避免中间设备按空闲连接关闭通道。
 
@@ -192,9 +200,12 @@ HTTP 状态为 200 不代表 RPC 成功，最终状态通常位于 Trailers。
 每次调用应设置 Deadline，并把剩余预算向下游传播。自动重试只能用于幂等操作，并受总时间、次数和并发预算限制。客户端、网关和 SDK 同时重试会形成流量放大。
 
 ```bash
+# 仅本机未启用 TLS 的实验服务；list 需要开启反射
 grpcurl -plaintext localhost:50051 list
 grpcurl -plaintext -d '{"id":1}' localhost:50051 demo.User/Get
 ```
+
+生产连接应使用服务实际配置的 TLS。服务未启用反射时，通过 `-import-path` 和 `-proto` 提供合同，不能据 `list` 失败断言 gRPC 服务不可达。
 
 ## WebRTC
 

@@ -1,12 +1,6 @@
-.VPNavBarMenuGroup .VPMenu {
+.VPNavMenuGroup .VPMenu {
   max-height: calc(100dvh - 90px);
   overflow-y: auto;
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
-  .VPNavBarMenu, .VPNavBarExtra, .VPNavBarAppearance { display: none !important; }
-  .VPNavBarHamburger { display: flex !important; }
-  .VPNavScreen { display: block !important; }
 }
 
 .global-pet {
@@ -347,31 +341,6 @@ body.image-lightbox-open {
   .vp-doc h4 {
     overflow-wrap: anywhere;
     word-break: break-word;
-  }
-
-  .vp-doc p:has(> img[src*="/spring/"][src$=".svg"]),
-  .vp-doc p:has(> img[src*="/container/kubernetes-"][src$=".svg"]),
-  .vp-doc p:has(> img[src*="/architecture/togaf/"][src$=".svg"]) {
-    max-width: 100%;
-    margin: 24px 0;
-    overflow-x: auto;
-    border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, transparent);
-    border-radius: 12px;
-    background: #f8fafc;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .vp-doc p > img[src*="/spring/"][src$=".svg"],
-  .vp-doc p > img[src*="/container/kubernetes-"][src$=".svg"],
-  .vp-doc p > img[src*="/architecture/togaf/"][src$=".svg"] {
-    width: 760px;
-    max-width: none;
-    margin: 0;
-    padding: 12px;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
   }
 
   .global-pet {

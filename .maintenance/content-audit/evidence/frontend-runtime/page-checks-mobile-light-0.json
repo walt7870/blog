@@ -1,0 +1,86 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "JavaScript 语言基础：值、函数、对象与作用域",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "DOM 编程：节点、查询、修改与渲染影响",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "浏览器事件系统：监听、冒泡、委托与默认行为",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "事件循环：调用栈、任务队列、微任务与渲染",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Fetch 与网络请求：Request、Response、CORS 与错误处理",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "浏览器存储：Cookie、localStorage、IndexedDB 与 Cache",
+    "width": 390
+  }
+]

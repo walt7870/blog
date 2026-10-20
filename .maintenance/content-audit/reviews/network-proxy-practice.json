@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/network-proxy/cross-border-diagnosis.md",
+      "status": "verified",
+      "reviewedHash": "25dc0d13007cf215151434228f9f2380e2e33fc7d73263b3918615214a45d5d3",
+      "pageType": "上传停顿诊断与对照实验",
+      "decision": "全文及旧SVG核对后纠正TCP-over-TCP泛化、QUIC流完全隔离、rttvar抖动、408及request_length推断；旧401数字限为响应观察。重画诊断分支，新增只监听回环的Node接收探针，以长度和SHA-256证明完整接收。",
+      "validation": ["探针实测0、500000、1048576字节长度摘要一致，错误方法404、超限413通过；Bash语法通过。桌面1280与实际手机390双主题全页、1120图原尺寸关闭、手机代码横滚40与分页通过；SVG独立最终圆角连接截图通过，表头改字已重载核对。最终整站构建13.98秒通过，未做公网链路性能实验。"]
+    },
+    {
+      "file": "docs/network-proxy/hysteria2-practice.md",
+      "status": "verified",
+      "reviewedHash": "f748f25d00c36ee1081affc5fff7e7189663ceabcba68796b94a810dfb04ceb1",
+      "pageType": "QUIC双通道与账号订阅发布实践",
+      "decision": "全文核对后区分共享拥塞与独立流、按方向带宽协商、tx0及合法单位；去除默认关PMTUD、伪装后端关验证和未确认中断字段。补保留地址完整路由表、HY2最小服务端与Trojan兜底完整Mihomo模板；自定义脚本改为实现合同，泄漏恢复不再以无日志证明安全。重画架构及发布恢复两图。",
+      "validation": ["官方Hysteria完整服务端配置、Mihomo HY2及fallback与通用字段全文核对；5段Bash/YAML语法通过。两图1120独立原尺寸截图通过；桌面1280及实际手机390浅深色全页、两图原尺寸关闭、手机3段横滚40/28.5/34、返回诊断分页通过。整站构建13.98秒通过，未安装真实内核或宣称网络吞吐已验收。"]
+    }
+  ]
+}

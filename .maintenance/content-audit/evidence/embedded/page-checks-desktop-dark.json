@@ -1,0 +1,188 @@
+[
+  {
+    "file": "docs/embedded/c-programming.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "嵌入式 C 编程",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "职业发展与进阶",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "通信协议实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "电子电路基础",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "硬件设计入门",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "嵌入式开发",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "嵌入式 Linux",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "微控制器原理与选型",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "外设驱动开发",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "主流平台实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "综合项目案例",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "实时操作系统",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "开发工具链",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "开发语言与运行平台",
+    "width": 1280
+  }
+]

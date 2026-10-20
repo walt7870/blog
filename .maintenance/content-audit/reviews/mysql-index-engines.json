@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/index-system.md",
+      "status": "verified",
+      "reviewedHash": "7c21d169e02b58238979f6baacdce5ee9436bc53fe4d284fe722dca535062c5b",
+      "pageType": "索引键序与访问路径",
+      "decision": "全文审查旧566行。修唯一键仅一NULL、通用部分索引、范围后列完全无用、缺前缀绝对不走索引、物理连续存储、所有查找O(log n)、函数/OR/NOT绝对失效、BETWEEN万能替换、OR改UNION语义与固定5至7索引等。以订单列表/游标分页/覆盖回表SVG贯穿，补8.4 Skip Scan、可见性回表、函数索引与DDL维护边界。",
+      "validation": [
+        "Oracle官方聚簇/二级索引、多列索引、CREATE INDEX、Range Optimization及InnoDB版本链核对；8.4.11执行全部3个SQL围栏，结果5/3、下一页3/1，同时间6/5排序、JSON覆盖计划、多NULL、重复及大小写非空唯一约束、拒WHERE部分索引通过",
+        "双SVG独立中文布局/文字边界与xmllint通过；生产构建36.76秒通过；两页桌面/实际390×844手机亮深色及原尺寸/关闭通过，无破图、横向溢出和本站console错误，无全页截图"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/storage-engines.md",
+      "status": "verified",
+      "reviewedHash": "10a4102635f7619ae454c87e9966cfa13c01d864b6ef6d2612aa4567707399e3",
+      "pageType": "存储引擎事务与生命周期",
+      "decision": "全文审查旧621行。修MVCC创建/删除版本字段、X锁阻塞所有读取、事务开始即快照、binlog归InnoDB、.frm与ibdata1旧版组织、MyISAM计数并发误述、仅因读多/日志/小表就选非事务引擎、MEMORY与内部TempTable及归档等于备份等。补混合回滚SVG与完整正常重启实验，区分redo/doublewrite/undo和表空间迁移。",
+      "validation": [
+        "Oracle官方MEMORY、InnoDB Multi-Versioning和内部临时表浏览器核对；8.4.11执行全部3个SQL围栏，混合回滚后InnoDB10/MyISAM9，BTREE内存索引通过；仅重启独立测试容器，MEMORY记录2→0、表结构保留，InnoDB10/MyISAM9和库存5保留",
+        "双SVG独立中文布局/边界与xmllint通过；生产构建36.76秒通过；两页桌面/实际390×844手机亮深色及原尺寸/关闭通过，无破图、横向溢出和本站console错误，无全页截图；正常重启不代表断电/灾难恢复已验"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+[
+  {
+    "file": "docs/ai/inference-series/01-landscape.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      },
+      {
+        "complete": true,
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "01. 推理系统的分工",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/02-lifecycle.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      },
+      {
+        "complete": true,
+        "width": 480
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "02. 从输入到逐步生成",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/03-memory.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      },
+      {
+        "complete": true,
+        "width": 480
+      }
+    ],
+    "scroll": 390,
+    "title": "03. GPU 与显存预算",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/04-cache-attention.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      },
+      {
+        "complete": true,
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "04. 注意力与 KV 缓存",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/05-scheduling.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      }
+    ],
+    "scroll": 390,
+    "title": "05. 批处理与调度",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/06-quantization.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "06. 量化、算子与编译",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/07-speculative.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [],
+    "scroll": 390,
+    "title": "07. 推测解码",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/08-vllm.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "08. vLLM 的执行机制",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/09-sglang.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "09. SGLang 的执行机制",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/10-distributed.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "10. 多卡、MoE 与分离部署",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/11-speech.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "11. 语音与多模态推理",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/12-selection-versions.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "12. 框架对比与版本",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/13-practice.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "13. 部署、压测与排错",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/inference-series/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 480
+      }
+    ],
+    "scroll": 390,
+    "title": "模型推理系列",
+    "width": 390
+  }
+]

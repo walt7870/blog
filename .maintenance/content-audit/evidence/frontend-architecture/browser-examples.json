@@ -1,0 +1,23 @@
+[
+  {
+    "case": "safe-text",
+    "em": 0,
+    "text": "<em>茶杯</em>"
+  },
+  {
+    "case": "enforced-csp",
+    "external": "同源外部脚本已执行",
+    "inline": "内联未执行"
+  },
+  {
+    "case": "old-page-loads-retained-chunk",
+    "current": "当前发布B",
+    "page": "页面版本A",
+    "report": "已加载报表A"
+  },
+  {
+    "case": "new-page-loads-new-chunk",
+    "page": "页面版本B",
+    "report": "已加载报表B"
+  }
+]

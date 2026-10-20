@@ -1,17 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
-  <title id="title">合成复用原则示意图</title>
-  <desc id="desc">展示优先用组合复用能力，而不是用继承堆叠变化维度。</desc>
-  <style>.bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}</style>
-  <rect class="bg" width="960" height="420" rx="20"/>
-  <text class="t" x="48" y="52">合成复用原则：优先组合，谨慎继承</text>
-  <rect class="box bad" x="70" y="105" width="300" height="190" rx="14"/>
-  <text class="t" x="120" y="145">继承堆叠</text>
-  <text class="s" x="105" y="180">FileLogger</text><text class="s" x="105" y="210">EncryptedFileLogger</text><text class="s" x="105" y="240">CompressedEncryptedFileLogger</text>
-  <line class="line" x1="395" y1="200" x2="515" y2="200"/><polygon class="arrow" points="515,200 502,192 502,208"/>
-  <rect class="box good" x="560" y="90" width="300" height="80" rx="14"/><text class="t" x="620" y="138">Logger</text>
-  <rect class="box good" x="560" y="200" width="130" height="70" rx="14"/><text class="s" x="588" y="242">Encrypt</text>
-  <rect class="box good" x="730" y="200" width="130" height="70" rx="14"/><text class="s" x="752" y="242">Compress</text>
-  <line class="line" x1="650" y1="170" x2="625" y2="200"/><line class="line" x1="770" y1="170" x2="795" y2="200"/>
-  <text class="s" x="86" y="350">多个变化维度用继承组合，会快速膨胀成大量子类。</text>
-  <text class="s" x="560" y="350">用组合把能力拆成可插拔对象，新增能力不破坏原层次。</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="410" viewBox="0 0 1120 410" role="img" aria-labelledby="title desc"><title id="title">合成复用：按调用顺序组装日志能力</title><desc id="desc">外层对象持有内层 Logger；箭头表示运行时委托，不是继承关系。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.small{font-size:14px;fill:#526173}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.warn{fill:#fff2eb;stroke:#d28a66;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}.rule{stroke:#d4dee7;stroke-width:1}</style><rect width="1120" height="410" fill="#f8fafc"/><text class="title" x="40" y="52">合成复用：按调用顺序组装日志能力</text><text class="sub" x="40" y="84">外层对象持有内层 Logger；箭头表示运行时委托，不是继承关系。</text><path class="line" d="M250 229H310"/><path class="line" d="M570 229H630"/><path class="line" d="M890 229H940"/><rect class="box" x="40" y="175" width="210" height="110" rx="6"/><text class="h" x="60" y="207">调用方</text><text class="t" x="60" y="236">log(message)</text><rect class="accent" x="310" y="175" width="260" height="110" rx="6"/><text class="h" x="330" y="207">PrefixLogger</text><text class="t" x="330" y="236">添加订单前缀</text><rect class="box" x="630" y="175" width="260" height="110" rx="6"/><text class="h" x="650" y="207">TokenMaskLogger</text><text class="t" x="650" y="236">遮盖约定 token 字段</text><rect class="box" x="940" y="175" width="140" height="110" rx="6"/><text class="h" x="960" y="207">控制台</text><text class="t" x="960" y="236">最终输出</text><text class="sub" x="40" y="335">共同接口：Logger.log(String)。先添加前缀，再遮盖字段，最后输出。</text><text class="sub" x="40" y="370">能力顺序需要测试；示例遮盖规则有限，不能当作完整敏感信息过滤器。</text></svg>

@@ -1,0 +1,607 @@
+[
+  {
+    "file": "docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep16-realtime-latency-budget.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2187,
+    "title": "实时语音流水线：把录音、VAD、上传、识别放进延迟预算",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/17-observability-benchmark.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep17-benchmark-evidence-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2324,
+    "title": "性能观测与压测：别只看平均耗时，用证据证明并发真的变好",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep18-runtime-selection-future.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1870,
+    "title": "GIL、free-threading 与未来选型：运行时会变，工程判断顺序不会变",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1493,
+    "title": "Python 并发实战：从基础模型到语音工程",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-learning-routes.svg",
+        "width": 960
+      }
+    ],
+    "scroll": 1280,
+    "text": 1102,
+    "title": "Python 工程实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/advantages.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/safety-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1203,
+    "title": "Rust 的优势与代价",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/basic.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/order-input-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2821,
+    "title": "Rust 基础概念",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/bounded-work-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2624,
+    "title": "并发、异步与运行时",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/ecosystem.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/ecosystem-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1515,
+    "title": "Rust 生态与运行边界",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/hands-on.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/cli-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2610,
+    "title": "Rust 动手入门",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/history.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/stability-timeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1288,
+    "title": "Rust 发展历程",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/resource-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1231,
+    "title": "Rust",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/learning-path.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/learning-delivery-route.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1157,
+    "title": "Rust 学习路线与选型",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/ownership.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/ownership-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2180,
+    "title": "所有权、借用与生命周期",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/project-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/project-adapters.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2537,
+    "title": "Rust 项目实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/tooling.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/toolchain-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2102,
+    "title": "工具链与工程实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/troubleshooting.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/diagnostic-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1845,
+    "title": "Rust 排错手册",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/type-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/type-validation-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2765,
+    "title": "类型系统、Trait 与错误处理",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/rust/video-series.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/rust/learning-delivery-route.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1154,
+    "title": "Rust 视频学习系列",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/c-programming.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/c-memory-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3367,
+    "title": "嵌入式 C 编程",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/career.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/engineering-capability-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1269,
+    "title": "职业发展与进阶",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/communication.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/protocol-command-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2515,
+    "title": "通信协议实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/electronics.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/electrical-check-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1901,
+    "title": "电子电路基础",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/hardware-design.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/hardware-validation-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1694,
+    "title": "硬件设计入门",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/node-delivery-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1262,
+    "title": "嵌入式开发",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/linux-embedded.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/linux-boot-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2347,
+    "title": "嵌入式 Linux",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/mcu.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/mcu-runtime-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1884,
+    "title": "微控制器原理与选型",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/peripherals.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/peripheral-buffer-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2539,
+    "title": "外设驱动开发",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/platforms.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/platform-adapter-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2388,
+    "title": "主流平台实战",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/projects.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/project-node-gateway.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/ota-confirmation-states.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2742,
+    "title": "综合项目案例",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/rtos.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/rtos-event-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2092,
+    "title": "实时操作系统",
+    "width": 1280
+  },
+  {
+    "file": "docs/embedded/toolchain.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/embedded/toolchain-artifact-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2529,
+    "title": "开发工具链",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/archive-compress.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/archive-restore-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2245,
+    "title": "压缩归档速查",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/archive.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/archive-restore-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3927,
+    "title": "归档、压缩与恢复验证",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/environment.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/environment-inheritance.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2691,
+    "title": "环境变量与启动配置",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/file-basic.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/file-name-inode.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2541,
+    "title": "文件基础操作",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/file-permissions.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/path-permission-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2307,
+    "title": "文件权限与属性",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/file-search.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/find-scope-expression.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2749,
+    "title": "文件查找与定位",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/file-view-edit.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/log-reading-path.svg",
+        "width": 960
+      }
+    ],
+    "scroll": 1280,
+    "text": 1794,
+    "title": "文件查看与编辑",
+    "width": 1280
+  },
+  {
+    "file": "docs/linux/command/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/linux/linux-command-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1750,
+    "title": "Linux 常用命令",
+    "width": 1280
+  }
+]

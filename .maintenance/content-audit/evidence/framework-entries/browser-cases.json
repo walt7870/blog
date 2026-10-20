@@ -1,0 +1,72 @@
+[
+  {
+    "framework": "React19.2",
+    "amount": "客户甲：2件，39.80元，尚未提交服务器。",
+    "invalid": [
+      "empty",
+      "1.5",
+      "6"
+    ],
+    "previewCleared": true,
+    "reset": "- main:\n  - heading \"订单草稿\" [level=1]\n  - text: 客户\n  - textbox \"客户\"\n  - text: 数量\n  - spinbutton \"数量\": \"1\"\n  - button \"确认草稿\" [disabled]\n  - button \"重置\" [active]\n  - paragraph: 客户不能为空，数量必须为1至5的整数。"
+  },
+  {
+    "framework": "Vue",
+    "amount": "2件，39.80元",
+    "invalid": [
+      "empty",
+      "6",
+      "1.5"
+    ],
+    "reset": "1件，19.90元"
+  },
+  {
+    "framework": "Angular21.2 JIT",
+    "amount": "2件，39.80元，仅本地报价。",
+    "lockedAfterConfirm": true,
+    "invalid": [
+      "empty",
+      "0",
+      "6",
+      "1.5"
+    ],
+    "reset": "- heading \"订单报价\" [level=1]\n- text: 数量\n- spinbutton \"数量\": \"1\"\n- button \"确认报价\"\n- button \"重置\" [active]"
+  },
+  {
+    "framework": "Svelte5.55.1",
+    "amount": "金额：99.50元",
+    "limit": 5,
+    "previewCleared": true,
+    "timers": {
+      "before": "1",
+      "after": "0"
+    },
+    "reset": "- main:\n  - heading \"商品报价\" [level=1]\n  - paragraph: 数量：1\n  - button \"减少\" [disabled]\n  - button \"增加\"\n  - paragraph: 金额：19.90元\n  - button \"确认报价\"\n  - button \"重置\" [active]\n- button \"移除计时组件\" [disabled]"
+  },
+  {
+    "framework": "Custom Element",
+    "event": "收到申请，当前库存3件，尚未写入服务器。",
+    "cases": [
+      {
+        "value": "0",
+        "enabled": true
+      },
+      {
+        "value": "-1",
+        "enabled": false
+      },
+      {
+        "value": "1.5",
+        "enabled": false
+      },
+      {
+        "value": "bad",
+        "enabled": false
+      },
+      {
+        "value": "9007199254740992",
+        "enabled": false
+      }
+    ]
+  }
+]

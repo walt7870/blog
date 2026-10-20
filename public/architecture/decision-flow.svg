@@ -1,29 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
-  <title id="title">架构决策流程图</title>
-  <desc id="desc">展示从业务边界、团队协作、数据一致性到架构选择的决策路径。</desc>
-  <style>
-    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.q{fill:#1e293b}.qt{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#fff}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.h{font:700 16px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#94a3b8;stroke-width:2;fill:none}.arrow{fill:#94a3b8}
-  </style>
-  <rect class="bg" width="1120" height="640" rx="24"/>
-  <text class="title" x="56" y="58">架构决策流程</text>
-  <rect class="q" x="410" y="96" width="300" height="62" rx="16"/>
-  <text class="qt" x="456" y="133">业务边界是否清楚？</text>
-  <path class="line" d="M560 158v42"/><polygon class="arrow" points="560,200 552,187 568,187"/>
-  <rect class="box" x="350" y="200" width="420" height="74" rx="16"/>
-  <text class="h" x="396" y="232">先完成领域梳理</text>
-  <text class="t" x="396" y="256">识别核心流程、数据所有权和限界上下文。</text>
-  <path class="line" d="M560 274v42"/><polygon class="arrow" points="560,316 552,303 568,303"/>
-  <rect class="q" x="385" y="316" width="350" height="62" rx="16"/>
-  <text class="qt" x="430" y="353">是否需要独立团队交付？</text>
-  <path class="line" d="M560 378v42"/><polygon class="arrow" points="560,420 552,407 568,407"/>
-  <rect class="q" x="380" y="420" width="360" height="62" rx="16"/>
-  <text class="qt" x="426" y="457">是否能接受最终一致？</text>
-  <path class="line" d="M380 451H190v56"/><path class="line" d="M740 451h190v56"/>
-  <polygon class="arrow" points="190,507 182,494 198,494"/><polygon class="arrow" points="930,507 922,494 938,494"/>
-  <rect class="box" x="70" y="507" width="260" height="86" rx="16"/>
-  <text class="h" x="112" y="543">优先单体事务</text>
-  <text class="t" x="112" y="569">分层、模块化单体或六边形架构</text>
-  <rect class="box" x="800" y="507" width="290" height="86" rx="16"/>
-  <text class="h" x="842" y="543">考虑分布式架构</text>
-  <text class="t" x="842" y="569">微服务、事件驱动或 CQRS</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="arch-decision-title arch-decision-desc">
+  <title id="arch-decision-title">从业务规则到可验证的架构决策</title><desc id="arch-decision-desc">记录触发问题，确定模型与数据责任，界定必须同步成立的规则，比较模块与部署选项，设计失败恢复，再用场景验证并按证据修订。</desc>
+  <defs><marker id="arch-decision-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="600" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="40" y="48" font-size="26" font-weight="600">决策过程：从业务约束走到失败验证</text>
+    <text x="40" y="80" font-size="16" fill="#5d6f64">示例：付款回调与关闭订单竞争，不能只用“最终一致”解释</text>
+    <g fill="none" stroke="#657768" stroke-width="2" marker-end="url(#arch-decision-arrow)"><path d="M328 196H416"/><path d="M704 196H792"/><path d="M936 252V300Q936 308 928 308H192Q184 308 184 316V352"/><path d="M328 408H416"/><path d="M704 408H792"/><path d="M936 464V500Q936 508 928 508H568Q560 508 560 500V464" stroke-dasharray="6 5"/></g>
+    <g fill="#fff" stroke="#c4cdd5"><rect x="40" y="140" width="288" height="112" rx="6"/><rect x="416" y="140" width="288" height="112" rx="6"/><rect x="792" y="140" width="288" height="112" rx="6"/><rect x="40" y="352" width="288" height="112" rx="6"/><rect x="416" y="352" width="288" height="112" rx="6"/><rect x="792" y="352" width="288" height="112" rx="6" fill="#e5f3e9" stroke="#468363"/></g>
+    <g font-size="21" font-weight="600"><text x="64" y="180">1 明确触发问题</text><text x="440" y="180">2 划定数据责任</text><text x="816" y="180">3 确定一致性规则</text><text x="64" y="392">4 比较候选方案</text><text x="440" y="392">5 设计恢复路径</text><text x="816" y="392">6 验证并记录决定</text></g>
+    <g font-size="16" fill="#5d6f64"><text x="64" y="216">现象、影响与当前成本</text><text x="440" y="216">谁解释事实，谁能修改状态</text><text x="816" y="216">哪些必须一起成功，哪些可等待</text><text x="64" y="428">模块、部署、事务及运维代价</text><text x="440" y="428">重复、超时、冲突和回退</text><text x="816" y="428">业务结果、证据和复验条件</text></g>
+    <rect x="664" y="480" width="200" height="24" fill="#f8fafc"/><text x="764" y="498" font-size="15" text-anchor="middle">验证失败：修订方案与恢复</text>
+    <text x="40" y="564" font-size="17">支付已到账与订单接受支付是两件事实；本地事务、核对和补偿各自承担不同职责。</text>
+  </g>
 </svg>

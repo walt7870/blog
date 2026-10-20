@@ -1,0 +1,12 @@
+[
+  {
+    "mobile": false,
+    "width": 1120,
+    "closed": true
+  },
+  {
+    "mobile": true,
+    "width": 1120,
+    "closed": true
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
+      "pageType": "技术全景",
+      "decision": "区分开发机、部署产物、浏览器和服务端，使用商品页贯穿工具职责和定位。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "0e521e34739e9cfc46bbf48a1e230913aa425abaa1a1c37f7dfce4fd42ddbc0a"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
+      "pageType": "导航机制",
+      "decision": "纠正固定建连与DOM到CSS串行关系，补解析交错、脚本时机与就绪边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "3b867e78868f10eecc484c4fcbc4b20a4e4bb25fbbc6ad6dd39a6843a9bb81ca"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
+      "pageType": "平台职责",
+      "decision": "删除重复模板，补可运行商品计数与三个有明确预期的语言边界实验。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "376ca793028d12b1660c7174797519d14830380932efa07518d018815e4ef96c"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
+      "pageType": "故障排查",
+      "decision": "按现象选择面板，纠正fetch非2xx行为，补源码映射、性能条件与响应合同。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "c852f2684eb498346dcc28c8de0bee403aea1d25d702007e2d0b802974b9b965"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
+      "pageType": "语义机制",
+      "decision": "区分DOM与可访问性树，限定landmark上下文，补原生键盘和ARIA边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "52ff158d4208c7da3eeb5b9639450ddc8194136b29f62c8c1d2d364382ba6ba3"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
+      "pageType": "表单机制",
+      "decision": "补完整配送表单，区分name、disabled、readonly和submitter，明确校验与服务端边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "cd68848c324c8e2cba1b422009c750fc4fecac070f9ff758d473919bdf9698ce"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
+      "pageType": "系列导读",
+      "decision": "移除未发布视频占位与制作记录，保留完整33篇路线并区分开发与运行。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "完整正文与图示已逐项审查；构建17.59秒通过，六图实际中文字体边界、28份明暗全文截图、7次分页及14组键盘原尺寸通过。详见batches/frontend-basics.md。",
+        "桌面1280与窄屏iframe390均断言实际宽度、主题和无溢出；5项浏览器正文示例验证与4个脚本语法检查通过，不代表服务端业务集成或物理手机测试。"
+      ],
+      "reviewedHash": "850a6fce9b4726a7ed84fcf7130920e08a5f31939965312cec6b1f16c34531c2"
+    }
+  ]
+}

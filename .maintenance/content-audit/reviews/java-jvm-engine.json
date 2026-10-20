@@ -1,0 +1,37 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/jvm/execution-engine-jit.md",
+      "status": "verified",
+      "reviewedHash": "1fb94d368b00b9c1767b9ad1c9a3e10563ae20a74633380c4065cbfe24dfc102",
+      "pageType": "编译执行与观测实验",
+      "decision": "全文阅读后改为订单热点与编译形态关系，补OSR、分层非固定流水线、去优化证据边界；纠正逃逸分析等同普遍栈分配、现代Safepoint默认列偏向锁撤销、PrintCompilation替代完整去优化原因等误导。新增独立SVG、有限JitLab、Code Cache命令及NMT启动前提。",
+      "validation": [
+        "MarkdownIt机械提取JitLab，Temurin17编译运行与-Xint均输出400398000000；日志出现C1/C2、OSR及made not entrant；Compiler.codecache和Compiler.queue实际执行；实验均自动退出。",
+        "xmllint成功；独立SVG实际字体与文字画布边界通过；1280桌面、390×844手机浅深色完整截图、图片放大/原尺寸/关闭、2处超宽代码和1张表格键盘局部滚动通过；构建15.02秒成功。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/object-lifecycle.md",
+      "status": "verified",
+      "reviewedHash": "e900ec572803a78980ba6c09777fa1b0364c3524f4209cb92758cec02a5e2ca8",
+      "pageType": "初始化与引用生命周期",
+      "decision": "全文阅读后补new与invokespecial、JDK17构造链和字段/初始化块按源码交织的例子；分清TLAB堆缓冲、对象头与完整布局，核对紧凑对象头JDK24/25边界。新增ThreadLocal弱key/强value图，补任务remove与嵌套恢复差异；纠正统一Eden晋升及所有回收器触发Mixed的表述。",
+      "validation": [
+        "正文OrderInit机械提取后Temurin17编译运行，顺序为base、field、block=19900、constructor=19900。浏览器读取JEP519，核对JDK24实验、JDK25产品化但非默认启用。",
+        "两张图逐一核对引用方向，新增SVG XML/实际字体/边界通过；1280及390浅深色完整截图，双图桌面/手机放大、原尺寸和关闭通过；超宽Java代码键盘局部滚动成功；正文客户端跳转到本页与诊断页通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/diagnostic-cases.md",
+      "status": "verified",
+      "reviewedHash": "4bc192be3cb259db0261172b6d992178ddd84845e16431c2a991d86d36f36d15",
+      "pageType": "按证据分支的工程诊断",
+      "decision": "全文阅读后以订单导出、插件卸载、JNI native会话、支付重试等场景解释六类故障，增加采集前提、成本、原因证据和同负载复测。补PID/文件系统边界、histogram/dump停顿、NMT覆盖缺口、137不单独证明OOM、Linux与macOS线程命令差异、虚拟线程和下游容量边界；新增诊断分支SVG。",
+      "validation": [
+        "Temurin17存活实验进程实际读取help GC.heap_dump，确认Impact High及默认请求Full GC；其余jcmd、有限jstat与NMT命令沿用已执行的运行时批次证据；未把典型场景写成真实生产事故或已完成Linux容器故障复现。",
+        "SVG结构、全图、实际字体与画布边界通过；1280/390浅深色逐页完整截图、桌面/手机图示放大/原尺寸/关闭通过，3处超宽命令键盘局部滚动成功，整页宽390；构建15.02秒成功，本地引用0错误。"
+      ]
+    }
+  ]
+}

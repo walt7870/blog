@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/state.md",
+      "status": "verified",
+      "reviewedHash": "d090eb7de04144691b35fa00022e4d6d8b0dac528af8bef6145c65e1c7a95b91",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分四段阅读1892行旧正文及全部代码；修改选商品无限递归、拒绝事件仍改数据、非法语法、死亡后复活、未初始化状态、钩子失败后半迁移及volatile伪原子。改为导出任务的5状态、合法事件表、版本检查、元数据校验后一次替换快照，明确仅启动前取消及纯内存边界。",
+      "validation": [
+        "本机JDK21使用javac --release 17编译运行StateDemo和StateMementoContractCheck；20组状态事件、两线程抢占同版本、过期版本和非法产物拒绝通过；未运行真实JDK17或数据库集成",
+        "SVG独立浏览器中文文本边界和连线、xmllint通过；生产构建23.10秒通过；逐页桌面及390×844手机亮深色、图片原尺寸及关闭通过，无破图、手机横向溢出或控制台错误；未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/memento.md",
+      "status": "verified",
+      "reviewedHash": "d87523aff62f323bd7a4b1110c5dc072678388ee2ba1b6b2f79ace31ebb54ba9",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整分四段阅读1755行旧正文及全部代码；修可变快照暴露、浅复制污染、跨对象恢复、下标淘汰误加载、单线程池队列死锁、弱引用丢失历史、增量遗漏删除及不可信反序列化。改为Draft私有Saved检查点、不可变State、owner归属、版本检查和有界强引用稳定编号存储。",
+      "validation": [
+        "本机JDK21使用javac --release 17编译运行MementoDemo和StateMementoContractCheck；淘汰、过期/非法/伪造检查点拒绝、不可变视图及恢复后版本递增通过；未运行磁盘或邮件集成",
+        "SVG独立浏览器中文文本边界和连线、xmllint通过；生产构建23.10秒通过；逐页桌面及390×844手机亮深色、图片原尺寸及关闭通过，无破图、手机横向溢出或控制台错误；未做全页截图"
+      ]
+    }
+  ]
+}

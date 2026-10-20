@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/system-info.md",
+      "status": "verified",
+      "reviewedHash": "ba2cd7a9c57c8de4d5bfacf8ee94c5712b36cb1095dea955745e6b900a6e6c5d",
+      "pageType": "系统观察范围与容量排查",
+      "decision": "全文审查旧1135行，去除与监控、进程、网络页重复的选项堆叠，改用真实路径、namespace、cgroup与祖先限制确定观察对象。修whoami、df类型过滤、lsof计数与直接杀进程、清空临时目录等问题；补观察范围SVG。",
+      "validation": ["正文全部Bash代码在Debian12容器执行成功，共43行输出；只读查询。独立SVG实际字体与边界、桌面手机浅深色全页、原尺寸预览及客户端跳转通过；手机长字段表格发现过窄后改成两列与连续说明，再验两种视口主题通过，无整页溢出。最终表格均342px无需横滚。构建14.74秒成功。本页无真实生产容量或设备故障复现。"]
+    },
+    {
+      "file": "docs/linux/command/system-monitoring.md",
+      "status": "verified",
+      "reviewedHash": "09396ff42789d8f736f42fc8fad4c89a7f84f1447417db35d0ee9a9c06ebe838",
+      "pageType": "同窗采样与假设复验",
+      "decision": "全文审查旧372行，补业务时间窗、首样本、生命周期CPU、限流、PSI、I/O与下游等待的区别。修htop延迟单位、nethogs-t、w-h、sar历史含义；删除按单指标清理缓存等无根据动作，补导出变慢证据图与验证表。",
+      "validation": ["全部正文Bash代码在Debian12容器执行成功，共155行输出；procps-ng4.0.2、sysstat12.6.1，含vmstat/top/iostat/ss采样。独立SVG技能自检、中文字体截图、1280×800与390×844浅深色、图片预览原尺寸关闭、超宽代码键盘滚动通过，无整页溢出；监控到信息页键盘客户端跳转通过。PSI官方文档完整核对，未声称复现真实业务瓶颈；构建成功。"]
+    }
+  ]
+}

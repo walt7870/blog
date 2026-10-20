@@ -1,293 +1,89 @@
-# 原型模式 (Prototype Pattern)
+# 原型模式
 
-## 历史脉络
+原型模式通过复制已有对象创建新对象，适合“保留大部分配置，只改少数字段”的需求。它不要求实现 Java `Cloneable`；显式 `copy()`、复制构造器或 `copyWith()` 都可以表达复制合同。
 
-原型模式是 GoF 创建型模式之一，常见于图形编辑器、游戏对象、流程模板、文档模板等场景。它出现的背景是：有些对象创建成本高，或者对象结构复杂，从已有样板复制比重新构建更直接。
+![导出模板复制时的共享与独立字段](/design-pattern/patterns/prototype.svg)
 
-![原型模式结构图](/design-pattern/patterns/prototype.svg)
+## 复制的是配置还是身份
 
-## 准确理解
+用户复制一份订单导出模板时，希望沿用列顺序与文件格式，但新模板应有自己的名称与标识。原模板的列配置不能因副本编辑而改变；不可变的列名字符串可以共享。运行中的任务、数据库主键、幂等键、连接句柄和锁则不能盲目复制。
 
-原型模式通过复制已有对象创建新对象。它真正要解决的不是“如何调用 clone”，而是“如何复用一个已经配置好的样板对象”。使用时必须明确深拷贝、浅拷贝和共享引用的边界。
+因此，复制前先定义边界：哪些是独立的可变状态，哪些是可共享的不可变值，哪些字段需要重新生成。复制对象是否比重新构建更快，需要结合对象图和初始化成本测量，不能从“克隆”这个名称得出结论。
 
-## 问题识别
+## 浅拷贝与深拷贝
 
-适合使用原型模式的信号：
+Java `Object.clone()` 按字段复制对象，引用字段仍指向原来的对象，是浅拷贝。给外层对象加一个 `Cloneable` 并不会递归复制其列表或列表元素。深拷贝也应以业务需要的可变子图为边界，不需要复制不可变字符串，更不应复制外部连接。
 
-- 创建对象需要复杂初始化，重复创建成本高。
-- 新对象和已有对象大部分字段相同，只改少量属性。
-- 需要运行时动态复制模板，例如审批流程、图形组件、游戏单位。
-- 对象类型由运行时数据决定，不希望调用方知道具体类。
+| 字段 | 模板复制合同 | 原因 |
+| --- | --- | --- |
+| 名称 | 用调用者提供的新名称 | 副本身份应可区分 |
+| 列表容器 | 新建列表 | 编辑副本的列不影响原模板 |
+| 列名字符串 | 可以共享 | `String` 不可变 |
+| 可变列设置对象 | 按字段继续复制 | 仅复制容器仍会共享元素 |
+| 数据库主键、任务状态 | 新建或不带入 | 配置复制不等于复制业务执行实例 |
 
-不适合的情况：
+## 可运行示例
 
-- 对象很简单，直接构造更清晰。
-- 对象包含大量外部资源句柄，不适合复制。
-- 深浅拷贝规则不清楚，复制后容易共享可变状态。
-
-## 落地要点
-
-- 复制前先明确哪些字段共享、哪些字段必须独立。
-- 对包含集合、地址、配置对象的字段要特别处理深拷贝。
-- 原型对象最好作为模板只读保存，避免模板被业务流程污染。
-- 如果语言自带 `clone` 语义不清晰，可以提供显式 `copy()` 或 `copyWith()` 方法。
-
-## 概括
-
-原型模式是一种创建型设计模式，指通过复制（克隆）已有的实例来创建新对象，避免了重复复杂的初始化过程。
-
-换句话说，就是用已有对象作为“原型”，通过拷贝生成新的对象。
-
-原型模式通过复制已有对象来创建新实例，避免了复杂的初始化过程，适合对象创建成本高或动态对象需求的场景，但需注意拷贝的深浅问题。
-
-## 使用场景
-
-* 创建对象代价较大（如资源消耗大、初始化复杂），需要大量类似对象；
-
-* 运行时动态指定对象类型，且对象结构相似；
-
-* 需要动态加载或者动态创建对象时；
-
-* 需要避免直接调用构造函数创建复杂对象。
-
-## 类图说明
-
-```plaintext
-        ┌──────────────┐
-        │    Prototype  │  ← 抽象原型，声明克隆接口
-        └───────┬──────┘
-                │
-        ┌───────┴───────────┐
-        │                   │
-ConcretePrototypeA   ConcretePrototypeB   ← 具体原型，实现克隆方法
-
-```
-
-## 使用示例
-
-1. 抽象原型接口（Java 通常使用 Cloneable）
+以下 Java 17+ 示例中列名是不可变字符串，所以新建列表就满足当前复制边界。
 
 ```java
-public abstract class Prototype implements Cloneable {
-    public Prototype clone() {
-        Prototype clone = null;
-        try {
-            clone = (Prototype) super.clone();  // 浅拷贝
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public final class PrototypeDemo {
+    static final class ExportTemplate {
+        private final String name;
+        private final List<String> columns;
+
+        ExportTemplate(String name, List<String> columns) {
+            this.name = Objects.requireNonNull(name);
+            this.columns = new ArrayList<>(List.copyOf(columns));
         }
-        return clone;
-    }
-}
 
+        ExportTemplate copyAs(String newName) {
+            return new ExportTemplate(newName, columns);
+        }
 
-```
+        void addColumn(String column) {
+            columns.add(Objects.requireNonNull(column));
+        }
 
-2. 具体原型类
+        List<String> columns() {
+            return List.copyOf(columns);
+        }
 
-```java
-public class ConcretePrototype implements Prototype {
-    private String field;
-
-    public ConcretePrototype(String field) {
-        this.field = field;
-    }
-
-    public void setField(String field) {
-        this.field = field;
+        String name() {
+            return name;
+        }
     }
 
-    public String getField() {
-        return field;
-    }
-
-    @Override
-    public Prototype clone() {
-        return (Prototype) super.clone();  // 浅拷贝示例
-    }
-
-    public String toString() {
-        return "ConcretePrototype{" + "field='" + field + '\'' + '}';
-    }
-}
-
-
-```
-
-3. 客户端调用示例
-
-```java
-public class Client {
     public static void main(String[] args) {
-        ConcretePrototype original = new ConcretePrototype("原型对象");
-        ConcretePrototype copy = (ConcretePrototype) original.clone();
+        ExportTemplate original = new ExportTemplate(
+                "订单基础", List.of("订单号", "金额"));
+        ExportTemplate copy = original.copyAs("订单物流");
+        copy.addColumn("物流单号");
 
-        System.out.println(original);
-        System.out.println(copy);
-
-        copy.setField("克隆对象修改字段");
-        System.out.println("修改克隆后：");
-        System.out.println(original);
-        System.out.println(copy);
+        if (original == copy || original.columns().size() != 2
+                || copy.columns().size() != 3) {
+            throw new AssertionError("复制边界错误");
+        }
+        System.out.println(original.name() + ": " + original.columns());
+        System.out.println(copy.name() + ": " + copy.columns());
     }
 }
 ```
 
-## 优缺点分析
+使用 `javac PrototypeDemo.java && java PrototypeDemo` 运行。原模板仍有两列，副本有三列。构造器复制传入集合，查询方法返回只读快照，同时收敛了输入与输出两端的可变引用泄漏。
 
-**✅ 优点**
+## 为什么不直接序列化复制
 
-| 优点            | 说明                    |
-| ------------- | --------------------- |
-| **1. 性能提高**   | 通过克隆避免了重复创建和初始化，效率较高。 |
-| **2. 动态获得对象** | 可以动态配置并创建产品对象，适应系统变化。 |
-| **3. 简化对象创建** | 对象创建逻辑集中在原型对象中，易于维护。  |
+序列化往返可以复制部分对象图，但要求类型支持相应机制，并涉及类型信息、版本、性能和数据安全。它不是所有对象都适用的通用复制器；不能为复制方便而反序列化不可信数据。
 
+显式复制能看清每个字段的处理，代价是新增字段时必须维护合同。循环引用、共享子对象和多态对象尤其需要注意：简单递归可能无限循环，也可能把本应共享的同一子对象复制多份。
 
-**❌ 缺点**
+## 验收与适用边界
 
-| 缺点              | 说明                               |
-| --------------- | -------------------------------- |
-| **1. 克隆复杂**     | 深拷贝实现难度大，且浅拷贝可能导致共享引用。           |
-| **2. 需要实现克隆接口** | Java 中需要实现 `Cloneable`，且克隆机制有局限。 |
-| **3. 设计复杂度提升**  | 需要维护一个完整的原型类层次结构。                |
+先修改副本的每个可变字段，验证原模板不变，再反向修改原模板。若存在嵌套对象，需要覆盖元素级修改；只比较两个顶层引用不同并不够。还应检查副本主键、幂等键和执行状态没有沿用。
 
-## 深浅拷贝区别
-
-
-
-浅拷贝：拷贝对象本身，但内部引用对象地址不变，多个对象共享内部对象，可能引发问题。
-
-
-
-深拷贝：同时拷贝对象及其所有引用的对象，完全独立，代价较大。
-
-示例：
-假设有一个Person类，包含一个引用类型字段Address，我们需要实现深拷贝，使得克隆对象与原对象的引用字段互不影响。
-1. Address 类（被引用对象）
-```java
-import java.io.Serializable;
-
-public class Address implements Serializable, Cloneable {
-    private String city;
-
-    public Address(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Override
-    protected Address clone() throws CloneNotSupportedException {
-        return (Address) super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" + "city='" + city + '\'' + '}';
-    }
-}
-
-```
-
-2. Person 类（实现深拷贝）
-
-```java
-public class Person implements Cloneable {
-    private String name;
-    private Address address;
-
-    public Person(String name, Address address) {
-        this.name = name;
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    // 实现深拷贝
-    @Override
-    protected Person clone() throws CloneNotSupportedException {
-        Person cloned = (Person) super.clone();
-        cloned.address = address.clone();  // 递归克隆引用对象
-        return cloned;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", address=" + address +
-                '}';
-    }
-}
-
-```
-
-3. 测试代码
-```java
-public class Client {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        Address addr = new Address("北京");
-        Person p1 = new Person("张三", addr);
-
-        Person p2 = p1.clone();
-
-        System.out.println("原始对象：" + p1);
-        System.out.println("克隆对象：" + p2);
-
-        // 修改克隆对象的地址
-        p2.getAddress().setCity("上海");
-        System.out.println("\n修改克隆对象地址后：");
-        System.out.println("原始对象：" + p1);
-        System.out.println("克隆对象：" + p2);
-    }
-}
-
-```
-
-4. 运行结果
-```
-原始对象：Person{name='张三', address=Address{city='北京'}}
-克隆对象：Person{name='张三', address=Address{city='北京'}}
-
-修改克隆对象地址后：
-原始对象：Person{name='张三', address=Address{city='北京'}}
-克隆对象：Person{name='张三', address=Address{city='上海'}}
-
-```
-
-可以看到，修改克隆对象的address不会影响原对象，说明实现了深拷贝。
-
-**说明：**
-浅拷贝：super.clone()只复制对象本身，引用字段复制引用地址，多个对象共享同一个引用对象。
-
-深拷贝：不仅复制对象本身，还对引用对象递归调用clone()，确保每个引用对象都是新实例。
-
-在代码中，Person.clone()里调用了address.clone()实现了深拷贝。
-
-所有参与深拷贝的引用对象都需要实现Cloneable接口并重写clone()方法。
-
-5. 其他深拷贝实现方式
-
-* 序列化反序列化：将对象序列化后再反序列化生成新对象，实现深拷贝，代码更简洁，但性能稍差。
-* 第三方库：如 Apache Commons Lang 的 SerializationUtils.clone()。
+该示例面向单线程模板编辑。若原对象会并发变化，复制时必须使用一致快照或同步机制，否则可能读到不同时间的字段组合。若对象很简单或不需要复用已有配置，直接构造或[建造者](./builder.md)更直观。

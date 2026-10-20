@@ -1,36 +1,35 @@
 # 大数据技术概览
 
-大数据专题关注从业务系统产生数据，到数据被采集、存储、计算、建模、调度和对外服务的完整链路。它不是单个组件的集合，而是一套围绕数据规模、延迟、质量、成本和治理建立的工程体系。
+商城每天的订单明细要生成日报，最近五分钟的支付事件又要进入实时告警。同一份业务事实会走不同计算路径：日报允许等数据到齐后重算，告警关注延迟、乱序和重复。大数据专题沿这条订单链路解释采集、存储、计算、建模、调度与恢复。
 
 如果当前系统只是单库报表慢，优先检查索引、归档、读写分离或分析型副本；只有当数据来自多个系统、任务链路复杂、计算量超过业务库承载范围，或者需要批流一体和统一治理时，才需要引入大数据体系。
 
+![订单数据平台的批流路径与发布边界](/bigdata/order-data-platform.svg)
+
+CDC连接器读取已提交变更并记录位点，Kafka保存可重放事件；它们都不是业务库事务的一部分。原始数据存到HDFS或对象存储后，Spark可以重算历史日报；Flink持续维护实时窗口。调度器组织依赖与补数，质量检查通过后才向下游发布一个结果版本。
+
 ## 阅读路径
 
-[Apache Kafka](./apache-kafka.md) 适合先读。它位于数据链路入口，负责承接日志、事件、CDC 和实时消息，是流式处理、异步解耦和数据同步的基础组件。
+先按当前问题选择入口，不要求先部署整套平台。Kafka不是所有批处理的前提，纯文件批处理可以直接从原始存储进入计算；对象存储也不需要先经过HDFS。
 
-[Apache Flink](./apache-flink.md) 适合实时计算场景，重点理解事件时间、窗口、状态、检查点和端到端一致性。实时指标、风控、告警、实时宽表和实时推荐通常会用到 Flink。
+<TopicDirectory :items="[
+  { title: 'Apache Kafka', href: '/docs/database/bigdata/apache-kafka.html', icon: 'workflow', description: '理解事件分区、位点、重放与消费确认，处理入口积压和重复。' },
+  { title: 'Apache Flink', href: '/docs/database/bigdata/apache-flink.html', icon: 'gauge', description: '持续计算实时窗口，区分事件时间、状态、检查点与下游提交。' },
+  { title: 'Apache Spark', href: '/docs/database/bigdata/apache-spark.html', icon: 'layers', description: '离线订单去重、关联和汇总，从执行计划定位Shuffle与倾斜。' },
+  { title: 'HDFS', href: '/docs/database/bigdata/hdfs.html', icon: 'database', description: '理解元数据、数据块、副本与故障恢复，判断文件系统边界。' },
+  { title: 'NoSQL 数据库', href: '/docs/database/bigdata/nosql-databases.html', icon: 'database', description: '从访问模式理解非关系模型，具体产品与数据库主专题衔接。' },
+  { title: '数据分层', href: '/docs/database/bigdata/data-layering.html', icon: 'layers', description: '区分原始变更、业务明细、公共汇总与应用指标，维护一致口径。' },
+  { title: '数仓与数据湖', href: '/docs/database/bigdata/data-warehouse-lake.html', icon: 'database', description: '区分存储、计算、表格式与目录，设计演进、快照和治理。' },
+  { title: 'DolphinScheduler', href: '/docs/database/bigdata/dolphinscheduler.html', icon: 'workflow', description: '按业务日期组织依赖、重试和补数，控制产出发布与失败影响。' }
+]" />
 
-[Apache Spark](./apache-spark.md) 适合批处理、离线 ETL、交互式分析和机器学习前处理。它更常出现在离线数仓、数据湖计算、历史数据回放和大规模批量任务中。
+## 从一笔订单核对全链路
 
-[HDFS](./hdfs.md) 用于理解分布式文件系统的基本模型。即使很多新项目转向对象存储或湖仓表格式，理解 HDFS 的块、副本、NameNode、DataNode 和容错机制仍有助于理解大数据存储。
+订单102先是pending，版本2变为paid，消费者重试又收到版本2，之后版本1迟到。原始层可以保留收到的事件，但“订单当前状态”明细必须按业务键和版本收敛；不能按到达时间选最后一条，更不能直接累计每条paid事件作为成交单数。
 
-[数据分层架构](./data-layering.md) 和 [数据仓库与数据湖](./data-warehouse-lake.md) 用于建立建模和治理视角，重点关注 ODS、DWD、DWS、ADS、主题域、指标口径和湖仓边界。
+日报还要区分“当天下单且最终支付”“当天实际支付”和“支付事件发生当天的金额”。退款按哪一天回冲、使用哪个时区、数据截到哪个位点，都会改变结果。先把这些条件写进指标合同，再安排Spark回算或Flink实时更新。
 
-[DolphinScheduler](./dolphinscheduler.md) 关注任务编排、依赖管理、补数、告警和失败恢复。只要有多任务、多依赖、跨系统调度，就需要明确调度系统的责任。
-
-## 数据链路
-
-```text
-业务系统
-  -> 数据采集：日志、CDC、消息、批量同步
-  -> 数据存储：HDFS、对象存储、数据湖、消息队列
-  -> 数据计算：Spark 批处理、Flink 流处理、SQL 引擎
-  -> 数据建模：ODS、DWD、DWS、ADS、指标体系
-  -> 数据服务：报表、搜索、推荐、风控、API、机器学习特征
-  -> 数据治理：质量、血缘、权限、审计、成本、生命周期
-```
-
-每一层都要有清晰的输入、输出和失败处理方式。数据平台最常见的问题不是组件不会用，而是链路责任不清：业务库是否允许直连查询、消息是否可重放、离线任务是否可补数、指标口径由谁维护、失败后如何判断影响范围。
+例如支付事件晚到一天，补数任务要能重算对应业务分区。新版本先核对业务键去重数、金额、缺失率和上下游差异，再切换可见版本；失败时保留上个已验证结果。只重跑计算而重复追加到报表表里，会把一次故障变成重复金额。
 
 ## 处理模式
 

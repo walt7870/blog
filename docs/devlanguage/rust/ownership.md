@@ -1,220 +1,82 @@
 # 所有权、借用与生命周期
 
-所有权是 Rust 最核心的概念。它的目标不是让开发者记更多规则，而是让编译器在程序运行前确认：内存什么时候分配、谁负责释放、引用是否有效、可变访问是否安全。
+订单导出器读入一段文本，解析函数只读内容，规范化函数修改缓冲区，后台工作线程最终接管结果。Rust 要求把这三种意图写进接口：只读用 `&str`，修改用 `&mut String`，接管用 `String`。借用像临时查看或独占编辑文件，移动则是移交保管责任。
 
-## 为什么需要所有权
+![字符串资源的移动、借用与最终释放](/rust/ownership-lifecycle.svg)
 
-程序管理内存通常有三种方式：
+## 移动取决于类型
 
-| 方式 | 代表语言 | 特点 |
+```rust
+fn normalize(text: &mut String) {
+    *text = text.trim().to_owned();
+}
+
+fn main() {
+    let mut draft = String::from(" order-42 ");
+    let view = &draft;
+    println!("原文：{view}");
+    normalize(&mut draft);
+    let job = draft;
+    println!("任务：{job}");
+    // println!("{draft}"); // E0382：已经移动
+}
+```
+
+`String` 不实现 `Copy`，`let job = draft` 移交所有权，原绑定不能继续读取。判断移动或复制应看类型是否实现 `Copy`，不能按“栈上复制、堆上移动”猜测：引用本身通常可以复制，但它指向的数据可能在堆上；自定义结构即使只含整数，也不会自动实现 `Copy`。
+
+`Copy` 是隐式按值复制的许可，不等于任意大对象都便宜。`Clone` 是显式操作，其语义由实现决定：`String::clone` 创建独立字符缓冲区，`Arc::clone` 仅增加共享引用计数。两者不能都叫深复制。
+
+## 借用限制的是重叠的访问
+
+普通共享引用 `&T` 可以并存；普通独占引用 `&mut T` 在其有效使用期间限制对同一位置的其他访问。上例中 `view` 最后一次使用结束后，非词法生命周期允许再借用 `draft` 进行修改。
+
+下面的顺序会被拒绝，因为修改后仍要读旧借用：
+
+```rust,compile_fail
+fn main() {
+    let mut draft = String::from("order-42");
+    let view = &draft;
+    draft.push('!');
+    println!("{view}");
+}
+```
+
+对自己拥有的局部值取得 `&mut` 通常要求绑定为 `mut`；已经拿到 `&mut T` 的函数参数，则可经它修改对象，不必把参数绑定再写成 `mut`。访问不同、不重叠的字段也可能同时可变借用，切片可用 `split_at_mut` 明确拆分。规则关注实际别名和访问位置，不是“全程序只准一个可变引用”。
+
+## 生命周期描述关系，不延长存活
+
+```rust
+fn longer<'a>(left: &'a str, right: &'a str) -> &'a str {
+    if left.len() >= right.len() { left } else { right }
+}
+```
+
+这个签名把结果的可用范围约束在两个输入借用共同有效的范围内；`'a` 不分配内存，也不能让短命的局部变量多活一会儿。如果结果要独立于输入存活，应返回拥有数据的 `String`，而不是给悬垂引用补生命周期标注。
+
+```rust,compile_fail
+fn broken() -> &'static str {
+    let text = String::from("order-42");
+    &text // E0515：不能返回指向局部所有者的借用
+}
+fn main() {}
+```
+
+`'static` 引用要求被引用的数据在整个程序执行期有效；类型的 `T: 'static` 则约束它不含短命借用，不代表该值必须永久存活。线程和异步任务常需要拥有数据，而不是借助泄漏把引用强行变成 `'static`。
+
+## 共享所有权与内部可变性
+
+| 类型 | 管什么 | 不管什么 |
 | --- | --- | --- |
-| 手动管理 | C、C++ | 控制力强，但容易出现悬垂指针、重复释放、泄漏 |
-| 垃圾回收 | Java、Go、C# | 开发体验好，但有运行时和停顿成本 |
-| 所有权模型 | Rust | 编译期检查，大多数场景不需要 GC，也不需要手动释放 |
+| `Box<T>` | 堆上独占所有权 | 不自动提供共享修改 |
+| `Rc<T>` | 单线程引用计数共享 | 不能因此跨线程传递 |
+| `Arc<T>` | 原子引用计数共享 | 不自动让 `T` 成为 `Send + Sync` |
+| `RefCell<T>` | 运行时检查借用 | 冲突可能 panic；不是线程同步 |
+| `Mutex<T>` | 临界区互斥访问 | 不自动保证锁顺序或业务原子性 |
 
-Rust 通过所有权规则让资源释放变得确定：当所有者离开作用域，值会被自动释放。
+“一个值一个所有者”适合初学普通绑定；引用计数模型中，每个智能指针句柄有自己的所有者，底层分配由多个句柄共享。内部可变性允许经共享引用修改受控内部状态，仍依赖类型实现维护规则。不要用一句口号覆盖这些真实模型。
 
-## 三条核心规则
+## 释放与工程边界
 
-1. Rust 中每个值都有一个所有者。
-2. 任意时刻一个值只能有一个所有者。
-3. 当所有者离开作用域，值会被丢弃。
+正常离开作用域时，所有者通常运行 `Drop` 释放资源；移动后由新所有者承担责任，引用计数由最后一个强引用触发释放。`mem::forget`、引用计数环、进程强制结束或 `panic = "abort"` 等情况都可能不运行析构，Rust 不保证资源绝不泄漏。
 
-```rust
-fn main() {
-    let value = String::from("hello");
-    println!("{value}");
-} // value 离开作用域，内存自动释放
-```
-
-## 移动
-
-对堆上数据来说，赋值通常会移动所有权：
-
-```rust
-fn main() {
-    let a = String::from("hello");
-    let b = a;
-
-    // println!("{a}"); // 编译错误：a 的所有权已移动到 b
-    println!("{b}");
-}
-```
-
-这不是浅拷贝后留下一个危险指针，而是明确告诉编译器：现在只有 `b` 拥有这段数据。这样可以避免两个变量在离开作用域时重复释放同一块内存。
-
-## 拷贝
-
-简单标量类型通常实现了 `Copy`，赋值会复制值：
-
-```rust
-let x = 10;
-let y = x;
-
-println!("{x}, {y}");
-```
-
-`i32` 这类固定大小数据在栈上复制成本低，不需要移动语义。常见 `Copy` 类型包括整数、浮点数、布尔、字符、只包含 `Copy` 字段的元组等。
-
-## 克隆
-
-如果确实需要复制堆上数据，可以显式调用 `clone`：
-
-```rust
-let a = String::from("hello");
-let b = a.clone();
-
-println!("{a}, {b}");
-```
-
-Rust 把可能昂贵的复制操作写得很明显，避免不经意产生隐藏成本。
-
-## 借用
-
-如果函数只需要读取一个值，不应该拿走所有权：
-
-```rust
-fn main() {
-    let name = String::from("Rust");
-    print_name(&name);
-    println!("{name}");
-}
-
-fn print_name(value: &String) {
-    println!("{value}");
-}
-```
-
-`&name` 创建了不可变引用，也叫不可变借用。函数使用完引用后，原所有者仍然可以继续使用 `name`。
-
-实际代码中更常写成 `&str`：
-
-```rust
-fn print_name(value: &str) {
-    println!("{value}");
-}
-```
-
-这样既能接收 `String` 的切片，也能接收字符串字面量。
-
-## 可变借用
-
-如果函数需要修改值，可以使用可变引用：
-
-```rust
-fn main() {
-    let mut text = String::from("hello");
-    append_world(&mut text);
-    println!("{text}");
-}
-
-fn append_world(value: &mut String) {
-    value.push_str(" world");
-}
-```
-
-可变借用要求变量本身是 `mut`，并且同一时间只能有一个可变引用。
-
-## 借用规则
-
-Rust 借用检查器重点检查两条规则：
-
-1. 可以同时有多个不可变引用。
-2. 只能有一个可变引用，并且不能与不可变引用同时存在。
-
-```rust
-let mut value = String::from("hello");
-
-let r1 = &value;
-let r2 = &value;
-println!("{r1}, {r2}");
-
-let r3 = &mut value;
-r3.push_str("!");
-```
-
-上面代码可以通过，因为 `r1`、`r2` 在最后一次使用后就不再活跃。Rust 的非词法生命周期会尽量根据真实使用范围判断借用是否结束。
-
-## 引用不能悬垂
-
-Rust 会阻止返回指向局部变量的引用：
-
-```rust
-// fn broken() -> &String {
-//     let value = String::from("hello");
-//     &value
-// }
-```
-
-`value` 在函数结束时被释放，如果允许返回它的引用，调用方会拿到无效地址。Rust 在编译期拒绝这种代码。
-
-## 生命周期
-
-生命周期描述引用的有效范围。大多数时候编译器可以推断，只有在函数签名存在多个引用关系时才需要显式标注：
-
-```rust
-fn longest<'a>(left: &'a str, right: &'a str) -> &'a str {
-    if left.len() >= right.len() {
-        left
-    } else {
-        right
-    }
-}
-```
-
-`'a` 的含义不是让引用活得更久，而是告诉编译器：返回值的有效期不能超过 `left` 和 `right` 中较短的那个。
-
-## 所有权和集合
-
-集合会拥有其中的元素：
-
-```rust
-let mut names = Vec::new();
-names.push(String::from("Alice"));
-names.push(String::from("Bob"));
-
-for name in &names {
-    println!("{name}");
-}
-
-println!("count = {}", names.len());
-```
-
-`for name in &names` 是借用遍历；如果写成 `for name in names`，集合的所有权会被消费，后续不能再使用 `names`。
-
-## 智能指针
-
-所有权并不意味着只能有一个变量访问数据。Rust 提供了显式智能指针来表达不同共享模型：
-
-| 类型 | 用途 |
-| --- | --- |
-| `Box<T>` | 把值放到堆上，单一所有者 |
-| `Rc<T>` | 单线程引用计数共享所有权 |
-| `Arc<T>` | 多线程原子引用计数共享所有权 |
-| `RefCell<T>` | 单线程运行时借用检查 |
-| `Mutex<T>` | 多线程互斥访问共享数据 |
-
-这些类型把成本和约束显式暴露出来，不会让共享变成默认行为。
-
-## 常见心智模型
-
-可以把 Rust 的资源管理想成一份“资产登记表”：
-
-- 谁拥有这个值，谁负责它最终释放。
-- 借用像临时查看或临时修改，不改变归属。
-- 可变借用像独占编辑权限，同一时间不能多人编辑。
-- 生命周期保证临时权限不会超过资产本身的存在时间。
-
-## 学习建议
-
-- 先接受编译器报错，不要急着用 `clone` 消除错误。
-- 优先让函数接收引用，除非它确实要拥有或消费参数。
-- 字符串参数优先考虑 `&str`，集合参数优先考虑切片 `&[T]`。
-- 多线程共享状态时先考虑消息传递，再考虑 `Arc<Mutex<T>>`。
-- 生命周期不是内存管理语法糖，而是引用关系说明。
-
-## 参考资料
-
-- Ownership in The Rust Book：https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html
-- References and Borrowing：https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html
-- Lifetime Syntax：https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+文件落盘、事务提交、网络关闭等失败需要显式返回错误，不能把 `Drop` 当作可靠的业务提交入口。共享任务还需要关闭、等待与取消合同，见[并发](./concurrency.md)。遇到借用错误先确认谁应持有数据、谁只读、谁修改，再决定移动、缩小借用范围或复制；不要先给每处加 `clone`。

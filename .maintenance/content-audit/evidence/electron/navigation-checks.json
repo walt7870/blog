@@ -1,0 +1,68 @@
+[
+  {
+    "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/02-electron-process-model.html",
+    "title": "一个窗口为什么带出一串进程",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.html",
+    "title": "网页按钮怎样安全读取本地文件",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.html",
+    "title": "关闭窗口后，Electron 应用为什么还在运行",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/05-electron-forge-build-release.html",
+    "title": "Electron Forge 的 Package、Make 和 Publish 分别做什么",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.html",
+    "title": "ASAR 是归档格式，不是加密边界",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/07-electron-native-module-abi.html",
+    "title": "原生 Node 模块为什么在 Electron 中加载失败",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/08-electron-signing-notarization.html",
+    "title": "Electron 签名、公证和系统放行是三次检查",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.html",
+    "title": "自动更新的核心是一台可恢复状态机",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/10-electron-performance-measurement.html",
+    "title": "Electron 性能优化先建立可重复测量",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
+    "target": "/blog/docs/devlanguage/front/package-managers/",
+    "title": "前端包管理器概览",
+    "passed": true
+  },
+  {
+    "file": "docs/devlanguage/front/electron-series/index.md",
+    "target": "/blog/docs/devlanguage/front/electron-series/01-electron-startup-runtime.html",
+    "title": "双击 Electron 应用，系统到底启动了什么",
+    "passed": true
+  }
+]

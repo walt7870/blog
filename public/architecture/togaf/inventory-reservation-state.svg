@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+  <title id="title">库存预占的互斥状态转移</title>
+  <desc id="desc">创建预占后，通过同一持久状态的条件更新裁决确认、主动释放或过期释放。已释放后到达支付事实，需要业务恢复流程，不能直接恢复旧预占。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#707f7a"/></marker></defs>
+  <rect width="1120" height="640" fill="#f8fafb"/>
+  <g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" fill="#293832">
+    <text x="56" y="62" font-size="26" font-weight="700">同一预占只接受一条有效终结路径</text>
+    <text x="56" y="98" font-size="17" fill="#596b63">例：最后一件商品已预占；付款确认与到期释放同时到达，由条件更新裁决。</text>
+    <rect x="56" y="246" width="194" height="100" rx="6" fill="#fff" stroke="#c8d2cd"/>
+    <text x="80" y="282" font-size="20" font-weight="700">创建预占</text>
+    <text x="80" y="314" font-size="16">稳定请求键与数量</text>
+    <rect x="350" y="246" width="234" height="100" rx="6" fill="#e7f2e8" stroke="#799b86"/>
+    <text x="378" y="282" font-size="21" font-weight="700">已预占</text>
+    <text x="378" y="314" font-size="16">reservationId + version</text>
+    <rect x="798" y="152" width="266" height="82" rx="6" fill="#fff" stroke="#c8d2cd"/>
+    <text x="824" y="184" font-size="20" font-weight="700">已确认扣减</text>
+    <text x="824" y="211" font-size="16">不再按预占超时释放</text>
+    <rect x="798" y="270" width="266" height="82" rx="6" fill="#fff" stroke="#c8d2cd"/>
+    <text x="824" y="302" font-size="20" font-weight="700">已主动释放</text>
+    <text x="824" y="329" font-size="16">取消命令赢得状态竞争</text>
+    <rect x="798" y="388" width="266" height="82" rx="6" fill="#fff" stroke="#c8d2cd"/>
+    <text x="824" y="420" font-size="20" font-weight="700">已过期释放</text>
+    <text x="824" y="447" font-size="16">到期检查赢得状态竞争</text>
+  </g>
+  <g fill="none" stroke="#707f7a" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M250 296H350"/>
+    <path d="M584 268H626V193H798"/>
+    <path d="M584 296H688V311H798"/>
+    <path d="M584 324H626V429H798"/>
+  </g>
+  <g font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" fill="#596b63" font-size="16">
+    <text x="657" y="177">有效确认</text>
+    <text x="704" y="295">取消</text>
+    <text x="656" y="413">到期且未确认</text>
+    <path d="M56 514H1064" stroke="#dce3df"/>
+    <text x="56" y="548">重复命令查询已有结果；状态与数量变更在同一事务提交，事件通过可靠发布链传播。</text>
+    <text x="56" y="580">释放后收到支付事实：保留凭证，重新预占、退款或挂起处理，不直接复活旧预占。</text>
+  </g>
+</svg>

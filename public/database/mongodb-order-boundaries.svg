@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="mongo-order-title mongo-order-desc">
+  <title id="mongo-order-title">订单文档与多文档事务边界</title>
+  <desc id="mongo-order-desc">订单文档内嵌有界的商品和价格快照，库存与待投递事件属于独立集合。事务中先以旧状态条件更新订单，再扣满足数量条件的库存，最后写入稳定事件号的outbox记录，一起提交或回滚。事务外投递器发送通知，需要重试和幂等，不与外部发信组成一个数据库事务。</desc>
+  <defs>
+    <marker id="mongo-order-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#mongo-order-arrow)}</style>
+  </defs>
+  <rect width="1200" height="700" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">一起读取的订单快照，与独立变化的库存分开建模</text>
+  <text x="36" y="78" class="small">嵌入减少关联；多文档业务仍需明确事务条件，外部副作用留在提交之后。</text>
+  <rect x="20" y="124" width="1160" height="328" rx="8" fill="none" stroke="#9caab2" stroke-dasharray="6,4"/>
+  <rect x="40" y="108" width="480" height="32" fill="#f7f9fa"/><text x="52" y="130" class="head">数据库事务边界：副本集或分片环境</text>
+  <path d="M376 236H472" class="line"/><path d="M752 236H856" class="line"/>
+  <path d="M1012 304V520" class="line" stroke-dasharray="5,4"/>
+  <rect x="1028" y="468" width="136" height="28" fill="#f7f9fa"/><text x="1096" y="489" text-anchor="middle" class="small">提交后投递</text>
+  <rect x="36" y="172" width="340" height="248" class="focus"/>
+  <text x="56" y="210" class="head">1. orders：订单 102</text>
+  <text x="56" y="250">tenantId、requestId、客户</text><text x="56" y="286">pending → paid，金额 3000 分</text>
+  <path d="M56 306H356" stroke="#bac4c9"/>
+  <text x="56" y="340" class="head">内嵌 items 快照</text><text x="56" y="376">mug × 2，下单单价 1500 分</text><text x="56" y="406" class="small">历史价格不跟随商品现价变化</text>
+  <rect x="472" y="172" width="280" height="132" class="box"/>
+  <text x="492" y="210" class="head">2. inventory：独立库存</text><text x="492" y="250">mug 可用数至少 2 才扣减</text><text x="492" y="286" class="small">其他订单也会改变同一库存</text>
+  <rect x="856" y="172" width="308" height="132" class="box"/>
+  <text x="876" y="210" class="head">3. outbox：待发事件</text><text x="876" y="250">稳定事件号 paid-102</text><text x="876" y="286" class="small">记录 OrderPaid，不在事务内发信</text>
+  <text x="472" y="356">状态或库存条件失败：回滚整笔事务。</text>
+  <text x="472" y="396" class="small">成功：订单、库存与事件记录一起提交。</text>
+  <text x="36" y="548" class="head">嵌入的边界</text><text x="36" y="584">有界明细与生命周期相近的数据。</text><text x="36" y="620" class="small">无限操作日志另存集合，单文档不能超过 16 MiB。</text>
+  <rect x="856" y="520" width="308" height="112" class="focus"/>
+  <text x="876" y="558" class="head">投递器与通知服务</text><text x="876" y="596">重试、按事件号幂等、确认进度</text>
+  <text x="36" y="676" class="small">文档校验与唯一索引约束字段合同；它们不会自动证明金额合计、支付凭证或跨集合引用正确。</text>
+</svg>

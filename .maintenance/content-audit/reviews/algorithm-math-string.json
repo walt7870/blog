@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/algorithm/mathematical-algorithms.md",
+      "status": "verified",
+      "reviewedHash": "019be73f485df4726b07bf317643b915c61bef05ba31c5d0d8d61d3cef65f485",
+      "pageType": "精确、概率与数值算法边界",
+      "decision": "完整阅读旧1058行。修模幂模1与0次幂、逆元非互素、随机全局种子、Miller-Rabin误判概率、分段筛、泊松零值/大参数、几何分布边界及数值迭代假收敛等问题；以周期任务和完整模幂/逆元程序贯穿，补SVG逐轮状态、求根/积分/病态及几何退化边界。",
+      "validation": [
+        "Python3全部示例运行；1500组模幂与pow对照，1500组逆元恒等式或非互素异常，非法类型与零值边界通过",
+        "双SVG独立中文布局、连线、文本边界及xmllint通过；生产构建21.15秒通过；两页桌面与390×844手机亮深色、手机图片原尺寸及关闭通过，无破图/横向溢出/console错误，未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/algorithm/string-algorithms.md",
+      "status": "verified",
+      "reviewedHash": "7e4cc9d05aeb9701dc3d307f101bcea7f60597c2152d94fcb8ea28be6c84c00e",
+      "pageType": "文本单位与流式匹配",
+      "decision": "完整阅读旧1900行。修未闭合围栏、Rabin-Karp短文本越界与碰撞覆盖、重复子串碰撞不核验、Manacher哨兵、RLE格式歧义及ASCII泛化；用Unicode位置合同、完整跨块KMP和线性空间编辑距离解释状态，补块边界SVG与增量解码/规范化映射边界。",
+      "validation": [
+        "Python3全部示例运行；1200组Unicode文本整段/随机切块KMP与逐位置匹配对照，含中文emoji组合字符/重叠/reset/非法输入；1200组编辑距离与二维表、对称性及长度界对照通过",
+        "双SVG独立中文布局、连线、文本边界及xmllint通过；生产构建21.15秒通过；两页桌面与390×844手机亮深色、手机图片原尺寸及关闭通过，无破图/横向溢出/console错误，未做全页截图"
+      ]
+    }
+  ]
+}

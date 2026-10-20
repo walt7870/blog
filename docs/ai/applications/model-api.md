@@ -2,6 +2,8 @@
 
 调用模型 API 是 AI 应用的起点，不是终点。稳定调用需要明确消息角色、模型参数、输出协议、超时重试和可观测信息。
 
+![模型响应类型、结构校验与业务执行边界](/ai/model-response-contract.svg)
+
 ## 一次请求包含什么
 
 典型请求包含：
@@ -22,13 +24,13 @@
 - Assistant：历史模型输出。
 - Tool：外部工具执行结果。
 
-规则应放在稳定层，当前资料应作为明确上下文传入。不要把所有业务知识写成一段不断膨胀的 System Prompt。
+不同供应商还可能支持 Developer 指令或独立的工具结果事件，需按接口协议组装。规则放在相应指令层，检索资料与工具结果作为外部数据传入；网页中的“忽略规则并退款”不能变成高优先级指令。身份权限要由服务端校验，不依赖消息角色保证。
 
 ## 采样参数
 
 Temperature 提高时，低概率 Token 更容易被选中，输出通常更有变化；降低时更稳定。它不能保证事实正确，也不能修复错误检索。
 
-需要稳定抽取、分类和工具参数时使用较低随机性；创意生成可以适当提高，但仍要通过内容和格式检查。
+需要稳定抽取、分类和工具参数时，可在模型支持的范围内使用较低随机性；创意生成可以适当提高。`temperature=0` 也不保证逐字复现；部分推理模型不接受该参数，不能把所有模型当作相同接口。
 
 ## 结构化输出
 
@@ -37,6 +39,7 @@ Temperature 提高时，低概率 Token 更容易被选中，输出通常更有�
 ```json
 {
   "type": "object",
+  "additionalProperties": false,
   "required": ["category", "confidence", "reason"],
   "properties": {
     "category": { "type": "string", "enum": ["refund", "logistics", "other"] },
@@ -46,7 +49,28 @@ Temperature 提高时，低概率 Token 更容易被选中，输出通常更有�
 }
 ```
 
-应用仍要做解析和业务校验，例如置信度范围、订单是否存在、用户是否有权操作。
+供应商的严格结构化输出通常只支持 JSON Schema 子集；上面的范围约束不一定能原样用于所有接口。即使服务端限制输出格式，应用也要检查拒绝、截断、空结果、字段和业务条件。模型自己填写的 `confidence` 不是经过校准的概率，不能直接作为自动退款阈值。
+
+下面的本地校验不需要模型密钥，安装 `pydantic` 后可直接运行。它展示 `confidence` 越界、非法分类和额外字段如何被拒绝；真实分类准确率需要另一组标注样本评估。
+
+```python
+from typing import Literal
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
+
+class Classification(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    category: Literal['refund', 'logistics', 'other']
+    confidence: float = Field(ge=0, le=1)
+    reason: str
+
+raw = '{"category":"refund","confidence":1.2,"reason":"用户询问退款"}'
+try:
+    result = Classification.model_validate_json(raw)
+except ValidationError:
+    print('invalid_output')
+```
+
+验收输出为 `invalid_output`；把数值改为 `0.8` 可通过结构检查，但它仍不证明分类正确。接业务工具前还要验证订单归属、动作权限和当前状态。
 
 ## 流式输出
 
@@ -57,6 +81,8 @@ Temperature 提高时，低概率 Token 更容易被选中，输出通常更有�
 - 内容审核在生成前还是生成后执行。
 - 工具调用和普通文本如何区分。
 - 用户取消后如何终止后端请求。
+
+例如收到 `{"category":"ref` 后连接中断，不能补全猜测字段并执行动作。界面可以展示文本增量，业务执行必须等待完整终止事件并通过校验；工具调用参数也要先合并完整，再按调用 ID 去重。取消前已提交的工具动作不会因为关闭流就自动回滚。
 
 ## 超时、重试与幂等
 

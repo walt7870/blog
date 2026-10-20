@@ -1,1 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc"><title id="title">中介者模式结构图</title><desc id="desc">展示多个对象不直接互相调用，而是通过中介者协调交互。</desc><style>.bg{fill:#f8fafc}.med{fill:#e0f2fe;stroke:#0284c7}.col{fill:#fff;stroke:#94a3b8}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}</style><rect class="bg" width="1040" height="520" rx="22"/><text class="t" x="48" y="52">中介者：把网状交互收敛到协调中心</text><rect class="box med" x="410" y="190" width="240" height="105" rx="14"/><text class="t" x="480" y="232">Mediator</text><text class="s" x="462" y="260">协调同事对象交互</text><rect class="box col" x="120" y="95" width="190" height="70" rx="14"/><text class="s" x="178" y="137">控件 A</text><rect class="box col" x="720" y="95" width="190" height="70" rx="14"/><text class="s" x="778" y="137">控件 B</text><rect class="box col" x="120" y="330" width="190" height="70" rx="14"/><text class="s" x="178" y="372">控件 C</text><rect class="box col" x="720" y="330" width="190" height="70" rx="14"/><text class="s" x="778" y="372">控件 D</text><path class="line" d="M310 130L410 220M720 130L650 220M310 365L410 265M720 365L650 265"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="510" viewBox="0 0 1040 510" role="img" aria-labelledby="title desc">
+<title id="title">导出表单的控件事件与中介者协调</title>
+<desc id="desc">日期输入只通知表单协调者，协调者读取起止日期并设置按钮及提示，控件之间没有直接依赖。程序设置展示状态不再发布用户事件。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7" fill="none" stroke="#64748b"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:18px;font-weight:600}.sub{font-size:15px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.call{fill:none;stroke:#64748b;stroke-width:1.4;marker-end:url(#arrow)}.mask{fill:#f8fafb}</style>
+<rect width="1040" height="510" fill="#f8fafb"/>
+<text class="title" x="38" y="44">中介者：表单协调规则，控件处理输入与展示</text>
+<text class="sub" x="38" y="73">单线程同步联动；不提交真实导出任务，不提供分布式事务。</text>
+<path class="call" d="M248 166 H432"/>
+<rect class="mask" x="270" y="132" width="140" height="24"/><text class="sub" x="280" y="150">1. 用户修改日期</text>
+<path class="call" d="M432 229 H248"/>
+<rect class="mask" x="270" y="241" width="140" height="24"/><text class="sub" x="280" y="259">2. 读取起止值</text>
+<path class="call" d="M690 167 H800"/>
+<rect class="mask" x="711" y="131" width="71" height="24"/><text class="sub" x="717" y="149">3. 设置</text>
+<path class="call" d="M690 229 H741 Q749 229 749 237 V320 Q749 328 757 328 H800"/>
+<rect class="mask" x="679" y="287" width="60" height="24"/><text class="sub" x="685" y="305">4. 设置</text>
+<rect class="box" x="40" y="130" width="208" height="132" rx="6"/><text class="name" x="60" y="160">日期控件</text><text class="sub" x="60" y="192">start：开始日期</text><text class="sub" x="60" y="218">end：结束日期</text><text class="sub" x="60" y="246">只报告自身变化</text>
+<rect class="focus" x="432" y="130" width="258" height="132" rx="6"/><text class="name" x="452" y="160">ExportForm</text><text class="sub" x="452" y="190">输入完整且 start ≤ end</text><text class="sub" x="452" y="217">同时更新启用状态与提示</text><text class="sub" x="452" y="245">提交时再次检查</text>
+<rect class="box" x="800" y="130" width="202" height="78" rx="6"/><text class="name" x="820" y="160">SubmitButton</text><text class="sub" x="820" y="187">enabled = true / false</text>
+<rect class="box" x="800" y="290" width="202" height="78" rx="6"/><text class="name" x="820" y="320">Hint</text><text class="sub" x="820" y="347">显示校验结果</text>
+<text class="sub" x="38" y="414">开始 10-19、结束 10-18：按钮禁用，提示日期顺序错误。</text>
+<text class="sub" x="38" y="444">结束改成 10-20：按钮启用，提交返回固定日期快照。</text>
+<text class="sub" x="38" y="482">展示状态的程序更新不触发用户输入事件，避免“控件互改”的反馈环。</text>
+</svg>

@@ -112,7 +112,7 @@ SERVER_PORT=9090 java -jar order-service.jar --server.port=10080
 
 ### 环境变量名称转换
 
-操作系统环境变量通常不能使用点号。Boot 的宽松绑定可以把 `PAYMENT_READ_TIMEOUT` 对应到 `payment.read-timeout`。但 Map Key、列表索引和特殊字符可能需要更谨慎的命名与验证，复杂结构不宜全部塞进环境变量。
+Boot 的规范转换是把点号替换为下划线、删除连字符、转为大写：`payment.read-timeout` 对应 `PAYMENT_READTIMEOUT`，`payment.max-attempts` 对应 `PAYMENT_MAXATTEMPTS`。不要把连字符也机械替换成下划线。Map Key、列表索引和特殊字符需要另行验证，复杂结构不宜全部塞进环境变量。
 
 容器平台使用环境变量时，应检查 Deployment 实际注入结果，而不是只检查模板仓库。变量为空、Secret Key 名错误、旧 Pod 未滚动都可能让不同实例得到不同配置。
 
@@ -121,6 +121,15 @@ SERVER_PORT=9090 java -jar order-service.jar --server.port=10080
 Environment 只负责提供配置值。业务代码若在各处使用 `@Value`，会把前缀、默认值、转换和校验分散到多个 Bean。成组配置更适合绑定为类型安全对象：
 
 ```java
+import java.net.URI;
+import java.time.Duration;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
 @Validated
 @ConfigurationProperties("payment")
 public record PaymentProperties(
@@ -128,25 +137,47 @@ public record PaymentProperties(
         @NotNull Duration connectTimeout,
         @NotNull Duration readTimeout,
         @Min(1) @Max(5) int maxAttempts) {
+    @AssertTrue(message = "地址必须为绝对HTTP(S)地址，超时必须为正数")
+    public boolean isTransportValid() {
+        return baseUrl != null && baseUrl.getHost() != null
+                && ("https".equalsIgnoreCase(baseUrl.getScheme())
+                    || "http".equalsIgnoreCase(baseUrl.getScheme()))
+                && connectTimeout != null && !connectTimeout.isNegative()
+                && !connectTimeout.isZero()
+                && readTimeout != null && !readTimeout.isNegative()
+                && !readTimeout.isZero();
+    }
 }
 ```
 
 ```java
+import java.net.http.HttpClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.springframework.web.client.RestClient;
+
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(PaymentProperties.class)
 class PaymentConfiguration {
 
     @Bean
-    PaymentClient paymentClient(
-            PaymentProperties properties,
-            RestClient.Builder builder) {
-        return new PaymentClient(
-                builder.baseUrl(properties.baseUrl()).build(),
-                properties.readTimeout(),
-                properties.maxAttempts());
+    PaymentClient paymentClient(PaymentProperties properties) {
+        HttpClient http = HttpClient.newBuilder()
+                .connectTimeout(properties.connectTimeout()).build();
+        JdkClientHttpRequestFactory requests = new JdkClientHttpRequestFactory(http);
+        requests.setReadTimeout(properties.readTimeout());
+        RestClient rest = RestClient.builder().requestFactory(requests)
+                .baseUrl(properties.baseUrl().toString()).build();
+        return new PaymentClient(rest, properties.maxAttempts());
     }
+
+    record PaymentClient(RestClient restClient, int maxAttempts) {}
 }
 ```
+
+这两段分别保存为 `PaymentProperties.java` 与 `PaymentConfiguration.java`，需要 Boot 配置绑定、Spring Web 和 Validation 实现。这里显式创建请求工厂，避免配置测试依赖尚未注册的 `RestClient.Builder`；它演示超时采用位置，未自动接入 Boot 的 Builder 定制与观测链。PaymentClient 只是持有客户端与重试上限的数据结构，不发起网络调用、不执行支付、不自动重试；生产支付还要实现业务幂等与总时间预算。
 
 绑定阶段会完成 `Duration`、`DataSize`、URI、枚举和集合等类型转换。配合 Validation，地址缺失、重试次数越界等问题会阻止 Context 刷新，而不是以错误默认值运行。
 
@@ -239,14 +270,14 @@ spring:
 设置：
 
 ```bash
-PAYMENT_READ_TIMEOUT=fast java -jar order-service.jar
+PAYMENT_READTIMEOUT=fast java -jar order-service.jar
 ```
 
 `fast` 不能转换为 Duration，配置属性绑定失败，Context 不会完成刷新。排查重点是目标属性、来源和值格式，不是支付 Client 的网络日志。
 
 ### 实验三：高优先级来源遮蔽
 
-YAML 中把 `payment.max-attempts` 改成 2，但部署环境残留 `PAYMENT_MAX_ATTEMPTS=5`，运行值仍然是 5。此时继续修改 YAML 没有效果，应查看 Environment 中该属性的来源，并清理平台侧覆盖项。
+YAML 中把 `payment.max-attempts` 改成 2，但部署环境残留 `PAYMENT_MAXATTEMPTS=5`，运行值仍然是 5。此时继续修改 YAML 没有效果，应查看 Environment 中该属性的来源，并清理平台侧覆盖项。
 
 ## 用测试固定配置契约
 
@@ -290,7 +321,7 @@ class PaymentConfigurationTest {
 ```text
 property: payment.read-timeout
 resolved: 30s
-source: systemEnvironment[PAYMENT_READ_TIMEOUT]
+source: systemEnvironment[PAYMENT_READTIMEOUT]
 bound bean: PaymentProperties.readTimeout = PT30S
 consumer: PaymentClient readTimeout = PT30S
 ```

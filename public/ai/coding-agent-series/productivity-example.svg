@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="440" viewBox="0 0 1120 440" role="img" aria-labelledby="productivity-example-title productivity-example-desc">
+  <title id="productivity-example-title">假设任务的人工投入对比</title><desc id="productivity-example-desc">教学假设：不用 AI 的人工投入为九十分钟；使用 AI 后准备十分钟、实现二十分钟、审查二十五分钟、返工二十分钟，共七十五分钟。节省十五分钟，还需另外评估墙钟时间、质量与费用。</desc>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a;letter-spacing:0}.title{font-size:26px;font-weight:700}.h{font-size:20px;font-weight:700}.b{font-size:17px;fill:#475569}.segment{stroke:white;stroke-width:2}</style>
+  <rect width="1120" height="440" fill="#f8fafc"/><text class="title" x="40" y="48">教学假设：实现快了，还要加上准备、审查与返工</text>
+  <text class="h" x="40" y="133">不用 AI</text><rect x="230" y="95" width="720" height="65" rx="4" fill="#e2e8f0"/><text class="h" x="590" y="135" text-anchor="middle">合计 90 分钟人工投入</text>
+  <text class="h" x="40" y="239">使用 AI</text><rect class="segment" x="230" y="200" width="80" height="65" fill="#dbeafe"/><rect class="segment" x="310" y="200" width="160" height="65" fill="#ccfbf1"/><rect class="segment" x="470" y="200" width="200" height="65" fill="#fef3c7"/><rect class="segment" x="670" y="200" width="160" height="65" fill="#f1f5f9"/>
+  <text class="b" x="270" y="239" text-anchor="middle">10</text><text class="b" x="390" y="239" text-anchor="middle">实现 20</text><text class="b" x="570" y="239" text-anchor="middle">审查 25</text><text class="b" x="750" y="239" text-anchor="middle">返工 20</text><text class="h" x="855" y="239">合计 75 分钟</text>
+  <text class="b" x="230" y="302">准备 10 分钟 + 实现 20 + 审查 25 + 返工 20 = 75；人工投入减少 15 分钟。</text>
+  <path d="M40 341H1080" stroke="#cbd5e1"/><text class="b" x="40" y="378">Agent 运行可能与其他工作重叠，不能直接相加成人工时间；另记墙钟时间、费用和合并后缺陷。</text><text class="b" x="40" y="410">这是计算示例，不是产品实测或研究结论。</text>
+</svg>

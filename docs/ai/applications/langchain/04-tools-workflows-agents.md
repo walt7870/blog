@@ -1,8 +1,14 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # 04. Tools、工作流与 Agent 不要混为一谈
 
 只要代码里出现 `StructuredTool`，很多项目就会把自己称为 Agent。这个说法过于宽泛，会让人忽略最重要的问题：**到底是谁在决定下一步动作？**
 
 Tool、工作流和 Agent 是三个不同层次。
+
+![智能体决策、执行检查与反馈循环](/ai/agent-loop.svg)
 
 ## 三个概念，一张边界表
 
@@ -24,11 +30,18 @@ Tool、工作流和 Agent 是三个不同层次。
 ```python
 from langchain_core.tools import StructuredTool
 
+def lookup_order_value(order_no: str) -> dict:
+    """返回教学订单；真实服务需用服务端身份校验订单归属。"""
+    if order_no != 'DEMO001':
+        raise ValueError('教学订单不存在')
+    return {'order_no': order_no, 'status': 'paid'}
+
 lookup_order = StructuredTool.from_function(
-    func=service._lookup_order_value,
+    func=lookup_order_value,
     name="lookup_order",
-    description="根据订单号查询订单状态、商品、金额和异常信息",
+    description="根据教学订单号查询付款状态",
 )
+print(lookup_order.invoke({'order_no': 'DEMO001'}))
 ```
 
 `StructuredTool` 的价值在于统一契约：
@@ -42,7 +55,7 @@ Tool 本身不会决定何时执行。把锤子放进工具箱，不代表工具
 
 ## 确定性工作流如何调用工具
 
-客服工作流可以使用确定性分派：
+客服工作流可以使用确定性分派。以下是具有真实业务服务时的路由片段；身份和业务校验应在执行前完成，写入还要有幂等键：
 
 ```python
 calls = []
@@ -121,15 +134,15 @@ arguments: {"order_no": "HB20260722001"}
 
 ### lookup_order
 
-只读查询订单状态。缺少合法订单号时不调用，而是要求用户补充信息。
+只读查询订单状态。缺少合法订单号时不调用，而是要求用户补充信息。订单号匹配格式不能证明所有权；可信用户身份来自服务端会话，工具必须再次验证归属。
 
 ### search_policy
 
-只读查询退款、退货和配送政策。运行轨迹中的原始客户消息会被脱敏，避免敏感文本进入教学面板。
+只读查询退款、退货和配送政策。运行轨迹应在服务端写入前脱敏，Tool 注册不会自动保护日志。
 
 ### create_ticket
 
-为破损、赔偿或隐私问题创建人工工单。系统只承诺“已经转交”，不会自动决定赔偿金额。
+为破损、赔偿或隐私问题创建人工工单。只有接口返回可回读的工单 ID 后，系统才说明“已转交”；超时应先按幂等键查询结果，再决定是否重试，不能把网络超时等同于创建失败。
 
 这个设计刻意使用确定性路由：分类结果可以来自模型，但权限边界不能依赖模型自觉遵守 Prompt。
 
@@ -168,7 +181,7 @@ arguments: {"order_no": "HB20260722001"}
 
 1. 为政策查询、缺订单号查询和破损投诉列出各自允许调用的工具。
 2. 请求“帮我查订单”但不提供订单号，确认系统不会猜测参数。
-3. 请求“订单 HB20260722003 到货破损，要求赔偿”，观察 `lookup_order` 和 `create_ticket` 的调用顺序。
+3. 用<a :href="withBase('/ai/examples/workflow_demo.py')" download="workflow_demo.py">离线示例</a>执行 `python workflow_demo.py support '订单DEMO001申请赔偿'`，确认状态为 `escalated` 且没有创建真实工单。接入业务接口后，再验证权限检查先于写入。
 4. 为一个低风险只读场景设计三项 Tool，并写出 Agent 的最大轮数、超时和人工审批条件。
 
 ## 小结

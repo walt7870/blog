@@ -1,7 +1,7 @@
 ---
 title: Ingress 与 Gateway API
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Ingress 与 Gateway API
@@ -12,6 +12,10 @@ Ingress 描述 HTTP/HTTPS 请求如何按域名和路径转发到 Service。Ingr
 
 创建 Ingress 只是在 API 中保存路由意图。集群还必须安装 Ingress Controller，并通过 `IngressClass` 选择实现。不同 Controller 的注解、证书、流量策略和状态行为并不通用。
 
+截至 2026-10-20，社区项目 `kubernetes/ingress-nginx` 已进入 2026 年 3 月停止维护后的阶段，不再提供后续漏洞修复。它与 Ingress API、NGINX 软件和其他厂商的 NGINX Controller 是不同对象。存量部署要评估迁移，新建入口应选择仍维护且满足所需能力的实现。
+
+下面假设已安装并配置一个仍维护的 Controller，且现有 IngressClass 名为 `public-ingress`；需要提前准备 `orders` namespace、`order-api:80` Service 和同命名空间的 `orders-tls` Secret。Class 名是集群对象名，不是可凭名称自动安装的产品。
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -19,7 +23,7 @@ metadata:
   name: order-api
   namespace: orders
 spec:
-  ingressClassName: nginx
+  ingressClassName: public-ingress
   tls:
     - hosts: [orders.example.com]
       secretName: orders-tls
@@ -38,17 +42,13 @@ spec:
 
 `pathType` 必须明确：`Exact` 精确匹配，`Prefix` 按路径段前缀匹配，`ImplementationSpecific` 交给 Controller 解释。依赖实现私有正则和注解时，要把兼容性写进升级与迁移计划。
 
+例如 `/api` 的 Prefix 匹配 `/api` 和 `/api/orders`，不匹配 `/apix`；它也不会自动把 `/api` 从上游请求里删除。后端若只处理 `/health`，请求 `/api/health` 是否要改写，必须由应用路由或实现支持的配置明确决定。
+
 ## 请求链路
 
-```text
-DNS
-  -> LoadBalancer / NodePort
-  -> Ingress Controller
-  -> Ingress rule
-  -> Service
-  -> EndpointSlice
-  -> Ready Pod
-```
+![Ingress 配置关系与真实请求转发路径](/container/kubernetes-request-data-path.svg)
+
+DNS 把域名解析到入口地址，请求到达负载均衡器或代理后按已下发的 host/path 规则选择后端。Ingress rule 和 EndpointSlice 都是配置；请求不会进入这些 API 对象。代理可能经 Service VIP，也可能直接连接端点，具体路径由实现决定。
 
 Ingress 显示地址不代表后端可用。TLS、路由、Service selector、目标端口、EndpointSlice Ready 和应用监听都要独立验证。
 
@@ -57,9 +57,15 @@ kubectl get ingressclass
 kubectl get ingress order-api -n orders -o yaml
 kubectl describe ingress order-api -n orders
 kubectl get svc,endpointslice -n orders
-kubectl logs -n <controller-namespace> <controller-pod>
-curl -vk --resolve orders.example.com:443:<address> https://orders.example.com/api/health
+controller_namespace=替换为控制器命名空间
+controller_pod=替换为控制器Pod名称
+kubectl logs -n "$controller_namespace" "$controller_pod"
+entry_ip=替换为入口IP
+curl --fail --show-error --max-time 10 -v \
+  --resolve "orders.example.com:443:$entry_ip" https://orders.example.com/api/health
 ```
+
+`--resolve` 保留真实 Host 和 TLS SNI，只覆盖连接地址，便于 DNS 切换前测试。使用内部 CA 时通过 `--cacert` 提供受信任证书链，不把跳过证书校验当作入口验收。
 
 ## TLS 边界
 
@@ -83,9 +89,60 @@ Gateway API 把职责拆成多个对象：
 | GatewayClass | 选择控制器实现和基础设施类型 |
 | Gateway | 地址、监听器、证书和允许挂接的路由范围 |
 | HTTPRoute/GRPCRoute | 应用域名、匹配、后端和流量策略 |
-| ReferenceGrant | 显式允许跨 Namespace 引用 |
+| ReferenceGrant | 在被引用对象的命名空间授权跨命名空间后端或证书引用 |
 
 这种角色模型更适合平台团队管理共享入口、应用团队管理自己的路由。Gateway API 仍需要具体 Controller；不同实现支持的标准/实验资源和 conformance profile 必须单独核对。
+
+例如平台在 `gateway-system` 管入口，应用在 `orders` 管路由。前提是已经安装匹配版本的 Gateway API CRD、Controller 和 `public-gateway-class`，并在 `gateway-system` 准备有效的 `orders-tls` Secret。下列监听器只接受 `orders` 命名空间的路由：
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public-gateway
+  namespace: gateway-system
+spec:
+  gatewayClassName: public-gateway-class
+  listeners:
+    - name: https
+      hostname: orders.example.com
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: orders-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: orders
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: order-api
+  namespace: orders
+spec:
+  parentRefs:
+    - name: public-gateway
+      namespace: gateway-system
+      sectionName: https
+  hostnames: [orders.example.com]
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /api
+      backendRefs:
+        - name: order-api
+          port: 80
+```
+
+这里跨命名空间的 Route → Gateway 挂接依靠 `parentRefs` 与 listener 的 `allowedRoutes` 双向同意，不需要 ReferenceGrant。同命名空间的 Route → Service 也不需要它；若 Route 改为引用 `data` 命名空间的 Service，才由 `data` 的所有者创建 ReferenceGrant 授权。Route 后端端口是 Service 的 port 80，不能误填 Pod 的 8080。
+
+检查 Gateway/listener 的 `Accepted`、`Programmed` 以及 Route 各 parent 的 `Accepted`、`ResolvedRefs`，并对齐 `observedGeneration`。状态接受后还要验证证书、请求和业务指标，不能只看 API 创建成功。
 
 ## 迁移而不是重写
 

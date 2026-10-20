@@ -1,376 +1,90 @@
-# Svelte - 编译时优化的框架
+# Svelte：编译、响应式与应用生命周期
 
-## 简介
+Svelte编译组件并生成更新DOM所需的代码，Svelte5通过runes表达状态与派生值，依赖在运行时读取过程中跟踪。编译器与运行时共同工作，不能概括为“零运行时”，也不能仅凭没有虚拟DOM断言任何业务都更快。
 
-Svelte 是一个新兴的前端框架，与 React、Vue 等传统框架不同，它在构建时将组件编译成高效的 JavaScript 代码，而不是在运行时进行虚拟 DOM 操作。这种编译时优化的方法使得 Svelte 应用在运行时具有更小的体积和更高的性能。
+例如商品数量变化后，需要更新数量、金额与按钮状态。状态是输入，派生值负责计算，事件负责业务动作，Effect只承担与外部系统的同步。把金额复制成另一个状态再用Effect回写，会增加更新链与短暂不一致。
 
-## 核心特性
+![Svelte5从组件编译到状态更新和生命周期清理](/front/framework/svelte-runtime.svg)
 
-### 1. 编译时优化
-- 无虚拟 DOM，直接操作真实 DOM
-- 在构建时进行优化，减少运行时开销
-- 生成更小、更快的代码
-
-### 2. 响应式编程
-- 编译时自动追踪依赖
-- 精确的 DOM 更新
-- 无需手动优化
-
-### 3. 简洁的语法
-- 类似 HTML 的模板语法
-- 内置过渡和动画支持
-- 自动样式作用域
-
-## 安装和设置
-
-### 创建项目
+## 初始化
 
 ```bash
-# 使用官方模板
-npx degit sveltejs/template my-svelte-app
-cd my-svelte-app
+npx sv create product-app
+cd product-app
 npm install
-
-# 启动开发服务器
 npm run dev
 ```
 
-### 手动安装
+`sv create`创建SvelteKit应用，路由页放在`src/routes/+page.svelte`。只需要嵌入式组件时，可以采用Vite的Svelte模板。部署前先确认SvelteKit adapter：静态生成和请求时渲染的运行环境不同，不能假设任何项目都有`npm run deploy`。
 
-```bash
-npm install svelte
-```
+下面采用Svelte5 runes语法。旧`export let`、`$:`和`on:click`属于legacy模式的常见写法，迁移时可以逐组件进行，但同一组件的语法要遵循相应模式；不是把所有`let`机械改为`$state`就完成应用迁移。
 
-## 基础语法
+## 一个商品报价组件
 
-### 组件结构
+把下面组件作为`src/routes/+page.svelte`。选择范围固定，金额采用分值计算；示例只生成本地报价。
 
 ```svelte
 <script>
-    let count = 0;
-    
-    function increment() {
-        count += 1;
-    }
+  let quantity = $state(1);
+  let quoted = $state(false);
+  let totalCents = $derived(quantity * 1990);
+
+  function change(delta) {
+    quantity = Math.min(5, Math.max(1, quantity + delta));
+    quoted = false;
+  }
 </script>
 
 <main>
-    <h1>Hello Svelte!</h1>
-    <p>Count: {count}</p>
-    <button on:click={increment}>
-        +1
-    </button>
+  <h1>商品报价</h1>
+  <p>数量：{quantity}</p>
+  <button type="button" disabled={quantity === 1} onclick={() => change(-1)}>
+    减少
+  </button>
+  <button type="button" disabled={quantity === 5} onclick={() => change(1)}>
+    增加
+  </button>
+  <p>金额：{(totalCents / 100).toFixed(2)}元</p>
+  <button type="button" onclick={() => quoted = true}>确认报价</button>
+  <button type="button" onclick={() => { quantity = 1; quoted = false; }}>重置</button>
+  {#if quoted}
+    <p role="status">已确认{quantity}件，仅本地报价，尚未提交服务器。</p>
+  {/if}
 </main>
-
-<style>
-    main {
-        text-align: center;
-        padding: 1em;
-        max-width: 240px;
-        margin: 0 auto;
-    }
-    
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
-    }
-</style>
 ```
 
-### 响应式声明
+`$state`是编译器识别的rune，不是需要导入的普通函数。`$derived`用于纯计算，不写入其他状态。子组件用`$props()`声明输入，回调prop传递变更；双向绑定需要明确`$bindable`合同，不能任意修改父组件传入对象。可变业务列表使用稳定业务ID的key，避免排序后把子组件状态对应到另一商品。
 
-```svelte
-<script>
-    let a = 1;
-    let b = 2;
-    
-    // 自动计算
-    $: sum = a + b;
-    
-    // 响应式语句
-    $: {
-        console.log(`the sum is ${sum}`);
-    }
-</script>
+## 外部资源与清理
+
+DOM监听、定时器等外部资源需要明确释放。以下片段可放进组件`<script>`，表示在客户端挂载后记录活动秒数；`onMount`回调同步返回清理函数，不能把回调整体改成async再期望Promise成为清理函数。
+
+```js
+import { onMount } from 'svelte';
+
+let seconds = $state(0);
+onMount(() => {
+  const timer = setInterval(() => seconds += 1, 1000);
+  return () => clearInterval(timer);
+});
 ```
 
-### 条件渲染
+`onMount`不在服务端渲染执行。模块顶层访问window或启动定时器仍可能在服务器报错或泄漏。`$effect`可用于依赖状态的外部同步，返回函数在重运行前及销毁时清理；异步await之后读取的值不会自动成为此前同步执行的依赖。请求还要验证HTTP状态和JSON合同，并防止旧结果覆盖新输入。
 
-```svelte
-{#if user.loggedIn}
-    <button on:click={toggle}>
-        Log out
-    </button>
-{/if}
+跨组件共享可以采用context、store或明确实例化的状态容器。store在Svelte5仍可用。SSR中不要把用户草稿放进模块级共享可变状态，应用实例与访问者之间的隔离需要单独设计。
 
-{#if !user.loggedIn}
-    <button on:click={toggle}>
-        Log in
-    </button>
-{/if}
-```
+## 渲染与交付
 
-### 列表渲染
+Svelte组件负责界面，SvelteKit负责路由、数据加载、服务端能力与adapter。需要随请求读取用户数据时，区分服务器代码和会发送到浏览器的代码；客户端环境变量和页面序列化数据都不能保留服务器密钥。
 
-```svelte
-<script>
-    let todos = [
-        { id: 1, text: 'Learn Svelte', done: true },
-        { id: 2, text: 'Build an app', done: false }
-    ];
-</script>
+静态生成适合公开且可在构建时确定的页面，动态订单通常还需API或服务器运行时。首屏快慢要同时测量HTML等待、下载脚本、组件激活和交互耗时，不能引用不同版本与配置的TodoMVC体积作业务收益保证。
 
-<ul>
-    {#each todos as todo}
-        <li class:done={todo.done}>
-            {todo.text}
-        </li>
-    {/each}
-</ul>
-```
+| 现象 | 检查与验证 |
+| --- | --- |
+| 改变量但页面没更新 | 当前组件模式、状态声明与读取位置，是否已脱离响应式引用 |
+| 组件销毁后仍请求 | onMount/Effect清理、取消控制与迟到结果保护 |
+| SSR访问window失败 | 代码执行环境，客户端挂载边界与服务端数据入口 |
+| 切换账号出现旧草稿 | 是否使用模块级可变单例，context实例是否正确隔离 |
+| 本地正常，部署后404 | adapter、输出目录、子路径与服务器路由处理 |
 
-## 组件通信
-
-### Props
-
-```svelte
-<!-- Child.svelte -->
-<script>
-    export let name;
-    export let greeting = 'Hello';
-</script>
-
-<p>{greeting}, {name}!</p>
-
-<!-- Parent.svelte -->
-<Child name="world" greeting="Hi" />
-```
-
-### 事件传递
-
-```svelte
-<!-- Button.svelte -->
-<script>
-    import { createEventDispatcher } from 'svelte';
-    
-    const dispatch = createEventDispatcher();
-    
-    function handleClick() {
-        dispatch('message', {
-            text: 'Hello!'
-        });
-    }
-</script>
-
-<button on:click={handleClick}>
-    Click me
-</button>
-
-<!-- App.svelte -->
-<script>
-    import Button from './Button.svelte';
-    
-    function handleMessage(event) {
-        alert(event.detail.text);
-    }
-</script>
-
-<Button on:message={handleMessage} />
-```
-
-## 状态管理
-
-### 简单状态管理
-
-```svelte
-<!-- store.js -->
-import { writable } from 'svelte/store';
-
-export const count = writable(0);
-
-export const increment = () => {
-    count.update(n => n + 1);
-};
-
-<!-- Component.svelte -->
-<script>
-    import { count, increment } from './store.js';
-</script>
-
-<button on:click={increment}>
-    Count: {$count}
-</button>
-```
-
-### 复杂状态管理
-
-```svelte
-<!-- todoStore.js -->
-import { writable } from 'svelte/store';
-
-function createTodos() {
-    const { subscribe, set, update } = writable([]);
-    
-    return {
-        subscribe,
-        add: text => update(todos => [...todos, { text, done: false, id: Date.now() }]),
-        remove: id => update(todos => todos.filter(t => t.id !== id)),
-        toggle: id => update(todos => 
-            todos.map(t => (t.id === id ? { ...t, done: !t.done } : t))
-        )
-    };
-}
-
-export const todos = createTodos();
-```
-
-## 生命周期
-
-### onMount
-
-```svelte
-<script>
-    import { onMount } from 'svelte';
-    
-    let photos = [];
-    
-    onMount(async () => {
-        const res = await fetch(`/photos.json`);
-        photos = await res.json();
-    });
-</script>
-```
-
-### onDestroy
-
-```svelte
-<script>
-    import { onDestroy } from 'svelte';
-    
-    let seconds = 0;
-    const interval = setInterval(() => seconds += 1, 1000);
-    
-    onDestroy(() => {
-        clearInterval(interval);
-    });
-</script>
-```
-
-## 动画和过渡
-
-### 过渡效果
-
-```svelte
-<script>
-    import { fade, fly } from 'svelte/transition';
-    let visible = true;
-</script>
-
-<label>
-    <input type="checkbox" bind:checked={visible}>
-    visible
-</label>
-
-{#if visible}
-    <p transition:fade>
-        Fades in and out
-    </p>
-{/if}
-
-{#if visible}
-    <p transition:fly={{ y: 200, duration: 2000 }}>
-        Flies in and out
-    </p>
-{/if}
-```
-
-### 自定义过渡
-
-```svelte
-<script>
-    import { quintOut } from 'svelte/easing';
-    
-    function spin(node, { duration }) {
-        return {
-            duration,
-            css: t => {
-                const eased = quintOut(t);
-                return `
-                    transform: scale(${eased}) rotate(${eased * 360}deg);
-                `;
-            }
-        };
-    }
-</script>
-
-<div in:spin={{ duration: 800 }}>
-    spins and scales
-</div>
-```
-
-## 路由
-
-### SvelteKit
-
-```bash
-npm create svelte@latest my-app
-cd my-app
-npm install
-npm run dev
-```
-
-### 简单路由
-
-```svelte
-<!-- App.svelte -->
-<script>
-    import Router from 'svelte-spa-router';
-    import Home from './routes/Home.svelte';
-    import About from './routes/About.svelte';
-    import NotFound from './routes/NotFound.svelte';
-    
-    const routes = {
-        '/': Home,
-        '/about': About,
-        '*': NotFound
-    };
-</script>
-
-<Router {routes} />
-```
-
-## 构建和部署
-
-### 构建生产版本
-
-```bash
-npm run build
-```
-
-### 部署到静态托管
-
-```bash
-# 构建
-npm run build
-
-# 将构建产物发布到静态服务器、对象存储或 CDN
-npm run deploy
-```
-
-## 性能优势
-
-### 包大小对比
-- React TodoMVC: ~45KB
-- Vue TodoMVC: ~34KB
-- Svelte TodoMVC: ~8KB
-
-### 运行时性能
-- 无虚拟 DOM 开销
-- 精确的 DOM 更新
-- 更小的运行时库
-
-## 总结
-
-Svelte 通过编译时优化提供了卓越的性能和开发体验。虽然生态系统相对较新，但其简洁的语法、出色的性能和零运行时开销使其成为构建现代 Web 应用的优秀选择。特别适合对性能要求严格的应用和库开发。
+验收报价组件：初始19.90元与减少禁用，增加到5得到99.50元并禁止继续增加，确认后显示结果，再减少时结果消失，重置恢复初始状态。生命周期片段还要验证离开页面后定时器停止。完整应用的渲染模式和部署边界见[元框架](./meta-frameworks.md)。

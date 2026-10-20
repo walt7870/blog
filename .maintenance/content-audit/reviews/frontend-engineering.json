@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/index.md",
+      "pageType": "专题导读",
+      "status": "verified",
+      "findings": [],
+      "decision": "全文阅读后修正基础内容归属，增加订单跨组件、接口、构建、发布的例子与责任图，保留八个专题入口。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "4e8a19be29b54d6337f7bcdd5a95e2c447faa15dbf6da99025731f8b0e2b0ea6"
+    },
+    {
+      "file": "docs/devlanguage/front/state-management/index.md",
+      "pageType": "状态生命周期",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整阅读旧1017行后重写，以订单草稿、URL、共享store和服务端缓存分责；修正Recoil归档、Zustand5选择器和Query5 gcTime，补SSR/身份清理/竞态边界。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "317d4263b52b05fc3617b2261c61f801573e5c1378e2b13f3dc99ca462feaf0c"
+    },
+    {
+      "file": "docs/devlanguage/front/quality-tools/index.md",
+      "pageType": "质量门禁实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整阅读旧600行后移除旧ESLint、Husky与已删除Stylelint规则，给ESLint10最小flat config及规则失败反例，补格式/类型/行为职责。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "d5b9244e4d31f39db12fb851abf863e2f882327b5b27c32230ca37adb14e6d33"
+    },
+    {
+      "file": "docs/devlanguage/front/testing/index.md",
+      "pageType": "验证策略",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整阅读旧448行后取消固定比例、无实现测试与跨域支付伪示例；补可运行金额测试、故意破坏反例、组件和真实端到端边界。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "2986cbe8b148dd3c22b81db20b7cd43179ffb9e2b84d212698ae068bb6bdd47e"
+    },
+    {
+      "file": "docs/devlanguage/front/performance/index.md",
+      "pageType": "性能机制与排查",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整阅读旧350行后修正FID至INP，删除无证转化率/压缩率与危险副作用配置；补LCP/INP/CLS的证据入口、缓存与实测口径。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "eb702ba23e825ba053d4ee2ef127c0457c5bc60cd3eb53fa541db8600b01d87d"
+    },
+    {
+      "file": "docs/devlanguage/front/deployment/index.md",
+      "pageType": "发布与恢复",
+      "status": "verified",
+      "findings": [],
+      "decision": "完整阅读旧289行后修正子路径、资源404与缓存头、旧chunk保留、原子切换、SSH指纹和同制品提升，补发布恢复图。",
+      "validation": [
+        "正文金额正常/非法/溢出及故意改坏测试、ESLint10/Prettier/Stylelint正反例、Pinia3数量合同、Query5核心租户隔离与失效、隔离Nginx路径/缓存/404通过；不冒称React Hook、真实支付或线上部署验收。",
+        "构建14.13秒；六页24份四模式全文、12组原尺寸与退出、6次分页、六图self_check/中文边界/截图通过，见batches/frontend-engineering.md。"
+      ],
+      "reviewedHash": "fbbb9a18a29abdf7cdcb797c9558c2745d13728e9ca77b4096739ff4bc214cf2"
+    }
+  ]
+}

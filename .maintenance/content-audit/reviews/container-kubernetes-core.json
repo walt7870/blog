@@ -1,0 +1,36 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/index.md",
+      "status": "verified",
+      "reviewedHash": "245be6fa89501ebc5441a3cf7d5365e2d88f2820db8ee3f4e358f1f95506b15a",
+      "pageType": "Kubernetes 机制与阅读导览",
+      "decision": "完整阅读并校准控制循环，移除散落补丁版本，补订单连接池预热导致Running但NotReady的例子，更正EndpointSlice可含未就绪端点，重画API协作图，保留各资源和扩展入口。",
+      "validation": ["整站构建14.64秒通过；正文Bash语法通过。24个B站视频官方view API逐项code0/state0且标题编号匹配，未声称视频播放测试。桌面1280×900和手机390×844浅深色全页截图、图片加载、原尺寸查看关闭通过，无整页横溢；手机长代码ArrowRight后scrollLeft37.5，键盘激活正文控制面入口后URL/H1正确。"]
+    },
+    {
+      "file": "docs/container/kubernetes/control-plane.md",
+      "status": "verified",
+      "reviewedHash": "b63c59b6b29b7785fb6dd7e4f09ae2bcb734835ee3277dff18b1fc8dd8748715",
+      "pageType": "API 与异步控制机制",
+      "decision": "完整阅读并修正generation资源特定语义、Deployment annotation代次、SSA唯一与共享所有者省略字段结果、HPA和GitOps争抢案例、控制器经API访问及Pod准备非串行边界，重画同步写与异步调谐图。",
+      "validation": ["官方SSA相关段和v1.36.0 Deployment策略源码核对；3段Bash语法通过，未运行集群SSA实验。构建通过；独立SVG原尺寸实际字体边界及截图复核；桌面/手机浅深色全部截图、图原尺寸关闭、3处手机代码键盘横滚通过；控制面到调度客户端分页URL/H1正确。"]
+    },
+    {
+      "file": "docs/container/kubernetes/scheduling-node-lifecycle.md",
+      "status": "verified",
+      "reviewedHash": "17c7917e84b2d306105b38dba776f526b5f980d535ee2c985284bc300aec2a7c",
+      "pageType": "调度与节点生命周期机制",
+      "decision": "完整阅读后校准Reserve/Permit位于调度周期末段、许可等待发生在绑定周期，补4CPU节点requests例子，修正Pod UID不迁移、Running定义、探针阈值与重启策略、终止宽限期和sidecar次序、PDB不约束Deployment滚动删除，重画生命周期图。",
+      "validation": ["Scheduling Framework全文及Pod Lifecycle相关启动终止段核对；2段Bash语法通过，没有集群调度探针终止集成实测。整站构建通过；SVG原尺寸实际字体逐项rect/截图检查；桌面/手机双主题全部截图、图原尺寸关闭、2处代码ArrowRight后scrollLeft40/15.5；到数据面客户端分页URL/H1正确。"]
+    },
+    {
+      "file": "docs/container/kubernetes/data-plane-reliability.md",
+      "status": "verified",
+      "reviewedHash": "2c52a7831dfa39ca1bde335d9176acee4bb79b54c6981c2e1b5461c7203c00f9",
+      "pageType": "请求与存储数据面机制",
+      "decision": "完整阅读后区分EndpointSlice配置与请求转发、ready/serving/terminating及例外，校准IPVS弃用、Ingress直连Pod或Service两条路径、Linux命令位置和工具前提；补CSI供应/可选attach/stage/publish与实际IO图，注明拓扑PodSpec片段放置位置与Pending边界。",
+      "validation": ["EndpointSlice全文、代理弃用与PDB官方相关段核对；4段Bash及1段YAML语法通过，未运行CNI/CSI真实集成实验。整站构建通过；网络与卷SVG原尺寸实际字体逐项rect/截图及760高卷图fullPage复核；桌面/手机浅深色全部截图、两图原尺寸查看关闭、4处超宽代码键盘滚动通过，页面390px无整页横溢。"]
+    }
+  ]
+}

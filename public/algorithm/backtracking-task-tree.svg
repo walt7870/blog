@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="552" viewBox="0 0 1040 552" role="img" aria-labelledby="backtracking-task-tree-title backtracking-task-tree-desc">
+<title id="backtracking-task-tree-title">任务选择的搜索树与收益上界剪枝</title>
+<desc id="backtracking-task-tree-desc">预算5，任务A花费2收益3，B花费3收益4。先找到A加B收益7，再用剩余收益上界剪掉不可能改善答案的分支；不选A的分支最多得到4。</desc>
+<defs><marker id="bt-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7Z" fill="#71838c"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:19px;font-weight:600}.sub{font-size:16px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.line{fill:none;stroke:#71838c;stroke-width:1.4;marker-end:url(#bt-arrow)}.mask{fill:#f8fafb}</style>
+<rect width="1040" height="552" fill="#f8fafb"/>
+<text class="title" x="36" y="44">回溯：先找到方案，再证明哪些分支可以跳过</text>
+<text class="sub" x="36" y="74">预算 5；A 花费 2、收益 3；B 花费 3、收益 4；两项不互斥。</text>
+<path class="line" d="M256 240 H300 Q308 240 308 232 V174 Q308 166 316 166 H388"/>
+<path class="line" d="M256 280 H324 Q332 280 332 288 V374 Q332 382 340 382 H388"/>
+<path class="line" d="M632 148 H668 Q676 148 676 140 V132 Q676 124 684 124 H728"/>
+<path class="line" d="M632 184 H648 Q656 184 656 192 V264 Q656 272 664 272 H728"/>
+<rect class="mask" x="310" y="128" width="70" height="25"/><text class="sub" x="318" y="146">选 A</text>
+<rect class="mask" x="290" y="403" width="90" height="25"/><text class="sub" x="298" y="421">不选 A</text>
+<rect class="mask" x="640" y="88" width="78" height="25"/><text class="sub" x="648" y="106">选 B</text>
+<rect class="mask" x="636" y="295" width="86" height="25"/><text class="sub" x="644" y="313">不选 B</text>
+<rect class="box" x="36" y="220" width="220" height="84" rx="6"/>
+<text class="name" x="56" y="250">尚未选择</text><text class="sub" x="56" y="280">余额 5，收益 0</text>
+<rect class="box" x="388" y="124" width="244" height="84" rx="6"/>
+<text class="name" x="408" y="154">已选 A</text><text class="sub" x="408" y="184">余额 3，收益 3</text>
+<rect class="focus" x="728" y="88" width="276" height="84" rx="6"/>
+<text class="name" x="748" y="118">A + B，收益 7</text><text class="sub" x="748" y="148">保存不可变路径快照</text>
+<rect class="box" x="728" y="236" width="276" height="84" rx="6"/>
+<text class="name" x="748" y="266">只有 A，收益 3</text><text class="sub" x="748" y="296">上界 3 ≤ 7，结束分支</text>
+<rect class="box" x="388" y="340" width="244" height="84" rx="6"/>
+<text class="name" x="408" y="370">没有选 A</text><text class="sub" x="408" y="400">上界仅为 B 的 4 ≤ 7</text>
+<text class="sub" x="676" y="376">不必继续枚举 B 的两个分支。</text>
+<text class="sub" x="676" y="405">上界忽略约束，但不能低估。</text>
+<text class="sub" x="36" y="479">探索完选择分支后，先撤销本层对路径与集合的修改，再探索不选择分支。</text>
+<text class="sub" x="36" y="516">这里只返回一组最优方案；若要枚举全部最优解，不能用“上界相等”丢弃分支。</text>
+</svg>

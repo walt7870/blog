@@ -27,12 +27,18 @@
   <text class="text b" x="900" y="173" text-anchor="middle">文件名、字段顺序</text>
   <text class="text b" x="900" y="195" text-anchor="middle">失败提示、重复点击</text>
   <path class="line" d="M240 162 L310 162"/><path class="line" d="M480 162 L550 162"/><path class="line" d="M720 162 L790 162"/>
-  <path class="line" d="M900 215 C900 310 155 310 155 215"/>
+  <path class="line" d="M900 215V274Q900 282 892 282H640"/>
+  <path d="M440 282 540 242 640 282 540 322Z" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text class="text h" x="540" y="288" text-anchor="middle">判断下一步</text>
   <rect class="focus" x="250" y="355" width="260" height="90"/>
   <text class="text h" x="380" y="390" text-anchor="middle">继续原型</text>
   <text class="text b" x="380" y="418" text-anchor="middle">方向未稳定，继续低成本迭代</text>
   <rect class="warn" x="570" y="355" width="260" height="90"/>
   <text class="text h" x="700" y="390" text-anchor="middle">进入工程化</text>
   <text class="text b" x="700" y="418" text-anchor="middle">接真实数据、权限、测试和发布</text>
-  <path class="line" d="M540 310 L380 355"/><path class="line" d="M540 310 L700 355"/>
+  <path class="line" d="M490 302V328Q490 336 482 336H388Q380 336 380 344V355"/>
+  <path class="line" d="M590 302V328Q590 336 598 336H692Q700 336 700 344V355"/>
+  <path class="line" d="M250 400H163Q155 400 155 392V215"/>
+  <text class="text b" x="345" y="317">方向待验证</text>
+  <text class="text b" x="690" y="317">准备真实使用</text>
 </svg>

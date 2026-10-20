@@ -70,10 +70,13 @@ TCP 主要通过以下机制发现丢失：
 接收端通过 Window 告诉发送端还能容纳多少字节。发送端允许的在途数据同时受接收窗口 `rwnd` 和拥塞窗口 `cwnd` 限制：
 
 ```text
-send allowance = min(rwnd, cwnd)
+最大在途字节 ≈ min(rwnd, cwnd)
+本轮可新增发送 ≈ max(0, 最大在途字节 - 已在途字节)
 ```
 
 应用读取太慢时，接收缓冲逐渐填满，窗口可能降到零。发送端停止普通数据并周期发送 Window Probe。此时网络可能完全正常，瓶颈在接收应用的消费速度。
+
+例如 `rwnd=64 KiB`、`cwnd=32 KiB`，已有 `24 KiB` 未确认，则当前只能再发约 `8 KiB`，不能再发完整的 `32 KiB`。实际还受发送缓冲、拥塞算法的 pacing 和恢复状态约束。
 
 窗口缩放选项在握手中协商，使高速高延迟网络可以使用大于 65535 字节的有效窗口。
 
@@ -100,7 +103,7 @@ ss -ti dst 203.0.113.20
 
 ## 四次挥手与 TIME_WAIT
 
-TCP 是全双工连接，两个方向要分别关闭：
+TCP 是全双工连接，两个方向要分别关闭。`shutdown(SHUT_WR)` 可以只结束写方向，仍继续读取对端数据；`close()` 则释放应用持有的描述符引用。
 
 ```text
 Active closer                           Passive closer
@@ -116,7 +119,7 @@ ACK 与 FIN 可以合并，因此抓包不一定恰好看到四个 Segment。所
 |---|---|
 | CLOSE-WAIT | 对端已关闭写方向，本地应用尚未 `close` |
 | FIN-WAIT-2 | 本地 FIN 已确认，等待对端 FIN |
-| TIME-WAIT | 主动关闭方暂存状态，处理迟到报文并确保最终 ACK 可重发 |
+| TIME-WAIT | 通常由主动关闭方保留状态，处理迟到报文并确保最终 ACK 可重发；同时关闭时两端都可能进入 |
 
 大量长期 `CLOSE-WAIT` 常表示应用泄漏连接。`TIME-WAIT` 则是协议正常状态，是否过多要结合连接建立速率、端口范围和连接复用分析。
 
@@ -177,6 +180,8 @@ epoll_wait → accept/read → 协议解析 → 业务工作池 → write
 
 ## 可复现实验
 
+以下使用 Linux、OpenBSD 风格 `nc` 和两个终端。`strace` 需要替换实际 PID，并可能受 ptrace 权限限制。
+
 ```bash
 # 启动监听端
 nc -l 9000
@@ -189,8 +194,10 @@ ss -ltnp 'sport = :9000'
 ss -tnpi 'dport = :9000'
 
 # 观察系统调用和报文
-strace -e socket,bind,listen,accept,connect,sendto,recvfrom -p PID
-sudo tcpdump -i lo -nn 'tcp port 9000'
+strace -e socket,bind,listen,accept,connect,sendto,recvfrom,read,write -p PID
+sudo tcpdump -i lo -nn -c 50 'tcp port 9000'
 ```
+
+在任一终端输入两行文本，另一端应收到相同字节；`ss` 应显示监听端点和四元组不同的已连接端点。终端里的换行是输入内容，不是 TCP 消息边界。若要发送两条订单事件，必须另用换行分隔、长度前缀或其他应用协议解析，不能假定一次 `recv` 就读到一条事件。
 
 下一步进入 [现代应用与实时协议](./application-realtime.md)，把传输层能力映射为 TLS、HTTP、WebSocket、gRPC 和 WebRTC。

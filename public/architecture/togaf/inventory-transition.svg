@@ -9,7 +9,7 @@
 
   <rect width="1440" height="720" fill="#ffffff"/>
   <text x="72" y="62" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">过渡架构：迁移的是事实责任，不只是流量</text>
-  <text x="72" y="99" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每个迁移范围内保持一个权威写入方；新平台先证明语义和结果，再逐步接管责任。</text>
+  <text x="72" y="99" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">共享实物需共用裁决或隔离额度；切换时交接在途预占、追平数据，并阻断旧写入。</text>
 
   <g font-family="Arial, 'PingFang SC', sans-serif">
     <text x="78" y="176" fill="#172033" font-size="17" font-weight="700">阶段</text>

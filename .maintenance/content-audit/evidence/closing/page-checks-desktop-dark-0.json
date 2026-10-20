@@ -1,0 +1,715 @@
+[
+  {
+    "file": "AGENTS.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 4703,
+    "title": "项目文档约束",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/2022-07-31/高效能人士的7个习惯.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/reading/seven-habits-action.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1301,
+    "title": "高效能人士的七个习惯",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/index.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 305,
+    "title": "阅读记录",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 7040,
+    "title": "TOGAF 营销系统流程图历史计划",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/specs/2026-07-26-togaf-marketing-flow-visuals-design.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 1461,
+    "title": "TOGAF 营销系统流程图历史设计",
+    "width": 1280
+  },
+  {
+    "file": "index.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 1078,
+    "title": "稻草小站",
+    "width": 1280
+  },
+  {
+    "file": "miniapp/README.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/reading/miniapp-content-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2105,
+    "title": "小程序内容构建说明",
+    "width": 1280
+  },
+  {
+    "file": "notes.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 632,
+    "title": "技术专题",
+    "width": 1280
+  },
+  {
+    "file": "profile/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 919,
+    "title": "牛万成",
+    "width": 1280
+  },
+  {
+    "file": "projects/amphion-cloud.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/cloud-entitlements.webp",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/cloud-licenses.webp",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/cloud-devices.webp",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/cloud-domains.svg",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3411,
+    "title": "AI 能力云平台",
+    "width": 1280
+  },
+  {
+    "file": "projects/audio-forensics.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sdk-tts.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-sdk.svg",
+        "width": 2900
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3385,
+    "title": "语音 SDK 与模型服务",
+    "width": 1280
+  },
+  {
+    "file": "projects/commerce.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/commerce.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/commerce.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/commerce-app.webp",
+        "width": 780
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/commerce.svg",
+        "width": 1919
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/feishu-workflow.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1709,
+    "title": "多渠道电商业务系统",
+    "width": 1280
+  },
+  {
+    "file": "projects/delivery-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/delivery-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/delivery-platform.svg",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sub2api-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 2099,
+    "title": "平台 CI 与持续交付",
+    "width": 1280
+  },
+  {
+    "file": "projects/feishu-workflow.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/feishu-workflow.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/feishu-workflow.svg",
+        "width": 2068
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/commerce.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1591,
+    "title": "飞书业务自动化",
+    "width": 1280
+  },
+  {
+    "file": "projects/gitlab-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/gitlab-platform.svg",
+        "width": 1665
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/delivery-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sub2api-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 2128,
+    "title": "GitLab 搭建与代码治理",
+    "width": 1280
+  },
+  {
+    "file": "projects/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/commerce.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/feishu-workflow.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-playground.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/materials-website.webp",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/delivery-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sub2api-platform.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1164,
+    "title": "项目实践",
+    "width": 1280
+  },
+  {
+    "file": "projects/materials-website.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/materials-website.webp",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/materials-website.svg",
+        "width": 2288
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1531,
+    "title": "工业材料企业官网",
+    "width": 1280
+  },
+  {
+    "file": "projects/memo-ai.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-workspace.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/memo-ai.svg",
+        "width": 1425
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-playground.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 2099,
+    "title": "声纪 · 会议工作台",
+    "width": 1280
+  },
+  {
+    "file": "projects/private-asr.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/private-asr.svg",
+        "width": 1645
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 2070,
+    "title": "私有化流式语音系统",
+    "width": 1280
+  },
+  {
+    "file": "projects/speech-playground.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-playground.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-playground.svg",
+        "width": 1841
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1497,
+    "title": "语音模型 Playground",
+    "width": 1280
+  },
+  {
+    "file": "projects/speech-sdk.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-sdk.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sdk-tts.webp",
+        "width": 320
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/speech-sdk.svg",
+        "width": 2900
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/private-asr.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 3385,
+    "title": "语音 SDK 与模型服务",
+    "width": 1280
+  },
+  {
+    "file": "projects/sub2api-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/sub2api-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/sub2api-platform.svg",
+        "width": 1539
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/gitlab-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/delivery-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1999,
+    "title": "sub2api 部署与维护",
+    "width": 1280
+  },
+  {
+    "file": "projects/voice-platform.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-platform.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/voice-experience.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/diagrams/voice-platform.svg",
+        "width": 2137
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/memo-ai.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/speech-playground.webp",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/projects/screenshots/amphion-cloud.webp",
+        "width": 1440
+      }
+    ],
+    "scroll": 1280,
+    "text": 1787,
+    "title": "语音交互应用平台",
+    "width": 1280
+  },
+  {
+    "file": "README.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 2278,
+    "title": "稻草小站",
+    "width": 1280
+  }
+]

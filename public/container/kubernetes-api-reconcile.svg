@@ -1,26 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes API 写入与调谐链路</title>
-  <desc id="desc">展示客户端请求经过认证、授权、准入、存储，再由控制器异步调谐到工作节点的过程。</desc>
-  <rect width="1280" height="560" fill="#f5f7fa"/>
-  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">API 成功与运行成功之间隔着异步控制链</text>
-  <g font-family="sans-serif" font-size="20" text-anchor="middle">
-    <rect x="60" y="126" width="150" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="135" y="171" fill="#172033">客户端</text>
-    <rect x="260" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="340" y="157" fill="#172033">认证 / 授权</text><text x="340" y="184" fill="#526078">身份与权限</text>
-    <rect x="470" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="550" y="157" fill="#172033">准入 / 校验</text><text x="550" y="184" fill="#526078">最终对象</text>
-    <rect x="680" y="126" width="160" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="760" y="157" fill="#172033">kube-apiserver</text><text x="760" y="184" fill="#526078">resourceVersion</text>
-    <rect x="890" y="126" width="150" height="76" rx="8" fill="#ffffff" stroke="#326ce5" stroke-width="3"/><text x="965" y="171" fill="#172033">etcd</text>
-  </g>
-  <g stroke="#326ce5" stroke-width="3" fill="none"><path d="M210 164H250"/><path d="M420 164H460"/><path d="M630 164H670"/><path d="M840 164H880"/></g>
-  <g fill="#326ce5"><path d="M250 164l-12-7v14z"/><path d="M460 164l-12-7v14z"/><path d="M670 164l-12-7v14z"/><path d="M880 164l-12-7v14z"/></g>
-  <path d="M965 212v58H270v42" stroke="#65738a" stroke-width="3" fill="none" stroke-dasharray="8 7"/>
-  <text x="620" y="258" font-family="sans-serif" font-size="18" fill="#526078">list / watch：变化只负责触发，当前事实决定动作</text>
-  <g font-family="sans-serif" font-size="20" text-anchor="middle">
-    <rect x="170" y="322" width="200" height="86" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="270" y="357" fill="#172033">控制器 / Operator</text><text x="270" y="386" fill="#526078">计算期望与差异</text>
-    <rect x="455" y="322" width="170" height="86" rx="8" fill="#ffffff" stroke="#5b677a" stroke-width="3"/><text x="540" y="357" fill="#172033">scheduler</text><text x="540" y="386" fill="#526078">选择节点</text>
-    <rect x="710" y="322" width="170" height="86" rx="8" fill="#ffffff" stroke="#5b677a" stroke-width="3"/><text x="795" y="357" fill="#172033">kubelet</text><text x="795" y="386" fill="#526078">落实 Pod</text>
-    <rect x="965" y="322" width="190" height="86" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1060" y="357" fill="#172033">Ready 后端</text><text x="1060" y="386" fill="#526078">开始接收流量</text>
-  </g>
-  <g stroke="#5b677a" stroke-width="3" fill="none"><path d="M370 365H445"/><path d="M625 365H700"/><path d="M880 365H955"/></g>
-  <g fill="#5b677a"><path d="M445 365l-12-7v14z"/><path d="M700 365l-12-7v14z"/><path d="M955 365l-12-7v14z"/></g>
-  <rect x="60" y="472" width="1160" height="50" rx="8" fill="#fff4e5" stroke="#d88416"/><text x="640" y="504" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#6e4300">排障证据：对象版本 + Conditions + Events + 组件日志 + 业务指标</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+  <title id="title">API 同步写入与控制器异步调谐</title>
+  <desc id="desc">同步请求在 API Server 校验和持久化后返回。控制器通过 API list/watch 建立缓存和队列，重读当前事实后再次调用 API 写回，不直接 watch etcd。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}.dash{stroke-dasharray:6 5}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/><text class="title" x="48" y="54">API 成功只覆盖同步写入，业务结果还要等待调谐</text>
+  <text class="t" x="48" y="89">以修改 order-api 镜像为例：写入 Deployment 后，控制器还需创建和观察关联对象。</text>
+  <path class="edge" d="M208 203H270"/><path class="edge" d="M830 203H910"/>
+  <path class="edge dash" d="M330 280V322Q330 330 322 330H188Q180 330 180 338V390"/>
+  <path class="edge" d="M310 445H370"/><path class="edge" d="M570 445H630"/><path class="edge" d="M830 445H890"/>
+  <rect class="box" x="48" y="155" width="160" height="96" rx="6"/><text class="h" x="66" y="193">客户端</text><text class="t" x="66" y="226">Apply 对象</text>
+  <rect class="api" x="270" y="125" width="560" height="155" rx="6"/><text class="h" x="294" y="163">kube-apiserver 的同步请求边界</text><text class="t" x="294" y="199">认证 / 授权 → 变更准入 → 校验 / 验证准入</text><text class="t" x="294" y="231">存储成功后返回对象与 resourceVersion</text><text class="t" x="294" y="260">不等待 ReplicaSet、Pod 或探针完成</text>
+  <rect class="box" x="910" y="155" width="160" height="96" rx="6"/><text class="h" x="928" y="193">etcd</text><text class="t" x="928" y="226">持久化对象</text>
+  <rect x="48" y="306" width="130" height="30" fill="#f7f9fb"/><text class="t" x="48" y="327">list / watch</text>
+  <rect class="box" x="48" y="390" width="262" height="110" rx="6"/><text class="h" x="68" y="427">Reflector / Informer</text><text class="t" x="68" y="461">API 观察、缓存与索引</text><text class="t" x="68" y="487">断线或 410 后恢复观察</text>
+  <rect class="box" x="370" y="390" width="200" height="110" rx="6"/><text class="h" x="390" y="427">WorkQueue</text><text class="t" x="390" y="461">对象键去重</text><text class="t" x="390" y="487">限速与重试</text>
+  <rect class="box" x="630" y="390" width="200" height="110" rx="6"/><text class="h" x="650" y="427">Reconcile</text><text class="t" x="650" y="461">重读当前事实</text><text class="t" x="650" y="487">计算下一步动作</text>
+  <rect class="api" x="890" y="390" width="182" height="110" rx="6"/><text class="h" x="910" y="427">再次调用 API</text><text class="t" x="910" y="461">创建关联对象</text><text class="t" x="910" y="487">更新状态与条件</text>
+  <text class="h" x="48" y="559">事件是重新检查的提示，不是业务消息的完整历史</text><text class="t" x="48" y="595">重复调谐应幂等；缓存可能滞后，写入需处理版本冲突，外部副作用还需自己的幂等键。</text>
 </svg>

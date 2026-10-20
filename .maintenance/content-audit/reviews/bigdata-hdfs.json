@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/hdfs.md",
+      "status": "verified",
+      "reviewedHash": "679ec8c635b0899f4d53e0bf4f7bffe243a4a73cb1880d530a94ccda494fbab0",
+      "pageType": "HDFS块读写、元数据HA与文件排障",
+      "decision": "旧1175行全文读取后重写。移除模拟内部类与重复上传的虚构Java、CRC32绝对化、递归644、无条件安全模式切换/全盘压测/删除、盲目JVM和线程参数、pgrep当健康及UNHEALTHY误匹配脚本。补实际读写图、128/128/44MiB块示例、持久化/检查点/QJM/ZKFC/fencing边界、受控文件检查与独立目录回读练习，以及缺块/副本不足/租约/容量分支。",
+      "validation": [
+        "浏览器读取Hadoop3.4.2 HdfsDesign主要设计全文，FileSystemShell的stat/put/mkdir/rm段及QJM HA架构、自动故障转移与fencing章节。明确QJM单写者和旧Active过时读取风险。",
+        "/tmp/blog-hdfs-check.mjs两段bash -n通过。首次Hadoop客户端help因缺core-site.xml失败，在独立/tmp空配置补齐后，用既有Hadoop3.4.1客户端/JDK17验证stat/mkdir/put/get/chmod help及%b/%o/%r退出0。没有HDFS服务环境，未执行上传回读、真实fsck、HA或故障恢复，不将参数检查称为集群运行验证。",
+        "末次HA措辞修改后重新完整构建17.60秒并重启preview。SVG self_check、实际中文画布/截图与连线路由通过；1280桌面及390×844手机亮深色、图片放大/原尺寸/关闭、代码局部滚动通过，无全页溢出、破图或客户端error，viewport已reset。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mysql/high-availability.md",
+      "status": "verified",
+      "reviewedHash": "3d34709c7317efe64a2ca38b70d3d0a2a92f5351f30e7b0f62e590041c812750",
+      "pageType": "复制进度、GTID练习与切换隔离机制",
+      "decision": "完整阅读旧1447行，重写为订单写后读与主库故障。修实时/零丢失、半同步等于已应用、任意副本强读、旧复制语法与字段、SELECT正则路由、跨线程清ThreadLocal、固定粘性时间、Galera强一致/任意插件及盲bootstrap、NDB绝对无状态、旧QueryCache与降低刷盘的高性能配置等。补8.4 GR默认一致性、Cluster/ReplicaSet区别、GTID偏序和候选分叉、旧主fencing与业务幂等；双SVG呈现接收/应用进度和切换分支。",
+      "validation": [
+        "Oracle8.4 GTID冷启动、半同步及GR一致性配置正文核对；概览仅有导读未冒充细节来源，额外GTID函数URL404及options截断未算完整阅读。/tmp/blog-mysql-ha-check.mjs在独立双8.4.11执行全部5个SQL围栏及ini参数（替换真实测试地址/凭据/CA），GTID自动定位、CA与DNS校验、只读重启保持/写入1290、暂停应用时接收ON但等待1/订单缺失、恢复等待0/两订单59.80均通过。实测发现首次初始化super_read_only阻止建账号及复制密码32字符上限，正文已修顺序与边界",
+        "/tmp/blog-mysql-ha-tls-negative.mjs确认SSL与证书校验YES，证书仅DNS身份时按IP连接拒绝，恢复正确DNS后接收ON。GR仅安装插件核实默认BEFORE_ON_PRIMARY_FAILOVER及查询列，未运行组/选主/fencing/半同步故障演练。双SVG XML/实际中文文字边界和截图通过，20.47秒生产构建后重启preview，1280桌面和实际390×844手机亮深色、图片放大/原尺寸/关闭通过，无破图/横向溢出/客户端error"
+      ]
+    },
+    {
+      "file": "docs/database/mysql/monitoring-operations.md",
+      "status": "verified",
+      "reviewedHash": "d628e89488ef56396ccafc9cbbb6af3c6b8af4e95d5c358af7af6c9aef36f262",
+      "pageType": "业务指标、MySQL证据链与监控接入实操",
+      "decision": "完整阅读旧2289行，以订单慢请求重写。修累计值当QPS、计时1e9标秒、动态打开performance_schema、旧GLOBAL_STATUS/锁表、错误GROUP BY、coordinator误查worker字段、旧SHOW SLAVE/MASTER、盲跳事务、停库后用mysql还原、批杀Sleep、密码参数明文、伪Zabbix模板/手写SQL归一化、无条件日志删除与定期REPAIR/OPTIMIZE等。补rate/重置/分母、Sleep持锁、KILL语句与连接差异、采集失败/指标缺失、exporter全局SELECT风险及受限来源、日志与容量边界，新增监控关系SVG。",
+      "validation": [
+        "Oracle8.4 data_lock_waits与slow-query-log全文核对。exporter CLI读取失败后浏览器读取官方README，GitHub发布API核对0.20.0；官方镜像实际--version为0.20.0 revision11da31c，镜像摘要abed8dac117b4ae5b70757f988e44795935b9a72c3b58d720c67ba688f8cb79e。/tmp/blog-mysql-monitor-check.mjs在8.4.11执行全部5个SQL围栏，真实双连接等待映射到Sleep阻塞者、回滚释放；本机TCP专用账号/600配置、exporter指标mysql_up1及questions计数通过",
+        "Prometheus3.5.0官方promtool通过config/rules校验和两类告警单测（端点不可达、端点可达但MySQL采集失败）。受控SLEEP进入慢日志，相关全局设置恢复；未宣称远端TLS、生产通知路由或完整OS轮转实测。SVG XML/中文文字画布及截图通过；20.47秒生产构建重启preview后，1280桌面及实际390×844手机亮深色/表格/代码局部滚动、图片放大/原尺寸/关闭通过，无破图/全页横向溢出/客户端error，viewport reset"
+      ]
+    }
+  ]
+}

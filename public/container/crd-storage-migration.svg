@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="crd-storage-migration-title crd-storage-migration-desc">
+  <title id="crd-storage-migration-title">CRD存储版本迁移与旧接口退役</title>
+  <desc id="crd-storage-migration-desc">先验证双版本转换，再切换新写存储，重写全部历史对象，确认完成后清理存储版本记录，最后退役旧接口；读取新版本不等于重写历史对象。</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+    <text x="48" y="56" font-size="28" font-weight="700">新接口能读取，不代表旧对象已按新格式存储</text>
+    <text x="48" y="91" font-size="17" fill="#52616d">按依赖顺序推进，不表示每阶段耗时相同；全过程保留备份与转换能力。</text>
+    <g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M344 224H412"/><path d="M708 224H776"/>
+      <path d="M924 300V344Q924 352 916 352H204Q196 352 196 360V400"/>
+      <path d="M344 472H412"/><path d="M708 472H776"/>
+    </g>
+    <g stroke="#8fa3b1" fill="#fff"><rect x="48" y="144" width="296" height="156" rx="6"/><rect x="412" y="144" width="296" height="156" rx="6"/><rect x="48" y="400" width="296" height="144" rx="6"/><rect x="412" y="400" width="296" height="144" rx="6"/><rect x="776" y="400" width="296" height="144" rx="6"/></g>
+    <rect x="776" y="144" width="296" height="156" rx="6" fill="#eaf3fb" stroke="#7694aa"/>
+    <g font-size="21" font-weight="700"><text x="68" y="182">1. 提供双版本</text><text x="432" y="182">2. 验证双向转换</text><text x="796" y="182">3. 切换 storage</text><text x="68" y="438">4. 重写历史对象</text><text x="432" y="438">5. 核对迁移记录</text><text x="796" y="438">6. 退役旧接口</text></g>
+    <g font-size="18" fill="#52616d">
+      <text x="68" y="222">新旧 served 都保留</text><text x="68" y="254">旧客户端仍能访问</text><text x="432" y="222">字段往返不能丢失</text><text x="432" y="254">失败时先修转换后端</text><text x="796" y="222">新写入采用新版本</text><text x="796" y="254">已有对象不会自动变更</text>
+      <text x="68" y="476">枚举全部对象并更新</text><text x="68" y="508">处理分页、并发与失败重试</text><text x="432" y="476">证明完成后，再清理旧</text><text x="432" y="508">storedVersions 条目</text><text x="796" y="476">确认旧客户端已迁移</text><text x="796" y="508">停 served，再移除旧定义</text>
+      <text x="48" y="590">只 GET 不迁移；只改 storedVersions 不迁移；只回滚控制器镜像也不自动还原存储数据。</text>
+    </g>
+  </g>
+</svg>

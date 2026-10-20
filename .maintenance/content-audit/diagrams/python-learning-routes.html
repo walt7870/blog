@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>Python 工程阅读路线</title>
+<style>body{margin:0;background:#fafcfb}.diagram{max-width:100%;min-width:0;overflow-x:auto}svg{display:block;width:100%;min-width:960px}@media print{.diagram{overflow:visible}svg{min-width:0}}</style>
+<div class="diagram">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="py-route-title py-route-desc">
+  <title id="py-route-title">Python 基础工具与并发工程的衔接</title>
+  <desc id="py-route-desc">先确认程序能产生正确结果。还不能时，从客户名单、规则、文件和交付学习基础工具；已有正确程序时，先测量瓶颈，再按网络等待、CPU 计算或 GPU 流水线选择并发方式。基础完成后可以进入性能诊断，两条路线都要求验证结果和失败恢复。</desc>
+  <defs><marker id="py-route-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#62786c"/></marker></defs>
+  <rect width="960" height="560" fill="#fafcfb"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#253c30">
+    <text x="40" y="48" font-size="28" font-weight="600">从正确处理数据，走向可控地加速</text>
+    <text x="40" y="80" font-size="18" fill="#607568">同一条业务线：客户名单 → 订单检查 → 日报 → 批量与接口</text>
+    <g fill="none" stroke="#62786c" stroke-width="2" marker-end="url(#py-route-arrow)">
+      <path d="M400 200H568"/>
+      <path d="M240 280V348"/>
+      <path d="M408 392H456Q464 392 464 384V280Q464 272 472 272H568" stroke-dasharray="6 5"/>
+      <path d="M744 312V368"/>
+    </g>
+    <g font-size="18" fill="#607568"><rect x="412" y="164" width="44" height="28" fill="#fafcfb"/><text x="434" y="184" text-anchor="middle">是</text><rect x="256" y="296" width="40" height="28" fill="#fafcfb"/><text x="276" y="316" text-anchor="middle">否</text><rect x="488" y="236" width="72" height="28" fill="#fafcfb"/><text x="524" y="256" text-anchor="middle">变慢后</text></g>
+    <path data-node="decision" d="M240 120 400 200 240 280 80 200Z" fill="#fff" stroke="#c4d3c9"/>
+    <rect data-node="basics" x="72" y="348" width="336" height="104" rx="6" fill="#e9f4ee" stroke="#397657"/>
+    <rect data-node="concurrency" x="568" y="136" width="352" height="176" rx="6" fill="#edf3fb" stroke="#97b6d3"/>
+    <rect data-node="verification" x="568" y="368" width="352" height="84" rx="6" fill="#fff" stroke="#c4d3c9"/>
+    <text x="240" y="208" font-size="20" font-weight="600" text-anchor="middle">已有正确、可用的程序？</text>
+    <text x="96" y="380" font-size="21" font-weight="600">基础系列：把任务做完整</text>
+    <text x="96" y="410" font-size="18">数据与规则 → 函数与文件</text><text x="96" y="438" font-size="18">异常与日志 → 参数化交付</text>
+    <text x="592" y="172" font-size="21" font-weight="600" fill="#2b659b">并发系列：先测量瓶颈</text>
+    <text x="592" y="208" font-size="18">网络等待：有限并发与超时</text><text x="592" y="244" font-size="18">CPU 计算：进程与数据传递成本</text><text x="592" y="280" font-size="18">GPU 推理：批次、显存与流水线</text>
+    <text x="592" y="402" font-size="20" font-weight="600">检查结果、资源与恢复能力</text><text x="592" y="432" font-size="18" fill="#607568">不漏项、不重复，失败后能续跑</text>
+    <path d="M40 484H920" stroke="#d7e1da"/>
+    <text x="40" y="518" font-size="18" fill="#607568">实线：按当前问题选入口。虚线：基础工具遇到性能问题后，转入并发诊断。</text>
+  </g>
+</svg></div></html>

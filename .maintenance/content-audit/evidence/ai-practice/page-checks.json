@@ -1,0 +1,146 @@
+[
+  {
+    "page": "",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/vision-project.html",
+    "scroll": 1280,
+    "title": "AI 项目实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "agent-project.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/",
+    "scroll": 1280,
+    "title": "Agent 项目：工单处理助手 ​",
+    "width": 1280
+  },
+  {
+    "page": "machine-learning-project.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/deep-learning/",
+    "scroll": 1280,
+    "title": "机器学习项目：用户流失预测 ​",
+    "width": 1280
+  },
+  {
+    "page": "vision-project.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/agent-project.html",
+    "scroll": 1280,
+    "title": "视觉项目：产品质量分类 ​",
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/vision-project.html",
+    "scroll": 1280,
+    "title": "AI 项目实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "agent-project.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/",
+    "scroll": 1280,
+    "title": "Agent 项目：工单处理助手 ​",
+    "width": 1280
+  },
+  {
+    "page": "machine-learning-project.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/deep-learning/",
+    "scroll": 1280,
+    "title": "机器学习项目：用户流失预测 ​",
+    "width": 1280
+  },
+  {
+    "page": "vision-project.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/agent-project.html",
+    "scroll": 1280,
+    "title": "视觉项目：产品质量分类 ​",
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "mobile-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/vision-project.html",
+    "scroll": 390,
+    "title": "AI 项目实践 ​",
+    "width": 390
+  },
+  {
+    "page": "agent-project.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/",
+    "scroll": 390,
+    "title": "Agent 项目：工单处理助手 ​",
+    "width": 390
+  },
+  {
+    "page": "machine-learning-project.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/deep-learning/",
+    "scroll": 390,
+    "title": "机器学习项目：用户流失预测 ​",
+    "width": 390
+  },
+  {
+    "page": "vision-project.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/agent-project.html",
+    "scroll": 390,
+    "title": "视觉项目：产品质量分类 ​",
+    "width": 390
+  },
+  {
+    "page": "",
+    "mode": "mobile-light",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/vision-project.html",
+    "scroll": 390,
+    "title": "AI 项目实践 ​",
+    "width": 390
+  },
+  {
+    "page": "agent-project.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/",
+    "scroll": 390,
+    "title": "Agent 项目：工单处理助手 ​",
+    "width": 390
+  },
+  {
+    "page": "machine-learning-project.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "next": "/blog/docs/ai/deep-learning/",
+    "scroll": 390,
+    "title": "机器学习项目：用户流失预测 ​",
+    "width": 390
+  },
+  {
+    "page": "vision-project.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "next": "/blog/docs/ai/practice/agent-project.html",
+    "scroll": 390,
+    "title": "视觉项目：产品质量分类 ​",
+    "width": 390
+  }
+]

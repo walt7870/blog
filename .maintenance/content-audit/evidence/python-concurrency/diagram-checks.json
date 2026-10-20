@@ -1,0 +1,116 @@
+[
+  {
+    "file": "concurrency-diagnosis-decision-flow.svg",
+    "errors": [],
+    "texts": 23,
+    "viewBox": "0 0 1120 640"
+  },
+  {
+    "file": "ep01-bottleneck-evidence-chain.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep02-four-concepts-map.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 548"
+  },
+  {
+    "file": "ep03-tool-selection-map.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 548"
+  },
+  {
+    "file": "ep04-threadpool-lifecycle.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep05-shared-state-strategies.svg",
+    "errors": [],
+    "texts": 14,
+    "viewBox": "0 0 1120 520"
+  },
+  {
+    "file": "ep06-event-loop-model.svg",
+    "errors": [],
+    "texts": 17,
+    "viewBox": "0 0 1120 552"
+  },
+  {
+    "file": "ep08-sync-blocking-boundary.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 616"
+  },
+  {
+    "file": "ep09-processpool-cost-model.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 548"
+  },
+  {
+    "file": "ep10-bounded-pipeline.svg",
+    "errors": [],
+    "texts": 17,
+    "viewBox": "0 0 1120 536"
+  },
+  {
+    "file": "ep11-control-layer.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 548"
+  },
+  {
+    "file": "ep12-file-checkpoint-state.svg",
+    "errors": [],
+    "texts": 13,
+    "viewBox": "0 0 1120 540"
+  },
+  {
+    "file": "ep13-ffmpeg-command-pool.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep14-api-quota-ledger.svg",
+    "errors": [],
+    "texts": 17,
+    "viewBox": "0 0 1120 544"
+  },
+  {
+    "file": "ep15-gpu-batch-queue.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep16-realtime-latency-budget.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep17-benchmark-evidence-loop.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep18-runtime-selection-future.svg",
+    "errors": [],
+    "texts": 15,
+    "viewBox": "0 0 1120 408"
+  },
+  {
+    "file": "ep07-async-task-state-machine.svg",
+    "errors": [],
+    "texts": 20,
+    "viewBox": "0 0 1120 680"
+  }
+]

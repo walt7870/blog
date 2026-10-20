@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 控制面、API 与调谐
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes 控制面、API 与调谐
@@ -41,7 +41,7 @@ kubectl get deploy order-api -n orders -w --output-watch-events
 kubectl get deploy order-api -n orders -o yaml --show-managed-fields
 ```
 
-`generation` 表示期望状态发生了多少次变化；控制器把已处理代次写入 `status.observedGeneration`。当两者不一致时，旧的 Ready Condition 可能已经不能代表当前 spec。
+`generation` 是资源期望状态的代次，具体哪些更新使其递增由资源实现决定，不能当成通用的 spec 修改计数器。例如 Deployment 的某些 annotation 更新也会推进代次。支持这套约定的控制器用 `status.observedGeneration` 或 Condition 中的 `observedGeneration` 表达已处理代次；不是所有资源都提供相同字段。比较前先确认对象类型，旧代次的 Available/Ready 不能直接证明最新变更已生效。
 
 `resourceVersion` 是 API Server 提供的并发与观察游标，应当视为不透明字符串，不能解析大小或推断时间。watch 断开后，客户端从最后处理的版本继续；如果历史已被压缩，API 会返回 `410 Gone`，客户端必须丢弃旧缓存、重新 list，再建立 watch。Bookmark 只帮助客户端推进游标，不包含新的对象状态。
 
@@ -56,7 +56,9 @@ kubectl apply --server-side --field-manager=platform-controller -f app.yaml
 kubectl get deploy order-api -n orders -o yaml --show-managed-fields
 ```
 
-处理冲突前应先确认字段责任：让出字段时从自己的 Apply 配置中删除；确实要接管时再使用 force conflicts。强制接管不是通用重试开关，它会转移字段所有权，可能让另一个控制器下一轮再次争抢并形成抖动。
+处理冲突前应先确认字段责任。同一字段有其他所有者时，从本管理者的 Apply 配置删除它并再次 Apply，可以放弃管理权；若自己是唯一所有者，省略字段可能从线上对象删除它，或恢复默认值。不能把删配置一律理解为“线上值保持不变”。确实要接管时再使用 `--force-conflicts`，它会转移字段所有权，可能让另一个控制器下一轮再次争抢并形成抖动。
+
+例如 HPA 管理 `spec.replicas`，GitOps 每次却强制把副本写回 2，就会把扩到 6 的结果覆盖。应在工作流设计时明确谁负责副本数，再检查 `managedFields` 和实际更新事件；不要靠反复强制 Apply 解决控制权冲突。上面的 `app.yaml` 代表已有清单，SSA 命令会真实修改集群对象，应先确认 context 和文件内容。
 
 ## etcd 提供什么一致性
 
@@ -95,21 +97,24 @@ Pod 落地跨越多个独立组件：
 | --- | --- | --- |
 | 创建 Pod | 控制器或用户 | API 中出现未绑定 Pod |
 | 选择节点 | scheduler | `.spec.nodeName` 写入，PodScheduled 更新 |
-| 准备运行 | kubelet | 拉取 Secret、ConfigMap、镜像和卷信息 |
+| 准备运行 | kubelet | 取得配置与凭据，协调镜像、卷及沙箱准备 |
 | 建立沙箱 | CRI 运行时、CNI | Pod sandbox、网络命名空间和 Pod IP |
-| 挂载存储 | kubelet、CSI | 卷 attach、mount 和容器挂载 |
+| 挂载存储 | kubelet、CSI 及相关控制器 | 按驱动能力协调 attach、stage、publish |
 | 启动容器 | CRI 运行时 | 容器进入 Running |
-| 接收流量 | kubelet、EndpointSlice 控制器 | Ready 后进入 Service 后端 |
+| 接收流量 | kubelet、EndpointSlice 控制器、数据面 | 就绪事实传播后，由数据面选择可服务端点 |
 
-`Running` 只表示至少一个容器正在运行，不等于业务可用。面向请求的判断应继续看 Ready Condition 和 EndpointSlice。
+表格表达职责，卷与沙箱准备不构成所有实现都必须遵守的串行顺序。Pod phase 为 `Running` 表示已绑定节点、全部容器已创建，且至少一个仍在运行或启动、重启过程中，不等于业务可用。面向请求的判断还要看 Ready Condition、EndpointSlice 条件和真实响应。
 
 ## 用证据定位不收敛
 
+先将 `pod_name` 改为实际 Pod 名。命令只查询现存对象，不创建测试应用：
+
 ```bash
+pod_name=order-api-替换为实际名称
 kubectl get deploy,rs,pod -n orders -o wide
 kubectl describe deploy order-api -n orders
-kubectl describe pod <pod> -n orders
-kubectl get pod <pod> -n orders -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" "}{.reason}{"\n"}{end}'
+kubectl describe pod "$pod_name" -n orders
+kubectl get pod "$pod_name" -n orders -o jsonpath='{range .status.conditions[*]}{.type}{"="}{.status}{" "}{.reason}{"\n"}{end}'
 kubectl get events -n orders --sort-by=.metadata.creationTimestamp
 ```
 
@@ -124,8 +129,3 @@ kubectl get events -n orders --sort-by=.metadata.creationTimestamp
 | 重启控制器能恢复就是偶发问题 | 重启可能清空局部状态，根因仍可能再次触发 |
 | Status 是日志区 | Status 应是结构化、可观察的当前事实 |
 | etcd 快照等于控制面容灾 | 还需验证恢复流程、证书、静态 Pod 和业务对象一致性 |
-
-## 官方资料
-
-- [Kubernetes API Concepts](https://kubernetes.io/docs/reference/using-api/api-concepts/)
-- [Server-Side Apply](https://kubernetes.io/docs/reference/using-api/server-side-apply/)

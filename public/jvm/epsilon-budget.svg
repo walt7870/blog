@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440" role="img" aria-labelledby="epsilon-budget-title epsilon-budget-desc">
+  <title id="epsilon-budget-title">Epsilon 累计分配与存活量的区别</title>
+  <desc id="epsilon-budget-desc">同样三批数组每次只保留最近一批，有回收时旧空间有机会复用，Epsilon不会回收旧批次，因此累计分配持续占据预算。实际还需计入启动、对象头和分配损耗，堆耗尽则无法继续分配。</desc>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}</style>
+  <rect width="1100" height="440" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">只保留最近一批，也能把 Epsilon 堆用尽</text>
+  <text class="body" x="32" y="76">下图是逻辑预算对比，不是地址布局；每批旧数据都已失去引用。</text>
+  <text class="name" x="32" y="142">有实际回收</text>
+  <rect x="280" y="112" width="248" height="80" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text class="body" x="300" y="147">第 3 批仍存活</text><text class="note" x="300" y="174">需要保留</text>
+  <rect x="548" y="112" width="520" height="80" rx="6" fill="#f0fdf4" stroke="#86b49b"/><text class="body" x="568" y="147">第 1、2 批空间：回收后可复用</text><text class="note" x="568" y="174">不保证失去引用后立刻回收</text>
+  <text class="name" x="32" y="254">Epsilon</text>
+  <rect x="280" y="224" width="248" height="80" rx="6" fill="#fff7ed" stroke="#e4b68b"/><text class="body" x="300" y="259">第 1 批：不再存活</text><text class="note" x="300" y="286">空间不回收</text>
+  <rect x="548" y="224" width="248" height="80" rx="6" fill="#fff7ed" stroke="#e4b68b"/><text class="body" x="568" y="259">第 2 批：不再存活</text><text class="note" x="568" y="286">空间不回收</text>
+  <rect x="816" y="224" width="252" height="80" rx="6" fill="#eff6ff" stroke="#93c5fd"/><text class="body" x="836" y="259">第 3 批：仍存活</text><text class="note" x="836" y="286">继续占用</text>
+  <text class="body" x="32" y="360">预算必须覆盖累计分配：旧对象失去引用，不会给 Epsilon 腾出下一批的空间。</text>
+  <text class="note" x="32" y="406">还需计入启动、依赖、对象头、对齐和分配缓冲损耗；实验只能验证给定输入，不能保证无限运行。</text>
+</svg>

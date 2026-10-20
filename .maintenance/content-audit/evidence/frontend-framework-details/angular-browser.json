@@ -1,0 +1,15 @@
+{
+  "angularShared": "共享数量 2",
+  "angularLocal": [
+    "局部数量 2",
+    "局部数量 1"
+  ],
+  "angularLimit": {
+    "text": "数量 5， 共 99.50 元",
+    "disabled": true
+  },
+  "angularReset": {
+    "main": "数量 1， 共 19.90 元",
+    "shared": "共享数量 1"
+  }
+}

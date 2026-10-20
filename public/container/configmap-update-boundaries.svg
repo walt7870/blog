@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="configmap-update-boundaries-title configmap-update-boundaries-desc">
+  <title id="configmap-update-boundaries-title">ConfigMap 更新的三种生效路径</title>
+  <desc id="configmap-update-boundaries-desc">ConfigMap 更新后，环境变量等待容器重建，目录投影由 kubelet 最终同步并由应用重载，subPath 挂载不会自动更新。</desc>
+  <defs><marker id="configmap-update-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#configmap-update-arrow)}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <text class="title" x="48" y="52">修改对象之后，还要确认文件和进程何时更新</text>
+  <text class="t" x="48" y="84">订单 API：支付超时从 2 秒改到 5 秒；以下为三种不同消费方式。</text>
+  <path class="edge" d="M560 180V212Q560 220 552 220H220Q212 220 212 228V260"/>
+  <path class="edge" d="M580 180V260"/>
+  <path class="edge" d="M600 180V212Q600 220 608 220H920Q928 220 928 228V260"/>
+  <path class="edge" d="M212 364V424"/><path class="edge" d="M580 364V424"/><path class="edge" d="M928 364V424"/>
+  <rect class="api" x="384" y="116" width="352" height="64" rx="6"/><text class="h" x="408" y="156">ConfigMap：对象更新成功</text>
+  <rect class="box" x="48" y="260" width="328" height="104" rx="6"/><text class="h" x="68" y="296">环境变量</text><text class="t" x="68" y="328">已运行容器仍保留旧值</text><text class="t" x="68" y="352">不会自动触发 Deployment 发布</text>
+  <rect class="box" x="416" y="260" width="328" height="104" rx="6"/><text class="h" x="436" y="296">目录卷投影</text><text class="t" x="436" y="328">kubelet 最终同步新文件</text><text class="t" x="436" y="352">传播受缓存与同步周期影响</text>
+  <rect class="box" x="784" y="260" width="288" height="104" rx="6"/><text class="h" x="804" y="296">subPath 单文件</text><text class="t" x="804" y="328">已有挂载不自动更新</text><text class="t" x="804" y="352">不能当作热更新入口</text>
+  <rect class="run" x="48" y="424" width="328" height="100" rx="6"/><text class="h" x="68" y="460">受控重建容器 / Pod</text><text class="t" x="68" y="492">启动读取新值，再验证运行版本</text>
+  <rect class="run" x="416" y="424" width="328" height="100" rx="6"/><text class="h" x="436" y="460">应用重新打开并校验</text><text class="t" x="436" y="492">重载成功后切换进程内配置</text>
+  <rect class="run" x="784" y="424" width="288" height="100" rx="6"/><text class="h" x="804" y="460">重建 Pod 后重新挂载</text><text class="t" x="804" y="492">再核对实际文件与应用版本</text>
+  <text class="t" x="48" y="576">箭头表示生效步骤，不表示业务请求；引用不可变版本名时，需要同时更新 Pod 模板引用。</text>
+  <text class="t" x="48" y="608">对象已改、文件已改、应用已用新值，是三个独立的验收结果。</text>
+</svg>

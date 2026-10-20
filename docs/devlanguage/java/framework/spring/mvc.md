@@ -34,11 +34,7 @@ Spring MVC 负责把 HTTP 世界和 Java 方法连接起来。客户端看到的
 
 ### `doDispatch()` 内部怎样推进
 
-源码中的主链比“找到 Controller”多几个关键对象，它同时包含正常返回路径和异常解析分支：
-
-![DispatcherServlet 内部分派流程](/spring/mvc-dispatch-internals.svg)
-
-HandlerMapping 负责“找谁”，HandlerAdapter 负责“怎么调用”，ArgumentResolver 负责“参数从哪里来”，ReturnValueHandler 负责“返回值怎么写出去”。把这四个职责分开后，自定义参数解析、响应体转换和异常处理才能各自扩展，而不必修改 DispatcherServlet。
+HandlerMapping 负责“找谁”，HandlerAdapter 负责“怎么调用”，ArgumentResolver 负责“参数从哪里来”，ReturnValueHandler 负责“返回值怎么写出去”。上图中适配器部分包含参数解析，返回值处理部分包含内容协商与消息转换。把职责分开后，自定义参数解析、响应体转换和异常处理可以各自扩展，而不必修改 DispatcherServlet。
 
 ### 请求不是直接“反射调用 Controller”
 
@@ -165,24 +161,26 @@ public class ApiExceptionHandler {
             HttpServletRequest request) {
         ApiError error = new ApiError(
                 "ORDER_NOT_FOUND",
-                exception.getMessage(),
-                request.getHeader("X-Request-Id"));
+                "订单不存在",
+                (String) request.getAttribute("requestId"));
         return ResponseEntity.status(404).body(error);
     }
 }
 ```
 
-异常处理器负责协议转换，不应在这里补做库存回滚、订单状态修改等业务补偿。业务一致性由事务或明确的补偿流程负责。
+这是协议片段，省略业务异常、ApiError 及导入；`requestId` 由前置过滤器生成或校验后存入属性，不直接信任任意客户端请求头。异常处理器负责协议转换，不应在这里补做库存回滚、订单状态修改等业务补偿。业务一致性由事务或明确的补偿流程负责。
 
 ## 拦截器、过滤器、AOP 的区别
 
 | 机制 | 所在位置 | 更适合做什么 |
 | --- | --- | --- |
 | Filter | Servlet 容器层，MVC 之前 | 安全链、编码、跨域、链路 ID |
-| Interceptor | MVC 层，知道 Handler 信息 | 登录态、租户上下文、接口审计 |
+| Interceptor | MVC 层，知道 Handler 信息 | 已认证上下文的适配、接口审计 |
 | AOP | Bean 方法调用层 | 事务、方法级日志、业务注解增强 |
 
 选择时看你需要的信息在哪一层。如果需要原始请求和响应，用 Filter；如果需要知道目标控制器方法，用 Interceptor；如果关注 Service 方法调用，用 AOP。
+
+鉴权边界优先由 Spring Security 等 Servlet 过滤链统一建立。MVC Interceptor 的路径匹配可能与控制器映射产生差异，也不能天然覆盖全部非 MVC 入口，不宜单独承担整个应用的安全边界。租户上下文还应与已验证身份及具体资源权限绑定，不能只读取客户端传来的租户号。
 
 ## CORS
 
@@ -236,7 +234,7 @@ Spring Boot 可以直接提供 classpath 下的静态资源，也可以通过 MV
 优先检查：
 
 1. URL 和服务上下文路径是否正确。
-2. HTTP Method 是否匹配。
+2. 代理是否改写了请求方法；已存在路径但方法不匹配通常应检查 405。
 3. Controller 是否被扫描成 Bean。
 4. 类级路径和方法级路径组合后是否符合预期。
 5. 网关或反向代理是否改写路径。
@@ -246,7 +244,7 @@ Spring Boot 可以直接提供 classpath 下的静态资源，也可以通过 MV
 常见原因：
 
 - JSON 格式错误。
-- `Content-Type` 不匹配。
+- 请求体读取失败；媒体类型不受支持则应另查 415。
 - 参数类型转换失败。
 - 校验规则不通过。
 - 必填参数缺失。

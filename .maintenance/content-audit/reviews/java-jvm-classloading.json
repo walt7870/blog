@@ -1,0 +1,31 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/jvm/hands-on.md",
+      "status": "verified",
+      "reviewedHash": "20c55634bba8316a15f27b05d6dc4f45f973adb4f2ef9079ae2d130fc7f1ce74",
+      "pageType": "JDK最小运行观测实验",
+      "decision": "全文阅读后补JDK17/record前提、两个Class文件、预期输出、有限jstat采样、shell日志参数引号、PID/用户/容器边界和实验退出方式；沿用已核对运行图，区分睡眠实验与JIT/GC负载测试。说明NMT未默认开启和dump的实际写入位置及停顿。",
+      "validation": ["正文Java块机械提取到/tmp，Temurin17编译运行输出jvm-demo:Tom；实际jcmd读取启动参数、堆、类加载器、线程，jstat有限采样成功；SIGINT结束且已回收进程。",
+        "1280桌面与390×844手机浅深色完整截图通过；图片桌面/手机放大、原尺寸、关闭通过；超宽代码键盘局部滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/class-file-bytecode.md",
+      "status": "verified",
+      "reviewedHash": "355765284ac963add83e12b1c6e61868bafb19f49651c1c39c3f2ddb54f91bbf",
+      "pageType": "二进制方法合同与依赖冲突",
+      "decision": "全文阅读后纠正Java不能只按返回类型重载、Code不属于abstract/native方法、异常表与行号表职责；增加Price返回int改long的三文件实验和独立SVG，明确toolchain/release与预览类文件边界，分清CNFE与链接错误。修新增Gradle相对链接及短表头挤压。",
+      "validation": ["Temurin17实际编译v1/v2/Checkout：v1输出19900，v2预期抛NoSuchMethodError；javap -c确认调用()I，两个-s输出分别()I与()J。",
+        "SVG结构、实际字体和画布边界通过；1280/390浅深色、图示放大/原尺寸/关闭、所有超宽代码局部滚动通过；本次曾新增相对链接错误，修为../manager/gradle.md后构建15.05秒成功，全站本地引用0错误。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/class-loading.md",
+      "status": "verified",
+      "reviewedHash": "585dfd1e07efbe7f115fecda3e15d01e73a5dd071a031d0e14a0b33f77f7a418",
+      "pageType": "加载初始化与插件隔离机制",
+      "decision": "全文阅读后用SVG分清初始化前提与可延迟解析，说明ConstantValue和初始化错误状态；区分定义/发起加载器、共同父加载器接口与插件实现、TCCL查找入口和恢复原值、Agent增强不必破委派；类泄漏需外部Root，补日志和直方图停顿边界。",
+      "validation": ["浏览器实际读取JVMS25第5章：定义/发起加载器、lazy/eager解析、Preparation默认值、ConstantValue初始化与erroneous后NoClassDefFoundError规则；未把官方正文未读取部分计为证据。",
+        "SVG全图/字体/画布边界、1280/390浅深色、图示放大/原尺寸/关闭和局部代码滚动通过；正文链接实际完成客户端跳转到方法区页；构建15.05秒退出0。"]
+    }
+  ]
+}

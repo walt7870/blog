@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="title desc">
+  <title id="title">DaemonSet 节点覆盖范围</title>
+  <desc id="desc">node-pool等于workers的两个节点匹配DaemonSet，其中一个已cordon仍可因自动容忍运行代理。GPU节点标签不匹配，无代理。其他污点、资源、权限及启动条件仍须满足。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="620" fill="#f7f9fb"/><text class="title" x="48" y="54">覆盖哪些节点，由匹配和容忍共同决定</text><text class="t" x="48" y="90">示例选择 node-pool=workers；cordon 不等于停止节点级系统代理。</text>
+  <path class="edge" d="M480 235V292Q480 300 472 300H206Q198 300 198 308V350"/><path class="edge" d="M640 235V292Q640 300 632 300H568Q560 300 560 308V350"/>
+  <text class="t" x="225" y="280">创建匹配节点的 Pod</text><text class="t" x="677" y="280">未匹配的节点不创建</text>
+  <rect x="410" y="125" width="300" height="110" rx="6" fill="#eaf4fc" stroke="#5686a6"/><text class="h" x="430" y="165">DaemonSet：node-agent</text><text class="t" x="430" y="204">nodeSelector 及 Pod template</text>
+  <rect class="box" x="48" y="350" width="300" height="170" rx="6"/><text class="h" x="68" y="388">节点 A：workers</text><text class="t" x="68" y="422">标签匹配，正常调度</text><rect x="68" y="447" width="260" height="50" rx="6" fill="#edf8f1" stroke="#729c87"/><text class="t" x="88" y="479">一个 node-agent Pod</text>
+  <rect class="box" x="410" y="350" width="300" height="170" rx="6"/><text class="h" x="430" y="388">节点 B：workers</text><text class="t" x="430" y="422">已 cordon，自动容忍仍允许</text><rect x="430" y="447" width="260" height="50" rx="6" fill="#edf8f1" stroke="#729c87"/><text class="t" x="450" y="479">一个 node-agent Pod</text>
+  <rect class="box" x="772" y="350" width="300" height="170" rx="6"/><text class="h" x="792" y="388">节点 C：gpu</text><text class="t" x="792" y="422">标签不匹配</text><text class="t" x="792" y="479">没有这个 DaemonSet 的 Pod</text>
+  <text class="t" x="48" y="575">图只说明选择范围；其他污点、资源、Admission、镜像和探针仍会影响是否实际运行。</text>
+</svg>

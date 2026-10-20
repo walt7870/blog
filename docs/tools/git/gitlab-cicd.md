@@ -1,4 +1,4 @@
-# 从零搭建 GitLab CI/CD：部署、发布与排错记录
+# GitLab CI/CD 搭建与发布
 
 自建 GitLab 只是代码托管的起点。真正可交付的 CI/CD，需要把代码审核、构建算力、制品、部署权限、运行验收和回滚连接起来：维护者合并代码后，系统能够发布确定的版本；失败时能够定位停在哪一层；发布异常时能够恢复发布前的状态。
 
@@ -309,6 +309,8 @@ roleRef:
 
 这允许读取该 namespace 的 Deployment 列表和变化，但只允许修改指定 Deployment。若进一步限制 `list/watch` 的 `resourceNames`，客户端必须携带匹配的名称字段选择器，需要针对所用客户端验证。只给 `get/patch` 时，更新可能成功，而 `kubectl rollout status` 的监听持续报 Forbidden。
 
+`patch` 不是字段级授权：它不仅能改镜像，也能改 Pod 模板、ServiceAccount 或挂载配置，具体后果取决于准入策略及运行身份。这个 Role 只适用于已审查的受信发布代码；还应限制可用 ServiceAccount、镜像来源和挂载，隔离该 namespace 的高权限身份。`resourceNames` 限制资源名称，不能替代这些约束。
+
 这个 Role **不能**完成首次创建应用、读取 Secret、创建迁移 Job，也不覆盖 Argo Rollouts。首次基础设施初始化由管理员或独立基础设施流程完成；实际需要哪些附加动作，再按资源种类和 namespace 授权。使用 Rollout CRD 的服务要配置 `rollouts.argoproj.io` 权限及对应验收工具。
 
 ECR 权限同样拆分：`ecr:GetAuthorizationToken` 的资源范围必须为 `*`，镜像层上传、`PutImage`、镜像读取等动作则限制到明确的 repository ARN。运行节点或运行 Pod 的镜像拉取身份还需要单独配置，CI 能推送不代表业务节点能拉取。
@@ -529,6 +531,8 @@ build-web:
 ```
 
 发布前先保存当前完整静态版本或建立可恢复的版本清单。上传采用“哈希资源先上传、入口文件最后切换”的顺序，以下只是发布脚本的上传部分：
+
+这里要求 `dist/assets/` 中每个文件的 URL 都随内容变化而变化，且旧 URL 永不覆盖成其他内容，才可整目录设置 `immutable`。如果包含固定名称的图片、配置或手工复制资源，应拆出该目录并使用短缓存或重新验证策略，不能仅凭目录名判断缓存安全。
 
 ```bash
 set -euo pipefail

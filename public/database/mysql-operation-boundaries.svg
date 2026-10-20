@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
+  <title id="title">MySQL 写入、复制与恢复的边界</title>
+  <desc id="desc">应用通过连接池访问MySQL主库，主库binlog复制到从库。备份工具从主库创建一致备份和连续日志归档，备份进入独立存储并在隔离恢复实例验证，复制不代替备份。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1080" height="560" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">复制承接新变更，备份保留可恢复的历史</text>
+  <text x="36" y="78" class="small">示例：单主写入、异步从库；故障切换需另行判定和隔离旧主。</text>
+  <path class="line" d="M264 194H384"/><path class="line" d="M656 194H800"/>
+  <path class="line" d="M520 256V288Q520 296 512 296H158Q150 296 150 304V356"/>
+  <path class="line" d="M264 406H384"/><path class="line" d="M656 406H800"/>
+  <rect x="36" y="144" width="228" height="100" class="box"/><text x="56" y="180" class="head">应用服务</text><text x="56" y="218" class="small">连接池、事务、幂等键</text>
+  <rect x="384" y="132" width="272" height="124" rx="6" fill="#eaf5ef" stroke="#638d7d" stroke-width="1.3"/>
+  <text x="404" y="166" class="head">MySQL 主库</text><text x="404" y="202">InnoDB + redo / undo</text><text x="404" y="236" class="small">服务层 binlog 记录变更</text>
+  <rect x="800" y="144" width="244" height="100" class="box"/><text x="820" y="180" class="head">MySQL 从库</text><text x="820" y="218" class="small">复制应用有延迟</text>
+  <rect x="36" y="356" width="228" height="100" class="box"/><text x="56" y="392" class="head">备份与归档工具</text><text x="56" y="430" class="small">一致快照 + 连续日志</text>
+  <rect x="384" y="356" width="272" height="100" class="box"/><text x="404" y="392" class="head">独立备份存储</text><text x="404" y="430" class="small">文件、位点、校验与保留</text>
+  <rect x="800" y="356" width="244" height="100" class="box"/><text x="820" y="392" class="head">隔离恢复实例</text><text x="820" y="430" class="small">还原 / 重放 / 业务核对</text>
+  <rect x="284" y="166" width="80" height="26" fill="#f7f9fa"/><text x="324" y="184" text-anchor="middle" class="small">读写请求</text>
+  <rect x="672" y="166" width="112" height="26" fill="#f7f9fa"/><text x="728" y="184" text-anchor="middle" class="small">binlog 复制</text>
+  <text x="280" y="280" class="small">提取快照与日志</text>
+  <text x="36" y="510" class="small">误删会传播到从库；恢复路径必须保留备份与所需日志，并在隔离环境验证 RPO、RTO。</text>
+</svg>

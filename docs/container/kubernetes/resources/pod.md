@@ -1,12 +1,14 @@
 ---
 title: Kubernetes Pod
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes Pod
 
-Pod 是 Kubernetes 的最小调度单位。一个 Pod 中的容器共享网络命名空间和卷，并被放到同一节点。Pod 不是虚拟机，也不是稳定服务地址；控制器会在故障或发布时创建新的 Pod，新 Pod 通常拥有新的 UID 和 IP。
+Pod 是 Kubernetes 的最小调度单位。一个 Pod 中的容器共享网络命名空间，并可挂载同一份 Pod 卷；卷仍要在各容器中显式声明 volumeMounts。它们被放到同一节点。Pod 不是虚拟机，也不是稳定服务地址；替代 Pod 总有新的 UID，IP 可能变化，不能把旧 Pod 的网络地址当作持久身份。
+
+![Pod 从声明、调度到启动和终止的生命周期](/container/kubernetes-scheduling-lifecycle.svg)
 
 ## 什么时候直接创建 Pod
 
@@ -15,6 +17,8 @@ Pod 是 Kubernetes 的最小调度单位。一个 Pod 中的容器共享网络�
 多容器 Pod 只适合生命周期、网络和资源边界紧密耦合的进程，例如应用与必须同地运行的代理。可以独立扩缩、发布或故障隔离的服务应拆成不同 Pod。
 
 ## 一个生产基线
+
+下面是配置结构示例：先在目标 namespace 创建 `order-api` ServiceAccount，再替换镜像为真实 digest。镜像必须支持非 root 用户、只读根文件系统和三个健康端点；需要写临时文件时，应额外挂载有容量上限的可写卷。不能把占位 digest 原样部署。
 
 ```yaml
 apiVersion: v1
@@ -68,21 +72,23 @@ CPU limit 是否设置取决于延迟目标和节流风险；内存 limit 超出
 | Condition | 含义 |
 | --- | --- |
 | `PodScheduled` | 是否已经绑定节点 |
-| `Initialized` | init containers 是否完成 |
-| `ContainersReady` | 所有业务容器是否 Ready |
-| `Ready` | Pod 是否可作为 Service 后端 |
+| `Initialized` | 普通 init 已成功结束；原生 sidecar init 按其启动规则判断 |
+| `ContainersReady` | 所有需就绪的容器是否满足就绪要求 |
+| `Ready` | 容器就绪及自定义 readiness gates 等条件是否全部满足 |
 
-`Running` 不等于 Ready；进程已经启动但就绪探针失败时，Pod 仍不应接收流量。
+`Running` 不等于 Ready：它只表示 Pod 已绑定节点、容器已创建，且至少一个容器仍在运行、启动或重启。普通 Service 通常按就绪端点接流量，但 `publishNotReadyAddresses` 等配置可改变行为；不能只看 phase 判断流量是否安全。
 
 容器状态中的 `waiting.reason`、`terminated.reason`、退出码和 `restartCount` 比 phase 更能解释 `ImagePullBackOff`、`CrashLoopBackOff`、OOMKilled 和探针失败。
 
 ## init container、卷和配置
 
-init container 按顺序运行并全部成功后，业务容器才启动。它适合生成配置、等待必要条件或设置文件权限，但不应无限等待外部服务；超时和失败要能从日志与 Events 看见。
+普通 init container 按顺序成功结束后，业务容器才启动。原生 sidecar 是设置 `restartPolicy: Always` 的 init container，达到启动条件后可与后续容器并行运行，并持续到 Pod 终止。不要把它理解成必须退出的初始化脚本。普通 init 适合生成配置、等待必要条件或设置文件权限，但不应无限等待外部服务；超时和失败要能从日志与 Events 看见。
 
 ConfigMap/Secret 环境变量只在容器创建时读取。卷投影可能更新文件，但应用是否重载由应用决定。持久数据应使用 PVC，不写进容器可写层。
 
 ## 排障顺序
+
+查询示例使用当前 namespace；切换到实际环境后再执行。`--previous` 只在同一 Pod 内仍保留上一轮容器日志时有效。
 
 ```bash
 kubectl get pod order-api -o wide

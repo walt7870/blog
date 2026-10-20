@@ -1,0 +1,50 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  }
+]

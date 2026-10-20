@@ -1,0 +1,80 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "JavaScript 模块系统：接口、依赖图与按需加载",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "TypeScript 静态类型：推断、收窄与运行时边界",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Node.js 与包管理：运行环境、依赖树和锁文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Vite 流水线：开发模块、HMR 与生产产物",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "前端质量工具链：格式、规则、类型与行为",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "组件化 UI：状态归属与响应式更新",
+    "width": 1280
+  }
+]

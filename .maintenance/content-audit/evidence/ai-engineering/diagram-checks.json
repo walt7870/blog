@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ai-engineering-lifecycle",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "inference-request-budget",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "capacity-cost-accounting",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "tool-write-trust-boundary",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  },
+  {
+    "name": "rag-evidence-gate",
+    "clip": [],
+    "overflow": [],
+    "width": 1280
+  }
+]

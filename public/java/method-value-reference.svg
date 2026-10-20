@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760" role="img" aria-labelledby="java-param-title java-param-desc">
+  <title id="java-param-title">Java方法参数按值传递与对象共享</title>
+  <desc id="java-param-desc">main中的order和markPaid调用中的形参保存同一对象的引用值。修改字段后原订单102成为PAID。随后独立调用replaceLocal，其形参重新赋值指向新订单999，但main中的order仍指向原订单102。图中方法形参属于先后发生的独立调用，并非同时存在的执行栈。</desc>
+  <defs><marker id="java-param-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#java-param-arrow)}.mask{fill:#f7f9fa}</style></defs>
+  <rect width="1240" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">复制的是引用值，字段变化与变量赋值有不同结果</text>
+  <text x="36" y="80" class="small">两次方法调用先后发生；下图对照各自的引用关系，不表示两个方法同时执行。</text>
+  <path d="M420 190H816" class="line"/>
+  <path d="M420 382H660Q668 382 668 374V258Q668 250 676 250H816" class="line"/>
+  <path d="M420 574H816" class="line"/>
+  <rect x="480" y="150" width="244" height="28" class="mask"/><text x="602" y="170" class="small" text-anchor="middle">调用后仍指向同一对象</text>
+  <rect x="464" y="340" width="176" height="28" class="mask"/><text x="552" y="360" class="small" text-anchor="middle">修改共享对象的字段</text>
+  <rect x="480" y="534" width="244" height="28" class="mask"/><text x="602" y="554" class="small" text-anchor="middle">仅重设本次调用的形参</text>
+  <rect x="36" y="142" width="384" height="112" class="focus"/>
+  <text x="56" y="186" class="head">调用者：main中的order</text><text x="56" y="226" class="small">保存原订单对象的引用值</text>
+  <rect x="816" y="142" width="388" height="152" class="focus"/>
+  <text x="836" y="186" class="head">原订单对象</text><text x="836" y="222" class="small">id = 102；amountCent = 5000</text><text x="836" y="262" class="small">status：PENDING → PAID</text>
+  <rect x="36" y="334" width="384" height="112" class="box"/>
+  <text x="56" y="378" class="head">第一次：markPaid的order</text><text x="56" y="418" class="small">入参复制引用值，访问原订单对象</text>
+  <rect x="36" y="526" width="384" height="112" class="box"/>
+  <text x="56" y="570" class="head">第二次：replaceLocal的order</text><text x="56" y="610" class="small">入参原本指向102，赋值后改指向999</text>
+  <rect x="816" y="526" width="388" height="112" class="box"/>
+  <text x="836" y="570" class="head">新订单对象</text><text x="836" y="610" class="small">id = 999；status = PENDING</text>
+  <text x="816" y="366" class="small">调用者读到的仍是102，状态已变成PAID。</text>
+  <text x="816" y="402" class="small">形参重新赋值不会写回main中的order。</text>
+  <path d="M36 700H1204" stroke="#bac4c9"/>
+  <text x="36" y="736" class="small">箭头表示当前引用指向。基本类型也按值传递，但其副本保存数值，不具备这里的对象共享关系。</text>
+</svg>

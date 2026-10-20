@@ -1,0 +1,15 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/mongodb.md",
+      "status": "verified",
+      "reviewedHash": "8ae175d03183d9f6023d32fd90f3d41a204cafbef21197edc4c87a4f75bd33ee",
+      "pageType": "文档建模、条件写入、事务与副本读写边界",
+      "decision": "完整阅读旧824行，以订单快照、库存和outbox重写。修旧shell及配置、安全模板、无界嵌入、数组跨元素匹配、明细数当订单数、历史价格与业务时区、重复text索引、无条件compact/reIndex、Profiler等级、副本仲裁、wtimeout和导出备份误用；双SVG解释事务与读写concern。",
+      "validation": [
+        "MongoDB7.0官方atomicity、elemMatch与replica-set-write-concern三篇全文核对。/tmp/blog-mongodb-check.mjs在无网络/无宿主端口的独立MongoDB7.0.45单节点lab-rs运行全部7个javascript围栏退出0。数组反例、两单三明细8990分、索引3/3/3、成功事务与库存不足全回滚、校验错误121、重复请求11000、null/缺失语义2/2均通过",
+        "Database Tools100.19.1停写archive备份1191字节恢复到新库，4单13990分、3索引、校验器required7、库存8和outbox1核对通过。不外推HA选举、远程TLS、分片或并发备份。双SVG XML/中文实际边界/节点/截图通过；20.51秒生产构建，重启preview后桌面1280及真实390×844手机亮深色、双图放大/原尺寸/关闭和局部代码滚动通过，无破图、全页溢出或客户端error，viewport已reset"
+      ]
+    }
+  ]
+}

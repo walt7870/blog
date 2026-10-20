@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/dolphinscheduler.md",
+      "status": "verified",
+      "reviewedHash": "bae3a87173a1dd29ea062325c882368c0674be82c36e37f81e0fcb25a1f15088",
+      "pageType": "调度组件、订单DAG、重试补数与部署排障",
+      "decision": "旧2590行逐段全文读取，去掉重复拼接、虚构内部Java/API/表DDL、不完整集群与K8s安装、系统表分区与直接修改、降低MySQL持久性、盲目线程/JVM参数、日志自动删除与明文凭据模板。补实际组件图和报表候选校验发布图，以订单日报贯穿定义/实例、参数/业务日、重试/恢复/补数、并发与外部应用边界。",
+      "validation": [
+        "GitHub官方release API确认3.4.3；读取3.4.3标签的architecture/design、standalone、parameter/built-in、task/shell、resource/task-group、project/workflow-definition，以及Master/Worker实际application.yaml。旧架构文档含历史类名，正文不沿用这些内部实现；配置键以实际3.4.3资源为准。官网web-read失败已记录，未称已读。",
+        "正文Shell块bash -n和实际执行退出0，核对2026-10-19/2单/8000分；追加exit 7返回7，金额改3001触发断言返回1。没有运行DolphinScheduler服务或计算集群，不声称租户切换、调度重试、故障接管、补数及真实业务发布已集成测试。",
+        "完整构建17.04秒退出0并重启preview。两张SVG self_check、完整截图及实际字体边界通过；1280桌面与390×844手机亮深色、两图放大/原尺寸/关闭通过，代码容器局部滚动，无全页溢出和破图；viewport恢复。"
+      ]
+    }
+  ]
+}

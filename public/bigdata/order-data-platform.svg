@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="740" viewBox="0 0 1200 740" role="img" aria-labelledby="platform-order-title platform-order-desc">
+  <title id="platform-order-title">订单数据平台的批流路径与发布边界</title>
+  <desc id="platform-order-desc">源库提交后CDC或outbox进入Kafka，事件流供Flink实时计算并落原始存储，Spark从原始存储批处理，调度器组织批次依赖，质量检查通过后发布结果。原始存储可选HDFS或对象存储，不必部署二者。</desc>
+  <defs><marker id="platform-order-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#platform-order-arrow)}</style></defs>
+  <rect width="1200" height="740" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">同一笔订单，实时计算与历史重算分别维护进度</text><text x="36" y="78" class="small">示例采用事件入口；纯文件批处理也可以直接进入原始存储，不要求先部署Kafka。</text>
+  <path d="M276 216H348" class="line"/><path d="M588 216H660" class="line"/><path d="M900 216H984" class="line"/>
+  <path d="M780 280V440" class="line"/><path d="M660 504H588" class="line"/><path d="M348 504H276" class="line"/><path d="M1076 280V440" class="line"/>
+  <path d="M156 572V628Q156 636 164 636H1068Q1076 636 1076 628V572" class="line"/>
+  <path d="M468 388V440" class="line" stroke-dasharray="5,4"/>
+  <rect x="36" y="152" width="240" height="128" class="box"/><text x="56" y="190" class="head">业务数据库</text><text x="56" y="228">订单版本与事务提交</text><text x="56" y="264" class="small">支付、库存仍在业务边界内</text>
+  <rect x="348" y="152" width="240" height="128" class="box"/><text x="368" y="190" class="head">CDC / outbox</text><text x="368" y="228">提取已提交变更</text><text x="368" y="264" class="small">维护位点与可靠发布</text>
+  <rect x="660" y="152" width="240" height="128" class="focus"/><text x="680" y="190" class="head">Kafka 事件入口</text><text x="680" y="228">分区、保留与可重放</text><text x="680" y="264" class="small">重复、乱序有明确合同</text>
+  <rect x="984" y="152" width="180" height="128" class="box"/><text x="1004" y="190" class="head">Flink</text><text x="1004" y="228">实时窗口与状态</text><text x="1004" y="264" class="small">事件时间、检查点</text>
+  <rect x="36" y="316" width="552" height="72" class="box"/><text x="56" y="346" class="head">调度器：业务日期、依赖、失败重试与补数</text><text x="56" y="376" class="small">组织任务执行；不替代计算引擎和下游幂等提交。</text>
+  <rect x="660" y="440" width="240" height="132" class="box"/><text x="680" y="478" class="head">原始存储</text><text x="680" y="516">HDFS 或对象存储</text><text x="680" y="552" class="small">保留事件身份与回算范围</text>
+  <rect x="348" y="440" width="240" height="132" class="box"/><text x="368" y="478" class="head">Spark 批处理</text><text x="368" y="516">去重、关联、按日汇总</text><text x="368" y="552" class="small">确定输入版本后可重算</text>
+  <rect x="36" y="440" width="240" height="132" class="focus"/><text x="56" y="478" class="head">校验与发布</text><text x="56" y="516">业务键、金额、分区范围</text><text x="56" y="552" class="small">候选版本通过后切换可见性</text>
+  <rect x="984" y="440" width="180" height="132" class="box"/><text x="1004" y="478" class="head">数据服务</text><text x="1004" y="516">报表、指标与API</text><text x="1004" y="552" class="small">实时与离线注明口径</text>
+  <text x="36" y="686">迟到与重复先按业务键、版本和时间口径处理；重跑不能把同一结果再次追加成新的成交。</text>
+  <text x="36" y="720" class="small">实线：数据处理或发布。虚线：调度依赖。质量、血缘、权限与保留期贯穿所有存储和消费入口。</text>
+</svg>

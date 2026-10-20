@@ -1,0 +1,44 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "JavaScript 模块系统：接口、依赖图与按需加载",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "TypeScript 静态类型：推断、收窄与运行时边界",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Node.js 与包管理：运行环境、依赖树和锁文件",
+    "width": 390
+  }
+]

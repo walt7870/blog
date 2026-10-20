@@ -1,155 +1,60 @@
 # Git 总览
 
-Git 是分布式版本控制系统。它解决的不是“把文件备份一下”，而是让多人能围绕同一份代码持续修改、审查、合并、回滚和发布，并且保留每一次变更的上下文。
+Git 管理的是文件快照及其提交关系。以订单导出为例：开发者同时修改了导出逻辑和调试日志，可以只暂存导出逻辑，形成可审查提交；同事修改权限后，双方再合并并验证。提交、共享、评审、部署是不同动作，Git 本身不会替代测试或发布系统。
 
-Git 专题按使用路径拆分：
+![从订单导出修改到共享评审的Git闭环](/git/git-mental-model.svg)
 
-- [基础命令与日常操作](./git.md)：安装配置、`status`、`add`、`commit`、`diff`、`log`、`stash` 等日常命令。
-- [核心概念](./concepts.md)：工作区、暂存区、版本库、对象模型、HEAD、远程分支。
-- [分支与合并](./branching.md)：分支创建、merge、rebase、cherry-pick、冲突处理。
-- [协作流程](./workflow.md)：从接任务到提交合并的完整路径，以及 Git Flow、GitHub Flow、主干开发的差异。
-- [提交规范](./conventions.md)：提交粒度、提交信息、分支命名、Pull Request / Merge Request 规范。
-- [撤销与恢复](./recovery.md)：`restore`、`reset`、`revert`、`reflog`、`clean` 的适用场景。
-- [对象库与大型仓库](./internals-large-repositories.md)：对象、引用、Packfile、仓库维护，以及 Shallow、Partial、Sparse 和 LFS 的边界。
-- [仓库组织策略](./repository-strategies.md)：Monorepo、多仓库、Submodule、Subtree 和制品依赖的选型。
-- [安全与仓库治理](./security.md)：敏感信息、`.gitignore`、大文件、历史清理、权限边界。
-- [进阶操作](./advanced.md)：tag、bisect、worktree、submodule、sparse checkout 等低频但关键的能力。
-- [生态工具](./ecosystem.md)：托管平台、Hooks、LFS、GUI、命令行增强、CI/CD 与 GitOps。
-- [GitLab CI/CD 搭建与发布](./gitlab-cicd.md)：从自建 GitLab、Runner 和权限配置，到自动发布、通知、回滚与多仓库接入。
-- [视频系列](./video-series.md)：18 集《Git 从原理到协作》完整目录与配套阅读路线。
+## 先分清三个问题
 
-![Git 心智模型](/git/git-mental-model.svg)
+**准备交付哪些内容？** 工作区是当前文件，暂存区是下一次提交候选。修改文件后执行 `add`，随后继续编辑，并不会自动更新已暂存内容。提交前同时看 `git diff` 和 `git diff --staged`，才能区分留下的工作与要交付的工作。
 
-## Git 的作用
+**这些修改依赖哪段历史？** 分支只是提交引用，合并和变基改变的是提交关系。分支不会复制一套独立目录；需要同时打开两个版本时用 worktree。共享分支上有人继续开发后，改写提交会改变他们依赖的历史，应优先新增提交或 revert。
 
-Git 的核心作用可以分成四层：
+**远端现在是什么状态？** `origin/main` 是本地远程跟踪引用，不是实时查询。先 fetch 再比较；push 成功说明远程引用更新，不代表评审、CI 或部署已经完成。
 
-| 层级 | 解决的问题 | 常用能力 |
+## 按任务选择页面
+
+| 现在遇到的问题 | 阅读入口 | 可以得到什么 |
 | --- | --- | --- |
-| 个人修改管理 | 记录每次修改，随时查看和回退 | `status`、`diff`、`add`、`commit` |
-| 分支隔离 | 新功能、修复、实验互不影响 | `branch`、`switch`、`merge`、`rebase` |
-| 团队协作 | 多人围绕同一仓库并行开发 | `fetch`、`pull`、`push`、PR/MR |
-| 发布与追踪 | 标记版本、定位问题、审计变更 | `tag`、`log`、`blame`、`bisect` |
+| 不清楚 add 与 commit 到底记录哪份文件 | [核心概念](./concepts.md) | 工作区、暂存区、对象与引用的关系 |
+| 需要安装、提交、查看差异或暂存工作 | [日常命令](./git.md) | 可复制操作及各命令的输入范围 |
+| 两人同时修改，需要同步或解决冲突 | [分支与合并](./branching.md)、[协作流程](./workflow.md) | merge/rebase/cherry-pick 的判断与评审闭环 |
+| 需要拆提交、写评审描述 | [提交规范](./conventions.md) | 围绕一个意图组织变更 |
+| 误提交、误删、需要撤销公共变更 | [撤销与恢复](./recovery.md) | 按工作区、索引、引用和共享历史选择操作 |
+| 仓库克隆慢、历史大、依赖多 | [对象库与大型仓库](./internals-large-repositories.md)、[仓库组织](./repository-strategies.md) | Partial/Sparse/LFS 与多仓库边界 |
+| 密钥误提交或需要权限治理 | [安全与仓库治理](./security.md) | 先撤销凭据，再评估历史和传播范围 |
+| 需要定位回归、并行检出或版本标签 | [进阶操作](./advanced.md)、[生态工具](./ecosystem.md) | bisect、worktree、Hooks 与平台能力 |
+| 需要自建持续集成和发布 | [GitLab CI/CD](./gitlab-cicd.md) | 托管、Runner、权限和发布边界 |
+| 希望连续学习 | [视频系列](./video-series.md) | 分集主题与配套阅读路径 |
 
-它不是项目管理工具，也不是代码评审平台；GitHub、GitLab、Gitea 等平台是在 Git 之上提供权限、评审、Issue、CI/CD、制品和发布能力。
+## 一次日常提交
 
-## 基本工作闭环
-
-日常开发里，Git 的最小闭环是：
-
-```bash
-git status
-git diff
-git add <file>
-git commit -m "type(scope): message"
-git pull --rebase
-git push
-```
-
-每一步对应一个明确问题：
-
-| 命令 | 先回答什么问题 |
-| --- | --- |
-| `git status` | 当前有哪些文件变了 |
-| `git diff` | 这些变化具体是什么 |
-| `git add` | 哪些变化准备进入下一次提交 |
-| `git commit` | 这次提交要表达什么意图 |
-| `git pull --rebase` | 推送前是否落后远程 |
-| `git push` | 把本地提交同步到远程 |
-
-## 推荐学习顺序
-
-### 第一阶段：能独立提交
-
-先掌握：
+下面假设已有本地功能分支、远程名为 `origin`，并配置了正确上游；`src/order-export.ts` 替换为实际文件。先确认范围，再提交，避免把日志或凭据混入。
 
 ```bash
-git clone
-git status
-git diff
-git add
-git commit
-git log
-git push
-git pull
+git status -sb
+git diff -- src/order-export.ts
+git add -p -- src/order-export.ts
+git diff --staged
+git commit -m "fix(export): 修复空结果导出"
+git fetch origin
+git status -sb
 ```
 
-目标是能看懂“我改了什么、准备提交什么、提交到了哪里”。
+fetch 后检查目标分支的变化，再按协作约定 merge 或 rebase 并测试，最后 push。不要把固定的 `pull --rebase` 当成所有分支的无条件前置步骤；更新本地 main 时通常用 `pull --ff-only`，发生分叉就停下来理解历史。
 
-### 第二阶段：能安全协作
+## 能力验证
 
-继续掌握：
+入门阶段应能解释“文件改了两次、只 add 一次，commit 会记录哪次”，并用暂存差异核实。协作阶段应能在临时仓库制造一次冲突，完成合并或取消，说明处理后需要验证的业务行为。
 
-```bash
-git switch -c
-git fetch
-git merge
-git rebase
-git stash
-git restore
-git revert
-```
-
-目标是能在功能分支上工作，处理远程更新和冲突，并知道哪些操作会改写历史。
-
-### 第三阶段：能治理仓库
-
-再学习：
-
-```bash
-git tag
-git bisect
-git blame
-git reflog
-git cherry-pick
-git worktree
-git lfs
-```
-
-目标是能定位问题、维护发布版本、处理大文件和复杂协作场景。
-
-### 第四阶段：能设计与恢复
-
-继续理解对象库、仓库规模和组织边界，并完成一次故障恢复演练：
-
-```bash
-git count-objects -vH
-git fsck --full
-git bundle create repository-backup.bundle --all
-```
-
-目标是能解释仓库为何变慢、依赖为何选择特定组织方式，并在误删、远端不可用或对象损坏时保护现场和恢复关键引用。
-
-## 团队使用规范
-
-一个可维护的 Git 工作方式通常包含这些约定：
-
-- 主分支保持可构建、可测试、可发布。
-- 新功能和修复在独立分支完成。
-- 提交粒度围绕一个完整意图，不把无关改动混在一起。
-- 提交信息说明“为什么改”和“改了什么”，不要只写 `update`、`fix`。
-- 合并前通过自动化检查和代码审查。
-- 公共分支谨慎使用 `push --force`，需要改写历史时使用 `--force-with-lease`。
-- 密钥、证书、`.env`、私有配置不进入仓库。
+维护阶段应能从已知提交找回文件，在误操作后用新分支保护仍可找到的提交，并区分 Git bundle、工作区文件和 LFS 对象的备份范围。具体演练见相应细节页，不在总览重复所有命令。
 
 ## 常见误区
 
-| 误区 | 问题 | 更稳妥的做法 |
+| 操作习惯 | 容易遗漏什么 | 判断办法 |
 | --- | --- | --- |
-| 每次都 `git add .` | 容易把调试文件、密钥、无关修改带进去 | 先 `git diff`，再按文件或用 `git add -p` |
-| 用 `reset --hard` 解决所有问题 | 会丢弃工作区修改 | 先 `git status` 和 `git diff`，确认不需要再执行 |
-| 已推送提交直接 rebase 后强推 | 可能覆盖他人提交 | 公共分支用 `revert`，必要强推用 `--force-with-lease` |
-| 把二进制大文件直接提交 | 仓库会持续膨胀 | 使用 Git LFS 或制品仓库 |
-| 冲突时只保留一边 | 容易漏掉业务逻辑 | 理解两边意图，合并后运行测试 |
-
-## 阅读路线
-
-如果刚开始用 Git，先读 [核心概念](./concepts.md) 和 [基础命令与日常操作](./git.md)。
-
-如果已经能提交代码，但协作时容易混乱，重点读 [分支与合并](./branching.md)、[协作流程](./workflow.md) 和 [提交规范](./conventions.md)。
-
-如果需要处理线上回滚、误删、误提交密钥、大文件膨胀，直接读 [撤销与恢复](./recovery.md) 和 [安全与仓库治理](./security.md)。
-
-如果需要做版本发布、定位引入 bug 的提交、同时维护多个分支或处理外部仓库依赖，读 [进阶操作](./advanced.md)、[对象库与大型仓库](./internals-large-repositories.md) 和 [仓库组织策略](./repository-strategies.md)。
-
-希望按一套连续课程建立完整能力，可以直接进入 [《Git 从原理到协作》视频系列](./video-series.md)。
+| 每次直接 add 整个目录 | 未跟踪文件、调试修改、无关配置 | 先检查状态，按文件或补丁暂存 |
+| 新建分支就认为改动已备份 | 分支只保护提交引用 | 未提交内容另存、stash 或临时提交 |
+| 用工作区干净判断已交付 | ignored 文件、未推送提交、平台检查 | 分别核对状态、远程引用与 CI |
+| 把 force-with-lease 当成绝对保护 | 默认租约依赖本地跟踪引用 | 共享分支先协调，必要时核对明确预期 OID |
+| 合并成功就认为功能正确 | 自动合并也可能产生业务错误 | 验证权限、导出结果与失败路径 |

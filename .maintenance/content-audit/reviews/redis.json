@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/redis.md",
+      "status": "verified",
+      "reviewedHash": "18551adfd3e9d8fae85b506eaf6243c22ab4096edf4c9149341578b967622087",
+      "dependencyFiles": ["public/database/examples/redis-fixed-window.lua"],
+      "pageType": "缓存竞态、原子边界、任务投递与持久化机制",
+      "decision": "完整阅读旧1100行，以订单缓存/导出/通知重写。修全操作原子、事务/Lua可回滚、pipeline与事务混淆、BITCOUNT字节当位、Stream旧ID与建组$/ACK错配、过期锁等于全局互斥、AOF7单文件备份、BGSAVE完全不阻塞、非法tcp-nodelay及旧ziplist模板等。移除丢失小数补充的令牌桶与时间戳冲突滑动日志实现，提供有界固定窗口Lua并明确拒绝也计数、专用键合同和版本范围；双SVG说明旧回填与Pending重领。",
+      "validation": [
+        "Redis官方transactions及BITCOUNT全文核对，persistence截断后重取完整27826字，已核RDB优缺点与7.0多文件AOF/刷盘/重写相关段落，其余未冒称完整阅读。/tmp/blog-redis-check.mjs独立7.4.11执行全部6text围栏及Lua，位图2/1、事务错误后yes、WATCH冲突、Lua部分写保留、锁错误令牌0/正确1、Stream Pending1到0且XLEN2、$跳过积压、TTL清除/保留、限流1/1/0和参数/类型反例通过",
+        "AOF重写manifest/base/incr、正常停机后完整集合恢复新值、提前保留RDB恢复缺后续写入通过；首次RESP3返回形状断言及停机再次保存RDB造成测试时点错误已修，最终完整运行退出0。未测掉电/并发在线备份/主从切换/吞吐。两SVG XML/中文边界/节点及截图，18.41秒生产构建重启preview后桌面1280及实际390×844手机亮深色/双图放大原尺寸关闭/局部表格代码滚动通过，无破图/全页溢出/客户端error。首次.lua路由死链已用withBase+download修，浏览器href与实际资源GET核对，viewport reset"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "vite": {
+    "types": true,
+    "productionBuild": true,
+    "base": "/shop/"
+  },
+  "webpack": {
+    "productionBuild": true,
+    "files": [
+      "500.8dfdd3e663ee88fee9ee.js",
+      "index.html",
+      "main.caec4316de5f62b7e31a.css",
+      "main.e6fb8e06ba50be688fea.js"
+    ],
+    "output": "assets by path *.js 2.26 KiB\n  asset main.e6fb8e06ba50be688fea.js 2.08 KiB [emitted] [immutable] [minimized] (name: main)\n  asset 500.8dfdd3e663ee88fee9ee.js 184 bytes [emitted] [immutable] [minimized]\nasset index.html 395 bytes [emitted] [minimized]\nasset main.caec4316de5f62b7e31a.css 65 bytes [emitted] [immutable] (name: main)\nEntrypoint main 2.14 KiB = main.caec4316de5f62b7e31a.css 65 bytes main.e6fb8e06ba50be688fea.js 2.08 KiB\nruntime modules 6.13 KiB 13 modules\norphan modules 2.89 KiB [orphan] 4 modules\ncacheable modules 546 bytes (javascript) 64 bytes (css/mini-extract)\n  ./src/main.js 419 bytes [built] [code generated]\n  ./src/report.js 127 bytes [optional] [built] [code generated]\n  css ../../blog-builder-checker/node_modules/css-loader/dist/cjs.js!./src/style.css 64 bytes [built] [code generated]\nwebpack 5.112.0 compiled successfully in 286 ms\n"
+  },
+  "rollup": {
+    "esmAndCjs": true,
+    "safeIntegerBoundary": true,
+    "badInputs": 6,
+    "overflowRejected": true,
+    "packageFiles": [
+      "dist/index.cjs",
+      "dist/index.cjs.map",
+      "dist/index.js",
+      "dist/index.js.map",
+      "package.json"
+    ],
+    "consumed": "ESM包消费通过\n",
+    "required": "CJS包消费通过\n",
+    "consumerUnusedExportRemoved": true
+  },
+  "parcel": {
+    "productionBuild": true,
+    "base": "/shop/",
+    "files": [
+      "index.html",
+      "parcel.20a7103b.css",
+      "parcel.20a7103b.css.map",
+      "parcel.3376ef25.js",
+      "parcel.3376ef25.js.map"
+    ],
+    "output": "Building...\nBundling...\nPackaging & Optimizing...\n✨ Built in 1.72s\n\ndist/index.html             340 B    29ms\ndist/parcel.20a7103b.css    101 B    40ms\ndist/parcel.3376ef25.js     177 B    50ms\nOpening `/dev/tty` failed (6): Device not configured\n"
+  },
+  "versions": {
+    "webpack": "5.112.0",
+    "webpack-cli": "6.0.1",
+    "webpack-dev-server": "5.2.7",
+    "rollup": "4.64.12",
+    "parcel": "2.16.4"
+  }
+}

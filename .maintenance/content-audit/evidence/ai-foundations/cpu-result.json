@@ -1,0 +1,16 @@
+{
+  "command": "/tmp/blog-ai-foundations-env/bin/python public/ai/examples/tiny-torch-classifier.py --checkpoint /tmp/blog-ai-foundations-env/tiny-classifier.pt",
+  "python": "3.12.14",
+  "numpy": "2.5.4",
+  "torch": "2.14.1",
+  "device": "cpu",
+  "train_samples": 16,
+  "valid_samples": 16,
+  "initial_loss": 0.788171,
+  "final_loss": 0.097969,
+  "valid_accuracy": 0.9375,
+  "reload_identical": true,
+  "invalid_inputs_rejected": 3,
+  "download_sha256": "742f199d5ff41edd1ea7f73adff6fc692f959ea330536df0e3f74f2f50cf3675",
+  "limits": "固定合成网格练习，无独立测试集，无生产效果外推。"
+}

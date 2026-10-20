@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="450" viewBox="0 0 1120 450" role="img" aria-labelledby="build-contract-title build-contract-desc">
+  <title id="build-contract-title">项目模型决定任务，解析结果决定依赖输入</title><desc id="build-contract-desc">构建依次理解模型、解析依赖、执行任务、生成产物，部署运行独立验收；工具链和外部状态都是合同的一部分。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="450" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">项目模型决定任务，解析结果决定依赖输入</text>
+  <text x="36" y="82" class="small">源码未变，不代表所有输入未变；版本、插件、环境属性与代码生成器都可能改变结果。</text>
+  <path d="M226 193H294" class="line"/>
+  <path d="M484 193H552" class="line"/>
+  <path d="M742 193H810" class="line"/>
+  <rect x="36" y="132" width="190" height="126" rx="6" class="box"/><text x="54" y="167" class="head">构建模型</text>
+  <text x="54" y="201" class="small">POM / Settings</text>
+  <text x="54" y="228" class="small">插件与项目依赖</text>
+  <rect x="294" y="132" width="190" height="126" rx="6" class="blue"/><text x="312" y="167" class="head">解析结果</text>
+  <text x="312" y="201" class="small">版本、scope / 变体</text>
+  <text x="312" y="228" class="small">仓库与认证</text>
+  <rect x="552" y="132" width="190" height="126" rx="6" class="box"/><text x="570" y="167" class="head">任务执行</text>
+  <text x="570" y="201" class="small">编译、测试、打包</text>
+  <text x="570" y="228" class="small">日志与执行数量</text>
+  <rect x="810" y="132" width="274" height="126" rx="6" class="focus"/><text x="828" y="167" class="head">可追溯产物</text>
+  <text x="828" y="201" class="small">class、资源、依赖元数据</text>
+  <text x="828" y="228" class="small">包结构与启动命令</text>
+  <path d="M36 305H1084" class="rule"/>
+  <text x="36" y="346" class="small">共同输入：源码 + 构建工具 + JDK / release + 插件 + 依赖 + 显式环境属性</text>
+  <text x="36" y="385" class="small">独立验收：部署运行时、数据库、外部服务与资源预算，不会由构建成功自动保证。</text>
+</svg>

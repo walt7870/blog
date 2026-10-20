@@ -1,13 +1,14 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # AI 编程深度系列
 
 AI 编程已经从代码补全发展到能够搜索仓库、修改文件、运行命令、调用外部工具并提交可审查结果的 Coding Agent。能力边界扩大后，真正需要掌握的不再只是 Prompt，而是任务契约、上下文、工具、验证、安全和团队治理组成的完整工程系统。
 
 本系列面向有 Git、测试和团队开发经验的职业开发者，共 14 篇。内容从 Agent 的工作机制和 2026 年工具生态开始，逐步进入任务契约、Context Engineering、仓库规则、MCP，再通过一个 Spring Boot 订单服务完成 Brownfield 修改，最后讨论 Cloud Agent、多 Agent、安全治理和提效证据。
 
-> 全系列最后核验：2026-07-20  
-> 全系列包含 132 张技术图；产品能力、研究结论和易变事实以各篇标注的核验日期为准。
-
-![从任务契约到审查的 AI 编程工程闭环](/ai/coding-agent-series/ep01/fig-05.png)
+![从任务、工具执行到验证与停止条件的工程闭环](/ai/agent-verification-loop.svg)
 
 ## 阅读路线
 
@@ -15,15 +16,15 @@ AI 编程已经从代码补全发展到能够搜索仓库、修改文件、运�
 
 如果正在给团队落地 Coding Agent，可以先读 05、06、07、11、13：它们分别解决任务怎样交代、事实怎样进入上下文、仓库规则怎样维护、结果怎样验证以及权限怎样治理。
 
-如果准备做 Brownfield 改造，可以从 09 开始连续阅读三篇实战。案例保留基线、失败测试、初次实现、审查修正和最终版本五个真实 Git 节点，用同一项“取消订单”需求串起探索、实现、验证与交付。
+如果准备做 Brownfield 改造，可以从 09 开始连续阅读三篇实战。<a :href="withBase('/ai/examples/coding-order-lab.zip')" download>下载订单实战源码</a>后，从只支持创建的基线加入取消合同，观察红灯，再比较最终实现并重跑测试和 HTTP。源码包含基线与最终两份快照，不需要额外仓库或历史标签。
 
 ## 系列目录
 
 | 篇目 | 主题 | 解决的问题 |
 | --- | --- | --- |
-| 01 | [AI 编程进入 Agent 时代](./01-ai-coding-agent-era.md) | 从补全、Chat 到 Agent、Cloud Agent 和 Review Agent，怎样判断自治边界 |
+| 01 | [任务闭环与自治边界](./01-ai-coding-agent-era.md) | 从补全、Chat 到 Agent、Cloud Agent 和 Review Agent，怎样判断自治边界 |
 | 02 | [Coding Agent 到底怎样工作](./02-coding-agent-internals.md) | Model、Harness、Instructions、Tools、Context 和 Feedback 如何构成执行循环 |
-| 03 | [2026 AI 编程工具生态与选型](./03-ai-coding-tool-landscape-2026.md) | Codex、Claude Code、Cursor、Copilot、Gemini、Devin 及国内工具怎样按工程能力选型 |
+| 03 | [AI 编程工具的工作流选型](./03-ai-coding-tool-landscape-2026.md) | 怎样按代码位置、工具反馈、权限与交付能力试点评估 |
 | 04 | [Vibe、Agentic 与 Spec-Driven](./04-vibe-agentic-spec-driven.md) | 三种方法分别适合什么任务，怎样从原型进入生产门禁 |
 | 05 | [Agent 可执行的任务契约](./05-executable-task-contract.md) | 怎样把目标、范围、约束、验收和交付物写成可执行任务 |
 | 06 | [Context Engineering](./06-context-engineering.md) | 怎样管理检索、渐进加载、压缩、污染、失效和上下文成本 |
@@ -38,7 +39,7 @@ AI 编程已经从代码补全发展到能够搜索仓库、修改文件、运�
 
 ## 贯穿实战
 
-实战使用一个独立 Spring Boot 订单服务：在不修改数据库结构的前提下新增取消订单接口，要求首次取消成功、重复取消幂等、订单不存在返回 `404`、已支付订单返回 `409`。这个看似局部的需求会同时触及领域状态、Repository、Service、Controller、异常映射、单元测试和 MockMvc 端到端测试，足以展示 Coding Agent 在真实旧代码库中的完整工作方式。
+实战使用一个独立 Spring Boot 订单教学服务：在不引入数据库的前提下新增取消订单接口，要求首次取消成功、重复取消幂等、订单不存在返回 `404`、已支付订单返回 `409`。需求同时触及领域状态、Repository、Service、Controller、异常映射、单元测试和 MockMvc Web 集成测试，用来练习旧代码库中的探索与修改。
 
 系列不把“代码生成完成”当作结束。每个实战结论都回到可观察证据：基线是否通过、失败测试是否真实失败、实现后哪些测试通过、真实 HTTP 行为是否符合契约、Diff 是否超出范围，以及哪些结论仍然没有经过远程环境验证。
 

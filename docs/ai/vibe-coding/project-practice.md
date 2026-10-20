@@ -47,6 +47,7 @@ Spec Driven 的核心是把“想要一个导出功能”变成 AI Agent 和人�
 - 页面入口放在订单列表右上角。
 - 导出范围复用当前筛选条件，但不复用分页参数。
 - 导出接口必须校验 order:export 权限。
+- 服务端从登录身份确定租户范围，用户筛选只能缩小范围，不能跨租户查询。
 - CSV 字段只允许：订单号、支付时间、订单状态、支付金额、支付渠道、优惠金额、收货省份。
 - 禁止导出手机号、详细地址、用户备注和内部风控备注。
 - 1 万行以内同步导出，超过限制返回明确错误。
@@ -60,13 +61,16 @@ Spec Driven 的核心是把“想要一个导出功能”变成 AI Agent 和人�
 验收：
 - 有权限用户可以导出当前筛选结果。
 - 无权限用户看不到入口，直接请求接口返回 403。
+- 租户 A 的用户即使有导出权限，修改请求参数也不能获取租户 B 的数据。
 - 空结果导出生成只有表头的 CSV。
 - 敏感字段不会出现在 CSV 表头和内容中。
 - npm run test -- order-export 通过。
 - npm run build 通过。
 ```
 
-这个 Spec 的价值在于把 AI 的发挥空间限定在正确范围内。Agent 可以选择具体实现方式，但不能改变字段边界、权限要求和验收标准。
+这里的文件入口、npm scripts 和一万行限制都是业务仓库示例，需在实际项目核对。同步上限要结合字段宽度、并发、接口超时、峰值内存和数据库负载实测。Agent 可以选择具体实现方式，但不能自行改变字段边界、权限要求和验收标准。
+
+如果同步导出无法满足容量要求，再扩展异步合同：创建任务返回任务 ID；任务按 `queued → running → succeeded / failed / cancelled` 流转；任务记录所属租户、创建者、筛选快照和文件过期时间。Worker 不能因为离开 HTTP 请求就丢掉租户约束。查询状态、领取结果和下载文件时都重新鉴权；重试使用幂等键，避免一次用户操作生成多个重复任务。
 
 ## AI Agent：按 Spec 编码，而不是按感觉补全
 
@@ -111,33 +115,39 @@ Harness 的重点不是“不信任 Agent”，而是承认 Agent 一旦有工�
 - 安全扫描，检查依赖漏洞、明显的代码安全问题和敏感信息泄露。
 - 产物检查，确认构建结果可追踪、可回滚。
 
-一个简化的 CI 思路如下：
+下面示例假设业务仓库已定义 `lint`、`test` 和 `build` 命令，测试工具支持所列筛选参数。Node.js 24 是此例的运行版本；升级时还要确认框架与锁文件兼容。检查在所有 PR 上运行，避免共享权限工具、CSV 工具或依赖变更被路径过滤跳过：
 
 ```yaml
 name: order-export-check
 
 on:
   pull_request:
-    paths:
-      - "src/orders/**"
-      - "tests/orders/**"
-      - ".github/workflows/**"
+
+permissions:
+  contents: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
         with:
-          node-version: 20
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
       - run: npm ci
       - run: npm run lint
       - run: npm run test -- order-export
+      - run: npm run test -- order-permission
+      - run: npm run test -- csv-sanitizer
       - run: npm run build
 ```
 
-实际项目还可以加入 CodeQL、依赖扫描、容器镜像扫描、密钥扫描、SBOM 生成和制品签名。是否全部加入，要看项目风险等级，而不是为了堆工具。
+把 `check` 配为受保护分支的必需检查，禁止未通过检查直接合并。2026 年 10 月示例使用 Actions v7；自建 Runner 至少需要 `v2.327.1` 才支持这些 Action 的 Node.js 24 运行时，涉及 Docker 容器内认证 Git 操作时还需满足 checkout 文档的 `v2.329.0` 要求。Action 运行时和项目的 `node-version` 是两个独立配置，不能只升级其中一个。组织要求不可变依赖时，应把 Action 固定到已核验版本的完整 commit SHA。
+
+实际项目还可以加入 CodeQL、依赖扫描、容器镜像扫描、密钥扫描、SBOM 生成和制品签名。是否全部加入取决于项目风险与维护能力。
 
 ## PR Review：人工确认业务和风险
 
@@ -156,7 +166,9 @@ PR 描述也要服务 Review。一个好的 PR 描述应该包含：关联 Spec�
 
 部署阶段要回答三个问题：什么时候发布、发布后怎么观察、出问题怎么退回。
 
-订单导出适合先灰度或通过 feature flag 开关控制。上线后观察导出接口耗时、失败率、超量次数、数据库慢查询、生成文件大小和审计日志。如果发现导出导致数据库压力上升，可以先关闭入口，再排查是否需要异步任务或索引优化。
+订单导出适合先灰度或通过服务端 feature flag 控制。上线后观察导出接口耗时、失败率、超量次数、数据库慢查询、生成文件大小和审计日志。如果数据库压力上升，先停止服务端接收新导出；异步方案还要按任务状态取消或排空现有任务，再排查查询、索引和并发限制。
+
+发现越权或错误字段时，除停接新任务，还需撤销结果文件的访问授权、检查缓存和签名链接的剩余有效期，并根据审计记录定位受影响任务。回滚代码不能收回已经下载的文件，因此恢复演练必须验证旧链接和直接接口调用，不能只检查页面按钮是否消失。
 
 部署不只是执行脚本。它应该包含：
 

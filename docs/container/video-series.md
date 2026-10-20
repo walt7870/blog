@@ -10,7 +10,11 @@ date: 2026-07-12
 
 系列入口：[容器与容器管理系统课：从 Docker 到 Kubernetes 生产实践](https://www.bilibili.com/video/BV1tbNK6LEgq/)
 
+![从构建镜像到运行配置、请求验证与数据保存的交付关系](/container/container-delivery-map.svg)
+
 ## 分集与配套阅读
+
+<div class="container-video-map" tabindex="0" role="region" aria-label="容器视频与配套正文">
 
 | 集数 | 主题 | 视频 | 配套正文 |
 | --- | --- | --- | --- |
@@ -29,9 +33,23 @@ date: 2026-07-12
 | 13 | Kubernetes 安全与多租户治理 | [播放](https://www.bilibili.com/video/BV1tbNK6LEgq/?p=13) | [RBAC](./kubernetes/resources/rbac)、[ServiceAccount](./kubernetes/resources/serviceaccount)、[生产实践](./kubernetes/production-practice) |
 | 14 | 可观测性、排障与生产容量 | [播放](https://www.bilibili.com/video/BV1tbNK6LEgq/?p=14) | [生产实践](./kubernetes/production-practice) |
 
+</div>
+
+<style scoped>
+.container-video-map { max-width: 100%; }
+.container-video-map :deep(table) { min-width: 620px; }
+.container-video-map :deep(th:nth-child(3)),
+.container-video-map :deep(td:nth-child(3)) { white-space: nowrap; }
+@media (max-width: 640px) {
+  .container-video-map { overflow-x: auto; }
+}
+</style>
+
 ## 学习顺序
 
-第一次接触容器时，先完成 01 至 04 集并阅读 Basic，确认能解释镜像、容器、运行时、OCI、CRI 的边界。接着完成 05 至 08 集，用一个带数据库的应用练习镜像、卷、网络、Compose 和 Registry。最后进入 09 至 14 集，把同一个应用迁移到 Kubernetes，补齐探针、资源约束、发布策略、安全和监控。
+第一次接触容器时，先完成 01 至 04 集并阅读[基础导览](./basic/)，确认能解释镜像、容器、运行时、OCI、CRI 的边界。接着完成 05 至 08 集，用一个带数据库的应用练习镜像、卷、网络、Compose 和 Registry。最后进入 09 至 14 集，把同一个应用迁移到 Kubernetes，补齐探针、资源约束、发布策略、安全和监控。
+
+例如订单导出任务先生成 CSV，再删除并重建应用容器：CSV 若消失，应检查文件是否只写入容器可写层；数据库若保留，也还需验证备份能否恢复。迁移到 Kubernetes 后则继续检查新 Pod 是否重新挂到正确卷、是否就绪并真正接收请求。这条练习同时覆盖生命周期、持久化和服务入口，不把“容器 Running”当作业务完成。
 
 不建议只背资源名称。每完成一段，应留下可以运行的交付物：
 
@@ -42,10 +60,10 @@ date: 2026-07-12
 
 ## 能力验证
 
-- 能从进程、Namespace、cgroups、联合文件系统解释容器的隔离边界。
+- 能解释进程的 Namespace、cgroups 隔离，以及常见分层文件系统的写入落点，并说明共享内核的边界。
 - 能判断数据应该进入镜像、容器可写层、Bind Mount 还是 Volume。
 - 能解释主机端口、容器端口、容器 DNS 与 Service 发现的差别。
 - 能用镜像摘要追踪实际制品，而不是只依赖可变标签。
-- 能沿 Deployment -> Pod -> Service -> Endpoint -> Ingress 排查请求故障。
+- 能沿 Deployment -> ReplicaSet -> Pod 查发布；排查请求时，分别核对 Ingress/Service 的入口配置、EndpointSlice 中的端点条件，以及数据面实际选择的 Pod。EndpointSlice 不承载业务请求。
 - 能根据工作负载选择 requests、limits、探针、扩缩容和中断预算。
 - 能区分应用错误、资源不足、调度失败、网络故障、存储故障和权限故障。

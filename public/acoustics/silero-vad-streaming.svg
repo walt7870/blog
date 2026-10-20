@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
-  <title id="title">Silero VAD 流式推理</title>
-  <desc id="desc">16 kHz 音频按 512 样本顺序输入，模型维护上下文和状态并输出概率，分段器产生开始和结束事件。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="silero-vad-streaming-title silero-vad-streaming-desc">
+  <title id="silero-vad-streaming-title">Silero VAD 流式推理</title>
+  <desc id="silero-vad-streaming-desc">16 kHz 音频按 512 样本顺序输入，模型维护上下文和状态并输出概率，分段器产生开始和结束事件。</desc>
   <defs>
     <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#f8fafc"/>

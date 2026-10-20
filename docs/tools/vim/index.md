@@ -9,6 +9,12 @@ Vim 不是一个只靠记快捷键取胜的编辑器。它真正高效的地方�
 - [搜索、替换与特殊用法](./special.md)：解释搜索、替换、Vim 正则、文本对象和一些高频特殊命令。
 - [插件生态](./plugin.md)：解释 Vim/Neovim 插件体系、常见插件选择和配置维护。
 
+![Vim 的编辑组合与缓冲区关系](/tools/vim-editing-model.svg)
+
+例如把 `order_status = "pending"` 改为 `order_status = "paid"`，光标位于引号内时使用 `ci"paid<Esc>`：`c` 表示修改，`i"` 表示引号内部。它保留两侧引号，并把本次修改记录为可重复动作。下一处相同结构可用 `.`，但先确认光标位于目标字段，避免把不同含义的值一起替换。
+
+下文带普通模式按键的代码块是按键速查，右侧说明不属于按键；不能把整块内容作为 Vimscript 执行。`<Esc>` 表示按 Esc，`Ctrl-r` 表示组合键。只有 `set`、映射等配置才写入 `.vimrc`。
+
 ## Vim 的核心思维
 
 ### 模式化编辑
@@ -61,7 +67,7 @@ b    " 到前一个单词开头
 ^    " 到行首第一个非空字符
 $    " 到行尾
 }    " 到下一段
-%    " 到匹配的括号、引号或标签附近的匹配项
+%    " 到匹配括号；其他结构取决于配置与插件
 ```
 
 组合以后就变成可读的编辑语言：
@@ -103,7 +109,7 @@ Ctrl-r  " 重做
 :x          " 有修改时保存并退出
 :q!         " 放弃修改并退出
 :e file     " 打开文件
-:w file     " 另存为
+:w file     " 写入另一文件；当前缓冲区名称通常不变
 ```
 
 移动只需要先记一组：
@@ -177,7 +183,7 @@ rX       " 把光标下字符替换成 X
 高频修改建议优先用 `c` 开头的命令，因为它会进入 Insert 模式并形成可被 `.` 重复的修改。
 
 ```vim
-cw       " 修改到下一个单词开头
+cw       " 光标在非空白词上时通常按 ce，保留词后的空白
 ciw      " 修改当前单词
 c$       " 修改到行尾
 cc       " 修改整行
@@ -311,7 +317,9 @@ set hlsearch
 
 set scrolloff=5
 set backspace=indent,eol,start
-set clipboard=unnamedplus
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
 
 let mapleader = ","
 nnoremap <leader>w :write<CR>
@@ -319,7 +327,13 @@ nnoremap <leader>q :quit<CR>
 nnoremap <leader><space> :nohlsearch<CR>
 ```
 
-注意：`set clipboard=unnamedplus` 需要 Vim 编译时支持 `+clipboard`。如果无效，可以在 Vim 中执行 `:version` 检查。
+`clipboard=unnamedplus` 会让无名寄存器操作使用系统剪贴板，删除也可能覆盖外部复制的内容。Vim 需要编译时支持和可用的桌面剪贴板连接；Neovim 还要检查 provider，SSH 终端本身不自动转发剪贴板。想保留 Vim 内部复制习惯时，可以不设此项，仅显式用 `"+y` 和 `"+p`。
+
+## 一次修改的验收
+
+修改配置文件时先用 `/order_status` 定位，再用文本对象修改一处，检查结果后再重复；不确定时用 `u` 撤销。保存前可在另一窗口查看项目 diff，确认只改变目标字段。批量编辑先在副本或受版本控制的文件中验证，再扩大范围。
+
+buffer 不一定对应磁盘文件，也可能是未命名内容；`:bdelete` 将缓冲区从列表移除，通常不会删除磁盘文件。带未保存修改时普通退出会阻止丢失，遇到提示应先决定保存还是丢弃，不用 `!` 当通用退出方案。
 
 ## 使用习惯
 

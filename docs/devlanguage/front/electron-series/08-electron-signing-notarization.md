@@ -2,7 +2,11 @@
 
 桌面应用生成安装包后，操作系统还会检查发布者身份、文件是否被修改，以及平台信任服务是否认可这次分发。macOS 和 Windows 的术语、工具不同，但都需要在最终产物上保存可复核证据。
 
-## DeskLab 当前产物的签名状态
+![macOS签名公证及系统评估](/electron/signing-trust-chain.svg)
+
+例如同事从浏览器下载 ZIP 后首次打开，与开发者在自己的构建目录启动 `.app`，会经历不同的隔离属性和平台检查。本机能启动不能替代下载后的首次启动验收；出现警告应回到签名、公证与产物完整性定位原因。
+
+## DeskLab 历史开发产物的签名状态
 
 对 macOS arm64 的 `DeskLab.app` 执行详细检查，得到：
 
@@ -23,10 +27,12 @@ Sealed Resources=none
 ~~~bash
 codesign --verify --deep --strict --verbose=2 DeskLab.app
 spctl -a -vv --type execute DeskLab.app
-stapler validate DeskLab.app
+xcrun stapler validate DeskLab.app
 ~~~
 
 `codesign` 成功说明签名结构可验证；公证提交成功要有请求 ID 与最终 Accepted 状态；`stapler` 和 `spctl` 检查的是用户离线或在线打开时能否识别公证和平台策略。三者不是同一个状态。
+
+ZIP 本身不能直接 stapling；可将票据附到其中的 `.app` 后重新生成 ZIP，或按支持的 DMG/PKG 分发格式处理。重新压缩后更新文件摘要，再从实际下载入口复验。不要把公证任务已提交、上传接口返回成功误写成公证已接受。
 
 签名必须放在所有二进制修改之后。修改 Fuse、重写 Mach-O、替换原生模块或重新打包都会改变被签名内容，需要重新签名并验证。
 

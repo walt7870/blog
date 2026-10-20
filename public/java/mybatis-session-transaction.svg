@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760" role="img" aria-labelledby="session-title session-desc">
+  <title id="session-title">MyBatis普通会话的生命周期</title>
+  <desc id="session-desc">启动时构建并复用工厂。每次受控操作新建普通会话，由会话创建Mapper并执行SQL；成功提交，失败回滚，然后关闭。Mapper不能超出会话范围，Spring管理的会话另由Spring事务协调。</desc>
+  <defs><marker id="session-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#session-arrow)}</style></defs>
+  <rect width="1240" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">工厂可复用，会话与Mapper有明确结束边界</text>
+  <text x="36" y="80" class="small">下图限定原生MyBatis、JdbcTransactionFactory、openSession(false)，不把Spring托管会话混入手动提交。</text>
+  <path d="M316 214H420" class="line"/><path d="M780 214H900" class="line"/>
+  <path d="M1040 290V364" class="line"/><path d="M1040 474V570Q1040 578 1032 578H780" class="line"/>
+  <path d="M940 474V504Q940 512 932 512H860Q852 512 852 504V438Q852 430 844 430H780" class="line"/>
+  <path d="M420 430H316" class="line"/><path d="M420 578H344Q336 578 336 570V462Q336 454 328 454H316" class="line"/><path d="M600 528V474" class="line"/>
+  <rect x="36" y="146" width="280" height="144" class="box"/><text x="56" y="188" class="head">启动配置</text><text x="56" y="228" class="small">Builder读取映射与环境</text><text x="56" y="266" class="small">创建后不必长期持有Builder</text>
+  <rect x="420" y="146" width="360" height="144" class="box"/><text x="440" y="188" class="head">SqlSessionFactory</text><text x="440" y="228" class="small">应用内复用配置与创建入口</text><text x="440" y="266" class="small">每次受控操作打开新会话</text>
+  <rect x="900" y="146" width="304" height="144" class="focus"/><text x="920" y="188" class="head">SqlSession与Mapper</text><text x="920" y="228" class="small">不跨请求共享普通会话</text><text x="920" y="266" class="small">Mapper使用范围不超过会话</text>
+  <rect x="900" y="364" width="304" height="110" class="box"/><text x="920" y="404" class="head">执行参数化SQL</text><text x="920" y="444" class="small">更新返回行数，尚未最终提交</text>
+  <rect x="420" y="376" width="360" height="98" class="box"/><text x="440" y="416" class="head">失败：rollback</text><text x="440" y="450" class="small">保留原始异常，回滚错误作补充</text>
+  <rect x="420" y="528" width="360" height="100" class="focus"/><text x="440" y="568" class="head">成功：commit</text><text x="440" y="604" class="small">提交本身失败也进入异常处理</text>
+  <rect x="36" y="376" width="280" height="112" class="box"/><text x="56" y="416" class="head">close</text><text x="56" y="452" class="small">结束会话并释放连接等资源</text>
+  <text x="1070" y="330" class="small">调用映射</text><text x="800" y="490" class="small">失败</text><text x="802" y="556" class="small">正常</text><text x="620" y="506" class="small">提交失败</text>
+  <path d="M36 676H1204" stroke="#bac4c9"/><text x="36" y="710" class="small">新会话读取数据库，核对提交与回滚结果；不要用仍缓存旧对象的原会话代替独立验证。</text><text x="36" y="742" class="small">使用MyBatis-Spring时，由SqlSessionTemplate与Spring事务管理生命周期，业务代码不手动commit、rollback或close。</text>
+</svg>

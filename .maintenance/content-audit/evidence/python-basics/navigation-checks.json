@@ -1,0 +1,205 @@
+[
+  {
+    "from": "docs/devlanguage/python/index.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/",
+    "label": "Next page\n系列导读",
+    "title": "Python 基础客户教程：从会运行到能交付\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/index.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/00-python-basics-course-map.html",
+    "label": "Next page\n00. 基础工具能力地图",
+    "title": "这套 Python 基础课会带你从哪里走到哪里\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.html",
+    "label": "Next page\n01. 客户名单数据检查",
+    "title": "Python 第一课：把客户名单变成可检查的数据\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/02-run-python-script.html",
+    "label": "Next page\n02. 安装、运行和脚本文件",
+    "title": "安装、运行和脚本文件：客户电脑上怎样确认 Python 能跑起来\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/03-field-types.html",
+    "label": "Next page\n03. 变量和字段类型",
+    "title": "变量和类型怎么服务业务字段\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/03-field-types.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/04-customer-records-list-dict.html",
+    "label": "Next page\n04. 列表、字典和表格行",
+    "title": "列表、字典和表格行：一行、多行、字段名怎样在代码里对应\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/05-customer-rules-if.html",
+    "label": "Next page\n05. 条件判断与业务规则",
+    "title": "条件判断：把业务规则写清楚\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/06-batch-loop.html",
+    "label": "Next page\n06. 循环与批量检查",
+    "title": "循环：一条规则跑完整张表\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/07-string-cleaning.html",
+    "label": "Next page\n07. 字符串清洗",
+    "title": "字符串清洗：空格、大小写和格式\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/08-numbers-dates-overdue.html",
+    "label": "Next page\n08. 数字、日期与超期",
+    "title": "数字和日期：金额、天数和超期\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/09-functions-reusable-rules.html",
+    "label": "Next page\n09. 函数与规则复用",
+    "title": "函数：把重复规则变成可复用步骤\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/10-modules-split-script.html",
+    "label": "Next page\n10. 模块与脚本拆分",
+    "title": "模块：把脚本拆成几份文件\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/11-csv-read-write.html",
+    "label": "Next page\n11. CSV 读写",
+    "title": "读写 CSV 文件\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/12-json-api-shape.html",
+    "label": "Next page\n12. JSON 与接口数据",
+    "title": "JSON：系统接口常见的数据形态\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/13-table-health-check.html",
+    "label": "Next page\n13. 表格数据体检",
+    "title": "Excel/表格实战入口\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/14-group-summary.html",
+    "label": "Next page\n14. 分组统计",
+    "title": "分组统计：按来源、城市、销售汇总\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/15-order-check.html",
+    "label": "Next page\n15. 订单检查",
+    "title": "订单检查：金额、状态和异常\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/16-daily-report.html",
+    "label": "Next page\n16. 生成日报",
+    "title": "生成日报：把多个结果合成一个输出\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/17-venv-dependencies.html",
+    "label": "Next page\n17. 虚拟环境和依赖",
+    "title": "虚拟环境和依赖\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/18-read-traceback.html",
+    "label": "Next page\n18. 阅读报错信息",
+    "title": "常见报错怎么读\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/19-exception-handling.html",
+    "label": "Next page\n19. 异常处理",
+    "title": "异常处理：让脚本遇到坏数据不断掉\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/20-logging.html",
+    "label": "Next page\n20. 日志",
+    "title": "日志：给别人运行时留下线索\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/20-logging.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/21-api-fetch-customers.html",
+    "label": "Next page\n21. 调用 API",
+    "title": "调用 API：从系统拿客户数据\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/22-batch-files.html",
+    "label": "Next page\n22. 批量文件自动化",
+    "title": "批量文件自动化\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/23-argparse-config.html",
+    "label": "Next page\n23. 参数配置",
+    "title": "参数配置：不改代码也能换文件\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/24-delivery-package.html",
+    "label": "Next page\n24. 交付可用小工具",
+    "title": "交付一个客户可用小工具\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/25-classes-and-objects.html",
+    "label": "Next page\n25. 类与对象",
+    "title": "什么时候该用类，把数据和动作放进同一个对象\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "href": "/blog/docs/devlanguage/python/basics-series/26-first-usable-tool.html",
+    "label": "Next page\n26. 第一个可用工具",
+    "title": "学完 Python 基础后，怎样从空目录做出第一个可用工具\n​",
+    "passed": true
+  },
+  {
+    "from": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "href": "/blog/docs/devlanguage/python/concurrency-series/",
+    "label": "Next page\n系列导读",
+    "title": "Python 并发实战：从基础模型到语音工程\n​",
+    "passed": true
+  }
+]

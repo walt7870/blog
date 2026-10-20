@@ -6,7 +6,7 @@ export const topicGroups = [
       { text: '开发语言', description: 'Java、Rust、Python、前端、Electron 与跨端开发', link: '/docs/devlanguage/' },
       { text: '架构设计', description: '领域建模、服务边界与系统演进', link: '/docs/design/architecture/' },
       { text: '设计模式', description: '设计原则与对象协作', link: '/docs/design/design-pattern/' },
-      { text: '开发方法', description: '敏捷、迭代、DevOps 与工程协作', link: '/docs/design/develop-pattern/' },
+      { text: '开发方法', description: '生命周期、敏捷、工程验证与 AI 编程协作', link: '/docs/design/develop-pattern/' },
       { text: '算法', description: '基础算法、数据结构与问题求解', link: '/docs/algorithm/' },
       { text: '嵌入式开发', description: 'MCU、RTOS、外设与嵌入式 Linux', link: '/docs/embedded/' },
     ],

@@ -1,12 +1,8 @@
 # 批量文件处理实战：跑几个小时，也要能恢复、能跳过、能定位坏文件
 
 > 对应视频：EP12《批量文件处理实战》  
-> 视频入口：[B站 EP12 定时稿](https://www.bilibili.com/video/BV1X3u76cEUw)（计划公开：2026-08-15 10:58）。
+> 视频入口：[B站 EP12](https://www.bilibili.com/video/BV1X3u76cEUw)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
-
-这篇文章是视频的工程展开版。视频负责建立问题现场、工具选择和排查链路；文章补充代码模板、状态字段、指标口径和落地检查清单。
 
 ![批量文件处理 checkpoint 状态图](/python/concurrency/ep12-file-checkpoint-state.svg)
 
@@ -18,120 +14,117 @@
 
 ## 核心模板
 
-扫描器按批产出路径，线程池按批提交，as_completed 收敛结果，writer 统一写状态文件。不要一次性提交所有任务。
+扫描器分批产出路径，最多50份一批；线程处理结束后由主线程统一保存状态。输入和状态目录分离，不扫描当前项目全部文件。输入目录在运行前创建并放入需要检查的文件，空目录返回全零计数。
 
 ## 排查链路
 
 进度停住时看 files/sec、failed_rate、RSS、队列长度和 last_checkpoint。不同指标指向不同问题。
 
-## 示例代码
+## 输入变化与恢复一致性
 
-下方保留可直接阅读的示例代码。
+下方程序只读取文件字节数，使用SHA256判断输入是否变化；state位于扫描树之外。首次得到done，原件不变时重跑跳过，内容变化后重新处理。失败记录包含异常，下一次运行会再试；这是有限目录的单进程示例，状态字典仍随文件总数增长，海量任务应换成数据库。
 
-## 问题、解决方式和工具
-
-| 问题 | 解决方式 | 工具 |
-| --- | --- | --- |
-| 一次性把所有路径塞进内存，会把任务表变成新瓶颈 | 批处理最怕任务还没开始，内存和状态就已经失控。 | 全量列表 / 重复处理 / 坏文件拖垮全局 |
-| 状态文件决定程序能不能继续跑 | checkpoint 解决的是恢复，不是日志好看。 | done / failed / skipped / attempt |
-| 坏文件是任务状态，不是全局失败 | 坏文件隔离解决的是长任务被单点拖垮。 | 隔离目录 / 错误原因 / 重试次数 |
-| 批处理排查要看进度速度和失败分布 | 只显示百分比不够，要知道卡在哪一类文件和哪一段。 | files/sec / failed_rate / RSS / last_checkpoint |
-
-
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
-
-**读图方式**
-
-- manifest 记录输入事实，checkpoint 记录处理进度，failed table 记录无法自动恢复的问题。
-- 文件批处理的目标不是只跑完一次，而是中断后能继续、坏文件能隔离、已完成能跳过。
-- 状态字段要比文件名更可靠，建议记录 path、size、mtime、hash、status、attempt、error。
-
-**排查路径**
-
-- 先确认扫描阶段是否稳定：文件数、重复数、坏路径、权限错误。
-- 处理阶段观察 RSS、每批大小、失败率和 checkpoint 写入频率。
-- 恢复运行时抽样核对 DONE 文件和输出是否一致，避免只看状态不看结果。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 中断后从头跑 | 是否有 checkpoint、DONE 标记 | 按文件状态跳过已完成任务 |
-| 坏文件拖垮全局 | error_type、failed_rate | 失败归档，超过阈值隔离 |
-| 内存随文件数增长 | RSS、pending 列表长度 | 流式扫描 + 分批处理 |
-| 文件更新后仍被跳过 | mtime、size、hash | 用摘要或版本字段判断是否重跑 |
-
-**落地边界**
-
-- checkpoint 要原子写入，避免程序崩溃时留下半条状态。
-- 输出文件也要可校验，不能只相信状态表里的 DONE。
-<!-- concurrency-series-engineering-supplement:end -->
+每批结束先把完整JSON写入同目录临时文件、flush并fsync，再用os.replace替换状态文件，避免读到半份JSON。替换原子性不等于突然断电后的全链路持久性，关键场景还需目录同步或事务存储。若真实任务会写业务结果，必须先保证结果可校验且幂等，再标记done；不能仅靠文件名或成功日志跳过。
 
 ## 实战检查清单
 
-- 入口是否有容量边界，而不是无限提交。
-- 任务是否有状态字段，失败是否能恢复。
-- 每个重试是否有上限、退避和幂等保护。
-- 是否记录吞吐、P95、错误率、队列长度和关键资源水位。
-- 排查结果是否能指向具体动作：降并发、拆阶段、调 batch、隔离坏文件或回退方案。
+- 状态文件是否在扫描树之外，输入变化是否使旧done失效。
+- 是否区分坏输入、处理中变化与无法提交checkpoint。
+- 原子替换失败时，旧状态是否完整保留。
+- 真实输出是否先校验再标记done，重试写入是否幂等。
 
-## 结尾总结
+## 运行示例
 
-最后把这一集收回来。
-
-批量文件处理真正要解决的是长时间运行：不要一次持有全量任务，用分批扫描控制内存；不要只写日志，用 checkpoint 支持恢复；不要让坏文件中断全局，用状态表和隔离目录收敛失败。
-
-排查时看 files per second、failed_rate、RSS、队列长度和 last_checkpoint，才能知道该调扫描、处理、写入还是状态落盘。
-
-## 配套示例代码
-
-源码文件：`examples/ep12/file_batch_checkpoint.py`
+示例保存为`examples/ep12/file_batch_checkpoint.py`；目录和文件名由本地自行创建。
 
 ```python
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from hashlib import sha256
 from pathlib import Path
 import json
-import time
+import os
+import tempfile
 
-STATE = Path('batch_state.json')
+def fingerprint(path):
+    digest = sha256()
+    with path.open("rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
-def load_state():
-    return json.loads(STATE.read_text()) if STATE.exists() else {}
+def save_state(target, state):
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8",
+                                     dir=target.parent, delete=False) as stream:
+        temporary = Path(stream.name)
+        try:
+            json.dump(state, stream, ensure_ascii=False, indent=2)
+            stream.flush()
+            os.fsync(stream.fileno())
+        except BaseException:
+            temporary.unlink(missing_ok=True)
+            raise
+    try:
+        os.replace(temporary, target)
+    finally:
+        temporary.unlink(missing_ok=True)
 
-def save_state(state):
-    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2))
-
-def iter_batches(root, size=100):
+def iter_batches(root, size=50):
     batch = []
-    for path in Path(root).rglob('*'):
+    for path in root.rglob("*"):
         if path.is_file():
             batch.append(path)
-        if len(batch) >= size:
+        if len(batch) == size:
             yield batch
             batch = []
     if batch:
         yield batch
 
 def handle_file(path):
-    time.sleep(0.01)
-    return {'bytes': path.stat().st_size}
+    return {"bytes": path.stat().st_size}
 
-def run(root='.'):
-    state = load_state()
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        for batch in iter_batches(root, 50):
-            todo = [p for p in batch if state.get(str(p), {}).get('status') != 'done']
-            futures = {pool.submit(handle_file, p): p for p in todo}
-            for fut in as_completed(futures):
-                path = futures[fut]
+def run(root="inputs", state_path="state/batch.json"):
+    root, target = Path(root).resolve(strict=True), Path(state_path).resolve()
+    if not root.is_dir():
+        raise ValueError("输入必须是目录")
+    if target == root or root in target.parents:
+        raise ValueError("状态文件必须位于扫描目录之外")
+    state = json.loads(target.read_text(encoding="utf-8")) if target.exists() else {}
+    if not isinstance(state, dict):
+        raise ValueError("状态文件必须是JSON对象")
+    processed = skipped = failed = 0
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for batch in iter_batches(root):
+            futures = {}
+            for path in batch:
+                key = str(path)
                 try:
-                    state[str(path)] = {'status': 'done', 'result': fut.result()}
+                    digest = fingerprint(path)
+                    previous = state.get(key, {})
+                    if previous.get("status") == "done" and previous.get("sha256") == digest:
+                        skipped += 1
+                        continue
+                    future = pool.submit(handle_file, path)
+                    futures[future] = (path, digest)
+                except OSError as exc:
+                    state[key] = {"status": "failed", "error": repr(exc)}
+                    failed += 1
+            for future in as_completed(futures):
+                path, digest = futures[future]
+                try:
+                    result = future.result()
+                    if fingerprint(path) != digest:
+                        raise ValueError("处理过程中输入发生变化")
+                    state[str(path)] = {"status": "done", "sha256": digest,
+                                        "result": result}
+                    processed += 1
                 except Exception as exc:
-                    state[str(path)] = {'status': 'failed', 'error': repr(exc)}
-            save_state(state)
+                    state[str(path)] = {"status": "failed", "error": repr(exc)}
+                    failed += 1
+            save_state(target, state)
+    return {"processed": processed, "skipped": skipped, "failed": failed}
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+    print(run())
 ```
 

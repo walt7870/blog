@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
+      "pageType": "模块机制",
+      "decision": "以购物车实时绑定解释URL与环境身份，补循环初始化、动态导入失败和tree shaking副作用边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "0d92401997ff0f648cd981ee1544188df86e8de600b9662ea6f33b8201103ffc"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
+      "pageType": "类型合同",
+      "decision": "补unknown商品解析、联合状态穷尽、泛型关系及类型擦除例外，区分构建与检查。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "d8e8b2b5cc854393bac5c4e928a1a1f621565b053fc3f1a333dd8596ca55c4d9"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
+      "pageType": "工程环境",
+      "decision": "解释声明与锁定、直接依赖所有权、CI冻结安装及平台和生命周期脚本边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "2179ba773332b82f0a01c50b3a72848d178492c2029e5ebd071247ee55b7c675"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
+      "pageType": "构建机制",
+      "decision": "按当前Vite8修正Rolldown/Oxc，补base、环境变量、HMR回退及旧chunk发布一致性。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "e9b89b2bcdcfb95b79c366ba1dc2fd09b0a99c7a5e4b04b2f35984b83ea10e6c"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
+      "pageType": "质量门禁",
+      "decision": "按格式、规则、类型和行为分工，补整数分金额测试、错误变异与显式CI脚本。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "76721b14705dd4f1bec22a94f24cd3151db46328113b4250cf95ce2b0fd6462e"
+    },
+    {
+      "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
+      "pageType": "组件机制",
+      "decision": "以可运行Vue受控数量组件解释状态归属、派生总价、父级拒绝、身份和更新时机。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "六页正文与原图全部阅读，重写六图；整站构建15.17秒通过。24份明暗全文截图已查看，1280/iframe390、主题与无全页溢出断言通过，6次分页及12组原尺寸键盘交互通过，详见batches/frontend-toolchain.md。",
+        "正文提取执行：TS正例和三类错误诊断、7项合同、2项金额测试与除数变异通过；10项浏览器模块/组件/子路径结果记录，HMR实际发生整页回退，不声称保留状态。六图中文边界与可访问SVG自检通过。"
+      ],
+      "reviewedHash": "ead20d441b9086596d28703919caf39d285d5b970a15a280273c4a9c1329acfc"
+    }
+  ]
+}

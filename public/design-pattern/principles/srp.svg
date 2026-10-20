@@ -1,18 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
-  <title id="title">单一职责原则示意图</title>
-  <desc id="desc">展示一个类承担多类职责时如何拆分为多个职责清晰的组件。</desc>
-  <style>
-    .bg{fill:#f8fafc}.bad{fill:#fee2e2;stroke:#ef4444}.good{fill:#dcfce7;stroke:#22c55e}.box{stroke-width:2;rx:14}.t{font:700 20px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.s{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2}.arrow{fill:#64748b}
-  </style>
-  <rect class="bg" width="960" height="420" rx="20"/>
-  <text class="t" x="48" y="52">单一职责原则：一个模块只承受一类变化</text>
-  <rect class="box bad" x="70" y="120" width="260" height="180" rx="14"/>
-  <text class="t" x="112" y="158">OrderService</text>
-  <text class="s" x="102" y="196">创建订单</text><text class="s" x="102" y="226">计算优惠</text><text class="s" x="102" y="256">发送消息</text><text class="s" x="102" y="286">写审计日志</text>
-  <line class="line" x1="350" y1="210" x2="535" y2="210"/><polygon class="arrow" points="535,210 522,202 522,218"/>
-  <rect class="box good" x="580" y="86" width="260" height="70" rx="14"/><text class="t" x="628" y="128">OrderCreator</text><text class="s" x="650" y="150">订单创建</text>
-  <rect class="box good" x="580" y="176" width="260" height="70" rx="14"/><text class="t" x="626" y="218">PriceCalculator</text><text class="s" x="650" y="240">价格计算</text>
-  <rect class="box good" x="580" y="266" width="260" height="70" rx="14"/><text class="t" x="625" y="308">MessageSender</text><text class="s" x="650" y="330">消息通知</text>
-  <text class="s" x="80" y="360">坏味道：一个需求变更会同时影响多个职责。</text>
-  <text class="s" x="580" y="360">目标：每个类有清晰边界，变更影响范围更小。</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="490" viewBox="0 0 1120 490" role="img" aria-labelledby="title desc"><title id="title">单一职责：拆分变化原因，保留流程编排</title><desc id="desc">左侧表示职责拆分，右侧表示使用关系；事务与消息交付需要另行设计。</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.small{font-size:14px;fill:#526173}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.warn{fill:#fff2eb;stroke:#d28a66;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}.rule{stroke:#d4dee7;stroke-width:1}</style><rect width="1120" height="490" fill="#f8fafc"/><text class="title" x="40" y="52">单一职责：拆分变化原因，保留流程编排</text><text class="sub" x="40" y="84">左侧表示职责拆分，右侧表示使用关系；事务与消息交付需要另行设计。</text><path class="line" d="M330 262H400"/><path class="line" d="M690 262H730V158H770"/><path class="line" d="M690 262H770"/><path class="line" d="M690 262H730V382H770"/><rect class="warn" x="40" y="170" width="290" height="185" rx="6"/><text class="h" x="60" y="202">原 OrderService</text><text class="t" x="60" y="231">校验与订单保存</text><text class="t" x="60" y="257">价格规则与通知模板</text><text class="t" x="60" y="283">审计字段与流程编排</text><rect class="accent" x="400" y="200" width="290" height="125" rx="6"/><text class="h" x="420" y="232">OrderApplicationService</text><text class="t" x="420" y="261">保留订单流程编排</text><text class="t" x="420" y="287">组合校验器与仓储</text><rect class="box" x="770" y="115" width="310" height="86" rx="6"/><text class="h" x="790" y="147">PriceCalculator</text><text class="t" x="790" y="176">价格规则</text><rect class="box" x="770" y="220" width="310" height="86" rx="6"/><text class="h" x="790" y="252">OrderCreatedNotifier</text><text class="t" x="790" y="281">通知模板</text><rect class="box" x="770" y="340" width="310" height="86" rx="6"/><text class="h" x="790" y="372">AuditLogger</text><text class="t" x="790" y="401">审计记录</text><text class="sub" x="40" y="465">变化原因分别承载，不要求一个方法一个类；可靠通知另需事务与重试设计。</text></svg>

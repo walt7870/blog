@@ -1,3 +1,7 @@
+<script setup>
+import { withBase } from 'vitepress'
+</script>
+
 # LangChain 从入门到工程实践
 
 这是一组写给 Python 开发者的 LangChain 中文教程。它不从 API 清单开始，而是从几个真实问题出发：什么时候只调用模型就够了，什么时候需要工作流，RAG 为什么会答错，Tool 和 Agent 到底有什么区别，以及一个 Demo 距离上线还缺什么。
@@ -39,25 +43,36 @@ LangChain 主要统一 Prompt、模型、检索器、Tool 和输出解析器的�
 4. [Tools、工作流与 Agent 不要混为一谈](04-tools-workflows-agents.md)
 5. [从 Demo 到可上线的 LangChain 应用](05-production-practices.md)
 
-建议按顺序阅读。每篇约 10-15 分钟，末尾都有一个可以马上动手的练习。
+按顺序阅读可以把组件组合、状态流转、检索和执行边界串起来。示例统一使用订单与退款场景，金额、订单和政策均为教学数据。
 
 ## 代码运行准备
 
-示例按 Python 3.11 及以上版本编写。已经有 `arm_env` 环境时，可以直接安装这一组经过配套验证的依赖：
+示例使用 Python 3.11。建立独立虚拟环境，避免依赖修改影响其他项目。以下固定版本对应 2026-10-20 的验证环境：
 
 ```bash
-conda run -n arm_env python --version
-conda run -n arm_env pip install \
-  "langchain>=1.3,<1.4" \
-  "langgraph>=1.2,<1.3" \
-  "langchain-openai>=1.4,<1.5" \
-  "langchain-chroma>=1.1,<1.2" \
-  "langchain-text-splitters>=1.0,<2" \
-  "sqlglot>=27,<28"
-conda run -n arm_env python -c "import langchain_core, langgraph; print('ready')"
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install \
+  "langchain==1.4.6" "langgraph==1.2.16" \
+  "langchain-openai==1.7.2" "langchain-chroma==1.1.0" \
+  "langchain-text-splitters==1.1.3" "sqlglot==30.23.0"
+python -c "import langchain_core, langgraph; print('ready')"
 ```
 
-第 1 篇的真实模型调用需要 `OPENAI_API_KEY`。第 2 篇的最小 LangGraph 示例完全离线；其余文章把可离线验证的工作流、检索门控和安全校验作为重点，不要求先搭建完整 Web 系统。
+Windows PowerShell 使用 `.venv\Scripts\Activate.ps1` 激活环境。第 1 篇的真实模型调用需要 `OPENAI_API_KEY` 和账户可用的模型标识；兼容接口还应检查工具调用、结构化输出和参数支持，不能仅以 URL 相同就认为能力一致。
+
+完整的<a :href="withBase('/ai/examples/workflow_demo.py')" download="workflow_demo.py">离线示例源码</a>包含客服状态图、检索门控、Tool 注册和 SQLite 校验。下载后在文件所在目录执行：
+
+```bash
+python workflow_demo.py check
+python workflow_demo.py support '查询订单DEMO001'
+python workflow_demo.py rag '退款多久到账？'
+python workflow_demo.py sql 'SELECT SUM(amount) FROM sales'
+```
+
+`check` 覆盖 15 组成功和拒绝场景。示例不请求远程模型、不创建真实工单、不连接业务数据库。RAG 使用小词表检索替身，专门演示证据不足时如何停止；它不衡量真实 Embedding、生成模型或生产检索质量。文中的 Chroma 片段属于替换检索层的集成入口，不是该离线文件已经包含的功能。
+
+需要复现同一组间接依赖时，可使用[完整依赖锁定文件](/ai/examples/requirements-lock.txt)，在 Python 3.11 虚拟环境中运行 `python -m pip install -r requirements-lock.txt`。它对应本地教学验证环境；部署到其他操作系统和架构时还需验证相应二进制包是否可用。
 
 ## Demo 与真实模型的区别
 

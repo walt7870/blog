@@ -20,7 +20,7 @@
 
 ## 源码主线
 
-页面开头的启动源码主链图把流程分为两层：`refresh()` 之前准备 Environment、ApplicationContext 和初始 BeanDefinition；`refresh()` 内部展开配置、创建 Bean、生成代理并启动 WebServer。DispatcherServlet 随后使用已经形成的对象图处理 HTTP 请求。
+页面开头的启动源码主链图区分 `refresh()` 前的输入准备、刷新内部的定义展开与对象创建，以及刷新后的 Runner 和就绪事件。WebServer 监听端口后仍可能有 Runner 尚未完成；DispatcherServlet 使用已经形成的对象图处理 HTTP 请求，平台是否放入业务流量还要看 readiness。
 
 这条主线同时回答三个问题：启动代码按什么顺序执行、容器里的对象怎样形成、应用启动后请求怎样进入业务方法。阅读单个类时，应先确认它位于启动输入、容器刷新还是请求处理阶段，再进入方法内部。
 
@@ -86,12 +86,12 @@
 
 ## 最小跟踪练习
 
-准备一个只有 `spring-boot-starter-web`、一个 Controller 和一个 Service 的应用，然后完成下面的闭环：
+下载 [订单练习](./foundation/why-spring.md#可运行证据-业务代码不依赖-spring-才更容易测试)，解压后完成下面的闭环：
 
-1. 在 `application.yml` 把端口设为 8081，再用命令行参数改为 8082，确认最终监听端口和配置来源。
+1. 确认 `application.properties` 中端口为 8081，再运行 `mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8082`，确认最终监听端口和配置来源。
 2. 在 `SpringApplication.run()`、`AbstractApplicationContext.refresh()` 和 `doCreateBean()` 设置断点，观察启动顺序。
-3. 打印 Controller 与 Service 的实际类型，确认哪些对象是普通 Bean，哪些对象因为 AOP 或事务成为代理。
-4. 请求 `GET /hello`，在 `DispatcherServlet.doDispatch()` 查看 Handler、参数解析和返回值处理。
+3. 在断点检查 Controller 与 Service 的实际类型。本练习没有 AOP/事务基础设施，不能仅因它们是 Bean 就期待代理；代理机制的独立实验见 [AOP](./aop.md)。
+4. 按练习发送 `POST /api/orders`，在 `DispatcherServlet.doDispatch()` 查看 Handler、参数解析和返回值处理，再沿返回的 Location 查询订单。
 5. 用启动日志、端口、断点和 HTTP 响应证明整条链真实走通。
 
 这组练习不要求修改框架源码。目标是把视频中的类和方法与一个可以重复运行的应用对应起来。
@@ -105,7 +105,7 @@
 | 应用创建了错误的上下文或服务器没有启动 | EP06、EP19 | WebApplicationType、Context 真实类型、端口监听、启动日志 | [Spring Boot](./springboot.md) |
 | Bean 没注册、没注入或出现多实现冲突 | EP07–EP11、EP14–EP15 | BeanDefinition 名称、候选类型、Qualifier、Primary | [IoC 容器](./ioc.md) |
 | 自动配置未生效或自定义 Bean 没有覆盖默认实现 | EP12–EP13 | conditions 报告、classpath、已有 BeanDefinition | [自动配置](./boot-autoconfiguration.md) |
-| AOP 或事务注解没有生效 | EP16–EP18 | Bean 真实类型、Advisor、是否经过代理、异常传播 | [AOP 失效场景](./aop.md#失效场景) |
+| AOP 或事务注解没有生效 | EP16–EP18 | Bean 真实类型、Advisor、是否经过代理、异常传播 | [AOP 排查路径](./aop.md#排查路径) |
 | 请求 404、参数绑定失败或响应转换异常 | EP20 | mappings、HandlerMapping、HandlerAdapter、Converter | [Spring MVC 排查路径](./mvc.md#排查路径) |
 
 排错时应先确认现象位于启动阶段还是请求阶段。启动阶段的问题优先查看 Environment、BeanDefinition 和 `refresh()`；请求阶段的问题优先查看端口、Servlet 容器、DispatcherServlet 和具体 Handler。

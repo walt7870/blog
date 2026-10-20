@@ -1,126 +1,114 @@
 # 用户进程
 
-用户进程是由用户命令、系统服务、脚本、应用程序创建的进程。它们运行在用户空间，通过系统调用请求内核提供文件、网络、内存和进程管理能力。
+一项订单导出会启动压缩子进程。压缩程序返回成功后，父服务才应把导出标记为完成；收到停止请求时，还要决定等待、取消和回收子进程。进程管理既涉及“运行什么”，也涉及“如何知道它已经结束”。
 
-理解用户进程，重点看四件事：它由谁启动、处于什么状态、占用什么资源、收到信号后如何退出。
+## 创建、执行和回收
 
-## 生命周期
+![Linux进程状态与退出回收](/linux/process-state-flow.svg)
 
-典型生命周期：
+常见路径是 fork 创建子进程，子进程 exec 替换程序映像；exec 成功时 PID 不变，也不返回原程序。Linux 还有 clone、vfork、posix_spawn 等入口及实现路径，不是所有进程都必须通过一段显式 fork/exec 业务代码创建。
 
-1. 父进程通过 `fork` 创建子进程。
-2. 子进程通过 `exec` 加载新程序。
-3. 进程进入运行、睡眠、等待 I/O 等状态。
-4. 进程收到信号或主动退出。
-5. 父进程回收退出状态。
+线程是调度实体。Linux 下同一进程的线程有各自 TID，共享地址空间和许多资源；查看主进程CPU与某个线程CPU时必须分清统计对象。用户进程执行系统调用会进入内核态，不能把“用户进程”理解为永远只在用户态运行。
 
-如果第 5 步没有发生，就可能出现僵尸进程。
+## 一个有限的子进程实验
 
-## 观察进程
+保存为 `child-status.c`，在 Linux、GCC或兼容C编译器与procps工具齐备的环境运行。示例只派生一个孩子，不是可直接用于生产的进程池：
 
-```bash
-ps -ef
-ps aux --sort=-%cpu | head
-pstree -ap
-top
+```c
+#define _POSIX_C_SOURCE 200809L
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+
+int main(void) {
+    pid_t child = fork();
+    if (child == -1) {
+        perror("fork");
+        return EXIT_FAILURE;
+    }
+    if (child == 0) {
+        _exit(7);
+    }
+    printf("parent=%ld child=%ld\n", (long)getpid(), (long)child);
+    fflush(stdout);
+
+    struct timespec remaining = {.tv_sec = 3, .tv_nsec = 0};
+    while (nanosleep(&remaining, &remaining) == -1) {
+        if (errno != EINTR) {
+            perror("nanosleep");
+            return EXIT_FAILURE;
+        }
+    }
+
+    int status;
+    pid_t result;
+    do {
+        result = waitpid(child, &status, 0);
+    } while (result == -1 && errno == EINTR);
+    if (result == -1) {
+        perror("waitpid");
+        return EXIT_FAILURE;
+    }
+    if (!WIFEXITED(status)) {
+        fputs("child did not exit normally\n", stderr);
+        return EXIT_FAILURE;
+    }
+    printf("child_exit=%d\n", WEXITSTATUS(status));
+    return WEXITSTATUS(status) == 7 ? EXIT_SUCCESS : EXIT_FAILURE;
+}
 ```
 
-读输出时重点看：
-
-- `PID`：进程 ID。
-- `PPID`：父进程 ID。
-- `STAT`：进程状态。
-- `%CPU`、`%MEM`：资源占用。
-- `COMMAND`：启动命令。
-
-## 信号
-
-信号是进程间和系统向进程发送通知的机制。
-
-| 信号 | 常见用途 |
-| --- | --- |
-| `SIGTERM` | 请求进程优雅退出 |
-| `SIGKILL` | 强制终止，进程无法捕获 |
-| `SIGHUP` | 常用于重新加载配置 |
-| `SIGSTOP` | 暂停进程 |
-| `SIGCONT` | 继续运行暂停的进程 |
-
-优先使用 `SIGTERM`，确认进程无法正常退出时再考虑 `SIGKILL`。直接 `kill -9` 会跳过清理逻辑，可能导致临时文件、锁、连接和数据状态不完整。
-
-## 后台任务
-
-Shell 中的后台任务适合临时执行，不适合长期服务。
-
 ```bash
-command &
-nohup command > app.log 2>&1 &
-jobs
-fg %1
+cc -std=c11 -Wall -Wextra -Werror child-status.c -o child-status
+./child-status &
+parent=$!
+sleep 1
+ps --ppid "$parent" -o pid,ppid,stat,comm
+wait "$parent"
 ```
 
-长期运行的服务应交给 systemd、supervisor、容器编排或进程管理器，而不是长期依赖一个 shell 会话。
+孩子立即退出，父进程先等3秒，通常可以在 ps 中观察到 Z；之后 waitpid 读取退出码7，父程序输出 `child_exit=7` 并返回0。这里 shell 的 `wait` 回收父程序，C 的 waitpid 回收孩子，是两层等待。采样若错过窗口，就看不到Z，不能因此断言没有回收过程。
 
-## 资源限制
+生产代码应循环等待所有需管理的子进程，处理信号中断、超时及异常退出，并把结果关联到任务；不要只凭压缩文件“存在”判断成功。subreaper与命名空间见 [Init](./init-process.md)。
 
-进程能使用的资源可以被限制：
+## 信号不等于业务语义
+
+| 信号 | 内核层含义或默认行为 | 应用需要做什么 |
+| --- | --- | --- |
+| SIGTERM | 默认终止，可捕获或改变处理 | 实现有界退出，才可能优雅 |
+| SIGKILL | 不能捕获、阻塞或忽略 | 不会执行应用清理代码 |
+| SIGHUP | 默认终止 | 只有应用约定才表示重载 |
+| SIGSTOP | 不可捕获的停止 | 暂停不等于退出或释放资源 |
+| SIGCONT | 恢复停止任务 | 后续仍按调度与等待条件运行 |
+
+优先请求服务管理器停止对应服务；对独立任务发送信号前核对PID、身份、命令和启动时间，PID可能被复用。SIGKILL 后内核会清理进程资源，但业务事务、外部任务和未落盘结果不能靠它自动完成。
+
+D 表示不可中断类等待，常见于I/O，单凭状态不能确定设备根因。真正的不可中断等待不能被信号立即打断；有些内核等待是 killable 变体，因此不能把所有显示D的任务都绝对归为“SIGKILL永远无效”。
+
+## 后台执行与资源限制
+
+`command &` 让shell异步等待，`nohup` 主要改变挂断信号处理及部分输出行为；二者不提供自动重启、健康检查或日志轮转。长期服务应由systemd或容器管理器维护。
 
 ```bash
 ulimit -a
-cat /proc/PID/limits
+cat /proc/目标PID/limits
+cat /proc/目标PID/cgroup
 ```
 
-常见限制：
+shell 的限制只影响由它派生的进程。systemd 服务通常需要检查 unit 的 LimitNOFILE 等配置；容器或 cgroup 还有独立资源控制。不要在当前终端调高 ulimit 后，就认定已运行的服务获得新上限。
 
-- 最大打开文件数。
-- 最大进程数。
-- 栈大小。
-- core 文件大小。
+## 从现象回到实际进程
 
-连接数很高的服务如果报 “too many open files”，通常要同时检查 systemd unit、shell 限制和应用自身配置。
+| 现象 | 入口 | 解读边界 |
+| --- | --- | --- |
+| CPU持续高 | `top -H -p PID`、应用采样 | 区分线程、调用栈与时间窗口 |
+| 文件或连接积累 | `/proc/PID/fd`、`lsof -p PID` | 快照后对象仍可能变化 |
+| 等待来源不明 | `strace -p PID`、wchan、日志 | 需权限；系统调用跟踪有开销 |
+| 内存增长 | status、smaps与应用对象分析 | RSS含共享映射，不等于独占 |
+| 僵尸增加 | Z状态与PPID | 修父进程回收，不是杀已退出孩子 |
 
-## 调度和优先级
-
-Linux 会调度进程使用 CPU。普通服务通常不需要手动改优先级。需要时可以使用 `nice`、`renice` 或实时调度策略，但要谨慎。
-
-优先级调错可能让低价值任务抢占关键服务，甚至影响系统响应。
-
-## 调试入口
-
-| 问题 | 常用工具 |
-| --- | --- |
-| 不知道进程在做什么 | `strace -p PID` |
-| 文件或端口被谁占用 | `lsof -p PID`、`lsof -i :PORT` |
-| CPU 高 | `top -H`、线程堆栈、应用 profiler |
-| 内存高 | `/proc/PID/status`、`pmap`、堆转储 |
-| 进程卡住 | `strace`、`cat /proc/PID/stack`、日志 |
-
-生产环境使用调试工具要注意开销。`strace`、profiler、堆转储都可能影响进程性能。
-
-## 常见问题
-
-### 进程杀不掉
-
-如果状态是 `D`，说明进程处于不可中断睡眠，通常在等待内核 I/O。`kill -9` 也不能立即生效。应查磁盘、网络文件系统、块设备、驱动或内核日志。
-
-### 端口被占用
-
-```bash
-ss -lntp | grep ':8080'
-lsof -i :8080
-```
-
-确认进程后，不要急着 kill。先判断它是不是 systemd 管理的服务，避免被自动拉起或影响线上流量。
-
-### 僵尸进程越来越多
-
-查父进程：
-
-```bash
-ps -eo stat,ppid,pid,cmd | grep '^Z'
-```
-
-处理父进程逻辑或重启父服务。僵尸子进程本身已经退出，无法直接释放。
-
-## 总结
-
-用户进程排查要围绕父子关系、状态、资源和信号展开。临时命令可以用 shell 管理，长期服务应交给 systemd 等管理器。遇到异常时先观察状态和资源，再决定发送信号、重启服务或继续深入调试。
+查8080监听可以使用 `ss -lntp 'sport = :8080'`；查看其他用户的进程信息可能需要权限。确认是否受服务管理器管理后再操作，避免杀掉后被自动拉起。修复完成后复验进程数量、子进程退出状态和同一业务请求，不以“进程不见了”代替任务正确结束。

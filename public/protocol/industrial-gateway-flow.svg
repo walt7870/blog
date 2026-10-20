@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="ig-title ig-desc">
+<title id="ig-title">现场设备到云端的合同边界</title><desc id="ig-desc">传感器提供寄存器，网关通过RS-485和Modbus读取后解释单位与时间，缓存事件再经MQTT上传；云端命令须经授权、去重和设备保护。</desc>
+<defs><marker id="ig-arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+<rect width="1120" height="600" fill="#f7f9fb"/>
+<g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+<text x="48" y="56" font-size="28" font-weight="700">寄存器、网关事件与云端业务是三份合同</text><text x="48" y="92" font-size="18" fill="#52616d">温度采集例：235 经倍率 0.1 解释为 23.5°C，再附采样时间与质量标记。</text>
+<g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#ig-arrow)"><path d="M316 236H426"/><path d="M694 236H804"/><path d="M938 332V422H560V332"/><path d="M426 288H316"/></g>
+<g fill="#fff" stroke="#8fa3b1"><rect x="48" y="156" width="268" height="176" rx="6"/><rect x="804" y="156" width="268" height="176" rx="6"/></g>
+<rect x="426" y="156" width="268" height="176" rx="6" fill="#e8f5ef" stroke="#74a28b"/>
+<g font-size="22" font-weight="600"><text x="70" y="198">现场设备</text><text x="448" y="198">边缘网关</text><text x="826" y="198">云端消费者</text></g>
+<g font-size="18" fill="#52616d"><text x="70" y="236">站号 / 地址 / CRC</text><text x="70" y="272">寄存器值 235</text><text x="70" y="308">本地安全保护</text><text x="448" y="236">解析倍率、字节序</text><text x="448" y="272">时间戳、序号、有界缓存</text><text x="448" y="308">离线恢复与命令去重</text><text x="826" y="236">存储事件与校验时效</text><text x="826" y="272">幂等处理并提交游标</text><text x="826" y="308">不把旧值当实时值</text></g>
+<g font-size="17" text-anchor="middle"><text x="371" y="132">RS-485</text><text x="371" y="350">Modbus RTU</text><text x="749" y="132">MQTT / TLS</text><text x="749" y="458">反向控制：授权 → 命令 ID → 设备确认</text></g>
+<g font-size="18" fill="#52616d"><text x="48" y="516">CRC 通过 ≠ 寄存器含义正确；Broker 确认 ≠ 云端业务已处理；重试写入 ≠ 可重复执行。</text><text x="48" y="554">断开上云网络，验收缓存上限、重连补发、过期处理与命令幂等，而不只测试一次读数。</text></g></g></svg>

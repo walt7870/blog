@@ -1,0 +1,160 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/develop-pattern/index.md",
+      "status": "verified",
+      "reviewedHash": "68fd5a6161fb79ffcc002be22984fa34722795f4fb41cc4208ad5136fc418f81",
+      "pageType": "专题总览",
+      "dependencyFiles": [
+        "public/develop-method/increment-slices.svg",
+        "public/develop-method/agent-swimlane.svg",
+        "public/develop-method/devops-release.svg"
+      ],
+      "decision": "保留五个组合维度、三阶段场景入口及账单导出贯穿例子；总览不重复细节页的完整机制。动态组件引用的三图纳入依赖。",
+      "findings": [],
+      "validation": [
+        "完整阅读正文及 MethodExplorer.vue；12 张专题 SVG 逐张阅读和放大核对",
+        "10 页桌面亮色、手机亮色和深色逐页截图；桌面深色逐页图片及溢出检查通过",
+        "阶段筛选、图片预览、原尺寸滚动、Escape 与焦点恢复通过",
+        "完整生产构建通过，构建预览 /blog/docs/design/develop-pattern/ 客户端启动及入口通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/agile.md",
+      "status": "verified",
+      "reviewedHash": "e0bf41a90da40b3fc02b4ca61fc3fe41a00a4f91999028f64a034141a0222822",
+      "pageType": "机制说明",
+      "decision": "保留 Scrum 与 Kanban 边界、完成标准及导出看板案例；修正 Scrum 图为 Sprint 内持续检查，评审前可发布可用增量，接通六条悬空箭头。",
+      "findings": [
+        {
+          "detail": "Scrum 图原来容易让人误解为实现后才检查；已修正文案及连线，并与 2020 Scrum Guide 核对。",
+          "status": "resolved"
+        }
+      ],
+      "validation": [
+        "全文阅读，官方 Scrum Guide 核对 Sprint、DoD、Review 与发布边界",
+        "agile-flow.svg 独立放大与文字边界通过；桌面、手机、深色逐页检查通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/ai-coding.md",
+      "status": "retained",
+      "reviewedHash": "b7dc1798d190115756a50e197caaad6494300daedeee7431eb48b31db0d4786e",
+      "pageType": "方法对比",
+      "decision": "保留 AI 辅助、Vibe、Agentic 与规格驱动的分工比较；独立验收证据及任务委派边界具体，链接到 Vibe 专题承担工具配置细节。ai-choice 与 agent-swimlane 已表达选择和协作，不添加重复图。",
+      "findings": [],
+      "validation": [
+        "全文及两张 SVG 标签、方向完整核对",
+        "桌面、手机、深色逐页检查通过；图片放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/devops.md",
+      "status": "retained",
+      "reviewedHash": "439df8096ee672d6f29f6db19d053c0ff3225794e7b341bfc4f45c46bb2a689d",
+      "pageType": "交付机制",
+      "decision": "保留持续交付与持续部署区别、同一制品逐环境晋级、灰度与运行反馈；图覆盖失败恢复，案例解释数据库迁移并非简单代码回滚。",
+      "findings": [],
+      "validation": [
+        "全文和 devops-release.svg 完整核对",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/engineering-practices.md",
+      "status": "retained",
+      "reviewedHash": "9dcc159a1e3c95b45655466f20321a9a936ab40fb893d03089fde8702c45d09c",
+      "pageType": "验证实践",
+      "decision": "保留 TDD 红绿重构、BDD 业务示例、契约测试的边界及授权反例。test-loop 已说明验证反馈，不用命令堆叠替代机制。",
+      "findings": [],
+      "validation": [
+        "全文代码片段与 test-loop.svg 完整核对，片段按机制示意理解",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/iterative.md",
+      "status": "retained",
+      "reviewedHash": "2fc14130d87991d1175de2606a921cfaf246b1aa2fce3c65e70c567358ff472e",
+      "pageType": "机制对比",
+      "decision": "保留迭代改进与增量增加可用能力的区别，账单导出按能力切片避免把数据库、接口、界面误当独立交付增量。increment-slices 解释两轴关系充分。",
+      "findings": [],
+      "validation": [
+        "全文及 increment-slices.svg 完整核对",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/lean.md",
+      "status": "retained",
+      "reviewedHash": "1f6055c2cf8669b6f9a05cda6cac1801adf7de8d03ee365166aa211f404e0f10",
+      "pageType": "组织与改进",
+      "decision": "保留价值流、等待、在制品及反馈度量，未把精益等同裁人。lean-value-stream 对比等待与处理时间，支持瓶颈判断。",
+      "findings": [],
+      "validation": [
+        "全文及 lean-value-stream.svg 完整核对",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/selection-practice.md",
+      "status": "verified",
+      "reviewedHash": "fc2420026256ac82323abbff6f81cbe4007d4ea111b033763a174741a0d98865",
+      "pageType": "组合实践",
+      "decision": "保留按不确定性与风险选择方法的决策及导出闭环；修复手机 SVG 被强制 960px 导致只露左侧的问题，正文完整缩略图加原尺寸预览。",
+      "findings": [
+        {
+          "detail": "手机正文图裁切及无 width SVG 原尺寸模式缩小；已统一缩略图显示，预览解析 SVG viewBox。",
+          "status": "resolved"
+        }
+      ],
+      "validation": [
+        "全文及 method-selection、delivery-loop 两图完整核对",
+        "修复后手机深色、桌面检查通过；原尺寸宽度 960px、滚动、Escape 与焦点恢复通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/spiral.md",
+      "status": "retained",
+      "reviewedHash": "0b4382b6d82100c9c2fa187e59e24a21bb2c642ae80f696a985d7af94da5e649",
+      "pageType": "风险驱动模型",
+      "decision": "保留识别风险、做试验、评估证据、决定投入的循环；导出容量试验说明试验失败可停止，未把螺旋等同重复瀑布。risk-loop 信息完整。",
+      "findings": [],
+      "validation": [
+        "全文及 risk-loop.svg 完整核对",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    },
+    {
+      "file": "docs/design/develop-pattern/waterfall.md",
+      "status": "retained",
+      "reviewedHash": "4a3fbfac232bb314f8001345d64815cb5bc1c2329a69ba97370a7d83a1b42fc0",
+      "pageType": "生命周期模型",
+      "decision": "保留阶段基线、变更控制及 V 模型验证对应关系；明确需求稳定等条件而非笼统宣称瀑布过时，图中反馈路径和验收基线一致。",
+      "findings": [],
+      "validation": [
+        "全文及 waterfall-gates.svg 完整核对",
+        "桌面、手机、深色逐页检查通过；独立 SVG 放大通过",
+        "生产构建通过",
+        "2026-10-19 依赖复核：全站配置仅修正设计模式侧栏“抽象方法”为“抽象工厂”；此前正文与配图未变，生产构建 26.36 秒通过，59 页逐一启动客户端检查标题、侧栏、资源及页面横向溢出通过。既有完整内容和视觉审查结论保留。"
+      ]
+    }
+  ]
+}

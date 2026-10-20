@@ -1,0 +1,72 @@
+[
+  {
+    "file": "docs/devlanguage/front/framework/vite.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Vite：开发反馈、生产构建与路径合同",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/webpack.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Webpack：模块图、转换规则与运行时资源",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/rollup.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Rollup：库输出、外部依赖与 Tree Shaking",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/parcel.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Parcel：HTML 入口、目标环境与资源图",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/framework/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端框架与工具生态",
+    "width": 390
+  }
+]

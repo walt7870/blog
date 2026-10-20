@@ -1,0 +1,37 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/06-html-form-model.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/06-html-form-model.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.html"
+  }
+]

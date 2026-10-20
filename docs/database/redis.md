@@ -1,1101 +1,206 @@
 ---
-title: Redis 详解
+title: Redis
 author: Walt
-date: 2024-12-19 10:00:00
-LastEditTime: 2024-12-19 10:00:00
-LastEditors: Walt
 ---
 
-# Redis 详解
+<script setup>
+import { withBase } from 'vitepress'
+</script>
 
-Redis（Remote Dictionary Server）是一个开源的内存数据结构存储系统，可以用作数据库、缓存和消息代理。它支持多种数据结构，具有高性能、高可用性和丰富的功能特性。
+# Redis
 
-## 概述
+订单详情查询可以先读缓存，通知任务可以用 Stream 跟踪消费，导出任务可以用短租约减少重复启动。它们都能用 Redis，但对丢失、重复、过期和恢复的要求不同：缓存丢了通常可重建，已支付订单与待发通知不能只靠一条带 TTL 的键证明已经完成。
 
-### 核心特性
+本页采用 **Redis 7 系列**的命令语义，以订单查询、通知和限流串联数据结构与运行边界。不要直接套用更新版本才加入的命令选项；连接后用 `INFO server` 核对实际版本。Redis 是内存数据结构服务，持久化、复制和淘汰要分别设计，不能由“高性能”推出业务可靠性。
 
-1. **内存存储**：所有数据存储在内存中，提供极高的读写性能
-2. **丰富的数据类型**：支持字符串、哈希、列表、集合、有序集合等
-3. **持久化**：支持 RDB 和 AOF 两种持久化方式
-4. **高可用性**：支持主从复制、哨兵模式和集群模式
-5. **原子操作**：所有操作都是原子性的
-6. **发布订阅**：支持消息发布订阅模式
-7. **事务支持**：支持事务和 Lua 脚本
+## 从独立实例开始
 
-### 应用场景
-
-- **缓存系统**：Web 应用缓存、数据库查询缓存
-- **会话存储**：用户会话信息存储
-- **计数器**：网站访问量、点赞数等计数
-- **排行榜**：游戏排行榜、热门文章排序
-- **消息队列**：简单的消息队列实现
-- **分布式锁**：分布式系统中的锁机制
-- **实时分析**：实时数据统计和分析
-
-## 安装与配置
-
-### 安装方式
-
-#### 1. 官方安装包
-```bash
-# macOS
-brew install redis
-
-# Ubuntu/Debian
-sudo apt update
-sudo apt install redis-server
-
-# CentOS/RHEL
-sudo yum install epel-release
-sudo yum install redis
-
-# 编译安装
-wget http://download.redis.io/redis-stable.tar.gz
-tar xzf redis-stable.tar.gz
-cd redis-stable
-make
-make install
-```
-
-#### 2. Docker 安装
-```bash
-# 拉取镜像
-docker pull redis:7.2
-
-# 运行容器
-docker run --name redis-server \
-  -p 6379:6379 \
-  -d redis:7.2
-
-# 带配置文件运行
-docker run --name redis-server \
-  -p 6379:6379 \
-  -v /path/to/redis.conf:/usr/local/etc/redis/redis.conf \
-  -d redis:7.2 redis-server /usr/local/etc/redis/redis.conf
-
-# 带数据持久化
-docker run --name redis-server \
-  -p 6379:6379 \
-  -v /data/redis:/data \
-  -d redis:7.2 redis-server --appendonly yes
-```
-
-### 基本配置
-
-#### redis.conf 主要配置
-```ini
-# 网络配置
-bind 127.0.0.1 ::1
-port 6379
-tcp-backlog 511
-timeout 0
-tcp-keepalive 300
-
-# 通用配置
-daemonize yes
-pidfile /var/run/redis_6379.pid
-loglevel notice
-logfile /var/log/redis/redis-server.log
-databases 16
-
-# 内存配置
-maxmemory 2gb
-maxmemory-policy allkeys-lru
-
-# 持久化配置
-# RDB 配置
-save 900 1
-save 300 10
-save 60 10000
-stop-writes-on-bgsave-error yes
-rdbcompression yes
-rdbchecksum yes
-dbfilename dump.rdb
-dir /var/lib/redis
-
-# AOF 配置
-appendonly yes
-appendfilename "appendonly.aof"
-appendfsync everysec
-no-appendfsync-on-rewrite no
-auto-aof-rewrite-percentage 100
-auto-aof-rewrite-min-size 64mb
-
-# 安全配置
-requirepass your_password
-rename-command FLUSHDB ""
-rename-command FLUSHALL ""
-rename-command CONFIG "CONFIG_9a8b7c6d"
-
-# 客户端配置
-maxclients 10000
-
-# 慢查询配置
-slowlog-log-slower-than 10000
-slowlog-max-len 128
-```
-
-## 数据类型与操作
-
-### 1. 字符串 (String)
+以下是本机练习命令，容器不接入网络，也不发布宿主端口，使用 `docker exec` 连接。名称、卷名已存在时先核对归属，换名称，不删除已有服务或卷。
 
 ```bash
-# 基本操作
-SET key value
-GET key
-DEL key
-EXISTS key
-
-# 设置过期时间
-SET key value EX 3600  # 秒
-SET key value PX 3600000  # 毫秒
-SETEX key 3600 value
-EXPIRE key 3600
-TTL key
-
-# 数值操作
-SET counter 10
-INCR counter
-DECR counter
-INCRBY counter 5
-DECRBY counter 3
-
-# 字符串操作
-SET name "Redis"
-APPEND name " Database"
-STRLEN name
-GETRANGE name 0 4
-SETRANGE name 6 "Cache"
-
-# 批量操作
-MSET key1 value1 key2 value2 key3 value3
-MGET key1 key2 key3
-
-# 条件设置
-SETNX key value  # 仅当 key 不存在时设置
-SET key value NX  # 同上
-SET key value XX  # 仅当 key 存在时设置
+docker run --name redis-lab --network none \
+  --mount source=redis-lab-data,target=/data \
+  --detach redis:7-alpine \
+  redis-server --bind 127.0.0.1 --protected-mode yes \
+  --appendonly yes --appendfsync everysec \
+  --maxmemory 128mb --maxmemory-policy noeviction
+docker exec -it redis-lab redis-cli
 ```
 
-### 2. 哈希 (Hash)
+下面的 `text` 围栏在这个交互式 redis-cli 中逐条执行，Bash 命令在宿主机执行，不能混用。练习实例使用默认本地用户；生产需要受限网络、ACL 用户和按需要启用 TLS，保护模式不能代替认证，也不要把端口直接发布到所有网卡。密码不要放在命令行 `-a` 或提交到配置仓库。
 
-```bash
-# 基本操作
-HSET user:1 name "Alice" age 30 email "alice@example.com"
-HGET user:1 name
-HGETALL user:1
-HDEL user:1 email
-HEXISTS user:1 name
-HLEN user:1
+应用账号只允许业务所需的键前缀、命令与频道，管理、复制、备份使用各自身份。ACL 的键范围不等于 Pub/Sub 频道范围，脚本也要具备其调用命令的权限。不要靠重命名 CONFIG、EVAL 等命令替代权限设计；禁掉 EVAL 还会破坏依赖脚本的客户端。
 
-# 批量操作
-HMSET user:2 name "Bob" age 25 city "New York"
-HMGET user:2 name age city
+## 选数据结构，也选数据边界
 
-# 数值操作
-HINCRBY user:1 age 1
-HINCRBYFLOAT user:1 score 1.5
+| 需求 | 结构与操作入口 | 需要额外判断的边界 |
+| --- | --- | --- |
+| 整份订单详情缓存 | String，SET/GET | 对象大小、TTL、序列化版本与数据库回源 |
+| 少量字段单独修改 | Hash，HSET/HGET | Redis 7.0/7.2 不能给每个字段单独设 TTL，不要混用更高版本能力 |
+| 无序成员与去重 | Set，SADD/SISMEMBER | 是 Redis 中当前保留集合，不自动成为持久业务幂等记录 |
+| 金额/积分排名 | Sorted Set，ZADD/ZRANGE | 分值是浮点数；同分按成员字典序，REV 也会反转同分顺序 |
+| 短列表与任务搬移 | List，LPUSH/LMOVE | 单纯 LPOP 后进程崩溃可能丢任务，需处理中队列与重试 |
+| 带消费进度的任务流 | Stream，XREADGROUP/XACK | Pending、重领、幂等、保留长度与持久化缺一不可 |
+| 密集编号的签到 | Bitmap，SETBIT/BITCOUNT | 偏移是位，默认统计范围是字节；稀疏大编号会扩张内存 |
+| 访客规模估算 | HyperLogLog，PFADD/PFCOUNT | 近似基数，不提供完整成员清单，不能替代精确结算 |
 
-# 获取所有键或值
-HKEYS user:1
-HVALS user:1
-
-# 条件设置
-HSETNX user:1 phone "123456789"
+```text
+SET cache:order:101 '{"id":101,"status":"pending","version":1}' EX 60
+GET cache:order:101
+TTL cache:order:101
+HSET order:101:summary status pending customer_id 1
+HGET order:101:summary status
+SADD order:101:tags gift express
+SISMEMBER order:101:tags gift
+ZADD sales:202610 5000 customer:1 3990 customer:2
+ZRANGE sales:202610 0 1 REV WITHSCORES
+SETBIT login:20261019 123 1
+SETBIT login:20261019 456 1
+BITCOUNT login:20261019 0 200
+BITCOUNT login:20261019 0 200 BIT
+PFADD visitors:20261019 user1 user2 user1
+PFCOUNT visitors:20261019
 ```
 
-### 3. 列表 (List)
+排名为 customer:1 的 5000、customer:2 的 3990，这里用“分”为整数单位，仍要控制在分值可精确表示的范围内。位图默认 `0 200` 指字节 0～200，包含两位；指定 BIT 后只统计位 0～200，得到 1。BIT 选项从 Redis 7.0 加入。HLL 在本例估计为 2，但大规模结果不能承诺逐个精确。
 
-```bash
-# 添加元素
-LPUSH mylist "first"
-RPUSH mylist "second" "third"
-LINSERT mylist BEFORE "second" "middle"
+每个键只能有一种结构，`GET` Hash 会报 WRONGTYPE，不是“对象还没有字段”。键名先分业务与职责，例如 `cache:order:101` 和 `lock:export:{tenant:1}`，不要让锁、计数和缓存共用同一键。花括号还影响 Cluster 槽位，不应随意插入。
 
-# 获取元素
-LRANGE mylist 0 -1  # 获取所有元素
-LINDEX mylist 0     # 获取指定位置元素
-LLEN mylist         # 获取列表长度
+## 缓存更新为什么仍有旧值窗口
 
-# 删除元素
-LPOP mylist         # 从左侧弹出
-RPOP mylist         # 从右侧弹出
-LREM mylist 1 "second"  # 删除指定值
-LTRIM mylist 0 2    # 保留指定范围
+![订单缓存命中、回源、数据库提交后失效与延迟旧回填的关系](/database/redis-cache-order-race.svg)
 
-# 修改元素
-LSET mylist 0 "new_first"
+Cache-aside 的常见流程是：读命中直接返回，未命中读数据库并以有限 TTL 回填；写入先提交数据库，再使缓存失效。数据库失败时不应先把“成功结果”写入缓存。数据库已提交而删除失败时，要通过可靠的重试、变更事件或其他补偿收敛。
 
-# 阻塞操作
-BLPOP mylist 10     # 阻塞式左侧弹出
-BRPOP mylist 10     # 阻塞式右侧弹出
-BRPOPLPUSH source dest 10  # 阻塞式右弹左推
-```
+即便“先提交再删”都成功，也存在图中的竞态：A 已读到旧数据库值但迟迟没有回填，B 提交新值并删缓存，随后 A 把旧值放回。TTL 缩短窗口但不提供强一致；延迟双删也只是依赖延迟上界的缓解办法，不能保证所有慢请求被覆盖。
 
-### 4. 集合 (Set)
+订单支付结果等要求写后立即正确的读取，可直接走权威库，或在明确的版本协议与读取规则下处理。版本号只放进 JSON 里并不会自动拒绝旧回填，需要缓存侧比较/写入协议及失效标记的保留边界。若数据库读副本滞后，回源还可能重新读旧值；仅改 Redis 代码无法消除这种滞后。
 
-```bash
-# 添加和删除
-SADD myset "apple" "banana" "orange"
-SREM myset "banana"
-SPOP myset          # 随机弹出一个元素
+缓存不存在的数据可短暂记空值，但要区分“查无此单”和“数据库超时”；后者不能缓存成不存在。热点失效时用合并回源、限并发和抖动 TTL 保护数据库，并明确 Redis 不可用时是降级、限流还是报错，不能让所有请求无限制穿透。
 
-# 查询操作
-SMEMBERS myset      # 获取所有成员
-SISMEMBER myset "apple"  # 检查成员是否存在
-SCARD myset         # 获取集合大小
-SRANDMEMBER myset 2 # 随机获取成员
+## 原子执行、事务与回滚不是同一件事
 
-# 集合运算
-SADD set1 "a" "b" "c"
-SADD set2 "b" "c" "d"
-SUNION set1 set2    # 并集
-SINTER set1 set2    # 交集
-SDIFF set1 set2     # 差集
+Redis 会串行执行许多核心命令，但网络 I/O、后台持久化等工作不能简单概括为“整个服务只有一个线程”。单条命令、MULTI/EXEC 和 Lua 各有边界；多次 GET/SET 组成的业务过程不会因为每条命令独立执行就自动成为一个原子操作。
 
-# 存储运算结果
-SUNIONSTORE result set1 set2
-SINTERSTORE result set1 set2
-SDIFFSTORE result set1 set2
-```
-
-### 5. 有序集合 (Sorted Set)
-
-```bash
-# 添加元素
-ZADD leaderboard 100 "Alice" 85 "Bob" 92 "Charlie"
-ZADD leaderboard 88 "David"
-
-# 查询操作
-ZRANGE leaderboard 0 -1 WITHSCORES  # 按分数升序
-ZREVRANGE leaderboard 0 -1 WITHSCORES  # 按分数降序
-ZRANK leaderboard "Alice"    # 获取排名（升序）
-ZREVRANK leaderboard "Alice" # 获取排名（降序）
-ZSCORE leaderboard "Alice"   # 获取分数
-ZCARD leaderboard            # 获取元素数量
-
-# 范围查询
-ZRANGEBYSCORE leaderboard 80 95 WITHSCORES
-ZREVRANGEBYSCORE leaderboard 95 80 WITHSCORES
-ZCOUNT leaderboard 80 95
-
-# 修改分数
-ZINCRBY leaderboard 5 "Bob"
-
-# 删除元素
-ZREM leaderboard "Charlie"
-ZREMRANGEBYRANK leaderboard 0 0  # 删除排名范围
-ZREMRANGEBYSCORE leaderboard 0 60  # 删除分数范围
-
-# 集合运算
-ZUNIONSTORE result 2 set1 set2 WEIGHTS 1 2
-ZINTERSTORE result 2 set1 set2 AGGREGATE MAX
-```
-
-### 6. 位图 (Bitmap)
-
-```bash
-# 设置位
-SETBIT user:login:20241219 123 1  # 用户 123 在今天登录
-SETBIT user:login:20241219 456 1  # 用户 456 在今天登录
-
-# 获取位
-GETBIT user:login:20241219 123
-
-# 统计
-BITCOUNT user:login:20241219      # 今天登录的用户数
-BITCOUNT user:login:20241219 0 100  # 用户 0-100 中登录的数量
-
-# 位运算
-BITOP AND result user:login:20241218 user:login:20241219  # 连续两天都登录
-BITOP OR result user:login:20241218 user:login:20241219   # 两天内登录过
-BITOP XOR result user:login:20241218 user:login:20241219  # 只在一天登录
-
-# 查找位
-BITPOS user:login:20241219 1      # 第一个登录用户的 ID
-BITPOS user:login:20241219 0      # 第一个未登录用户的 ID
-```
-
-### 7. HyperLogLog
-
-```bash
-# 添加元素
-PFADD unique:visitors "user1" "user2" "user3"
-PFADD unique:visitors "user1" "user4"  # user1 重复，不会增加计数
-
-# 获取基数估算
-PFCOUNT unique:visitors
-
-# 合并 HyperLogLog
-PFADD unique:visitors:page1 "user1" "user2"
-PFADD unique:visitors:page2 "user2" "user3"
-PFMERGE unique:visitors:total unique:visitors:page1 unique:visitors:page2
-PFCOUNT unique:visitors:total
-```
-
-### 8. 流 (Stream)
-
-```bash
-# 添加消息
-XADD mystream * field1 value1 field2 value2
-XADD mystream 1640000000000-0 user "Alice" action "login"
-
-# 读取消息
-XRANGE mystream - +           # 读取所有消息
-XRANGE mystream - + COUNT 10  # 读取前 10 条消息
-XREVRANGE mystream + - COUNT 5  # 倒序读取 5 条消息
-
-# 获取流信息
-XLEN mystream
-XINFO STREAM mystream
-
-# 消费者组
-XGROUP CREATE mystream mygroup $ MKSTREAM
-XREADGROUP GROUP mygroup consumer1 COUNT 1 STREAMS mystream >
-
-# 确认消息
-XACK mystream mygroup 1640000000000-0
-
-# 查看待处理消息
-XPENDING mystream mygroup
-```
-
-## 高级功能
-
-### 1. 事务
-
-```bash
-# 基本事务
+```text
+SET tx:counter text
 MULTI
-SET key1 "value1"
-SET key2 "value2"
-INCR counter
+INCR tx:counter
+SET tx:done yes
 EXEC
-
-# 取消事务
-MULTI
-SET key1 "value1"
-DISCARD
-
-# 监视键（乐观锁）
-WATCH key1
-MULTI
-SET key1 "new_value"
-EXEC
-
-# 取消监视
-UNWATCH
+GET tx:counter
+GET tx:done
 ```
 
-### 2. Lua 脚本
+INCR 在 EXEC 内执行时报类型错误，但后续 SET 仍成功，最终为 `text`、`yes`。Redis 事务不提供关系型数据库式的整体回滚。入队时的参数数量/命令错误则可能让 EXEC 拒绝整组执行，要区分入队错误与执行期错误。Lua 中前面的写入也不会在后续脚本报错时自动撤销，所以先验证参数与键类型，再执行短小、有界的修改。
+
+WATCH 用同一连接监视键，在其他连接修改、过期或淘汰它后，EXEC 可能返回空结果，应用需要有限重试。WATCH、读取、MULTI 与 EXEC 不能被连接池分散到不同连接。Pipeline 主要减少往返，不天然增加隔离性；例如 redis-py 的 `pipeline()` 默认带事务，单纯批量传输要显式选择 `transaction=False`，并检查每条返回值。
+
+## 固定窗口限流与租约锁
+
+每个调用分别 INCR、EXPIRE，在两条命令之间崩溃可能留下无 TTL 计数。使用<a :href="withBase('/database/examples/redis-fixed-window.lua')" download>固定窗口脚本</a>将计数和首个请求的 TTL 放在一次有界执行中。脚本接受 1～1000000 的整数次数、1～86400000 的整数毫秒窗口；使用专用键前缀，不与外部 SET/EXPIRE 混写。语义是**每个窗口最多放行 limit 次，拒绝请求也记为尝试次数**。
+
+在博客仓库根目录运行，下列三次调用返回的第一项应为 1、1、0，第二项为 1、2、3，第三项是剩余毫秒数：
 
 ```bash
-# 执行 Lua 脚本
-EVAL "return redis.call('SET', KEYS[1], ARGV[1])" 1 mykey myvalue
-
-# 复杂脚本示例：原子性增加并设置过期时间
-EVAL "
-local current = redis.call('GET', KEYS[1])
-if current == false then
-    redis.call('SET', KEYS[1], 1)
-    redis.call('EXPIRE', KEYS[1], ARGV[1])
-    return 1
-else
-    return redis.call('INCR', KEYS[1])
-end
-" 1 counter 3600
-
-# 加载脚本
-SCRIPT LOAD "return redis.call('GET', KEYS[1])"
-# 返回 SHA1 值，如：c686f316aaf1eb01d5a4de1b2b733d0c7853842f
-
-# 使用 SHA1 执行脚本
-EVALSHA c686f316aaf1eb01d5a4de1b2b733d0c7853842f 1 mykey
-
-# 检查脚本是否存在
-SCRIPT EXISTS c686f316aaf1eb01d5a4de1b2b733d0c7853842f
-
-# 清除脚本缓存
-SCRIPT FLUSH
+docker cp public/database/examples/redis-fixed-window.lua redis-lab:/data/fixed-window.lua
+docker exec redis-lab redis-cli --eval /data/fixed-window.lua rate:export:customer1 , 2 60000
+docker exec redis-lab redis-cli --eval /data/fixed-window.lua rate:export:customer1 , 2 60000
+docker exec redis-lab redis-cli --eval /data/fixed-window.lua rate:export:customer1 , 2 60000
 ```
 
-### 3. 发布订阅
+窗口从首个请求开始，边界两侧仍可突发。需要更平滑的速率时选择令牌桶或滑动窗口，并使用经过验证的实现：令牌桶每次丢弃小数补充量再重置时间，会在高频调用下长期补不出令牌；滑动日志用时间戳字符串做成员会覆盖同一时刻的请求，且必须明确被拒请求是否记入。时间来源、精度、唯一请求号、过期及内存成本都属于算法合同。
 
-```bash
-# 订阅频道
-SUBSCRIBE news sports
+租约锁则是另一类需求：
 
-# 模式订阅
-PSUBSCRIBE news:* sport:*
-
-# 发布消息
-PUBLISH news "Breaking news!"
-PUBLISH sports "Game result"
-
-# 查看频道信息
-PUBSUB CHANNELS        # 所有活跃频道
-PUBSUB CHANNELS news*  # 匹配模式的频道
-PUBSUB NUMSUB news sports  # 频道订阅者数量
-PUBSUB NUMPAT          # 模式订阅数量
-
-# 取消订阅
-UNSUBSCRIBE news
-PUNSUBSCRIBE news:*
+```text
+SET lock:export:customer1 attempt-a NX PX 30000
+SET lock:export:customer1 attempt-b NX PX 30000
+EVAL "if redis.call('GET',KEYS[1]) == ARGV[1] then return redis.call('DEL',KEYS[1]) else return 0 end" 1 lock:export:customer1 attempt-b
+GET lock:export:customer1
+EVAL "if redis.call('GET',KEYS[1]) == ARGV[1] then return redis.call('DEL',KEYS[1]) else return 0 end" 1 lock:export:customer1 attempt-a
 ```
 
-### 4. 管道 (Pipeline)
+第一条成功、第二条未取得锁，错误令牌释放返回 0，键仍为 attempt-a，正确令牌释放返回 1。这里的短令牌只用于演示；应用每次获取都生成新的不可预测唯一令牌，等待时限与租约时长分开设置。
 
-```python
-# Python 示例
-import redis
+比较令牌删除可以避免误删别人的锁，**不能阻止租约到期后的旧持有者继续写业务数据**。进程暂停超过 30 秒时，另一进程可能已取得新锁；关键写入还需要存储端可验证的 fencing token、版本条件、唯一约束或业务幂等。异步复制主从切换也可能丢失尚未复制的锁；不能把 SET NX PX 宣称为所有故障下的全局互斥保证。
 
-r = redis.Redis(host='localhost', port=6379, db=0)
+## Stream 的确认不等于业务只执行一次
 
-# 使用管道
-pipe = r.pipeline()
-pipe.set('key1', 'value1')
-pipe.set('key2', 'value2')
-pipe.get('key1')
-pipe.get('key2')
-results = pipe.execute()
-print(results)  # [True, True, b'value1', b'value2']
+![通知消息经过未投递、Pending、故障后重领和确认的状态流转](/database/redis-stream-delivery.svg)
+
+在新的练习键上使用固定 ID，便于核对每一步；生产通常让 `XADD *` 生成 ID：
+
+```text
+XADD mail:{orders} 1-0 order_id 101 event_id notice-101
+XADD mail:{orders} 2-0 order_id 103 event_id notice-103
+XGROUP CREATE mail:{orders} mailers 0
+XREADGROUP GROUP mailers worker-a COUNT 1 STREAMS mail:{orders} >
+XPENDING mail:{orders} mailers
+XAUTOCLAIM mail:{orders} mailers worker-b 0 0-0 COUNT 1
+XACK mail:{orders} mailers 1-0
+XPENDING mail:{orders} mailers
+XLEN mail:{orders}
 ```
 
-## 持久化
+分组从 `0` 开始，第一次读取得到 1-0，Pending 数为 1；worker-b 重领，确认后 Pending 为 0，但 Stream 长度仍为 2，第二条尚未投递。`XACK` 只从本组 Pending 中确认，不会删除消息，更不会知道邮件是否已发出。这里重领等待设为 0 只为立即演示；生产设成合理的处理超时，否则会抢走还在执行的任务。
 
-### 1. RDB 持久化
+如果 worker-a 已发送邮件、但 ACK 前崩溃，worker-b 会再次获得该消息。消息中应有稳定业务事件号，通知服务据此幂等；发信与外部副作用无法由 Redis ACK 组成一个跨系统原子提交。超过重试上限的任务进入有记录的失败处理流程，不能无限重领。
 
-```bash
-# 手动触发 RDB 保存
-SAVE      # 同步保存（阻塞）
-BGSAVE    # 异步保存（非阻塞）
+`XGROUP CREATE ... $` 从建组时的流尾部开始，会跳过已有积压；消费者读取 `>` 表示本组尚未投递的新消息，不会自动返回所有 Pending。重试需读取自己的 Pending 或使用 XAUTOCLAIM 等重领机制，扫描未完成时按返回游标继续。消息保留/裁剪策略必须覆盖处理与重试窗口，不能先裁掉待处理内容，再把 Pending 数当成功证明。Pub/Sub 没有这种积压和确认能力，断线期间消息通常丢失，不适合作为可靠订单任务队列。
 
-# 查看最后保存时间
-LASTSAVE
+## 过期、淘汰与持久化分别保证什么
 
-# 配置自动保存
-# redis.conf 中配置
-save 900 1    # 900 秒内至少 1 个键改变
-save 300 10   # 300 秒内至少 10 个键改变
-save 60 10000 # 60 秒内至少 10000 个键改变
-
-# 禁用 RDB
-save ""
+```text
+SET ttl:order:101 first EX 60
+TTL ttl:order:101
+SET ttl:order:101 second
+TTL ttl:order:101
+EXPIRE ttl:order:101 60
+SET ttl:order:101 third KEEPTTL
+TTL ttl:order:101
 ```
 
-### 2. AOF 持久化
+普通 SET 覆盖会清掉旧 TTL，因此第二次 TTL 为 -1；不存在的键为 -2，KEEPTTL 保留已有 TTL。过期通常通过访问检查与后台清理推进，不是精确的业务调度器；不要用过期通知当“保证恰好执行一次”的延迟任务。
 
-```bash
-# 启用 AOF
-# redis.conf 中配置
-appendonly yes
-appendfilename "appendonly.aof"
+| 机制 | 能提供什么 | 不能由它推出什么 |
+| --- | --- | --- |
+| TTL | 到期后不再按普通键读取 | 精确时间点触发外部任务 |
+| maxmemory + 淘汰策略 | 内存压力下选择可淘汰键 | 关键队列/锁/会话一定存活 |
+| noeviction | 超限时拒绝部分新增内存的写入 | 进程 RSS 永远小于 maxmemory，或所有读取都失败 |
+| RDB | 某时刻的数据快照 | 最后一次快照之后的写入不会丢失 |
+| AOF everysec | 通常按秒刷盘的写入恢复 | 故障下严格只丢一秒或同步复制语义 |
+| 异步复制 | 副本追赶主库的数据 | 主库确认的每个写入都已到达可提升副本 |
 
-# AOF 同步策略
-appendfsync always    # 每个写命令都同步
-appendfsync everysec  # 每秒同步一次（推荐）
-appendfsync no        # 由操作系统决定
+LRU/LFU 是近似策略；volatile 系列只在带 TTL 的键中选择，没有候选时可能拒绝写入。将可淘汰缓存与不能随意淘汰的任务/锁混在同一实例，会让内存策略互相冲突。`maxmemory` 之外还要为复制/AOF缓冲、分配器和 fork 写时复制留出余量。
 
-# 手动重写 AOF
-BGREWRITEAOF
+RDB 的 BGSAVE 在后台生成快照，但 fork 和写时复制仍可能带来停顿与内存压力，不能称为完全无阻塞。Redis 7 的 AOF 是 manifest 管理的多文件集合，重写期间文件会变化；不能只复制一个旧路径 `appendonly.aof` 当完整备份。选用与当前版本兼容的备份工具/一致性流程，核对生成状态、文件集、权限、校验和并恢复到独立实例；同时有 AOF/RDB 时还要检查实际启动加载路径，不能替换 RDB 后就假定它被加载。
 
-# 自动重写配置
-auto-aof-rewrite-percentage 100  # 文件大小增长 100% 时重写
-auto-aof-rewrite-min-size 64mb   # 最小重写文件大小
-```
+## 复制、Sentinel 与 Cluster 的职责
 
-### 3. 混合持久化
+主从复制同步数据，Sentinel 负责监测与发现新的主节点，Cluster 将键分散到 **16384 个槽**并处理相应主从角色。Sentinel 的故障判定 quorum 与故障转移授权所需多数是两个条件，通常部署至少三个独立 Sentinel，不能把同机多个进程当故障域隔离。客户端需要支持发现和切换，固定连旧主地址不会自动恢复。
 
-```ini
-# redis.conf 配置
-aof-use-rdb-preamble yes  # 启用混合持久化
-```
+Cluster 的多键命令、事务和 Lua 要满足相关键位于同一槽，必要时用 `{...}` hash tag 规划；把所有键放进同一 tag 会消除分片收益。客户端应处理 MOVED/ASK 和拓扑更新，DB 编号也不能照单机方式任意切换。复制确认命令 WAIT 可提高指定副本收到写入的可见程度，但不把 Redis 变成强一致共识系统，也不证明所有故障下数据都不会丢失。
 
-## 高可用性
+高可用验收要覆盖旧主隔离、网络分区、客户端重连、写入丢失范围和业务重试，而不只是执行 `REPLICAOF NO ONE`。缓存场景可以重建与降级；关键业务的权威状态、唯一约束和幂等记录应放在满足其持久与一致性要求的系统里。
 
-### 1. 主从复制
+## 从业务延迟定位 Redis 问题
 
-#### 主服务器配置
-```ini
-# redis.conf
-bind 0.0.0.0
-port 6379
-requirepass master_password
-masterauth master_password
-```
-
-#### 从服务器配置
-```ini
-# redis.conf
-replicaof 192.168.1.100 6379
-masterauth master_password
-requirepass replica_password
-replica-read-only yes
-```
-
-#### 运行时配置
-```bash
-# 设置主从关系
-REPLICAOF 192.168.1.100 6379
-
-# 取消主从关系
-REPLICAOF NO ONE
-
-# 查看复制信息
-INFO replication
-```
-
-### 2. 哨兵模式
-
-#### 哨兵配置文件 (sentinel.conf)
-```ini
-port 26379
-sentinel monitor mymaster 192.168.1.100 6379 2
-sentinel auth-pass mymaster master_password
-sentinel down-after-milliseconds mymaster 5000
-sentinel parallel-syncs mymaster 1
-sentinel failover-timeout mymaster 10000
-```
-
-#### 启动哨兵
-```bash
-redis-sentinel /path/to/sentinel.conf
-```
-
-#### 哨兵命令
-```bash
-# 连接哨兵
-redis-cli -p 26379
-
-# 查看主服务器信息
-SENTINEL masters
-SENTINEL master mymaster
-
-# 查看从服务器信息
-SENTINEL slaves mymaster
-
-# 查看哨兵信息
-SENTINEL sentinels mymaster
-
-# 手动故障转移
-SENTINEL failover mymaster
-```
-
-### 3. 集群模式
-
-#### 集群配置
-```ini
-# redis.conf
-port 7000
-cluster-enabled yes
-cluster-config-file nodes-7000.conf
-cluster-node-timeout 5000
-appendonly yes
-```
-
-#### 创建集群
-```bash
-# 启动节点
-redis-server redis-7000.conf
-redis-server redis-7001.conf
-redis-server redis-7002.conf
-redis-server redis-7003.conf
-redis-server redis-7004.conf
-redis-server redis-7005.conf
-
-# 创建集群
-redis-cli --cluster create \
-  127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 \
-  127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 \
-  --cluster-replicas 1
-```
-
-#### 集群管理
-```bash
-# 连接集群
-redis-cli -c -p 7000
-
-# 查看集群信息
-CLUSTER INFO
-CLUSTER NODES
-
-# 添加节点
-redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000
-
-# 删除节点
-redis-cli --cluster del-node 127.0.0.1:7000 node_id
-
-# 重新分片
-redis-cli --cluster reshard 127.0.0.1:7000
-
-# 检查集群
-redis-cli --cluster check 127.0.0.1:7000
-```
-
-## 性能优化
-
-### 1. 内存优化
-
-```bash
-# 查看内存使用
-INFO memory
-MEMORY USAGE key
-
-# 内存分析
-MEMORY STATS
-MEMORY DOCTOR
-
-# 设置内存限制和淘汰策略
-# redis.conf
-maxmemory 2gb
-maxmemory-policy allkeys-lru
-
-# 淘汰策略选项：
-# noeviction: 不淘汰，内存满时返回错误
-# allkeys-lru: 所有键中淘汰最近最少使用
-# volatile-lru: 有过期时间的键中淘汰最近最少使用
-# allkeys-random: 所有键中随机淘汰
-# volatile-random: 有过期时间的键中随机淘汰
-# volatile-ttl: 淘汰即将过期的键
-# allkeys-lfu: 所有键中淘汰最少使用频率
-# volatile-lfu: 有过期时间的键中淘汰最少使用频率
-```
-
-### 2. 网络优化
-
-```ini
-# redis.conf
-tcp-nodelay yes          # 禁用 Nagle 算法
-tcp-keepalive 300        # TCP keepalive
-timeout 0                # 客户端空闲超时
-maxclients 10000         # 最大客户端连接数
-```
-
-### 3. 慢查询分析
-
-```bash
-# 配置慢查询
-CONFIG SET slowlog-log-slower-than 10000  # 10ms
-CONFIG SET slowlog-max-len 128
-
-# 查看慢查询
-SLOWLOG GET 10
-SLOWLOG LEN
-SLOWLOG RESET
-```
-
-## 监控与运维
-
-### 1. 监控指标
-
-```bash
-# 服务器信息
-INFO
+```text
 INFO server
-INFO clients
 INFO memory
-INFO persistence
 INFO stats
+INFO persistence
 INFO replication
-INFO cpu
-INFO cluster
-INFO keyspace
-
-# 实时监控
-MONITOR
-
-# 客户端连接
-CLIENT LIST
-CLIENT INFO
-CLIENT KILL ip:port
-
-# 配置信息
-CONFIG GET *
-CONFIG GET maxmemory
-CONFIG SET maxmemory 2gb
+SLOWLOG GET 5
+MEMORY USAGE cache:order:101
+SCAN 0 MATCH cache:order:* COUNT 100
 ```
 
-### 2. 性能测试
+先比较业务端超时、连接池等待、网络往返与服务端执行时间。SLOWLOG 记录命令执行耗时，不包含客户端通信等完整请求时长，单位为微秒；它没有慢命令不代表用户请求就不慢。MONITOR 有性能和数据暴露成本，只在受控短时间内使用，不默认常驻。
 
-```bash
-# 基准测试
-redis-benchmark -h 127.0.0.1 -p 6379 -n 100000 -c 50
+内存看 used_memory、RSS、碎片及 eviction/rejected 指标，持久化看最近保存/重写状态、fork 和磁盘，复制看角色与链路/偏移。计数器要按时间差计算速率，并处理重启重置。SCAN 要一直使用返回游标直到 0，COUNT 是工作量提示，不是严格页长；扫描期间可能重复或变化，不能把一次返回当完整一致快照。大键操作、无界 LRANGE/HGETALL/SMEMBERS 和长 Lua 都可能拖慢其他请求。
 
-# 指定测试命令
-redis-benchmark -h 127.0.0.1 -p 6379 -t set,get -n 100000 -q
+配置先用 `CONFIG GET` 核对，不把不存在的通用 `tcp-nodelay` 指令放进 redis.conf；复制链路的 `repl-disable-tcp-nodelay` 是另一个选项。不要从旧文章照搬 ziplist 编码阈值，实际编码与配置名需按当前版本检查。基准测试会产生真实负载与键，只能在独立实例运行，并记录值大小、连接/并发、Pipeline、持久化、命中率和网络条件，不能只公布一个 QPS。
 
-# 测试管道性能
-redis-benchmark -h 127.0.0.1 -p 6379 -n 100000 -P 16
-
-# 测试特定数据大小
-redis-benchmark -h 127.0.0.1 -p 6379 -n 100000 -d 100
-```
-
-### 3. 备份与恢复
-
-```bash
-# RDB 备份
-cp /var/lib/redis/dump.rdb /backup/dump-$(date +%Y%m%d).rdb
-
-# AOF 备份
-cp /var/lib/redis/appendonly.aof /backup/appendonly-$(date +%Y%m%d).aof
-
-# 恢复数据
-# 1. 停止 Redis 服务
-sudo systemctl stop redis
-
-# 2. 替换数据文件
-cp /backup/dump.rdb /var/lib/redis/dump.rdb
-
-# 3. 启动 Redis 服务
-sudo systemctl start redis
-```
-
-## 实际应用案例
-
-### 1. 缓存系统
-
-```python
-import redis
-import json
-import time
-
-class CacheManager:
-    def __init__(self, host='localhost', port=6379, db=0):
-        self.redis_client = redis.Redis(host=host, port=port, db=db)
-    
-    def get_user(self, user_id):
-        # 先从缓存获取
-        cache_key = f"user:{user_id}"
-        cached_data = self.redis_client.get(cache_key)
-        
-        if cached_data:
-            return json.loads(cached_data)
-        
-        # 缓存未命中，从数据库获取
-        user_data = self.get_user_from_db(user_id)
-        
-        # 存入缓存，设置 1 小时过期
-        self.redis_client.setex(
-            cache_key, 
-            3600, 
-            json.dumps(user_data)
-        )
-        
-        return user_data
-    
-    def get_user_from_db(self, user_id):
-        # 模拟数据库查询
-        time.sleep(0.1)
-        return {
-            'id': user_id,
-            'name': f'User {user_id}',
-            'email': f'user{user_id}@example.com'
-        }
-```
-
-### 2. 分布式锁
-
-```python
-import redis
-import uuid
-import time
-
-class DistributedLock:
-    def __init__(self, redis_client, key, timeout=10):
-        self.redis_client = redis_client
-        self.key = key
-        self.timeout = timeout
-        self.identifier = str(uuid.uuid4())
-    
-    def acquire(self):
-        end_time = time.time() + self.timeout
-        
-        while time.time() < end_time:
-            # 尝试获取锁
-            if self.redis_client.set(self.key, self.identifier, nx=True, ex=self.timeout):
-                return True
-            time.sleep(0.001)
-        
-        return False
-    
-    def release(self):
-        # 使用 Lua 脚本确保原子性
-        lua_script = """
-        if redis.call('GET', KEYS[1]) == ARGV[1] then
-            return redis.call('DEL', KEYS[1])
-        else
-            return 0
-        end
-        """
-        
-        return self.redis_client.eval(lua_script, 1, self.key, self.identifier)
-
-# 使用示例
-r = redis.Redis()
-lock = DistributedLock(r, 'my_resource')
-
-if lock.acquire():
-    try:
-        # 执行需要锁保护的代码
-        print("获取锁成功，执行业务逻辑")
-        time.sleep(5)
-    finally:
-        lock.release()
-else:
-    print("获取锁失败")
-```
-
-### 3. 排行榜系统
-
-```python
-import redis
-import time
-
-class Leaderboard:
-    def __init__(self, redis_client, name):
-        self.redis_client = redis_client
-        self.key = f"leaderboard:{name}"
-    
-    def add_score(self, user_id, score):
-        """添加或更新用户分数"""
-        self.redis_client.zadd(self.key, {user_id: score})
-    
-    def increment_score(self, user_id, increment):
-        """增加用户分数"""
-        return self.redis_client.zincrby(self.key, increment, user_id)
-    
-    def get_top_users(self, count=10):
-        """获取排行榜前 N 名"""
-        return self.redis_client.zrevrange(
-            self.key, 0, count-1, withscores=True
-        )
-    
-    def get_user_rank(self, user_id):
-        """获取用户排名"""
-        rank = self.redis_client.zrevrank(self.key, user_id)
-        return rank + 1 if rank is not None else None
-    
-    def get_user_score(self, user_id):
-        """获取用户分数"""
-        return self.redis_client.zscore(self.key, user_id)
-    
-    def get_users_around(self, user_id, count=5):
-        """获取用户周围的排名"""
-        rank = self.redis_client.zrevrank(self.key, user_id)
-        if rank is None:
-            return []
-        
-        start = max(0, rank - count // 2)
-        end = start + count - 1
-        
-        return self.redis_client.zrevrange(
-            self.key, start, end, withscores=True
-        )
-
-# 使用示例
-r = redis.Redis()
-leaderboard = Leaderboard(r, 'game_scores')
-
-# 添加分数
-leaderboard.add_score('user1', 1000)
-leaderboard.add_score('user2', 1500)
-leaderboard.add_score('user3', 800)
-
-# 获取排行榜
-top_users = leaderboard.get_top_users(10)
-print("排行榜前10名:", top_users)
-
-# 获取用户排名
-rank = leaderboard.get_user_rank('user2')
-print(f"user2 的排名: {rank}")
-```
-
-### 4. 限流器
-
-```python
-import redis
-import time
-
-class RateLimiter:
-    def __init__(self, redis_client):
-        self.redis_client = redis_client
-    
-    def is_allowed(self, key, limit, window):
-        """滑动窗口限流"""
-        now = time.time()
-        pipeline = self.redis_client.pipeline()
-        
-        # 删除窗口外的记录
-        pipeline.zremrangebyscore(key, 0, now - window)
-        
-        # 获取当前窗口内的请求数
-        pipeline.zcard(key)
-        
-        # 添加当前请求
-        pipeline.zadd(key, {str(now): now})
-        
-        # 设置过期时间
-        pipeline.expire(key, int(window) + 1)
-        
-        results = pipeline.execute()
-        current_requests = results[1]
-        
-        return current_requests < limit
-    
-    def token_bucket(self, key, capacity, refill_rate, tokens_requested=1):
-        """令牌桶限流"""
-        lua_script = """
-        local key = KEYS[1]
-        local capacity = tonumber(ARGV[1])
-        local refill_rate = tonumber(ARGV[2])
-        local tokens_requested = tonumber(ARGV[3])
-        local now = tonumber(ARGV[4])
-        
-        local bucket = redis.call('HMGET', key, 'tokens', 'last_refill')
-        local tokens = tonumber(bucket[1]) or capacity
-        local last_refill = tonumber(bucket[2]) or now
-        
-        -- 计算需要添加的令牌数
-        local elapsed = now - last_refill
-        local tokens_to_add = math.floor(elapsed * refill_rate)
-        tokens = math.min(capacity, tokens + tokens_to_add)
-        
-        if tokens >= tokens_requested then
-            tokens = tokens - tokens_requested
-            redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
-            redis.call('EXPIRE', key, 3600)
-            return 1
-        else
-            redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
-            redis.call('EXPIRE', key, 3600)
-            return 0
-        end
-        """
-        
-        result = self.redis_client.eval(
-            lua_script, 1, key, capacity, refill_rate, tokens_requested, time.time()
-        )
-        
-        return bool(result)
-
-# 使用示例
-r = redis.Redis()
-limiter = RateLimiter(r)
-
-# 滑动窗口限流：每分钟最多 100 次请求
-user_id = 'user123'
-if limiter.is_allowed(f'rate_limit:{user_id}', 100, 60):
-    print("请求允许")
-else:
-    print("请求被限流")
-
-# 令牌桶限流：容量 10，每秒补充 1 个令牌
-if limiter.token_bucket(f'token_bucket:{user_id}', 10, 1, 1):
-    print("请求允许")
-else:
-    print("请求被限流")
-```
-
-## 最佳实践
-
-### 1. 键命名规范
-
-```bash
-# 使用有意义的前缀和分隔符
-user:1001:profile
-user:1001:sessions
-cache:article:123
-counter:page_views:20241219
-lock:order:456
-queue:email:pending
-
-# 避免过长的键名
-# 好的例子
-user:1001:profile
-# 不好的例子
-very_long_application_name:user_management:user_profile:user_id_1001
-```
-
-### 2. 数据结构选择
-
-- **String**：简单的键值对、计数器、缓存
-- **Hash**：对象存储、用户信息
-- **List**：消息队列、最新列表
-- **Set**：标签、去重
-- **Sorted Set**：排行榜、时间序列
-- **Bitmap**：用户签到、在线状态
-- **HyperLogLog**：基数统计、UV 统计
-
-### 3. 过期时间设置
-
-```bash
-# 为缓存数据设置合理的过期时间
-SETEX cache:user:1001 3600 "user_data"  # 1小时
-SETEX session:abc123 1800 "session_data"  # 30分钟
-
-# 使用随机过期时间避免缓存雪崩
-SETEX cache:article:123 $((3600 + RANDOM % 600)) "article_data"
-```
-
-### 4. 内存优化
-
-```bash
-# 使用合适的数据结构
-# 小的 hash 使用 ziplist 编码
-hash-max-ziplist-entries 512
-hash-max-ziplist-value 64
-
-# 小的 list 使用 ziplist 编码
-list-max-ziplist-size -2
-
-# 小的 set 使用 intset 编码
-set-max-intset-entries 512
-
-# 小的 zset 使用 ziplist 编码
-zset-max-ziplist-entries 128
-zset-max-ziplist-value 64
-```
-
-### 5. 安全配置
-
-```ini
-# 设置密码
-requirepass your_strong_password
-
-# 重命名危险命令
-rename-command FLUSHDB ""
-rename-command FLUSHALL ""
-rename-command CONFIG "CONFIG_9a8b7c6d"
-rename-command EVAL ""
-
-# 绑定特定 IP
-bind 127.0.0.1 192.168.1.100
-
-# 禁用保护模式（仅在安全网络环境下）
-protected-mode yes
-```
-
-## 总结
-
-Redis 是一个功能强大、性能优异的内存数据库，适用于缓存、会话存储、实时分析、消息队列等多种场景。通过合理的数据结构选择、配置优化和架构设计，Redis 能够为应用提供高性能的数据存储和处理能力。
-
-### 优势
-
-- 极高的读写性能
-- 丰富的数据类型支持
-- 强大的持久化机制
-- 良好的高可用性方案
-- 活跃的社区和生态
-
-### 适用场景
-
-- Web 应用缓存
-- 会话管理
-- 实时排行榜
-- 计数器和统计
-- 消息队列
-- 分布式锁
-- 限流和防刷
-
-通过深入理解 Redis 的特性和最佳实践，可以充分发挥其在现代应用架构中的价值。
+本页的验收是：复现事务执行错误却保留后续写入、识别缓存旧回填、验证锁的错误令牌不能释放、完成通知 Pending 到确认的闭环，并能解释为什么这些测试仍不代表主从切换下的零丢失与全局互斥。

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440" role="img" aria-labelledby="gc-reach-title gc-reach-desc">
+  <title id="gc-reach-title">导出任务的强引用与可达性</title>
+  <desc id="gc-reach-desc">可达的服务通过任务表强引用已完成任务和结果，业务完成不等于结果不可达。删除任务表中的引用且不存在其他存活路径后，结果才可能被回收，不保证立刻降低RSS。</desc>
+  <defs><marker id="gc-reach-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#gc-reach-arrow)}</style>
+  <rect width="1100" height="440" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">任务已完成，结果仍然可达</text>
+  <text class="body" x="32" y="76">图中只画强引用；GC 不知道业务是否还需要这份导出结果。</text>
+  <path class="edge" d="M232 190H312"/><path class="edge" d="M532 190H612"/><path class="edge" d="M812 190H892"/>
+  <text class="note" x="254" y="174">持有</text><text class="note" x="554" y="174">持有</text><text class="note" x="834" y="174">持有</text>
+  <rect class="node" x="32" y="140" width="200" height="100" rx="6"/>
+  <text class="name" x="52" y="176">GC 根</text><text class="body" x="52" y="211">如活跃执行状态</text>
+  <rect class="node" x="312" y="140" width="220" height="100" rx="6"/>
+  <text class="name" x="332" y="176">长寿命服务</text><text class="body" x="332" y="211">任务表仍保存任务</text>
+  <rect x="612" y="140" width="200" height="100" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="name" x="632" y="176">导出任务</text><text class="body" x="632" y="211">状态：已完成</text>
+  <rect x="892" y="140" width="176" height="100" rx="6" fill="#fff7ed" stroke="#e4b68b"/>
+  <text class="name" x="912" y="176">结果列表</text><text class="body" x="912" y="211">仍不能回收</text>
+  <path d="M570 276V242" fill="none" stroke="#b45309" stroke-width="2"/>
+  <rect x="312" y="284" width="756" height="72" rx="6" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="332" y="314">删除任务表引用，并确认没有其他存活路径</text>
+  <text class="body" x="332" y="340">结果才具备回收条件；何时回收由回收器与运行状态决定。</text>
+  <text class="note" x="32" y="404">业务不再使用 ≠ 不可达；不可达 ≠ 立刻回收；堆占用下降 ≠ RSS 立刻下降。</text>
+</svg>

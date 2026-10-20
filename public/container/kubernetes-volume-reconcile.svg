@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+  <title id="title">PVC 动态供应、卷表示与节点挂载</title>
+  <desc id="desc">PVC 和 StorageClass 触发供应，provisioner通过 CSI 控制器创建存储卷并创建 PV。kubelet根据已绑定卷调用 CSI 节点插件挂载。挂载后的文件IO不经过API对象或CSI控制RPC。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}.dash{stroke-dasharray:6 5}</style>
+  <rect width="1120" height="760" fill="#f7f9fb"/><text class="title" x="48" y="54">对象声明、供应 RPC 与实际文件读写是三种路径</text><text class="t" x="48" y="88">示意动态 CSI 卷；WaitForFirstConsumer 还会把节点选择与供应拓扑协调起来。</text>
+  <path class="edge" d="M318 195H420"/><path class="edge" d="M690 195H800"/><path class="edge" d="M935 260V360"/>
+  <path class="edge" d="M500 260V312Q500 320 492 320H191Q183 320 183 328V360"/>
+  <path class="edge" d="M318 410H372Q380 410 380 418V567Q380 575 388 575H420"/>
+  <path class="edge" d="M690 575H800"/><path class="edge dash" d="M935 520V460"/>
+  <path class="edge" d="M183 630V672Q183 680 191 680H1082Q1090 680 1090 672V418Q1090 410 1082 410H1070"/>
+  <rect class="api" x="48" y="130" width="270" height="130" rx="6"/><text class="h" x="68" y="167">PVC + StorageClass</text><text class="t" x="68" y="200">容量、访问模式、供应策略</text><text class="t" x="68" y="232">通过 API 观察声明</text>
+  <rect class="box" x="420" y="130" width="270" height="130" rx="6"/><text class="h" x="440" y="167">external-provisioner</text><text class="t" x="440" y="200">请求供应卷，创建 PV 对象</text><text class="t" x="440" y="232">PVC / PV 由绑定机制关联</text>
+  <rect class="box" x="800" y="130" width="270" height="130" rx="6"/><text class="h" x="820" y="167">CSI controller plugin</text><text class="t" x="820" y="200">创建、删除等控制操作</text><text class="t" x="820" y="232">不承载应用每次文件读写</text>
+  <rect class="api" x="48" y="360" width="270" height="100" rx="6"/><text class="h" x="68" y="398">PV 与绑定的 PVC</text><text class="t" x="68" y="432">卷标识、驱动与拓扑信息</text>
+  <rect class="run" x="800" y="360" width="270" height="100" rx="6"/><text class="h" x="820" y="398">实际存储卷</text><text class="t" x="820" y="432">云盘、网络文件系统等</text>
+  <rect class="run" x="48" y="520" width="270" height="110" rx="6"/><text class="h" x="68" y="558">Pod 内应用</text><text class="t" x="68" y="591">通过已发布的挂载点读写</text><text class="t" x="68" y="617">权限、协议与一致性仍需验收</text>
+  <rect class="box" x="420" y="520" width="270" height="110" rx="6"/><text class="h" x="440" y="558">节点 kubelet</text><text class="t" x="440" y="591">协调已绑定卷的节点准备</text><text class="t" x="440" y="617">调用 CSI 节点 RPC</text>
+  <rect class="box" x="800" y="520" width="270" height="110" rx="6"/><text class="h" x="820" y="558">CSI node plugin</text><text class="t" x="820" y="591">NodeStage（可选）</text><text class="t" x="820" y="617">NodePublish 到 Pod 挂载点</text>
+  <text class="t" x="428" y="662">文件 IO 走文件系统 / 存储协议，非 CSI 控制 RPC</text>
+  <text class="t" x="48" y="715">attach 按驱动能力，由 VolumeAttachment / external-attacher 协调；stage 可选。</text>
+  <text class="t" x="48" y="744">Pod 重建、节点漂移或备份恢复后，还需再次验证业务数据；PVC 存在不证明数据可恢复。</text>
+</svg>

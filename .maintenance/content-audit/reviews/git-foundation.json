@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/tools/git/index.md",
+      "status": "verified",
+      "reviewedHash": "f5f28278ce60f1c0ddbb328542abaa26c0b935b106cabc9702774e24504f9b5a",
+      "pageType": "主题地图",
+      "decision": "全文阅读后以订单导出串起内容、历史和协作三条主线；压缩重复命令与标题列表，补齐全部细节页入口，重画交付闭环SVG。",
+      "validation": ["整站构建14.16秒通过；桌面1280×720、手机390×844双主题首屏和客户端分页通过；1120图独立截图及双视口原尺寸按钮、关闭通过。临时仓库12项行为验证包含add后编辑和分支备份边界。"]
+    },
+    {
+      "file": "docs/tools/git/concepts.md",
+      "status": "verified",
+      "reviewedHash": "86ee10fe7849a134c5b49ee1b97a7ed7b9ce7306908e89cd465bf37df042b399",
+      "pageType": "索引对象引用机制",
+      "decision": "全文及旧图核对后修正origin/main位置、状态互斥模型；解释三份内容、对象ID、detached HEAD与本地上游观察，重画数据流。",
+      "validation": ["临时仓库实测MM、show索引、restore及取消暂存；整站构建14.16秒通过。双视口深色全文截图与浅色首屏，无页面溢出；1120图独立截图、双视口原尺寸关闭和分页跳转通过。"]
+    },
+    {
+      "file": "docs/tools/git/branching.md",
+      "status": "verified",
+      "reviewedHash": "bb86d37d2c2e1162df9dc37d5e12014d05355dfad1644c9c3410eeba88093fa6",
+      "pageType": "提交整合机制",
+      "decision": "全文重组merge、rebase、cherry-pick关系与适用条件，补快进、三点diff、租约局限和squash后删除边界；新增独立三例提交关系图。",
+      "validation": ["临时仓库验证merge双父、rebase新ID及父关系、cherry-pick来源；构建14.16秒通过。双视口深色全文及浅色首屏、无页面溢出、客户端分页通过；图独立截图与双视口放大关闭通过。"]
+    },
+    {
+      "file": "docs/tools/git/git.md",
+      "status": "verified",
+      "reviewedHash": "9de32daa47cbf29d75085ff8511b6905bad005aaf9060f1e45ec18e5eefb7866",
+      "pageType": "日常命令速查",
+      "decision": "完整368行核对并修复连续覆盖全局配置、默认rebase、fetch纯下载、stash pop必删等误导；补配置职责与推送拒绝分因。机制图链接到概念页，本页保留速查职责无需重复SVG。",
+      "validation": ["临时仓库实际验证索引恢复与stash pop冲突保留；整站构建14.16秒通过。双视口深色全文及浅色首屏、无页面横溢出、分页通过；手机长代码按键滚动72.5通过。未逐个平台执行安装命令。"]
+    },
+    {
+      "file": "docs/tools/git/recovery.md",
+      "status": "verified",
+      "reviewedHash": "428891bf23d540507cd67340f978d06b6675d31190b2ddca3a25e85f4220cd0b",
+      "pageType": "恢复范围与风险判断",
+      "decision": "全文重写分支不能保存未提交现场、restore默认源、reset三种范围、hard挡路未跟踪文件、revert范围不含OLD、reflog过期与clean限路径；新增恢复范围图。",
+      "validation": ["临时仓库验证restore取索引、取消暂存保留文件、soft/mixed及旧提交恢复；构建14.16秒通过。双视口深色全文及浅色首屏、图片放大关闭、分页通过；手机代码滚动73通过，恢复图避线后独立截图通过。"]
+    },
+    {
+      "file": "docs/tools/git/workflow.md",
+      "status": "verified",
+      "reviewedHash": "e27313b4f187477fc095ebdcb5405e7fa72bceedd86d74c3c488ac76a25eaeb8",
+      "pageType": "任务评审集成发布流程",
+      "decision": "全文以订单导出贯穿任务生命周期，补最终提交门禁、squash祖先检查、tag与发布分离、实际生产基线hotfix及多版本回流；重画责任与失败回路图。",
+      "validation": ["临时仓库验证非改写merge和cherry-pick；构建14.16秒通过。双视口深色全文及浅色首屏、图片放大关闭、分页通过；手机长代码滚动80通过；独立图截图与最终嵌入图核查通过。未触发真实外部CI。"]
+    }
+  ]
+}

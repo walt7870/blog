@@ -1,12 +1,8 @@
 # Python 队列与流水线：让多阶段任务稳定推进
 
 > 对应视频：EP10《生产者-消费者与任务队列》  
-> 视频入口：[B站 EP10 定时稿](https://www.bilibili.com/video/BV1uEu764EYA)（计划公开：2026-08-14 09:47）。
+> 视频入口：[B站 EP10](https://www.bilibili.com/video/BV1uEu764EYA)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
-
-这篇文章是视频的工程展开版。视频先说明队列是什么、为什么需要它，再进入批量语音处理示例。文章补充完整模板、停止信号、失败隔离和检查清单。
 
 ![有界队列流水线结构图](/python/concurrency/ep10-bounded-pipeline.svg)
 
@@ -41,9 +37,9 @@
 | Sentinel | 停止信号 | 保证 worker 能退出 |
 | Writer | 单独写结果 | 集中处理幂等、checkpoint 和失败记录 |
 
-## 最小工程代码
+## 队列容量
 
-下方保留可直接阅读的示例代码。
+完整示例在本页末尾，三个队列分别限制阶段间积压。
 
 关键结构是三段队列：
 
@@ -61,41 +57,16 @@ asr_to_write = queue.Queue(maxsize=8)
 
 | 错误写法 | 现象 | 根因 | 修正 |
 | --- | --- | --- | --- |
-| 不发送停止信号 | worker 一直阻塞 | 消费者不知道上游结束 | 生产者结束后发送 sentinel |
-| 多个 worker 只发一个 sentinel | 只有一个 worker 退出 | 停止信号数量不足 | 按下游 worker 数传播 |
+| 不发送停止信号 | worker一直阻塞 | 不知道上游已结束 | 上一阶段全部退出后由监督者发送 |
+| 多worker只收到一个sentinel | 只有一个退出 | 信号数量不足 | 监督者按本阶段worker数发送 |
 | 异常后不 `task_done` | `join` 永远不返回 | 队列计数没有归还 | 在 `finally` 里调用 |
 | writer 多处写文件 | 结果缺行或乱序 | 写入状态分散 | 单写入者集中落盘 |
 
+## 失败消息与停止协议
 
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
+示例只模拟转码和识别，不创建音频文件、不写持久checkpoint。成功输出和失败输出都由writer打印；StageResult到达下一阶段时直接传下去，不再当成AudioJob识别。这样转码失败不会被另一个阶段误判为成功。
 
-**读图方式**
-
-- 扫描、转码、ASR、写入最好拆成不同阶段，因为每个阶段的瓶颈和并发上限不同。
-- `Queue(maxsize)` 是容量预算，不是随手填的数字；它决定系统能承受多少排队。
-- sentinel、状态表和 checkpoint 决定流水线能不能优雅停止和恢复。
-
-**排查路径**
-
-- 持续记录每个队列的 `qsize`、put 等待时间、get 等待时间和每阶段吞吐。
-- 如果某个队列持续增长，下游就是瓶颈；如果上游频繁 put 等待，背压已经生效。
-- 中断恢复时核对状态表：DONE 跳过、FAILED 重试或隔离、PROCESSING 超时回收。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 扫描太快撑爆内存 | 待处理任务数、RSS | 有界队列 + 分批扫描 |
-| 转码慢拖住 ASR | 转码队列长度、CPU/磁盘 util | 拆独立 worker 池，限制转码并发 |
-| 写入重复或漏写 | 状态表、输出文件校验 | 单写入者 + 幂等写入 |
-| 停止时丢任务 | sentinel 数量、未完成计数 | `task_done` / `join` / checkpoint |
-
-**落地边界**
-
-- 队列不是越大越好；队列过大只会把问题延迟暴露并放大恢复成本。
-- 每个阶段都要能独立降并发、暂停和重试。
-<!-- concurrency-series-engineering-supplement:end -->
+停止信号由main监督者在上一阶段所有worker退出后发往下一阶段，每个下游worker各收到一个。不能让每个转码worker自行发送ASR停止信号：第一个worker结束时，另一个可能还没产出最后一个结果。示例模拟的handler错误可隔离；writer存储失败、线程意外退出仍需全局中止协议，不能把打印示例当作生产故障恢复器。
 
 ## 常见失败模式
 
@@ -124,41 +95,22 @@ asr_to_write = queue.Queue(maxsize=8)
 - 能通过队列长度判断哪个阶段正在成为瓶颈。
 - 能为后续限流、背压和重试打好结构基础。
 
-## 结尾总结
+## 运行示例
 
-这一集真正要留下的不是一个 `Queue` API，而是一种组织并发系统的方式。
-
-先看问题：批量音频处理里，扫描、转码、ASR 和写入的瓶颈不同。它们如果挤进同一个并发池，资源竞争、错误传播和重试压力会混在一起。
-
-再看结构：用 `Queue` 把阶段拆开，队列既是边界，也是压力信号。下游变慢时，队列长度通常比总耗时更早暴露问题；有界队列还能把压力传回上游。
-
-最后看工程落地：worker 固定做“取任务、处理、交给下一段”，单独 writer 收敛结果、失败和 checkpoint。停止阶段要处理好 sentinel、`task_done` 和 `join`；失败阶段要把错误变成任务状态；运行阶段要持续观察 `qsize`、成功数、失败数、平均耗时和 P95。
-
-当这些结构稳定以后，下一步才是限流、背压、重试和更细的调参。
-
-## 配套示例代码
-
-源码文件：`examples/ep10/bounded_pipeline.py`
+示例保存为`examples/ep10/bounded_pipeline.py`；目录和文件名由本地自行创建。
 
 ```python
-from __future__ import annotations
-
 import queue
 import threading
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Iterable
 
-
-SENTINEL = object()
-
+STOP = object()
 
 @dataclass(frozen=True)
 class AudioJob:
     path: Path
-    attempt: int = 1
-
 
 @dataclass(frozen=True)
 class StageResult:
@@ -166,88 +118,72 @@ class StageResult:
     status: str
     detail: str
 
-
-def scan_files(paths: Iterable[Path], output: queue.Queue[AudioJob | object]) -> None:
-    for path in paths:
-        output.put(AudioJob(path))
-    output.put(SENTINEL)
-
-
-def worker(
-    name: str,
-    input_queue: queue.Queue[AudioJob | object],
-    output_queue: queue.Queue[AudioJob | StageResult | object],
-    handler: Callable[[AudioJob], AudioJob | StageResult],
-    worker_count_next: int = 1,
-) -> None:
+def worker(source, target, handler):
     while True:
-        item = input_queue.get()
+        item = source.get()
         try:
-            if item is SENTINEL:
-                for _ in range(worker_count_next):
-                    output_queue.put(SENTINEL)
+            if item is STOP:
                 return
-            result = handler(item)
-            output_queue.put(result)
-        except Exception as exc:
-            output_queue.put(StageResult(item.path, "failed", f"{name}: {exc!r}"))
+            if isinstance(item, StageResult):
+                result = item
+            else:
+                try:
+                    result = handler(item)
+                except Exception as exc:
+                    result = StageResult(item.path, "failed", repr(exc))
+            target.put(result)
         finally:
-            input_queue.task_done()
+            source.task_done()
 
+def transcode(job):
+    time.sleep(0.01)
+    if "broken" in job.path.name:
+        raise ValueError("转码输入损坏")
+    return AudioJob(job.path.with_suffix(".wav"))
 
-def transcode(job: AudioJob) -> AudioJob:
-    time.sleep(0.05)
-    return AudioJob(job.path.with_suffix(".wav"), job.attempt)
-
-
-def call_asr(job: AudioJob) -> StageResult:
-    time.sleep(0.08)
+def call_asr(job):
+    time.sleep(0.02)
     if "bad" in job.path.name:
-        return StageResult(job.path, "failed", "asr rejected bad audio")
-    return StageResult(job.path, "success", "transcript-id")
+        raise ValueError("识别输入被拒绝")
+    return StageResult(job.path, "success", "模拟文本")
 
-
-def writer(input_queue: queue.Queue[StageResult | object], stop_count: int) -> None:
-    stopped = 0
+def writer(source, results):
     while True:
-        item = input_queue.get()
+        item = source.get()
         try:
-            if item is SENTINEL:
-                stopped += 1
-                if stopped >= stop_count:
-                    return
-                continue
-            print(f"{item.status:7s} {item.path.name:14s} {item.detail}")
+            if item is STOP:
+                return
+            results.append(item)
         finally:
-            input_queue.task_done()
+            source.task_done()
 
-
-def main() -> None:
-    source_files = [Path(f"audio_{index}.mp3") for index in range(6)] + [Path("bad_audio.mp3")]
-
-    scan_to_transcode: queue.Queue[AudioJob | object] = queue.Queue(maxsize=3)
-    transcode_to_asr: queue.Queue[AudioJob | StageResult | object] = queue.Queue(maxsize=2)
-    asr_to_write: queue.Queue[StageResult | object] = queue.Queue(maxsize=8)
-
-    threads = [
-        threading.Thread(target=scan_files, args=(source_files, scan_to_transcode), name="scanner"),
-        threading.Thread(
-            target=worker,
-            args=("transcode", scan_to_transcode, transcode_to_asr, transcode, 2),
-            name="transcode-0",
-        ),
-        threading.Thread(target=worker, args=("asr", transcode_to_asr, asr_to_write, call_asr), name="asr-0"),
-        threading.Thread(target=worker, args=("asr", transcode_to_asr, asr_to_write, call_asr), name="asr-1"),
-        threading.Thread(target=writer, args=(asr_to_write, 2), name="writer"),
-    ]
-
-    for thread in threads:
+def run(paths):
+    q1, q2, q3 = (queue.Queue(maxsize=n) for n in (3, 2, 8))
+    results = []
+    transcoders = [threading.Thread(target=worker, args=(q1, q2, transcode))
+                   for _ in range(2)]
+    recognizers = [threading.Thread(target=worker, args=(q2, q3, call_asr))
+                   for _ in range(2)]
+    output = threading.Thread(target=writer, args=(q3, results))
+    for thread in [*transcoders, *recognizers, output]:
         thread.start()
-    for thread in threads:
+    for path in paths:
+        q1.put(AudioJob(Path(path)))
+    # 上一阶段全部退出后，才关闭下一阶段。
+    for _ in transcoders:
+        q1.put(STOP)
+    for thread in transcoders:
         thread.join()
-
+    for _ in recognizers:
+        q2.put(STOP)
+    for thread in recognizers:
+        thread.join()
+    q3.put(STOP)
+    output.join()
+    return results
 
 if __name__ == "__main__":
-    main()
+    for result in run(["a.mp3", "broken.mp3", "bad.mp3", "b.mp3"]):
+        print(result.status, result.path.name, result.detail)
 ```
 

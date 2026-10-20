@@ -1,6 +1,8 @@
 # JVM 动手入门路径
 
-理解 JVM 最稳的方式，是先跑一个最小程序，把源码、Class 文件、字节码、类加载、内存和诊断命令串成一条线。下面这条路径不依赖复杂框架，只用 JDK 自带工具就能观察 JVM 的关键行为。
+先跑一个最小程序，再把源码、Class 文件、字节码、类加载和内存指标对应起来。这条练习使用 **JDK 17 或更新版本的 HotSpot**，不需要 Spring；`record` 语法不能直接交给 JDK 8 编译。编译和诊断尽量使用同一套 JDK，先确认 `java -version` 与 `javac -version`。
+
+![JVM 从字节码到执行与回收的关系](/jvm/jvm-overview.svg)
 
 ## 准备一个最小程序
 
@@ -25,10 +27,12 @@ public class JvmDemo {
 
 ```bash
 javac JvmDemo.java
-java -Xms128m -Xmx128m -XX:+UseG1GC -Xlog:gc*:file=gc.log:time,uptime,level,tags JvmDemo
+java -Xms128m -Xmx128m -XX:+UseG1GC '-Xlog:gc*:file=gc.log:time,uptime,level,tags' JvmDemo
 ```
 
-这一步已经涉及 JVM 的完整入口：
+先看到 `jvm-demo:Tom`，随后进程等待五分钟供另一个终端观察。程序会生成 `JvmDemo.class` 和 `JvmDemo$User.class` 两个文件；只复制前者会丢失嵌套类型。显式的 G1 和堆大小只是保证实验口径一致，不是生产参数建议。
+
+可以按下面的关系核对文件和执行入口：
 
 ```text
 JvmDemo.java -> javac -> JvmDemo.class -> ClassLoader -> main 方法 -> 堆 / 栈 / 方法区 -> GC 日志
@@ -46,7 +50,7 @@ javap -v JvmDemo
 
 | 信息 | 说明 |
 | --- | --- |
-| `major version` | Class 文件版本，决定运行它至少需要什么 JDK |
+| `major version` | 类文件目标版本；此例使用 JDK 17 编译时为 61 |
 | `constant pool` | 类名、方法名、字段名、字符串字面量、符号引用 |
 | `methods` | 方法描述符、访问标记、Code 属性 |
 | `LineNumberTable` | 字节码和源码行号的映射 |
@@ -64,12 +68,12 @@ javap -c JvmDemo
 
 - `getstatic`：读取静态字段。
 - `new`：创建对象。
-- `invokespecial`：调用构造方法或私有方法。
+- `invokespecial`：此例用于构造方法；也用于部分特殊调用，不应把全部私有方法调用都等同于此指令。
 - `invokevirtual`：普通虚方法调用。
 - `invokedynamic`：运行期动态链接，常见于字符串拼接和 lambda。
 - `return`：方法返回。
 
-字节码不是 CPU 指令，而是 JVM 的中间指令。解释器可以直接解释它，JIT 也可以把热点字节码编译成机器码。
+字节码不是 CPU 指令，而是 JVM 的中间指令。解释器可以执行它，JIT 也可以把热点路径编译成机器码。此例主要在 `sleep`，不能据此观察业务方法被大量 JIT 编译，更不能把运行时间当成性能测试。
 
 ## 观察运行中的 JVM
 
@@ -79,7 +83,7 @@ javap -c JvmDemo
 jps -l
 ```
 
-拿到进程号后查看启动命令和参数：
+找到主类为 `JvmDemo` 的进程，拿到进程号后查看启动命令和参数。以下 `<pid>` 都要替换成实际数字，不能连尖括号一起粘贴进 shell。诊断工具需与目标进程使用同一操作用户，并能看到相同 PID 空间；容器里的 PID 不一定等于宿主机 PID。
 
 ```bash
 jcmd <pid> VM.command_line
@@ -90,7 +94,7 @@ jcmd <pid> VM.flags
 
 ```bash
 jcmd <pid> GC.heap_info
-jstat -gcutil <pid> 1000
+jstat -gcutil <pid> 1000 5
 ```
 
 查看类加载：
@@ -105,7 +109,7 @@ jcmd <pid> VM.classloader_stats
 jcmd <pid> Thread.print
 ```
 
-这些命令分别对应 JVM 的几个维度：
+`jstat` 此处采样五次后退出。这个程序分配量很小，未发生 GC 也是正常结果；不能由此证明某个真实服务没有 GC 压力。这些命令分别对应几个维度：
 
 | 命令 | 对应问题 |
 | --- | --- |
@@ -118,17 +122,17 @@ jcmd <pid> Thread.print
 
 ## 保留现场
 
-排查问题时，不能只看一条错误日志。常见现场包括：
+先保存低影响的运行配置和线程信息，在当前可写目录使用与 PID 对应的文件名，避免多次采集互相覆盖。下面仍以 `<pid>` 表示待替换位置：
 
 ```bash
-jcmd <pid> GC.heap_dump /tmp/app.hprof
-jcmd <pid> Thread.print > /tmp/thread.txt
-jcmd <pid> VM.flags > /tmp/vm-flags.txt
-jcmd <pid> VM.command_line > /tmp/vm-command.txt
-cp gc.log /tmp/gc.log
+jcmd <pid> Thread.print > thread-<pid>.txt
+jcmd <pid> VM.flags > vm-flags-<pid>.txt
+jcmd <pid> VM.command_line > vm-command-<pid>.txt
 ```
 
-生产环境抓 heap dump 可能触发停顿，并且文件很大。执行前要确认磁盘空间、业务窗口和影响范围。
+确认需要对象证据后，再执行 `jcmd <pid> GC.heap_dump /absolute/path/app-<pid>.hprof`。路径由目标 JVM 写入，必须在目标文件系统可写；默认 dump 会请求 Full GC，仍可能造成明显停顿，且需要足够磁盘空间。先用 `jcmd <pid> help GC.heap_dump` 核对当前版本选项。dump 可能包含订单、口令和个人数据，不应放入博客静态资源或公开附件。
+
+GC 日志在启动 JVM 时的工作目录中。实验结束后等待五分钟自动退出，或回到运行程序的终端按 `Ctrl+C`；不要保留闲置实验进程。更完整的内存边界见[运行时数据区](./runtime-area/)。
 
 ## 从现象回到机制
 
@@ -137,9 +141,9 @@ cp gc.log /tmp/gc.log
 | 类找不到 | 启动命令、classpath、依赖包、类加载器统计 | Class 文件、类加载 |
 | 方法找不到 | `javap -v`、依赖版本、运行时 jar | 常量池、方法描述符、链接解析 |
 | 堆 OOM | heap dump、GC 日志、对象直方图 | 堆、引用链、GC Roots |
-| 堆不高但容器 OOM | RSS、NMT、直接内存、线程数 | 直接内存、线程栈、元空间 |
+| 堆不高但容器内存超限 | 容器终止原因、RSS、已启用的 NMT、buffer 池、线程数 | 直接内存、线程栈、元空间 |
 | CPU 高 | 线程栈、JFR、热点方法 | JIT、锁、循环、分配压力 |
 | GC 停顿长 | GC 日志、对象存活率、堆大小 | 回收器、对象生命周期、停顿目标 |
 
-这条路径跑通后，再读 Class 文件、类加载、运行时数据区和 GC 页面，会更容易把概念落到实际证据上。
+NMT 必须在启动时另加 `-XX:NativeMemoryTracking=summary`，本页默认启动命令没有开启它；没有开启时不能事后补出历史数据。完成练习的标志是：能指出两个 Class 文件、定位 `main` 的字节码、确认实际 G1 参数，并解释为什么静止进程没有频繁 GC。再进入 [Class 文件](./class-file-bytecode.md)、[类加载](./class-loading.md)和 [GC](./gc/) 阅读机制。
 

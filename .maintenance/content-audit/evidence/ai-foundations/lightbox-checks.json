@@ -1,0 +1,128 @@
+[
+  {
+    "name": "ai-training-loop",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "open": true
+  },
+  {
+    "name": "customer-service-ai-map",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "ai-learning-roadmap",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "ml-workflow",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "prediction-time-boundaries",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "gradient-update-example",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "classification-errors-example",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "network-architecture-relations",
+    "mode": "mobile",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "customer-service-ai-map",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "ai-training-loop",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "ai-learning-roadmap",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "ml-workflow",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "prediction-time-boundaries",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "gradient-update-example",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "classification-errors-example",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  },
+  {
+    "name": "network-architecture-relations",
+    "mode": "desktop",
+    "imageWidth": 1120,
+    "loaded": true,
+    "open": true,
+    "closed": true
+  }
+]

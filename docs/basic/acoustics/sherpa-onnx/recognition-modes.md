@@ -138,14 +138,30 @@ print(stream.result.text)
 
 ## 流式循环
 
-流式识别的核心不是重复调用 `accept_waveform()`，而是正确处理“输入、可解码、临时结果、端点和重置”五个状态。
+流式识别的核心不是重复调用 `accept_waveform()`，而是正确处理“输入、可解码、临时结果、端点、EOF 和重置”。下面是生命周期骨架，回调由应用实现；必须另建 `OnlineRecognizer` 并加载配套流式模型，不能复用上一节 SenseVoice 的 `OfflineRecognizer`。
 
 ```python
+import numpy as np
+
+recognizer = sherpa_onnx.OnlineRecognizer.from_transducer(
+    tokens="./streaming-model/tokens.txt",
+    encoder="./streaming-model/encoder.onnx",
+    decoder="./streaming-model/decoder.onnx",
+    joiner="./streaming-model/joiner.onnx",
+    sample_rate=16_000,
+    feature_dim=80,  # 必须与该发布包一致
+    enable_endpoint_detection=True,
+)
+sample_rate = 16_000
 stream = recognizer.create_stream()
+segment_has_audio = False
 
 while microphone_is_open:
     samples = read_audio_chunk()
+    if len(samples) == 0:
+        break  # 上层明确约定空块表示 EOF
     stream.accept_waveform(sample_rate, samples)
+    segment_has_audio = True
 
     while recognizer.is_ready(stream):
         recognizer.decode_stream(stream)
@@ -156,7 +172,21 @@ while microphone_is_open:
     if recognizer.is_endpoint(stream):
         commit_final_text(text)
         recognizer.reset(stream)
+        segment_has_audio = False
+
+# 此 Transducer 示例采用官方文件示例的尾部补齐；其他模型按配套说明确定。
+if segment_has_audio:
+    stream.accept_waveform(
+        sample_rate, np.zeros(int(0.66 * sample_rate), dtype=np.float32)
+    )
+stream.input_finished()
+while recognizer.is_ready(stream):
+    recognizer.decode_stream(stream)
+if segment_has_audio:
+    commit_final_text(recognizer.get_result(stream))
 ```
+
+尾部补齐仅在输入真正结束时执行一次，并且应从原音频时长统计中剔除。EOF 之后先排空可解码状态，再提交尚未在端点处提交的尾段；不能先 `reset()`，否则会丢掉尾字。实际服务还应按段号保证最终事件只提交一次，区分正常 EOF、取消和异常断开，并用文件末尾无静音的样本验证收尾。
 
 代码进入产品后还要补齐：
 
@@ -182,7 +212,7 @@ while microphone_is_open:
 
 ## 热词和解码方式
 
-截至 2026 年 9 月，sherpa-onnx 官方热词机制只适用于 Transducer 模型，并且要求 `modified_beam_search`。默认的 `greedy_search` 以及其他模型结构不能直接套用这套热词配置。
+本文讨论截至 2026 年 10 月官方文档中的 Transducer 热词偏置机制，要求 `modified_beam_search`。默认的 `greedy_search` 以及其他模型结构不能直接套用这套配置；某些模型的提示词或其他上下文接口应独立核对，不能据此推导为同一热词机制。
 
 ```text
 Transducer + modified_beam_search -> 支持 sherpa-onnx 热词

@@ -1,0 +1,58 @@
+[
+  {
+    "file": "docs/devlanguage/front/package-managers/index.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/corepack.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/npm.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/pnpm.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/yarn.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/bun.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/registry.md",
+    "height": 900,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 1280,
+    "closed": true
+  }
+]

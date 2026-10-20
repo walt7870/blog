@@ -48,7 +48,7 @@ Maven 或 Gradle 根据 Boot 的依赖管理选择兼容版本。Starter 只组�
 
 Boot 根据 classpath、配置属性、应用类型和已有 BeanDefinition 决定默认能力是否注册。它提供的是可以退让的基础设施默认值，不是覆盖业务选择的全局容器。
 
-订单服务没有显式声明 ObjectMapper 时，相关自动配置可以给出默认对象；应用声明自己的对象或 Customizer 后，默认配置可能退让或继续应用定制。替换核心 Bean 时需要验证原有定制链是否仍然存在。
+订单服务没有显式声明 JSON Mapper 时，相关自动配置可以给出默认对象；Boot 4 默认是 Jackson 3 的 JsonMapper，Boot 3.5 常见的是 Jackson 2 的 ObjectMapper。应用声明自己的对象或 Customizer 后，默认配置可能退让或继续应用定制。替换核心 Bean 时需要验证原有定制链是否仍然存在。
 
 ### 运行与交付
 

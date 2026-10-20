@@ -1,0 +1,114 @@
+[
+  {
+    "page": "mcp.html",
+    "width": 390,
+    "src": "/blog/ai/mcp-architecture.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "mcp.html",
+    "width": 390,
+    "src": "/blog/ai/mcp-tool-call-sequence.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/",
+    "width": 390,
+    "src": "/blog/ai/skill-layer.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/recommendations.html",
+    "width": 390,
+    "src": "/blog/ai/skill-selection-boundaries.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "width": 390,
+    "src": "/blog/ai/skill-review-execution.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "rsi/",
+    "width": 390,
+    "src": "/blog/ai/rsi/two-round-feedback.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "width": 390,
+    "src": "/blog/ai/rsi/two-round-feedback.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  },
+  {
+    "page": "mcp.html",
+    "width": 1280,
+    "src": "/blog/ai/mcp-architecture.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "mcp.html",
+    "width": 1280,
+    "src": "/blog/ai/mcp-tool-call-sequence.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/",
+    "width": 1280,
+    "src": "/blog/ai/skill-layer.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/recommendations.html",
+    "width": 1280,
+    "src": "/blog/ai/skill-selection-boundaries.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "width": 1280,
+    "src": "/blog/ai/skill-review-execution.svg",
+    "natural": 1120,
+    "rendered": 1120,
+    "escapeClosed": true
+  },
+  {
+    "page": "rsi/",
+    "width": 1280,
+    "src": "/blog/ai/rsi/two-round-feedback.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "width": 1280,
+    "src": "/blog/ai/rsi/two-round-feedback.svg",
+    "natural": 1200,
+    "rendered": 1200,
+    "escapeClosed": true
+  }
+]

@@ -1,0 +1,646 @@
+[
+  {
+    "file": "docs/ai/engineering/mlops-llmops.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-engineering-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1731,
+    "title": "MLOps 与 LLMOps",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/engineering/security-governance.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/tool-write-trust-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1330,
+    "title": "AI 安全、隐私与治理",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/engineering/serving-deployment.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-request-budget.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1505,
+    "title": "模型服务与部署",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/evaluation-troubleshooting.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rag-evidence-gate.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2470,
+    "title": "AI 应用评估与排错",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/first-ai-app.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rag-evidence-gate.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2501,
+    "title": "第一个 AI 应用：知识库问答",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/foundations/data-and-tasks.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/prediction-time-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1858,
+    "title": "数据与任务建模",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/foundations/generalization-evaluation.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/classification-errors-example.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1920,
+    "title": "泛化与模型评估",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/foundations/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-training-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1139,
+    "title": "AI 基础原理",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/foundations/math-intuition.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/gradient-update-example.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1669,
+    "title": "AI 所需的数学直觉",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/foundations/training-optimization.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-training-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1704,
+    "title": "模型训练与优化",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/glossary.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/customer-service-ai-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2538,
+    "title": "AI 核心概念词典",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/history.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/customer-service-ai-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1956,
+    "title": "人工智能发展脉络",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/customer-service-ai-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-training-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2239,
+    "title": "人工智能全景",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/01-landscape.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/question-to-answer.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/learn-and-use.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/inference-stack.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1851,
+    "title": "01. 推理系统的分工",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/02-lifecycle.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/read-then-write.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/latency-ruler.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/request-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2039,
+    "title": "02. 从输入到逐步生成",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/03-memory.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/memory-workbench.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/compute-and-move.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2433,
+    "title": "03. GPU 与显存预算",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/04-cache-attention.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/attention-notebook.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/cache-questions.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/paged-kv.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2260,
+    "title": "04. 注意力与 KV 缓存",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/05-scheduling.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/chunked-prefill.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1967,
+    "title": "05. 批处理与调度",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/06-quantization.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/precision-ruler.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2181,
+    "title": "06. 量化、算子与编译",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/07-speculative.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 2062,
+    "title": "07. 推测解码",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/08-vllm.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/engine-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2442,
+    "title": "08. vLLM 的执行机制",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/09-sglang.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/radix-branches.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2589,
+    "title": "09. SGLang 的执行机制",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/10-distributed.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/scaling-choices.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/pd-deployment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2201,
+    "title": "10. 多卡、MoE 与分离部署",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/11-speech.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/speech-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3348,
+    "title": "11. 语音与多模态推理",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/12-selection-versions.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/selection-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3701,
+    "title": "12. 框架对比与版本",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/13-practice.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/measurement-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3712,
+    "title": "13. 部署、压测与排错",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/inference-series/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/inference-series/learning-route.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1452,
+    "title": "模型推理系列",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/learning-path.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-learning-roadmap.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2452,
+    "title": "AI 学习与实践路线",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/concepts.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/llm-concept-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2820,
+    "title": "大模型核心概念分类",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/llm-token-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2504,
+    "title": "大语言模型",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/inference.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/kv-cache-memory-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2038,
+    "title": "大模型推理与部署",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/rag-tools.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rag-tool-responsibilities.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2454,
+    "title": "RAG 与工具调用",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/sft.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/sft-training-position.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 1280,
+    "text": 2866,
+    "title": "监督微调 SFT",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/llm/training.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/lora-parameter-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1800,
+    "title": "大模型训练与微调",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/mcp.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/mcp-architecture.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/mcp-tool-call-sequence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3971,
+    "title": "MCP",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/ml.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ml-workflow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2687,
+    "title": "机器学习",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/practice/agent-project.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ticket-confirmation-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1705,
+    "title": "Agent 项目：工单处理助手",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/practice/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/practice-project-routes.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1084,
+    "title": "AI 项目实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/practice/machine-learning-project.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/churn-snapshot-time-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1775,
+    "title": "机器学习项目：用户流失预测",
+    "width": 1280
+  },
+  {
+    "file": "docs/ai/practice/vision-project.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/vision-quality-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1720,
+    "title": "视觉项目：产品质量分类",
+    "width": 1280
+  }
+]

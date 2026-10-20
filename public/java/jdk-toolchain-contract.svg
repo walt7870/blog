@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760" role="img" aria-labelledby="jdk-chain-title jdk-chain-desc">
+  <title id="jdk-chain-title">Java编译目标与运行环境的关系</title>
+  <desc id="jdk-chain-desc">源码经javac产生class，再由部署环境的JVM运行。release约束编译时语言、平台API和class版本。第三方依赖与本地库仍需单独验证，部署的JDK不由开发机JAVA_HOME自动决定。示例用JDK17生成Java8目标class，检查class版本52与运行API边界。</desc>
+  <defs><marker id="jdk-chain-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#jdk-chain-arrow)}.mask{fill:#f7f9fa}</style></defs>
+  <rect width="1240" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">编译器版本、目标版本、运行时版本需要分别核对</text>
+  <text x="36" y="80" class="small">例：JDK 17以--release 8编译兼容源码，生成版本52；不在目标API内的调用应先被编译器拒绝。</text>
+  <path d="M240 230H336" class="line"/><path d="M604 230H700" class="line"/><path d="M904 230H1000" class="line"/>
+  <path d="M470 470V302" class="line"/>
+  <path d="M1102 470V302" class="line"/>
+  <rect x="254" y="188" width="68" height="28" class="mask"/><text x="288" y="208" class="small" text-anchor="middle">读取</text>
+  <rect x="618" y="188" width="68" height="28" class="mask"/><text x="652" y="208" class="small" text-anchor="middle">生成</text>
+  <rect x="918" y="188" width="68" height="28" class="mask"/><text x="952" y="208" class="small" text-anchor="middle">加载</text>
+  <text x="490" y="392" class="small">编译时约束</text><text x="900" y="392" class="small">运行时仍要验证</text>
+  <rect x="36" y="158" width="204" height="144" class="box"/><text x="56" y="204" class="head">源码</text><text x="56" y="244" class="small">ReleaseProbe.java</text><text x="56" y="278" class="small">语法与API调用</text>
+  <rect x="336" y="158" width="268" height="144" class="focus"/><text x="356" y="204" class="head">构建JDK：javac 17</text><text x="356" y="244" class="small">--release 8</text><text x="356" y="278" class="small">编译工具不等于运行基线</text>
+  <rect x="700" y="158" width="204" height="144" class="box"/><text x="720" y="204" class="head">class产物</text><text x="720" y="244" class="small">major version 52</text><text x="720" y="278" class="small">字节码与符号引用</text>
+  <rect x="1000" y="158" width="204" height="144" class="focus"/><text x="1020" y="204" class="head">部署JVM</text><text x="1020" y="244" class="small">加载类、解析API</text><text x="1020" y="278" class="small">执行并产生业务结果</text>
+  <rect x="336" y="470" width="328" height="144" class="box"/><text x="356" y="516" class="head">目标8的编译合同</text><text x="356" y="556" class="small">语言规则 + class版本 + 平台API</text><text x="356" y="590" class="small">String.repeat不在Java 8公开API内</text>
+  <rect x="836" y="470" width="368" height="144" class="box"/><text x="856" y="516" class="head">运行依赖与环境</text><text x="856" y="556" class="small">第三方JAR、本地库、代理、参数</text><text x="856" y="590" class="small">实际发行商、补丁号与CPU架构</text>
+  <path d="M36 700H1204" stroke="#bac4c9"/><text x="36" y="736" class="small">只设置-source/-target可能漏掉平台API基线；只检查主类的class版本，也可能漏掉第三方依赖的更高运行要求。</text>
+</svg>

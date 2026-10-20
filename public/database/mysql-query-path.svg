@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="510" viewBox="0 0 1120 510" role="img" aria-labelledby="title desc">
+  <title id="title">SQL 服务层与 InnoDB 读取链路</title>
+  <desc id="desc">应用连接池发送查询，MySQL会话、解析与名称解析、优化器和执行器协作；执行器通过引擎接口读取InnoDB索引和Buffer Pool，未命中时加载数据页，再返回记录与结果。普通一致性SELECT不按写事务链路写日志。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.return{stroke-dasharray:5 4}
+    </style>
+  </defs>
+  <rect width="1120" height="510" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">主键点查：SQL 执行与数据页读取是两类工作</text>
+  <text x="36" y="78" class="small">SELECT available FROM inventory WHERE sku_id = 101</text>
+  <rect x="242" y="108" width="842" height="292" rx="6" fill="none" stroke="#bac4c9" stroke-dasharray="6 4"/>
+  <text x="264" y="138" class="small">MySQL 服务端：会话、SQL 处理与存储引擎</text>
+  <path class="line" d="M210 216H266"/><path class="line" d="M442 216H474"/><path class="line" d="M674 216H706"/><path class="line" d="M866 216H898"/>
+  <path class="line" d="M942 262V304"/>
+  <path class="line return" d="M1014 304V262"/>
+  <path class="line return" d="M1058 236H1072Q1080 236 1080 244V408Q1080 416 1072 416H131Q123 416 123 408V260"/>
+  <rect x="36" y="168" width="174" height="92" class="box"/><text x="56" y="202" class="head">应用连接池</text><text x="56" y="238" class="small">借连接、发送 SQL</text>
+  <rect x="266" y="168" width="176" height="94" class="box"/><text x="286" y="202" class="head">会话与连接</text><text x="286" y="238" class="small">认证、事务上下文</text>
+  <rect x="474" y="168" width="200" height="94" class="box"/><text x="494" y="202" class="head">解析与名称解析</text><text x="494" y="238" class="small">语句、对象和权限</text>
+  <rect x="706" y="168" width="160" height="94" class="box"/><text x="726" y="202" class="head">优化器</text><text x="726" y="238" class="small">估算访问路径</text>
+  <rect x="898" y="168" width="160" height="94" class="box"/><text x="918" y="202" class="head">执行器</text><text x="918" y="238" class="small">按计划取记录</text>
+  <rect x="898" y="304" width="160" height="84" rx="6" fill="#eaf5ef" stroke="#638d7d" stroke-width="1.3"/>
+  <text x="918" y="338" class="head">InnoDB</text><text x="910" y="372" class="small">索引、页与 MVCC</text>
+  <text x="270" y="352" class="small">实线：请求与计划传递；虚线：记录与结果返回。</text>
+  <text x="270" y="384" class="small">执行器向 InnoDB 取记录，再向客户端输出结果。</text>
+  <text x="36" y="448" class="small">Buffer Pool 未命中才加载相关数据页；命中后仍要判断可见性、过滤和组织结果。</text>
+  <text x="36" y="476" class="small">普通一致性 SELECT 不沿写事务路径生成 redo / binlog；更新与提交另见正文。</text>
+</svg>

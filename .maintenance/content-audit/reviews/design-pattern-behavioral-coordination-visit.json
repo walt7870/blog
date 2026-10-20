@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/behavioral/mediator.md",
+      "status": "verified",
+      "reviewedHash": "54d628246a7c6f624ad43d6d4ddb65ded873abf3aeaaf79c9b0798b65e38e8b6",
+      "pageType": "模式机制与可运行协作模型",
+      "decision": "完整分三段阅读1159行旧正文和代码；修跨服务无条件补偿伪回滚、事件参数和消息类型不匹配、无界队列/线程、调度器未关闭、ConcurrentHashMap内可变列表伪安全及同步列表复合操作问题。改为日期输入、提交按钮和提示由ExportForm协调，明确单线程归属、输入编辑状态和事件反馈环。",
+      "validation": [
+        "JDK21下javac --release 17编译运行MediatorDemo和MediatorVisitorCheck；缺值、倒序、同日、清空、固定提交快照、两个表单及跨线程拒绝通过；未接入真实UI、导出服务或数据库",
+        "SVG独立浏览器中文边界和连线、xmllint通过；生产构建22.88秒通过；两页逐页桌面和390×844手机亮深色、首图原尺寸及关闭通过，无破图、手机横向溢出或控制台错误；未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/behavioral/visitor.md",
+      "status": "verified",
+      "reviewedHash": "ad488f149a6cdcc4fa97ce43c4365f7d028c237863bc0be66beb4be5a5fcd13d",
+      "pageType": "模式机制与可运行分派模型",
+      "decision": "完整分五段阅读2298行旧正文及代码；修双重分派降低类型安全的误断、HTML属性未转义、手拼JSON空数组及控制字符、图片尺寸伪字节数、中文空格词数、常量折叠丢失语义、单目折叠被覆盖、反射分组改变文档顺序及统计分母错误。改为不可变文档的泛型返回访问者、纯文本导出和码点统计，以时序解释accept与重载。",
+      "validation": [
+        "JDK21下javac --release 17编译运行VisitorDemo和MediatorVisitorCheck；两种元素分派、空文档、顺序、重复访问、不可变列表、中文与补充平面码点、非法字段通过；未实现HTML、JSON、PDF或编译器",
+        "SVG独立浏览器中文边界和连线、xmllint通过；生产构建22.88秒通过；两页逐页桌面和390×844手机亮深色、首图原尺寸及关闭通过，无破图、手机横向溢出或控制台错误；未做全页截图"
+      ]
+    }
+  ]
+}

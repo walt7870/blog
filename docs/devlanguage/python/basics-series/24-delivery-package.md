@@ -1,24 +1,21 @@
 # 交付一个客户可用小工具
 
 > 示例文件：`delivery_check.py`  
-> 最后核验：2026-08-02
-
-本文围绕“脚本交付前要检查哪些东西”展开，结合可运行示例说明输入、规则、输出和改造边界。
+> 示例核验：2026-10-20（Python 3.14，语法下限为 3.10）
 
 ## 这篇解决什么问题
 
 脚本能在开发电脑上跑，不代表客户知道怎么使用、怎么判断结果、遇到错误找谁。
 
-本集产物是：**完整交付包**。
+本集产物是：**交付目录约定与只读结构检查器**。结构通过后，还要实际运行工具核对结果。
 
 ## 核心判断
 
-- `README` 要服务于真实客户数据处理。
-- `示例数据` 要服务于真实客户数据处理。
-- `验收清单` 要服务于真实客户数据处理。
-- `版本说明` 要服务于真实客户数据处理。
+交付包至少包括真实入口、最小样例和运行说明。将上一节 `cli_tool.py` 作为 `run.py`，放到 `delivery_package/`，旁边放示例 `customers.csv` 和 README；运行后生成 `outputs/`。不要把开发电脑的 `.venv` 直接塞进去，按说明在目标机重建环境。
 
-判断是否学会，不看能不能背概念，而看能不能运行脚本并得到可复查输出。
+![文件结构检查和真实运行验收是两个独立步骤](/python/delivery-validation-gates.svg)
+
+README 应写清 Python 版本、本工具只用标准库、字段合同、参数、预期输出及退出失败的处理方式。版本说明记录规则变化，例如从“只查手机号”改成“手机号和城市都查”，因为结果数量变化首先可能来自规则，而不是数据。
 
 ## 运行示例
 
@@ -26,11 +23,14 @@
 python3 delivery_check.py
 ```
 
-运行后检查三件事：
+检查器不会创建或改写被检查文件，缺少任何必需文件时退出码为 1；全部存在时为 0。文件存在还不证明内容正确，随后在新目录按 README 实际执行：
 
-- 输入数据是否符合本集假设。
-- 规则输出是否能解释。
-- 文件或终端结果是否方便客户复核。
+```bash
+cd delivery_package
+python3 run.py --input customers.csv --output outputs/missing.csv
+```
+
+使用三条样例时，手机号检查结果应只有韩梅梅。再测试缺列、空表、已有输出和错误路径，确认失败会明确报告，原输入不变。`outputs/` 可以由工具首次运行创建，不作为交付前必须存在的目录。
 
 ## 完整示例
 
@@ -41,47 +41,24 @@ from __future__ import annotations
 
 from pathlib import Path
 
-required = ["README.md", "customers.csv", "run.py", "outputs"]
+required = ["README.md", "customers.csv", "run.py"]
 base = Path(__file__).parent / "delivery_package"
-base.mkdir(exist_ok=True)
-(base / "outputs").mkdir(exist_ok=True)
-(base / "README.md").write_text("运行：python run.py\n输出：outputs/\n", encoding="utf-8")
-(base / "customers.csv").write_text("name,phone\n李雷,13800000001\n", encoding="utf-8")
-(base / "run.py").write_text("print('客户工具运行完成')\n", encoding="utf-8")
 
 
-def main() -> None:
+def main() -> int:
     print("交付包检查：")
+    missing = []
     for item in required:
-        exists = (base / item).exists()
+        exists = (base / item).is_file()
         print(f"- {item}: {'OK' if exists else '缺失'}")
+        if not exists:
+            missing.append(item)
+    return 1 if missing else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
 ```
-
-## 修改成自己的场景
-
-1. 先替换样例数据，不急着改规则。
-2. 确认字段名和客户真实表头一致。
-3. 一次只改一条规则，运行后看输出。
-4. 把异常、空值或跳过记录写清楚。
-5. 如果要交给同事运行，把命令和预期输出写进 README。
-
-## 常见误区
-
-| 误区 | 后果 | 修正 |
-| --- | --- | --- |
-| 只追求脚本能跑 | 输出不可复查 | 同时输出数量、名单或文件路径 |
-| 直接套用字段名 | 客户表头不一致时报错 | 先做字段说明或字段映射 |
-| 把坏数据静默跳过 | 结果看似正常但漏处理 | 坏数据要记录原因 |
-| 一次改很多规则 | 出错后难定位 | 每次只改一个规则点 |
-
-## 读完之后能完成什么
-
-你应该能运行本集示例，并把它改成自己的客户名单、订单表、日报或文件处理场景。
-
 
 ## 继续学习
 

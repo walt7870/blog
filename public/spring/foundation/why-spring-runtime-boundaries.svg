@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
-  <title id="title">Spring 管理的运行边界</title>
-  <desc id="desc">订单业务从启动装配到 HTTP 请求处理的分层图，区分业务职责、Spring Framework、Spring Boot 与外部运行系统。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="why-spring-runtime-boundaries-title why-spring-runtime-boundaries-desc">
+  <title id="why-spring-runtime-boundaries-title">Spring 管理的运行边界</title>
+  <desc id="why-spring-runtime-boundaries-desc">订单业务从启动装配到 HTTP 请求处理的分层图，区分业务职责、Spring Framework、Spring Boot 与外部运行系统。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#071922"/>
@@ -33,16 +33,16 @@
     <text x="116" y="260" class="sans p">启动 · 配置 · 默认装配</text>
     <path d="M347 239H405" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
     <rect x="426" y="197" width="258" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
-    <text x="450" y="230" class="sans h">ApplicationContext</text>
-    <text x="450" y="260" class="sans p">校验并保存完整对象图</text>
+    <text x="450" y="230" class="sans h" style="font-size:22px">ApplicationContext</text>
+    <text x="450" y="260" class="sans p">创建非懒加载单例对象图</text>
     <path d="M704 239H762" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
     <rect x="783" y="197" width="258" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
     <text x="807" y="230" class="sans h">WebServer</text>
     <text x="807" y="260" class="sans p">监听端口 · 调用 Servlet</text>
     <path d="M1061 239H1119" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
     <rect x="1140" y="197" width="208" height="84" rx="12" fill="#102b35" stroke="#63c174" stroke-width="2"/>
-    <text x="1164" y="230" class="sans h">READY</text>
-    <text x="1164" y="260" class="sans p">启动完成，可接流量</text>
+    <text x="1164" y="230" class="sans h">Runner / 就绪</text>
+    <text x="1164" y="260" class="sans p">完成后进入就绪</text>
   </g>
 
   <text x="70" y="350" class="sans label">REQUEST PATH · REUSE THE OBJECT GRAPH</text>
@@ -57,7 +57,7 @@
     <path d="M633 441H695" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
     <rect x="716" y="382" width="235" height="118" rx="18" fill="#123945" stroke="#63c174" stroke-width="2"/>
     <text x="742" y="423" class="sans h">AOP / 事务</text>
-    <text x="742" y="458" class="sans p">在方法调用边界执行策略</text>
+    <text x="742" y="458" class="sans p">代理边界执行策略</text>
     <path d="M971 441H1033" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
     <rect x="1054" y="382" width="316" height="118" rx="18" fill="#19342d" stroke="#ffc857" stroke-width="3"/>
     <text x="1080" y="423" class="sans h">OrderService</text>
@@ -67,7 +67,7 @@
   <path d="M1212 520V570" stroke="#71c7ec" stroke-width="3" marker-end="url(#arrow)"/>
   <g filter="url(#shadow)">
     <rect x="70" y="592" width="1300" height="154" rx="18" fill="#0b2029" stroke="#2b6170" stroke-width="2"/>
-    <text x="96" y="633" class="sans label">EXTERNAL SYSTEMS · INTEGRATED, NOT OWNED BY SPRING</text>
+    <text x="96" y="633" class="sans label">外部系统与进程资源 · 接入和生命周期各有边界</text>
     <rect x="96" y="658" width="270" height="58" rx="10" fill="#132f39"/>
     <text x="120" y="694" class="sans p">数据库 / 连接池</text>
     <rect x="390" y="658" width="270" height="58" rx="10" fill="#132f39"/>

@@ -27,13 +27,21 @@ git add -p
 git commit
 ```
 
-如果已经提交混了，可以在未推送前使用：
+如果最后一个提交混入了两个意图，先确认它尚未共享、没有额外未提交改动，再拆分。以下过程要求存在父提交，备份分支只保护旧提交：
 
 ```bash
-git reset --soft HEAD~1
+git status -sb
+git branch backup/before-split HEAD
+git reset --mixed HEAD~1
 git add -p
-git commit
+git diff --cached
+git commit -m "fix(order): 修复导出超时判断"
+git add -p
+git diff --cached
+git commit -m "refactor(order): 提取导出参数校验"
 ```
+
+`--mixed` 把分支和索引退回父提交，保留工作区中的全部文件变化，因此 `add -p` 才能重新选择暂存内容。`--soft` 会保留原索引，直接接 `add -p` 不能把已经暂存的改动拆开。每个新提交都应单独构建或验证，不能仅把相邻代码行分成两份；同一块包含两个意图时需要编辑补丁或先整理代码。已共享的历史采用后续修正提交，避免未经协调改写。
 
 ## 提交信息结构
 
@@ -50,10 +58,10 @@ git commit
 示例：
 
 ```text
-fix(order): handle export timeout
+fix(order): 将上传超时标记为可重试失败
 
-Increase export job timeout and return retryable error when the
-third-party storage upload exceeds the request window.
+对象存储上传超出请求窗口后，原实现把任务保留在运行状态。
+补充超时终态和重试标志，使用户能再次发起导出。
 
 Closes #128
 ```
@@ -79,9 +87,9 @@ Closes #128
 `scope` 表示影响范围，可以是模块、业务域或技术层。
 
 ```text
-feat(auth): add password reset
-fix(payment): prevent duplicate callback
-docs(git): add branch workflow
+feat(auth): 增加密码重置入口
+fix(payment): 阻止重复回调记账
+docs(git): 补充分支协作流程
 ```
 
 ### summary
@@ -91,8 +99,8 @@ docs(git): add branch workflow
 较好：
 
 ```text
-fix(order): reject duplicate export jobs
-feat(user): add account lock status
+fix(order): 拒绝重复创建导出任务
+feat(user): 增加账号锁定状态
 ```
 
 较差：
@@ -135,24 +143,20 @@ feature/PROJ-128-order-export
 
 ## PR / MR 描述
 
-推荐模板：
+订单导出修复的描述可以写成：
 
 ```markdown
 ## 改动
+上传超过请求窗口时，任务由“运行中”变为“可重试失败”，避免永久占位。
 
-- 
-
-## 测试
-
-- 
+## 验证
+补充超时、成功、重复回调三个用例；填写实际执行结果和命令。
 
 ## 风险
-
-- 
+核对旧客户端是否能识别新增状态；上线前验收旧版客户端的失败提示。
 
 ## 关联
-
-- 
+Closes #128
 ```
 
 填写重点：
@@ -217,4 +221,4 @@ npx --no -- commitlint --edit "$1"
 npm test
 ```
 
-自动化规则不能替代代码审查，但能挡住明显不合规的提交。
+本地 Hook 依赖安装，可以被跳过，也不会随普通 Clone 自动启用；它只负责尽早反馈。必需测试、提交格式或签名要求应在托管平台 CI 和受保护分支规则中执行。Hook 是可执行代码，运行新仓库的安装脚本前应审查来源。具体工具职责见 [Git 生态工具](./ecosystem.md)。

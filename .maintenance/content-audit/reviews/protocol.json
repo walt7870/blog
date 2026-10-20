@@ -1,0 +1,68 @@
+{
+  "pages": [
+    {
+      "file": "docs/basic/protocol/index.md",
+      "status": "verified",
+      "reviewedHash": "94d6dc55e7357a166c6a670e22c53e63c7b5f18f1d9589a9f02bd002c6063a85",
+      "pageType": "网络协议主题地图",
+      "decision": "全文阅读后区分新连接与复用请求、TCP与QUIC安全握手路径，校准NDP层次；补Linux/macOS命令边界和curl累计时间提醒，修改请求链与分层图。保留八页导读与工程验证入口。",
+      "validation": ["最终整站构建14.10秒通过；Bash语法通过。两张SVG独立原尺寸字体及边界截图通过，桌面1280与手机390浅深色全页检查通过，图片原尺寸1440/720加载关闭，手机代码scrollLeft21，分页与耗时拆分锚点实际跳转正确。未进行真实网络实验。"]
+    },
+    {
+      "file": "docs/basic/protocol/network-foundations.md",
+      "status": "verified",
+      "reviewedHash": "0f0b8ce13ab5c65c728e1d9722379515b1c74a0a52c53371966ff967fe09f50d",
+      "pageType": "封装寻址与路由机制",
+      "decision": "全文阅读后替换TLS Record经QUIC的错误嵌套，新增HTTPS双路径图；补QUIC CID分发、NDP承载边界，修正Linux Ping的DF选项及ICMP过滤不能独立证明MTU、MSS只影响TCP的限制。",
+      "validation": ["RFC9001相关封装段核对，Bash语法通过；1120宽SVG原尺寸截图与字体边界通过。桌面/手机双主题通过，手机无整页横溢，图片原尺寸加载关闭，长代码scrollLeft36/24；分页进入传输页正确。整站构建通过，无真实路由与MTU实验。"]
+    },
+    {
+      "file": "docs/basic/protocol/transport-socket.md",
+      "status": "verified",
+      "reviewedHash": "c5338d07aef082c3c1c3f111e8da0e38075177118311f71fddfceb466dab303d",
+      "pageType": "传输状态与Socket机制",
+      "decision": "全文阅读后把min(rwnd,cwnd)校准为最大在途量，新增可发量扣除已有在途并给64/32/24KiB例子；补half-close、同时关闭与TIME_WAIT边界，明确nc换行不形成TCP消息边界及Linux工具前提。修正可靠性闭环图。",
+      "validation": ["Bash语法通过；1440宽SVG实际字体边界截图复核。桌面/手机浅深色全页通过，手机图片342宽缩略图和1440原尺寸关闭正常，7处长代码键盘横滚3.5至39.5px，分页进入应用页正确。整站构建通过，未运行nc/strace实验。"]
+    },
+    {
+      "file": "docs/basic/protocol/application-realtime.md",
+      "status": "verified",
+      "reviewedHash": "d5bc202c5baf364a81bdc9d8e2793fa453989e59282f9345ad03da5e44ff131e",
+      "pageType": "现代应用协议机制与选型",
+      "decision": "全文阅读后把HTTP Body长度修正为24字节，补HTTPS双路径、QPACK与拥塞等待边界、0RTT重放风险；区分H1 Upgrade与H2/H3扩展CONNECT，补SSE重连与补发区别及grpcurl明文反射前提。",
+      "validation": ["Body由Node独立字节计算，RFC9001与RFC8441相关段核对，Bash语法通过。1120宽SVG原尺寸与桌面/手机双主题全页通过，图片原尺寸加载关闭，代码横滚4/34.5px，分页进入容量页正确。整站构建通过，未执行gRPC或WebRTC联调。"]
+    },
+    {
+      "file": "docs/basic/protocol/capacity-performance.md",
+      "status": "verified",
+      "reviewedHash": "f6487d03d3522ef0c27c2614115084612f87b75d61c331b9ecc5348c56f39a0f",
+      "pageType": "连接容量与背压机制",
+      "decision": "全文阅读后消除扇出重复相乘，补100事件乘20接收者乘500字节的8Mbit/s例子；用20入5出说明1MiB队列约68秒填满，区分状态合并与支付流水持久恢复，新增队列背压图及Linux性能工具前提。",
+      "validation": ["容量与队列算式逐项核对，Bash语法通过；1120宽SVG实际字体边界截图通过。桌面/手机双主题全页、图片原尺寸关闭、3处代码横滚22.5/29/40px与分页正确。整站构建通过，未声称真实压测结果。"]
+    },
+    {
+      "file": "docs/basic/protocol/troubleshooting.md",
+      "status": "verified",
+      "reviewedHash": "25472e4b306260b87992fb0456ec5674a5e97549317dbb768c7e31eab10372cd",
+      "pageType": "网络分层排障与案例",
+      "decision": "全文阅读后加入curl累计时间差值表和20/40/60/300/80ms例子，说明TTFB不等于应用代码耗时；openssl显式验证域名并遇错误退出，修正Linux Ping DF选项与工具前提，重新绕行排障图反馈连线。",
+      "validation": ["curl官方CONNECT/APPCONNECT/STARTTRANSFER三页全文核对，Bash语法通过；1440宽图原尺寸字体与连线截图通过。桌面/手机双主题、图片原尺寸关闭及4处代码scrollLeft40通过；入口耗时拆分锚点、WebSocket分页实际跳转正确。整站构建通过，未进行抓包或故障注入。"]
+    },
+    {
+      "file": "docs/basic/protocol/http-vs-websocket.md",
+      "status": "verified",
+      "reviewedHash": "b14cfe6ce58a25775e19d7cb7591500d129f861f894a2c03dcd6516117ef7da8",
+      "pageType": "HTTP与WebSocket通信选型",
+      "decision": "全文重写，去除HTTP短连接半双工及固定开销倍数误导；解释H2/H3、SSE、帧层102/106字节范围、浏览器认证和Origin边界、心跳重连与粘性会话条件。增加订单事件持久化、ACK前断线去重和慢消费者验收，修改握手图。",
+      "validation": ["MDN WebSocket constructor全文与RFC8441扩展CONNECT相关段核对；760宽SVG原尺寸字体和箭头截图通过。桌面/手机浅深色全页、342宽缩略图/760原尺寸关闭、代码横滚40及到嵌入式页分页正确。整站构建通过，Nginx为路径内配置示例，未真实部署联调。"]
+    },
+    {
+      "file": "docs/basic/protocol/embedded-protocols.md",
+      "status": "verified",
+      "reviewedHash": "1cda3355d508e02ebecf396b682435f64068795e8e1bad393b712f68aaa541ef",
+      "pageType": "嵌入式总线与工业通信选型",
+      "decision": "全文阅读后以温度采集贯穿，重画电气总线与网关合同图；校准UART/RS485、I2C恢复、SPI片选、CAN FD、设备身份与Matter边界。修正Modbus异常帧CRC、帧间/帧内时间与11位字符配置；补量纲、时间、质量、缓存及控制重试验收。",
+      "validation": ["Modbus串行官方规范第13/14/19/39页相关内容核对，Node独立CRC核算通过；UART片段包装后本机C语法通过，Bash语法通过。两张1120宽图原尺寸中文字体/连线/边界截图通过；桌面/手机双主题全页、图片原尺寸关闭、7处代码横滚12.5至40px、返回WebSocket分页通过。最后RTU配置行已纳入14.10秒最终构建；未执行Arduino/HAL编译或真实串口/现场总线实验。"]
+    }
+  ]
+}

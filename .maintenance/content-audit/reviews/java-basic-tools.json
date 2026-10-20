@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/basic/base-class.md",
+      "status": "verified",
+      "reviewedHash": "b2cdbe1c2c627b2d8f2443912a7395bb22aa66edcde682a41774604983f0d421",
+      "pageType": "Java标准工具类的对象、数值、容器、时间与失败合同",
+      "decision": "旧2774行全文读取后重写，修clone缺Cloneable、构造器与受检异常不完整、只读视图冒充不可变快照、宽松日期解析、无限范围阶乘/公倍数溢出、空循环性能排名、GC sleep证明、读取输出后才开始进程超时、未消费stderr和吞中断。补共享元素图、金额scale与舍入、时区/UTF16/参数边界以及可编译示例。",
+      "validation": [
+        "Oracle JDK17 List的Unmodifiable Lists/copyOf及BigDecimal的double构造、equals/compareTo/divide官方正文已浏览器核对。web-read两页失败未当已读。",
+        "从正文提取ToolContracts与ProcessCheck在本机Temurin17.0.20.1编译运行通过。/tmp/blog-java-tool-check.mjs补临时子进程fixture，验证200ms超时终止和退出7转失败；空元素、只读修改、2026-02-30、addExact溢出、无限小数及原生数组边界均通过。缩短期限仅用于测试变体，正文期限仍5秒；无外部命令注入、真实业务或多平台测试声明。",
+        "完整构建16.86秒退出0并重启preview。SVG自检、中文完整截图/边界、注释避让通过；1280及390×844亮深色、图放大/原尺寸/关闭与长代码局部滚动通过，无全页溢出或破图；viewport恢复。"
+      ]
+    }
+  ]
+}

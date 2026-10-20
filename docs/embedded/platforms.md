@@ -6,226 +6,69 @@ date: 2026-05-17
 
 # 主流平台实战
 
-不同平台有不同的开发生态和最佳实践。本篇覆盖嵌入式开发中最常用的四个平台：STM32（工业标杆）、ESP32（IoT 首选）、树莓派（Linux 入门）、RISC-V（新兴生态）。
+选平台时，完整开发链比芯片跑分更重要：能否固定 SDK、重建示例、连接调试器、恢复错误配置，并在目标板验证外设。下面分别说明 STM32、ESP32、树莓派和 RISC-V 的入口，不把不同芯片的无线、功耗和驱动能力混为一谈。
 
-## 一、STM32（CubeMX + HAL）
+![同一采集业务在不同平台的适配边界](/embedded/platform-adapter-boundaries.svg)
 
-### 开发流程
+## STM32：配置生成与业务隔离
 
-1. **CubeMX 配置**：图形化选择引脚功能、时钟树、外设参数
-2. **生成代码**：选择工具链（Makefile/CMake/Keil/IAR），生成初始化代码
-3. **编写业务逻辑**：在 `/* USER CODE BEGIN */` 和 `/* USER CODE END */` 之间写代码
-4. **编译烧录调试**：GCC + OpenOCD 或 Keil + ST-Link
+先用板卡对应工程验证 LED 和串口，再在 CubeMX/CubeIDE 中检查 pinmux、时钟树、外设参数与中间件。生成方式由工具版本和工程目标决定，保存 `.ioc`、软件包版本与生成选项。业务模块放独立源文件，生成文件中只在受保护区接入，重新生成后检查 diff 并重建。
 
-### 项目结构
+HAL、LL 和直接寄存器访问可以组合，但同一外设必须有明确所有者。不能一边让 HAL 管 DMA 状态，一边改寄存器绕过它，又期待状态机保持一致。性能瓶颈先用测量定位，再选择更直接的访问；裸寄存器并不自动更快或更正确。
 
-```
-project/
-├── Core/
-│   ├── Inc/          # 用户头文件
-│   └── Src/          # main.c、中断处理、系统初始化
-├── Drivers/
-│   ├── CMSIS/        # ARM 内核头文件
-│   └── STM32F4xx_HAL_Driver/  # HAL 库源码
-├── Middlewares/      # FreeRTOS、USB、FATFS 等中间件
-├── STM32F407VGTx_FLASH.ld    # 链接脚本
-├── Makefile
-└── .ioc             # CubeMX 工程文件
-```
+最小验收包含复位启动、时钟实际频率、串口收发、错误回调与调试器重连。ISR 中调用依赖低优先级 tick 的 `HAL_Delay` 可能永远等待，应把延时工作转给主循环或任务。M7 的 Cache/DMA 方向与缓冲区规则见[外设驱动](./peripherals.md)。
 
-### HAL vs LL vs 寄存器
+## ESP32：先固定 SDK 和目标
 
-| 层级     | 特点                    | 适用场景          |
-| ------ | --------------------- | ------------- |
-| HAL    | 高度抽象、跨系列移植方便、代码量大     | 快速开发、不关心底层    |
-| LL     | 轻量封装、接近寄存器、效率高        | 对性能敏感的外设操作    |
-| 寄存器直接操作 | 最高效、最灵活、可读性差         | 学习原理、极致优化     |
+ESP32 是一个系列：ESP32-S2 有 Wi-Fi 但无 Bluetooth，ESP32-H2 有 BLE/802.15.4 而无 Wi-Fi，C3/S3 等又有各自能力。STM32 也有无线系列，不能笼统写成“ESP32 全内置，STM32 全外挂”。
 
-### 常见坑
-
-- CubeMX 重新生成会覆盖 USER CODE 区域外的修改
-- HAL_Delay() 在中断中调用会死锁（SysTick 优先级问题）
-- DMA 传输完成后要手动 Invalidate Cache（M7 系列）
-- 时钟配置错误导致串口乱码是最常见的新手问题
-
-## 二、ESP32（ESP-IDF + Arduino）
-
-### ESP-IDF（官方框架）
-
-ESP-IDF 是乐鑫官方的开发框架，基于 FreeRTOS，功能完整。
+下面固定 ESP-IDF `v5.4.2`、目标 `esp32c3`，用于建立可复现的 hello_world 基线，并非当前最新版本推荐。安装脚本会下载主机工具；烧录命令会改写已连接的目标板，串口需替换为实际设备。
 
 ```bash
-# 安装
-mkdir -p ~/esp && cd ~/esp
-git clone --recursive https://github.com/espressif/esp-idf.git
-cd esp-idf && ./install.sh
+git clone --branch v5.4.2 --recursive https://github.com/espressif/esp-idf.git esp-idf-v5.4.2
+cd esp-idf-v5.4.2
+./install.sh esp32c3
 source export.sh
-
-# 创建项目
-idf.py create-project my_project
-cd my_project
-
-# 配置
-idf.py menuconfig
-
-# 编译、烧录、监控
+cp -R examples/get-started/hello_world ../sensor-hello
+cd ../sensor-hello
+idf.py set-target esp32c3
 idf.py build
 idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
-### 项目结构
+保存 SDK 提交、`sdkconfig.defaults`、组件依赖和构建信息；生成的 `sdkconfig` 也按项目策略归档。`set-target` 会重新生成配置，应先保护已有修改。退出 monitor 常用 Ctrl+]。
 
-```
-my_project/
-├── main/
-│   ├── CMakeLists.txt
-│   └── main.c
-├── components/       # 自定义组件
-├── sdkconfig         # menuconfig 生成的配置
-└── CMakeLists.txt
-```
+联网从该 SDK 版本的 Wi-Fi/HTTPS/MQTT 官方完整示例起步，正确处理事件循环、获得 IP、TLS、凭据与重连。新 SDK 的组件组织可能变化，例如 ESP-IDF 6.x 中 ESP-MQTT 已独立为组件；不要把跨版本片段直接拼接。Arduino 适合原型，也要固定 core 和库版本，避免阻塞重连影响采样。
 
-### Wi-Fi + BLE 双模
+## 树莓派：Linux 用户态与实时边界
 
-ESP32 的核心优势是集成 Wi-Fi 和 BLE，且 ESP-IDF 提供完整的协议栈：
+用 Raspberry Pi Imager 选择对应板卡系统，并设置用户名、主机名、网络与 SSH，不能依赖历史默认 `pi` 用户。连接后记录板型、系统、内核与 GPIO 库版本。GPIO 编号需要区分排针物理位置、BCM 编号与 gpiochip line offset。
 
-```c
-// Wi-Fi Station 模式
-esp_wifi_init(&cfg);
-esp_wifi_set_mode(WIFI_MODE_STA);
-esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
-esp_wifi_start();
+gpiozero 在受支持的 Raspberry Pi OS 与合适后端上可用于简单输入输出，Pi 5 与旧版 RPi.GPIO 的支持不能混用。下面是 Python 文件内容，LED 必须串联限流电阻，外部输入不能超过引脚规格。
 
-// BLE GATT Server
-esp_ble_gatts_register_callback(gatts_event_handler);
-esp_ble_gap_set_device_name("ESP32_SENSOR");
-esp_ble_gatts_app_register(0);
-```
-
-### Arduino 模式
-
-ESP32 也支持 Arduino 框架，适合快速原型：
-
-```cpp
-#include <WiFi.h>
-#include <PubSubClient.h>
-
-WiFiClient espClient;
-PubSubClient mqtt(espClient);
-
-void setup() {
-    WiFi.begin("SSID", "PASSWORD");
-    while (WiFi.status() != WL_CONNECTED) delay(500);
-    mqtt.setServer("broker.emqx.io", 1883);
-    mqtt.connect("esp32_client");
-}
-
-void loop() {
-    mqtt.publish("sensor/temp", String(readTemp()).c_str());
-    mqtt.loop();
-    delay(5000);
-}
-```
-
-### ESP32 vs STM32
-
-| 维度       | ESP32                | STM32              |
-| -------- | -------------------- | ------------------ |
-| 无线       | Wi-Fi + BLE 内置       | 需要外挂模块             |
-| 实时性      | FreeRTOS，但 Wi-Fi 协议栈占资源 | 裸机或 RTOS，确定性更强  |
-| 功耗       | 活跃时较高（Wi-Fi ~240mA）  | 可以做到 µA 级          |
-| 外设精度     | ADC 精度一般             | ADC/DAC/Timer 精度高  |
-| 生态       | IoT 生态强              | 工业生态强              |
-
-## 三、树莓派（Linux + GPIO）
-
-树莓派是学习嵌入式 Linux 的最佳入门平台，但它更接近"小型 Linux 电脑"而非传统嵌入式。
-
-### 基本使用
-
-```bash
-# 烧录系统（Raspberry Pi OS）
-# 用 Raspberry Pi Imager 工具写入 SD 卡
-
-# SSH 连接
-ssh pi@raspberrypi.local
-
-# GPIO 操作（Python）
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
-GPIO.output(18, GPIO.HIGH)
-
-# 或用 gpiozero（更 Pythonic）
+```python
 from gpiozero import LED, Button
+from signal import pause
+
 led = LED(18)
-button = Button(17)
+button = Button(17, pull_up=True, bounce_time=0.05)
 button.when_pressed = led.on
 button.when_released = led.off
+try:
+    pause()
+finally:
+    button.close()
+    led.close()
 ```
 
-### 适合树莓派的项目
+树莓派有硬件 PWM 能力，但具体引脚、内核配置、后端与资源占用决定如何使用。普通用户态软件定时仍受调度影响；电机闭环和严格脉冲可交给专用 MCU，Linux 负责规划、界面与日志。供电、散热、存储损坏恢复也应纳入网关验收。
 
-- 智能家居中控（Home Assistant）
-- 网络摄像头 + 图像识别
-- NAS / 广告拦截（Pi-hole）
-- 学习 Linux 系统管理和驱动开发
-- 机器人上位机（ROS）
+## RISC-V：检查实现与生态
 
-### 树莓派的局限
+RISC-V 是 ISA，ESP32-C3、不同厂商 MCU 和 Linux SoC 可能采用完全不同的中断控制器、启动格式与 SDK。先使用芯片厂商支持的版本验证下载、调试和异常入口，再考虑统一构建。替换 Cortex-M 时，不能只重编 C 文件；检查汇编、原子操作、对齐、浮点 ABI、RTOS port、端序假设和驱动寄存器。
 
-- 不适合低功耗电池产品（待机功耗 > 100mA）
-- 启动慢（十几秒），不适合需要即时响应的场景
-- GPIO 没有硬件 PWM 精度（软件模拟抖动大）
-- 不是实时系统，不适合精确时序控制
+## 业务层如何复用
 
-## 四、RISC-V
+把采样值校验、帧解析和重试决策做成不依赖厂商头文件的模块，用主机测试覆盖；硬件层提供明确的读取、发送和时钟接口，说明阻塞、线程上下文与所有权。跨平台不是把所有 API 取相同名字，而是让错误、取消与完成语义保持一致。
 
-RISC-V 是开源指令集架构，近年在国产 MCU 中快速普及。
-
-### 主流 RISC-V MCU
-
-| 芯片          | 厂商    | 特点                          |
-| ----------- | ----- | --------------------------- |
-| GD32VF103   | 兆易创新  | 对标 STM32F103，国产替代           |
-| CH32V303    | 沁恒    | 高性价比，USB + CAN              |
-| BL602/BL616 | 博流智能  | Wi-Fi + BLE，IoT 方向          |
-| ESP32-C3/C6 | 乐鑫    | RISC-V + Wi-Fi/BLE，ESP-IDF 生态 |
-| K210        | 嘉楠    | 双核 + KPU（AI 加速），视觉应用       |
-
-### 开发工具
-
-```bash
-# GCC 工具链
-# 使用 xPack 或 MounRiver Studio（沁恒官方 IDE）
-
-# ESP32-C3 直接用 ESP-IDF
-idf.py set-target esp32c3
-idf.py build flash monitor
-
-# GD32VF103 用 PlatformIO
-pio init --board gd32vf103c_start
-pio run --target upload
-```
-
-### RISC-V 的优势与现状
-
-优势：
-- 无授权费，芯片成本更低
-- 指令集可定制扩展
-- 工具链完全开源（GCC/LLVM/GDB 原生支持）
-- 国产化趋势下的首选架构
-
-现状：
-- 生态不如 ARM 成熟（库、例程、社区）
-- 部分调试工具支持不完善
-- 高性能核心（对标 Cortex-A）还在追赶
-
-## 五、跨平台开发建议
-
-- **抽象硬件层**：用 HAL 或自定义接口隔离硬件差异，业务逻辑可跨平台复用
-- **统一构建系统**：CMake 或 PlatformIO 支持多平台
-- **选择跨平台 RTOS**：FreeRTOS、Zephyr 支持 ARM + RISC-V + ESP32
-- **模块化设计**：通信协议栈、数据处理算法做成独立模块，不依赖特定硬件
-
-返回 [总览与学习路线](./index.md)
+返回[总览](./index.md)。

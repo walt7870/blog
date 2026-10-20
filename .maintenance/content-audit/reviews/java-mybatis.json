@@ -1,0 +1,29 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/framework/index.md",
+      "status": "verified",
+      "reviewedHash": "bd96dd0a8790cbec4e361d513b707783630df64b4969755199d69e10f04c3ec0",
+      "pageType": "Java框架主题地图",
+      "decision": "全文审查原22行链接入口，补订单请求职责图、框架边界、Mapper返回与最终提交差异及按失败位置导读，保留Spring全部入口。",
+      "validation": ["三张SVG结构自检通过，框架图实际中文字体、整图截图及连线检查通过。", "完整构建15.36秒退出0；生产预览1280与390×844亮深色、图示放大/原尺寸/关闭通过，无破图或全页溢出。"]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/mybatis/index.md",
+      "status": "verified",
+      "reviewedHash": "86cdd8bd81ddbc07e49dc82d588d8de0c5bf976321089e37e4311f87e45eb784",
+      "pageType": "映射会话事务机制与可运行练习",
+      "decision": "全文审查原417行后重写。修session作用域外回滚、账号模板、缓存泛化、动态空集合及不闭合映射示例；补完整H2订单程序、提交失败分支图、独立XML空集合保护、Spring托管边界和排错闭环。",
+      "validation": ["读取官方java-api的工厂、会话、事务控制、本地缓存和关闭章节，configuration插件章节、sqlmap-xml缓存章节；后者全文抓取截断，未将未读部分当依据。前轮读取MyBatis-Spring事务官方全文。", "临时脚本/tmp/blog-mybatis-contract-check.mjs固定Temurin17、MyBatis3.5.19与H2 2.3.232，提取正文编译运行；8000分、重复支付、显式/关闭回滚、参数注入字符串、负金额约束、动态XML空/null/非空通过。不外推生产驱动和Spring集成。", "最终完整构建15.36秒；会话图实际字体、边界、连线和提交失败分支通过；1280与390亮深色、放大/原尺寸/关闭、代码局部滚动及跳转插件页通过。"]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/mybatis/plugin.md",
+      "status": "verified",
+      "reviewedHash": "e62f4f7c59ffbe9bd8931c92f4c6f63c75e1b457798763a6a7538e37086cf5b3",
+      "dependencyFiles": ["docs/devlanguage/java/framework/mybatis/index.md"],
+      "pageType": "插件拦截层与观测合同",
+      "decision": "全文审查后替换不安全通用分页实现，修异常后再次proceed可能重复写入、prepare清理ThreadLocal遗漏缓存命中、首次连接猜方言和反射改BoundSql未同步缓存身份等问题。补完整只观测插件、缓存边界图、链顺序与分页验收条件。",
+      "validation": ["官方configuration插件扩展点与签名正文已核对；临时真实MyBatis/H2测试验证两次Executor.query仅一次prepare、A/B链逆序进入、失败单次更新、实际Plugin代理透传原异常、回滚后旧金额。直接Invocation测试最初遇反射包装异常，已按真实代理调用修正后通过。", "完整构建15.36秒；SVG结构、实际字体与连线通过；1280与390亮深色、图示放大/原尺寸/关闭、代码局部滚动通过，无破图或全页溢出。"]
+    }
+  ]
+}

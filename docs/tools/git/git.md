@@ -50,24 +50,9 @@ git config --show-origin --get user.email
 
 ### 常用基础配置
 
-```bash
-# 编辑器
-git config --global core.editor "vim"
-# 或
-git config --global core.editor "code --wait"
+编辑器选择自己已安装的一项，例如 `git config --global core.editor "code --wait"`。不要顺序复制多个替代设置；同一键后一次设置通常覆盖前一次。Git 配置作用域也有区别：`--global` 影响当前用户，默认 `--local` 影响当前仓库。
 
-# 换行符处理
-git config --global core.autocrlf input  # macOS / Linux
-git config --global core.autocrlf true   # Windows
-
-# 拉取时默认 rebase，减少无意义 merge commit
-git config --global pull.rebase true
-
-# 自动记录冲突解决方式
-git config --global rerere.enabled true
-```
-
-团队项目里，换行、格式化、忽略文件等更适合放在仓库级配置中，例如 `.editorconfig`、`.gitattributes`、`.gitignore`。
+团队用 `.gitattributes` 约定路径的换行和二进制处理，例如 `*.sh text eol=lf`；已有仓库先检查策略，避免切换 `core.autocrlf` 后产生整库换行变更。`.editorconfig` 管编辑器格式，`.gitignore` 处理未跟踪文件发现，不能互相替代。同步方式每次显式指定，掌握分支策略前不默认全局启用 rebase。`rerere.enabled` 可复用已记录的冲突处理，但仍须检查复用结果并测试。
 
 ## 新建和获取仓库
 
@@ -80,7 +65,7 @@ git init
 git status
 ```
 
-初始化后会生成 `.git/` 目录，它保存提交对象、引用、索引和配置。
+普通初始化生成 `.git/` 管理目录；linked worktree 或 submodule 中也可能是 `.git` 文件。脚本通过 `git rev-parse --git-dir` 定位管理数据。
 
 ### 克隆远程仓库
 
@@ -117,8 +102,8 @@ git status -sb
 | `Untracked` | 新文件，Git 还没跟踪 | `git add <file>` 或加入 `.gitignore` |
 | `modified` | 已跟踪文件被修改 | `git diff` 查看变化 |
 | `staged` | 已进入暂存区 | `git diff --staged` 后提交 |
-| `ahead` | 本地有远程没有的提交 | `git push` |
-| `behind` | 本地落后远程 | `git pull --rebase` 或 `git fetch` 后处理 |
+| `ahead` | 相对本地上游跟踪引用领先 | fetch 后检查，再按团队流程推送 |
+| `behind` | 相对本地上游跟踪引用落后 | fetch 后检查快进或分叉 |
 
 ## 查看差异
 
@@ -128,7 +113,7 @@ git status -sb
 git diff                 # 工作区 vs 暂存区
 git diff --staged        # 暂存区 vs HEAD
 git diff HEAD            # 工作区整体 vs HEAD
-git diff main...HEAD     # 当前分支相对 main 的改动
+git diff main...HEAD     # 从 merge-base 到 HEAD 的差异
 git diff -- <file>       # 只看某个文件
 ```
 
@@ -176,7 +161,7 @@ git add -p
 ### 创建提交
 
 ```bash
-git commit -m "feat(auth): add login endpoint"
+git commit -m "feat(auth): 增加登录接口"
 ```
 
 更推荐打开编辑器写完整提交信息：
@@ -199,7 +184,7 @@ git commit --amend
 只改提交信息：
 
 ```bash
-git commit --amend -m "fix(auth): handle empty token"
+git commit --amend -m "fix(auth): 处理空令牌"
 ```
 
 如果提交已经推送到公共分支，不要随意 amend 后强推。优先新增提交或使用 `revert`。
@@ -248,15 +233,15 @@ git fetch origin
 git fetch --all --prune
 ```
 
-`fetch` 只下载远程更新，不会改工作区。想先观察远程变化，用它比直接 `pull` 更安全。
+`fetch` 下载对象并按 refspec 更新本地引用，通常不改变当前工作区和当前本地分支。`--prune` 还会按映射清理已不存在的远程跟踪引用；它不是纯下载，也不会自动合并修改。
 
 ### 拉取远程更新
 
 ```bash
-git pull --rebase
+git pull --ff-only
 ```
 
-等价于先 `fetch`，再把本地提交搬到远程最新提交之后。功能分支上常用它减少无意义 merge commit。
+这会先 fetch，再仅在能够快进时更新当前分支；分叉会拒绝。当前分支必须配置正确上游。未共享功能分支按约定可用 `pull --rebase` 重放本地提交，共享分支则先理解他人依赖，参见 [分支与合并](./branching.md)。
 
 ### 推送分支
 
@@ -304,7 +289,7 @@ git push origin :refs/heads/obsolete-branch
 `stash` 用于临时收起工作区修改，适合“当前工作没做完，但需要切分支处理别的事”。
 
 ```bash
-git stash push -m "wip login form"
+git stash push -u -m "暂存登录表单开发"
 git stash list
 git stash show -p stash@{0}
 git stash pop
@@ -318,8 +303,9 @@ git stash push -p
 
 注意：
 
-- `stash pop` 会应用并删除 stash。
-- `stash apply` 只应用，不删除。
+- 默认 stash 只含已跟踪修改，`-u` 额外包含未跟踪文件，不含忽略文件。
+- `stash pop` 成功应用后删除对应条目，冲突时通常保留；先解决冲突再核对是否需要手工删除，不能无条件再次 pop。
+- `stash apply` 只应用，不删除；需要尝试恢复时便于保留原条目。恢复原暂存状态还涉及 `--index`，也可能冲突。
 - stash 不是长期存储方案，重要改动应尽快提交到分支。
 
 ## 日常开发模板
@@ -328,7 +314,7 @@ git stash push -p
 
 ```bash
 git switch main
-git pull --rebase
+git pull --ff-only
 git switch -c feature/order-export
 ```
 
@@ -346,11 +332,11 @@ git commit
 
 ```bash
 git fetch origin
-git rebase origin/main
+git merge origin/main
 git push -u origin feature/order-export
 ```
 
-如果 rebase 发生冲突，处理方式见 [分支与合并](./branching.md)。
+这里 merge 保留原提交关系，个人未共享分支也可按约定 rebase。同步后测试，再推送；冲突处理见 [分支与合并](./branching.md)。
 
 ## 排错
 
@@ -367,7 +353,7 @@ git branch --show-current
 git restore --staged <file>
 ```
 
-文件内容仍保留在工作区，只是从暂存区拿出来。
+工作区内容保留，索引按 HEAD 恢复。它不移动文件；用两份 diff 核对范围。
 
 ### 想丢弃某个文件的本地修改
 
@@ -375,14 +361,8 @@ git restore --staged <file>
 git restore <file>
 ```
 
-这会丢弃工作区修改，执行前先 `git diff -- <file>` 确认。
+这默认以索引恢复工作区，覆盖索引之后的修改；索引不一定等于 HEAD。先 `git diff -- <file>` 确认，详见 [撤销与恢复](./recovery.md)。
 
 ### 推送被拒绝
 
-```bash
-git fetch origin
-git rebase origin/<branch>
-git push
-```
-
-如果多人同时改了同一分支，先理解远程多出的提交，不要直接 `push --force`。
+先读拒绝原因：非快进才涉及历史整合；权限不足、受保护分支、Hook 或网络错误需要各自排查。非快进时 fetch 后用 `git log --left-right --oneline HEAD...@{upstream}` 观察双方提交，再按约定 merge 或 rebase，运行测试后重试。没有上游时先指定正确比较分支；不要把所有拒绝都处理成强推。

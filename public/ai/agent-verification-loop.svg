@@ -31,5 +31,14 @@
   <rect class="ok" x="155" y="155" width="170" height="80"/>
   <text class="text h" x="240" y="188" text-anchor="middle">汇报</text>
   <text class="text b" x="240" y="213" text-anchor="middle">diff、结果、风险</text>
-  <path class="line" d="M540 145 L540 190"/><path class="line" d="M625 225 L755 195"/><path class="line" d="M840 235 L840 310"/><path class="line" d="M755 350 L625 390"/><path class="line" d="M455 405 L325 350"/><path class="line" d="M240 310 L240 235"/><path class="line" d="M325 195 L455 225"/>
+  <path class="line" d="M540 145V190"/>
+  <path class="line" d="M625 225H682Q690 225 690 217V203Q690 195 698 195H755"/>
+  <path class="line" d="M840 235V310"/>
+  <path class="line" d="M755 350H698Q690 350 690 358V397Q690 405 682 405H625"/>
+  <path class="line" d="M455 405H400Q392 405 392 397V358Q392 350 384 350H325"/>
+  <path class="line" d="M500 365V328Q500 320 492 320H375Q367 320 367 312V203Q367 195 359 195H325"/>
+  <path class="line" d="M240 390V462Q240 470 248 470H832Q840 470 840 462V390"/>
+  <text class="text b" x="400" y="391">失败</text>
+  <text class="text b" x="385" y="305">通过后汇报</text>
+  <text class="text b" x="540" y="491" text-anchor="middle">修复后重新修改与验证；不能把“运行过”当成“已通过”</text>
 </svg>

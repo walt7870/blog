@@ -1,0 +1,172 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/rust/advantages.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "全文重写内存安全、unsafe、泄漏、Drop、性能和并发边界，取消无测量性能承诺，用解析器和渐进试点说明代价。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "72f547cd933b34adf98a2b7df6d044fc682410fb5337173701f902ba55649976"
+    },
+    {
+      "file": "docs/devlanguage/rust/basic.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "用订单数量到整数分计算串联变量、Result、结构体、枚举和模块；补checked_mul、字符/字节边界与批处理非事务说明。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "e9dcd478527ae2f884169d231754e115302be27750760af779b6ea4447657074"
+    },
+    {
+      "file": "docs/devlanguage/rust/concurrency.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "补标准库与Tokio有界队列、关闭合同；修正Arc、await、Pin、任务取消和spawn_blocking边界。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "bc28f18efc93a02d5132ec075651829da2d33d327b3821c859ce2ddda4967850"
+    },
+    {
+      "file": "docs/devlanguage/rust/ecosystem.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "按服务、CLI、WASM、MCU和FFI运行边界重构，补Cargo功能合同、宿主限制和供应链说明。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "d7f1aeb1534250bd639906f51223840ab6b86b336b1c005fe51777a53eb938ad"
+    },
+    {
+      "file": "docs/devlanguage/rust/hands-on.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "形成可复制订单CLI、单元与真实进程测试，明确UTF-8、额外参数、正常输出、stderr与退出2合同。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "24c906594ffa2917756b5ccfe6229f5c34c7f30d5996bc6bf8e0a46b6d8bfc41"
+    },
+    {
+      "file": "docs/devlanguage/rust/history.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "核对官方1.0/1.31/1.56/1.85发布日期，区分Edition、MSRV和编译器；补按真实年份布局的稳定节点图。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "1cd539e41abcd2de53910c61a345557736d150c140b5aafec52a1169dbde91d2"
+    },
+    {
+      "file": "docs/devlanguage/rust/index.md",
+      "pageType": "专题导读",
+      "status": "verified",
+      "findings": [],
+      "decision": "总览重写为资源到交付地图，保留全部14页导读与真实所有权例子，区分语言保证和工程边界。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "4d120796cb5b34a9c662c06d332a49a2abee8d90a7bdd83541587795d15ef5d3"
+    },
+    {
+      "file": "docs/devlanguage/rust/learning-path.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "按同一订单任务形成能力路线与验收标志，补原有语言背景、目标平台和小试点选型。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "ffebcf901cc9d4357bd95c323ba4b8c9e1d50aa44724f37247a33ce1a1430846"
+    },
+    {
+      "file": "docs/devlanguage/rust/ownership.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正栈堆判断、clone深复制、单所有者口号与Drop保证，补NLL、借用正反例、生命周期和共享智能指针责任。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "23b36930fa31988726fc40dcb5522f38f45f8c134705ca5325bd3ac9d38d78ba"
+    },
+    {
+      "file": "docs/devlanguage/rust/project-practice.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "补可运行Axum0.8纯报价服务、HTTP状态、字段拒绝、关闭与CLI共享核心；明确无鉴权存储边界。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "181c6adf64693eec42c177373f7f25ad5e6390911366b620d10f8e03c463c228"
+    },
+    {
+      "file": "docs/devlanguage/rust/tooling.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "修正stable漂移、all-targets不含doc tests、README与feature矩阵；补锁文件、resolver3、独立审计扩展与目标平台责任。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "37698ca6bf34efc4cd3acb2de8a93614eba6d5203cea1dda839b90b5febd86f4"
+    },
+    {
+      "file": "docs/devlanguage/rust/troubleshooting.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "按依赖、编译与运行阶段给证据路径，保留移动/借用反例，解释生命周期、锁文件与最小回归。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "95efb2d20fb38250a7e753c6f51fd49d165c1a2baf089629a63c3c46f8d88d8e"
+    },
+    {
+      "file": "docs/devlanguage/rust/type-system.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "用私有Quantity入口与范围校验替代不充分的Email验证，补泛型/dyn、错误传播、接口拒绝和金额变异测试。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "e5e44452096871b36ca81f55c50723c230fc24c61939c2b08622bce318298224"
+    },
+    {
+      "file": "docs/devlanguage/rust/video-series.md",
+      "pageType": "机制与工程实践",
+      "status": "verified",
+      "findings": [],
+      "decision": "保留26章节文章索引，删除重复待发布视频占位，不冒称视频存在；改用已核验学习路线图。",
+      "validation": [
+        "正文22组命令验证通过：领域数量/溢出、CLI进程、4个编译失败反例、私有构造拒绝、标准库/Tokio队列、故意乘改加失败、HTTP五路径与SIGINT关闭；不冒称目标机或业务集成。",
+        "构建16.86秒；14页56份四模式全文、28组原尺寸/退出、14次分页、13图中文边界通过，见batches/rust.md。"
+      ],
+      "reviewedHash": "e5cf6b7bdcff06854ffd2faf089ac1f280a27201345a9753f908ef397cb64f26"
+    }
+  ]
+}

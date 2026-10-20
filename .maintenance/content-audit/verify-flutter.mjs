@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+const root=fs.mkdtempSync('/tmp/blog-flutter-');
+const blocks=[...fs.readFileSync(new URL('../../docs/devlanguage/flutter/hands-on.md',import.meta.url),'utf8').matchAll(/^```dart\n([\s\S]*?)^```/gm)].map(x=>x[1]);
+const results={root,commands:[]};
+function run(command,args,fail=false){const r=spawnSync(command,args,{cwd:root,encoding:'utf8',timeout:180000});results.commands.push({command,args,status:r.status,output:(r.stdout+r.stderr).slice(-4500)});assert.ok(fail?r.status!==null&&r.status!==0:r.status===0,r.stdout+r.stderr);return r;}
+run('flutter',['--version']);
+run('flutter',['create','--platforms=web','--project-name','flutter_learning','.']);
+fs.writeFileSync(root+'/lib/task_page.dart',blocks[0]);
+fs.writeFileSync(root+'/lib/main.dart',blocks[1]);
+fs.unlinkSync(root+'/test/widget_test.dart');
+fs.writeFileSync(root+'/test/task_page_test.dart',blocks[2]);
+run('dart',['format','lib','test']);
+run('flutter',['pub','get','--enforce-lockfile']);
+run('flutter',['analyze']);
+run('flutter',['test']);
+const original=fs.readFileSync(root+'/lib/task_page.dart','utf8');
+assert.ok(original.includes('future: _tasks,'));
+fs.writeFileSync(root+'/lib/task_page.dart',original.replace('future: _tasks,','future: widget.repository.load(),'));
+run('flutter',['test'],true);
+fs.writeFileSync(root+'/lib/task_page.dart',original);
+run('flutter',['build','web','--release']);
+results.passed=true;
+fs.writeFileSync('/tmp/blog-flutter-results.json',JSON.stringify(results,null,2));
+console.log(JSON.stringify({root,commands:results.commands.length,passed:true}));

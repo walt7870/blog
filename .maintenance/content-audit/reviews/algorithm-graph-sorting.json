@@ -1,0 +1,26 @@
+{
+  "pages": [
+    {
+      "file": "docs/algorithm/graph-algorithms.md",
+      "status": "verified",
+      "reviewedHash": "9628268cb7cc2cad44724e06e49d04d0554e45f9011e84320d9359660a475047",
+      "pageType": "图模型与路径算法",
+      "decision": "完整阅读旧1228行。修0权当无边、无向边半列表导致最短路漏方向、Dijkstra负权与顶点比较、Floyd平行边及负环、Prim不连通、最大流搜索原图而更新残余图等。以同图BFS与Dijkstra完整程序贯穿，补其余连通/依赖/容量边界和拓扑SVG。",
+      "validation": [
+        "Python3全部示例运行；480张含零权环/孤立/平行边的随机小图12240对路径与Floyd权重/单位边数对照；1020组订单与sorted对照稳定性/对象完整性/一次取键/原输入保持，输入边界通过",
+        "双SVG独立中文布局、连线/边界与xmllint通过；构建21.85秒通过；两页桌面与390×844手机亮深色、手机图片原尺寸及关闭通过，无破图/横向溢出/console错误，未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/algorithm/sorting-algorithms.md",
+      "status": "verified",
+      "reviewedHash": "8fdfcbf51d277d67ed19c497dd6fc788ec7c705e0d4b4e5678f4694089a615ff",
+      "pageType": "排序机制与业务顺序",
+      "decision": "完整阅读旧833行。修快排栈最坏界、递归heapify常量空间、归并临时数组误称原地、计数输出空间、桶分布与桶内算法复杂度、任意规模阈值等；以订单稳定归并完整实现和SVG讲清比较键、取键缓存、输入不变与外部排序异常闭环。",
+      "validation": [
+        "Python3全部示例运行；480张含零权环/孤立/平行边的随机小图12240对路径与Floyd权重/单位边数对照；1020组订单与sorted对照稳定性/对象完整性/一次取键/原输入保持，输入边界通过",
+        "双SVG独立中文布局、连线/边界与xmllint通过；构建21.85秒通过；两页桌面与390×844手机亮深色、手机图片原尺寸及关闭通过，无破图/横向溢出/console错误，未做全页截图"
+      ]
+    }
+  ]
+}

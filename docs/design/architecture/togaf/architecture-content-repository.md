@@ -104,7 +104,7 @@
 
 ## 用 Enterprise Continuum 组织复用层次
 
-Enterprise Continuum 可以理解为一种分类视角：从通用基础能力逐步走向组织和行业特定能力。
+Enterprise Continuum 可以理解为一种分类视角，包含 Architecture Continuum 与 Solutions Continuum，用于组织从通用到特定的架构与解决方案资产。以下以能力举例，属于查阅映射，不表示企业必须按表中产品建立四层部署。
 
 | 层次 | 示例 |
 | --- | --- |

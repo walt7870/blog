@@ -1,0 +1,602 @@
+[
+  {
+    "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-record-shape.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2196,
+    "title": "列表、字典和表格行：一行、多行、字段名怎样在代码里对应",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-rule-branches.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1514,
+    "title": "条件判断：把业务规则写清楚",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/batch-classification.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1280,
+    "title": "循环：一条规则跑完整张表",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/source-normalization.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1189,
+    "title": "字符串清洗：空格、大小写和格式",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/contact-date-decision.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1768,
+    "title": "数字和日期：金额、天数和超期",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/function-rule-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1289,
+    "title": "函数：把重复规则变成可复用步骤",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/module-dependency.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1348,
+    "title": "模块：把脚本拆成几份文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/csv-validation-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1959,
+    "title": "读写 CSV 文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/json-response-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1741,
+    "title": "JSON：系统接口常见的数据形态",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/table-health-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1802,
+    "title": "Excel/表格实战入口",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/group-summary-grain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1379,
+    "title": "分组统计：按来源、城市、销售汇总",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/order-amount-status.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1562,
+    "title": "订单检查：金额、状态和异常",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/daily-report-composition.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1379,
+    "title": "生成日报：把多个结果合成一个输出",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/venv-interpreter-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1409,
+    "title": "虚拟环境和依赖",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/traceback-reading-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1264,
+    "title": "常见报错怎么读",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/row-error-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1612,
+    "title": "异常处理：让脚本遇到坏数据不断掉",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/20-logging.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/run-log-evidence.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1495,
+    "title": "日志：给别人运行时留下线索",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/api-response-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2069,
+    "title": "调用 API：从系统拿客户数据",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/batch-file-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1374,
+    "title": "批量文件自动化",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/cli-path-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2245,
+    "title": "参数配置：不改代码也能换文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/delivery-validation-gates.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1360,
+    "title": "交付一个客户可用小工具",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/customer-object-ownership.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1401,
+    "title": "什么时候该用类，把数据和动作放进同一个对象",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-tool-delivery-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1097,
+    "title": "学完 Python 基础后，怎样从空目录做出第一个可用工具",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/python-basics-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1681,
+    "title": "Python 基础客户教程：从会运行到能交付",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/concurrency-diagnosis-decision-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 5389,
+    "title": "Python 并发工程全景图：从任务瓶颈到工程流水线",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep01-bottleneck-evidence-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 5537,
+    "title": "先判断瓶颈：I/O、CPU、API、GPU、内存",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep02-four-concepts-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1273,
+    "title": "并发、并行、异步、流水线：四个词不要混着用",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep03-tool-selection-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1441,
+    "title": "Python 并发工具地图：线程、协程、进程、队列怎么选",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/04-threadpool-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep04-threadpool-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2038,
+    "title": "线程与线程池实战：把等待时间叠起来",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep05-shared-state-strategies.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1774,
+    "title": "线程安全与共享状态：别让任务完成但结果写错",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep06-event-loop-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1621,
+    "title": "asyncio 的事件循环模型：速度来自让出控制权",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/07-async-task-orchestration.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep07-async-task-state-machine.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1942,
+    "title": "异步任务编排：成功、失败、超时和取消怎么收敛",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep08-sync-blocking-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1469,
+    "title": "同步库与异步系统的边界：警惕伪异步",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep09-processpool-cost-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1727,
+    "title": "进程池与 CPU 密集任务：什么时候绕开线程",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep10-bounded-pipeline.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4290,
+    "title": "Python 队列与流水线：让多阶段任务稳定推进",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep11-control-layer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2514,
+    "title": "并发控制：限流、背压、重试：让系统稳定推进，而不是瞬间冲垮下游",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep12-file-checkpoint-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4203,
+    "title": "批量文件处理实战：跑几个小时，也要能恢复、能跳过、能定位坏文件",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep13-ffmpeg-command-pool.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2915,
+    "title": "批量语音转码与预处理：用 ffmpeg 有界命令池，把输入先标准化",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep14-api-quota-ledger.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2378,
+    "title": "ASR/TTS API 并发实战：把服务端配额当成系统的一部分",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/python/concurrency/ep15-gpu-batch-queue.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2318,
+    "title": "本地模型/GPU 推理并发：管理 batch、显存和等待队列，而不是盲目多开 worker",
+    "width": 1280
+  }
+]

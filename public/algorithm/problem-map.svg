@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="570" viewBox="0 0 1040 570" role="img" aria-labelledby="title desc">
+<title id="title">算法问题模型与选型关系</title>
+<desc id="desc">先固定输入约束和期望结果，再按整理查找、关系路径、约束选择或文本数值找到算法入口；所有类别都要检查结果和复杂度。</desc>
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7Z" fill="#64748b"/></marker></defs>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:19px;font-weight:600}.sub{font-size:16px;fill:#52636d}.box{fill:#fff;stroke:#b8c5cb;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.line{fill:none;stroke:#71838c;stroke-width:1.4;marker-end:url(#arrow)}</style>
+<rect width="1040" height="570" fill="#f8fafb"/>
+<text class="title" x="38" y="44">从问题模型进入算法</text>
+<text class="sub" x="38" y="73">算法可以组合；分类帮助寻找入口，不代替前提与正确性证明。</text>
+<path class="line" d="M304 250 H344 Q352 250 352 242 V143 Q352 135 360 135 H510"/>
+<path class="line" d="M304 270 H398 Q406 270 406 262 V253 Q406 245 414 245 H510"/>
+<path class="line" d="M304 290 H398 Q406 290 406 298 V347 Q406 355 414 355 H510"/>
+<path class="line" d="M304 310 H344 Q352 310 352 318 V457 Q352 465 360 465 H510"/>
+<rect class="focus" x="38" y="216" width="266" height="128" rx="6"/>
+<text class="name" x="60" y="248">先固定业务合同</text><text class="sub" x="60" y="278">输入：规模、结构、范围</text><text class="sub" x="60" y="305">约束：预算、依赖、精度</text><text class="sub" x="60" y="331">输出：值、方案或全部结果</text>
+<rect class="box" x="510" y="101" width="486" height="68" rx="6"/><text class="name" x="532" y="129">整理与查找</text><text class="sub" x="532" y="154">排序、搜索；分治可以作为内部求解方法</text>
+<rect class="box" x="510" y="211" width="486" height="68" rx="6"/><text class="name" x="532" y="239">关系与路径</text><text class="sub" x="532" y="264">图遍历、依赖排序、最短路；先检查环与权重</text>
+<rect class="box" x="510" y="321" width="486" height="68" rx="6"/><text class="name" x="532" y="349">约束与选择</text><text class="sub" x="532" y="374">动态规划、贪心、回溯；关注状态与选择证明</text>
+<rect class="box" x="510" y="431" width="486" height="68" rx="6"/><text class="name" x="532" y="459">文本与数值</text><text class="sub" x="532" y="484">字符串、数学算法；先确定编码、范围与精度</text>
+<path d="M38 525 H996" stroke="#cbd5da"/>
+<text class="sub" x="38" y="554">共同验收：结果正确 → 规模增长 → 辅助空间、I/O 与异常边界。</text>
+</svg>

@@ -1,6 +1,12 @@
-# TOGAF 营销系统流程图优化 Implementation Plan
+---
+search: false
+---
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+# TOGAF 营销系统流程图历史计划
+
+这是 2026-07-26 的制作计划归档，复选框表示当时的计划项目，不作为当前验收状态。正式知识内容见[营销系统实践](../../design/architecture/togaf/marketing-system-practice.md)。当前图示与正文已经过后续修订，以下尺寸、行号和命令只解释历史方案。
+
+后续核对须区分阶段预算与统计分位数：不能将多个阶段的 P95 相加声称得到端到端 P95。SVG 文字边界使用实际浏览器字体的 `getBoundingClientRect()` 检查，并结合截图复核连线；移动端以当前图片查看器及实际布局为准。
 
 **Goal:** 把营销系统实战的七张卡片式 SVG 重构为能清楚表达主流程、异常分支、事实责任和反馈证据的语义化流程图。
 

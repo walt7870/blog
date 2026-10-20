@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="title desc">
+  <title id="title">镜像复用、实例隔离与写入落点</title>
+  <desc id="desc">两个订单容器复用镜像初始文件，各有进程和可写层。A 的导出路径挂载命名卷，B 的未挂载路径写入自己的可写层；二者共享 Linux 内核。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="630" fill="#f8fafc"/>
+  <text class="h" x="40" y="51">同一镜像，不等于共享运行状态</text>
+  <text class="t muted" x="40" y="84">Linux 容器共享所在 Linux 环境的内核；macOS 上通常是虚拟机内核。</text>
+  <rect x="40" y="131" width="720" height="365" rx="6" fill="#f3f7fa" stroke="#abbecb" stroke-dasharray="6 5"/>
+  <text class="t muted" x="60" y="158">两个运行实例：namespace 可配置共享，cgroup 负责资源统计与控制</text>
+  <path class="line" d="M875 175H228Q220 175 220 183V194"/>
+  <path class="line" d="M567 175V194"/>
+  <path class="line" d="M217 361V414"/><path class="line" d="M567 361V414"/>
+  <rect class="blue" x="875" y="131" width="205" height="107" rx="6"/>
+  <text class="n" x="893" y="165">镜像初始文件</text><text class="t" x="893" y="196">清单、配置与层</text><text class="t" x="893" y="222">供实例复用</text>
+  <rect class="box" x="65" y="194" width="310" height="167" rx="6"/>
+  <text class="n" x="85" y="228">订单容器 A</text><text class="t" x="85" y="260">自己的进程与运行配置</text><text class="t" x="85" y="290">可写层保存未挂载路径的修改</text><text class="t" x="85" y="325">/exports 已挂载到卷</text>
+  <rect class="box" x="420" y="194" width="310" height="167" rx="6"/>
+  <text class="n" x="440" y="228">订单容器 B</text><text class="t" x="440" y="260">自己的进程与运行配置</text><text class="t" x="440" y="290">/exports 未挂载，写入可写层</text><text class="t" x="440" y="325">重建后不能依赖原文件</text>
+  <rect class="green" x="65" y="414" width="310" height="58" rx="6"/>
+  <text class="t" x="85" y="449">命名卷：生命周期独立于容器 A</text>
+  <rect class="box" x="420" y="414" width="310" height="58" rx="6"/>
+  <text class="t" x="440" y="449">实例 B 的可写层：随实例删除</text>
+  <rect class="blue" x="40" y="528" width="1040" height="62" rx="6"/>
+  <text class="n" x="60" y="565">共享 Linux 内核</text><text class="t" x="285" y="565">视图隔离 ≠ 独立内核；资源上限 ≠ 业务容量；保留卷 ≠ 备份</text>
+  <text class="t muted" x="842" y="405">挂载会遮住镜像</text><text class="t muted" x="842" y="433">原有的同名路径。</text><text class="t muted" x="842" y="470">共享数据需要明确挂载。</text>
+</svg>

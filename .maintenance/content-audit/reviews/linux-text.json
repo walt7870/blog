@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/text-processing.md",
+      "status": "verified",
+      "reviewedHash": "30ff499c6a8bcab720cd1d84b04748c3fbd0b9acb4f62fd82ce5f74edb6abbfa",
+      "pageType": "记录处理机制与有限实验",
+      "decision": "全文审查旧782行，移除重复文件命令与无边界脚本，修字节/字符、平均值分母、uniq相邻去重、排序键与CSV解析混淆；用四条日志贯穿字段、计数、请求对象和退出状态。",
+      "validation": ["提取全部正文Bash代码在Debian12容器执行，得到export两次、payments一次、两个请求编号、count=3 average_ms=1366.67；sed仅修改端口，最终diff预期返回1。SVG技能自检和独立实际字体截图通过；1280×800与390×844浅深色全页、图片预览/原尺寸/关闭、全部超宽代码键盘滚动通过，无整页溢出。构建14.57秒成功，本地引用与diff检查通过；未实测真实日志或大数据排序性能。"]
+    },
+    {
+      "file": "docs/linux/command/text-compare.md",
+      "status": "verified",
+      "reviewedHash": "e0a223315342f64f903903040d5abc233be92282ccd88473294cbdcf986627d4",
+      "pageType": "比较合同与合并实验",
+      "decision": "全文审查旧378行，修comm不存在的-i、未排序输入、sdiff-l含义、dos2unix进程替换、绝对路径列表比较与分块diff错误。区分字节、行、集合和关联键，补diff状态、重复键及补丁复验。",
+      "validation": ["正文全部Bash示例容器执行：diff_status=1；集合差2049/2051，共有2048/2050；join保留2049 UNKNOWN。首次patch未安装，未计通过；安装GNU patch2.7.6后set-e环境预演、应用及最终cmp通过，退出0。两图SVG自检与字体截图、两页桌面手机浅深色及图示放大、全部超宽代码滚动、比较页到处理页客户端键盘跳转通过。构建14.57秒成功；未验证交互sdiff/vimdiff和真实业务补丁。"]
+    }
+  ]
+}

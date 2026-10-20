@@ -1,0 +1,68 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/jvm/index.md",
+      "status": "verified",
+      "reviewedHash": "0450835b2a6b556be215738859720ee25bfefcfe50fd6289b0adf7e0cfece38e",
+      "pageType": "JVM主题地图",
+      "decision": "完整阅读后以199元订单请求串起类型、调用、分配、JIT与GC，缩减重复参数清单，保留全部机制和收集器入口，修正解析时机与历史CMS/ParNew版本边界；重画两张关系图。",
+      "validation": ["核对JVMS运行区、JEP444虚拟线程与JEP363移除CMS；两图结构、实际字体、画布和连线检查通过。1280桌面与390×844手机浅深色逐页截图、两图放大/原尺寸/关闭通过；最终全站构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/index.md",
+      "status": "verified",
+      "reviewedHash": "cb932629261d7c8bc58df629ed3d1e43276a08d931315047506c42398963f5ef",
+      "pageType": "逻辑数据区与物理内存总览",
+      "decision": "分清线程归属与物理位置，虚拟线程stack chunk在堆内；参数分别限定堆、元空间、NIO direct与Code Cache，补同一时段排查证据及NMT前提。本页表格保留短标签和参数不换行，限制说明列最小宽度并局部滚动。",
+      "validation": ["Temurin17实际读取heap_info、classloader_stats、codecache、Thread.print和NMT baseline/diff；核对NMT官方覆盖缺口。桌面1280与手机390浅深色截图通过，实测三张表局部scrollWidth大于clientWidth但整页为390，键盘横向滚动通过；图片交互通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/heap.md",
+      "status": "verified",
+      "reviewedHash": "d1ae160abd363266fc1d6899e3ecc4e67f8df7e62a6c0400a4046a1ccd049f83",
+      "pageType": "堆分配与对象保留机制",
+      "decision": "以并发订单导出解释分配速率、工作集与容量，区分流量峰值和终态任务仍被引用，补引用关系SVG；不把环引用、使用率和Mixed GC直接当泄漏或Full GC，明确dump/直方图停顿及敏感内容边界。",
+      "validation": ["实际JDK17诊断命令与dump/histogram帮助核对；引用图完整截图、中文边界和结构检查通过。1280/390浅深色、图示放大/原尺寸/关闭、代码局部滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/method-area.md",
+      "status": "verified",
+      "reviewedHash": "a89e119ce039fe479a24406fc654efbf5fdb5eb0d0032bf13a5c3887bce43825",
+      "pageType": "类元数据与卸载边界",
+      "decision": "分开方法区逻辑、HotSpot元空间、堆内Class mirror/静态值与Code Cache；新增宿主到旧加载器的外部保留关系图，纠正close即可卸载和内部环即泄漏；解释高水位、压缩类空间与实际类增长。",
+      "validation": ["JDK17实际classloader_stats、NMT观测；浏览器验证类加载正文链接实际跳到本页。SVG实际字体、完整图和边界检查通过；1280/390浅深色、放大/原尺寸/关闭与局部代码滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/direct-memory.md",
+      "status": "verified",
+      "reviewedHash": "ee56220fc59e9aa6338a50e1a0d32c8607b135af87678c98031bfce7c16c06cf",
+      "pageType": "NIO直接缓冲与堆外预算",
+      "decision": "重画堆内buffer外壳与堆外数据，限定NIO direct预算，不把mmap/JNI/全部Netty分配纳入MaxDirectMemorySize；补duplicate共享、Cleaner非确定释放、BufferPool、allocator保留和RSS/NMT口径。",
+      "validation": ["正文DirectBufferDemo在Temurin17输出199；8MiB direct预算下真实映射16MiB文件、保留4MiB direct、再次申请5MiB按预期失败，mapped/direct池分别16MiB/4MiB，进程已退出。SVG字体/边界与1280/390浅深色、图片交互、代码滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/vm-stack.md",
+      "status": "verified",
+      "reviewedHash": "ccaea8d06dfcc3b3c634a6d9f50de292fc12ca14e5c77f4011ff499c95c0c8cf",
+      "pageType": "调用现场与线程栈容量",
+      "decision": "以Controller/Service/Repository共用订单对象解释参数传引用值与逻辑帧；补SOE抛出现场优先于事后dump、平台/虚拟线程物理存储区别、Xss和OS配额、Linux/macOS观测命令差异。",
+      "validation": ["核对JVMS帧和JEP444栈chunk边界；JDK17实际Thread.print验证当前sleep现场，未外推成SOE原始现场实验。SVG实际字体和边界通过；1280/390浅深色、图片交互与代码局部滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/native-method-stack.md",
+      "status": "verified",
+      "reviewedHash": "ee9e7f820a35465f034a6629e76e9c75a968e069cba72fa1214cf18a79d30abc",
+      "pageType": "native调用与资源生命周期",
+      "decision": "补Java/native帧共用平台OS栈的HotSpot实现边界，以解码器说明临时调用帧退出不等于句柄和工作线程释放；分清加载错误、致命崩溃与RSS增长，补JNI/FFM合同及NMT覆盖限制。",
+      "validation": ["核对JVMS native栈允许实现合并及NMT官方覆盖说明；没有声称真实音频SDK已运行验证。SVG全图/字体/连线和1280/390浅深色、放大/原尺寸/关闭、代码滚动通过；构建15.05秒退出0。"]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/runtime-area/program-counter.md",
+      "status": "verified",
+      "reviewedHash": "e9218856db2c73a654aedc000b16cb3ce464c146866c87ddca7f3abb8926ba4a",
+      "pageType": "执行位置与字节码偏移",
+      "decision": "删除抽象短标题堆叠，补双线程同方法不同pc图与可编译total示例，分清JVM pc、CPU地址、源码行号及JIT映射，解释返回调用者现场与native值未定义。",
+      "validation": ["Temurin17编译CounterDemo输出209，javap确认为0 iload_0、1 iload_1、2 iadd、3 ireturn；SVG字体/边界和1280/390浅深色、图片交互与代码滚动通过；构建15.05秒退出0。"]
+    }
+  ]
+}

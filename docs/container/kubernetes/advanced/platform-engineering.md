@@ -14,6 +14,8 @@ date: 2026-07-18
 
 开发者通常关心“发布一个可访问、可观测、可扩缩的订单服务”，而不是填写 Deployment、Service、HPA、Gateway 和监控规则的全部字段。平台 API 应围绕稳定任务设计，例如：
 
+下方Application是自研API的合同草图，需要对应CRD和Controller后才能运行；镜像digest占位需换成真实64位摘要。它不是Kubernetes内置资源，也不是安装Crossplane后自动拥有的API。
+
 ```yaml
 apiVersion: platform.example.com/v1alpha1
 kind: Application
@@ -32,6 +34,8 @@ spec:
 
 `availability: standard` 应由平台映射为经过验证的副本、拓扑、PDB、探针和发布策略，而不是让每个团队复制同一组 YAML。平台仍要保留受控的逃生舱口，用于确实超出标准模型的服务。
 
+例如standard默认3副本，跨节点放置，PDB最少2个健康，HPA下限也至少3；否则允许缩到2后，维护驱逐可能被全部挡住。这个等级还应公开容量假设和适用边界，不能只靠名字承诺可用性。
+
 ## 平台控制链
 
 | 层级 | 负责内容 | 不应承担的内容 |
@@ -45,6 +49,8 @@ spec:
 Crossplane Composition 或自研 Operator 可以把平台资源展开为 Kubernetes 与云资源；Cluster API 负责声明式集群生命周期；多集群 Fleet 系统负责放置和策略传播。它们解决的层级不同，不能互相替代。
 
 Crossplane 用 XRD 定义组合资源 API，用 Composition 把一个平台意图展开成多个 Kubernetes 或云资源；函数流水线根据观察状态和期望状态计算组合结果。它适合基础设施组合，但平台仍要负责 API 版本、凭据边界、删除策略和恢复来源。
+
+字段必须有唯一的持续写入主体：GitOps管理Application意图，平台Controller管理生成对象；若HPA拥有Deployment replicas，平台Controller就不能每轮重写固定值。回滚Application版本也不自动撤销云数据库删除或还原数据，恢复合同要覆盖外部资源。
 
 Cluster API 在管理集群中运行 Provider，通过 Cluster、Machine、MachineDeployment 等 CR 管理工作负载集群和节点基础设施。管理集群因此成为关键控制面：其备份、Provider 兼容和凭据故障会影响后续集群生命周期，即使现有工作负载集群暂时仍在运行。
 
@@ -99,8 +105,3 @@ Cluster API 在管理集群中运行 Provider，通过 Cluster、Machine、Machi
 - 平台 API 只是逐字段复制 Kubernetes API，没有形成稳定意图。
 
 平台建设应从一条高频开发者旅程开始，先证明端到端收益，再扩展能力目录。
-
-## 官方资料
-
-- [Crossplane Compositions](https://docs.crossplane.io/latest/composition/compositions/)
-- [Cluster API Concepts](https://cluster-api.sigs.k8s.io/user/concepts)

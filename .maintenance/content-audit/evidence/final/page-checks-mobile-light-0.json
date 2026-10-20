@@ -1,0 +1,951 @@
+[
+  {
+    "file": "AGENTS.md",
+    "dark": false,
+    "images": [],
+    "scroll": 390,
+    "text": 4703,
+    "title": "项目文档约束",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/agent.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/agent-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2717,
+    "title": "AI 智能体",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/application-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-application-architecture.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1378,
+    "title": "AI 应用架构",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-application-architecture.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 927,
+    "title": "AI 应用开发",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/01-what-is-langchain.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/langchain-request-flow.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 3849,
+    "title": "01. LangChain 到底是什么",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/02-langgraph-workflow.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/langgraph-support-routing.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3706,
+    "title": "02. 从函数调用到 LangGraph 状态工作流",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/03-rag-from-zero.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rag-evidence-gate.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2986,
+    "title": "03. 一次完整 RAG 是怎样运行的",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/04-tools-workflows-agents.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/agent-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3289,
+    "title": "04. Tools、工作流与 Agent 不要混为一谈",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/05-production-practices.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/sql-readonly-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4307,
+    "title": "05. 从 Demo 到可上线的 LangChain 应用",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/langchain/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/langchain-request-flow.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 2201,
+    "title": "LangChain 从入门到工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/applications/model-api.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/model-response-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2312,
+    "title": "模型 API 与结构化输出",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/01-ai-coding-agent-era.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/agent-verification-loop.svg",
+        "width": 1080
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep01/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5613,
+    "title": "AI 编程的任务闭环与自治边界",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/02-coding-agent-internals.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/harness-control-plane.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep02/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep02/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep02/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep02/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep02/fig-08.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5799,
+    "title": "Coding Agent 的工具执行循环",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/runtime-selection.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep03/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep03/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep03/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep03/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep03/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5544,
+    "title": "AI 编程工具的工作流选型",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/ai-choice.svg",
+        "width": 225
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep04/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 6006,
+    "title": "Vibe Coding、Agentic Engineering 与 Spec-Driven：三种方法的边界",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/05-executable-task-contract.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-01.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-cancel-state.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep05/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5818,
+    "title": "Agent 任务契约与验收证据",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/06-context-engineering.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/context-package-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep06/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5836,
+    "title": "Context Engineering：决定 Agent 依据什么事实行动",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/07-agents-rules-skills-hooks.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-01.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep07/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5975,
+    "title": "AGENTS.md、Rules、Skills 与 Hooks 的职责",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/mcp-architecture.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep08/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 6175,
+    "title": "MCP 与 Agent 工具工程：连接能力不是越多越好",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/09-brownfield-understand-before-edit.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-request-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-cancel-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2683,
+    "title": "Brownfield 实战一：建立基线与修改范围",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-verification-stages.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-cancel-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2943,
+    "title": "Brownfield 实战二：用测试约束 Agent 修改",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-verification-stages.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/order-request-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2882,
+    "title": "Brownfield 实战三：验证、审查与交付",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/runtime-selection.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/worktree-integration.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep12/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep12/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep12/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep12/fig-08.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep12/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 6085,
+    "title": "Cloud Agent、Worktree 与多 Agent：并行不是把任务复制十份",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/13-ai-coding-security-governance.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-01.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-03.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-07.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep13/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5829,
+    "title": "AI 编程安全与团队治理：从 Prompt 到真实副作用的威胁模型",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep14/fig-02.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/productivity-example.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep14/fig-04.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep14/fig-05.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep14/fig-06.png",
+        "width": 1600
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/coding-agent-series/ep14/fig-09.png",
+        "width": 1600
+      }
+    ],
+    "scroll": 390,
+    "text": 5745,
+    "title": "AI 编程到底有没有提效：从研究数字到团队净收益",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/coding-agent-series/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/agent-verification-loop.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 390,
+    "text": 1841,
+    "title": "AI 编程深度系列",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/deep-learning/architectures.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/network-architecture-relations.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1754,
+    "title": "深度学习主要架构",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/deep-learning/framework-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-training-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2456,
+    "title": "深度学习工程实践",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/deep-learning/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-training-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1325,
+    "title": "深度学习",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/deep-learning/neural-networks.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/gradient-update-example.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1688,
+    "title": "神经网络与反向传播",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/computer-vision.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/vision-coordinate-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1531,
+    "title": "计算机视觉",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-domain-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 922,
+    "title": "AI 主要应用方向",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/multimodal.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/multimodal-evidence-alignment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1112,
+    "title": "多模态模型",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/nlp.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/nlp-evidence-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1626,
+    "title": "自然语言处理",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/recommendation.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/recommendation-feedback-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1169,
+    "title": "推荐系统",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/reinforcement-learning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/rl-state-action-loop.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1241,
+    "title": "强化学习",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/speech.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/speech-runtime-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1269,
+    "title": "语音识别与语音合成",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/domains/time-series.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/time-series-backtest.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1258,
+    "title": "时间序列与预测",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/engineering/cost-capacity.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/capacity-cost-accounting.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1614,
+    "title": "成本、容量与性能",
+    "width": 390
+  },
+  {
+    "file": "docs/ai/engineering/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/ai/ai-engineering-lifecycle.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 838,
+    "title": "AI 工程化",
+    "width": 390
+  }
+]

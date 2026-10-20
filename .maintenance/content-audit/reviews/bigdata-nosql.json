@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/bigdata/nosql-databases.md",
+      "status": "verified",
+      "reviewedHash": "ae9c2f8c5695d852cc48a8d18239fafcf74b8840f4ba247d56e7b20f9870e70c",
+      "pageType": "NoSQL访问模型、聚合和分区边界导读",
+      "decision": "旧1732行全文读取后重写，去除通用性能排名、NoSQL无schema/必然最终一致/线性扩展绝对化、Redis事务回滚误述、危险HBase删表和ValueFilter行过滤、过时Neo4j算法模板。保留宽列与CAP实质说明，链接已有数据库机制与实操专页；补设备事件行键、网络分区订单状态和派生视图纠错场景。",
+      "validation": [
+        "浏览器核对HBase新文档schema-design及regionserver-sizing中的行键字节序、热点、salting/hashing、单调时间键、预分区和TTL/compaction段。旧book入口标为legacy，不作为当前部署参数依据。Redis/MongoDB/图数据库事实沿用已验收专页边界。",
+        "Node Buffer.compare断言固定UTC行键[start,stop)包含前三条而排除13:00事件。此为编码与范围验证，未执行HBase/Cassandra客户端或集群测试。",
+        "完整构建17.54秒退出0并重启preview。SVG self_check、实际字体画布边界及完整截图通过；1280桌面/390×844手机亮深色、图片放大/原尺寸/关闭通过，无破图和全页溢出。viewport已恢复。"
+      ]
+    }
+  ]
+}

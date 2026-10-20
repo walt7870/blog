@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="proxy-evidence-title proxy-evidence-desc">
+  <title id="proxy-evidence-title">代理请求按接入握手认证与响应分层排查</title>
+  <desc id="proxy-evidence-desc">固定同一请求与时间后，根据接入、握手、认证或目标响应的证据选择下一项检查。每层结论有边界，最终单变量修改并复验，失败恢复。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs>
+  <rect width="1120" height="680" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="57" font-size="27" font-weight="700">先取得证据，再选择排查分支</text>
+    <text x="48" y="91" font-size="17" fill="#536470">固定请求、目标、客户端与时间；显式代理和实际应用相互对照。</text>
+    <g stroke="#596b78" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M385 181H477"/><path d="M385 289H477"/>
+      <path d="M385 397H477"/><path d="M385 505H477"/>
+    </g>
+    <rect x="48" y="141" width="337" height="80" rx="5" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="68" y="173" font-size="21" font-weight="700">连接页未找到请求</text>
+    <text x="68" y="201" font-size="16">可能未接入，也可能已结束或被过滤</text>
+    <rect x="477" y="141" width="595" height="80" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="497" y="173" font-size="20" font-weight="700">应用设置、本机端口、NO_PROXY 与过滤条件</text>
+    <text x="497" y="201" font-size="16">重新发起持续请求；不要直接认定远端故障</text>
+    <rect x="48" y="249" width="337" height="80" rx="5" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="68" y="281" font-size="21" font-weight="700">远端握手失败</text>
+    <text x="68" y="309" font-size="16">保存连接错误与证书验证结果</text>
+    <rect x="477" y="249" width="595" height="80" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="497" y="281" font-size="20" font-weight="700">DNS、地址端口、路由、防火墙、TLS 名称与信任链</text>
+    <text x="497" y="309" font-size="16">按错误区分超时、拒绝连接和证书验证失败</text>
+    <rect x="48" y="357" width="337" height="80" rx="5" fill="#edf4fc" stroke="#819bb6"/>
+    <text x="68" y="389" font-size="21" font-weight="700">代理认证失败</text>
+    <text x="68" y="417" font-size="16">以入站日志与受控测试关联</text>
+    <rect x="477" y="357" width="595" height="80" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="497" y="389" font-size="20" font-weight="700">协议、密码、配置版本与全部入口的应用结果</text>
+    <text x="497" y="417" font-size="16">订阅获取成功，不代表运行内核已经切换</text>
+    <rect x="48" y="465" width="337" height="80" rx="5" fill="#e9f5f0" stroke="#7caaa0"/>
+    <text x="68" y="497" font-size="21" font-weight="700">到达目标但业务失败</text>
+    <text x="68" y="525" font-size="16">响应状态、请求 ID、目标日志</text>
+    <rect x="477" y="465" width="595" height="80" rx="5" fill="#fff" stroke="#a4b3be"/>
+    <text x="497" y="497" font-size="20" font-weight="700">确认响应来自哪一层，再检查权限、方法与目标状态</text>
+    <text x="497" y="525" font-size="16">目标 API 的 401 不等于代理节点密码错误</text>
+    <path d="M48 583H1072" stroke="#c2cbd2"/>
+    <text x="48" y="622" font-size="18">单变量修改 → 相同请求复验 → 内网与代理目标复验；失败时恢复兼容且未泄漏的版本。</text>
+  </g>
+</svg>

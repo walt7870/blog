@@ -1,0 +1,112 @@
+{
+  "pages": [
+    {
+      "file": "docs/tools/git/advanced.md",
+      "status": "verified",
+      "reviewedHash": "27322d523c092772a7d8e94868a5850fb3d54013e5a5b0632f38d36cca8c8387",
+      "pageType": "进阶命令与适用边界",
+      "decision": "完整阅读后修正bisect退出码、跳过与单调边界，固定发布基线和子模块提交，说明Worktree正常移除、共享配置与独立运行资源；速查页链接对象机制，无需重复SVG。",
+      "findings": [],
+      "validation": [
+        "官方bisect全文核对0/1–127/125规则；临时仓库实测Worktree脏保护、移除后提交保留；构建14.42秒通过。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/conventions.md",
+      "status": "verified",
+      "reviewedHash": "8c9e37d7d88bd5e884c80ad62084a098266765e7716bf93256fd11a0371d81b9",
+      "pageType": "提交意图与评审规范",
+      "decision": "完整阅读后修复soft reset后无法直接选补丁的错误，改mixed并解释索引；补中文订单导出提交与已填写PR示例、Hook信任和服务端门禁边界。无需独立SVG，索引图由核心概念页承接。",
+      "findings": [],
+      "validation": [
+        "临时仓库验证soft保留索引、mixed重建索引且文件保留；构建通过。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/ecosystem.md",
+      "status": "verified",
+      "reviewedHash": "5fe50e59b8dae0d3869ff8e64c2645fcb9add062ab0a54ea17d431c555543af5",
+      "pageType": "工具职责与交付流程",
+      "decision": "完整阅读后补订单导出交付职责SVG与具体例子，修Hook路径和shebang，补lint-staged部分暂存、LFS可下载性与GitOps不能自动撤销数据库迁移。",
+      "findings": [],
+      "validation": [
+        "新增SVG自检及独立浏览器截图通过；双视口放大原尺寸关闭通过；未安装或执行外部Hook。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/internals-large-repositories.md",
+      "status": "verified",
+      "reviewedHash": "2e096de397fa83bbcda0301a6bd382c06841cac924847453bd28c96801a24d9e",
+      "pageType": "对象图与大型仓库边界",
+      "decision": "完整阅读及图标签核对后重画ref→commit→parent/tree→blob，区分存储表示；修复管理路径、pack循环、dangling根、维护阈值、Partial检出与Sparse作用范围。",
+      "findings": [
+        {
+          "kind": "mobile-table-width",
+          "status": "resolved",
+          "detail": "增加8em最小列宽；390px截图确认最小112px、表格342px内部横滚492px，无整页溢出或逐字换行。共享主题最终逐页复验仍待完成。"
+        }
+      ],
+      "validation": [
+        "SVG自检与最终修字后的独立截图通过，双视口放大关闭通过；手机四列表出现窄列，留全站UI修复。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/repository-strategies.md",
+      "status": "verified",
+      "reviewedHash": "e864b03906f9f2e5393972fdfb55afb48f99db3e5c97ba64936b8cc74d586990",
+      "pageType": "源码所有权与依赖交付",
+      "decision": "完整阅读后重画判断图，明确包管理器与仓库策略可组合、源码原子提交不代表原子部署；补Gitlink/.gitmodules和独立权限备份，Subtree改先fetch核实再导入。",
+      "findings": [],
+      "validation": [
+        "SVG自检、独立截图、双视口放大关闭通过；未对外部仓库执行示例推送。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/security.md",
+      "status": "verified",
+      "reviewedHash": "a2da36952c1e424e8a263731fb85b81b4a3a919f3d855141939095aba35cff0b",
+      "pageType": "泄露处置与恢复范围",
+      "decision": "完整阅读后修证书与私钥区分、IDE共享配置、历史清理明确引用租约、空格路径统计、签名证明边界、Bundle缺少LFS/子模块与运行数据；补处置备份SVG。",
+      "findings": [],
+      "validation": [
+        "临时仓库实际Bundle创建verify和clone，通过可达引用恢复与不含未跟踪文件断言；SVG自检、独立截图、双视口放大关闭通过。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/gitlab-cicd.md",
+      "status": "verified",
+      "reviewedHash": "caecf381b8b5f6889332d497e7decf0b0f5e2c26b6edae2ce15dc5d6fe7d372e",
+      "pageType": "平台部署与受信发布链路",
+      "decision": "完整695行及两图核对，保留构建/制品/部署/通知/回滚的完整解释；补patch非字段权限、immutable须内容变更URL前提；重画控制、身份与制品链路。",
+      "findings": [
+        {
+          "kind": "mobile-table-width",
+          "status": "resolved",
+          "detail": "增加8em最小列宽；390px截图确认最小112px、表格342px内部横滚449px，无整页溢出或逐字换行。共享主题最终逐页复验仍待完成。"
+        }
+      ],
+      "validation": [
+        "两张图双视口原尺寸/关闭通过，四个关键章节锚点双视口截图通过；官方Runner Kubernetes executor核对管理Pod/作业Pod边界。示例包含需实现的ci脚本契约，未声称真实云部署验证。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/tools/git/video-series.md",
+      "status": "retained",
+      "reviewedHash": "25805792da2a96751d4318bc83964b6e290192b9a35d63150d2ace26fa3265c7",
+      "pageType": "十八集视频与阅读导航",
+      "decision": "完整阅读全部18集和阅读路径，保留目录与能力清单；表格已足以表达集数映射，无需装饰SVG。",
+      "findings": [],
+      "validation": [
+        "18个B站官方view接口均code0且标题与集数对应；仅验证元数据，未逐集播放视频。",
+        "1280×720和390×844双主题首屏检查通过；除CI长页按四段检查外均深色全文截图检查；无整页横溢出，双视口客户端分页跳转通过。"
+      ]
+    }
+  ]
+}

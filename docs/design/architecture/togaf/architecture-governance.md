@@ -72,7 +72,8 @@
 id: EXC-MEMBER-20260718-01
 request: 大促前在营销系统临时读取会员等级快照
 reason: 会员中心暂不支持该活动所需的批量查询
-violated_principle: 会员等级只有会员中心定义和修改
+deviated_standard: 渠道通过会员正式查询契约读取等级
+preserved_principle: 会员等级仍只由会员中心定义和修改
 scope: 活动 A、渠道 B、有效期 14 天
 compensation:
   - 快照只读，不允许回写会员中心
@@ -82,7 +83,7 @@ owner: 营销平台负责人
 expiry: 2026-08-01
 exit_criteria:
   - 活动结束并完成历史对账
-  - 营销系统删除临时字段和任务
+  - 停用临时快照任务与在线字段，按保存策略归档必要决策证据
   - 会员中心提供正式查询能力
 ```
 

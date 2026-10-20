@@ -1,12 +1,8 @@
 # 性能观测与压测：别只看平均耗时，用证据证明并发真的变好
 
 > 对应视频：EP17《性能观测与压测》  
-> 视频入口：[B站 EP17 定时稿](https://www.bilibili.com/video/BV1VGu76hEvU)（计划公开：2026-08-17 19:08）。
+> 视频入口：[B站 EP17](https://www.bilibili.com/video/BV1VGu76hEvU)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
-
-这篇文章是视频的工程展开版。视频负责建立问题现场、工具选择和排查链路；文章补充代码模板、状态字段、指标口径和落地检查清单。
 
 ![并发压测证据闭环图](/python/concurrency/ep17-benchmark-evidence-loop.svg)
 
@@ -24,108 +20,64 @@
 
 把指标翻译成动作：降并发、限流、拆阶段、调 batch、扩容或优化下游。
 
-## 示例代码
+## 统计口径与到达模型
 
-下方保留可直接阅读的示例代码。
+下方真正使用ThreadPoolExecutor，比较1与4个worker。模拟工作每项睡眠5毫秒，每37项确定失败一次，因此100项始终是97成功、3失败；这只演示统计与并发，不代表网络或模型压测。延迟从提交开始计时，包含等待线程的排队，不能只统计worker内部的sleep。
 
-## 问题、解决方式和工具
-
-| 问题 | 解决方式 | 工具 |
-| --- | --- | --- |
-| 平均耗时下降，P95 和错误率可能变差 | 单一指标会隐藏尾部延迟、失败和资源占用。 | avg / P95 / errors / CPU/RSS |
-| 吞吐、尾延迟、错误率要一起看 | 指标口径解决的是判断标准：快、稳、省资源必须同时成立。 | 吞吐 / P95/P99 / 错误率 / 队列长度 |
-| 系统资源告诉你瓶颈有没有被转移 | 资源观测解决的是并发优化有没有把压力推到别处。 | CPU / RSS / disk I/O / network / GPU |
-| 每次只改一个关键参数 | 对照实验解决的是因果判断，避免同时改太多无法解释。 | max_workers / queue_size / timeout / batch_size |
-
-
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
-
-**读图方式**
-
-- 压测不是把并发调到最大，而是找出吞吐、延迟、错误率和成本之间的拐点。
-- 每次只改一个变量，例如 `max_workers`、batch_size、timeout 或重试预算。
-- 实验结论必须带输入数据、环境、参数、指标和回滚建议。
-
-**排查路径**
-
-- 基础指标至少包括 throughput、avg latency、p95/p99、error_rate、qsize、CPU/RSS/GPU。
-- 如果平均值变好但 p99 变差，要优先解释尾部任务为什么变慢。
-- 如果吞吐到某点不再提升，同时错误率上升，这个点就是并发上限附近。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 只看总耗时 | 吞吐、p95/p99、错误率 | 建立多指标报告 |
-| 每次改多个参数 | 实验记录、diff | 单变量实验，保留 baseline |
-| 压测无法复现 | 数据集、随机种子、环境 | 固定输入和运行环境 |
-| 优化后线上更不稳 | 资源曲线、队列峰值 | 用 canary 和回滚阈值上线 |
-
-**落地边界**
-
-- 没有记录的优化等于没有发生，因为无法复盘也无法回滚。
-- 压测数据要和真实任务形态接近，不能只用过小或过干净的样本。
-<!-- concurrency-series-engineering-supplement:end -->
+throughput同时给出完成吞吐和成功吞吐，错误率分母是全部100次请求；P95采用最近秩法ceil(0.95N)，不在失败请求上静默删样本。小样本的P99波动很大，要记录样本数。线程池不断补工作属于闭环负载，不能直接证明固定外部到达率下的容量；线上还需按目标到达率发压并统计拒绝、超时与未完成请求。
 
 ## 实战检查清单
 
-- 入口是否有容量边界，而不是无限提交。
-- 任务是否有状态字段，失败是否能恢复。
-- 每个重试是否有上限、退避和幂等保护。
-- 是否记录吞吐、P95、错误率、队列长度和关键资源水位。
-- 排查结果是否能指向具体动作：降并发、拆阶段、调 batch、隔离坏文件或回退方案。
+- 实际执行是否使用并发参数，输入和环境是否固定。
+- 延迟是否包含排队，失败和拒绝是否进入统计分母。
+- P95/P99算法、样本数、完成吞吐和成功吞吐是否明确。
+- 负载是闭环还是固定到达率，结论是否限定到相同条件。
 
-## 结尾总结
+## 运行示例
 
-最后把这一集收回来。
-
-并发优化不是改完代码就结束，而是用证据证明系统更快、更稳。
-
-先建立 baseline，再固定输入做对照实验；同时看 throughput、P95/P99、error_rate、qsize、CPU、RSS、磁盘、网络和 GPU。
-
-结果必须能指向动作：降并发、加背压、拆阶段、调 batch，或者承认瓶颈在外部服务。
-
-## 配套示例代码
-
-源码文件：`examples/ep17/concurrency_benchmark.py`
+示例保存为`examples/ep17/concurrency_benchmark.py`；目录和文件名由本地自行创建。
 
 ```python
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from math import ceil
 import statistics
 import time
-from dataclasses import dataclass
 
 @dataclass
 class Result:
     latency: float
-    failed: bool = False
+    failed: bool
 
 def percentile(values, p):
+    if not values or not 0 < p <= 100:
+        raise ValueError("需要非空样本，且0 < p <= 100")
     values = sorted(values)
-    index = int((len(values) - 1) * p / 100)
-    return values[index]
+    return values[ceil(len(values) * p / 100) - 1]
+
+def work(index, submitted_at):
+    time.sleep(0.005)
+    return Result(time.perf_counter() - submitted_at, index % 37 == 0)
 
 def execute(worker_count):
-    results = []
-    for i in range(100):
-        started = time.perf_counter()
-        time.sleep(0.001)
-        results.append(Result(time.perf_counter() - started, failed=(i % 37 == 0)))
-    return results
+    with ThreadPoolExecutor(max_workers=worker_count) as pool:
+        futures = [pool.submit(work, i, time.perf_counter()) for i in range(100)]
+        return [future.result() for future in futures]
 
-def run_case(name, worker_count):
+def run_case(worker_count):
     started = time.perf_counter()
     results = execute(worker_count)
     elapsed = time.perf_counter() - started
-    latencies = [r.latency for r in results]
-    return {
-        'name': name,
-        'throughput': len(results) / elapsed,
-        'avg': statistics.mean(latencies),
-        'p95': percentile(latencies, 95),
-        'errors': sum(r.failed for r in results),
-    }
+    errors = sum(result.failed for result in results)
+    latencies = [result.latency for result in results]
+    return {"workers": worker_count, "count": len(results), "elapsed": elapsed,
+            "completed_per_second": len(results) / elapsed,
+            "success_per_second": (len(results) - errors) / elapsed,
+            "avg": statistics.mean(latencies), "p95": percentile(latencies, 95),
+            "errors": errors, "error_rate": errors / len(results)}
 
-print(run_case('baseline', 1))
+if __name__ == "__main__":
+    for workers in (1, 4):
+        print(run_case(workers))
 ```
 

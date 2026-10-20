@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
-  <title id="title">TCP 可靠传输闭环</title>
-  <desc id="desc">发送窗口、网络、接收重组、累计确认、丢包检测和重传之间的闭环。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="tcp-loop-title tcp-loop-desc">
+  <title id="tcp-loop-title">TCP 可靠传输闭环</title>
+  <desc id="tcp-loop-desc">发送窗口、网络、接收重组、累计确认、丢包检测和重传之间的闭环。</desc>
   <defs>
     <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#55c7b3"/></marker>
     <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#e8b94b"/></marker>
@@ -18,7 +18,6 @@
   <g transform="translate(165 455)"><rect class="box" width="330" height="130" rx="10"/><text class="label" x="24" y="48">ACK 推进</text><text class="sub" x="24" y="80">释放已确认数据</text><text class="sub" x="24" y="106">允许窗口继续前进</text></g>
   <g transform="translate(555 455)"><rect class="hot" width="330" height="130" rx="10"/><text class="label" x="24" y="48">发现丢失</text><text class="sub" x="24" y="80">RTO、重复 ACK、SACK</text><text class="sub" x="24" y="106">判断需要补发的字节范围</text></g>
   <g transform="translate(945 455)"><rect class="box" width="330" height="130" rx="10"/><text class="label" x="24" y="48">调整发送速率</text><text class="sub" x="24" y="80">流量控制保护接收端</text><text class="sub" x="24" y="106">拥塞控制保护网络</text></g>
-  <path class="forward dashed" d="M720 455V420H230V300"/>
-  <path class="feedback dashed" d="M945 520H885"/>
-  <text class="sub" x="720" y="660" text-anchor="middle">实际可发送量 = min(接收窗口 rwnd, 拥塞窗口 cwnd)</text>
+  <text class="sub" x="720" y="632" text-anchor="middle">三个处理机制共同更新发送端状态，不表示按固定顺序执行</text>
+  <text class="sub" x="720" y="668" text-anchor="middle">新增可发 ≈ max(0, min(rwnd, cwnd) − 已在途字节)，还受 pacing 与恢复状态约束</text>
 </svg>

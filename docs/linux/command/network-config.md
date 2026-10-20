@@ -1,390 +1,91 @@
-# Linux 网络配置和诊断
+# 网络配置与回退
 
-## 概述
+网络配置需要同时回答三个问题：当前内核用了什么、谁负责生成这些状态、重连或重启后会恢复成什么。`ip addr add`立即生效，却可能在DHCP续租或管理器重新应用时消失；编辑了配置文件，也不等于当前连接已使用它。先识别管理者，再选择变更入口。
 
-网络配置和诊断是 Linux 系统管理的重要技能，涉及网络接口配置、路由设置、防火墙配置、网络故障排除等。掌握这些技能对于维护网络连接和解决网络问题至关重要。
+![持久配置、管理器和内核运行状态的关系](/linux/network-config-ownership.svg)
 
-## 网络接口配置
+## 识别当前配置的所有者
 
-### 静态 IP 配置
+发行版名称不能单独决定配置文件位置。桌面或服务器可能使用NetworkManager、systemd-networkd、Netplan或ifupdown；Netplan还会把声明转换给后端。容器网络通常由运行时或编排系统管理，不应在容器内照搬宿主机网络重启命令。
 
-#### 使用 ifconfig
-```bash
-# 配置 IP 地址
-sudo ifconfig eth0 192.168.1.100 netmask 255.255.255.0
+下面是只读检查入口，某些工具未安装或管理器未运行是正常分支，不能据此同时启动多套管理器：
 
-# 配置网关
-sudo route add default gw 192.168.1.1
-
-# 配置 DNS
-echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
-```
-
-#### 使用 ip 命令
-```bash
-# 配置 IP 地址
-sudo ip addr add 192.168.1.100/24 dev eth0
-
-# 配置网关
-sudo ip route add default via 192.168.1.1
-
-# 启用接口
-sudo ip link set eth0 up
-```
-
-### 动态 IP 配置 (DHCP)
-
-```bash
-# 使用 dhclient 获取 IP
-sudo dhclient eth0
-
-# 释放 IP 地址
-sudo dhclient -r eth0
-
-# 重新获取 IP
-sudo dhclient eth0
-```
-
-### 网络配置文件
-
-#### Ubuntu/Debian (/etc/network/interfaces)
-```bash
-# 编辑网络配置
-sudo nano /etc/network/interfaces
-
-# 静态配置示例
-auto eth0
-iface eth0 inet static
-    address 192.168.1.100
-    netmask 255.255.255.0
-    gateway 192.168.1.1
-    dns-nameservers 8.8.8.8 8.8.4.4
-
-# DHCP 配置示例
-auto eth0
-iface eth0 inet dhcp
-```
-
-#### CentOS/RHEL (/etc/sysconfig/network-scripts/)
-```bash
-# 编辑网络配置
-sudo nano /etc/sysconfig/network-scripts/ifcfg-eth0
-
-# 静态配置示例
-DEVICE=eth0
-BOOTPROTO=static
-IPADDR=192.168.1.100
-NETMASK=255.255.255.0
-GATEWAY=192.168.1.1
-DNS1=8.8.8.8
-ONBOOT=yes
-
-# DHCP 配置示例
-DEVICE=eth0
-BOOTPROTO=dhcp
-ONBOOT=yes
-```
-
-## NetworkManager 配置
-
-### nmcli 命令
-
-```bash
-# 显示连接
-nmcli connection show
-
-# 显示设备
+```text
+ip -br address
+ip route show
+ip rule show
+systemctl is-active NetworkManager systemd-networkd
+nmcli connection show --active
 nmcli device status
-
-# 创建新连接
-nmcli connection add type ethernet con-name "my-connection" ifname eth0
-
-# 配置静态 IP
-nmcli connection modify "my-connection" ipv4.addresses 192.168.1.100/24
-nmcli connection modify "my-connection" ipv4.gateway 192.168.1.1
-nmcli connection modify "my-connection" ipv4.dns 8.8.8.8
-
-# 启用连接
-nmcli connection up "my-connection"
-
-# 禁用连接
-nmcli connection down "my-connection"
+networkctl status
+ls -l /etc/resolv.conf
+resolvectl status
 ```
 
-### nmtui 交互式配置
+再检查实际存在的`/etc/netplan/`、`/etc/NetworkManager/system-connections/`、`/etc/systemd/network/`或`/etc/network/interfaces`及其包含文件。传统ifcfg也可能只适用于特定发行版与插件版本，不作为所有RHEL系统的统一入口。云主机还可能由cloud-init生成配置，直接改生成文件会在后续初始化中被覆盖。
 
-```bash
-# 启动交互式配置
-nmtui
+## 临时试验不等于持久配置
+
+下面只在已授权的测试机、空闲测试接口或隔离网络命名空间中演示，`lab0`不是实际接口，保留地址不能用于公网业务。操作前确认测试范围；不在当前SSH依赖的接口上直接执行。
+
+```text
+ip address add 192.0.2.20/24 dev lab0
+ip route get 192.0.2.30
+ip address del 192.0.2.20/24 dev lab0
 ```
 
-## 路由配置
+删除只对应本次添加的地址，不清空接口全部地址。临时路由也应记录原路由并精确回退，不能用`ip route del default`作为通用排错步骤。测试后还要确认管理器重新应用、续租或重启时的预期行为。
 
-### 静态路由
+远程修改前，记录当前地址、路由、规则、活动连接与DNS，保留配置备份，准备云控制台或带外入口。回退计时器应在变更前就绪，并确认它不依赖被修改的连接；若工具支持带超时确认的事务或检查点，按当前版本语法使用。验证应从新的远程连接发起，原SSH存活可能只是已有连接被保留。
 
-```bash
-# 添加静态路由
-sudo ip route add 192.168.2.0/24 via 192.168.1.1
+## 持久配置只走对应管理器
 
-# 添加默认路由
-sudo ip route add default via 192.168.1.1
+NetworkManager要修改的是连接配置，不是把设备名机械当作连接名。先用`nmcli connection show`确认UUID、绑定设备与活动配置，再修改目标连接。测试机中静态IPv4示意如下：
 
-# 删除路由
-sudo ip route del 192.168.2.0/24
-
-# 显示路由表
-ip route show
+```text
+nmcli connection modify lab-static \
+  ipv4.method manual \
+  ipv4.addresses 192.0.2.20/24 \
+  ipv4.gateway 192.0.2.1 \
+  ipv4.dns 192.0.2.53
 ```
 
-### 路由配置文件
+示例只修改持久配置，不自动激活；网关与DNS均为占位。应用前确认网关在实际链路上可达、DNS可用、IPv6策略与多网卡路由优先级明确。`nmcli connection up`可能重建连接，不能在无回退的远程会话中盲目执行。恢复DHCP时要同时核对并清除不再需要的静态地址、网关和手动DNS设置，不只改一个`method`字段。
 
-```bash
-# 编辑路由配置
-sudo nano /etc/sysconfig/network-scripts/route-eth0
+systemd-networkd使用`.network`等配置；下面是独立测试接口的片段，不是可覆盖整机的完整配置：
 
-# 添加静态路由
-192.168.2.0/24 via 192.168.1.1
+```ini
+[Match]
+Name=lab0
+
+[Network]
+Address=192.0.2.20/24
+Gateway=192.0.2.1
+DNS=192.0.2.53
 ```
 
-## DNS 配置
+networkd中的DNS声明需要解析服务等配套才能供应用使用，不能仅凭文件有`DNS=`就认为`/etc/resolv.conf`已经更新。使用Netplan时核对`renderer`及现有YAML合并关系，先做语法生成检查，再按当前版本的试应用与回退流程操作；`netplan try`也需要实际确认回滚结果。不要同时编辑Netplan声明和它生成的后端文件。
 
-### resolv.conf 配置
+## DNS文件的管理权要保持一致
 
-```bash
-# 编辑 DNS 配置
-sudo nano /etc/resolv.conf
+`/etc/resolv.conf`可能是普通文件，也可能链接到systemd-resolved或其他服务生成的文件。直接用`tee`覆盖会破坏管理关系，稍后又可能被DHCP重写。先查看链接、解析服务状态和每条链路的DNS，再在实际管理器中设置服务器与域。
 
-# 配置示例
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-search example.com
-```
+systemd-resolved的`resolvectl dns 接口 服务器`、`resolvectl domain`可用于当前链路配置，但持久化通常要回到NetworkManager、networkd等来源。`resolvectl revert 接口`撤销该接口通过相应接口设置的运行时配置，不是通用的持久备份恢复。分域解析涉及搜索域与路由域，企业VPN场景不能简单把所有请求改发公共DNS。
 
-### systemd-resolved 配置
+变更后分别验证应用使用的NSS入口、需要的A/AAAA记录、内部域与外部域，再验证真实HTTPS入口。仅`dig`得到地址不能证明应用按相同路径解析；排查方式见[网络请求排查](./network.md)。
 
-```bash
-# 启用 systemd-resolved
-sudo systemctl enable systemd-resolved
-sudo systemctl start systemd-resolved
+## 防火墙按规则来源与作用范围修改
 
-# 配置 DNS
-sudo systemd-resolve --set-dns=8.8.8.8 --interface=eth0
-```
+先确认当前由nftables、iptables兼容层、firewalld、UFW还是云安全组控制；主机规则、容器转发链和云边界可能同时存在。`iptables`命令可能使用nft后端，不能按命令名认定是独立旧栈。查看现有规则与计数，确认流量经过INPUT、OUTPUT还是FORWARD，再修改准确位置；容器发布端口尤其不能只盯主机INPUT。
 
-## 防火墙配置
+远程变更应先保证当前管理来源到实际SSH端口的允许规则，再考虑启用或收紧策略，并从第二个连接验证。UFW不应先`enable`再补SSH例外；firewalld要核对接口/来源所在zone，运行时规则和`--permanent`持久规则分别管理，永久修改不会自动改变当前状态，reload还可能重置未持久化的运行时修改。
 
-### iptables 配置
+`iptables-save`能导出规则，但保存位置和加载服务取决于系统。`sudo iptables-save > 文件`的重定向由当前shell执行，不会因为前一个命令有sudo而获得写权限；需要时使用受控的提权写入流程，并保护备份内容。恢复整套规则可能影响容器、VPN和其他管理器，不作为普通端口排查的第一步。
 
-```bash
-# 显示防火墙规则
-sudo iptables -L
+不要用`iptables -F`、清空nft规则集或关闭防火墙测试“是否网络问题”。优先查看规则命中、有限日志或抓包，用窄范围的临时规则验证明确假设，验证后精确撤销本次规则。连接跟踪可能保留旧会话，因此要以新连接和业务请求再次确认。
 
-# 允许 SSH 连接
-sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+## 变更验收与性能调整
 
-# 允许 HTTP 连接
-sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+每次只改一个可解释的配置集合，保留变更前后地址、目标路由、解析结果与新连接证据。确认当前业务可用后，还要验证管理器重新应用或维护窗口重启后的持久状态；失败则从配置来源恢复并重新验收，不只把内核临时状态改回去。
 
-# 允许 HTTPS 连接
-sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
-
-# 保存规则
-sudo iptables-save > /etc/iptables/rules.v4
-```
-
-### ufw 配置 (Ubuntu)
-
-```bash
-# 启用 ufw
-sudo ufw enable
-
-# 允许 SSH
-sudo ufw allow ssh
-
-# 允许 HTTP
-sudo ufw allow 80
-
-# 允许 HTTPS
-sudo ufw allow 443
-
-# 查看状态
-sudo ufw status
-```
-
-### firewalld 配置 (CentOS/RHEL)
-
-```bash
-# 启动 firewalld
-sudo systemctl start firewalld
-sudo systemctl enable firewalld
-
-# 允许服务
-sudo firewall-cmd --permanent --add-service=ssh
-sudo firewall-cmd --permanent --add-service=http
-sudo firewall-cmd --permanent --add-service=https
-
-# 允许端口
-sudo firewall-cmd --permanent --add-port=8080/tcp
-
-# 重新加载配置
-sudo firewall-cmd --reload
-```
-
-## 网络诊断工具
-
-### 连接测试
-
-```bash
-# 测试网络连通性
-ping -c 4 google.com
-
-# 测试端口连接
-telnet google.com 80
-
-# 使用 nc 测试端口
-nc -zv google.com 80
-
-# 使用 curl 测试 HTTP
-curl -I http://google.com
-```
-
-### 路由诊断
-
-```bash
-# 跟踪路由
-traceroute google.com
-
-# 使用 mtr 诊断
-mtr google.com
-
-# 显示路由表
-ip route show
-
-# 测试路由
-ping -I eth0 8.8.8.8
-```
-
-### DNS 诊断
-
-```bash
-# 测试 DNS 解析
-nslookup google.com
-
-# 使用 dig 查询
-dig google.com
-
-# 测试反向解析
-dig -x 8.8.8.8
-
-# 查看 DNS 配置
-cat /etc/resolv.conf
-```
-
-### 网络接口诊断
-
-```bash
-# 显示接口状态
-ip addr show
-
-# 显示接口统计
-cat /proc/net/dev
-
-# 测试接口
-ping -I eth0 8.8.8.8
-
-# 查看接口详细信息
-ethtool eth0
-```
-
-## 网络性能优化
-
-### 网络参数调优
-
-```bash
-# 查看网络参数
-sysctl -a | grep net
-
-# 优化 TCP 参数
-echo 'net.core.rmem_max = 16777216' | sudo tee -a /etc/sysctl.conf
-echo 'net.core.wmem_max = 16777216' | sudo tee -a /etc/sysctl.conf
-echo 'net.ipv4.tcp_rmem = 4096 87380 16777216' | sudo tee -a /etc/sysctl.conf
-echo 'net.ipv4.tcp_wmem = 4096 65536 16777216' | sudo tee -a /etc/sysctl.conf
-
-# 应用参数
-sudo sysctl -p
-```
-
-### 网络监控
-
-```bash
-# 监控网络流量
-iftop -i eth0
-
-# 监控网络连接
-netstat -tulpn
-
-# 监控网络接口
-watch -n 1 "cat /proc/net/dev"
-```
-
-## 故障排除
-
-### 常见网络问题
-
-#### 网络接口问题
-```bash
-# 检查接口状态
-ip link show
-
-# 重启网络接口
-sudo ip link set eth0 down
-sudo ip link set eth0 up
-
-# 检查接口配置
-ip addr show eth0
-```
-
-#### DNS 问题
-```bash
-# 测试 DNS 解析
-nslookup google.com
-
-# 使用不同 DNS 服务器
-nslookup google.com 8.8.8.8
-
-# 检查 DNS 配置
-cat /etc/resolv.conf
-```
-
-#### 路由问题
-```bash
-# 检查路由表
-ip route show
-
-# 添加默认路由
-sudo ip route add default via 192.168.1.1
-
-# 删除错误路由
-sudo ip route del default
-```
-
-#### 防火墙问题
-```bash
-# 检查防火墙状态
-sudo iptables -L
-
-# 临时禁用防火墙
-sudo iptables -F
-
-# 检查服务端口
-netstat -tulpn | grep :80
-```
-
-## 最佳实践
-
-1. **配置备份**：定期备份网络配置文件
-2. **文档记录**：记录网络配置和变更
-3. **测试验证**：配置后测试网络连接
-4. **安全配置**：正确配置防火墙和安全策略
-5. **监控告警**：设置网络监控和故障告警
-6. **性能优化**：根据网络环境优化参数
+高延迟不自动需要扩大TCP缓冲、端口范围或连接队列。先确认丢包、重传、握手、应用并发与内存预算；`sysctl -w`是运行时修改，持久文件可能有加载顺序和覆盖关系。未经测量不要追加整套“网络优化参数”，否则可能增加内存压力、掩盖应用连接泄漏。性能证据链见[系统监控](./system-monitoring.md)。

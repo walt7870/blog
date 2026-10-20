@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="520" viewBox="0 0 1060 520" role="img" aria-labelledby="title desc">
-  <title id="title">声学问题排查路径</title>
-  <desc id="desc">展示从现象到录音、波形、频谱、模块旁路和回放验证的排查流程</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="520" viewBox="0 0 1060 520" role="img" aria-labelledby="troubleshooting-flow-title troubleshooting-flow-desc">
+  <title id="troubleshooting-flow-title">声学问题排查路径</title>
+  <desc id="troubleshooting-flow-desc">展示从现象到录音、波形、频谱、模块旁路和回放验证的排查流程</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+    <marker id="troubleshooting-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M0 0 10 5 0 10z" fill="#334155"/>
     </marker>
     <style>
       .bg{fill:#f8fafc}.box{fill:#fff;stroke:#94a3b8;stroke-width:1.5;rx:10}.warn{fill:#fff7ed;stroke:#fdba74}.ok{fill:#ecfdf5;stroke:#86efac}
-      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .line{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#troubleshooting-flow-arrow)}
       .title{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:18px;font-weight:650;fill:#0f172a}
       .txt{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;fill:#334155}
       .small{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;fill:#64748b}

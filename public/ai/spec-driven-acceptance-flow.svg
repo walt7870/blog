@@ -26,10 +26,11 @@
   <rect class="ok" x="870" y="170" width="180" height="90"/>
   <text class="text h" x="960" y="204" text-anchor="middle">验收</text>
   <text class="text b" x="960" y="230" text-anchor="middle">规格满足才完成</text>
-  <path class="line" d="M280 190 C315 150 325 125 350 125"/>
-  <path class="line" d="M280 245 C315 285 325 310 350 310"/>
-  <path class="line" d="M530 125 C585 135 650 155 680 170"/>
-  <path class="line" d="M530 310 C585 300 650 275 690 260"/>
+  <path class="line" d="M280 190H307Q315 190 315 182V133Q315 125 323 125H350"/>
+  <path class="line" d="M280 245H307Q315 245 315 253V302Q315 310 323 310H350"/>
+  <path class="line" d="M530 125H672Q680 125 680 133V170"/>
+  <path class="line" d="M530 310H712Q720 310 720 302V260"/>
   <path class="line" d="M790 215 L870 215"/>
-  <path class="line" d="M960 260 C930 395 230 395 175 285"/>
+  <path class="line" d="M960 260V407Q960 415 952 415H183Q175 415 175 407V285"/>
+  <text class="text b" x="560" y="444" text-anchor="middle">验收发现规格缺口时，先修订规格，再同步实现与测试</text>
 </svg>

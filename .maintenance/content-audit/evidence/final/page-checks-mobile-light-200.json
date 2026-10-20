@@ -1,0 +1,1621 @@
+[
+  {
+    "file": "docs/database/bigdata/nosql-databases.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/bigdata/nosql-access-contracts.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 3898,
+    "title": "NoSQL：访问模型与数据边界",
+    "width": 390
+  },
+  {
+    "file": "docs/database/elasticsearch.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/elasticsearch-write-visibility.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/elasticsearch-derived-pagination.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 10534,
+    "title": "Elasticsearch 搜索、索引与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/graph-database.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/graph-shared-device.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3978,
+    "title": "图数据库",
+    "width": 390
+  },
+  {
+    "file": "docs/database/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/database-selection-flow.svg",
+        "width": 1040
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/order-derived-views.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2662,
+    "title": "数据库技术概览",
+    "width": 390
+  },
+  {
+    "file": "docs/database/influxdb.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/influxdb-point-identity.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/influxdb-downsample-boundaries.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 8668,
+    "title": "InfluxDB 时序建模、窗口与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mongodb.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mongodb-order-boundaries.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mongodb-read-write-concerns.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 9771,
+    "title": "MongoDB",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/backup-recovery.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-recovery-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6722,
+    "title": "MySQL 备份与恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/basic-syntax.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-sql-logical-flow.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 10104,
+    "title": "MySQL 基础语法",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/data-types-design.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-field-contract.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 7944,
+    "title": "MySQL 数据类型与字段设计",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/high-availability.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-replication-progress.svg",
+        "width": 1160
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-failover-fence.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 6866,
+    "title": "MySQL 高可用与扩展",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/index-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-index-order-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4434,
+    "title": "MySQL 索引系统",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-operation-boundaries.svg",
+        "width": 1080
+      }
+    ],
+    "scroll": 390,
+    "text": 3445,
+    "title": "MySQL",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/monitoring-operations.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-observation-loop.svg",
+        "width": 1160
+      }
+    ],
+    "scroll": 390,
+    "text": 8743,
+    "title": "MySQL 监控与运维",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/partitioning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-partition-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4565,
+    "title": "MySQL 分区表",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/query-optimization.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-query-cardinality.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 8782,
+    "title": "MySQL 查询优化",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/security-permissions.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-security-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6713,
+    "title": "MySQL 安全与权限管理",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/service-modules.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-query-path.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3504,
+    "title": "MySQL 服务模块",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/storage-engines.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-engine-rollback.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 3923,
+    "title": "MySQL 存储引擎",
+    "width": 390
+  },
+  {
+    "file": "docs/database/mysql/transaction-system.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/mysql-transaction-read-view.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 7606,
+    "title": "MySQL 事务处理机制",
+    "width": 390
+  },
+  {
+    "file": "docs/database/postgresql.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/postgresql-runtime-map.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/postgresql-mvcc-vacuum.svg",
+        "width": 1240
+      }
+    ],
+    "scroll": 390,
+    "text": 10314,
+    "title": "PostgreSQL",
+    "width": 390
+  },
+  {
+    "file": "docs/database/redis.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/redis-cache-order-race.svg",
+        "width": 1200
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/database/redis-stream-delivery.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 390,
+    "text": 8059,
+    "title": "Redis",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/cloud-native-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cloud-native.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cloud-native-delivery.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6144,
+    "title": "云原生架构（Cloud-Native Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/cqrs-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/cqrs.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3200,
+    "title": "CQRS：命令与查询模型分离",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/Aggregate.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-aggregate-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4117,
+    "title": "聚合根（Aggregate Root）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/basic-concept.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-aggregate-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1261,
+    "title": "DDD 基础概念",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/domain-driven-design.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1843,
+    "title": "DDD 概述",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/event-storming.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-storming-levels.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-storming-order.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3457,
+    "title": "事件风暴（EventStorming）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-overview.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-model-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1276,
+    "title": "领域驱动设计总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/learn-note.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-legacy-migration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1356,
+    "title": "领域划分与遗留改造笔记",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/model.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-model-map.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4609,
+    "title": "DDD 模型详细说明",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ddd-payment-transaction.svg",
+        "width": 1280
+      }
+    ],
+    "scroll": 390,
+    "text": 2750,
+    "title": "DDD 实践：订单支付与超时关闭",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/DDD/uml/uml.md",
+    "dark": false,
+    "images": [],
+    "scroll": 390,
+    "text": 175,
+    "title": "UML 建模",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/event-driven-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/event-driven.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2893,
+    "title": "事件驱动架构（Event-Driven Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/hexagonal-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/hexagonal.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2334,
+    "title": "六边形架构（Hexagonal Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/architecture-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/selection-matrix.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/decision-flow.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/evolution-roadmap.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1335,
+    "title": "软件架构设计导论",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/layered-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/layered.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2543,
+    "title": "分层架构（Layered Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/microservices-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/microservices.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2811,
+    "title": "微服务架构（Microservices Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/android.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/android-build-runtime.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2301,
+    "title": "Android 构建与运行边界",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/platform-compatibility.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1893,
+    "title": "开发平台与兼容性",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/ios.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/ios-upload-boundary.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2441,
+    "title": "iOS 应用架构与交付",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/linux-arm.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/linux-arm-migration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2574,
+    "title": "Linux ARM 平台与迁移",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/linux-x86.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/linux-runtime-chain.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3020,
+    "title": "Linux x86-64 构建与运行",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/platform/windows.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/windows-app-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3164,
+    "title": "Windows 应用与服务边界",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/serverless-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/serverless.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2962,
+    "title": "无服务器架构（Serverless Architecture）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/soa.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/soa.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2450,
+    "title": "面向服务的架构（SOA）",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/adm-method.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/adm-decision-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4571,
+    "title": "架构开发方法（ADM）：把不确定性变成可治理的变化",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/application-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/application-boundary-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 3798,
+    "title": "应用架构：从能力责任推导系统边界与协作契约",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/architecture-content-repository.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/architecture-content-lifecycle.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4010,
+    "title": "架构内容与架构仓库：让决策成为可组合、可追踪的资产",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/architecture-governance.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/governance-delivery-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 3636,
+    "title": "架构治理：把目标架构变成交付与运行中的反馈机制",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/baseline-target-gap.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/baseline-target-gap-flow.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4179,
+    "title": "Baseline、Target 与 Gap：把愿景变成可执行差距",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/business-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/business-capability-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 3857,
+    "title": "业务架构：从战略口号推导能力、责任与变化顺序",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/core-questions.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/togaf-question-map.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 6698,
+    "title": "TOGAF 核心问题与应用辨析",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/data-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/data-authority-flow.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-reservation-state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4337,
+    "title": "数据架构：让企业事实具有统一语义、责任与证据",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/deep-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/enterprise-change-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-transition.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/adm-control-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 10706,
+    "title": "TOGAF 深度实践：从订单重构到企业级变革",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/enterprise-change-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/inventory-transition.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 1765,
+    "title": "TOGAF 企业架构",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/marketing-system-practice.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-decision-chain.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-value-capability-map.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-data-application-boundary.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-realtime-decision-flow.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-benefit-ledger-state.svg",
+        "width": 1280
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-measurement-loop.svg",
+        "width": 1440
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/marketing-migration-roadmap.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 25091,
+    "title": "TOGAF 营销系统实践：从活动烟囱到可度量的增长能力",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/stakeholders-principles.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/stakeholder-principle-chain.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 3500,
+    "title": "干系人、关注点与架构原则：先建立共同决策语言",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/technology-architecture.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/technology-quality-loop.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 3657,
+    "title": "技术架构：从业务损失推导容量、可靠性与运行机制",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/togaf/transition-migration-planning.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/togaf/migration-roadmap.svg",
+        "width": 1440
+      }
+    ],
+    "scroll": 390,
+    "text": 4172,
+    "title": "过渡架构与迁移规划：设计企业不停机变化的路径",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/uml/class-relationships.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/uml-class-relationships.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1792,
+    "title": "UML 类图关系",
+    "width": 390
+  },
+  {
+    "file": "docs/design/architecture/uml/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/architecture/uml-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1852,
+    "title": "UML 建模总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/chain-of-responsibility.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/chain-of-responsibility.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 5386,
+    "title": "责任链模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/command.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/command.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6358,
+    "title": "命令模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/behavioral-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1334,
+    "title": "行为型模式总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/interpreter.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/interpreter.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 4076,
+    "title": "解释器模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/iterator.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/iterator.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 5123,
+    "title": "迭代器模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/mediator.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/mediator.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 5131,
+    "title": "中介者模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/memento.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/memento.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6520,
+    "title": "备忘录模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/observer.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/observer.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6017,
+    "title": "观察者模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/state.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/state.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 5536,
+    "title": "状态模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/strategy.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/strategy.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4682,
+    "title": "策略模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/template-method.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/template-method.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 6747,
+    "title": "模板方法模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/behavioral/visitor.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/visitor.svg",
+        "width": 1040
+      }
+    ],
+    "scroll": 390,
+    "text": 4780,
+    "title": "访问者模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/abstract-method.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/abstract-factory.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2620,
+    "title": "抽象工厂",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/builder.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/builder.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3718,
+    "title": "建造者模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/factory-method.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/factory-method.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2429,
+    "title": "工厂方法",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/creational-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1205,
+    "title": "创建型模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/prototype.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/prototype.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2515,
+    "title": "原型模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/creational/singleton.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/singleton.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2929,
+    "title": "单例模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/pattern-map.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/selection-guide.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1535,
+    "title": "设计模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/composite-reuse.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/crp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1701,
+    "title": "合成复用原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/dependency-inversion.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/dip.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1913,
+    "title": "依赖倒置原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1034,
+    "title": "设计原则总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/interface-segregation.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/isp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1297,
+    "title": "接口隔离原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/law-of-demeter.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/lod.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1498,
+    "title": "迪米特法则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/liskov-substitution.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/lsp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1514,
+    "title": "里氏替换原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/open-closed.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/ocp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2228,
+    "title": "开闭原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/principles/single-responsibility.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/principles/srp.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2488,
+    "title": "单一职责原则",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/adapter.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/adapter.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4497,
+    "title": "适配器模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/bridge.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/bridge.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3996,
+    "title": "桥接模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/composite.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/composite.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3616,
+    "title": "组合模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/decorator.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/decorator.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 2956,
+    "title": "装饰器模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/facade.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/facade.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 4842,
+    "title": "外观模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/flyweight.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/flyweight.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 3816,
+    "title": "享元模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/index.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/structural-overview.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 1249,
+    "title": "结构型模式总览",
+    "width": 390
+  },
+  {
+    "file": "docs/design/design-pattern/structural/proxy.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/design-pattern/patterns/proxy.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "text": 7216,
+    "title": "代理模式",
+    "width": 390
+  },
+  {
+    "file": "docs/design/develop-pattern/agile.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/agile-flow.svg",
+        "width": 281
+      }
+    ],
+    "scroll": 390,
+    "text": 1751,
+    "title": "敏捷、Scrum 与看板：组织反馈和工作流",
+    "width": 390
+  },
+  {
+    "file": "docs/design/develop-pattern/ai-coding.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/ai-choice.svg",
+        "width": 225
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/agent-swimlane.svg",
+        "width": 232
+      }
+    ],
+    "scroll": 390,
+    "text": 2762,
+    "title": "AI 编程方式：辅助、原型、Agent 与规格驱动",
+    "width": 390
+  },
+  {
+    "file": "docs/design/develop-pattern/devops.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/devops-release.svg",
+        "width": 300
+      }
+    ],
+    "scroll": 390,
+    "text": 1554,
+    "title": "DevOps 与持续交付：让变更可发布、可恢复",
+    "width": 390
+  },
+  {
+    "file": "docs/design/develop-pattern/engineering-practices.md",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/develop-method/test-loop.svg",
+        "width": 240
+      }
+    ],
+    "scroll": 390,
+    "text": 2117,
+    "title": "工程验证：XP、TDD、BDD 与契约测试",
+    "width": 390
+  }
+]

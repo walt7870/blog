@@ -1,0 +1,169 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/framework/spring/index.md",
+      "status": "verified",
+      "reviewedHash": "10a8239b7b0419faf14abe5f60f65086b394678d1e129ec2d890abdca722af7a",
+      "pageType": "Spring主题地图",
+      "decision": "完整审查后移除52项大量无正文链接的创作路线，按实际14篇文章建立问题、机制、验证路径，补199元订单实例与已有阅读关系SVG，明确源码主线和练习版本。",
+      "validation": [
+        "正文所有入口可在生产构建中解析；本页1280和390×844浅深色检查、阅读图放大/原尺寸/关闭通过，无整页溢出或破图；最终全站构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/foundation/why-spring.md",
+      "status": "verified",
+      "reviewedHash": "3c3168644adfee1dca0ea23d1b4c8c744f266cfefbee16f162f556e70d870875",
+      "dependencyFiles": [
+        "public/java/examples/spring-order-lab/pom.xml",
+        "public/java/examples/spring-order-lab/src/main/java/example/orders/OrderApplication.java",
+        "public/java/examples/spring-order-lab/src/main/resources/application.properties",
+        "public/java/examples/spring-order-lab/src/test/java/example/orders/OrderServiceTest.java",
+        "public/java/examples/spring-order-lab/src/test/java/example/orders/OrderApiIntegrationTest.java",
+        "public/java/examples/spring-order-lab/src/test/java/example/orders/IncompleteObjectGraphTest.java"
+      ],
+      "pageType": "框架责任边界与可运行订单练习",
+      "decision": "分段全文审查，替换不存在的spring-blog-examples工程；补实际源码ZIP、命令、创建/读取接口与结果，标明伪代码和片段，修refresh内部解析时序、懒加载边界、内存仓库注册方式及图中文字越框。明确无事务、无支付、无鉴权与内存容量限制。",
+      "validation": [
+        "源码6文件在隔离/tmp工程用Temurin17与Boot3.5.15执行6项测试通过；真实Tomcat8081创建201、Location读取200、金额越界400通过，进程已正常关闭。",
+        "ZIP完整性及6文件逐字节比对通过，SHA256为41e5163cea47c1b172e76544326dc7f6fcc4a36f287dbf140829861438f0b711，无target与依赖JAR；视频入口实际跳转到下载章节。",
+        "本页1280/390浅深色、图示放大/原尺寸/关闭、代码局部滚动检查通过；独立SVG实际字体、完整截图与边界测量通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
+      "status": "verified",
+      "reviewedHash": "cc2015038c3fd207a0935167980f2cfede6273bfd0102f8db4d53e7cf050a700",
+      "pageType": "标准框架与服务器职责边界",
+      "decision": "全文审查，补Boot3.5/4的MVC Starter坐标边界；移除职责图中悬空且暗示统一调用栈的箭头，明确Tomcat/Jetty实现Servlet而Reactor Netty不走Servlet，保留完整生态项目与故障责任分析。",
+      "validation": [
+        "核对Boot4官方迁移指南的Starter与Servlet基线；图源、实际字体、全图和文本边界检查通过。",
+        "本页1280/390浅深色、图示放大/原尺寸/关闭均通过；无破图/整页溢出；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/annotations.md",
+      "status": "verified",
+      "reviewedHash": "a6fdc6a52d307fba4b36dc04cdc32664db34ae94f151d44d173e4aa3440d6837",
+      "pageType": "注解读取者与处理阶段",
+      "decision": "全文审查，纠正RequestMapping启动登记与请求使用的区别，补处理阶段SVG；修Named/ManagedBean泛化、Qualifier与Primary/Fallback边界、RestClient示意前提及MockBean迁移版本。",
+      "validation": [
+        "核对Framework7.0.8扫描器registerDefaultFilters源码，Boot3.5官方MockBean弃用API及Boot4迁移指南；实际JAR确认3.5.15包含MockBean而4.1.0不包含。",
+        "Temurin17下Boot4.1.0/Framework7.0.8合同实验验证Qualifier筛选；SVG实际字体/边界/连线及本页1280/390浅深色、放大/原尺寸/关闭通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/runtime-model.md",
+      "status": "verified",
+      "reviewedHash": "d57331c30a183ab35ed2754d630fa8bc195938af8ddc2f711b68a60b00a1da29",
+      "pageType": "启动与HTTP调用生命线",
+      "decision": "全文审查，明确代码是缺少领域模型和建表的JDBC事务机制片段，限定非懒加载与已启用事务设施，不将内存练习宣称事务应用；修请求图被背景遮挡的连接和路径默认黑色填充，补返回栈及Runner说明。",
+      "validation": [
+        "实际查看总结位图全部内容；SVG完整截图、字体和边界检查通过。",
+        "本页1280/390浅深色、两图放大/原尺寸/关闭、代码局部滚动通过；无破图或整页溢出；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/ioc.md",
+      "status": "verified",
+      "reviewedHash": "9d84a8a3e18aca20a1c20bb93fa0fb8ea23f4098532ec1bc90a21d8c00f93971",
+      "pageType": "对象装配与生命周期机制",
+      "decision": "全文审查，修短作用域不适合Bean、Qualifier不能越过Primary的候选规则、按依赖树独立创建的泛化；补singleton线程安全、prototype销毁和单例注入解析时机。两张SVG修依赖解析与路径范围，收紧长注解标签边距。",
+      "validation": [
+        "真实AnnotationConfigApplicationContext实验验证Qualifier选alternate而不是另一Primary；总结位图全图查看完成；两张SVG结构/字体/连线和边界检查通过。",
+        "本页1280/390浅深色、三图放大/原尺寸/关闭、代码局部滚动通过；最终全站构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/aop.md",
+      "status": "verified",
+      "reviewedHash": "0b9efa0edb06c209a362e2d27029acf9191137438bf0805f3f679e89dd19a619",
+      "pageType": "代理调用与事务传播边界",
+      "decision": "全文审查，修每次调用都新建提交事务、正常返回必然提交的泛化，限定线程绑定JDBC场景；重画代理与自调用图，区分绕过代理、吞异常及rollback-only，保留AspectJ与响应式/JTA边界。",
+      "validation": [
+        "官方Framework7代理与事务传播文档正文核对；Temurin17实际ProxyFactory测试外部调用通知与this自调用，H2+DataSourceTransactionManager测试REQUIRED内层rollback-only导致外层UnexpectedRollbackException且金额回滚。",
+        "总结位图全图查看及两张SVG字体/边界/连线通过；本页1280/390浅深色、三图放大/原尺寸/关闭、代码局部滚动通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/mvc.md",
+      "status": "verified",
+      "reviewedHash": "1080f18ceaa98b5e3dbf027b183424e3be6c2acf73a7da973dcf25202bda76db",
+      "pageType": "Servlet请求分派与异常分支",
+      "decision": "全文审查，重画正常返回/异常解析分支，去掉重复且连线错误的内部图引用但保留旧资源可达；错误响应使用稳定文案与前置过滤器requestId，明确Interceptor安全边界并分清400/404/405/415。",
+      "validation": [
+        "核对官方MVC Interceptor安全边界；订单工程MockMvc真实断言创建201、读回200、不存在404、错误Method405、ContentType415、解析/校验/业务金额400。",
+        "总结位图全图查看、SVG字体/边界/连线及本页1280/390浅深色、两图放大/原尺寸/关闭、代码局部滚动通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/springboot.md",
+      "status": "verified",
+      "reviewedHash": "7b098f869f2bb76e8cfa28b096dc970496bd798223c0156578a3dc7ea96726bb",
+      "pageType": "Boot应用装配总览",
+      "decision": "全文审查，保留订单系统四层责任模型，明确Boot4默认Jackson3 JsonMapper与Boot3.5 Jackson2 ObjectMapper差异，使用已修正的启动与自动配置图。",
+      "validation": [
+        "核对官方Boot JSON文档及4.0迁移指南；两图源码与实际截图通过。",
+        "本页1280/390浅深色、两图放大/原尺寸/关闭及局部代码滚动通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-startup.md",
+      "status": "verified",
+      "reviewedHash": "d0bfb22dc31a9b1bc3c1bfafc05ec912991207991ad9cb5a677b006af9a41bbd",
+      "pageType": "Boot启动阶段与就绪机制",
+      "decision": "全文审查，启动图补Runner与Ready、服务器创建/监听区别，并修被后画背景遮挡的跨阶段连线；随机端口health测试明确Actuator、暴露、安全和独立管理端口的前提，不冒充内存订单练习自带端点。",
+      "validation": [
+        "实际订单练习在Tomcat真实端口完成请求后正常优雅关闭；该事实不替代Actuator随机端口测试片段的专项测试。",
+        "SVG完整截图、字体/边界/连线以及本页1280/390浅深色、放大/原尺寸/关闭通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-config-data.md",
+      "status": "verified",
+      "reviewedHash": "1b2a7200ea98255979b63580de55f969a974379a01e42986c8ac164b95d45bf9",
+      "pageType": "配置发现覆盖与绑定合同",
+      "decision": "全文审查，纠正payment.read-timeout/max-attempts环境变量规范名，补带imports和真实校验的PaymentProperties/PaymentConfiguration；显式JDK HttpClient连接/读取超时，说明嵌套PaymentClient只保存配置，不执行支付或重试且不自动继承Boot客户端定制。",
+      "validation": [
+        "Temurin17分别在Boot3.5.15/Framework6.2.19和明确BOM解析的Boot4.1.0/Framework7.0.8编译正文类；合法绑定、无效Duration、零负超时、越界重试次数、相对URI、缺必填项与SystemEnvironmentPropertySource+Binder规范环境变量实验通过。",
+        "官方external-config/Actuator长文读取被截断部分没有冒称全文；环境变量名转换以实际Binder正例验证。总结位图全图、SVG字体/边界检查完成；本页1280/390浅深色、两图放大/原尺寸/关闭及代码局部滚动通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-autoconfiguration.md",
+      "status": "verified",
+      "reviewedHash": "afb99fcd24b890cf734d292e817caea669751a7f565d15a2c58dcaa152bcdd63",
+      "pageType": "自动配置候选条件与定义注册",
+      "decision": "全文审查，分清候选、条件、定义与实例五阶段；修ConfigData进入Environment等同绑定Bean、数据源参数在条件期完成验证的泛化；图示先登记定义再创建Bean，用户配置接入条件判断，标明Jackson版本。",
+      "validation": [
+        "核对Boot4模块/Starter与JSON迁移边界；保留有明确项目类型前提的自定义自动配置片段，不声称真实厂商SDK已集成测试。",
+        "SVG实际字体/边界/连线、本页1280/390浅深色、放大/原尺寸/关闭与代码局部滚动通过；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/boot-production.md",
+      "status": "verified",
+      "reviewedHash": "a7ef8fa28cae81971c0a108646f5baf3c8e4eb9af38eec6a366a5a7650f0d0d9",
+      "pageType": "生产探针观测与发布闭环",
+      "decision": "全文审查，纠正show-details隐藏详情可移除健康贡献者的错误，改为readiness组未含数据库；新增摘流量、传播、排空、关闭和平台宽限期SVG。表格短标签加本页内不换行约束，防桌面/手机竖排。",
+      "validation": [
+        "核对官方Actuator健康聚合、show-details及liveness/readiness文档片段；未把被截断全文当完整来源。",
+        "新SVG结构/实际字体/边界/连线与本页1280/390浅深色、放大/原尺寸/关闭通过；表格最终修订在稳定手机布局截图再次验证；完整构建15.33秒通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/framework/spring/video-series.md",
+      "status": "verified",
+      "reviewedHash": "14184721c9df3cf83bd10b1472df867ad25e9145138b2fccfe74479f2c258605",
+      "dependencyFiles": [
+        "docs/devlanguage/java/framework/spring/foundation/why-spring.md"
+      ],
+      "pageType": "源码视频目录与可重复跟踪练习",
+      "decision": "全文审查20集链接与配套文字入口，修AOP不存在锚点，练习改用实际订单源码和POST/Location查询；说明普通Bean没有AOP基础设施不天然产生代理，启动主线终点包含Runner与就绪。",
+      "validation": [
+        "实际DOM读取20个视频链接；视频订单练习链接实际点击后定位到真实源码下载章节。固定视频坐标Boot4.1.0/Framework7.0.8与解析BOM一致，不宣称Java25视频过程已重放。",
+        "本页1280/390浅深色、图示放大/原尺寸/关闭与目录表布局检查通过；完整构建15.33秒通过。"
+      ]
+    }
+  ]
+}

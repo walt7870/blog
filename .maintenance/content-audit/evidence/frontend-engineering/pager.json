@@ -1,0 +1,32 @@
+[
+  {
+    "file": "docs/devlanguage/front/index.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/"
+  },
+  {
+    "file": "docs/devlanguage/front/state-management/index.md",
+    "href": "/blog/docs/devlanguage/front/quality-tools/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/quality-tools/"
+  },
+  {
+    "file": "docs/devlanguage/front/quality-tools/index.md",
+    "href": "/blog/docs/devlanguage/front/testing/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/testing/"
+  },
+  {
+    "file": "docs/devlanguage/front/testing/index.md",
+    "href": "/blog/docs/devlanguage/front/performance/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/performance/"
+  },
+  {
+    "file": "docs/devlanguage/front/performance/index.md",
+    "href": "/blog/docs/devlanguage/front/deployment/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/deployment/"
+  },
+  {
+    "file": "docs/devlanguage/front/deployment/index.md",
+    "href": "/blog/docs/devlanguage/front/performance/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/performance/"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.html"
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
+    "href": "/blog/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.html"
+  }
+]

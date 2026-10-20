@@ -1,0 +1,70 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/llm/index.md",
+      "status": "verified",
+      "pageType": "大模型阅读导读",
+      "decision": "明确自回归文本模型范围，区分训练目标和参数适配，按退款助手串联训练、检索、工具与推理。",
+      "findings": [],
+      "validation": [
+        "全文、子页入口和概念图审查；四模式全文截图、真实分页、双视口键盘放大与原尺寸通过。"
+      ],
+      "reviewedHash": "e79b31fd80862a458d6bd841f7c0d5804424f87e2d82d10a2be58ed60f9dcbcc"
+    },
+    {
+      "file": "docs/ai/llm/concepts.md",
+      "status": "verified",
+      "pageType": "大模型概念关系",
+      "decision": "区分内部Token表示和检索句向量；MoE不保证业务类别专家；LoRA按单层参数演算，QLoRA区分存储和计算精度。",
+      "findings": [],
+      "validation": [
+        "16777216与65536参数实际计算，比例1/256；全文及图示语义检查，四模式截图、分页与双视口原尺寸通过。"
+      ],
+      "reviewedHash": "acce9aa5530465ba62d0a9d11d9c21b5f96b08eb9a429d53d5771f1636dbcc11"
+    },
+    {
+      "file": "docs/ai/llm/inference.md",
+      "status": "verified",
+      "pageType": "自回归推理与缓存合同",
+      "decision": "生成区分贪心和采样；KV缓存历史K/V且当前Q仍读取；补512MiB核算、流式未完成JSON不可执行及取消重试边界。",
+      "findings": [],
+      "validation": [
+        "32层8KV头128维4096位置2字节实际计算512MiB；四模式截图、分页、双视口图示放大与原尺寸通过。"
+      ],
+      "reviewedHash": "620dacdb3d4ea6d46a8cce7b921b13169d887c395b18d6c1bcff8ebec765e76f"
+    },
+    {
+      "file": "docs/ai/llm/rag-tools.md",
+      "status": "verified",
+      "pageType": "文档证据与工具职责",
+      "decision": "退款政策、订单实时状态和写入权限分开；工作日需日历与时区，approved不证明到账，超时不证明未执行；MCP不自动授予权限。",
+      "findings": [],
+      "validation": [
+        "全文和图中证据方向审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。"
+      ],
+      "reviewedHash": "341985e8dd4a0eab5cdbec1ede0cafc367d42884fe01dc22e6d56b76e259ca3b"
+    },
+    {
+      "file": "docs/ai/llm/sft.md",
+      "status": "verified",
+      "pageType": "监督微调任务合同",
+      "decision": "补三类工单JSONL、label mask配置、同工单改写分组与冲突标签政策；偏好对齐为可选，SFT可能记忆样例，实时事实另核。",
+      "findings": [],
+      "validation": [
+        "JSONL及消息内JSON实际解析通过；修订图示ID后重测与视觉检查通过；四模式截图、分页及双视口原尺寸通过。"
+      ],
+      "reviewedHash": "cabb63cb7e395f539fc1f7c2ce79426a29e88d9aa0c9237529f9a17ab4599e39"
+    },
+    {
+      "file": "docs/ai/llm/training.md",
+      "status": "verified",
+      "pageType": "训练目标与参数更新",
+      "decision": "移除预训练只学规律不记忆断言；明确SFT可采用LoRA；区分典型RLHF与不依赖在线强化学习的DPO。",
+      "findings": [],
+      "validation": [
+        "全文、数学关系和图示审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。"
+      ],
+      "reviewedHash": "fee9c346bfc425480fc9ee04bdb5eb7f1a87992638e14662cfaa9ecdfa4987aa"
+    }
+  ]
+}

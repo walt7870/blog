@@ -1,38 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="430" viewBox="0 0 1080 430" role="img" aria-labelledby="title desc">
-  <title id="title">Nginx location 匹配优先级</title>
-  <desc id="desc">展示精确匹配、^~ 前缀、正则匹配和普通最长前缀的选择顺序</desc>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#0f766e"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:10}.focus{fill:#ecfdf5;stroke:#0f766e;stroke-width:2;rx:10}.warn{fill:#fff7ed;stroke:#f97316;stroke-width:2;rx:10}
-      .text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#0f172a}.title{font-size:18px;font-weight:700}.body{font-size:13px}.small{font-size:12px;fill:#475569}
-      .line{stroke:#0f766e;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1080" height="430"/>
-  <rect class="box" x="40" y="170" width="140" height="80"/>
-  <text class="text title" x="110" y="202" text-anchor="middle">请求 URI</text>
-  <text class="text body" x="110" y="228" text-anchor="middle">/api/users</text>
-  <rect class="focus" x="230" y="55" width="155" height="80"/>
-  <text class="text title" x="308" y="87" text-anchor="middle">1. = 精确</text>
-  <text class="text body" x="308" y="113" text-anchor="middle">命中即停止</text>
-  <rect class="focus" x="460" y="55" width="170" height="80"/>
-  <text class="text title" x="545" y="87" text-anchor="middle">2. ^~ 前缀</text>
-  <text class="text body" x="545" y="113" text-anchor="middle">最长且跳过正则</text>
-  <rect class="box" x="705" y="55" width="155" height="80"/>
-  <text class="text title" x="783" y="87" text-anchor="middle">3. ~ 正则</text>
-  <text class="text body" x="783" y="113" text-anchor="middle">按配置顺序</text>
-  <rect class="box" x="460" y="250" width="170" height="80"/>
-  <text class="text title" x="545" y="282" text-anchor="middle">4. 普通前缀</text>
-  <text class="text body" x="545" y="308" text-anchor="middle">使用最长匹配</text>
-  <rect class="warn" x="705" y="250" width="240" height="80"/>
-  <text class="text title" x="825" y="282" text-anchor="middle">最常见误判</text>
-  <text class="text body" x="825" y="308" text-anchor="middle">最长前缀不一定赢过正则</text>
-  <path class="line" d="M180 210 C210 160 210 95 230 95"/>
-  <path class="line" d="M385 95 L460 95"/>
-  <path class="line" d="M630 95 L705 95"/>
-  <path class="line" d="M783 135 C760 210 665 260 630 290"/>
-  <path class="line" d="M630 290 L705 290"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="location-title location-desc">
+<title id="location-title">同层传统location匹配的条件分支</title>
+<desc id="location-desc">精确命中立即使用，否则记录最长前缀，最长前缀带^~时使用它，否则按顺序检查正则，命中用正则，未命中用记住的最长前缀。本图不覆盖嵌套和其他扩展匹配形式。</desc>
+<defs><marker id="location-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#7d898c"/></marker><style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238}.h{font-size:25px;font-weight:700}.n{font-size:21px;font-weight:600}.b{font-size:18px;fill:#4d5d63}.box{fill:#fff;stroke:#c7d0d3;stroke-width:1.5}.edge{fill:none;stroke:#7d898c;stroke-width:1.5;marker-end:url(#location-arrow)}</style></defs>
+<rect width="1120" height="630" fill="#f7f9fa"/>
+<text class="h" x="36" y="46">先判断是否停止，再决定是否继续检查正则</text>
+<text class="b" x="36" y="82">限定同层传统规则：无精确匹配后，先记录最长匹配前缀，再判断它是否带 ^~。</text>
+<path class="edge" d="M180 222V176"/><path class="edge" d="M500 222V176"/><path class="edge" d="M852 222V176"/>
+<path class="edge" d="M306 286H364"/><path class="edge" d="M636 286H716"/><path class="edge" d="M852 350V410"/>
+<rect class="box" x="54" y="118" width="252" height="58" rx="6"/><text class="n" x="180" y="154" text-anchor="middle">使用精确位置</text>
+<rect x="364" y="118" width="272" height="58" rx="6" fill="#e7f3ef" stroke="#69978c" stroke-width="1.5"/><text class="n" x="500" y="154" text-anchor="middle">使用最长前缀</text>
+<rect class="box" x="716" y="118" width="272" height="58" rx="6"/><text class="n" x="852" y="154" text-anchor="middle">使用第一个命中正则</text>
+<path d="M180 222L306 286L180 350L54 286Z" class="box"/>
+<text class="n" x="180" y="280" text-anchor="middle">精确 =</text><text class="b" x="180" y="310" text-anchor="middle">是否命中？</text>
+<path d="M500 222L636 286L500 350L364 286Z" fill="#eff5fc" stroke="#a4b9cc" stroke-width="1.5"/>
+<text class="n" x="500" y="280" text-anchor="middle">最长前缀</text><text class="b" x="500" y="310" text-anchor="middle">是否带 ^~？</text>
+<path d="M852 222L988 286L852 350L716 286Z" class="box"/>
+<text class="n" x="852" y="280" text-anchor="middle">按顺序查正则</text><text class="b" x="852" y="310" text-anchor="middle">是否命中？</text>
+<text class="b" x="194" y="202">是</text><text class="b" x="514" y="202">是</text><text class="b" x="866" y="202">是</text>
+<text class="b" x="328" y="272">否</text><text class="b" x="662" y="272">否</text><text class="b" x="866" y="386">否</text>
+<rect x="716" y="410" width="272" height="66" rx="6" fill="#e7f3ef" stroke="#69978c" stroke-width="1.5"/><text class="n" x="852" y="450" text-anchor="middle">使用记住的最长前缀</text>
+<path d="M36 518H1084" stroke="#c7d0d3"/>
+<text class="b" x="36" y="554">/api/report.csv：最长前缀若是 ^~ /api/，不会被扩展名正则抢走。</text>
+<text class="b" x="36" y="594">嵌套逐层搜索、内部跳转和版本扩展需要单独复现；较短的 ^~ 不能代替最长前缀作决定。</text>
 </svg>

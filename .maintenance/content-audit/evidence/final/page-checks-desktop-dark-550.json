@@ -1,0 +1,480 @@
+[
+  {
+    "file": "docs/network-proxy/protocol-stack.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/protocol-stack.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3106,
+    "title": "协议、插件与传输",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/server-docker.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/docker-deployment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3717,
+    "title": "服务端部署（Docker）",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/server-systemd.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/systemd-deployment.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3287,
+    "title": "服务端部署（systemd）",
+    "width": 1280
+  },
+  {
+    "file": "docs/network-proxy/user-management.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/network-proxy/credential-change.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2786,
+    "title": "用户管理与常用变更",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/2022-07-31/高效能人士的7个习惯.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/reading/seven-habits-action.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1301,
+    "title": "高效能人士的七个习惯",
+    "width": 1280
+  },
+  {
+    "file": "docs/reading/index.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 305,
+    "title": "阅读记录",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 7040,
+    "title": "TOGAF 营销系统流程图历史计划",
+    "width": 1280
+  },
+  {
+    "file": "docs/superpowers/specs/2026-07-26-togaf-marketing-flow-visuals-design.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 1461,
+    "title": "TOGAF 营销系统流程图历史设计",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/editor/andorid-studio/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/editor/android-studio-jdk-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3440,
+    "title": "Android Studio：JDK、构建与编辑器排错",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/advanced.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 3421,
+    "title": "Git 进阶操作",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/branching.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/branch-integration.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2522,
+    "title": "Git 分支与合并",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/concepts.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/git-data-flow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2165,
+    "title": "Git 核心概念",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/conventions.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 2487,
+    "title": "Git 提交规范",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/ecosystem.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/tool-delivery-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3623,
+    "title": "Git 生态工具",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/git.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 4754,
+    "title": "Git 基础命令与日常操作",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/gitlab-cicd.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/gitlab-cicd-architecture.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/gitlab-cicd-release-lifecycle.svg",
+        "width": 1200
+      }
+    ],
+    "scroll": 1280,
+    "text": 22484,
+    "title": "GitLab CI/CD 搭建与发布",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/git-mental-model.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 1748,
+    "title": "Git 总览",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/internals-large-repositories.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/git-object-storage.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4292,
+    "title": "Git 对象库、存储与大型仓库",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/recovery.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/recovery-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2746,
+    "title": "Git 撤销与恢复",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/repository-strategies.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/git-repository-strategy.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3116,
+    "title": "Git 仓库组织与依赖策略",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/security.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/security-recovery-boundaries.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4317,
+    "title": "Git 安全与仓库治理",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/video-series.md",
+    "dark": true,
+    "images": [],
+    "scroll": 1280,
+    "text": 1311,
+    "title": "Git 从原理到协作视频系列",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/git/workflow.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/git/git-team-workflow.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2204,
+    "title": "Git 协作流程",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/mq/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/mq-system-position.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/mq-selection-flow.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/mq-delivery-semantics.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/mq-order-timeout-coupon.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2605,
+    "title": "消息中间件全景：选型、能力与落地",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/mq/kafka.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/kafka-topic-partition-consumers.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/kafka-write-fetch-flow.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/kafka-outbox-flow.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/kafka-order-case.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 4732,
+    "title": "Kafka：分区日志、消费进度与可靠处理",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/mq/pulsar/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/pulsar-architecture.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/pulsar-subscription-modes.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/pulsar-order-case.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 3874,
+    "title": "Apache Pulsar：云原生消息与流平台",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/mq/rabbitmq.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rabbitmq-routing-model.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rabbitmq-reliability.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rabbitmq-order-case.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 5371,
+    "title": "RabbitMQ：从概念到生产实践",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/mq/rocketmq.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rocketmq-routing-storage.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rocketmq-fifo-message.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rocketmq-transaction-message.svg",
+        "width": 1120
+      },
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/mq/rocketmq-order-case.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 6644,
+    "title": "RocketMQ：交易型消息中间件指南",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/sdkman/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/tools/sdkman-environment-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2318,
+    "title": "SDKMAN!：JVM 工具版本与项目环境",
+    "width": 1280
+  },
+  {
+    "file": "docs/tools/vfox/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "src": "http://127.0.0.1:5177/blog/tools/vfox-selection-scope.svg",
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "text": 2444,
+    "title": "vfox：跨平台工具版本管理",
+    "width": 1280
+  }
+]

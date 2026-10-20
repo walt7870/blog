@@ -1,0 +1,180 @@
+{
+  "python": "Python 3.14.7",
+  "temp": "/var/folders/9r/qpxb_c5n2_15q5fwmgg_fkgr0000gn/T/blog-python-basics-YdlOKW",
+  "evidence": [
+    {
+      "page": "00-python-basics-course-map.md",
+      "pythonBlocks": 0,
+      "ast": "passed"
+    },
+    {
+      "page": "01-customer-list-data-cleaning.md",
+      "pythonBlocks": 3,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "02-run-python-script.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "03-field-types.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "04-customer-records-list-dict.md",
+      "pythonBlocks": 5,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "05-customer-rules-if.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "06-batch-loop.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "07-string-cleaning.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "08-numbers-dates-overdue.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "09-functions-reusable-rules.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "10-modules-split-script.md",
+      "pythonBlocks": 3,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "11-csv-read-write.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "12-json-api-shape.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "13-table-health-check.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "14-group-summary.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "15-order-check.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "16-daily-report.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "17-venv-dependencies.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "18-read-traceback.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "19-exception-handling.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "20-logging.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "21-api-fetch-customers.md",
+      "pythonBlocks": 2,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "22-batch-files.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "23-argparse-config.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "24-delivery-package.md",
+      "pythonBlocks": 1,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "25-classes-and-objects.md",
+      "pythonBlocks": 2,
+      "ast": "passed",
+      "execution": "passed"
+    },
+    {
+      "page": "26-first-usable-tool.md",
+      "pythonBlocks": 0,
+      "ast": "passed"
+    },
+    {
+      "page": "index.md",
+      "pythonBlocks": 0,
+      "ast": "passed"
+    }
+  ],
+  "notes": [
+    "全部Python块AST按3.10语法检查",
+    "25篇示例实际运行（含三模块导入）",
+    "CLI缺列、空表、原件路径、硬链接与覆盖保护",
+    "批处理原件保留与重复运行拒绝",
+    "交付检查器不创建被检查目录",
+    "新venv运行验证，不安装包",
+    "本机HTTP服务验证GET认证头、空数组、401、非法JSON与缺字段，未调用真实CRM"
+  ]
+}

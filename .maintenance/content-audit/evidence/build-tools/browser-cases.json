@@ -1,0 +1,11 @@
+{
+  "viteState": "2",
+  "viteReset": "1",
+  "webpackResult": "合计 49.80 元",
+  "webpackFailure": {
+    "text": "报表加载失败，请重试",
+    "buttonEnabled": true
+  },
+  "parcelState": "1",
+  "parcelReset": "0"
+}

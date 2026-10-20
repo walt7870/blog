@@ -1,28 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
-  <title id="title">Kubernetes 请求与存储数据路径</title>
-  <desc id="desc">上半部分展示外部请求到 Pod，下半部分展示 PVC 到 CSI 和存储后端。</desc>
-  <rect width="1280" height="560" fill="#f5f7fa"/>
-  <text x="64" y="58" font-family="sans-serif" font-size="30" font-weight="700" fill="#172033">对象已收敛，不代表请求和数据已经可用</text>
-  <text x="66" y="112" font-family="sans-serif" font-size="20" font-weight="700" fill="#326ce5">请求路径</text>
-  <g font-family="sans-serif" font-size="18" text-anchor="middle">
-    <rect x="60" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="135" y="180" fill="#172033">客户端 / DNS</text>
-    <rect x="255" y="138" width="180" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="345" y="166" fill="#172033">Gateway / Ingress</text><text x="345" y="191" fill="#526078">监听与路由</text>
-    <rect x="480" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="555" y="180" fill="#172033">Service</text>
-    <rect x="675" y="138" width="180" height="70" rx="8" fill="#eaf1ff" stroke="#326ce5" stroke-width="3"/><text x="765" y="166" fill="#172033">EndpointSlice</text><text x="765" y="191" fill="#526078">Ready 后端集合</text>
-    <rect x="900" y="138" width="150" height="70" rx="8" fill="#fff" stroke="#326ce5" stroke-width="3"/><text x="975" y="166" fill="#172033">CNI / 策略</text><text x="975" y="191" fill="#526078">路由与允许</text>
-    <rect x="1095" y="138" width="125" height="70" rx="8" fill="#eaf8ef" stroke="#2f8f57" stroke-width="3"/><text x="1157" y="180" fill="#172033">Pod</text>
-  </g>
-  <g stroke="#326ce5" stroke-width="3"><path d="M210 173H245"/><path d="M435 173H470"/><path d="M630 173H665"/><path d="M855 173H890"/><path d="M1050 173H1085"/></g>
-  <g fill="#326ce5"><path d="M245 173l-11-7v14z"/><path d="M470 173l-11-7v14z"/><path d="M665 173l-11-7v14z"/><path d="M890 173l-11-7v14z"/><path d="M1085 173l-11-7v14z"/></g>
-  <text x="66" y="296" font-family="sans-serif" font-size="20" font-weight="700" fill="#7a4a00">存储路径</text>
-  <g font-family="sans-serif" font-size="18" text-anchor="middle">
-    <rect x="125" y="326" width="160" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="205" y="353" fill="#172033">PVC</text><text x="205" y="379" fill="#526078">容量与访问模式</text>
-    <rect x="355" y="326" width="180" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="445" y="353" fill="#172033">StorageClass</text><text x="445" y="379" fill="#526078">供应与绑定策略</text>
-    <rect x="605" y="326" width="170" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="690" y="353" fill="#172033">scheduler</text><text x="690" y="379" fill="#526078">Pod / 卷拓扑</text>
-    <rect x="845" y="326" width="150" height="70" rx="8" fill="#fff" stroke="#d88416" stroke-width="3"/><text x="920" y="353" fill="#172033">CSI</text><text x="920" y="379" fill="#526078">创建与挂载</text>
-    <rect x="1065" y="326" width="150" height="70" rx="8" fill="#fff4e5" stroke="#d88416" stroke-width="3"/><text x="1140" y="353" fill="#172033">存储后端</text><text x="1140" y="379" fill="#526078">数据与故障域</text>
-  </g>
-  <g stroke="#d88416" stroke-width="3"><path d="M285 361H345"/><path d="M535 361H595"/><path d="M775 361H835"/><path d="M995 361H1055"/></g>
-  <g fill="#d88416"><path d="M345 361l-11-7v14z"/><path d="M595 361l-11-7v14z"/><path d="M835 361l-11-7v14z"/><path d="M1055 361l-11-7v14z"/></g>
-  <rect x="60" y="462" width="1160" height="52" rx="8" fill="#fff" stroke="#b7c0ce"/><text x="640" y="495" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#526078">控制面对象、节点执行、网络状态和应用指标必须放到同一时间线上判断</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title desc">
+  <title id="title">Service 配置与业务请求路径</title>
+  <desc id="desc">EndpointSlice 是数据面监听的配置对象。入口代理可以经 Service 虚拟IP，也可以直接选择Pod端点，业务请求不经过 EndpointSlice。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#a)}.dash{stroke-dasharray:6 5}</style>
+  <rect width="1120" height="680" fill="#f7f9fb"/><text class="title" x="48" y="54">端点对象提供配置，真正转发请求的是数据面</text><text class="t" x="48" y="89">虚线为配置同步，实线为业务请求；两条路径由具体 Gateway / Ingress 实现决定。</text>
+  <path class="edge dash" d="M400 250V310Q400 318 392 318H388Q380 318 380 326V380"/><path class="edge dash" d="M750 250V310Q750 318 742 318H718Q710 318 710 326V380"/>
+  <path class="edge" d="M208 430H270"/><path class="edge" d="M505 430H600"/><path class="edge" d="M815 430H895"/>
+  <path class="edge" d="M388 480V542Q388 550 396 550H974Q982 550 982 542V480"/>
+  <rect class="api" x="270" y="120" width="600" height="130" rx="6"/><text class="h" x="294" y="158">API 中的 Service 与 EndpointSlice</text><text class="t" x="294" y="191">端口、selector、端点地址与 ready / serving / terminating</text><text class="t" x="294" y="223">控制器更新对象；数据面经 API 监听并生成自己的转发规则</text>
+  <text class="t" x="402" y="351">监听配置</text><text class="t" x="732" y="351">监听配置</text>
+  <rect class="box" x="48" y="380" width="160" height="100" rx="6"/><text class="h" x="66" y="417">客户端</text><text class="t" x="66" y="451">解析后发请求</text>
+  <rect class="box" x="270" y="380" width="235" height="100" rx="6"/><text class="h" x="290" y="417">入口代理</text><text class="t" x="290" y="451">Gateway / Ingress 实现</text>
+  <rect class="box" x="600" y="380" width="215" height="100" rx="6"/><text class="h" x="620" y="417">Service 数据面</text><text class="t" x="620" y="451">虚拟 IP → 后端地址</text>
+  <rect class="run" x="895" y="380" width="175" height="100" rx="6"/><text class="h" x="915" y="417">目标 Pod</text><text class="t" x="915" y="451">应用实际监听</text>
+  <text class="t" x="548" y="581">直接选择端点的实现走此路径</text>
+  <text class="h" x="48" y="612">两条路径最终都依赖 Pod 网络、网络策略和应用监听</text><text class="t" x="48" y="647">Slice 中有 IP 不代表端点已就绪；规则同步、DNS、连接池和已有长连接也各有延迟。</text>
 </svg>

@@ -1,8 +1,12 @@
 # 前端包管理器概览
 
-前端包管理器负责三件事：解析 `package.json` 中声明的依赖，生成锁文件保证团队安装结果一致，把依赖下载到本地并组织成运行时可识别的目录结构。它直接影响安装速度、磁盘占用、依赖边界、Monorepo 体验和 CI 构建稳定性。
+前端包管理器负责解析`package.json`、记录锁文件、下载并组织依赖。锁文件固定解析结果，但操作系统、Node版本、原生构建和安装脚本仍会影响实际产物，不能只凭一个锁文件承诺所有机器字节一致。
 
 这个目录按工具拆分说明。先读本页建立选型边界，再进入具体工具页查看命令、配置和排查方式。
+
+例如同一份订单后台，本机用新版本包管理器重算锁文件，CI用旧版本读取，可能还没运行应用就失败。先固定运行环境与安装器，再冻结依赖图，最后验证构建，是三个不同的检查层。
+
+![运行环境、包管理器、依赖锁与构建验证](/front/package-managers/install-contract.svg)
 
 ## 阅读路径
 
@@ -48,13 +52,13 @@
     "vue": "^3.5.0"
   },
   "devDependencies": {
-    "vite": "^6.0.0",
+    "vite": "^8.0.0",
     "typescript": "^5.0.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0"
   },
-  "packageManager": "pnpm@10.0.0"
+  "packageManager": "pnpm@10.32.0"
 }
 ```
 
@@ -69,30 +73,34 @@
 | Yarn | `yarn.lock` |
 | Bun | `bun.lock` 或 `bun.lockb`，以项目实际版本为准 |
 
-切换包管理器时，要清理旧锁文件并重新安装，不要保留多个锁文件并让团队自行选择。
+切换安装器先在独立分支或副本验证，保留旧锁文件基线。用目标工具的导入机制或重算依赖后比较版本变化，再替换活动锁文件，不能先删除唯一的可恢复基线。
 
 ## 常用命令对照
 
 | 动作 | npm | pnpm | Yarn | Bun |
 | --- | --- | --- | --- | --- |
 | 安装全部依赖 | `npm install` | `pnpm install` | `yarn install` | `bun install` |
-| CI 安装 | `npm ci` | `pnpm install --frozen-lockfile` | `yarn install --immutable` | `bun install --frozen-lockfile` |
+| CI 安装 | `npm ci` | `pnpm install --frozen-lockfile` | 现代Yarn：`yarn install --immutable` | `bun install --frozen-lockfile` |
 | 安装生产依赖 | `npm install vue` | `pnpm add vue` | `yarn add vue` | `bun add vue` |
 | 安装开发依赖 | `npm install -D vite` | `pnpm add -D vite` | `yarn add -D vite` | `bun add -d vite` |
 | 移除依赖 | `npm uninstall vue` | `pnpm remove vue` | `yarn remove vue` | `bun remove vue` |
 | 执行脚本 | `npm run build` | `pnpm build` | `yarn build` | `bun run build` |
-| 临时执行包 | `npx create-vite` | `pnpm dlx create-vite` | `yarn dlx create-vite` | `bunx create-vite` |
+| 临时执行包 | `npx create-vite` | `pnpm dlx create-vite` | 现代Yarn：`yarn dlx create-vite` | `bunx create-vite` |
+
+Yarn1的CI命令通常使用`--frozen-lockfile`，不能套现代Yarn参数。临时执行器会下载并运行包代码，流水线应固定版本；完整性验证不等于代码可信。
 
 ## 迁移顺序
 
 包管理器迁移不要和业务代码改动混在一个提交里。推荐单独做一次工具链迁移：
 
 1. 确认 Node.js 版本和目标包管理器版本。
-2. 删除旧锁文件和 `node_modules`。
-3. 使用目标包管理器重新安装依赖。
+2. 在独立副本保留旧锁文件和可复现基线。
+3. 导入或重新解析依赖，比较实际版本与目录结构。
 4. 提交新的锁文件和 `packageManager` 字段。
 5. 修改 CI 安装命令。
 6. 跑 `lint`、测试和构建。
+
+还应故意修改一项依赖声明而不更新锁文件，确认CI安装失败。若仍成功，检查冻结参数、工作目录和实际安装器。缓存只加速输入，不代替锁文件校验；Node的`engines`字段也不自动选择包管理器版本。
 
 ## 排查入口
 

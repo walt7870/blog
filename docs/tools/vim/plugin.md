@@ -4,6 +4,10 @@ Vim 可以只靠内置功能完成大量编辑任务，但现代开发通常还�
 
 本文以 Vim 为主，同时说明 Neovim 生态的差异。目标是帮你知道该选哪类插件、怎么管理配置、如何排查问题。
 
+![Vim 插件与外部工具的依赖边界](/tools/vim-plugin-boundaries.svg)
+
+例如订单前端的 `:Rg` 找不到命令，可能是 fzf.vim 没加载；能打开搜索界面但报 `rg` 不存在，则是外部程序未安装。这两个故障分别属于 Vim 插件与系统工具，更新主题不能修复它们。配置、插件和外部工具应分别记录版本，插件更新也需要回归常用操作。
+
 ## 插件体系概览
 
 ### Vim 内置 packages
@@ -77,6 +81,8 @@ Vundle 和 Pathogen 是更早期的插件管理方式。
 Neovim 的主流配置语言是 Lua，插件生态里 lazy.nvim 很常见，支持懒加载、依赖管理、锁文件和模块化配置。
 
 极简示例：
+
+以下只展示 lazy.nvim 已加入 runtimepath 后的插件声明，并不是完整安装配置；新环境需先按其要求完成 bootstrap。Vim 不能直接加载这些 Neovim Lua 配置。
 
 ```lua
 require("lazy").setup({
@@ -171,6 +177,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 安装语言扩展：
 
+coc.nvim 还需要满足对应 release 的 Vim/Neovim 与 Node.js 要求；语言服务器可能需要另外的运行时或工具链。安装扩展前先检查 `:CocInfo` 和项目所用语言版本，不把 Vim 插件安装成功当作服务器可用。
+
 ```vim
 :CocInstall coc-json coc-tsserver coc-pyright coc-go
 ```
@@ -264,6 +272,8 @@ let NERDTreeShowHidden = 1
 如果已经习惯 `:Files` / `:Rg`，文件树可以作为辅助，而不是主要入口。
 
 ## 一份可用的 `.vimrc`
+
+下面三段按顺序组合，前提是已经安装 vim-plug，并有 fzf、ripgrep、Git 和 coc.nvim 所需 Node.js。首次启动先执行 `:PlugInstall`，再重新打开 Vim；远程插件是会执行的代码，更新前保留已验证的配置与插件版本记录。
 
 ### 基础设置
 
@@ -360,13 +370,15 @@ source ~/.vim/config/mappings.vim
 source ~/.vim/config/autocmds.vim
 ```
 
-建议用 Git 管理配置：
+用独立 dotfiles 目录管理配置，只复制自己维护的文件；不要在整个主目录执行 `git init`，也不要把下载的插件缓存一起加入仓库。下面在新的专用目录中执行，已有仓库应先检查内容：
 
 ```bash
-cd ~
+mkdir -p "$HOME/dotfiles/vim"
+cp "$HOME/.vimrc" "$HOME/dotfiles/vim/vimrc"
+cd "$HOME/dotfiles"
 git init
-git add .vimrc .vim
-git commit -m "Initial vim config"
+git add vim/vimrc
+git commit -m "添加 Vim 配置"
 ```
 
 如果需要跨机器同步，可以把配置放进 dotfiles 仓库。
@@ -389,7 +401,7 @@ vim --startuptime startup.log
 :profile file *
 " 执行一些慢操作
 :profile pause
-:noautocmd qall!
+:qall
 ```
 
 ### 检查插件状态
@@ -413,11 +425,15 @@ vim --startuptime startup.log
 
 ### 临时禁用插件
 
+`:qall` 遇到未保存修改会阻止退出；应先保存或明确放弃，不用 `qall!` 结束性能采集。profile 文件可能包含路径和代码片段，分享前检查内容。
+
 ```bash
 vim --noplugin
 ```
 
 如果禁用插件后问题消失，再逐个注释插件定位原因。
+
+`--noplugin` 跳过常规插件加载，但 vimrc 仍会运行，显式加载的脚本也可能生效。需要区分用户配置与 Vim 本体时，在测试副本执行 `vim -Nu NONE -n`，再逐层恢复配置、插件与外部工具；不要直接对唯一的工作文件尝试破坏性编辑。
 
 ### 常见问题
 

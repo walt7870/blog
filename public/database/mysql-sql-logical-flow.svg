@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="610" viewBox="0 0 1160 610" role="img" aria-labelledby="title desc">
+  <title id="title">订单查询的逻辑处理关系</title>
+  <desc id="desc">四笔订单先经过WHERE筛选十月已支付，留下两笔。GROUP BY按客户汇总，HAVING保留合计大于60的客户。SELECT投影和窗口计算之后由ORDER BY及LIMIT形成页面。该模型解释结果语义，不代表优化器实际物理执行顺序。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:17px}.title{font-size:23px;font-weight:700}.head{font-size:19px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1160" height="610" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">先筛订单，再筛客户的合计金额</text>
+  <text x="36" y="78" class="small">问题：十月已支付金额超过 60 元的客户。这里展示逻辑语义，不是物理执行时间轴。</text>
+  <path d="M340 192H428" class="line"/><path d="M732 192H820" class="line"/>
+  <path d="M972 250V354" class="line"/><path d="M820 412H732" class="line"/><path d="M428 412H340" class="line"/>
+  <rect x="36" y="134" width="304" height="116" class="box"/>
+  <text x="56" y="170" class="head">1. FROM / JOIN</text><text x="56" y="205">确定数据与关联组合</text><text x="56" y="237" class="small">本例从四笔订单出发</text>
+  <rect x="428" y="134" width="304" height="116" class="focus"/>
+  <text x="448" y="170" class="head">2. WHERE 筛行</text><text x="448" y="205">十月、已支付</text><text x="448" y="237" class="small">保留 101 / 50、103 / 39.90</text>
+  <rect x="820" y="134" width="304" height="116" class="box"/>
+  <text x="840" y="170" class="head">3. GROUP BY 汇总</text><text x="840" y="205">按 customer_id 分组</text><text x="840" y="237" class="small">客户 1：两单，合计 89.90</text>
+  <rect x="820" y="354" width="304" height="116" class="focus"/>
+  <text x="840" y="390" class="head">4. HAVING 筛分组</text><text x="840" y="425">SUM(amount) &gt; 60</text><text x="840" y="457" class="small">比较合计值，不是逐笔金额</text>
+  <rect x="428" y="354" width="304" height="116" class="box"/>
+  <text x="448" y="390" class="head">5. 投影与窗口计算</text><text x="448" y="425">选择返回列、增加排名等</text><text x="448" y="457" class="small">窗口结果需在外层继续筛选</text>
+  <rect x="36" y="354" width="304" height="116" class="box"/>
+  <text x="56" y="390" class="head">6. ORDER BY / LIMIT</text><text x="56" y="425">明确稳定顺序，再取页面</text><text x="56" y="457" class="small">合计倒序，以客户编号破同分</text>
+  <text x="36" y="538">如果改成 WHERE amount &gt; 60，两笔订单都被提前排除，汇总不会得到 89.90。</text>
+  <text x="36" y="574" class="small">优化器可以下推条件、改变连接顺序和访问方式；必须保持查询结果合同。</text>
+</svg>

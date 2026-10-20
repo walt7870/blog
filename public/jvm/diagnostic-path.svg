@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="diag-path-title diag-path-desc">
+  <title id="diag-path-title">JVM 故障证据分支与复测</title>
+  <desc id="diag-path-desc">保存错误、时间、版本与限额后按现象选择证据。内存分支先区分堆、元空间、native或容器；CPU分支用线程与执行采样；延迟分支对齐GC、安全点、锁与下游。形成假设后控制单变量修复并以相同负载复测，必要时返回证据分支。</desc>
+  <defs><marker id="diag-path-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#diag-path-arrow)}</style>
+  <rect width="1100" height="620" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">先把证据与故障时间对齐，再决定采集动作</text>
+  <rect x="276" y="86" width="548" height="66" rx="20" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="name" x="302" y="114">保存错误原文、时间、JDK 与资源限额</text>
+  <text class="note" x="302" y="138">先确认进程是否仍存活，保留已有日志与监控。</text>
+  <path class="edge" d="M550 152V180"/>
+  <path class="edge" d="M426 224H194Q186 224 186 232V300"/>
+  <path class="edge" d="M550 268V300"/>
+  <path class="edge" d="M674 224H906Q914 224 914 232V300"/>
+  <path d="M550 180 674 224 550 268 426 224Z" fill="#fff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text class="name" x="490" y="231">主要现象？</text>
+  <rect x="270" y="208" width="80" height="28" fill="#f8fafc"/><text class="note" x="284" y="228">内存</text>
+  <rect x="564" y="270" width="80" height="26" fill="#f8fafc"/><text class="note" x="578" y="289">CPU</text>
+  <rect x="750" y="208" width="80" height="28" fill="#f8fafc"/><text class="note" x="764" y="228">延迟</text>
+  <rect class="node" x="32" y="300" width="308" height="112" rx="6"/>
+  <text class="name" x="52" y="333">区分区域与终止原因</text>
+  <text class="body" x="52" y="366">堆 / 元空间 / native / cgroup</text>
+  <text class="note" x="52" y="395">按需选择引用链、NMT、系统映射</text>
+  <rect class="node" x="396" y="300" width="308" height="112" rx="6"/>
+  <text class="name" x="416" y="333">确认计算热点</text>
+  <text class="body" x="416" y="366">线程 CPU、JFR 执行采样</text>
+  <text class="note" x="416" y="395">区分应用线程、GC 与编译线程</text>
+  <rect class="node" x="760" y="300" width="308" height="112" rx="6"/>
+  <text class="name" x="780" y="333">拆分等待与停顿</text>
+  <text class="body" x="780" y="366">GC、安全点、锁、下游与调度</text>
+  <text class="note" x="780" y="395">请求时间轴与运行事件交叉核对</text>
+  <path d="M186 412V446Q186 454 194 454H906Q914 454 914 446V412" fill="none" stroke="#64748b" stroke-width="2"/>
+  <path d="M550 412V454" fill="none" stroke="#64748b" stroke-width="2"/>
+  <circle cx="550" cy="454" r="4" fill="#64748b"/>
+  <path class="edge" d="M550 458V482"/>
+  <rect x="180" y="482" width="740" height="82" rx="20" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="204" y="515">形成可检验的假设，修复后用相同负载复测</text>
+  <text class="body" x="204" y="546">比较业务结果、吞吐、尾延迟和内存；解释不通时返回证据分支。</text>
+  <text class="note" x="32" y="602">heap dump / histogram 有停顿与磁盘成本；NMT 必须预先开启，且不覆盖全部第三方 native 分配。</text>
+</svg>

@@ -1,60 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
-  <title id="title">GitLab CI/CD 组件与权限关系</title>
-  <desc id="desc">维护者合并代码后 GitLab 编排流水线，Runner manager 主动请求任务并创建临时作业 Pod。验证、制品发布和环境部署使用不同身份，产物进入镜像仓库或对象存储，运行验收完成后记录发布结果。</desc>
-  <defs>
-    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#64748b"/></marker>
-    <style>
-      text { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b4d; }
-      .title { font-size: 26px; font-weight: 700; }
-      .label { font-size: 20px; font-weight: 600; }
-      .body { font-size: 17px; }
-      .small { font-size: 15px; fill: #475569; }
-      .arrow { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow); }
-    </style>
-  </defs>
-  <rect width="1200" height="590" rx="16" fill="#f8fafc"/>
-  <text x="34" y="44" class="title">从代码合并到运行验收</text>
-  <text x="34" y="74" class="body">GitLab 编排流程；Runner 管理执行环境；作业身份决定能访问哪些资源。</text>
-  <rect x="34" y="108" width="218" height="102" rx="12" fill="#e0e7ff" stroke="#a5b4fc"/>
-  <text x="56" y="143" class="label">开发者 / 维护者</text>
-  <text x="56" y="173" class="body">提交 MR → 审核合并</text>
-  <text x="56" y="195" class="small">受保护的 test / main</text>
-  <rect x="308" y="108" width="242" height="102" rx="12" fill="#e0e7ff" stroke="#a5b4fc"/>
-  <text x="332" y="143" class="label">GitLab 控制面</text>
-  <text x="332" y="173" class="body">仓库 / 流水线 / 作业状态</text>
-  <text x="332" y="195" class="small">变量、制品与操作记录</text>
-  <path d="M252 159 H302" class="arrow"/>
-  <rect x="680" y="108" width="482" height="102" rx="12" fill="#dbeafe" stroke="#93c5fd"/>
-  <text x="704" y="143" class="label">Runner manager（常驻）</text>
-  <text x="704" y="173" class="body">创建、观察、清理临时作业 Pod</text>
-  <text x="704" y="195" class="small">仅持有指定 CI namespace 的管理权限</text>
-  <path d="M680 162 H557" class="arrow"/>
-  <text x="563" y="141" class="small">主动请求任务</text>
-  <path d="M918 210 V244 H592 V273" class="arrow"/>
-  <rect x="34" y="282" width="1128" height="146" rx="14" fill="#eff6ff" stroke="#bfdbfe"/>
-  <rect x="54" y="300" width="326" height="109" rx="10" fill="#fff" stroke="#cbd5e1"/>
-  <text x="74" y="332" class="label">验证 Pod</text>
-  <text x="74" y="362" class="body">测试 / 编译 / 检查</text>
-  <text x="74" y="387" class="small">普通分支可用，无云发布权限</text>
-  <rect x="418" y="300" width="326" height="109" rx="10" fill="#fff" stroke="#cbd5e1"/>
-  <text x="438" y="332" class="label">制品发布 Pod</text>
-  <text x="438" y="362" class="body">构建镜像 / 推送 / 保存 digest</text>
-  <text x="438" y="387" class="small">只写指定镜像仓库或制品路径</text>
-  <rect x="782" y="300" width="360" height="109" rx="10" fill="#fff" stroke="#cbd5e1"/>
-  <text x="802" y="332" class="label">环境部署 Pod</text>
-  <text x="802" y="362" class="body">切换版本 / 业务验收 / 记录结果</text>
-  <text x="802" y="387" class="small">测试与生产使用各自的发布身份</text>
-  <path d="M380 351 H410" class="arrow"/>
-  <path d="M744 351 H774" class="arrow"/>
-  <path d="M582 409 V461" class="arrow"/>
-  <path d="M960 409 V461" class="arrow"/>
-  <rect x="418" y="470" width="326" height="77" rx="10" fill="#fef3c7" stroke="#fcd34d"/>
-  <text x="438" y="501" class="label">镜像仓库 / 对象存储</text>
-  <text x="438" y="527" class="small">不可变制品、缓存、持久发布记录</text>
-  <rect x="782" y="470" width="360" height="77" rx="10" fill="#dcfce7" stroke="#86efac"/>
-  <text x="802" y="501" class="label">应用集群 / 静态站点</text>
-  <text x="802" y="527" class="small">核对实际运行版本与业务响应</text>
-  <text x="54" y="491" class="body">每个 CI Job 按需创建 Pod</text>
-  <text x="54" y="519" class="small">作业结束后清理，缓存与制品独立保存</text>
-  <text x="54" y="544" class="small">图中表示流程阶段，不表示共享一个身份</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="650" viewBox="0 0 1120 650" role="img" aria-labelledby="gitlab-cicd-architecture-title gitlab-cicd-architecture-desc">
+  <title id="gitlab-cicd-architecture-title">GitLab CI/CD 控制、制品与部署边界</title><desc id="gitlab-cicd-architecture-desc">GitLab保存仓库和编排结果。Runner manager主动请求任务，并分别创建验证、构建与部署Pod。验证通过后构建不可变制品；部署Pod按摘要取制品并更新运行环境，业务节点另有拉取身份。管理身份不应拥有业务发布权限。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#596b78" stroke-width="1.4"/></marker></defs><rect width="1120" height="650" fill="#f7f9fb"/>
+  <g font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" fill="#263541">
+    <text x="48" y="54" font-size="27" font-weight="700">编排、执行、制品和环境分别授权</text><text x="48" y="89" font-size="17" fill="#536470">虚线表示管理控制；实线表示验证依赖、制品或环境操作。每个作业按需创建独立 Pod。</text>
+    <g fill="none" stroke="#596b78" stroke-width="2" marker-end="url(#a)"><path d="M440 176H328"/><path d="M328 346H440"/><path d="M680 346H840"/><path d="M560 408V486"/><path d="M960 408V486"/><path d="M680 531H796Q804 531 804 523V386Q804 378 812 378H840"/></g>
+    <g fill="none" stroke="#81909d" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a)"><path d="M472 218V238Q472 246 464 246H196Q188 246 188 254V302"/><path d="M560 218V302"/><path d="M648 218V238Q648 246 656 246H952Q960 246 960 254V302"/></g>
+    <rect x="48" y="134" width="280" height="84" rx="6" fill="#edf4fc" stroke="#819bb6"/><text x="70" y="168" font-size="21" font-weight="700">GitLab 控制面</text><text x="70" y="198" font-size="17">MR、源码、作业与制品元数据</text>
+    <rect x="440" y="134" width="240" height="84" rx="6" fill="#fff" stroke="#a4b3be"/><text x="462" y="168" font-size="21" font-weight="700">Runner manager</text><text x="462" y="198" font-size="17">仅管理指定 CI 区域的 Pod</text>
+    <text x="347" y="157" font-size="16">请求任务</text><text x="720" y="168" font-size="17">合并触发流水线；manager</text><text x="720" y="198" font-size="17">请求任务并上报执行状态。</text>
+    <text x="48" y="283" font-size="17">普通验证身份</text><text x="440" y="283" font-size="17">限定仓库写入身份</text><text x="840" y="283" font-size="17">受保护的环境身份</text>
+    <rect x="48" y="302" width="280" height="106" rx="6" fill="#fff" stroke="#a4b3be"/><text x="70" y="336" font-size="21" font-weight="700">验证 Pod</text><text x="70" y="370" font-size="17">测试、编译、检查</text><text x="70" y="394" font-size="16">不持有部署凭据</text>
+    <rect x="440" y="302" width="240" height="106" rx="6" fill="#fff" stroke="#a4b3be"/><text x="462" y="336" font-size="21" font-weight="700">构建 / 发布 Pod</text><text x="462" y="370" font-size="17">构建、推送并保存 digest</text><text x="462" y="394" font-size="16">源提交与产物关联</text>
+    <rect x="840" y="302" width="240" height="106" rx="6" fill="#e9f5f0" stroke="#7caaa0"/><text x="862" y="336" font-size="21" font-weight="700">环境部署 Pod</text><text x="862" y="370" font-size="17">版本锁、更新、业务验收</text><text x="862" y="394" font-size="16">记录前后版本及操作结果</text>
+    <text x="348" y="330" font-size="16">检查通过</text><text x="704" y="330" font-size="16">制品就绪后</text><text x="578" y="452" font-size="16">上传</text><text x="982" y="452" font-size="16">更新</text>
+    <rect x="440" y="486" width="240" height="90" rx="6" fill="#fff" stroke="#a4b3be"/><text x="462" y="519" font-size="21" font-weight="700">镜像 / 对象存储</text><text x="462" y="550" font-size="17">不可变产物、持久发布记录</text>
+    <rect x="840" y="486" width="240" height="90" rx="6" fill="#fff" stroke="#a4b3be"/><text x="862" y="519" font-size="21" font-weight="700">应用集群 / 静态站点</text><text x="862" y="550" font-size="17">运行身份另配镜像读取权限</text>
+    <text x="48" y="506" font-size="18">部署读取制品清单与摘要，</text><text x="48" y="538" font-size="18">按目标类型拉取或切换版本。</text><text x="48" y="618" font-size="17" fill="#536470">生产与测试分开授权；RBAC 的 patch 权限不只允许修改镜像字段，还需准入与运行身份约束。</text>
+  </g>
 </svg>

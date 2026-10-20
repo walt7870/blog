@@ -1,37 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
-  <title id="title">容器交付链路</title>
-  <desc id="desc">展示从源码构建镜像、推送仓库、运行时启动容器到 Kubernetes 集群部署的容器交付路径。</desc>
-  <style>
-    .bg{fill:#f8fafc}.title{font:700 30px Arial,'Microsoft YaHei',sans-serif;fill:#111827}.sub{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.box{fill:#fff;stroke:#cbd5e1;stroke-width:2}.docker{fill:#e0f2fe;stroke:#0284c7;stroke-width:2}.k8s{fill:#dcfce7;stroke:#16a34a;stroke-width:2}.repo{fill:#fff7ed;stroke:#f97316;stroke-width:2}.h{font:700 18px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.t{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#475569}.line{stroke:#64748b;stroke-width:3;fill:none}.arrow{fill:#64748b}
-  </style>
-  <rect class="bg" width="1120" height="600" rx="24"/>
-  <text class="title" x="56" y="60">容器交付链路</text>
-  <text class="sub" x="56" y="90">构建工具产出镜像，运行时启动容器，Kubernetes 负责把容器应用稳定部署到集群。</text>
-  <rect class="box" x="70" y="180" width="170" height="110" rx="16"/>
-  <text class="h" x="122" y="222">源码</text>
-  <text class="t" x="105" y="252">业务代码</text>
-  <text class="t" x="105" y="276">依赖配置</text>
-  <path class="line" d="M240 235h75"/><polygon class="arrow" points="315,235 299,225 299,245"/>
-  <rect class="docker" x="315" y="165" width="190" height="140" rx="16"/>
-  <text class="h" x="366" y="210">构建镜像</text>
-  <text class="t" x="350" y="240">Dockerfile</text>
-  <text class="t" x="350" y="264">BuildKit / tag</text>
-  <path class="line" d="M505 235h75"/><polygon class="arrow" points="580,235 564,225 564,245"/>
-  <rect class="repo" x="580" y="165" width="190" height="140" rx="16"/>
-  <text class="h" x="642" y="210">镜像仓库</text>
-  <text class="t" x="620" y="240">Registry</text>
-  <text class="t" x="620" y="264">版本与分发</text>
-  <path class="line" d="M770 235h75"/><polygon class="arrow" points="845,235 829,225 829,245"/>
-  <rect class="k8s" x="845" y="165" width="205" height="140" rx="16"/>
-  <text class="h" x="905" y="210">集群部署</text>
-  <text class="t" x="885" y="240">Deployment</text>
-  <text class="t" x="885" y="264">Service / Ingress</text>
-  <rect class="docker" x="315" y="380" width="190" height="105" rx="16"/>
-  <text class="h" x="352" y="421">运行时验证</text>
-  <text class="t" x="340" y="452">Docker / containerd</text>
-  <path class="line" d="M410 305v75"/><polygon class="arrow" points="410,380 400,364 420,364"/>
-  <rect class="k8s" x="845" y="380" width="205" height="105" rx="16"/>
-  <text class="h" x="902" y="421">运行治理</text>
-  <text class="t" x="882" y="452">扩缩容、探针、权限</text>
-  <path class="line" d="M948 305v75"/><polygon class="arrow" points="948,380 938,364 958,364"/>
+  <title id="title">订单服务的容器交付关系</title>
+  <desc id="desc">源码由构建器生成镜像并推送仓库，Docker 或 Kubernetes 节点运行镜像；运行配置单独输入，导出文件写入挂载的持久存储。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="600" fill="#f8fafc"/>
+  <text class="h" x="40" y="51">订单服务：交付程序，也明确运行与数据合同</text>
+  <text class="t muted" x="40" y="84">镜像负责初始文件；配置、运行环境与持久化不由镜像自动补齐。</text>
+  <path class="line" d="M235 194H292"/><path class="line" d="M502 194H562"/>
+  <path class="line" d="M667 252V290Q667 298 659 298H613Q605 298 605 306V337"/>
+  <path class="line" d="M725 397H755"/>
+  <path class="line" d="M432 397H485"/>
+  <rect class="box" x="40" y="136" width="195" height="116" rx="6"/>
+  <text class="n" x="60" y="172">源码与构建输入</text><text class="t" x="60" y="205">订单程序、依赖</text><text class="t" x="60" y="231">Dockerfile、目标平台</text>
+  <rect class="blue" x="292" y="136" width="210" height="116" rx="6"/>
+  <text class="n" x="312" y="172">构建器 / BuildKit</text><text class="t" x="312" y="205">产出镜像与发布摘要</text><text class="t" x="312" y="231">验证目标平台与行为</text>
+  <rect class="blue" x="562" y="136" width="210" height="116" rx="6"/>
+  <text class="n" x="582" y="172">镜像仓库</text><text class="t" x="582" y="205">推送与拉取内容</text><text class="t" x="582" y="231">标签、摘要、访问权限</text>
+  <text class="t muted" x="692" y="291">拉取镜像</text>
+  <rect class="box" x="40" y="337" width="392" height="120" rx="6"/>
+  <text class="n" x="60" y="372">运行配置与管理入口</text><text class="t" x="60" y="403">Docker：单机容器 / Compose</text><text class="t" x="60" y="433">Kubernetes：声明资源，经节点启动实例</text>
+  <rect class="green" x="485" y="337" width="240" height="120" rx="6"/>
+  <text class="n" x="505" y="372">订单服务进程</text><text class="t" x="505" y="403">平台、内核、权限要匹配</text><text class="t" x="505" y="433">数据库连接、端口与挂载</text>
+  <rect class="green" x="755" y="353" width="325" height="104" rx="6"/>
+  <text class="n" x="775" y="387">/exports → 卷或外部存储</text><text class="t" x="775" y="418">CSV 保存期限、共享方式和备份</text><text class="t" x="775" y="443">不能依赖被删除实例的可写层</text>
+  <text class="t muted" x="40" y="524">验收沿实际链路进行：发布对象正确 → 进程启动 → 请求可达 → 数据保存 → 重建后恢复。</text>
+  <text class="t muted" x="40" y="556">集群负责调谐与调度；业务幂等、数据库可用性与正确备份仍需独立设计。</text>
 </svg>

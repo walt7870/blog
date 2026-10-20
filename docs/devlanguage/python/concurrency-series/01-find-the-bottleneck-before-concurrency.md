@@ -1,12 +1,8 @@
 # 先判断瓶颈：I/O、CPU、API、GPU、内存
 
 > 对应视频：EP01《先判断瓶颈》  
-> 视频入口：[B站 EP01 定时稿](https://www.bilibili.com/video/BV1uYu56JErn)（计划公开：2026-08-09 20:18）。
+> 视频入口：[B站 EP01](https://www.bilibili.com/video/BV1uYu56JErn)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
-> 示例代码：`examples/ep01/diagnostic_probe.py`  
-> 最后核验：2026-08-01
 
 视频负责建立主线：并发选型之前，先跑一条诊断证据链。文章在视频基础上补全工具、命令、指标解释和排查分支，让你能把这套方法用到批量文件、语音转码、ASR/TTS、本地模型推理等任务里。
 
@@ -76,43 +72,7 @@ baseline
 - RSS 内存水位
 - 队列长度：如果已经用了 `Queue`
 
-最小探针代码：
-
-```python
-from contextlib import contextmanager
-from dataclasses import dataclass
-from time import perf_counter
-import os
-import resource
-
-
-@dataclass
-class StageStat:
-    name: str
-    elapsed: float
-    rss_mb: float
-    ok: bool
-    error: str | None = None
-
-
-def rss_mb() -> float:
-    usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-    if os.uname().sysname == "Darwin":
-        return usage / 1024 / 1024
-    return usage / 1024
-
-
-@contextmanager
-def probe(stage: str, sink: list[StageStat]):
-    start = perf_counter()
-    try:
-        yield
-    except Exception as exc:
-        sink.append(StageStat(stage, perf_counter() - start, rss_mb(), False, type(exc).__name__))
-        raise
-    else:
-        sink.append(StageStat(stage, perf_counter() - start, rss_mb(), True))
-```
+探针完整代码在本页末尾；先用下表理解采样口径。
 
 这不是完整监控，但足够把“慢”定位到某个阶段。
 
@@ -185,7 +145,7 @@ ASR/TTS 这类外部 API，要分开记录：
 
 如果并发升高以后 `429` 和重试次数一起升高，通常不是客户端不够快，而是服务端在告诉你降速。正确方向是：
 
-- `asyncio.Semaphore` 或令牌桶限流
+- `asyncio.Semaphore`限制在途，令牌桶限制速率
 - 指数退避
 - 幂等写入
 - 失败任务状态表
@@ -233,36 +193,13 @@ ASR/TTS 这类外部 API，要分开记录：
 | GPU 利用率低但总耗时高 | 数据供给或预处理不足 | 查 CPU/磁盘/预处理队列 |
 | GPU 显存满 | batch 或模型并发过高 | 降 batch、复用模型、控制并发 |
 
+## 探针的范围与读数
 
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
+下方探针使用Unix的resource模块，适用于Linux和macOS，不直接支持Windows。ru_maxrss是进程历史峰值，不是本阶段当前RSS；Linux单位为KiB，macOS为字节，因此统一显示为MiB。某阶段结束后数值没下降，不能据此判定内存泄漏。
 
-**读图方式**
+示例用sleep模拟读文件、API和写入，没有访问真实音频或网络。三次处理应得到12条阶段记录。要验证异常分支，可在probe内抛ValueError：sink应新增ok=False，随后异常继续抛给调用方。
 
-- 从左到右读：baseline 解决“到底有多慢”，stage probe 解决“慢在哪一步”，system metrics 解决“哪个资源先满”。
-- profiler 和日志不是替代关系：`py-spy` 看 Python 在干什么，API 日志看外部服务是否把你挡住。
-- 模型选择只在证据之后发生；没有证据时增加并发数，通常只是把失败更快地制造出来。
-
-**排查路径**
-
-- 先跑 1 worker、2 workers、4 workers 三组小实验，记录每阶段耗时和失败率。
-- CPU 低但耗时高，优先查网络、磁盘、API 等待；CPU 高且单函数占比高，再考虑进程池或原生库。
-- 如果 p95/p99 上涨快于平均值，说明系统已经出现排队或尾部阻塞。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| CPU 很低，总耗时很长 | per-stage elapsed、socket/API 等待 | 线程池或 `asyncio`，并加 timeout |
-| CPU 打满，加线程没收益 | `py-spy top`、`cProfile` 热点 | 进程池、外部命令或向量化库 |
-| 并发一上去就 429 | QPS、in-flight、429 频率 | `asyncio.Semaphore`、退避、配额账本 |
-| GPU 利用率忽高忽低 | `nvidia-smi`、queue_wait、batch_size | 有界队列、batcher、显存水位保护 |
-
-**落地边界**
-
-- 诊断脚本要固定输入数据，否则每次实验不具备可比性。
-- 不要只看单次最快结果，要看多次运行的中位数和尾延迟。
-<!-- concurrency-series-engineering-supplement:end -->
+Semaphore只限制同时进行的请求数量，不保证每秒或每分钟配额。CPU低也可能是锁、进程配额或单核统计口径问题，需结合阶段时间和线程栈判断。tracemalloc主要跟踪Python分配，不覆盖所有原生库、GPU和子进程内存。
 
 ## 常见失败模式
 
@@ -297,9 +234,9 @@ ASR/TTS 这类外部 API，要分开记录：
 
 线程数不是第一个该调的旋钮。先跑证据链，再做模型选择。
 
-## 配套示例代码
+## 运行示例
 
-源码文件：`examples/ep01/diagnostic_probe.py`
+示例保存为`examples/ep01/diagnostic_probe.py`；目录和文件名由本地自行创建。
 
 ```python
 from __future__ import annotations
@@ -307,25 +244,22 @@ from __future__ import annotations
 from contextlib import contextmanager
 from dataclasses import dataclass
 from time import perf_counter, sleep
-import os
+import platform
 import resource
-
 
 @dataclass
 class StageStat:
     name: str
     elapsed: float
-    rss_mb: float
+    peak_rss_mib: float
     ok: bool
     error: str | None = None
 
-
-def rss_mb() -> float:
+def peak_rss_mib() -> float:
     usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-    if os.uname().sysname == "Darwin":
+    if platform.system() == "Darwin":
         return usage / 1024 / 1024
     return usage / 1024
-
 
 @contextmanager
 def probe(stage: str, sink: list[StageStat]):
@@ -333,11 +267,10 @@ def probe(stage: str, sink: list[StageStat]):
     try:
         yield
     except Exception as exc:
-        sink.append(StageStat(stage, perf_counter() - start, rss_mb(), False, type(exc).__name__))
+        sink.append(StageStat(stage, perf_counter() - start, peak_rss_mib(), False, type(exc).__name__))
         raise
     else:
-        sink.append(StageStat(stage, perf_counter() - start, rss_mb(), True))
-
+        sink.append(StageStat(stage, perf_counter() - start, peak_rss_mib(), True))
 
 def process_one_audio(stats: list[StageStat]) -> None:
     with probe("read", stats):
@@ -352,7 +285,6 @@ def process_one_audio(stats: list[StageStat]) -> None:
     with probe("write", stats):
         sleep(0.01)
 
-
 if __name__ == "__main__":
     stats: list[StageStat] = []
     for _ in range(3):
@@ -360,6 +292,6 @@ if __name__ == "__main__":
 
     for item in stats:
         status = "ok" if item.ok else f"failed:{item.error}"
-        print(f"{item.name:10s} {item.elapsed:8.4f}s rss={item.rss_mb:7.1f}MB {status}")
+        print(f"{item.name:10s} {item.elapsed:8.4f}s rss={item.peak_rss_mib:7.1f}MiB峰值 {status}")
 ```
 

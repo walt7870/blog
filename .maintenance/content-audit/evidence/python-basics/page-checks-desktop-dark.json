@@ -1,0 +1,466 @@
+[
+  {
+    "index": 0,
+    "page": "docs/devlanguage/python/index.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/python-learning-routes.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Python 工程实践 ​",
+    "width": 1280
+  },
+  {
+    "index": 1,
+    "page": "docs/devlanguage/python/basics-series/index.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/python-basics-map.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Python 基础客户教程：从会运行到能交付 ​",
+    "width": 1280
+  },
+  {
+    "index": 2,
+    "page": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/python-basics-map.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "这套 Python 基础课会带你从哪里走到哪里 ​",
+    "width": 1280
+  },
+  {
+    "index": 3,
+    "page": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/customer-record-shape.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Python 第一课：把客户名单变成可检查的数据 ​",
+    "width": 1280
+  },
+  {
+    "index": 4,
+    "page": "docs/devlanguage/python/basics-series/02-run-python-script.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/script-path-boundaries.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "安装、运行和脚本文件：客户电脑上怎样确认 Python 能跑起来 ​",
+    "width": 1280
+  },
+  {
+    "index": 5,
+    "page": "docs/devlanguage/python/basics-series/03-field-types.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/field-conversion-contract.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "变量和类型怎么服务业务字段 ​",
+    "width": 1280
+  },
+  {
+    "index": 6,
+    "page": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/customer-record-shape.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "列表、字典和表格行：一行、多行、字段名怎样在代码里对应 ​",
+    "width": 1280
+  },
+  {
+    "index": 7,
+    "page": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/customer-rule-branches.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "条件判断：把业务规则写清楚 ​",
+    "width": 1280
+  },
+  {
+    "index": 8,
+    "page": "docs/devlanguage/python/basics-series/06-batch-loop.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/batch-classification.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "循环：一条规则跑完整张表 ​",
+    "width": 1280
+  },
+  {
+    "index": 9,
+    "page": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/source-normalization.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "字符串清洗：空格、大小写和格式 ​",
+    "width": 1280
+  },
+  {
+    "index": 10,
+    "page": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/contact-date-decision.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "数字和日期：金额、天数和超期 ​",
+    "width": 1280
+  },
+  {
+    "index": 11,
+    "page": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/function-rule-contract.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "函数：把重复规则变成可复用步骤 ​",
+    "width": 1280
+  },
+  {
+    "index": 12,
+    "page": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/module-dependency.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "模块：把脚本拆成几份文件 ​",
+    "width": 1280
+  },
+  {
+    "index": 13,
+    "page": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/csv-validation-path.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "读写 CSV 文件 ​",
+    "width": 1280
+  },
+  {
+    "index": 14,
+    "page": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/json-response-contract.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "JSON：系统接口常见的数据形态 ​",
+    "width": 1280
+  },
+  {
+    "index": 15,
+    "page": "docs/devlanguage/python/basics-series/13-table-health-check.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/table-health-gates.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "Excel/表格实战入口 ​",
+    "width": 1280
+  },
+  {
+    "index": 16,
+    "page": "docs/devlanguage/python/basics-series/14-group-summary.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/group-summary-grain.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "分组统计：按来源、城市、销售汇总 ​",
+    "width": 1280
+  },
+  {
+    "index": 17,
+    "page": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/order-amount-status.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "订单检查：金额、状态和异常 ​",
+    "width": 1280
+  },
+  {
+    "index": 18,
+    "page": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/daily-report-composition.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "生成日报：把多个结果合成一个输出 ​",
+    "width": 1280
+  },
+  {
+    "index": 19,
+    "page": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/venv-interpreter-contract.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "虚拟环境和依赖 ​",
+    "width": 1280
+  },
+  {
+    "index": 20,
+    "page": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/traceback-reading-path.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "常见报错怎么读 ​",
+    "width": 1280
+  },
+  {
+    "index": 21,
+    "page": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/row-error-boundary.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "异常处理：让脚本遇到坏数据不断掉 ​",
+    "width": 1280
+  },
+  {
+    "index": 22,
+    "page": "docs/devlanguage/python/basics-series/20-logging.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/run-log-evidence.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "日志：给别人运行时留下线索 ​",
+    "width": 1280
+  },
+  {
+    "index": 23,
+    "page": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/api-response-gates.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "调用 API：从系统拿客户数据 ​",
+    "width": 1280
+  },
+  {
+    "index": 24,
+    "page": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/batch-file-boundaries.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "批量文件自动化 ​",
+    "width": 1280
+  },
+  {
+    "index": 25,
+    "page": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/cli-path-contract.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "参数配置：不改代码也能换文件 ​",
+    "width": 1280
+  },
+  {
+    "index": 26,
+    "page": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/delivery-validation-gates.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "交付一个客户可用小工具 ​",
+    "width": 1280
+  },
+  {
+    "index": 27,
+    "page": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/customer-object-ownership.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "什么时候该用类，把数据和动作放进同一个对象 ​",
+    "width": 1280
+  },
+  {
+    "index": 28,
+    "page": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "mode": "desktop-dark",
+    "dark": true,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/python/python-tool-delivery-loop.svg"
+      }
+    ],
+    "overflow": [],
+    "pageWidth": 1280,
+    "title": "学完 Python 基础后，怎样从空目录做出第一个可用工具 ​",
+    "width": 1280
+  }
+]

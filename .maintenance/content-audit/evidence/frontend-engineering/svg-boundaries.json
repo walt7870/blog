@@ -1,0 +1,32 @@
+[
+  {
+    "id": "frontend-delivery",
+    "nodes": [],
+    "outside": []
+  },
+  {
+    "id": "quality-gates",
+    "nodes": [],
+    "outside": []
+  },
+  {
+    "id": "state-ownership",
+    "nodes": [],
+    "outside": []
+  },
+  {
+    "id": "testing-contract",
+    "nodes": [],
+    "outside": []
+  },
+  {
+    "id": "performance-evidence",
+    "nodes": [],
+    "outside": []
+  },
+  {
+    "id": "release-cache",
+    "nodes": [],
+    "outside": []
+  }
+]

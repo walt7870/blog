@@ -6,12 +6,14 @@ Spring 注解不是一组互相独立的快捷语法。每个注解都是元数�
 
 ## 注解进入运行系统的四个阶段
 
+![Spring 注解从元数据到调用行为](/spring/annotation-processing-boundaries.svg)
+
 | 阶段 | 典型注解 | 处理结果 |
 | --- | --- | --- |
-| 配置解析 | `@Configuration`、`@ComponentScan`、`@Import`、`@Bean` | 增加或修改 BeanDefinition |
-| Bean 创建 | `@Autowired`、`@Value`、`@PostConstruct`、`@Async` | 注入依赖、执行回调或返回代理 |
-| 基础设施注册 | `@EnableTransactionManagement`、`@EnableAsync`、`@EnableScheduling` | 注册处理注解所需的后处理器和 Advisor |
-| 运行期调用 | `@Transactional`、`@Cacheable`、`@RequestMapping` | 经过代理、路由或框架策略执行 |
+| 配置解析与基础设施注册 | `@Configuration`、`@Bean`、`@EnableTransactionManagement` | 注册组件定义、后处理器与 Advisor |
+| Bean 创建与增强 | `@Autowired`、`@PostConstruct`、`@Transactional` | 注入依赖、执行初始化回调，按元数据判断是否返回代理 |
+| 请求映射初始化 | `@RequestMapping`、`@GetMapping` | 启动期读取 Handler 方法并登记映射 |
+| 运行期调用 | 事务拦截器、MVC 参数解析与路由 | 使用已登记的策略与映射；不是每次重新扫描所有注解 |
 
 注解写在源码上，只能证明元数据存在。目标类不是 Bean、基础设施没有启用、调用绕过代理或映射条件不匹配时，运行行为仍可能不存在。
 
@@ -35,9 +37,9 @@ Spring 注解不是一组互相独立的快捷语法。每个注解都是元数�
 
 `@Controller` 让类进入容器并成为 MVC Handler 候选。`@RestController` 组合了 `@Controller` 与 `@ResponseBody`，方法返回值默认写入响应体，而不是解释为视图名称。
 
-### `@Named` 与 `@ManagedBean`
+### `@Named`
 
-Spring 可以识别部分 Jakarta 标准组件注解，但 Spring 项目通常优先使用带分层语义的 stereotype。跨容器代码需要降低 Spring 依赖时，再考虑标准注解。
+Framework 6.2/7.0 在 classpath 存在 Jakarta Inject API 时，默认扫描也识别 `jakarta.inject.Named`。Spring 项目通常优先使用带分层语义的 stereotype；不要把旧资料中的 `javax.*` 或 `@ManagedBean` 识别规则直接套到当前版本。
 
 ## Java 配置注解
 
@@ -53,11 +55,11 @@ Spring 可以识别部分 Jakarta 标准组件注解，但 Spring 项目通常�
 @Bean
 PaymentClient paymentClient(PaymentProperties properties,
                             RestClient.Builder builder) {
-    return new PaymentClient(builder.baseUrl(properties.baseUrl()).build());
+    return new PaymentClient(builder.baseUrl(properties.baseUrl().toString()).build());
 }
 ```
 
-`name`/`value` 指定 Bean 名，`initMethod` 和 `destroyMethod` 指定生命周期回调。返回类型应足够具体，否则按具体类型注入时可能无法成为候选。
+这是装配片段，假定项目已定义接收 `RestClient` 的 `PaymentClient`、URI 类型的 `baseUrl`，并提供 `RestClient.Builder` Bean；完整配置示例见 [配置绑定](./boot-config-data.md)。`name`/`value` 指定 Bean 名，`initMethod` 和 `destroyMethod` 指定生命周期回调。返回类型应足够具体，否则按具体类型注入时可能无法成为候选。
 
 ### `@ComponentScan`
 
@@ -97,7 +99,7 @@ PaymentClient paymentClient(PaymentProperties properties,
 
 ### `@Primary` 与 `@Fallback`
 
-`@Primary` 在多个候选中声明优先选择；`@Fallback` 把候选标记为后备实现，只有非后备候选无法满足时才考虑。它们适合定义默认策略，调用方明确需要某实现时仍应使用限定符。
+`@Primary` 在合格候选中声明优先选择；Framework 6.2 起的 `@Fallback` 标记后备实现。在按类型、限定符等缩小候选后，如果只剩一个常规候选和若干后备候选，常规候选会被优先选择；若仍有两个无法区分的常规候选，后备标记不能消除歧义。它们适合定义默认策略，调用方明确需要某实现时仍应使用限定符。
 
 ### `@Resource` 与 `@Inject`
 
@@ -248,7 +250,7 @@ Boot 常用条件包括类存在或缺失、Bean 存在或缺失、属性取值�
 
 ### `@MockBean` / `@MockitoBean`
 
-用于把测试替身注册或覆盖到 ApplicationContext。具体名称和推荐方式取决于 Spring Boot、Spring Framework 版本；升级时应按项目版本核对迁移说明，而不是在新旧注解间盲目替换。
+用于把 Mockito 测试替身注册或覆盖到 ApplicationContext。Boot 的 `@MockBean` 自 3.4 弃用，Boot 4 已移除；Framework 6.2/7.0 使用 `org.springframework.test.context.bean.override.mockito.MockitoBean`。迁移时还要核对字段、配置类和层级 Context 的覆盖范围，不能只替换 import 后假定测试语义不变。
 
 ### 测试中的 `@Transactional`
 

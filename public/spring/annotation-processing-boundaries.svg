@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="590" viewBox="0 0 1240 590" role="img" aria-labelledby="annotation-processing-boundaries-title annotation-processing-boundaries-desc">
+  <title id="annotation-processing-boundaries-title">Spring 注解从元数据到调用行为</title>
+  <desc id="annotation-processing-boundaries-desc">配置解析登记定义和处理器，Bean 创建时注入与生成代理，MVC 初始化登记请求映射，运行时使用代理和映射。自调用会绕过代理入口。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8Z" fill="#64748b"/></marker>
+    <style>
+      text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#1e293b}
+      .title{font-size:30px;font-weight:700}.h{font-size:22px;font-weight:700}.p{font-size:18px}.s{font-size:16px;fill:#475569}
+      .node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:6}.focus{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:6}
+      .line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1240" height="590" fill="#f8fafc"/>
+  <text x="40" y="56" class="title">注解提供元数据，处理器把它变成运行结构</text>
+  <text x="40" y="94" class="p">以订单服务为例：启动时登记定义、装配对象和请求映射，运行时使用这些结果。</text>
+  <path class="line" d="M300 240 H340"/><path class="line" d="M600 240 H640"/><path class="line" d="M900 240 H940"/>
+  <rect class="node" x="40" y="150" width="260" height="190"/>
+  <text x="60" y="188" class="h">1 · 配置解析</text>
+  <text x="60" y="225" class="p">扫描 @Service</text>
+  <text x="60" y="257" class="p">解析 @Bean / @Enable…</text>
+  <text x="60" y="305" class="s">产物：定义与基础设施</text>
+  <rect class="focus" x="340" y="150" width="260" height="190"/>
+  <text x="360" y="188" class="h">2 · Bean 创建</text>
+  <text x="360" y="225" class="p">构造器注入仓库、时钟</text>
+  <text x="360" y="257" class="p">Advisor 判断代理资格</text>
+  <text x="360" y="305" class="s">产物：对象或代理</text>
+  <rect class="node" x="640" y="150" width="260" height="190"/>
+  <text x="660" y="188" class="h">3 · MVC 初始化</text>
+  <text x="660" y="225" class="p">读取 @RequestMapping</text>
+  <text x="660" y="257" class="p">登记路径、方法等条件</text>
+  <text x="660" y="305" class="s">产物：请求映射表</text>
+  <rect class="node" x="940" y="150" width="260" height="190"/>
+  <text x="960" y="188" class="h">4 · 请求执行</text>
+  <text x="960" y="225" class="p">MVC 选中 Controller</text>
+  <text x="960" y="257" class="p">外部调用进入服务代理</text>
+  <text x="960" y="305" class="s">按已登记策略执行事务等</text>
+  <path d="M40 388 H1200" stroke="#cbd5e1"/>
+  <text x="40" y="427" class="h">为什么写了 @Transactional 仍可能没有事务？</text>
+  <text x="40" y="466" class="p">没有事务基础设施 → 没有对应 Advisor；对象由业务自己 new → 没有自动代理。</text>
+  <text x="40" y="502" class="p">即使服务已经被代理，this.inner() 仍直接调用目标对象，不会重新应用 inner() 上的事务规则。</text>
+  <text x="40" y="554" class="s">图示是常见 Servlet 应用的阶段关系；具体 Bean 的创建与映射初始化可交错，响应式应用使用另一条请求链。</text>
+</svg>

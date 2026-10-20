@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="548" viewBox="0 0 1040 548" role="img" aria-labelledby="greedy-booking-timeline-title greedy-booking-timeline-desc">
+<title id="greedy-booking-timeline-title">一间会议室的无权预约调度</title>
+<desc id="greedy-booking-timeline-desc">预约A从0到6，B从1到3，C从3到5，D从5到7。按结束时间先选B，再选C和D共3场；最早开始选A只能接D共2场。所有区间左闭右开。</desc>
+<style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24343d}.title{font-size:23px;font-weight:700}.name{font-size:18px;font-weight:600}.sub{font-size:16px;fill:#52636d}.bar{fill:#fff;stroke:#a9b8bf;stroke-width:1.3}.focus{fill:#eaf6f1;stroke:#609789;stroke-width:1.5}.grid{stroke:#dce4e8;stroke-width:1}.axis{stroke:#7e909a;stroke-width:1.3}</style>
+<rect width="1040" height="548" fill="#f8fafb"/>
+<text class="title" x="36" y="44">贪心：按结束时间选择，目标是安排最多场数</text>
+<text class="sub" x="36" y="74">只有一间会议室；每场价值相同；[开始, 结束) 允许首尾衔接。</text>
+<path class="grid" d="M180 116V438 M280 116V438 M380 116V438 M480 116V438 M580 116V438 M680 116V438 M780 116V438 M880 116V438"/>
+<path class="axis" d="M180 116H880"/>
+<text class="sub" x="174" y="106">0</text><text class="sub" x="274" y="106">1</text><text class="sub" x="374" y="106">2</text><text class="sub" x="474" y="106">3</text><text class="sub" x="574" y="106">4</text><text class="sub" x="674" y="106">5</text><text class="sub" x="774" y="106">6</text><text class="sub" x="874" y="106">7</text><text class="sub" x="916" y="106">小时</text>
+<text class="name" x="36" y="158">预约 A</text><rect class="bar" x="180" y="132" width="600" height="40" rx="4"/><text class="sub" x="200" y="158">[0,6) 最早开始，但占用时间长</text>
+<text class="name" x="36" y="214">预约 B</text><rect class="bar" x="280" y="188" width="200" height="40" rx="4"/><text class="sub" x="300" y="214">[1,3) 最早结束</text>
+<text class="name" x="36" y="270">预约 C</text><rect class="bar" x="480" y="244" width="200" height="40" rx="4"/><text class="sub" x="500" y="270">[3,5) 可接 B</text>
+<text class="name" x="36" y="326">预约 D</text><rect class="bar" x="680" y="300" width="200" height="40" rx="4"/><text class="sub" x="700" y="326">[5,7) 可接 C</text>
+<text class="name" x="36" y="405">选择结果</text><rect class="focus" x="280" y="372" width="600" height="52" rx="4"/>
+<path d="M480 372V424 M680 372V424" stroke="#609789" stroke-width="1.3"/>
+<text class="name" x="340" y="404">B</text><text class="name" x="540" y="404">C</text><text class="name" x="740" y="404">D</text><text class="name" x="916" y="404">3 场</text>
+<text class="sub" x="36" y="477">先选 A 后只能再接 D：2 场。按结束时间选 B → C → D：3 场。</text>
+<text class="sub" x="36" y="514">若改成最大收入、加入清洁时间或多会议室，需重新核对模型与正确性依据。</text>
+</svg>

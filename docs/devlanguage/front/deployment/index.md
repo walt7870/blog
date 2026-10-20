@@ -1,295 +1,106 @@
 # 前端部署
 
-前端部署的本质，是把构建后的静态资源稳定地交给浏览器访问。对于 Vite、Vue、React、Angular 这类单页应用，部署产物通常是 `dist/` 目录，里面包含 `index.html`、带 hash 的 JS/CSS 文件、图片字体等静态资源。
+静态前端部署需要同时保证HTML入口、JS/CSS资源、路由和API合同可用。SSR应用还包含服务端运行时，不能仅复制`dist/`就视为交付完成；下文以部署在`/admin/`的订单单页应用为例。
 
-国内项目更常见的部署方式有三类：直接发布到 Linux 服务器并由 Nginx 提供访问；上传到对象存储并接入 CDN；打成 Nginx 容器镜像后交给 Docker 或 Kubernetes 运行。选哪一种，主要看团队是否已有服务器、是否需要 CDN 加速、是否已有容器平台，以及发布流程是否需要标准化。
+![构建、资源发布、入口切换与旧页面恢复](/front/engineering/release-cache.svg)
 
-## 构建产物
+## 构建与运行边界
 
-部署前先确认本地构建结果可用。以 Vite 项目为例：
+先固定Node、安装器和锁文件，执行`npm ci`与`npm run build`。开发服务器可用不代表产物可用，应通过生产静态服务器检查实际HTML引用、分包、图片和深层路由。
 
-```bash
-npm ci
-npm run build
-```
-
-构建完成后，检查 `dist/`：
-
-```bash
-ls -lah dist
-```
-
-如果项目部署在域名根路径，例如 `https://www.example.com/`，一般不需要额外配置 `base`。如果部署在子路径，例如 `https://www.example.com/admin/`，需要在构建工具中配置资源基础路径：
+Vite子路径配置：
 
 ```ts
-// vite.config.ts
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 
-export default defineConfig({
-  base: '/admin/',
-})
+export default defineConfig({ base: '/admin/' });
 ```
 
-子路径部署时，Nginx 的 `location` 也要和 `base` 保持一致，否则刷新页面或加载静态资源时容易出现 404。
+客户端路由的base也要匹配。浏览器直接打开`/admin/orders/42`和从列表点击进入，是两条不同的验证路径；只检查首页会漏掉刷新404。VitePress等多页静态站不应直接套用SPA统一回退，需按站点实际生成路径提供文件。
 
-## Nginx 服务器部署
+`VITE_`环境变量默认在构建时进入浏览器代码，不是秘密；更改服务器环境不会自动改变旧产物。若采用启动时生成的`config.js`，先加载配置再启动应用，并及时再验证该文件。API地址可公开，密码、服务端密钥与发布令牌不能进入前端资源。
 
-中小型后台、企业官网、管理端系统经常直接发布到云服务器或内网服务器。流程是本地或 CI 构建 `dist/`，再同步到服务器目录，由 Nginx 提供静态访问和路由回退。
+## Nginx子路径示例
 
-服务器目录可以按版本隔离，发布时切换软链接：
-
-```bash
-sudo mkdir -p /data/www/admin/releases
-sudo mkdir -p /data/www/admin/shared
-```
-
-一次发布可以这样做：
-
-```bash
-VERSION=$(date +%Y%m%d%H%M%S)
-ssh deploy@server "mkdir -p /data/www/admin/releases/$VERSION"
-rsync -avz --delete dist/ deploy@server:/data/www/admin/releases/$VERSION/
-ssh deploy@server "ln -sfn /data/www/admin/releases/$VERSION /data/www/admin/current && sudo nginx -t && sudo nginx -s reload"
-```
-
-Nginx 配置示例：
+假设产物完整放在`/data/www/current/admin/`，其中`assets/`只放带内容hash且不会覆盖的构建资源。普通上传图片和运行时配置不应机械使用同一长期缓存规则。
 
 ```nginx
 server {
     listen 80;
     server_name admin.example.com;
+    root /data/www/current;
 
-    root /data/www/admin/current;
-    index index.html;
-
-    gzip on;
-    gzip_comp_level 5;
-    gzip_min_length 1024;
-    gzip_types text/plain text/css application/json application/javascript application/xml image/svg+xml;
-
-    location / {
-        try_files $uri $uri/ /index.html;
+    location = /admin {
+        return 308 /admin/;
     }
 
-    location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|webp|ico|woff2?)$ {
-        expires 30d;
-        add_header Cache-Control "public, max-age=2592000, immutable";
+    location = /admin/index.html {
+        add_header Cache-Control "no-cache";
+    }
+
+    location = /admin/config.js {
+        add_header Cache-Control "no-cache";
+    }
+
+    location ^~ /admin/assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
         try_files $uri =404;
     }
 
-    location = /index.html {
+    location /admin/ {
         add_header Cache-Control "no-cache";
+        try_files $uri $uri/ /admin/index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 ```
 
-`index.html` 不建议设置长缓存，因为它负责引用最新的 JS/CSS 文件。带 hash 的静态资源可以设置长缓存，发布新版本时文件名变化，浏览器会自动请求新资源。
+这里`proxy_pass`带尾斜线，把`/api/orders`转成上游`/orders`；去掉尾斜线会保留`/api/orders`。应与后端路由合同一致。公网入口还需正确配置HTTPS与证书，且后端只信任已知代理设置的转发头。
 
-如果前端需要转发接口到后端，可以在同一个 Nginx 中增加 `/api/` 代理：
+`no-cache`允许存储，但复用前需验证，不等于`no-store`。资源缺失必须返回404，不能把HTML回退响应发给JS模块。入口回退后还要由应用路由呈现业务404；接口错误不应落入SPA回退。
 
-```nginx
-location /api/ {
-    proxy_pass http://backend-service:8080/;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-}
-```
+## 发布顺序与旧页面
 
-接口代理适合后台系统和内网应用。公网业务更常见的做法，是前端域名和 API 域名分开，通过网关或后端服务处理跨域、鉴权和限流。
+用户在旧标签页打开订单列表，发布后才点击“导出”，浏览器可能首次请求旧版本的导出chunk。若新目录只保留新hash文件，旧标签页就会失败；仅保留旧版本目录却不再能通过原URL访问，也解决不了问题。
 
-## 对象存储与 CDN
+可以使用版本化资源URL，或在每次活动版本中保留仍在支持窗口内的旧hash资源。先上传全部不可变资源并检查可访问，再切HTML入口；清理必须晚于浏览器会话和CDN支持窗口。覆盖同名hash资源或部署时无差别`--delete`会破坏这个合同。
 
-营销页、官网、文档站、用户访问量较大的前端应用，通常适合使用对象存储加 CDN。国内常见组合是阿里云 OSS + CDN、腾讯云 COS + CDN、华为云 OBS + CDN、七牛云 Kodo + CDN 等。对象存储负责放文件，CDN 负责就近访问和缓存。
+服务器使用`releases/<版本>/`与`current`指针时，先检查新目录完整性，在同一文件系统创建临时软链接再通过原子rename替换指针。直接`ln -sfn`不保证替换瞬间完全无间隙。只切换静态目录通常不需要重载Nginx；修改配置才需要先`nginx -t`再受控reload。
 
-以通用流程看，发布分三步：构建 `dist/`，同步到对象存储，刷新 CDN 缓存。不同厂商命令不同，但目标一致。
+回滚同时检查HTML引用、运行时配置和API兼容性。前端切回旧版不等于后端数据模型也已回滚，发布方案必须保留兼容窗口或提供明确升级路径。
 
-```bash
-npm ci
-npm run build
+## 对象存储、CDN与容器
 
-# 示例：使用厂商 CLI 将 dist 同步到 bucket
-cloud-cli sync dist/ oss://example-bucket/admin/ --delete
+| 形式 | 合适场景 | 需要额外验证 |
+| --- | --- | --- |
+| Nginx目录 | 现有服务器、后台和文档 | 权限、深层路由、指针切换、旧资源 |
+| 对象存储与CDN | 静态内容、区域分发 | MIME、缓存键、404状态、回源与刷新 |
+| 静态服务器镜像 | 已有容器交付平台 | 构建运行阶段、镜像摘要、启动与回退 |
+| SSR运行时 | 动态页面与服务端会话 | 请求隔离、进程健康、扩容与API边界 |
 
-# 示例：刷新入口页和关键路径
-cloud-cli cdn refresh https://static.example.com/admin/index.html
-```
+CDN刷新入口不意味着所有用户立刻更新。按版本检查响应头和实际内容，并观察边缘缓存；不能把全站404都映射为200。容器方式使用多阶段构建，Node只在静态构建阶段，选择符合项目`engines`且仍受维护的版本并固定镜像摘要；SSR则必须保留所需服务端依赖。
 
-对象存储部署要特别注意缓存策略。`index.html` 应设置为不缓存或短缓存；带 hash 的静态资源可以长缓存。很多线上“发布后用户看到旧页面”的问题，根源都是入口页、CDN 缓存和浏览器缓存没有分层处理。
+## CI权限与发布验收
 
-如果是单页应用，还需要配置历史路由回退。对象存储静态网站托管通常可以设置默认首页和错误页，把 404 回退到 `index.html`。如果前面还有 CDN，也要确认 CDN 对 404、目录访问和回源规则的处理方式。
+构建任务产出带提交标识和校验值的制品，部署直接提升这份制品，不重新安装依赖生成另一份。SSH发布使用最小权限账号、受保护凭据和已核验的known_hosts；`ssh-keyscan`只能收集公钥，不能单独证明远端身份。避免把未核验扫描结果即时写入信任文件。
 
-公网域名接入 CDN 前，应提前确认域名解析、证书、备案和厂商接入要求。证书建议统一在网关、CDN 或负载均衡层维护，不要分散到多个临时入口。
-
-## Docker 部署
-
-如果团队已有容器平台，前端可以构建成一个 Nginx 镜像。镜像里只保留静态产物和 Nginx 配置，Node.js 只出现在构建阶段。
-
-```dockerfile
-FROM node:20-alpine AS build
-
-WORKDIR /workspace
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-FROM nginx:1.27-alpine
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /workspace/dist /usr/share/nginx/html
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-配套的 `nginx.conf`：
-
-```nginx
-server {
-    listen 80;
-    server_name _;
-
-    root /usr/share/nginx/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|webp|ico|woff2?)$ {
-        expires 30d;
-        add_header Cache-Control "public, max-age=2592000, immutable";
-        try_files $uri =404;
-    }
-
-    location = /index.html {
-        add_header Cache-Control "no-cache";
-    }
-}
-```
-
-构建和运行：
-
-```bash
-docker build -t registry.example.com/web/admin:1.0.0 .
-docker run --rm -p 8080:80 registry.example.com/web/admin:1.0.0
-```
-
-镜像标签不要只使用 `latest`。更稳妥的方式是使用版本号、Git commit、构建号组合，例如 `admin:20260517-8f3a21c`，这样回滚时能准确找到上一版。
-
-## GitLab CI 发布示例
-
-国内团队常见的是自建 GitLab、内网制品库、私有镜像仓库和堡垒机发布。下面示例演示把 `dist/` 同步到 Nginx 服务器：
-
-```yaml
-stages:
-  - build
-  - deploy
-
-build:
-  stage: build
-  image: node:20-alpine
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - dist/
-    expire_in: 1 day
-  only:
-    - main
-
-deploy:
-  stage: deploy
-  image: alpine:3.20
-  before_script:
-    - apk add --no-cache openssh-client rsync
-    - mkdir -p ~/.ssh
-    - echo "$DEPLOY_PRIVATE_KEY" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
-  script:
-    - VERSION=$(date +%Y%m%d%H%M%S)
-    - ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p /data/www/admin/releases/$VERSION"
-    - rsync -avz --delete dist/ "$DEPLOY_USER@$DEPLOY_HOST:/data/www/admin/releases/$VERSION/"
-    - ssh "$DEPLOY_USER@$DEPLOY_HOST" "ln -sfn /data/www/admin/releases/$VERSION /data/www/admin/current && sudo nginx -t && sudo nginx -s reload"
-  only:
-    - main
-```
-
-如果发布到对象存储，把 `deploy` 阶段替换为厂商 CLI 的上传和 CDN 刷新命令即可。密钥不要写在仓库里，应放在 CI/CD 变量或密钥管理系统中。
-
-## 环境配置
-
-前端环境变量大多在构建阶段注入。以 Vite 为例，只有 `VITE_` 前缀变量会暴露给客户端代码：
-
-```bash
-# .env.production
-VITE_API_BASE_URL=https://api.example.com
-VITE_APP_ENV=production
-```
-
-代码中读取：
-
-```ts
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
-```
-
-不要把服务端密钥、数据库密码、对象存储密钥放进前端环境变量。前端构建产物会被浏览器下载，里面的变量不是秘密。
-
-如果同一份镜像需要部署到多个环境，可以在 Nginx 启动时生成一个运行时配置文件，例如 `/config.js`：
-
-```js
-window.__APP_CONFIG__ = {
-  apiBaseUrl: 'https://api.example.com'
-}
-```
-
-页面先加载 `/config.js`，应用再读取 `window.__APP_CONFIG__`。这种方式适合容器镜像跨环境复用，但要避免把敏感信息放进去。
-
-## 发布与回滚
-
-前端发布最容易忽略的是回滚。直接覆盖服务器目录虽然简单，但失败后很难恢复。更稳妥的发布方式是保留多个版本目录，当前版本通过软链接指向。
-
-```bash
-/data/www/admin/
-├── current -> /data/www/admin/releases/20260517103000
-└── releases/
-    ├── 20260516180000
-    └── 20260517103000
-```
-
-回滚时只需要切换软链接并重载 Nginx：
-
-```bash
-ln -sfn /data/www/admin/releases/20260516180000 /data/www/admin/current
-sudo nginx -t
-sudo nginx -s reload
-```
-
-对象存储和 CDN 场景也要保留历史版本。可以按版本目录上传，例如 `/admin/releases/<version>/`，入口文件再切换到对应版本；或者启用对象存储版本控制。不要只依赖“重新上传旧文件”，因为 CDN 和浏览器缓存可能让恢复过程变得不可控。
-
-## 排查入口
+部署前列出线上与待发布文件集，确认没有误删仍在使用的资源。部署后等待客户端启动，验证首页、深层路由刷新、动态导入、API错误、旧标签页、缓存和回滚。HTTP200可能只是错误页或SPA空壳，不能作为唯一验收。
 
 | 现象 | 优先检查 |
 | --- | --- |
-| 刷新页面 404 | Nginx 或对象存储是否配置 SPA 回退到 `index.html` |
-| 页面空白 | 静态资源路径是否受 `base` 影响，控制台是否有 JS 加载失败 |
-| 发布后仍是旧页面 | `index.html`、CDN、浏览器缓存是否仍命中旧版本 |
-| 接口跨域失败 | API 域名、CORS 响应头、Cookie `SameSite` 和 HTTPS 是否匹配 |
-| 静态资源 403 | 对象存储权限、CDN 回源鉴权、防盗链配置 |
-| Docker 容器正常但访问失败 | 端口映射、Nginx 配置路径、容器内文件是否复制成功 |
-| 线上配置不生效 | 环境变量是在构建阶段还是运行阶段注入 |
+| 子路径白屏 | 构建base、路由base与HTML引用 |
+| 只有刷新失败 | 生产服务器回退与实际文件布局 |
+| JS返回HTML | 缺失资源错误地进入SPA回退 |
+| 发布后导出失败 | 旧chunk是否仍由原URL提供 |
+| 接口404 | `/api/`与proxy_pass尾斜线的重写 |
+| 配置没变化 | 构建时注入还是运行时读取、缓存是否再验证 |
+| 回滚仍异常 | CDN入口、资源保留、配置与后端兼容性 |
 
-## 检查清单
-
-- 构建命令、Node.js 版本和包管理器锁文件在 CI 中固定。
-- `index.html` 短缓存，带 hash 的静态资源长缓存。
-- 单页应用配置了历史路由回退。
-- API 地址、资源 `base`、CDN 路径和部署子目录一致。
-- 发布目录保留历史版本，能在几分钟内回滚。
-- 对象存储和 CDN 场景配置了 HTTPS、缓存刷新和权限策略。
-- 密钥只放在 CI/CD 或后端服务中，不进入前端构建产物。
+缓存与用户指标见[性能优化](../performance/)，构建与依赖合同见[包管理器](../package-managers/)；Nginx匹配机制见[location](../../../linux/nginx/location.md)。

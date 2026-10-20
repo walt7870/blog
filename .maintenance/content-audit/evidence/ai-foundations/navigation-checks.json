@@ -1,0 +1,86 @@
+[
+  {
+    "from": "",
+    "expected": "/blog/docs/ai/history.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/history.html",
+    "h1": "人工智能发展脉络\n​"
+  },
+  {
+    "from": "history.html",
+    "expected": "/blog/docs/ai/glossary.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/glossary.html",
+    "h1": "AI 核心概念词典\n​"
+  },
+  {
+    "from": "glossary.html",
+    "expected": "/blog/docs/ai/learning-path.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/learning-path.html",
+    "h1": "AI 学习与实践路线\n​"
+  },
+  {
+    "from": "learning-path.html",
+    "expected": "/blog/docs/ai/foundations/",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/foundations/",
+    "h1": "AI 基础原理\n​"
+  },
+  {
+    "from": "ml.html",
+    "expected": "/blog/docs/ai/practice/machine-learning-project.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/practice/machine-learning-project.html",
+    "h1": "机器学习项目：用户流失预测\n​"
+  },
+  {
+    "from": "foundations/",
+    "expected": "/blog/docs/ai/foundations/data-and-tasks.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/foundations/data-and-tasks.html",
+    "h1": "数据与任务建模\n​"
+  },
+  {
+    "from": "foundations/data-and-tasks.html",
+    "expected": "/blog/docs/ai/foundations/math-intuition.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/foundations/math-intuition.html",
+    "h1": "AI 所需的数学直觉\n​"
+  },
+  {
+    "from": "foundations/math-intuition.html",
+    "expected": "/blog/docs/ai/foundations/training-optimization.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/foundations/training-optimization.html",
+    "h1": "模型训练与优化\n​"
+  },
+  {
+    "from": "foundations/training-optimization.html",
+    "expected": "/blog/docs/ai/foundations/generalization-evaluation.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/foundations/generalization-evaluation.html",
+    "h1": "泛化与模型评估\n​"
+  },
+  {
+    "from": "foundations/generalization-evaluation.html",
+    "expected": "/blog/docs/ai/ml.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/ml.html",
+    "h1": "机器学习\n​"
+  },
+  {
+    "from": "deep-learning/",
+    "expected": "/blog/docs/ai/deep-learning/neural-networks.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/deep-learning/neural-networks.html",
+    "h1": "神经网络与反向传播\n​"
+  },
+  {
+    "from": "deep-learning/neural-networks.html",
+    "expected": "/blog/docs/ai/deep-learning/architectures.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/deep-learning/architectures.html",
+    "h1": "深度学习主要架构\n​"
+  },
+  {
+    "from": "deep-learning/architectures.html",
+    "expected": "/blog/docs/ai/deep-learning/framework-practice.html",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/deep-learning/framework-practice.html",
+    "h1": "深度学习工程实践\n​"
+  },
+  {
+    "from": "deep-learning/framework-practice.html",
+    "expected": "/blog/docs/ai/domains/",
+    "actual": "http://127.0.0.1:5177/blog/docs/ai/domains/",
+    "h1": "AI 主要应用方向\n​"
+  }
+]

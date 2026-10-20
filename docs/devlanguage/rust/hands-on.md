@@ -1,155 +1,89 @@
-# Rust 动手入门路径
+# Rust 动手入门
 
-Rust 入门不要只停在语法阅读。更稳的方式是从工具链开始，做一个能运行、能测试、能排错的小项目，让 `cargo`、编译器提示和项目结构先进入日常节奏。
+做一个订单金额CLI：接收数量和单价分，成功只向stdout输出金额，失败向stderr输出原因并返回非零退出码。这个范围足以练习模块、领域类型、参数、测试与交付，不需要先引入Web框架。
 
-## 环境准备
+![订单CLI从参数到退出码的处理](/rust/cli-contract.svg)
 
-安装 Rust 后先确认三个命令：
+## 创建工程与核心库
 
-```bash
-rustc --version
-cargo --version
-rustup show
-```
-
-`rustc` 是编译器，`cargo` 负责项目创建、构建、测试和依赖管理，`rustup` 负责安装和切换工具链。初学阶段建议使用 stable channel：
+先确认 `rustc --version`、`cargo --version`，然后创建：
 
 ```bash
-rustup default stable
-rustup component add rustfmt clippy
+cargo new order-cli --edition 2024
+cd order-cli
 ```
 
-项目里可以增加 `rust-toolchain.toml`，让团队环境一致：
+把[类型系统](./type-system.md)中的 `Quantity`、`OrderError`、`total_cents` 和测试放进 `src/lib.rs`。Cargo会把连字符包名 `order-cli` 对应为代码里的 `order_cli` 库名。核心库只计算，不读命令行、不打印、不退出进程。
 
-```toml
-[toolchain]
-channel = "stable"
-components = ["rustfmt", "clippy"]
-```
+## 写入口与错误合同
 
-## 第一个项目
-
-创建项目：
-
-```bash
-cargo new hello-rust
-cd hello-rust
-cargo run
-```
-
-生成结构通常是：
-
-```text
-hello-rust/
-├── Cargo.toml
-└── src/
-    └── main.rs
-```
-
-`Cargo.toml` 描述包名、版本、edition 和依赖；`src/main.rs` 是二进制程序入口。第一次不要急着加框架，先确认 `cargo run` 能稳定跑起来。
-
-## 每天都要用的命令
-
-| 命令 | 使用时机 |
-| --- | --- |
-| `cargo check` | 写代码过程中高频运行，快速发现类型和借用错误 |
-| `cargo run` | 需要看到程序真实输出时运行 |
-| `cargo test` | 写完函数或修 bug 后验证行为 |
-| `cargo fmt` | 提交前统一格式 |
-| `cargo clippy` | 提交前做静态检查 |
-| `cargo doc --open` | 查看本项目文档和依赖文档 |
-
-初学者最容易忽略 `cargo check`。它不生成最终二进制，反馈通常比完整构建更快，适合边写边看编译器提示。
-
-## 基础语法跟写
-
-可以用一个小函数串起变量、函数、结构体、枚举和错误处理：
+替换 `src/main.rs`：
 
 ```rust
-#[derive(Debug)]
-struct User {
-    id: u64,
-    name: String,
+use order_cli::{Quantity, total_cents};
+use std::process::ExitCode;
+
+fn run() -> Result<u64, String> {
+    let mut args = std::env::args_os().skip(1);
+    let quantity = args.next().ok_or("用法：order-cli <数量1..99> <单价分>")?;
+    let price = args.next().ok_or("缺少单价分")?;
+    if args.next().is_some() { return Err("参数过多".into()); }
+    let quantity = quantity.to_str().ok_or("数量必须是UTF-8文本")?;
+    let price = price.to_str().ok_or("单价必须是UTF-8文本")?;
+    let quantity = Quantity::parse(quantity).map_err(|_| "数量必须在1到99之间")?;
+    let price: u64 = price.parse().map_err(|_| "单价必须是非负整数分")?;
+    total_cents(price, quantity).map_err(|_| "金额溢出".into())
 }
 
-enum UserStatus {
-    Active,
-    Disabled,
-}
-
-fn format_user(user: &User, status: UserStatus) -> String {
-    let label = match status {
-        UserStatus::Active => "active",
-        UserStatus::Disabled => "disabled",
-    };
-
-    format!("{}:{}:{}", user.id, user.name, label)
-}
-
-fn main() {
-    let user = User {
-        id: 1,
-        name: String::from("rustacean"),
-    };
-
-    println!("{}", format_user(&user, UserStatus::Active));
+fn main() -> ExitCode {
+    match run() {
+        Ok(total) => { println!("{total}"); ExitCode::SUCCESS }
+        Err(error) => { eprintln!("{error}"); ExitCode::from(2) }
+    }
 }
 ```
 
-这里要观察三个点：
+这里允许零单价，不允许数量零；退出码2表示使用或输入错误。`args_os` 避免操作系统参数无法表示为UTF-8时直接panic，再在需要数字的边界显式拒绝。参数解析库如clap适合更复杂选项，但不替代领域校验。
 
-- `String` 是拥有堆内存的字符串，传参时要考虑移动还是借用。
-- `&user` 表示借用，函数使用完后 `main` 里仍然可以继续访问 `user`。
-- `match` 会检查枚举分支是否覆盖完整。
+## 跑通正常和错误路径
 
-## 错误处理入口
+```bash
+cargo test
+cargo run -- 2 1990
+cargo run -- 0 1990
+cargo run -- 2 18446744073709551615
+cargo build --release --locked
+./target/release/order-cli 2 1990
+```
 
-读取文件可以练习 `Result` 和 `?`：
+正常输出为 `3980`；零数量、溢出应没有成功结果，并返回2。Cargo本身也有错误码，最终验收应直接运行二进制，而不只检查 `cargo run` 的输出。单价文本支持Rust整数解析的语法；如果业务只允许ASCII数字，应另加相应格式校验。
+
+## 验证实际进程行为
+
+在 `tests/cli.rs` 写集成测试，Cargo会为测试提供本包二进制路径：
 
 ```rust
-use std::fs;
-use std::io;
+use std::process::Command;
 
-fn read_config(path: &str) -> Result<String, io::Error> {
-    let content = fs::read_to_string(path)?;
-    Ok(content)
+#[test]
+fn output_and_exit_contract() {
+    let bin = env!("CARGO_BIN_EXE_order-cli");
+    let good = Command::new(bin).args(["2", "1990"]).output().unwrap();
+    assert!(good.status.success());
+    assert_eq!(good.stdout, b"3980\n");
+    assert!(good.stderr.is_empty());
+    for args in [vec![], vec!["0", "1990"], vec!["2", "18446744073709551615"],
+                 vec!["two", "1990"], vec!["2", "1990", "extra"]] {
+        let bad = Command::new(bin).args(args).output().unwrap();
+        assert_eq!(bad.status.code(), Some(2));
+        assert!(bad.stdout.is_empty());
+        assert!(!bad.stderr.is_empty());
+    }
 }
 ```
 
-`?` 的含义不是“忽略错误”，而是把错误返回给上层。能在本层处理的错误就在本层处理；需要调用方决策的错误，使用 `Result` 返回。
+单元测试验证金额规则，进程测试验证参数、输出和退出码，二者覆盖不同合同。再运行 `cargo fmt`、`cargo clippy --all-targets -- -D warnings` 和 `cargo test`。换平台交付时还要实机运行；本机release成功不能证明Linux运行库或目标CPU兼容。
 
-## 一个小练习
+## 下一步
 
-完成一个 `mini-grep`：
-
-1. 接收两个参数：关键词和文件路径。
-2. 读取文件内容。
-3. 找出包含关键词的行。
-4. 对找不到文件、参数缺失给出清晰错误。
-5. 给核心搜索函数写单元测试。
-
-项目结构可以先保持简单：
-
-```text
-mini-grep/
-├── Cargo.toml
-├── README.md
-└── src/
-    ├── lib.rs
-    └── main.rs
-```
-
-把搜索逻辑放在 `lib.rs`，命令行参数和输出放在 `main.rs`。这样核心逻辑可以测试，入口逻辑保持薄。
-
-## 入门合格标准
-
-学完这一阶段，应能独立做到：
-
-- 能创建项目并解释 `Cargo.toml`、`src/main.rs` 的作用。
-- 能读懂常见编译错误的大意。
-- 能区分移动、借用和克隆。
-- 能写一个返回 `Result` 的函数。
-- 能写基础单元测试。
-- 能用 `cargo fmt`、`cargo clippy`、`cargo test` 做提交前检查。
-
-如果这些还不熟，先不要急着进入 async、宏或 unsafe。Rust 前期越把基础动作练稳，后面越不容易被复杂概念拖住。
+给工具加CSV输入前，先定义文件大小、编码、非法行、输出覆盖与部分成功策略。给它加HTTP入口时保留核心库，只新增协议适配，见[项目实战](./project-practice.md)。遇到编译失败按[排错手册](./troubleshooting.md)先复现最小问题，不通过大量克隆掩盖数据归属。

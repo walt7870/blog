@@ -1,162 +1,79 @@
-# Rust 项目实战路线
+# Rust 项目实战
 
-熟悉 Rust 不能只靠看语法。一个比较完整的练习路径，是先做 CLI，再做小服务，最后把测试、日志、配置、发布和依赖治理补齐。
+把[订单CLI](./hands-on.md)的核心计算接到HTTP入口，验证同一规则如何被不同协议使用。先完成参数、状态码、错误和关闭，再讨论数据库、鉴权与后台队列，避免只列框架名却没有可执行行为。
 
-## 实战一：CLI 文本过滤工具
+![核心规则与CLI、HTTP适配及部署验证的关系](/rust/project-adapters.svg)
 
-CLI 项目适合入门，因为它规模小、反馈快，又能覆盖 Rust 的关键工程动作。
+## 保留核心库，增加服务入口
 
-目标能力：
-
-- 解析命令行参数。
-- 读取文件。
-- 返回清晰错误。
-- 把核心逻辑拆到库 crate。
-- 写单元测试和集成测试。
-- 生成可执行文件。
-
-推荐结构：
-
-```text
-mini-grep/
-├── Cargo.toml
-├── README.md
-├── src/
-│   ├── lib.rs
-│   └── main.rs
-└── tests/
-    └── cli_test.rs
-```
-
-`src/lib.rs` 放搜索逻辑，`src/main.rs` 只负责读取参数、调用逻辑和打印结果。这样核心逻辑不依赖命令行环境，测试更容易写。
-
-可以引入的依赖：
-
-```toml
-[dependencies]
-clap = { version = "4", features = ["derive"] }
-anyhow = "1"
-```
-
-应用入口用 `anyhow` 提供上下文，库函数尽量保留明确类型边界。
-
-## 实战二：Cargo 依赖治理
-
-项目变大后，依赖问题会比语法问题更常见。建议把依赖治理作为练习的一部分。
-
-常用命令：
-
-```bash
-cargo tree
-cargo tree -d
-cargo update -p crate_name
-cargo outdated
-cargo audit
-```
-
-核心原则：
-
-- 应用项目提交 `Cargo.lock`，保证构建可复现。
-- 升级依赖小步进行，每次升级后跑测试。
-- feature 不要滥用，避免测试矩阵失控。
-- workspace 里尽量统一关键依赖版本。
-
-如果项目有多个 crate，可以把共享依赖提到 workspace：
-
-```toml
-[workspace]
-members = ["crates/core", "crates/cli"]
-resolver = "2"
-
-[workspace.dependencies]
-serde = { version = "1", features = ["derive"] }
-anyhow = "1"
-```
-
-## 实战三：测试与质量闭环
-
-Rust 项目至少要有四类检查：
-
-```bash
-cargo fmt --check
-cargo clippy --all-targets --all-features
-cargo test --all-targets --all-features
-cargo build --release
-```
-
-测试分层：
-
-- 单元测试：验证纯函数、状态转换和边界条件。
-- 集成测试：验证公开 API 或 CLI 行为。
-- 文档测试：保证 README 和公共 API 示例没有过期。
-- 性能测试：用 criterion 对热点函数做基准。
-
-一个实用习惯是把“修复 bug”变成“先复现，再补测试，再改代码”。这样项目不会在相同问题上反复回退。
-
-## 实战四：Axum 小服务
-
-Web 服务可以练习 Rust 的异步、状态管理、错误处理和观测能力。
-
-最小依赖：
+在 `order-cli` 项目的 `Cargo.toml` 增加以下依赖，在 `src/bin/api.rs` 放服务入口。CLI与API共享 `Quantity` 和 `total_cents`，核心库仍不依赖Axum。
 
 ```toml
 [dependencies]
 axum = "0.8"
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
 serde = { version = "1", features = ["derive"] }
-tracing = "0.1"
-tracing-subscriber = "0.3"
 ```
 
-一个服务通常包含：
+```rust
+use axum::{Json, Router, extract::Query, http::StatusCode, routing::get};
+use order_cli::{Quantity, total_cents};
+use serde::{Deserialize, Serialize};
 
-- `Router`：组织路由。
-- extractor：读取 path、query、json、state。
-- state：保存连接池、配置和共享服务。
-- error：把内部错误转换成 HTTP 响应。
-- tracing：记录请求链路和关键上下文。
-- shutdown signal：处理优雅关闭。
+#[derive(Deserialize)]
+struct QuoteInput { quantity: String, unit_cents: u64 }
 
-示例结构：
+#[derive(Serialize)]
+struct QuoteOutput { total_cents: u64 }
 
-```text
-rust-api/
-├── Cargo.toml
-├── src/
-│   ├── main.rs
-│   ├── route.rs
-│   ├── state.rs
-│   └── error.rs
-└── tests/
-    └── api_test.rs
+async fn quote(Query(input): Query<QuoteInput>)
+    -> Result<Json<QuoteOutput>, (StatusCode, &'static str)>
+{
+    let quantity = Quantity::parse(&input.quantity)
+        .map_err(|_| (StatusCode::BAD_REQUEST, "数量必须在1到99之间"))?;
+    let total = total_cents(input.unit_cents, quantity)
+        .map_err(|_| (StatusCode::UNPROCESSABLE_ENTITY, "金额溢出"))?;
+    Ok(Json(QuoteOutput { total_cents: total }))
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let app = Router::new().route("/quote", get(quote));
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000").await?;
+    axum::serve(listener, app)
+        .with_graceful_shutdown(async {
+            if let Err(error) = tokio::signal::ctrl_c().await {
+                eprintln!("关闭信号监听失败：{error}");
+            }
+        })
+        .await?;
+    Ok(())
+}
 ```
 
-初学阶段不要一开始就引入数据库、缓存、消息队列。先把路由、请求解析、响应结构、错误返回和日志跑通。
+本例只监听本机，提供无副作用的报价。`Query` 在调用处理函数前解析字段，缺少字段或整数无法解析也会返回400，但默认错误正文不同于领域错误。若要统一外部JSON错误合同，还需把提取器拒绝转换为自己的响应。
 
-## 实战五：发布前检查
+## 验证HTTP行为
 
-一个可交付 Rust 小项目，至少应满足：
+执行 `cargo run --bin api` 后在另一个终端请求：
 
-- `README` 写清楚安装、运行、配置和示例。
-- `cargo fmt --check` 通过。
-- `cargo clippy --all-targets --all-features` 无明显问题。
-- `cargo test --all-targets --all-features` 通过。
-- 关键错误路径有清晰提示。
-- release 构建可以生成可执行文件。
-- 配置、日志、依赖和运行环境边界清楚。
+```bash
+curl -i 'http://127.0.0.1:3000/quote?quantity=2&unit_cents=1990'
+curl -i 'http://127.0.0.1:3000/quote?quantity=0&unit_cents=1990'
+curl -i 'http://127.0.0.1:3000/quote?quantity=2&unit_cents=18446744073709551615'
+curl -i 'http://127.0.0.1:3000/quote?quantity=2'
+```
 
-对于 CLI，验证二进制是否能在目标平台运行；对于服务，验证健康检查、优雅关闭、日志字段和错误响应。
+依次应得到200和金额3980、400非法数量、422金额溢出、400缺失字段。还应验证错误路径没有成功JSON，未知路由返回404，按Ctrl+C后监听结束。这个小服务没有鉴权、持久化、支付或压测结果，不能直接用它接收真实订单。
 
-## 什么时候进入更深方向
+## 从报价扩展为订单
 
-完成 CLI 和小服务后，可以按方向继续：
+报价是纯计算，创建订单则会产生副作用。加存储前先定义幂等键、唯一约束、事务和重试；超时可能只是结果未知，不能默认重新扣款。把处理请求的数据库池放进受控状态，限制等待与并发，不把数据库连接跨长耗时外部调用持有。
 
-| 方向 | 深入内容 |
-| --- | --- |
-| 后端服务 | Tokio、Tower、连接池、数据库、限流、超时、可观测性 |
-| 基础设施 | 网络协议、文件系统、性能分析、内存布局、FFI |
-| WebAssembly | wasm-bindgen、wasm-pack、前端集成、包体积优化 |
-| 嵌入式 | `no_std`、HAL、Embassy、交叉编译、硬件调试 |
-| 桌面与工具 | Tauri、egui、跨平台打包、本地资源访问 |
+导出类任务可用有界队列，但HTTP接受任务不代表任务完成：返回任务标识，持久记录状态，并明确重启如何恢复。单机内存通道会随进程退出丢失，见[并发与关闭](./concurrency.md)。
 
-Rust 的学习重点不是把所有方向同时学完，而是先用小项目掌握语言和工具链，再根据真实需求深入一个方向。
+## 质量与交付
+
+复用CLI单元和进程测试，再补真实HTTP的正常、字段缺失、非法值、溢出与关闭测试。故意修改核心金额计算时，CLI与API应同时暴露错误；只检查返回200不足以发现结果3980变成1992。
+
+默认 `cargo test` 会包括符合条件的库文档测试；README需另设校验。依赖扩展审计工具要单独安装，feature与平台按支持矩阵检查，见[工具链](./tooling.md)。生成release后，验收与部署应使用同一产物，并核对目标运行库、监听地址、反向代理、日志与恢复策略。

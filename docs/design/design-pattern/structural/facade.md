@@ -1,675 +1,142 @@
-# 门面模式 (Facade Pattern)
+# 外观模式
 
-## 历史脉络
+外观（Facade），也称门面，为一组子系统能力提供较容易使用的入口。它负责表达一个常用用例及其协调顺序，让调用方不必了解全部内部对象；校验、计算与存储规则仍由相应组件维护。
 
-外观模式是 GoF 结构型模式之一，也常被称为门面模式。它广泛用于分层架构、应用服务、SDK 封装和复杂子系统入口设计。它的目标是给调用方一个更稳定、更简单的入口。
+![报告外观与子系统调用顺序](/design-pattern/patterns/facade.svg)
 
-![外观模式结构图](/design-pattern/patterns/facade.svg)
+## 从三个调用收拢为一个用例
 
-## 准确理解
+生成订单导出摘要时，调用方可能先校验参数、再生成内容、最后保存结果。如果每个入口都重复这段顺序，就容易出现某个入口遗漏校验或在存储失败后仍返回成功。外观把这个共同用例命名为 `create()`，对外只返回完成后的回执。
 
-外观模式不是隐藏所有能力，而是把一组常用、稳定、跨多个子系统的流程收口。调用方不需要知道库存、支付、消息、积分等细节如何协作，只调用一个更粗粒度的方法。
+外观也有代价：新增用例可能需要修改协调代码。它并不保证每次扩展都无需改动，也不一定提高吞吐；收益在于稳定入口与集中维护流程。当一个类开始同时负责会员、支付、报表、通知等无关用例时，应按用例拆分。
 
-## 问题识别
+## 可运行的摘要生成例
 
-适合使用外观模式的信号：
-
-- 调用方为了完成一件事要调用多个子系统。
-- 子系统调用顺序、异常处理、补偿逻辑不应暴露给外部。
-- 多个调用方重复编排同一套流程。
-- 希望给外部系统提供稳定 API。
-
-不适合的情况：
-
-- 外观类不断膨胀，承载了所有业务细节。
-- 子系统能力本身需要被精细控制，粗入口会限制使用。
-- 只是简单转发单个方法，没有降低复杂度。
-
-## 落地要点
-
-- 外观负责流程编排，不应吞掉子系统职责。
-- 外观接口要按业务用例命名，例如 `submitOrder`。
-- 子系统仍可保留独立 API，外观只是常用入口。
-- 复杂流程要明确事务边界、异常补偿和幂等处理。
-
-## 概述
-
-门面模式（Facade Pattern）为子系统中的一组接口提供一个统一的高层接口，使得子系统更易使用。它通过引入一个门面类，屏蔽了子系统的复杂性，客户端只需与门面对象交互，无需了解系统内部的细节。
-
-简单说，就是用一个"门面"把复杂的子系统包装起来，对外提供简单易用的接口，让客户端使用起来更方便。
-
-门面模式通过封装复杂的子系统调用，提供统一的高层接口，适用于简化复杂系统交互、降低系统耦合度的场景，是面向接口编程和分层架构设计的重要实践。
-
-门面模式不仅适用于简化API调用，在实际工程中，它广泛应用于框架设计、第三方库封装、微服务网关等场景，并可与适配器、单例等模式组合使用，构建易用且稳定的系统架构。
-
-## 使用场景
-
-- 需要为复杂子系统提供简单入口时；
-
-- 客户端与多个子系统存在大量交互，需要简化调用；
-
-- 希望降低子系统之间的耦合度；
-
-- 需要构建分层结构的系统；
-
-- 第三方库封装，提供更友好的API；
-
-- 微服务架构中的API网关设计。
-
-## 类图结构
-
-```plaintext
-┌────────────┐      ┌────────────┐
-│  Client    │─────▶│  Facade    │
-└────────────┘      └─────┬──────┘
-                          │
-        ┌─────────────────┴──────────────┐
-        │                                │
-  ┌────────────┐                 ┌────────────┐
-  │ SubSystemA │                 │ SubSystemB │
-  └────────────┘                 └────────────┘
-        │                                │
-  ┌────────────┐                 ┌────────────┐
-  │ SubSystemC │                 │ SubSystemD │
-  └────────────┘                 └────────────┘
-```
-
-- **Client**：客户端，使用门面提供的高层接口
-- **Facade**：门面类，统一对外接口，封装子系统调用逻辑
-- **SubSystem**：子系统类，包含实际业务逻辑的各个组件
-
-## 示例
-
-### 示例1：家庭影院系统
-
-**场景描述**：家庭影院包含DVD播放器、投影仪、音响、灯光等多个子系统，用户希望通过简单操作就能"看电影"或"关闭影院"。
+示例生成 UTF-8 纯文本，保存到本地内存存储，不写真实文件、数据库或云对象。外观只有在保存调用成功后才返回 `READY`。保存为 `FacadeDemo.java`，可在 Java 17+ 编译运行：
 
 ```java
-// 子系统A - DVD播放器
-public class DVDPlayer {
-    public void on() {
-        System.out.println("DVD 播放器打开");
-    }
-    
-    public void play(String movie) {
-        System.out.println("DVD 播放电影：" + movie);
-    }
-    
-    public void stop() {
-        System.out.println("DVD 停止播放");
-    }
-    
-    public void off() {
-        System.out.println("DVD 播放器关闭");
-    }
-}
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
-// 子系统B - 投影仪
-public class Projector {
-    public void on() {
-        System.out.println("投影仪打开");
-    }
-    
-    public void setInput(String input) {
-        System.out.println("投影仪设置输入源：" + input);
-    }
-    
-    public void off() {
-        System.out.println("投影仪关闭");
-    }
-}
+public class FacadeDemo {
+    record Request(String orderNo, int rows) {}
+    record Receipt(String reference, String state) {}
 
-// 子系统C - 音响系统
-public class SoundSystem {
-    public void on() {
-        System.out.println("音响系统打开");
+    static final class Validator {
+        void validate(Request request) {
+            Objects.requireNonNull(request);
+            if (request.orderNo() == null || request.orderNo().isBlank()
+                    || request.rows() < 0) {
+                throw new IllegalArgumentException("订单号或行数无效");
+            }
+        }
     }
-    
-    public void setVolume(int volume) {
-        System.out.println("音响音量设置为：" + volume);
-    }
-    
-    public void off() {
-        System.out.println("音响系统关闭");
-    }
-}
 
-// 子系统D - 灯光控制
-public class LightControl {
-    public void dim(int level) {
-        System.out.println("灯光调暗至：" + level + "%");
+    static final class TextRenderer {
+        byte[] render(Request request) {
+            return ("订单: " + request.orderNo() + "，导出行数: " + request.rows())
+                    .getBytes(StandardCharsets.UTF_8);
+        }
     }
-    
-    public void on() {
-        System.out.println("灯光打开");
-    }
-}
 
-// 门面类 - 家庭影院门面
-public class HomeTheaterFacade {
-    private DVDPlayer dvd;
-    private Projector projector;
-    private SoundSystem soundSystem;
-    private LightControl lights;
-    
-    public HomeTheaterFacade(DVDPlayer dvd, Projector projector, 
-                           SoundSystem soundSystem, LightControl lights) {
-        this.dvd = dvd;
-        this.projector = projector;
-        this.soundSystem = soundSystem;
-        this.lights = lights;
+    interface Storage {
+        String save(byte[] content);
     }
-    
-    // 高层接口：观看电影
-    public void watchMovie(String movie) {
-        System.out.println("准备观看电影...");
-        lights.dim(10);
-        projector.on();
-        projector.setInput("DVD");
-        soundSystem.on();
-        soundSystem.setVolume(5);
-        dvd.on();
-        dvd.play(movie);
-        System.out.println("电影开始，请享受！");
-    }
-    
-    // 高层接口：结束电影
-    public void endMovie() {
-        System.out.println("关闭影院...");
-        dvd.stop();
-        dvd.off();
-        soundSystem.off();
-        projector.off();
-        lights.on();
-        System.out.println("影院已关闭");
-    }
-    
-    // 高层接口：听音乐模式
-    public void listenToMusic() {
-        System.out.println("准备听音乐...");
-        lights.dim(30);
-        soundSystem.on();
-        soundSystem.setVolume(8);
-        System.out.println("音乐模式已开启");
-    }
-}
 
-// 客户端
-public class Client {
+    static final class MemoryStorage implements Storage {
+        private final Map<String, byte[]> files = new HashMap<>();
+
+        public String save(byte[] content) {
+            String reference = "memory-report-" + (files.size() + 1);
+            files.put(reference, content.clone());
+            return reference;
+        }
+
+        int count() { return files.size(); }
+    }
+
+    static final class ReportFacade {
+        private final Validator validator;
+        private final TextRenderer renderer;
+        private final Storage storage;
+
+        ReportFacade(Validator validator, TextRenderer renderer, Storage storage) {
+            this.validator = Objects.requireNonNull(validator);
+            this.renderer = Objects.requireNonNull(renderer);
+            this.storage = Objects.requireNonNull(storage);
+        }
+
+        Receipt create(Request request) {
+            validator.validate(request);
+            byte[] content = renderer.render(request);
+            String reference = storage.save(content);
+            if (reference == null || reference.isBlank()) {
+                throw new IllegalStateException("存储未返回有效引用");
+            }
+            return new Receipt(reference, "READY");
+        }
+    }
+
     public static void main(String[] args) {
-        // 创建子系统
-        DVDPlayer dvd = new DVDPlayer();
-        Projector projector = new Projector();
-        SoundSystem soundSystem = new SoundSystem();
-        LightControl lights = new LightControl();
-        
-        // 创建门面
-        HomeTheaterFacade homeTheater = new HomeTheaterFacade(
-            dvd, projector, soundSystem, lights);
-        
-        // 简单调用
-        homeTheater.watchMovie("阿凡达");
-        System.out.println("\n--- 2小时后 ---\n");
-        homeTheater.endMovie();
-        
-        System.out.println("\n--- 切换到音乐模式 ---\n");
-        homeTheater.listenToMusic();
-    }
-}
-```
-
-### 示例2：计算机启动门面
-
-**场景描述**：计算机启动涉及CPU、内存、硬盘等多个硬件子系统的初始化，用户只需要按一个开机键。
-
-```java
-// CPU子系统
-public class CPU {
-    public void freeze() {
-        System.out.println("CPU 冻结");
-    }
-    
-    public void jump(long position) {
-        System.out.println("CPU 跳转到位置：" + position);
-    }
-    
-    public void execute() {
-        System.out.println("CPU 执行指令");
-    }
-}
-
-// 内存子系统
-public class Memory {
-    public void load(long position, byte[] data) {
-        System.out.println("内存加载数据到位置：" + position + 
-                         "，数据大小：" + data.length + " bytes");
-    }
-}
-
-// 硬盘子系统
-public class HardDrive {
-    public byte[] read(long lba, int size) {
-        System.out.println("硬盘读取 LBA：" + lba + "，大小：" + size + " bytes");
-        return new byte[size];
-    }
-}
-
-// 计算机门面
-public class ComputerFacade {
-    private static final long BOOT_ADDRESS = 0x00;
-    private static final long BOOT_SECTOR = 0x00;
-    private static final int SECTOR_SIZE = 512;
-    
-    private CPU cpu;
-    private Memory memory;
-    private HardDrive hardDrive;
-    
-    public ComputerFacade() {
-        this.cpu = new CPU();
-        this.memory = new Memory();
-        this.hardDrive = new HardDrive();
-    }
-    
-    // 高层接口：启动计算机
-    public void start() {
-        System.out.println("=== 计算机启动中 ===");
-        cpu.freeze();
-        byte[] bootData = hardDrive.read(BOOT_SECTOR, SECTOR_SIZE);
-        memory.load(BOOT_ADDRESS, bootData);
-        cpu.jump(BOOT_ADDRESS);
-        cpu.execute();
-        System.out.println("=== 计算机启动完成 ===");
-    }
-}
-
-// 客户端
-public class BootClient {
-    public static void main(String[] args) {
-        ComputerFacade computer = new ComputerFacade();
-        computer.start(); // 一键启动
-    }
-}
-```
-
-## 优缺点分析
-
-### ✅ 优点
-
-| 优点                | 说明                                     |
-| ------------------- | ---------------------------------------- |
-| **1. 简化调用流程**   | 客户端只需与门面交互，大大降低使用复杂度   |
-| **2. 降低耦合度**    | 客户端与子系统解耦，减少依赖关系           |
-| **3. 更好的分层**    | 有利于系统分层和职责划分，提高可维护性     |
-| **4. 提高复用性**    | 门面可以被多个客户端复用                   |
-| **5. 易于扩展**      | 新增子系统功能时，只需修改门面类           |
-| **6. 符合迪米特法则** | 客户端只与直接朋友（门面）交互             |
-
-### ❌ 缺点
-
-| 缺点                | 说明                                     |
-| ------------------- | ---------------------------------------- |
-| **1. 可能过度简化**   | 门面过多可能导致系统结构僵化，失去灵活性   |
-| **2. 不利于个性化**  | 统一接口可能无法满足所有客户端的特殊需求   |
-| **3. 违反开闭原则**  | 新增子系统功能时需要修改门面类             |
-| **4. 可能成为瓶颈**  | 门面类承担过多职责，可能成为性能瓶颈       |
-
-## 和其他模式对比
-
-| 模式       | 本质思想           | 与门面模式的区别                         |
-| ---------- | ------------------ | ---------------------------------------- |
-| **适配器模式** | 改变接口兼容性     | 关注接口转换，门面关注简化调用流程       |
-| **门面模式**   | 统一高层接口       | 主要用于简化子系统调用，提供便捷入口     |
-| **代理模式**   | 控制对象访问       | 关注访问控制和增强，门面关注简化操作     |
-| **中介者模式** | 封装对象间交互     | 关注对象间通信，门面关注客户端与系统交互 |
-| **装饰器模式** | 动态增强对象功能   | 关注功能扩展，门面关注接口简化           |
-
-## 在Spring中的应用
-
-### 1. Spring的JdbcTemplate
-
-Spring 的 JdbcTemplate 是对原生 JDBC 操作的门面封装，大大简化了数据库操作：
-
-```java
-// 原生JDBC操作（复杂）
-public List<User> findUsersWithoutFacade() {
-    Connection conn = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    List<User> users = new ArrayList<>();
-    
-    try {
-        conn = DriverManager.getConnection(url, username, password);
-        stmt = conn.prepareStatement("SELECT * FROM users WHERE age > ?");
-        stmt.setInt(1, 18);
-        rs = stmt.executeQuery();
-        
-        while (rs.next()) {
-            User user = new User();
-            user.setId(rs.getLong("id"));
-            user.setName(rs.getString("name"));
-            user.setAge(rs.getInt("age"));
-            users.add(user);
+        MemoryStorage storage = new MemoryStorage();
+        ReportFacade facade = new ReportFacade(
+                new Validator(), new TextRenderer(), storage);
+        Receipt receipt = facade.create(new Request("O-1001", 120));
+        if (!receipt.state().equals("READY") || storage.count() != 1) {
+            throw new AssertionError("成功回执必须对应已保存内容");
         }
-    } catch (SQLException e) {
-        // 异常处理
-    } finally {
-        // 资源关闭
-        if (rs != null) try { rs.close(); } catch (SQLException e) {}
-        if (stmt != null) try { stmt.close(); } catch (SQLException e) {}
-        if (conn != null) try { conn.close(); } catch (SQLException e) {}
-    }
-    
-    return users;
-}
+        System.out.println(receipt.state() + ": " + receipt.reference());
 
-// 使用JdbcTemplate门面（简单）
-@Autowired
-private JdbcTemplate jdbcTemplate;
-
-public List<User> findUsersWithFacade() {
-    return jdbcTemplate.query(
-        "SELECT * FROM users WHERE age > ?",
-        new Object[]{18},
-        (rs, rowNum) -> {
-            User user = new User();
-            user.setId(rs.getLong("id"));
-            user.setName(rs.getString("name"));
-            user.setAge(rs.getInt("age"));
-            return user;
-        }
-    );
-}
-```
-
-### 2. Spring MVC 的 DispatcherServlet
-
-DispatcherServlet 作为前端控制器，是整个 Spring MVC 框架的门面：
-
-```java
-// DispatcherServlet 内部协调多个组件
-public class DispatcherServlet extends FrameworkServlet {
-    
-    protected void doDispatch(HttpServletRequest request, 
-                            HttpServletResponse response) {
-        // 1. 通过HandlerMapping找到处理器
-        HandlerExecutionChain mappedHandler = getHandler(request);
-        
-        // 2. 通过HandlerAdapter执行处理器
-        HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
-        ModelAndView mv = ha.handle(request, response, handler);
-        
-        // 3. 通过ViewResolver解析视图
-        processDispatchResult(request, response, mappedHandler, mv, exception);
-    }
-}
-```
-
-客户端（浏览器）只需要发送HTTP请求，DispatcherServlet 作为门面协调所有内部组件。
-
-### 3. Spring Security 的 SecurityContextHolder
-
-SecurityContextHolder 提供了访问安全上下文的统一门面：
-
-```java
-// 复杂的安全上下文管理被门面简化
-public class SecurityService {
-    
-    public String getCurrentUsername() {
-        // 门面简化了获取当前用户的操作
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth != null ? auth.getName() : null;
-    }
-    
-    public boolean hasRole(String role) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getAuthorities().stream()
-            .anyMatch(authority -> authority.getAuthority().equals("ROLE_" + role));
-    }
-}
-```
-
-### 4. Spring Boot 的自动配置
-
-Spring Boot 的 `@EnableAutoConfiguration` 本质上也是门面模式的应用：
-
-```java
-@SpringBootApplication // 这个注解是多个注解的门面
-public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args); // 简化的启动门面
-    }
-}
-
-// @SpringBootApplication 实际上是以下注解的组合门面
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@SpringBootConfiguration
-@EnableAutoConfiguration
-@ComponentScan
-public @interface SpringBootApplication {
-    // ...
-}
-```
-
-## 门面模式的变种和扩展
-
-### 1. 分层门面模式
-
-在大型系统中，可能需要多层门面来管理复杂性：
-
-```java
-// 底层门面 - 数据访问门面
-public class DataAccessFacade {
-    private UserRepository userRepo;
-    private OrderRepository orderRepo;
-    
-    public User getUserWithOrders(Long userId) {
-        User user = userRepo.findById(userId);
-        List<Order> orders = orderRepo.findByUserId(userId);
-        user.setOrders(orders);
-        return user;
-    }
-}
-
-// 中层门面 - 业务服务门面
-public class BusinessServiceFacade {
-    private DataAccessFacade dataFacade;
-    private EmailService emailService;
-    private PaymentService paymentService;
-    
-    public void processOrder(OrderRequest request) {
-        // 协调多个业务服务
-        User user = dataFacade.getUserWithOrders(request.getUserId());
-        Payment payment = paymentService.processPayment(request.getPayment());
-        emailService.sendConfirmation(user.getEmail(), payment);
-    }
-}
-
-// 顶层门面 - API门面
-@RestController
-public class OrderController {
-    private BusinessServiceFacade businessFacade;
-    
-    @PostMapping("/orders")
-    public ResponseEntity<String> createOrder(@RequestBody OrderRequest request) {
-        businessFacade.processOrder(request);
-        return ResponseEntity.ok("Order processed successfully");
-    }
-}
-```
-
-### 2. 门面 + 工厂模式组合
-
-```java
-// 门面工厂，根据不同场景创建不同的门面
-public class TheaterFacadeFactory {
-    
-    public static HomeTheaterFacade createBasicTheater() {
-        return new HomeTheaterFacade(
-            new DVDPlayer(),
-            new BasicProjector(),
-            new BasicSoundSystem(),
-            new BasicLightControl()
-        );
-    }
-    
-    public static HomeTheaterFacade createPremiumTheater() {
-        return new HomeTheaterFacade(
-            new BluRayPlayer(),
-            new HDProjector(),
-            new SurroundSoundSystem(),
-            new SmartLightControl()
-        );
-    }
-}
-```
-
-### 3. 门面 + 策略模式组合
-
-```java
-// 支付门面，内部使用策略模式
-public class PaymentFacade {
-    private Map<String, PaymentStrategy> strategies;
-    
-    public PaymentFacade() {
-        strategies = new HashMap<>();
-        strategies.put("alipay", new AlipayStrategy());
-        strategies.put("wechat", new WechatStrategy());
-        strategies.put("credit", new CreditCardStrategy());
-    }
-    
-    // 简化的支付接口
-    public PaymentResult pay(String method, BigDecimal amount, Map<String, Object> params) {
-        PaymentStrategy strategy = strategies.get(method);
-        if (strategy == null) {
-            throw new IllegalArgumentException("Unsupported payment method: " + method);
-        }
-        
-        // 门面协调支付流程
-        validateAmount(amount);
-        logPaymentAttempt(method, amount);
-        PaymentResult result = strategy.pay(amount, params);
-        logPaymentResult(result);
-        
-        return result;
-    }
-    
-    private void validateAmount(BigDecimal amount) { /* 验证逻辑 */ }
-    private void logPaymentAttempt(String method, BigDecimal amount) { /* 日志记录 */ }
-    private void logPaymentResult(PaymentResult result) { /* 结果记录 */ }
-}
-```
-
-## 实际项目中的最佳实践
-
-### 1. 门面接口设计原则
-
-```java
-// ❌ 不好的门面设计 - 暴露过多细节
-public class BadOrderFacade {
-    public void setDVDPlayer(DVDPlayer player) { /* ... */ }
-    public DVDPlayer getDVDPlayer() { /* ... */ }
-    public void setProjectorInput(String input) { /* ... */ }
-    public void setSoundVolume(int volume) { /* ... */ }
-    // 暴露了太多子系统的细节
-}
-
-// ✅ 好的门面设计 - 高层抽象
-public class GoodOrderFacade {
-    public void startMovieNight(String movie) { /* ... */ }
-    public void endMovieNight() { /* ... */ }
-    public void switchToMusicMode() { /* ... */ }
-    // 提供高层的、面向用户场景的接口
-}
-```
-
-### 2. 门面的职责边界
-
-```java
-// 门面应该专注于协调，而不是实现业务逻辑
-public class OrderProcessingFacade {
-    private OrderValidator validator;
-    private InventoryService inventory;
-    private PaymentService payment;
-    private ShippingService shipping;
-    private NotificationService notification;
-    
-    public OrderResult processOrder(OrderRequest request) {
-        // 门面只负责协调，具体逻辑由各个服务实现
-        ValidationResult validation = validator.validate(request);
-        if (!validation.isValid()) {
-            return OrderResult.failed(validation.getErrors());
-        }
-        
-        InventoryResult inventoryCheck = inventory.reserve(request.getItems());
-        if (!inventoryCheck.isSuccess()) {
-            return OrderResult.failed("库存不足");
-        }
-        
         try {
-            PaymentResult paymentResult = payment.charge(request.getPayment());
-            ShippingResult shippingResult = shipping.arrange(request.getShipping());
-            notification.sendConfirmation(request.getCustomer(), paymentResult, shippingResult);
-            
-            return OrderResult.success(paymentResult.getOrderId());
-        } catch (Exception e) {
-            inventory.release(request.getItems()); // 回滚库存
-            return OrderResult.failed("处理失败：" + e.getMessage());
+            facade.create(new Request("O-1002", -1));
+            throw new AssertionError("非法参数必须被拒绝");
+        } catch (IllegalArgumentException expected) {
+            if (storage.count() != 1) throw new AssertionError("校验失败不得写入");
+            System.out.println("非法参数未进入存储");
+        }
+
+        Storage unavailable = content -> {
+            throw new IllegalStateException("存储不可用");
+        };
+        try {
+            new ReportFacade(new Validator(), new TextRenderer(), unavailable)
+                    .create(new Request("O-1003", 10));
+            throw new AssertionError("保存失败不得返回成功");
+        } catch (IllegalStateException expected) {
+            System.out.println(expected.getMessage());
         }
     }
 }
 ```
 
-### 3. 门面的测试策略
+调用方只需要 `create()`，内部依次调用三个组件。样例的校验只是数据合法性，不是身份认证或权限控制；真实入口应先确定可信身份与订单访问权。内存存储只供单线程演示，进程退出会丢失数据。
 
-```java
-// 门面的单元测试应该关注协调逻辑，而不是子系统的具体实现
-@ExtendWith(MockitoExtension.class)
-class OrderProcessingFacadeTest {
-    
-    @Mock private OrderValidator validator;
-    @Mock private InventoryService inventory;
-    @Mock private PaymentService payment;
-    
-    @InjectMocks
-    private OrderProcessingFacade facade;
-    
-    @Test
-    void shouldProcessOrderSuccessfully() {
-        // Given
-        OrderRequest request = createValidOrderRequest();
-        when(validator.validate(request)).thenReturn(ValidationResult.valid());
-        when(inventory.reserve(request.getItems())).thenReturn(InventoryResult.success());
-        when(payment.charge(request.getPayment())).thenReturn(PaymentResult.success("ORDER123"));
-        
-        // When
-        OrderResult result = facade.processOrder(request);
-        
-        // Then
-        assertThat(result.isSuccess()).isTrue();
-        verify(validator).validate(request);
-        verify(inventory).reserve(request.getItems());
-        verify(payment).charge(request.getPayment());
-    }
-    
-    @Test
-    void shouldRollbackInventoryWhenPaymentFails() {
-        // Given
-        OrderRequest request = createValidOrderRequest();
-        when(validator.validate(request)).thenReturn(ValidationResult.valid());
-        when(inventory.reserve(request.getItems())).thenReturn(InventoryResult.success());
-        when(payment.charge(request.getPayment())).thenThrow(new PaymentException("支付失败"));
-        
-        // When
-        OrderResult result = facade.processOrder(request);
-        
-        // Then
-        assertThat(result.isSuccess()).isFalse();
-        verify(inventory).release(request.getItems()); // 验证回滚逻辑
-    }
-}
-```
+这里的 `READY` 仅表示当前内存存储已保存。换成对象存储或数据库时，要重新约定“保存成功”的持久性、可读取性和失败恢复范围，不能沿用一个状态名就假定合同没有变化。
 
-门面模式通过提供统一的高层接口，让复杂系统的使用变得简单、直观，是构建易用且可维护系统的重要设计模式。在实际应用中，合理使用门面模式可以显著提升系统的易用性和可维护性。
+## 同步结果与异步结果分开
+
+| 入口合同 | 何时返回 | 之后仍可能发生什么 |
+| --- | --- | --- |
+| 同步生成 | 校验、生成、保存均完成后 | 下载权限变化、生命周期过期等 |
+| 异步创建任务 | 任务已可靠记录后 | 执行、重试、成功或失败 |
+| 支付请求提交 | 请求已受理或结果未知时 | 支付确认、超时查询、关单或退款 |
+
+如果报告耗时较长，外观应返回“待处理”的任务编号，调用方再查询状态。记录任务与投递执行通知之间若存在崩溃窗口，需要任务扫描或事务发件箱等机制补偿；一个外观方法不能自动提供可靠消息。
+
+支付流程更不能把任意异常都解释成“未支付”。例如扣款已完成但发货失败，释放库存不是支付回滚；通知失败也不应撤销已经完成的支付。必须按已确认的状态选择查询、退款、释放预留或补发通知，相关机制见[事件驱动架构](../../architecture/event-driven-architecture.md)。
+
+## 框架入口如何理解
+
+`JdbcTemplate` 通过管理 JDBC 执行、资源清理与异常转换，减少调用方样板代码，适合用来理解简化入口；内部也使用模板与回调等机制，不能把它的全部设计归为外观。数据库失败应通过明确异常暴露，不能在 JDBC 对比示例里吞掉异常后返回空列表。
+
+`DispatcherServlet` 的主要角色是前端控制器，它协调映射、适配与结果处理。`@SpringBootApplication` 是组合注解及配置入口，不是因为“多个注解合在一起”就自动满足对象协作式外观结构。识别模式要看对象关系与责任。
+
+与[适配器](./adapter.md)相比，外观重点是简化用例入口，不以转换两个不兼容接口为必要条件；与[中介者](../behavioral/mediator.md)相比，子系统不必通过外观相互通信，通常也不必反向依赖外观。
+
+## 失败与验收
+
+用例测试要验证顺序和结果：校验失败不得继续生成或保存，生成失败不得保存，保存失败不得返回成功。还要验证子系统返回空值、超时或结果未知时的合同，不能只模拟抛异常。
+
+真实存储可能已写入却未成功返回引用，因此还需要稳定业务键、查询与孤立文件清理。跨服务补偿不是本地事务回滚，重试也不能靠捕获所有异常后重跑全部流程。外观把协调集中起来，可靠性仍依赖各步骤可核实的状态与恢复机制。

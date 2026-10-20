@@ -1,0 +1,180 @@
+{
+  "pages": [
+    {
+      "file": "docs/basic/acoustics/index.md",
+      "status": "verified",
+      "pageType": "声学专题导读",
+      "decision": "保留声学到语音工程的阅读路径，重绘三观察层地图，去掉把并列对象画成串行流程的关系。",
+      "findings": [],
+      "validation": [
+        "全文与图示关系审查，四模式全文截图、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "6fb7b0d31a6ebc81447affe4ebb5bf6d17156baa699a637ed6eed9392e0a82ed"
+    },
+    {
+      "file": "docs/basic/acoustics/structure.md",
+      "status": "verified",
+      "pageType": "声学结构与声场",
+      "decision": "区分自由/扩散声场与近远场，补均匀线阵孔距条件及结构声路SVG。",
+      "findings": [],
+      "validation": [
+        "全文及图示核对；4kHz约4.3cm、8kHz约2.1cm算术通过，四模式、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "4fccae5ed2a60a76f2789f1795b5958539149ca9ad690249050fd16ca24334bb"
+    },
+    {
+      "file": "docs/basic/acoustics/sound-fundamentals.md",
+      "status": "verified",
+      "pageType": "采样与波形基础",
+      "decision": "修正整数满幅、浮点超1与true peak区别；区分重采样和文件头、采样帧和算法帧；调整波形图文字分区。",
+      "findings": [],
+      "validation": [
+        "20ms/16k/s16单声道640字节、双声道1280字节计算通过；全文、四模式、分页、图示原尺寸通过。"
+      ],
+      "reviewedHash": "70ae54b60e5a6e0536864eaba23bbad7703e375a207cbeeb1ab258815009e9bd"
+    },
+    {
+      "file": "docs/basic/acoustics/capture-playback.md",
+      "status": "verified",
+      "pageType": "采集播放链路",
+      "decision": "补播放参考与录音时钟图、显式ALSA格式示例；修正固定电平阈值及数字放大改善SNR的误解。",
+      "findings": [],
+      "validation": [
+        "全文与命令语法核对，四模式、分页、图示原尺寸通过；未访问麦克风或播放音频。"
+      ],
+      "reviewedHash": "6598a2992a98e5ae41c2f67c2841d1f245cd133edd0d350d941475270b011162"
+    },
+    {
+      "file": "docs/basic/acoustics/noise-reduction.md",
+      "status": "verified",
+      "pageType": "3A与双讲机制",
+      "decision": "说明3A顺序只是常见基线，残差含近端语音，双讲时控制或冻结适应，修正AEC图。",
+      "findings": [],
+      "validation": [
+        "全文与各图标签逐项核对，四模式、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "899f655b1fd7e8b4d05cf56e386181769d12d8b685060665d6e864cec69c8939"
+    },
+    {
+      "file": "docs/basic/acoustics/wake-word.md",
+      "status": "verified",
+      "pageType": "唤醒检测与评估",
+      "decision": "区分可选VAD门控与持续KWS，补FAR分母和漏唤醒的业务算例。",
+      "findings": [],
+      "validation": [
+        "200小时10次误触发=0.05次/小时、500次漏20=4%计算通过；四模式、分页、图示原尺寸通过。"
+      ],
+      "reviewedHash": "1f8c3df6d27ee875221d5c986961a199d326d9abc6002b5f041b3bc80f22de45"
+    },
+    {
+      "file": "docs/basic/acoustics/speech-recognition.md",
+      "status": "verified",
+      "pageType": "识别与解码边界",
+      "decision": "明确置信度和时间戳可选，说话人通常独立；Final不代表正确或授权；修正后处理箭头。",
+      "findings": [],
+      "validation": [
+        "全文及支付幂等例子审查，四模式、分页、图示原尺寸与实际字体边界通过。"
+      ],
+      "reviewedHash": "a78e63a4e14358bd2151459b88167bb0091bb78ecd380efe5af2d0192e32eda2"
+    },
+    {
+      "file": "docs/basic/acoustics/speech-synthesis.md",
+      "status": "verified",
+      "pageType": "语音生成机制",
+      "decision": "修正银行/行走多音字例子，区分声学模型加声码器与codec路线，重绘播放适配和音色条件方向。",
+      "findings": [],
+      "validation": [
+        "全文与新图核对，四模式、分页、双视口原尺寸及字体边界通过。"
+      ],
+      "reviewedHash": "f6384dba578a98ec3d641775724e9f84ffc0f35e3c007d6e7497649041741e5c"
+    },
+    {
+      "file": "docs/basic/acoustics/voice-interaction.md",
+      "status": "verified",
+      "pageType": "语音交互状态与取消",
+      "decision": "补generation取消旧TTS及迟到音频丢弃，区分停播和业务回滚，修正端侧长文本限制断言。",
+      "findings": [],
+      "validation": [
+        "全文、状态关系及支付幂等场景审查，四模式、分页、双视口图示原尺寸通过。"
+      ],
+      "reviewedHash": "24e7e578019e47687c4f3662111ca9532c2caec0eb1fc080a853135894e1bf8c"
+    },
+    {
+      "file": "docs/basic/acoustics/quality-evaluation.md",
+      "status": "verified",
+      "pageType": "声学与识别质量评估",
+      "decision": "限制ERLE到适用声学条件，补CER/WER插入、空参考和宏微平均差别。",
+      "findings": [],
+      "validation": [
+        "1/2及0/100宏25%、微1/102约0.98%算术通过；全文、四模式、分页、图示原尺寸通过。"
+      ],
+      "reviewedHash": "cc18960ef4e88b66fe21b21c36eb51ceae1edf94cc88f57fb4942af68e2d9aa0"
+    },
+    {
+      "file": "docs/basic/acoustics/engineering.md",
+      "status": "verified",
+      "pageType": "设备选型与排查",
+      "decision": "补部署选择SVG，修正端侧与长文本、麦克风数量的过度概括，区分RTF和首字延迟。",
+      "findings": [],
+      "validation": [
+        "全文与60分钟/12分钟RTF0.2计算通过；四模式、分页、图示原尺寸通过，未进行设备推理。"
+      ],
+      "reviewedHash": "704e9ae172c31f87923915a5feb847785d2479237c4d2c9fac8bcf9625fa05e3"
+    },
+    {
+      "file": "docs/basic/acoustics/vad/index.md",
+      "status": "verified",
+      "pageType": "VAD状态机制",
+      "decision": "区分前处理与降噪、通用分段器与SileroIterator，重绘结束候选恢复及EOF说明。",
+      "findings": [],
+      "validation": [
+        "全文、四状态和回退方向核对，四模式、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "fb4efcc8541f37050e74e89d3a6d9edb128113326daf15241597ea0c3a9ff225"
+    },
+    {
+      "file": "docs/basic/acoustics/vad/silero-vad.md",
+      "status": "verified",
+      "pageType": "Silero配置与流式收尾",
+      "decision": "补soundfile依赖与读写，区分文件函数和Iterator参数、neg_threshold版本边界；补缓存、EOF补零、裁剪和应用封口。",
+      "findings": [],
+      "validation": [
+        "核对官方源码与版本说明；Python块AST通过，1000样本补24零计算通过；四模式、分页、双视口原尺寸通过，未下载模型。"
+      ],
+      "reviewedHash": "f6e6a84a206004c6cfb4e4d25a7cdc5f54fff7cb627db9dd40fabe31aefc5856"
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/index.md",
+      "status": "verified",
+      "pageType": "sherpa运行边界",
+      "decision": "修正CUDA与ORT Execution Provider关系，核对运行架构和模型输入边界。",
+      "findings": [],
+      "validation": [
+        "全文及图示标签核对，四模式、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "5e9146b4eaa27fd6fecff237ca8d5d4536173213a1a38f72376d77ac8ca5e687"
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
+      "status": "verified",
+      "pageType": "识别模式与EOF处理",
+      "decision": "流式例子单建OnlineRecognizer，启用端点并处理一次padding、input_finished和尾段去重，限定热词解码条件。",
+      "findings": [],
+      "validation": [
+        "核对官方文件与流式示例；模拟Recognizer运行验证尾字提交一次、端点后不重复及排空，AST通过；四模式、分页、图示原尺寸通过，未进行模型推理。"
+      ],
+      "reviewedHash": "f5f11f5f862b34f3b6e563424ffa6c01f0bf4ef05eac123f757d66e41575a77d"
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+      "status": "retained",
+      "pageType": "模型选择与部署",
+      "decision": "全文已有模型边界、设备评估、运行配置、许可及回归闭环，保留正文与选择图。",
+      "findings": [],
+      "validation": [
+        "全文与选择图逐项核对，四模式、分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "801f2e8b1373ad389f860f700920da7603c7501f6647898106ac95d395df0194"
+    }
+  ]
+}

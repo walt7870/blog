@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 进阶视频系列
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes 进阶视频系列
@@ -51,6 +51,8 @@ date: 2026-07-18
 | EP24 | 从集群到内部开发平台 | [B站](https://www.bilibili.com/video/BV1ZYKV6UEMN) | [平台工程](./advanced/platform-engineering) |
 
 ## 每个阶段应留下什么证据
+
+可以用一个订单 API 贯穿学习：先发布三个副本，故意把 Service 的 `targetPort` 配错，记录“Pod Ready 但入口请求失败”的现象；再对齐 Service 端口、端点端口、应用监听端口和代理日志，修复后重放同一请求。这能区分“容器能运行”和“整条请求路径可用”，相关步骤分别对应 EP05、EP06 和 EP23。实验应在独立 namespace 内进行，并保留原配置用于恢复。
 
 看完视频并不等于掌握机制。每个阶段至少应留下一个可以复核的产物：
 

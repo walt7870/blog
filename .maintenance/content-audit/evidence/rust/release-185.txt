@@ -1,0 +1,582 @@
+- navigation:
+  - link "Rust Blog":
+    - /url: https://blog.rust-lang.org/
+    - generic: Rust Blog
+  - list:
+    - link "Rust":
+      - /url: https://www.rust-lang.org
+    - link "Install":
+      - /url: https://www.rust-lang.org/tools/install
+    - link "Learn":
+      - /url: https://www.rust-lang.org/learn
+    - link "Tools":
+      - /url: https://www.rust-lang.org/tools
+    - link "Governance":
+      - /url: https://www.rust-lang.org/governance
+    - link "Community":
+      - /url: https://www.rust-lang.org/community
+    - button "🖌"
+- heading "Announcing Rust 1.85.0 and Rust 2024" [level=2]
+- generic: Feb. 20, 2025 · The Rust Release Team
+- paragraph: The Rust team is happy to announce a new version of Rust, 1.85.0. This stabilizes the 2024 edition as well. Rust is a programming language empowering everyone to build reliable and efficient software.
+- paragraph:
+  - text: If you have a previous version of Rust installed via
+  - code: rustup
+  - text: ", you can get 1.85.0 with:"
+- code:
+  - generic: $ rustup update stable
+- paragraph:
+  - text: If you don't have it already, you can
+  - link "get rustup":
+    - /url: https://www.rust-lang.org/install.html
+    - text: get
+    - code: rustup
+  - text: from the appropriate page on our website, and check out the
+  - link "detailed release notes for 1.85.0":
+    - /url: https://doc.rust-lang.org/stable/releases.html#version-1850-2025-02-20
+  - text: .
+- paragraph:
+  - text: If you'd like to help us out by testing future releases, you might consider updating locally to use the beta channel (
+  - code: rustup default beta
+  - text: ) or the nightly channel (
+  - code: rustup default nightly
+  - text: ). Please
+  - link "report":
+    - /url: https://github.com/rust-lang/rust/issues/new/choose
+  - text: any bugs you might come across!
+- heading "What's in 1.85.0 stable" [level=2]
+- heading "Rust 2024" [level=3]
+- paragraph:
+  - text: We are excited to announce that the Rust 2024 Edition is now stable! Editions are a mechanism for opt-in changes that may otherwise pose a backwards compatibility risk. See
+  - link "the edition guide":
+    - /url: https://doc.rust-lang.org/edition-guide/editions/index.html
+  - text: for details on how this is achieved, and detailed instructions on how to migrate.
+- paragraph:
+  - text: This is the largest edition we have released. The
+  - link "edition guide":
+    - /url: https://doc.rust-lang.org/edition-guide/rust-2024/index.html
+  - text: "contains detailed information about each change, but as a summary, here are all the changes:"
+- list:
+  - text: Language
+  - list:
+    - link "RPIT lifetime capture rules":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rpit-lifetime-capture.html
+    - text: — Changes the default capturing of parameters by
+    - code: impl Trait
+    - text: types when
+    - code: use<..>
+    - text: is not present.
+    - link "if let temporary scope":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/temporary-if-let-scope.html
+      - code: if let
+      - text: temporary scope
+    - text: — Changes the scope of temporaries for
+    - code: if let
+    - text: expressions.
+    - link "Tail expression temporary scope":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/temporary-tail-expr-scope.html
+    - text: — Changes the scope of temporaries for the tail expression in a block.
+    - link "Match ergonomics reservations":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/match-ergonomics.html
+    - text: — Disallow some pattern combinations to avoid confusion and allow for future improvements.
+    - link "Unsafe extern blocks":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-extern.html
+      - text: Unsafe
+      - code: extern
+      - text: blocks
+    - text: —
+    - code: extern
+    - text: blocks now require the
+    - code: unsafe
+    - text: keyword.
+    - link "Unsafe attributes":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-attributes.html
+    - text: — The
+    - code: export_name
+    - text: ","
+    - code: link_section
+    - text: ", and"
+    - code: no_mangle
+    - text: attributes must now be marked as
+    - code: unsafe
+    - text: .
+    - link "unsafe_op_in_unsafe_fn warning":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html
+      - code: unsafe_op_in_unsafe_fn
+      - text: warning
+    - text: — The
+    - link "unsafe_op_in_unsafe_fn":
+      - /url: https://doc.rust-lang.org/rustc/lints/listing/allowed-by-default.html#unsafe-op-in-unsafe-fn
+      - code: unsafe_op_in_unsafe_fn
+    - text: lint now warns by default, requiring explicit
+    - code: "unsafe {}"
+    - text: blocks in
+    - code: unsafe
+    - text: functions.
+    - link "Disallow references to static mut":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/static-mut-references.html
+      - text: Disallow references to
+      - code: static mut
+    - text: — References to
+    - code: static mut
+    - text: items now generate a deny-by-default error.
+    - link "Never type fallback change":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/never-type-fallback.html
+    - text: — Changes to how the never type
+    - code: "!"
+    - text: coerces, and changes the
+    - link "never_type_fallback_flowing_into_unsafe":
+      - /url: https://doc.rust-lang.org/rustc/lints/listing/warn-by-default.html#never-type-fallback-flowing-into-unsafe
+      - code: never_type_fallback_flowing_into_unsafe
+    - text: lint level to "deny".
+    - link "Macro fragment specifiers":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/macro-fragment-specifiers.html
+    - text: — The
+    - code: expr
+    - text: macro fragment specifier in
+    - code: macro_rules!
+    - text: macros now also matches
+    - code: const
+    - text: and
+    - code: _
+    - text: expressions.
+    - link "Missing macro fragment specifiers":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/missing-macro-fragment-specifiers.html
+    - text: — The
+    - link "missing_fragment_specifier":
+      - /url: https://doc.rust-lang.org/rustc/lints/listing/deny-by-default.html#missing-fragment-specifier
+      - code: missing_fragment_specifier
+    - text: lint is now a hard error, rejecting macro meta variables without a fragment specifier kind.
+    - link "gen keyword":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/gen-keyword.html
+      - code: gen
+      - text: keyword
+    - text: — Reserves the
+    - code: gen
+    - text: keyword in anticipation of adding generator blocks in the future.
+    - link "Reserved syntax":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/reserved-syntax.html
+    - text: — Reserves
+    - code: "#\"foo\"#"
+    - text: style strings and
+    - code: "##"
+    - text: tokens in anticipation of changing how guarded string literals may be parsed in the future.
+  - text: Standard library
+  - list:
+    - link "Changes to the prelude":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/prelude.html
+    - text: — Adds
+    - code: Future
+    - text: and
+    - code: IntoFuture
+    - text: to the prelude.
+    - link "Add IntoIterator for Box<[T]>":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/intoiterator-box-slice.html
+      - text: Add
+      - code: IntoIterator
+      - text: for
+      - code: Box<[T]>
+    - text: — Changes how iterators work with boxed slices.
+    - link "Newly unsafe functions":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/newly-unsafe-functions.html
+    - text: —
+    - code: std::env::set_var
+    - text: ","
+    - code: std::env::remove_var
+    - text: ", and"
+    - code: std::os::unix::process::CommandExt::before_exec
+    - text: are now unsafe functions.
+  - text: Cargo
+  - list:
+    - 'link "Cargo: Rust-version aware resolver"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/cargo-resolver.html
+    - text: — Changes the default dependency resolver behavior to consider the
+    - code: rust-version
+    - text: field.
+    - 'link "Cargo: Table and key name consistency"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/cargo-table-key-names.html
+    - text: — Removes some outdated
+    - code: Cargo.toml
+    - text: keys.
+    - 'link "Cargo: Reject unused inherited default-features"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/cargo-inherited-default-features.html
+    - text: — Changes how
+    - code: default-features = false
+    - text: works with inherited workspace dependencies.
+  - text: Rustdoc
+  - list:
+    - link "Rustdoc combined tests":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustdoc-doctests.html
+    - text: — Doctests are now combined into a single executable, significantly improving performance.
+    - link "Rustdoc nested include! change":
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustdoc-nested-includes.html
+      - text: Rustdoc nested
+      - code: include!
+      - text: change
+    - text: — Changes to the relative path behavior of nested
+    - code: include!
+    - text: files.
+  - text: Rustfmt
+  - list:
+    - 'link "Rustfmt: Style edition"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustfmt-style-edition.html
+    - text: — Introduces the concept of "style editions", which allow you to independently control the formatting edition from the Rust edition.
+    - 'link "Rustfmt: Formatting fixes"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustfmt-formatting-fixes.html
+    - text: — A large number of fixes to formatting various situations.
+    - 'link "Rustfmt: Raw identifier sorting"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustfmt-raw-identifier-sorting.html
+    - text: — Changes to how
+    - code: r#foo
+    - text: identifiers are sorted.
+    - 'link "Rustfmt: Version sorting"':
+      - /url: https://doc.rust-lang.org/edition-guide/rust-2024/rustfmt-version-sorting.html
+    - text: — Changes to how identifiers that contain integers are sorted.
+- heading "Migrating to 2024" [level=4]
+- paragraph:
+  - text: The guide includes migration instructions for all new features, and in general
+  - link "transitioning an existing project to a new edition":
+    - /url: https://doc.rust-lang.org/edition-guide/editions/transitioning-an-existing-project-to-a-new-edition.html
+  - text: . In many cases
+  - code: cargo fix
+  - text: can automate the necessary changes. You may even find that no changes in your code are needed at all for 2024!
+- paragraph:
+  - text: Note that automatic fixes via
+  - code: cargo fix
+  - text: are very conservative to avoid ever changing the semantics of your code. In many cases you may wish to keep your code the same and use the new semantics of Rust 2024; for instance, continuing to use the
+  - code: expr
+  - text: macro matcher, and ignoring the conversions of conditionals because you want the new 2024 drop order semantics. The result of
+  - code: cargo fix
+  - text: should not be considered a recommendation, just a conservative conversion that preserves behavior.
+- paragraph:
+  - emphasis: Many
+  - text: people came together to create this edition. We'd like to thank them all for their hard work!
+- heading "async closures" [level=3]:
+  - code: async
+  - text: closures
+- paragraph:
+  - text: Rust now supports asynchronous closures like
+  - code: "async || {}"
+  - text: which return futures when called. This works like an
+  - code: async fn
+  - text: "which can also capture values from the local environment, just like the difference between regular closures and functions. This also comes with 3 analogous traits in the standard library prelude:"
+  - code: AsyncFn
+  - text: ","
+  - code: AsyncFnMut
+  - text: ", and"
+  - code: AsyncFnOnce
+  - text: .
+- paragraph:
+  - text: In some cases, you could already approximate this with a regular closure and an asynchronous block, like
+  - code: "|| async {}"
+  - text: . However, the future returned by such an inner block is not able to borrow from the closure captures, but this does work with
+  - code: async
+  - text: "closures:"
+- code:
+  - generic: "let mut vec: Vec<String> = vec![];"
+  - generic: "let closure = async || {"
+  - generic: vec.push(ready(String::from("")).await);
+  - generic: "};"
+- paragraph:
+  - text: It also has not been possible to properly express higher-ranked function signatures with the
+  - code: Fn
+  - text: traits returning a
+  - code: Future
+  - text: ", but you can write this with the"
+  - code: AsyncFn
+  - text: "traits:"
+- code:
+  - generic: use core::future::Future;
+  - generic: "async fn f<Fut>(_: impl for<'a> Fn(&'a u8) -> Fut)"
+  - generic: where
+  - generic: "Fut: Future<Output = ()>,"
+  - generic: "{ todo!() }"
+  - generic: "async fn f2(_: impl for<'a> AsyncFn(&'a u8))"
+  - generic: "{ todo!() }"
+  - generic: "async fn main() {"
+  - generic: "async fn g(_: &u8) { todo!() }"
+  - generic: f(g).await;
+  - generic: //~^ ERROR mismatched types
+  - generic: //~| ERROR one type is more general than the other
+  - generic: f2(g).await; // ok!
+  - generic: "}"
+- paragraph:
+  - text: So
+  - code: async
+  - text: closures provide first-class solutions to both of these problems! See
+  - link "RFC 3668":
+    - /url: https://rust-lang.github.io/rfcs/3668-async-closures.html
+  - text: and the
+  - link "stabilization report":
+    - /url: https://github.com/rust-lang/rust/pull/132706
+  - text: for more details.
+- heading "Hiding trait implementations from diagnostics" [level=3]
+- paragraph:
+  - text: The new
+  - code: "#[diagnostic::do_not_recommend]"
+  - text: "attribute is a hint to the compiler to not show the annotated trait implementation as part of a diagnostic message. For library authors, this is a way to keep the compiler from making suggestions that may be unhelpful or misleading. For example:"
+- code:
+  - generic: "pub trait Foo {}"
+  - generic: "pub trait Bar {}"
+  - generic: "impl<T: Foo> Bar for T {}"
+  - generic: struct MyType;
+  - generic: "fn main() {"
+  - generic: "let _object: &dyn Bar = &MyType;"
+  - generic: "}"
+- code:
+  - generic: "error[E0277]: the trait bound `MyType: Bar` is not satisfied"
+  - generic: "--> src/main.rs:9:29"
+  - generic: "|"
+  - generic: "9 | let _object: &dyn Bar = &MyType;"
+  - generic: "| ^^^^ the trait `Foo` is not implemented for `MyType`"
+  - generic: "|"
+  - generic: "note: required for `MyType` to implement `Bar`"
+  - generic: "--> src/main.rs:4:14"
+  - generic: "|"
+  - generic: "4 | impl<T: Foo> Bar for T {}"
+  - generic: "| --- ^^^ ^"
+  - generic: "| |"
+  - generic: "| unsatisfied trait bound introduced here"
+  - generic: "= note: required for the cast from `&MyType` to `&dyn Bar`"
+- paragraph:
+  - text: For some APIs, it might make good sense for you to implement
+  - code: Foo
+  - text: ", and get"
+  - code: Bar
+  - text: indirectly by that blanket implementation. For others, it might be expected that most users should implement
+  - code: Bar
+  - text: directly, so that
+  - code: Foo
+  - text: "suggestion is a red herring. In that case, adding the diagnostic hint will change the error message like so:"
+- code:
+  - generic: "#[diagnostic::do_not_recommend]"
+  - generic: "impl<T: Foo> Bar for T {}"
+- code:
+  - generic: "error[E0277]: the trait bound `MyType: Bar` is not satisfied"
+  - generic: "--> src/main.rs:10:29"
+  - generic: "|"
+  - generic: "10 | let _object: &dyn Bar = &MyType;"
+  - generic: "| ^^^^ the trait `Bar` is not implemented for `MyType`"
+  - generic: "|"
+  - generic: "= note: required for the cast from `&MyType` to `&dyn Bar`"
+- paragraph:
+  - text: See
+  - link "RFC 2397":
+    - /url: https://rust-lang.github.io/rfcs/2397-do-not-recommend.html
+  - text: for the original motivation, and the current
+  - link "reference":
+    - /url: https://doc.rust-lang.org/reference/attributes/diagnostics.html#the-diagnosticdo_not_recommend-attribute
+  - text: for more details.
+- heading "FromIterator and Extend for tuples" [level=3]:
+  - code: FromIterator
+  - text: and
+  - code: Extend
+  - text: for tuples
+- paragraph:
+  - text: Earlier versions of Rust implemented convenience traits for iterators of
+  - code: (T, U)
+  - text: tuple pairs to behave like
+  - code: Iterator::unzip
+  - text: ", with"
+  - code: Extend
+  - text: in 1.56 and
+  - code: FromIterator
+  - text: in 1.79. These have now been
+  - emphasis: extended
+  - text: to more tuple lengths, from singleton
+  - code: (T,)
+  - text: through to 12 items long,
+  - code: (T1, T2, .., T11, T12)
+  - text: . For example, you can now use
+  - code: collect()
+  - text: "to fanout into multiple collections at once:"
+- code:
+  - generic: "use std::collections::{LinkedList, VecDeque};"
+  - generic: "fn main() {"
+  - generic: "let (squares, cubes, tesseracts): (Vec<_>, VecDeque<_>, LinkedList<_>) ="
+  - generic: (0i32..10).map(|i| (i * i, i.pow(3), i.pow(4))).collect();
+  - generic: "println!(\"{squares:?}\");"
+  - generic: "println!(\"{cubes:?}\");"
+  - generic: "println!(\"{tesseracts:?}\");"
+  - generic: "}"
+- code:
+  - generic: "[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]"
+  - generic: "[0, 1, 8, 27, 64, 125, 216, 343, 512, 729]"
+  - generic: "[0, 1, 16, 81, 256, 625, 1296, 2401, 4096, 6561]"
+- heading "Updates to std::env::home_dir()" [level=3]:
+  - text: Updates to
+  - code: std::env::home_dir()
+- paragraph:
+  - code: std::env::home_dir()
+  - text: has been deprecated for years, because it can give surprising results in some Windows configurations if the
+  - code: HOME
+  - text: environment variable is set (which is not the normal configuration on Windows). We had previously avoided changing its behavior, out of concern for compatibility with code depending on this non-standard configuration. Given how long this function has been deprecated, we're now updating its behavior as a bug fix, and a subsequent release will remove the deprecation for this function.
+- heading "Stabilized APIs" [level=3]
+- list:
+  - link "BuildHasherDefault::new":
+    - /url: https://doc.rust-lang.org/stable/std/hash/struct.BuildHasherDefault.html#method.new
+    - code: BuildHasherDefault::new
+  - link "ptr::fn_addr_eq":
+    - /url: https://doc.rust-lang.org/std/ptr/fn.fn_addr_eq.html
+    - code: ptr::fn_addr_eq
+  - link "io::ErrorKind::QuotaExceeded":
+    - /url: https://doc.rust-lang.org/stable/std/io/enum.ErrorKind.html#variant.QuotaExceeded
+    - code: io::ErrorKind::QuotaExceeded
+  - link "io::ErrorKind::CrossesDevices":
+    - /url: https://doc.rust-lang.org/stable/std/io/enum.ErrorKind.html#variant.CrossesDevices
+    - code: io::ErrorKind::CrossesDevices
+  - 'link "{float}::midpoint"':
+    - /url: https://doc.rust-lang.org/core/primitive.f32.html#method.midpoint
+    - code: "{float}::midpoint"
+  - 'link "Unsigned {integer}::midpoint"':
+    - /url: https://doc.rust-lang.org/std/primitive.u64.html#method.midpoint
+    - text: Unsigned
+    - code: "{integer}::midpoint"
+  - link "NonZeroU*::midpoint":
+    - /url: https://doc.rust-lang.org/std/num/type.NonZeroU32.html#method.midpoint
+    - code: NonZeroU*::midpoint
+  - link "impl std::iter::Extend for tuples with arity 1 through 12":
+    - /url: https://doc.rust-lang.org/stable/std/iter/trait.Extend.html#impl-Extend%3C(A,)%3E-for-(EA,)
+    - text: impl
+    - code: std::iter::Extend
+    - text: for tuples with arity 1 through 12
+  - link "FromIterator<(A, ...)> for tuples with arity 1 through 12":
+    - /url: https://doc.rust-lang.org/stable/std/iter/trait.FromIterator.html#impl-FromIterator%3C(EA,)%3E-for-(A,)
+    - code: FromIterator<(A, ...)>
+    - text: for tuples with arity 1 through 12
+  - link "std::task::Waker::noop":
+    - /url: https://doc.rust-lang.org/stable/std/task/struct.Waker.html#method.noop
+    - code: std::task::Waker::noop
+- paragraph: These APIs are now stable in const contexts
+- list:
+  - link "mem::size_of_val":
+    - /url: https://doc.rust-lang.org/stable/std/mem/fn.size_of_val.html
+    - code: mem::size_of_val
+  - link "mem::align_of_val":
+    - /url: https://doc.rust-lang.org/stable/std/mem/fn.align_of_val.html
+    - code: mem::align_of_val
+  - link "Layout::for_value":
+    - /url: https://doc.rust-lang.org/stable/std/alloc/struct.Layout.html#method.for_value
+    - code: Layout::for_value
+  - link "Layout::align_to":
+    - /url: https://doc.rust-lang.org/stable/std/alloc/struct.Layout.html#method.align_to
+    - code: Layout::align_to
+  - link "Layout::pad_to_align":
+    - /url: https://doc.rust-lang.org/stable/std/alloc/struct.Layout.html#method.pad_to_align
+    - code: Layout::pad_to_align
+  - link "Layout::extend":
+    - /url: https://doc.rust-lang.org/stable/std/alloc/struct.Layout.html#method.extend
+    - code: Layout::extend
+  - link "Layout::array":
+    - /url: https://doc.rust-lang.org/stable/std/alloc/struct.Layout.html#method.array
+    - code: Layout::array
+  - link "std::mem::swap":
+    - /url: https://doc.rust-lang.org/stable/std/mem/fn.swap.html
+    - code: std::mem::swap
+  - link "std::ptr::swap":
+    - /url: https://doc.rust-lang.org/stable/std/ptr/fn.swap.html
+    - code: std::ptr::swap
+  - link "NonNull::new":
+    - /url: https://doc.rust-lang.org/stable/std/ptr/struct.NonNull.html#method.new
+    - code: NonNull::new
+  - link "HashMap::with_hasher":
+    - /url: https://doc.rust-lang.org/stable/std/collections/struct.HashMap.html#method.with_hasher
+    - code: HashMap::with_hasher
+  - link "HashSet::with_hasher":
+    - /url: https://doc.rust-lang.org/stable/std/collections/struct.HashSet.html#method.with_hasher
+    - code: HashSet::with_hasher
+  - link "BuildHasherDefault::new":
+    - /url: https://doc.rust-lang.org/stable/std/hash/struct.BuildHasherDefault.html#method.new
+    - code: BuildHasherDefault::new
+  - link "<float>::recip":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.recip
+    - code: <float>::recip
+  - link "<float>::to_degrees":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.to_degrees
+    - code: <float>::to_degrees
+  - link "<float>::to_radians":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.to_radians
+    - code: <float>::to_radians
+  - link "<float>::max":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.max
+    - code: <float>::max
+  - link "<float>::min":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.min
+    - code: <float>::min
+  - link "<float>::clamp":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.clamp
+    - code: <float>::clamp
+  - link "<float>::abs":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.abs
+    - code: <float>::abs
+  - link "<float>::signum":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.signum
+    - code: <float>::signum
+  - link "<float>::copysign":
+    - /url: https://doc.rust-lang.org/stable/std/primitive.f32.html#method.copysign
+    - code: <float>::copysign
+  - link "MaybeUninit::write":
+    - /url: https://doc.rust-lang.org/stable/std/mem/union.MaybeUninit.html#method.write
+    - code: MaybeUninit::write
+- heading "Other changes" [level=3]
+- paragraph:
+  - text: Check out everything that changed in
+  - link "Rust":
+    - /url: https://github.com/rust-lang/rust/releases/tag/1.85.0
+  - text: ","
+  - link "Cargo":
+    - /url: https://doc.rust-lang.org/nightly/cargo/CHANGELOG.html#cargo-185-2025-02-20
+  - text: ", and"
+  - link "Clippy":
+    - /url: https://github.com/rust-lang/rust-clippy/blob/master/CHANGELOG.md#rust-185
+  - text: .
+- heading "Contributors to 1.85.0" [level=2]
+- paragraph:
+  - text: Many people came together to create Rust 1.85.0. We couldn't have done it without all of you.
+  - link "Thanks!":
+    - /url: https://thanks.rust-lang.org/rust/1.85.0/
+- contentinfo:
+  - heading "Get help!" [level=4]
+  - list:
+    - link "Documentation":
+      - /url: https://doc.rust-lang.org
+    - link "Contact the Rust Team":
+      - /url: mailto:core-team@rust-lang.org
+  - heading "Terms and policies" [level=4]
+  - list:
+    - link "Code of Conduct":
+      - /url: https://www.rust-lang.org/policies/code-of-conduct
+    - link "Licenses":
+      - /url: https://www.rust-lang.org/policies/licenses
+    - link "Logo Policy and Media Guide":
+      - /url: https://rustfoundation.org/policy/rust-trademark-policy
+    - link "Security Disclosures":
+      - /url: https://www.rust-lang.org/policies/security
+    - link "All Policies":
+      - /url: https://www.rust-lang.org/policies
+  - heading "Social" [level=4]
+  - link "Mastodon":
+    - /url: https://social.rust-lang.org/@rust
+    - img "Mastodon"
+  - link "Bluesky":
+    - /url: https://bsky.app/profile/rust-lang.org
+    - img "Bluesky"
+  - link "YouTube":
+    - /url: https://www.youtube.com/channel/UCaYhcUwRBNscFNUKTjgPFiA
+    - img "YouTube"
+  - link "Discord":
+    - /url: https://discord.gg/rust-lang
+    - img "Discord"
+  - link "GitHub":
+    - /url: https://github.com/rust-lang
+    - img "GitHub"
+  - heading "RSS" [level=4]
+  - list:
+    - link "Main Blog":
+      - /url: https://blog.rust-lang.org/feed.xml
+    - link "\"Inside Rust\" Blog":
+      - /url: https://blog.rust-lang.org/inside-rust/feed.xml
+  - text: Maintained by the Rust Team. See a typo?
+  - link "Send a fix here":
+    - /url: https://github.com/rust-lang/blog.rust-lang.org/edit/main/content/Rust-1.85.0.md
+  - text: "!"

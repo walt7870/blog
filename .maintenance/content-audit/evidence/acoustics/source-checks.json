@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/snakers4/silero-vad/master/src/silero_vad/utils_vad.py",
+    "fetched_at": "2026-10-20T03:38:38Z",
+    "truncated": false,
+    "content_chars": 31474,
+    "engine": "http"
+  },
+  {
+    "url": "https://k2-fsa.github.io/sherpa/onnx/hotwords/index.html",
+    "fetched_at": "2026-10-20T03:38:38Z",
+    "truncated": false,
+    "content_chars": 32990,
+    "engine": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/master/python-api-examples/speech-recognition-from-microphone.py",
+    "fetched_at": "2026-10-20T03:38:54Z",
+    "truncated": false,
+    "content_chars": 5567,
+    "engine": "obscura"
+  },
+  {
+    "url": "https://github.com/snakers4/silero-vad/wiki/Version-history-and-Available-Models",
+    "fetched_at": "2026-10-20T03:42:02Z",
+    "truncated": false,
+    "content_chars": 2319,
+    "engine": "http"
+  },
+  {
+    "url": "https://k2-fsa.github.io/sherpa/onnx/vad/silero-vad.html",
+    "fetched_at": "2026-10-20T03:42:02Z",
+    "truncated": false,
+    "content_chars": 4204,
+    "engine": "http"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/master/python-api-examples/online-decode-files.py",
+    "fetched_at": "2026-10-20T03:45:07Z",
+    "truncated": false,
+    "content_chars": 14613,
+    "engine": "http"
+  }
+]

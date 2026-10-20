@@ -1,10 +1,8 @@
 # 线程安全与共享状态：别让任务完成但结果写错
 
 > 对应视频：EP05《线程安全与共享状态》  
-> 视频入口：[B站 EP05 定时稿](https://www.bilibili.com/video/BV1QLu76tEfa)（计划公开：2026-08-11 16:27）。
+> 视频入口：[B站 EP05](https://www.bilibili.com/video/BV1QLu76tEfa)。
 > 对应合集：[Python 并发实战：从基础模型到语音工程](https://space.bilibili.com/181407346/lists/8787437?type=season)。
-> 本文为视频的工程展开版，补充代码模板、排查链路、状态字段和检查清单。
-> 最后核验：2026/08/09 08:26:33
 
 视频讲共享状态为什么会让线程池结果不稳定。文章给出三种实战策略：避免共享、队列汇聚、必要时加锁。
 
@@ -20,73 +18,17 @@
 | 队列汇聚 | 多 worker，单写入者落盘 | 高 |
 | Lock | 必须修改共享对象 | 谨慎使用 |
 
-## 单写入者模板
+## 单写入者的结果去向
 
-```python
-from queue import Queue
-from threading import Thread
+结果去向可以改为JSONL或数据库；替换前要增加写入失败向监督者传播的协议。
 
-STOP = object()
+## 单写入者保证什么
 
+下方仅演示三个消息进入有界队列后，由一个线程追加到内存列表。STOP排在普通消息后面，writer消费完消息才退出；每次get都必须对应一次task_done，join等待的是计数归零，不是写入成功。
 
-def writer(results: Queue, output: list[str]) -> None:
-    while True:
-        item = results.get()
-        try:
-            if item is STOP:
-                return
-            output.append(item)
-        finally:
-            results.task_done()
+若把append改为文件或数据库写入，writer遇到磁盘满后直接退出，会让生产者或join永久等待。需要把写入异常传给监督者，由监督者停止上游、保存尚未确认的任务并返回失败；不能只把task_done放进finally就宣称实现了可靠落盘。单写入者也不自动保证事务、持久化和跨进程去重。
 
-
-def main() -> list[str]:
-    results: Queue = Queue()
-    output: list[str] = []
-    thread = Thread(target=writer, args=(results, output))
-    thread.start()
-
-    for item in ["a", "b", "c"]:
-        results.put(f"processed:{item}")
-
-    results.put(STOP)
-    results.join()
-    thread.join()
-    return output
-```
-
-生产环境里，`output.append` 可以换成写 JSONL、写数据库或写任务状态表。
-
-
-<!-- concurrency-series-engineering-supplement:start -->
-## 工程补充：怎么把这篇用到项目里
-
-**读图方式**
-
-- 优先让 worker 返回结果，由主线程统一合并，这是最容易测试的方案。
-- 需要写文件或数据库时，尽量设计单写入者，让多个 worker 只负责生产消息。
-- 必须共享计数器或缓存时，再用 `Lock` 保护最小临界区，并记录锁等待时间。
-
-**排查路径**
-
-- 如果结果偶发缺失或重复，先查共享列表、共享 dict、文件追加和数据库写入。
-- 用小数据集重复跑几百次，比用大数据跑一次更容易复现竞态。
-- 遇到死锁时记录线程名、锁获取顺序和任务输入，必要时用 `faulthandler.dump_traceback_later`。
-
-**问题、证据和解决动作**
-
-| 问题现场 | 先查什么 | 解决动作 |
-| --- | --- | --- |
-| 结果数量偶尔不对 | 共享容器写入位置 | 改为 worker 返回值，主线程合并 |
-| 日志或结果文件互相覆盖 | 写文件路径、打开模式 | 单写入者 Queue + writer 线程 |
-| 加锁后吞吐下降明显 | 锁保护范围、锁等待时间 | 缩小临界区或拆分状态 |
-| 任务互相等待不结束 | 锁顺序、线程栈 | 统一加锁顺序，避免锁内调用外部函数 |
-
-**落地边界**
-
-- 锁是最后一层保护，不是共享状态设计的借口。
-- 越靠近业务结果的写入，越要保持幂等和可重放。
-<!-- concurrency-series-engineering-supplement:end -->
+例如先检查客户编号不存在、再插入缓存是两个动作，即使单次dict操作有内部保护，整段业务检查仍需同一个锁或唯一约束。frozen dataclass也只禁止字段重新赋值，其字段若指向列表，列表内容仍可改变。
 
 ## 常见失败模式
 
@@ -111,16 +53,15 @@ def main() -> list[str]:
 - 能用 Queue 设计单写入者结果收集。
 - 能判断什么时候该避免共享，什么时候才需要锁。
 
-## 配套示例代码
+## 运行示例
 
-源码文件：`examples/ep05/single_writer.py`
+示例保存为`examples/ep05/single_writer.py`；目录和文件名由本地自行创建。
 
 ```python
 from queue import Queue
 from threading import Thread
 
 STOP = object()
-
 
 def writer(results: Queue, output: list[str]) -> None:
     while True:
@@ -132,9 +73,8 @@ def writer(results: Queue, output: list[str]) -> None:
         finally:
             results.task_done()
 
-
 def main() -> list[str]:
-    results: Queue = Queue()
+    results: Queue = Queue(maxsize=8)
     output: list[str] = []
     thread = Thread(target=writer, args=(results, output))
     thread.start()
@@ -146,7 +86,6 @@ def main() -> list[str]:
     results.join()
     thread.join()
     return output
-
 
 if __name__ == "__main__":
     print(main())

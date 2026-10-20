@@ -1,0 +1,81 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/engineering/index.md",
+      "status": "verified",
+      "pageType": "生产生命周期导读",
+      "decision": "退款政策v3至v4贯穿整份配置发布与回滚；移除重复Mermaid，重绘候选、隔离验证、生产路由、反馈和回退图。",
+      "findings": [],
+      "validation": [
+        "全文及子页入口审查；四模式截图、资源、真实分页、双视口键盘放大及原尺寸通过。"
+      ],
+      "reviewedHash": "d945bf695c85a9ba8e465ec1aee8c7b6db9a2a635c8951d91c40a5864b76ada9"
+    },
+    {
+      "file": "docs/ai/engineering/serving-deployment.md",
+      "status": "verified",
+      "pageType": "在线推理与业务写入边界",
+      "decision": "补1400ms分段Trace与剩余deadline；区分连续批处理与固定批处理；影子不执行副作用、超时查状态、回滚不撤销交易。",
+      "findings": [],
+      "validation": [
+        "80+300+900+120=1400与剩余100ms核算；四模式截图、资源、分页与双视口原尺寸通过。"
+      ],
+      "reviewedHash": "a0346cf653b9df626242d9657f4971374cb611f342be4ff4cd20d65071c95abe"
+    },
+    {
+      "file": "docs/ai/engineering/cost-capacity.md",
+      "status": "verified",
+      "pageType": "容量和成本核算",
+      "decision": "10任务每秒与3次模型调用解释30调用每秒、平均60在途；补教学费用0.018元和缓存授权边界，不当作厂商报价或实测容量。",
+      "findings": [],
+      "validation": [
+        "脚本核算30调用每秒、平均60在途、单任务0.018元及万次180元；四模式截图、分页与图示放大通过。"
+      ],
+      "reviewedHash": "bf8da2c479a7c2f8f3a85f480736aab8753c411de730e11b748eeb286d50682c"
+    },
+    {
+      "file": "docs/ai/engineering/mlops-llmops.md",
+      "status": "verified",
+      "pageType": "版本合同与恢复",
+      "decision": "补完整续训检查点边界、JSON发布清单与兼容校验；供应商模型不可锁定时明确复现限制；回归集与未见测试集分开。",
+      "findings": [],
+      "validation": [
+        "全文和JSON字段逐项审查；四模式截图、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "c1d7725af31aed3138e999a9551a196dae1338ce266234a46d069833cb0dea71"
+    },
+    {
+      "file": "docs/ai/engineering/security-governance.md",
+      "status": "verified",
+      "pageType": "工具权限与信任边界",
+      "decision": "A102的19.90元授权与A103的199元注入对照；确认绑定参数，服务端掌权；删除覆盖索引缓存备份但不承诺权重遗忘。",
+      "findings": [],
+      "validation": [
+        "全文及允许/拒绝箭头审查；四模式截图、资源、分页与图示双视口原尺寸通过。"
+      ],
+      "reviewedHash": "9f1cd7e954edcb2dce9f147371a5168edde3370fa3e68cc10379e59c8128a953"
+    },
+    {
+      "file": "docs/ai/evaluation-troubleshooting.md",
+      "status": "verified",
+      "pageType": "分层评估和排错",
+      "decision": "复用已核验RAG图；退款到账回答核对起算条件与承诺；20条分类结果不掩盖越权；撤下系统提示天然省Token与质量保证断言。",
+      "findings": [],
+      "validation": [
+        "全文、17/20分类结果算术及引用语义审查；四模式截图、分页、资源与双视口原尺寸通过。"
+      ],
+      "reviewedHash": "fa8736446a4323714eaf20dd157e09e90cc044458569435a54e0232d737a4e1d"
+    },
+    {
+      "file": "docs/ai/first-ai-app.md",
+      "status": "verified",
+      "pageType": "公开知识库入门实操导读",
+      "decision": "澄清先公开索引再扩权限，检索前服务端限权；退款政策支持范围例子，复用RAG证据图并链接已可运行的LangChain离线示例。",
+      "findings": [],
+      "validation": [
+        "全文及本地实操入口审查；四模式截图、分页与双视口原尺寸通过；浏览器实际进入03-rag-from-zero与中文锚点，标题匹配，控制台无错误。"
+      ],
+      "reviewedHash": "47ed9536326307f0181baacbe48fa00f9cfce92f0070c1217ae97dc3ebd4c781"
+    }
+  ]
+}

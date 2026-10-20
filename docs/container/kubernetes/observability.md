@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 可观测性与证据链
 author: Walt
-date: 2026-07-18
+date: 2026-10-20
 ---
 
 # Kubernetes 可观测性与证据链
@@ -47,11 +47,14 @@ Kubernetes 组件暴露 Prometheus 格式指标，但稳定性级别和名称可
 
 自定义 Operator 至少暴露 Reconcile 总数、错误、耗时、队列深度、重试、外部依赖调用和最长未收敛对象。只监控进程存活会漏掉“Controller Running 但所有对象都在失败”。
 
+以下是现存集群的查询示例，先替换节点名；URL 含 `?` 时加引号，避免 zsh 把它解析为文件通配符。`sed` 会读完输入后只输出前 20 行，避免 `head` 提前关管道造成写入端报错：
+
 ```bash
-kubectl get --raw /metrics | head
-kubectl get --raw /readyz?verbose
-kubectl get --raw /livez?verbose
-kubectl get --raw /api/v1/nodes/<node>/proxy/metrics | head
+node_name=替换为实际节点名称
+kubectl get --raw '/metrics' | sed -n '1,20p'
+kubectl get --raw '/readyz?verbose'
+kubectl get --raw '/livez?verbose'
+kubectl get --raw "/api/v1/nodes/$node_name/proxy/metrics" | sed -n '1,20p'
 ```
 
 端点访问权限和路径取决于组件与发行版；生产采集应使用受控 ServiceMonitor/PodMonitor、TLS 和最小 RBAC，不应给普通用户开放所有组件指标。
@@ -66,7 +69,9 @@ API Audit 可以记录请求阶段、用户、verb、资源、响应码等。审
 
 ## Trace 与 Kubernetes 元数据
 
-OpenTelemetry Collector 可用 k8sattributes processor 把 Pod、namespace、node 等元数据附到 telemetry；kubeletstats、filelog、k8s cluster receiver 分别采集节点/容器指标、日志和集群状态。部署形态通常是节点 Agent + 集群 Gateway，各自承担本地采集与集中处理。
+OpenTelemetry Collector 可用 `k8sattributes` processor 把 Pod、namespace、node 等元数据附到遥测数据；`kubeletstats`、`filelog`、`k8s_cluster` receiver 分别采集节点/容器指标、日志和集群状态。这些组件需选用包含它们的 Collector 发行版，并分别配置访问凭据、RBAC 和采集路径；只启用处理器不会自动产生数据。
+
+节点 Agent 适合采集本节点日志和 kubelet 指标，Gateway 适合集中处理与导出。集群状态采集若在每个节点重复部署，可能产生重复数据，应按 receiver 的部署要求安排独立实例；不能把所有组件照搬进同一份 DaemonSet 配置。
 
 Trace 需要跨入口、代理和应用传播统一上下文。建议同时记录：
 
@@ -94,22 +99,17 @@ Trace 需要跨入口、代理和应用传播统一上下文。建议同时记�
 
 1. 用入口成功率和 trace 确认开始时间、Route、版本和受影响区域。
 2. 检查 Gateway/Route Conditions 与代理 access log，区分未匹配、无后端和上游错误。
-3. 检查 Service 与 EndpointSlice，确认 Ready 地址是否在故障前变化。
+3. 检查 Service 与 EndpointSlice 的地址及 ready/serving/terminating 条件，确认代理当时可选的后端是否变化。
 4. 查看 Pod Conditions、Events、发布 revision 与 readiness 指标。
 5. 若 Service 到 Pod 流量异常，再看 CNI/Hubble、NetworkPolicy、节点和 DNS。
 6. 对齐应用 trace、日志和依赖指标，确认超时发生在哪一跳。
 
-最终记录应写成可证伪结论，例如：“12:03 新 revision 的 readiness 在 8 秒内通过，但依赖连接池需 40 秒预热；EndpointSlice 提前纳入后端，12:03–12:04 该 revision 产生 83% 的 503。”这比“网络抖动”更能指导修复和回归测试。
+例如构造一个订单 API 发布演练：12:03 新 revision 的 readiness 在 8 秒内通过，但连接池到第 40 秒才预热完成，随后入口对这批 Pod 的请求返回 503。需要把探针成功、端点条件变化、代理实际选中该 Pod、应用返回错误这四个时间点关联起来，才能确认是提前接流量，而不是仅凭 Slice 中出现 IP 就下结论。这是排查示例；实际报告应写入实测时间、请求数量和对照证据。
+
+修复后在同样的冷启动和负载下重放，验证 readiness 只在可服务后通过，同时检查启动时间是否仍在预算内。否则只是把可用性问题换成了永远 NotReady。
 
 ## 可观测系统自身也要被监控
 
 验证采集延迟、丢弃数、队列、后端写入失败、采样比例、日志轮转和时间同步。故障期间流量放大会让 telemetry 量同时上升，若管道无背压和限额，最需要证据时反而最先丢失。
 
 上线验收至少注入一次应用错误、策略拒绝、Pod Pending、节点压力和采集后端不可用，确认告警、上下文关联、数据保留和降级行为符合预期。
-
-## 官方资料
-
-- [System Metrics](https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/)
-- [Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)
-- [Auditing](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/)
-- [OpenTelemetry Collector Kubernetes Components](https://opentelemetry.io/docs/platforms/kubernetes/collector/components/)

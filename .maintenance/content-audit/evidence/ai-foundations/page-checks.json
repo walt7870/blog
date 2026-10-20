@@ -1,0 +1,938 @@
+[
+  {
+    "page": "",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "人工智能全景 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/history.html",
+        "text": "Next page发展脉络"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "history.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "人工智能发展脉络 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/",
+        "text": "Previous page人工智能全景"
+      },
+      {
+        "href": "/blog/docs/ai/glossary.html",
+        "text": "Next page核心概念词典"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "glossary.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "AI 核心概念词典 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/history.html",
+        "text": "Previous page发展脉络"
+      },
+      {
+        "href": "/blog/docs/ai/learning-path.html",
+        "text": "Next page学习与实践路线"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "learning-path.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "AI 学习与实践路线 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-learning-roadmap.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/glossary.html",
+        "text": "Previous page核心概念词典"
+      },
+      {
+        "href": "/blog/docs/ai/foundations/",
+        "text": "Next page基础原理概述"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "ml.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "机器学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ml-workflow.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/foundations/generalization-evaluation.html",
+        "text": "Previous page泛化与评估"
+      },
+      {
+        "href": "/blog/docs/ai/practice/machine-learning-project.html",
+        "text": "Next page项目：流失预测"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "foundations/",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "AI 基础原理 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/learning-path.html",
+        "text": "Previous page学习与实践路线"
+      },
+      {
+        "href": "/blog/docs/ai/foundations/data-and-tasks.html",
+        "text": "Next page数据与任务建模"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "foundations/data-and-tasks.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "数据与任务建模 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/prediction-time-boundaries.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/foundations/",
+        "text": "Previous page基础原理概述"
+      },
+      {
+        "href": "/blog/docs/ai/foundations/math-intuition.html",
+        "text": "Next page数学直觉"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "foundations/math-intuition.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "AI 所需的数学直觉 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/foundations/data-and-tasks.html",
+        "text": "Previous page数据与任务建模"
+      },
+      {
+        "href": "/blog/docs/ai/foundations/training-optimization.html",
+        "text": "Next page训练与优化"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "foundations/training-optimization.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "模型训练与优化 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/foundations/math-intuition.html",
+        "text": "Previous page数学直觉"
+      },
+      {
+        "href": "/blog/docs/ai/foundations/generalization-evaluation.html",
+        "text": "Next page泛化与评估"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "foundations/generalization-evaluation.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "泛化与模型评估 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/classification-errors-example.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/foundations/training-optimization.html",
+        "text": "Previous page训练与优化"
+      },
+      {
+        "href": "/blog/docs/ai/ml.html",
+        "text": "Next page机器学习概述"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "深度学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/practice/machine-learning-project.html",
+        "text": "Previous page项目：流失预测"
+      },
+      {
+        "href": "/blog/docs/ai/deep-learning/neural-networks.html",
+        "text": "Next page神经网络与反向传播"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/neural-networks.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "神经网络与反向传播 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/deep-learning/",
+        "text": "Previous page深度学习概述"
+      },
+      {
+        "href": "/blog/docs/ai/deep-learning/architectures.html",
+        "text": "Next page主要网络架构"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/architectures.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "深度学习主要架构 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/network-architecture-relations.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/deep-learning/neural-networks.html",
+        "text": "Previous page神经网络与反向传播"
+      },
+      {
+        "href": "/blog/docs/ai/deep-learning/framework-practice.html",
+        "text": "Next page工程实践"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/framework-practice.html",
+    "mode": "desktop-light",
+    "dark": false,
+    "h1": "深度学习工程实践 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "pager": [
+      {
+        "href": "/blog/docs/ai/deep-learning/architectures.html",
+        "text": "Previous page主要网络架构"
+      },
+      {
+        "href": "/blog/docs/ai/domains/",
+        "text": "Next page领域概览"
+      }
+    ],
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "人工智能全景 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "history.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "人工智能发展脉络 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "glossary.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "AI 核心概念词典 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "learning-path.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "AI 学习与实践路线 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-learning-roadmap.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "ml.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "机器学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ml-workflow.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "foundations/",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "AI 基础原理 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "foundations/data-and-tasks.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "数据与任务建模 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/prediction-time-boundaries.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "foundations/math-intuition.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "AI 所需的数学直觉 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "foundations/training-optimization.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "模型训练与优化 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "foundations/generalization-evaluation.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "泛化与模型评估 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/classification-errors-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "深度学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/neural-networks.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "神经网络与反向传播 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/architectures.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "深度学习主要架构 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/network-architecture-relations.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "deep-learning/framework-practice.html",
+    "mode": "desktop-dark",
+    "dark": true,
+    "h1": "深度学习工程实践 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "人工智能全景 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "history.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "人工智能发展脉络 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "glossary.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "AI 核心概念词典 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "learning-path.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "AI 学习与实践路线 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-learning-roadmap.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "ml.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "机器学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ml-workflow.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "AI 基础原理 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/data-and-tasks.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "数据与任务建模 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/prediction-time-boundaries.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/math-intuition.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "AI 所需的数学直觉 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/training-optimization.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "模型训练与优化 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/generalization-evaluation.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "泛化与模型评估 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/classification-errors-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "深度学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/neural-networks.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "神经网络与反向传播 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/architectures.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "深度学习主要架构 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/network-architecture-relations.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/framework-practice.html",
+    "mode": "mobile-dark",
+    "dark": true,
+    "h1": "深度学习工程实践 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "人工智能全景 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "history.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "人工智能发展脉络 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "glossary.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "AI 核心概念词典 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/customer-service-ai-map.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "learning-path.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "AI 学习与实践路线 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-learning-roadmap.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "ml.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "机器学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ml-workflow.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "AI 基础原理 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/data-and-tasks.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "数据与任务建模 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/prediction-time-boundaries.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/math-intuition.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "AI 所需的数学直觉 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/training-optimization.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "模型训练与优化 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "foundations/generalization-evaluation.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "泛化与模型评估 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/classification-errors-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "深度学习 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/neural-networks.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "神经网络与反向传播 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/gradient-update-example.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/architectures.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "深度学习主要架构 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/network-architecture-relations.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "page": "deep-learning/framework-practice.html",
+    "mode": "mobile-light",
+    "dark": false,
+    "h1": "深度学习工程实践 ​",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/ai-training-loop.svg"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  }
+]

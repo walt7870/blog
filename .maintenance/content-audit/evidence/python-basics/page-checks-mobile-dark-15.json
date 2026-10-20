@@ -1,0 +1,198 @@
+[
+  {
+    "file": "docs/devlanguage/python/basics-series/15-order-check.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "订单检查：金额、状态和异常",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "生成日报：把多个结果合成一个输出",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "虚拟环境和依赖",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "常见报错怎么读",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "异常处理：让脚本遇到坏数据不断掉",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/20-logging.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "日志：给别人运行时留下线索",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "调用 API：从系统拿客户数据",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "批量文件自动化",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "参数配置：不改代码也能换文件",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "交付一个客户可用小工具",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "什么时候该用类，把数据和动作放进同一个对象",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "学完 Python 基础后，怎样从空目录做出第一个可用工具",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/basics-series/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 基础客户教程：从会运行到能交付",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/python/index.md",
+    "method": "iframe-390-full-document",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 960
+      }
+    ],
+    "scroll": 390,
+    "title": "Python 工程实践",
+    "width": 390
+  }
+]

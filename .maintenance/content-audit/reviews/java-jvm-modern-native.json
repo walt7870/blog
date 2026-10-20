@@ -1,0 +1,37 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/jvm/modern-jvm.md",
+      "status": "verified",
+      "reviewedHash": "91460a3fa17bf50bf2ea4f71d2f39c1743b8002a0876dffbf2ca75c2d649297a",
+      "pageType": "版本与部署能力边界",
+      "decision": "全文阅读后重写JDK8到25版本能力，区分HotSpot CDS/AOT缓存与Native Image部署产物，补训练执行、兼容、容器预算、虚拟线程与JNI版本边界。新增部署产物SVG，以短命报表与常驻支付服务说明评估指标。",
+      "validation": [
+        "实际读取JEP490、491、514、519、521及472核对JDK24/25变化；AOT命令仅按官方核对，当前Temurin17环境未执行JDK25示例。",
+        "构建15.44秒成功；独立SVG XML、实际中文字体、画布边界通过；1280×800与390×844浅深色完整截图无整页溢出，手机超宽命令局部滚动，图示放大/原尺寸/关闭通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/jni.md",
+      "status": "verified",
+      "reviewedHash": "3169573804981a57fb7633d7972c18b436c5442aa5719dfb357fd81d56f19b5b",
+      "pageType": "跨语言数据与资源实验",
+      "decision": "全文阅读后补Java/C完整校验和实验、生成头文件和两平台编译入口；图示对应GetByteArrayRegion分块复制。分清JNIEnv线程、Local/Global引用、直接缓冲所有权、关闭失败路径、native access告警与JNI废弃，补崩溃及堆外证据边界。",
+      "validation": [
+        "正文Java/C机械提取后Temurin17与macOS cc实际编译，-Wall -Wextra无警告；-Xcheck:jni输出199、0、null rejected；额外长度1/255/256/257/513及全0xff验证通过。Linux/Windows与JDK24选项未在本机实测。",
+        "SVG XML、实际字体与画布边界通过；1280及390浅深色完整截图，手机4处代码局部键盘滚动、图示放大/原尺寸/关闭通过；构建15.44秒成功。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/jvm/video-series.md",
+      "status": "verified",
+      "reviewedHash": "75602909b8e70b3f2e13212f4d7685619bdcb9fe5eb555da44a2dc4ce115dbbe",
+      "pageType": "视频与机制阅读导航",
+      "decision": "全文阅读并保留12集入口，增加已有JVM关系SVG、学习顺序不等于运行顺序说明，以及NoSuchMethodError和订单导出的场景阅读路径；表格限制为局部横向滚动。",
+      "validation": [
+        "浏览器打开BV1UaM76XExd合集并展开目录，核对UP薛定牛、12集标题及个人空间181407346；未声称观看全部视频内容。",
+        "1280/390浅深色完整截图、手机分集表局部键盘滚动、已有关系图放大/原尺寸/关闭通过；构建15.44秒成功、本地引用无错误。"
+      ]
+    }
+  ]
+}

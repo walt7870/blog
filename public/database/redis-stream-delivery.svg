@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="redis-stream-title redis-stream-desc">
+  <title id="redis-stream-title">通知消息在一个消费组内的投递状态</title>
+  <desc id="redis-stream-desc">未投递的消息被XREADGROUP读取后进入Pending。业务副作用完成后XACK使它在本组已确认，但消息仍可留在Stream。Pending超时不自动转移消费者，需XAUTOCLAIM等显式重领；若先前副作用已经发生，重领会带来重复处理，必须按业务事件号幂等。</desc>
+  <defs>
+    <marker id="redis-stream-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:17px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:8}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:8}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#redis-stream-arrow)}</style>
+  </defs>
+  <rect width="1200" height="620" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">Pending 记录了谁拿过任务，ACK 不知道邮件是否已经发出</text>
+  <text x="36" y="78" class="small">只展示一个消费组。其他组有自己的进度；Stream 的保存与裁剪独立管理。</text>
+  <path d="M284 232H436" class="line"/><path d="M756 232H916" class="line"/>
+  <path d="M660 308V396" class="line"/>
+  <path d="M436 452H368Q360 452 360 444V284Q360 276 368 276H436" class="line"/>
+  <rect x="292" y="184" width="136" height="32" fill="#f7f9fa"/><text x="360" y="207" text-anchor="middle" class="small">XREADGROUP &gt;</text>
+  <rect x="784" y="184" width="104" height="32" fill="#f7f9fa"/><text x="836" y="207" text-anchor="middle" class="small">XACK</text>
+  <rect x="676" y="334" width="216" height="32" fill="#f7f9fa"/><text x="784" y="357" text-anchor="middle" class="small">闲置超过重领门槛</text>
+  <rect x="188" y="354" width="156" height="32" fill="#f7f9fa"/><text x="266" y="377" text-anchor="middle" class="small">XAUTOCLAIM</text>
+  <rect x="36" y="164" width="248" height="144" class="box"/>
+  <text x="56" y="204" class="head">尚未投递到本组</text><text x="56" y="244">从 0 建组可读已有消息</text><text x="56" y="284" class="small">从 $ 建组跳过已有积压</text>
+  <rect x="436" y="164" width="320" height="144" class="focus"/>
+  <text x="456" y="204" class="head">Pending：已投递未确认</text><text x="456" y="244">消费者、闲置时长、投递次数</text><text x="456" y="284" class="small">处理成功后确认；崩溃后可能重放</text>
+  <rect x="916" y="164" width="248" height="144" class="box"/>
+  <text x="936" y="204" class="head">本组已确认</text><text x="936" y="244">从 Pending 移除</text><text x="936" y="284" class="small">不等于从 Stream 删除</text>
+  <rect x="436" y="396" width="320" height="112" class="box"/>
+  <text x="456" y="434" class="head">Pending：已满足重领条件</text><text x="456" y="476">不会仅因超时自动换消费者</text>
+  <text x="36" y="558">邮件已发送但 ACK 丢失：重领后可能再次发送。以 notice-101 等稳定事件号实现业务幂等。</text>
+  <text x="36" y="594" class="small">重领不是删除失败记录；保留窗口必须覆盖重试，重试上限和失败处理也要有可追踪记录。</text>
+</svg>

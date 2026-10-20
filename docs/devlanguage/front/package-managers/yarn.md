@@ -2,6 +2,8 @@
 
 Yarn 分为两个常见分支：Yarn Classic，也就是 1.x；Yarn Berry，也就是 2.x 之后的现代 Yarn。维护已有项目时，要先确认项目使用的是哪一类，因为配置文件、安装模式和命令细节差异明显。
 
+![node_modules与Yarn PnP的解析合同](/front/package-managers/yarn-resolution.svg)
+
 ## 适用场景
 
 Yarn Classic 适合已有老项目继续维护。它的命令简单，和传统 `node_modules` 模式兼容性好。
@@ -43,26 +45,29 @@ Yarn Classic 中常见的是 `yarn upgrade`；现代 Yarn 中更常用 `yarn up`
 
 ```json
 {
-  "packageManager": "yarn@4.0.0"
+  "packageManager": "yarn@4.9.2"
 }
 ```
 
 启用：
 
 ```bash
-corepack enable
-yarn install
+corepack install
+corepack yarn --version
+corepack yarn install
 ```
 
 ## nodeLinker
 
-现代 Yarn 默认可以使用 PnP，也可以切回 `node_modules`。项目根目录 `.yarnrc.yml`：
+现代Yarn默认采用PnP，也可选择`node_modules`。PnP通过`.pnp.cjs`等映射解析包内容，工具运行需要加载解析环境；不能因没有`node_modules`就认定失败。项目`.yarnrc.yml`可明确选择：
 
 ```yaml
 nodeLinker: node-modules
 ```
 
 如果项目工具链对 PnP 兼容性不足，先使用 `node-modules` 模式更稳。等构建、测试、IDE 都确认支持后，再评估 PnP。
+
+现代Yarn使用`.yarnrc.yml`配置registry与认证，不将`.npmrc`当作通用配置。`npmRegistryServer`、`npmScopes`和`npmAuthToken`分别声明，见[镜像与私有源](./registry.md)。Yarn1有不同的旧配置行为。
 
 ## Workspaces
 
@@ -82,6 +87,10 @@ nodeLinker: node-modules
 yarn workspace admin build
 yarn workspaces foreach -A run test
 ```
+
+`foreach -A`选择全部工作区，不自动保证共享库先构建。存在构建依赖时使用拓扑顺序，例如`yarn workspaces foreach -A -t run build`，并核对依赖声明。命令成功也不能代替每个产物检查。
+
+`--immutable`禁止修改锁文件，不禁止所有缓存写入；零安装方案还需核对缓存策略。用`yarn node`验证直接依赖导入，再故意修改清单而不改锁，确认不可变安装失败；切换linker后也验证编辑器与测试运行器。
 
 ## 排查
 

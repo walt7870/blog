@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/java/basic/jdk/index.md",
+      "status": "verified",
+      "reviewedHash": "45983c7e75c25fdc985d619433c56b080e204415b94bbe251cd87e8f1f08ef01",
+      "pageType": "JDK版本地图与编译运行合同导读",
+      "decision": "旧789行全文读后重写。纠正LTS三年、21最新LTS、文本块14正式、23字符串模板等错误；删除无数据支持的启动百分比、GC单向替代链、代码缺导入与多公共类示例。补截至2026-10-20的27正式/28EA/25最近LTS、发行商政策边界、工具链SVG及release/source/target可运行反例。",
+      "validation": [
+        "核对Oracle路线2026-09-15版完整支持说明与表格、jdk.java.net正式/EA状态、JEP378/484/506/511/512的发布字段与Summary/History、JDK23官方完整特性表、javac17 release选项正文。JEP长篇抓取截断只用于已完整读取的摘要/历史，不声称全文核对；Oracle25语言页抓取只有导航壳，未据此作结论。",
+        "/tmp/blog-jdk-contract-check.mjs先使用PATH的Corretto21完成一次，再显式固定本机Temurin17.0.20.1重跑通过。release8拒绝repeat、source/target8生成仍引用repeat的class52、移除repeat后release8成功并在17运行。未运行Java8，不声称Java8真实集成测试。",
+        "完整构建16.29秒及最终15.86秒退出0，preview已重启。工具链SVG自检、实际中文字体与完整截图、1280/390×844亮深色、放大/原尺寸/关闭通过，无破图或全页溢出；概述到升级页站内跳转通过。"
+      ]
+    },
+    {
+      "file": "docs/devlanguage/java/basic/jdk/upgrade.md",
+      "status": "verified",
+      "reviewedHash": "02cb7732a77d88a04a47a6f94d800ed37bad804a38e32eedcc6b1142e8e05edb",
+      "pageType": "JDK迁移实操与验证回退边界",
+      "decision": "旧1192行完整读后以17到25迁移重写。移除虚构的24值对象/通用泛型/Channel、字符串模板预测和版本混写；用基线盘点、隔离试跑、候选重建、业务合同及灰度回退取代重复特性目录。补jdeps/jdeprscan范围、显式classpath、强封装和SecurityManager移除、编码时区金额实测及阶段SVG。",
+      "validation": [
+        "Oracle25迁移Preparing for Migration、JEP403、JEP486的摘要/目标/Description以及jdeps/jdeprscan官方参数已核对。jdeprscan采用候选运行时默认API集合，for-removal明确只查待移除JavaSE API；没有将旧文档窄release列表当成运行实证。",
+        "MigrationProbe从正文提取，在显式Temurin17.0.20.1以release17编译运行，中文文件UTF8往返、80.00金额、上海账期起点、状态编码通过；ASCII默认编码和纽约默认时区变体退出0，错误账期变体抛AssertionError。初次PATH Corretto21也通过；未安装/运行25、未迁移真实订单服务、未声明候选业务或回退集成通过。",
+        "最终完整构建15.86秒通过并重启preview。阶段SVG自检与实际字体全图通过；1280及390×844亮深色、放大/原尺寸/关闭、最终classpath命令局部滚动检查通过，无破图或全页溢出。"
+      ]
+    }
+  ]
+}

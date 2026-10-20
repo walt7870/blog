@@ -2,9 +2,16 @@
 
 Renderer 展示的是 Web 页面，它会执行前端依赖、解析用户输入，也可能遭遇脚本注入。让页面直接 require('fs')，等于把本地文件系统权限交给整个页面上下文。安全链路应该是 Renderer 提交明确业务动作，Preload 暴露窄能力，Main 验证来源和参数。
 
+![文件读取的权限边界与拒绝分支](/electron/ipc-file-boundary.svg)
+
+以下片段分属 Main、Preload 和 Renderer，不应拼进同一个文件。Main 需要导入 `node:path`、`node:fs/promises`、`node:url` 的 `pathToFileURL` 以及 `electron` 的 `BrowserWindow`、`ipcMain`，在 `app.whenReady()` 后创建窗口。
+
 ## 窗口权限基线
 
+以下保留本地 `file://` 入口，演示已有应用如何收紧固定文档的 IPC。生产应用优先使用受控自定义协议提供页面，只映射允许的资源；为其注册标准、安全的 scheme 后，按可信 origin 校验发送方。`file://` 的 origin 不能靠共同的 `null` 值授权，下面还要绑定指定窗口、主 frame 和精确页面地址。
+
 ~~~js
+const pageUrl = pathToFileURL(path.join(__dirname, 'index.html')).href
 const win = new BrowserWindow({
   webPreferences: {
     preload: path.join(__dirname, 'preload.js'),
@@ -13,9 +20,16 @@ const win = new BrowserWindow({
     sandbox: true,
   },
 })
+win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
+win.webContents.on('will-navigate', (event, url) => {
+  if (url !== pageUrl) event.preventDefault()
+})
+win.loadURL(pageUrl).catch(error => console.error('load failed', error))
 ~~~
 
 Context Isolation 让 Preload 和页面脚本处于不同 JavaScript 世界。Renderer 拿到的是 contextBridge 暴露的方法，不是 ipcRenderer 本体。
+
+这个单窗口示例只注册一次固定 channel。`index.html` 还应设置 CSP，例如 `default-src 'self'; script-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'`，并把页面脚本放入独立文件。若编辑器支持 Markdown 原始 HTML，需要清理不可信标记；Context Isolation 不能替代内容净化。
 
 ## Preload 只暴露业务能力
 
@@ -43,20 +57,25 @@ contextBridge.exposeInMainWorld('bridge', {
 
 ~~~js
 ipcMain.handle('desklab:read-demo-file', async event => {
-  const senderUrl = event.senderFrame?.url ?? ''
-  if (!senderUrl.startsWith('file://')) {
+  if (win.isDestroyed() || event.sender !== win.webContents ||
+      event.senderFrame !== win.webContents.mainFrame ||
+      event.senderFrame?.url !== pageUrl) {
     throw new Error('unexpected sender')
   }
 
-  return fs.readFile(demoFilePath, 'utf8')
+  const demoFilePath = path.join(__dirname, 'fixtures', 'demo.md')
+  const content = await fs.readFile(demoFilePath, 'utf8')
+  return { content }
 })
 ~~~
 
-真实项目还要验证 event 对应的 webContents、窗口身份、当前导航来源、参数类型和路径范围。路径在拼接后应先规范化，再确认仍处于允许目录；只做字符串前缀比较无法覆盖符号链接、编码和大小写差异。
+这里只允许指定窗口的主 frame、指定页面读取固定资源。检查 `file://` 前缀会错误接受其他本地页面；URL 正确也不能替代窗口与 frame 身份检查。读取失败时 `invoke` 会拒绝，Renderer 应捕获错误并显示失败状态，不能把空文本当成成功。
+
+如果需求变成“打开用户选择的文件”，由 Main 打开文件选择器并保存授权结果，返回文件句柄编号或内容。不要把示例改成接收任意路径再拼接目录。需要目录授权时，应核对真实路径、符号链接及读取时的竞态；仅 `normalize` 或字符串前缀不足以建立沙箱。
 
 ## 一次请求的证据链
 
-DeskLab 的 smoke 日志按顺序出现 request accepted、response sent、smoke observed，最终读取固定测试文件的 85 字节内容。请求编号可以把 Renderer 点击、Main 校验、文件读取和响应串成一条链。
+固定测试文件应同时核对内容、UTF-8 字节数与预期路径。请求编号可以把 Renderer 点击、Main 校验、文件读取和响应串成一条链。测试至少加入另一窗口、子 frame、错误 URL 和缺失文件；前面三类应在读取前拒绝，缺失文件应返回可识别的失败。
 
 ## 审计顺序
 

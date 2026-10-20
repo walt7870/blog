@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="pdb-budget-title pdb-budget-desc">
+  <title id="pdb-budget-title">PDB 健康副本与驱逐预算</title>
+  <desc id="pdb-budget-desc">期望3副本、minAvailable为2。3个Ready时可驱逐一个健康Pod；只有2个Ready时再驱逐健康Pod会剩1个而被拒绝。非自愿故障不会被PDB阻止，但会消耗预算。</desc>
+  <defs><marker id="pdb-budget-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.zone{fill:none;stroke:#b6c5cf;stroke-width:1.5;stroke-dasharray:6 5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#pdb-budget-arrow)}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <text class="title" x="48" y="52">同样三个副本，允许驱逐的数量可能不同</text><text class="t" x="48" y="84">假设期望副本数3、minAvailable: 2；状态已同步，没有进行中的驱逐或其他阻止条件。</text>
+  <path class="edge" d="M552 212H600"/><path class="edge" d="M552 412H600"/>
+  <rect class="zone" x="48" y="128" width="504" height="160" rx="6"/><text class="h" x="68" y="164">3 个 Ready</text>
+  <rect class="run" x="72" y="192" width="128" height="64" rx="6"/><text class="h" x="104" y="232">Ready</text>
+  <rect class="run" x="232" y="192" width="128" height="64" rx="6"/><text class="h" x="264" y="232">Ready</text>
+  <rect class="run" x="392" y="192" width="128" height="64" rx="6"/><text class="h" x="424" y="232">Ready</text>
+  <rect class="run" x="600" y="128" width="472" height="160" rx="6"/><text class="h" x="624" y="164">允许驱逐 1 个健康 Pod</text><text class="t" x="624" y="204">驱逐后：3 - 1 = 2，仍满足至少两个 Ready</text><text class="t" x="624" y="244">要等替代 Pod 恢复，再评估下一次驱逐</text>
+  <rect class="zone" x="48" y="328" width="504" height="160" rx="6"/><text class="h" x="68" y="364">2 个 Ready，1 个异常</text>
+  <rect class="run" x="72" y="392" width="128" height="64" rx="6"/><text class="h" x="104" y="432">Ready</text>
+  <rect class="run" x="232" y="392" width="128" height="64" rx="6"/><text class="h" x="264" y="432">Ready</text>
+  <rect class="box" x="392" y="392" width="128" height="64" rx="6"/><text class="h" x="408" y="432">不 Ready</text>
+  <rect class="box" x="600" y="328" width="472" height="160" rx="6"/><text class="h" x="624" y="364">拒绝再驱逐健康 Pod</text><text class="t" x="624" y="404">再驱逐会剩：2 - 1 = 1，低于预算要求</text><text class="t" x="624" y="444">先恢复异常副本或补足可用容量</text>
+  <text class="t" x="48" y="548">PDB 不阻止节点故障，但故障会降低健康数；驱逐异常 Pod 还取决于 unhealthyPodEvictionPolicy。</text>
+  <text class="t" x="48" y="588">HPA 缩容、控制器滚动发布和普通 DELETE 不经这份驱逐预算；应用仍需排空与终止保护。</text>
+</svg>

@@ -2,7 +2,11 @@
 
 Electron 应用不是“把网页压成一个安装包”。操作系统启动的是一套包含 Chromium、Node.js、Electron API 和应用代码的桌面运行时；从源码到用户机器，中间还要经过多进程边界、IPC 权限、Package、Make、ASAR、原生模块、代码签名和更新状态机。
 
-这套文章使用同一个 Markdown 工作台 DeskLab 贯穿十个工程问题。示例基线为 Electron 43.3.0、Electron Forge 7.11.2 和 macOS arm64。涉及 Windows、Linux、证书和平台政策时，文章会明确区分本机实证与平台机制，不把一台机器的结果扩展成跨平台结论。
+这套文章使用同一个 Markdown 工作台 DeskLab 贯穿十个工程问题。历史实验基线为 Electron 43.3.0、Electron Forge 7.11.2 和 macOS arm64；具体大小、启动毫秒数和 ABI 输出是该环境的样本。涉及 Windows、Linux、证书和平台政策时，区分实验记录与平台机制，不把一台机器的结果扩展成跨平台结论。
+
+![Electron从源码到分发的职责链](/electron/forge-delivery-chain.svg)
+
+例如“能打开本地文档”同时涉及两条链：运行时由 Main 创建窗口、Renderer 展示内容，文件权限由 Preload 的业务接口与 Main 的来源校验控制。交付时再把这两条链装入目标系统的产物，验证签名、首次启动和更新。按问题切入，才不会把白屏、权限与安装失败混为同一种“打包问题”。
 
 ## 阅读路线
 

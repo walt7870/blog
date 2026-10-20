@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="title desc">
+<title id="title">程序的构建与运行合同</title><desc id="desc">源码经目标工具链生成产物，运行还需要匹配系统、指令集、ABI、依赖和交付条件。容器包含用户空间，不替代宿主内核。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="640" fill="#f8fafc"/>
+<text class="title" x="56" y="58">同一份源码，不等于同一份可执行产物</text><text class="note" x="56" y="91">例：把图片处理服务从 Linux x86-64 迁到 Linux arm64</text>
+<path class="line" d="M330 197H410"/><path class="line" d="M710 197H790"/>
+<rect class="box" x="56" y="145" width="274" height="104" rx="5"/><text class="h" x="80" y="181">应用源码</text><text class="t" x="80" y="217">复用逻辑，核对平台 API</text>
+<rect x="410" y="145" width="300" height="104" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="434" y="181">目标工具链与依赖</text><text class="t" x="434" y="217">编译器、SDK、原生扩展</text>
+<rect class="box" x="790" y="145" width="274" height="104" rx="5"/><text class="h" x="814" y="181">目标产物</text><text class="t" x="814" y="217">arm64 文件或对应镜像</text>
+<text class="h" x="56" y="307">运行时同时满足以下条件</text>
+<rect class="box" x="56" y="334" width="1008" height="56"/><text class="t" x="80" y="369">系统与权限</text><text class="note" x="320" y="369">Linux 内核、系统 API、设备与目录访问</text>
+<rect class="box" x="56" y="390" width="1008" height="56"/><text class="t" x="80" y="425">指令集与 ABI</text><text class="note" x="320" y="425">AArch64、最低 CPU 特性、加载器、libc 与调用约定</text>
+<rect class="box" x="56" y="446" width="1008" height="56"/><text class="t" x="80" y="481">运行时与交付</text><text class="note" x="320" y="481">解释器、原生库、签名、发布渠道及数据兼容</text>
+<path d="M56 543H1064" stroke="#dce3df"/><text class="t" x="56" y="578">容器统一部分用户空间依赖；多架构清单选择对应镜像，不转换 CPU 指令。</text><text class="note" x="56" y="610">这些是共同约束，不是每次请求按顺序经过的调用层。</text>
+</svg>

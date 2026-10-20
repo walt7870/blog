@@ -1,247 +1,107 @@
-# 单例模式 (Singleton Pattern)
+# 单例模式
 
-## 历史脉络
+单例模式在约定范围内控制一个类型的实例数量，并提供获取它的入口。Java 静态字段通常以类加载器为边界，容器中的单例通常以容器及 Bean 定义为边界；多个 JVM 进程仍会各有实例。集群唯一的任务或写入者需要分布式协调，不能靠静态字段保证。
 
-单例模式是 GoF 创建型模式之一，早期常用于配置管理器、日志器、线程池、驱动注册表等全局资源访问。随着依赖注入和测试实践成熟，单例的使用变得更谨慎，因为它很容易演变成隐藏全局状态。
+![单例访问范围、初始化与使用边界](/design-pattern/patterns/singleton.svg)
 
-![单例模式结构图](/design-pattern/patterns/singleton.svg)
+## 先判断是否需要唯一
 
-## 准确理解
+共享一个无状态服务、连接池或配置快照，可以避免重复初始化，但这些对象不天然只能有一份。一个服务可能为不同数据库建立多个连接池，也可能为不同负载建立独立线程池。应先确定实例的身份、所有者和关闭时机，再选择容器管理或静态入口。
 
-单例模式保证一个类只有一个实例，并提供统一访问点。它适合管理真正全局唯一的资源，不适合保存用户、请求、订单等业务状态。单例的关键不是“方便到处调用”，而是“资源确实只能有一个，并且生命周期由系统统一管理”。
+用户、请求、订单等可变状态应保留在相应生命周期中。把“当前用户”写进单例字段会在并发请求间互相覆盖；单例初始化正确也无法避免这种业务竞态。
 
-## 问题识别
+## 初始化方式
 
-适合使用单例的信号：
+| 方式 | 初始化时机 | 初始化安全与代价 |
+| --- | --- | --- |
+| 静态字段直接创建 | 类初始化时，未必是 JVM 启动时 | 类初始化机制保证安全发布；无需按需延迟时较直接 |
+| 同步访问方法 | 首次获取时 | `synchronized` 保证初始化及获取过程互斥；是否有性能影响需测量 |
+| 双重检查锁 | 首次获取时 | Java 5+ 内存模型下必须使用 `volatile`，实现更易出错 |
+| 静态内部类 | 首次触发 Holder 初始化时 | 依赖类初始化机制实现延迟创建 |
+| 枚举常量 | 枚举类初始化时 | 简洁，标准反射与序列化有特殊规则；内部字段仍需并发保护 |
 
-- 对象代表全局唯一资源，例如线程池、连接池、配置快照。
-- 创建成本高，需要集中复用。
-- 多个模块需要共享同一份无状态服务或基础设施对象。
+没有同步的 `if (instance == null) instance = new Singleton()` 会发生并发竞争，不应作为多线程方案。双重检查锁中的 `volatile` 不只是防止创建多个对象，也承担安全发布所需的可见性和顺序约束。
 
-不适合的情况：
+## 静态内部类示例
 
-- 对象包含请求级、用户级、订单级状态。
-- 单例只是为了避免传参或依赖注入。
-- 测试需要频繁替换内部状态，但单例难以重置。
-- 并发访问时无法保证线程安全。
-
-## 落地要点
-
-- 优先通过依赖注入容器管理单例生命周期。
-- 单例内部尽量无状态，或只保存线程安全资源。
-- 如果必须懒加载，要处理并发初始化问题。
-- 不要把单例作为全局变量仓库使用。
-
-## 概括
-
-**单例模式**确保一个类在系统中只有一个实例，并提供一个全局访问点来获取它，单例模式用于控制全局唯一资源实例，通过私有构造 + 静态方法实现“只生成一次、处处可用”，适用于配置信息、缓存、日志等场景。但使用时需注意线程安全、测试可用性、序列化防护等问题。
-
-
-## 使用场景
-
-适用于以下场景：
-
-程序中只需要一个实例，且该实例全局共享，例如：
-
-* 配置管理类
-
-* 数据库连接池
-
-* 日志管理器
-
-* 缓存系统
-
-创建对象开销较大，频繁创建影响性能。
-
-## 类图说明
-
-```plaintext
-        ┌──────────────────────┐
-        │      Singleton       │
-        └─────────┬────────────┘
-                  │
-      ┌───────────▼────────────┐
-      │ + getInstance(): Self  │  ← 提供访问唯一实例的静态方法
-      │ - Singleton()          │  ← 构造方法私有化
-      └────────────────────────┘
-
-```
-
-## 使用示例
-
-1. 饿汉式（类加载即创建实例，线程安全，推荐）
+以下 Java 17+ 程序验证多个线程获取到同一引用。静态实例不持有外部连接，因此无需演示关闭；若换成连接池，必须另外定义关闭责任。
 
 ```java
-public class Singleton {
-    private static final Singleton instance = new Singleton();
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
-    private Singleton() {
-        System.out.println("构造函数只调用一次");
+public final class SingletonDemo {
+    private SingletonDemo() {}
+
+    private static class Holder {
+        private static final SingletonDemo INSTANCE = new SingletonDemo();
     }
 
-    public static Singleton getInstance() {
-        return instance;
+    public static SingletonDemo getInstance() {
+        return Holder.INSTANCE;
     }
-}
 
-```
-
-2. 懒汉式（延迟加载，但线程不安全 ❌）
-
-```java
-public class Singleton {
-    private static Singleton instance;
-
-    private Singleton() {}
-
-    public static Singleton getInstance() {
-        if (instance == null) {
-            instance = new Singleton();  // 多线程下会创建多个实例
+    public static void main(String[] args) throws Exception {
+        ExecutorService workers = Executors.newFixedThreadPool(4);
+        try {
+            List<Future<SingletonDemo>> results = new ArrayList<>();
+            for (int i = 0; i < 100; i++) {
+                results.add(workers.submit(SingletonDemo::getInstance));
+            }
+            SingletonDemo expected = getInstance();
+            for (Future<SingletonDemo> result : results) {
+                if (result.get() != expected) {
+                    throw new AssertionError("实例不一致");
+                }
+            }
+            System.out.println("100 次获取均为同一实例");
+        } finally {
+            workers.shutdown();
         }
-        return instance;
     }
 }
-
-
 ```
 
-3. 懒汉式 + 双重检查锁（DCL，推荐 ✅）
+使用 `javac SingletonDemo.java && java SingletonDemo` 运行。这里证明的是一次执行中这些调用返回同一引用，并不证明跨类加载器、跨进程唯一，也不证明该对象未来新增的可变字段线程安全。
+
+## 枚举与双重检查锁
+
+只需要简单静态实例时，可以使用枚举：
 
 ```java
-public class Singleton {
-    private static volatile Singleton instance;
+enum Registry {
+    INSTANCE;
+}
+```
 
-    private Singleton() {}
+标准反射 API 不允许创建枚举实例，标准 Java 序列化按枚举类型与名称恢复常量。普通可序列化单例则需要考虑 `readResolve()` 等机制；这不是对所有运行时修改手段的安全承诺。
 
-    public static Singleton getInstance() {
-        if (instance == null) {
-            synchronized (Singleton.class) {
-                if (instance == null) {
-                    instance = new Singleton();  // 只会创建一次
+下面的双重检查锁是另一种结构，通常无需与 Holder 同时采用：
+
+```java
+final class LazyRegistry {
+    private static volatile LazyRegistry instance;
+    private LazyRegistry() {}
+
+    static LazyRegistry getInstance() {
+        LazyRegistry current = instance;
+        if (current == null) {
+            synchronized (LazyRegistry.class) {
+                current = instance;
+                if (current == null) {
+                    current = new LazyRegistry();
+                    instance = current;
                 }
             }
         }
-        return instance;
-    }
-}
-
-
-```
-
-4. 静态内部类（线程安全 + 延迟加载 ✅）
-
-```java
-public class Singleton {
-    private Singleton() {}
-
-    private static class Holder {
-        private static final Singleton INSTANCE = new Singleton();
-    }
-
-    public static Singleton getInstance() {
-        return Holder.INSTANCE;
+        return current;
     }
 }
 ```
 
-5. 枚举实现（最安全 ✅）
+## 失败方式与验证
 
-```java
-public enum Singleton {
-    INSTANCE;
+单例初始化若访问网络并抛异常，会把外部失败与类初始化绑定；使用 Holder 时，失败后的该类还可能处于错误状态，不能假设下一次调用自动重试。因此，可能失败且需要恢复的连接建立通常更适合由可管理的服务生命周期承担。
 
-    public void doSomething() {
-        System.out.println("Singleton is doing something");
-    }
-}
-```
-
-**天然线程安全（由 JVM 保证）**
-枚举类型在 Java 中的实例创建是由 JVM 保证的线程安全的类加载过程完成的。
-
-```java
-public enum Singleton {
-    INSTANCE;
-}
-```
-
-JVM 类加载机制确保枚举类只会被加载一次；
-
-枚举实例在类加载时就被创建，不可能被多线程重复创建；
-
-不需要加锁、写 DCL 代码，也不存在懒汉式那种并发风险。
-
-**防止反射攻击**
-普通单例类可以被反射破坏，例如：
-
-```java
-Constructor<Singleton> constructor = Singleton.class.getDeclaredConstructor();
-constructor.setAccessible(true);
-Singleton instance2 = constructor.newInstance();  // 破坏单例
-```
-
-但是 枚举类的构造方法会在反射时抛出异常：
-```java
-Exception in thread "main" java.lang.IllegalArgumentException: Cannot reflectively create enum objects
-```
-
-枚举类型不能被反射实例化，这是 Java 语言层面的保护。
-
-**防止序列化破坏**
-普通单例如果实现 Serializable 接口，会因为反序列化过程创建新对象：
-
-```java
-ObjectInputStream in = new ObjectInputStream(new FileInputStream("singleton.obj"));
-Singleton s2 = (Singleton) in.readObject();  // 是一个新对象
-```
-
-而使用 enum 的单例是天然安全的，反序列化时不会创建新实例，因为枚举的序列化机制由 JVM 保证是单例的。
-
-**代码简洁，不易出错**
-相比复杂的 DCL、静态内部类、懒汉/饿汉实现，枚举实现更清晰：
-
-```java
-public enum Singleton {
-    INSTANCE;
-
-    public void doSomething() {
-        System.out.println("枚举单例方法");
-    }
-}
-```
-
-调用也非常简单：
-
-```java
-Singleton.INSTANCE.doSomething();
-```
-
-## 优缺点分析
-
-**✅ 优点**
-
-| 优点             | 说明                       |
-| -------------- | ------------------------ |
-| **1. 全局唯一实例**  | 保证系统中只有一个对象，节省资源，防止状态混乱。 |
-| **2. 延迟加载可实现** | 结合懒汉模式可延迟对象创建，提升性能。      |
-| **3. 全局访问点**   | 提供统一访问接口，便于管理与控制。        |
-| **4. 可结合枚举实现** | 枚举方式天然线程安全，防反射、防序列化破坏单例。 |
-
-**❌ 缺点**
-
-| 缺点                 | 说明                             |
-| ------------------ | ------------------------------ |
-| **1. 不利于扩展和测试**    | 单例隐藏了依赖关系，耦合度高，不利于单元测试和 Mock。  |
-| **2. 多线程处理复杂**     | 懒汉式线程安全实现复杂，容易出错（比如 DCL 实现不当）。 |
-| **3. 可能被反射/序列化破坏** | 反射或反序列化可能绕过私有构造，创建新实例。需特殊防护。   |
-
-## 变体总结（按初始化时机 + 线程安全）
-
-| 模式        | 是否延迟初始化 | 是否线程安全 | 是否推荐          |
-| --------- | ------- | ------ | ------------- |
-| 饿汉式       | 否       | 是      | ✅ 推荐          |
-| 懒汉式（非同步）  | 是       | 否      | ❌ 不推荐         |
-| 懒汉式（同步）   | 是       | 是（效率低） | ⚠️ 一般         |
-| 双重检查锁 DCL | 是       | 是      | ✅ 推荐          |
-| 静态内部类     | 是       | 是      | ✅ 强烈推荐        |
-| 枚举实现（最安全） | 否       | 是      | ✅ 推荐（Java 特有） |
+除并发获取测试外，还要测试配置变更、停机、资源关闭和测试替换。通过构造器注入共享对象能让依赖可见，通常比到处调用静态入口更容易测试。若实际需求是缓存或对象池，应分别处理键、容量、过期和归还，不要把它们简化成“一个单例就够”。

@@ -1,0 +1,70 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/mcp.md",
+      "status": "verified",
+      "pageType": "协议机制与工具调用",
+      "decision": "按2025-11-25协议厘清Host/Client/Server、stdio与Streamable HTTP、初始化时序、结构化工具结果、协议错误与业务错误、身份与幂等边界；补两张SVG和合法JSON消息。",
+      "findings": [],
+      "validation": [
+        "官方生命周期、传输和工具规范核对；请求、响应及内嵌JSON实际解析；四模式全文截图、真实分页、两图双视口键盘原尺寸通过。"
+      ],
+      "reviewedHash": "bdde4d9d1ac17fd58c8762d996baef63fa38d6a6a7fca4f1ef3337724d6c2044"
+    },
+    {
+      "file": "docs/ai/skill/index.md",
+      "status": "verified",
+      "pageType": "技能概念与能力分工",
+      "decision": "区分规程、上下文、工具能力与运行权限；说明按需读取与宿主差异，重绘技能层次SVG。",
+      "findings": [],
+      "validation": [
+        "全文与图文关系审查；四模式全文截图、真实分页、双视口键盘原尺寸通过。"
+      ],
+      "reviewedHash": "5bba2e9b91caf8adec3451e9dbc8c6f6b8f03d607471c31667eea382515fbbf6"
+    },
+    {
+      "file": "docs/ai/skill/recommendations.md",
+      "status": "verified",
+      "pageType": "技能选型与审查",
+      "decision": "补项目事实、语义流程、确定性脚本/CI的边界，以及第三方脚本、联网和动态命令的检查；新增选型关系SVG。",
+      "findings": [],
+      "validation": [
+        "全文审查；四模式全文截图、真实分页、双视口键盘原尺寸通过。"
+      ],
+      "reviewedHash": "fd3f5d785c9685e20d0081be2b0aa9459624e03ea333a027cea80d781f58bd3f"
+    },
+    {
+      "file": "docs/ai/skill/claude-code-best-practices.md",
+      "status": "verified",
+      "pageType": "Claude Code技能配置实践",
+      "decision": "补项目/个人目录、完整SKILL.md示例、调用控制扩展、工具许可与沙箱区别、误触发与环境排查；新增审查执行流程图。",
+      "findings": [],
+      "validation": [
+        "2026-10-20官方技能文档核对；目录与frontmatter审查；四模式全文截图、真实分页、双视口键盘原尺寸通过。"
+      ],
+      "reviewedHash": "d35ebb3ef6a157ba2dac372b51e4d477f5606a8d290025b482d3d256f4e1a02a"
+    },
+    {
+      "file": "docs/ai/rsi/index.md",
+      "status": "verified",
+      "pageType": "研究专题导读",
+      "decision": "移除过时的定时稿制作旁白，复用两轮反馈SVG并补通俗例子与已有Agent、harness和评估入口。",
+      "findings": [],
+      "validation": [
+        "全文阅读；公开B站标题、作者和日期可访问核对，不宣称播放验收；四模式截图、真实分页、双视口原尺寸通过。"
+      ],
+      "reviewedHash": "736595579f9679f9fa4497e8cb08232c1cb3a01a6d6fb7098fa1f585569e6a5f"
+    },
+    {
+      "file": "docs/ai/rsi/01-recursive-self-improvement.md",
+      "status": "verified",
+      "pageType": "递归反馈机制与研究边界",
+      "decision": "保留已充分解释机制、反例和研究边界的正文，移除制作旁白；反馈图使用独立ID与圆角回流连线。",
+      "findings": [],
+      "validation": [
+        "全文阅读；Self-Refine、AlphaEvolve及DGM v3核对，确认200题20%至50%的范围和附录H标记投机机制；四模式全文截图、真实分页与双视口原尺寸通过。"
+      ],
+      "reviewedHash": "c404211e6877b555dc44d5d2e51b7702ace07b4ea3dfbc21277ded12644b9d87"
+    }
+  ]
+}

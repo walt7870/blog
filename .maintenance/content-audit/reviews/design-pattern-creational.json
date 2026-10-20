@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/creational/abstract-method.md",
+      "status": "verified",
+      "reviewedHash": "7dd188fd0d969fe95c747fe1b10387198e92fb3d1fc9a97f8eed59098aeab9a0",
+      "pageType": "模式机制与可运行示例",
+      "decision": "修正抽象工厂命名，以主题按钮与文本框产品族完整程序验证同族，补新增产品种类、混装和创建失败边界。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/builder.md",
+      "status": "verified",
+      "reviewedHash": "44ae96b91100baeb0f6a1fbed402c2c12bd235de2cda73019d45e92ce95fe51d",
+      "pageType": "模式机制与可运行示例",
+      "decision": "使用订单导出参数完整建造程序，补日期、列、格式、分页校验及不可变快照，区分链式配置与经典Director。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/factory-method.md",
+      "status": "verified",
+      "reviewedHash": "c5484dbc1738e435acc7900db5e996ab2e76493b6f9c5758ae982af766786900",
+      "pageType": "模式机制与可运行示例",
+      "decision": "改为高层流程调用可覆盖创建方法的经典结构，补控制台和内存记录器完整程序，区分简单工厂、注册表及资源所有权。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/index.md",
+      "status": "verified",
+      "reviewedHash": "76496f20af17bb223d550a61753265ec4115d8ddfd6016f46a3a391b769f118d",
+      "pageType": "创建型导读",
+      "decision": "完整阅读并压缩重复定义为创建边界导读，以订单导出区分创建、查找、复制和复用，补线程池队列与关闭责任。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/prototype.md",
+      "status": "verified",
+      "reviewedHash": "69be0d07c56e3abeee4af5530d1f2814be6f94ff57fae4679a3fe955cce64b7f",
+      "pageType": "模式机制与可运行示例",
+      "decision": "修复原型继承关系导致的不可编译代码，改为模板复制完整程序，明确可变列表复制、身份字段和并发快照边界。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/creational/singleton.md",
+      "status": "verified",
+      "reviewedHash": "506b71ac5b99e80774d379db15ad50e3b976c9547f8a951d65a0c95d209f2744",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整核对初始化与类加载器作用域；加入100次并发同引用示例，区分初始化安全、可变状态安全及资源恢复。",
+      "validation": [
+        "完整正文和全部代码审查；JLS25类初始化与Object.clone、Executors官方API核对",
+        "5个完整Java示例javac --release 17编译和运行通过（本机JDK21）；6张SVG独立浏览器逐图视觉和中文边界检查、xmllint通过",
+        "生产构建26.65秒通过；6页逐页桌面亮深色视口、390×844手机亮深色、首图原尺寸及关闭交互通过，无页面横向溢出、破图或控制台错误"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "file": "docs/devlanguage/front/framework/vite.md",
+    "target": "/blog/docs/devlanguage/front/framework/webpack.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/framework/webpack.html",
+    "title": "Webpack：模块图、转换规则与运行时资源\n​"
+  },
+  {
+    "file": "docs/devlanguage/front/framework/webpack.md",
+    "target": "/blog/docs/devlanguage/front/framework/rollup.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/framework/rollup.html",
+    "title": "Rollup：库输出、外部依赖与 Tree Shaking\n​"
+  },
+  {
+    "file": "docs/devlanguage/front/framework/rollup.md",
+    "target": "/blog/docs/devlanguage/front/framework/parcel.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/framework/parcel.html",
+    "title": "Parcel：HTML 入口、目标环境与资源图\n​"
+  },
+  {
+    "file": "docs/devlanguage/front/framework/parcel.md",
+    "target": "/blog/docs/devlanguage/front/state-management/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/state-management/",
+    "title": "前端状态管理指南\n​"
+  },
+  {
+    "file": "docs/devlanguage/front/framework/index.md",
+    "target": "/blog/docs/devlanguage/front/framework/react.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/framework/react.html",
+    "title": "React.js 全面指南\n​"
+  }
+]

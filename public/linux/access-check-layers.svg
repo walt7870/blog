@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="access-check-layers-title access-check-layers-desc">
+<title id="access-check-layers-title">访问结果由多个约束共同决定</title><desc id="access-check-layers-desc">按层取证，不把下列因素误当成固定串行算法；最终由真实服务完成相同操作。</desc>
+<defs><marker id="access-check-layers-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#738288"/></marker>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#253238} .heading{font-size:25px;font-weight:600}.name{font-size:21px;font-weight:600}.body{font-size:18px}.note{font-size:17px;fill:#52656c}.line{fill:none;stroke:#738288;stroke-width:1.8;marker-end:url(#access-check-layers-arrow)}.box{fill:#fff;stroke:#bac6cc;stroke-width:1.3}.focus{fill:#e8f4ef;stroke:#67877b;stroke-width:1.5}.soft{fill:#f0f5fc;stroke:#a8bacd;stroke-width:1.3}</style></defs>
+<rect width="1120" height="600" fill="#f8fafb"/>
+<text class="heading" x="52" y="54">访问结果由多个约束共同决定</text><text class="note" x="52" y="88">按层取证，不把下列因素误当成固定串行算法；最终由真实服务完成相同操作。</text><rect data-node="实际服务上下文" class="box" x="52" y="144" width="320" height="126" rx="6"/><text class="name" x="70" y="176">实际服务上下文</text><text class="body" x="70" y="205">有效UID与补充组</text><text class="body" x="70" y="230">namespace、根目录与capability</text><rect data-node="具体文件操作" class="box" x="52" y="328" width="320" height="126" rx="6"/><text class="name" x="70" y="360">具体文件操作</text><text class="body" x="70" y="389">读 / 写 / 创建 / 改名 / 删除</text><text class="body" x="70" y="414">每种动作需要的权限不同</text><path class="line" d="M372 207H464"/><path class="line" d="M372 391H464"/><rect x="464" y="124" width="604" height="352" rx="8" fill="#fff" stroke="#bac6cc"/>
+<text class="name" x="488" y="162">共同决定访问结果的机制</text>
+<path d="M488 180H1044M488 270H1044M488 360H1044" stroke="#d1dbe0"/><text class="name" x="488" y="217">路径与目录</text><text class="body" x="694" y="217">搜索、父目录写入、sticky约束</text>
+<text class="name" x="488" y="246">实际对象</text><text class="body" x="694" y="246">链接目标与挂载视图</text>
+<rect x="480" y="282" width="572" height="64" rx="6" fill="#e8f4ef"/>
+<text class="name" x="488" y="308">DAC / ACL</text><text class="body" x="694" y="308">匹配身份、条目与mask</text>
+<text class="note" x="694" y="334">条目rw不一定有有效写权限</text>
+<text class="name" x="488" y="399">额外限制</text><text class="body" x="694" y="399">只读 / noexec / 文件系统标志</text>
+<text class="body" x="694" y="438">LSM策略与服务沙箱</text><text class="note" x="52" y="566">管理员终端成功不代表服务凭据相同；先保留拒绝证据，再缩小修改范围。</text></svg>

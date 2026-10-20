@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+<title id="title">iOS 收据上传的运行边界</title><desc id="desc">应用界面生成上传任务，任务持久化文件和标识，并交给系统后台传输会话。服务器确认业务结果后需要登记和恢复核对，应用进程不保证常驻。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#6b7d75"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#24362e}.title{font-size:25px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px}.note{font-size:16px;fill:#596b62}.box{fill:#fff;stroke:#cbd5d0}.line{fill:none;stroke:#6b7d75;stroke-width:1.8;marker-end:url(#arrow)}</style>
+<rect width="1120" height="700" fill="#f8fafc"/><text class="title" x="56" y="58">收据上传：页面状态、传输状态和业务结果分别保存</text><text class="note" x="56" y="91">示例使用符合条件的后台 URLSession 文件传输；不承诺任意进程结束后继续</text>
+<rect x="56" y="140" width="550" height="480" rx="5" fill="none" stroke="#b7c9bf" stroke-dasharray="6 5"/><text class="h" x="80" y="178">应用进程与沙盒</text>
+<rect x="700" y="140" width="364" height="345" rx="5" fill="none" stroke="#b7c9bf" stroke-dasharray="6 5"/><text class="h" x="724" y="178">系统调度边界</text>
+<path class="line" d="M320 285V355"/><path class="line" d="M320 455V535"/>
+<path class="line" d="M560 405H642Q650 405 650 397V268Q650 260 658 260H735"/><path class="line" d="M1025 260H1080Q1088 260 1088 268V507Q1088 515 1080 515H1008Q1000 515 1000 523V535"/>
+<rect class="box" x="90" y="205" width="470" height="80" rx="5"/><text class="h" x="114" y="237">拍摄与确认页面</text><text class="t" x="114" y="264">权限、预览、错误反馈与取消入口</text>
+<rect x="90" y="355" width="470" height="100" rx="5" fill="#e6f3e9" stroke="#759681"/><text class="h" x="114" y="392">上传任务</text><text class="t" x="114" y="425">稳定标识、账号范围与状态核对</text>
+<rect class="box" x="90" y="535" width="470" height="65" rx="5"/><text class="t" x="114" y="574">持久化：待上传文件、会话映射、业务确认</text>
+<rect class="box" x="735" y="205" width="290" height="110" rx="5"/><text class="h" x="755" y="241">后台 URLSession</text><text class="t" x="755" y="276">传输由系统管理与调度</text>
+<text class="note" x="664" y="244">登记后</text><text class="note" x="724" y="370">应用不保证常驻；回调后核对</text><text class="note" x="724" y="402">任务是否仍有效及服务器结果</text>
+<rect class="box" x="735" y="535" width="290" height="80" rx="5"/><text class="h" x="755" y="567">服务器业务接口</text><text class="t" x="755" y="596">幂等接收、查询与确认</text>
+<text class="note" x="56" y="662">传完字节 ≠ 业务提交成功；重启后通过稳定标识恢复结果，旧回调不能覆盖新任务。</text>
+</svg>

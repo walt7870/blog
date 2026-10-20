@@ -1,0 +1,42 @@
+[
+  {
+    "file": "docs/devlanguage/front/framework/vite.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/webpack.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/rollup.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/parcel.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  },
+  {
+    "file": "docs/devlanguage/front/framework/index.md",
+    "height": 844,
+    "imageWidth": 1120,
+    "open": true,
+    "width": 390,
+    "closed": true
+  }
+]

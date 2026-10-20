@@ -1,97 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="700" viewBox="0 0 1440 700" role="img" aria-labelledby="title desc">
-  <title id="title">控制面与数据面联动</title>
-  <desc id="desc">展示订阅配置如何进入客户端内核，以及真实应用流量如何通过数据面访问目标。</desc>
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#070f1d"/>
-      <stop offset="1" stop-color="#111827"/>
-    </linearGradient>
-    <linearGradient id="panelC" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#312e81" stop-opacity=".78"/>
-      <stop offset="1" stop-color="#0e7490" stop-opacity=".58"/>
-    </linearGradient>
-    <linearGradient id="panelD" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#064e3b" stop-opacity=".58"/>
-      <stop offset="1" stop-color="#1e3a8a" stop-opacity=".72"/>
-    </linearGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0H0V40" fill="none" stroke="#213b61" stroke-width="1" opacity=".32"/>
-    </pattern>
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
-      <path d="M2 2L12 7L2 12Z" fill="#67e8f9"/>
-    </marker>
-    <marker id="arrow-g" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
-      <path d="M2 2L12 7L2 12Z" fill="#34d399"/>
-    </marker>
-    <style>
-      .bg { fill: url(#bg); }
-      .grid { fill: url(#grid); }
-      .panelC { fill: url(#panelC); stroke: #8b5cf6; stroke-width: 1.5; rx: 28; }
-      .panelD { fill: url(#panelD); stroke: #22d3ee; stroke-width: 1.5; rx: 28; }
-      .node { fill: rgba(15,23,42,.9); stroke: #67e8f9; stroke-width: 1.8; rx: 18; filter: url(#glow); }
-      .nodeV { fill: rgba(30,27,75,.9); stroke: #c4b5fd; stroke-width: 1.8; rx: 18; filter: url(#glow); }
-      .title { font: 800 34px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
-      .sub { font: 500 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #94a3b8; }
-      .lane { font: 800 24px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
-      .text { font: 750 20px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #f8fafc; }
-      .small { font: 500 14px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #bfdbfe; }
-      .label { font: 750 15px -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #e0f2fe; }
-      .line { stroke: #67e8f9; stroke-width: 2.6; fill: none; marker-end: url(#arrow); filter: url(#glow); }
-      .lineV { stroke: #c4b5fd; stroke-width: 2.4; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow); }
-      .lineG { stroke: #34d399; stroke-width: 2.6; fill: none; marker-end: url(#arrow-g); filter: url(#glow); }
-    </style>
-  </defs>
-  <rect class="bg" width="1440" height="700"/>
-  <rect class="grid" width="1440" height="700"/>
-  <circle cx="310" cy="140" r="240" fill="#7c3aed" opacity=".14"/>
-  <circle cx="1140" cy="550" r="260" fill="#0891b2" opacity=".14"/>
-  <text class="title" x="64" y="74">控制面与数据面联动</text>
-  <text class="sub" x="64" y="104">配置下发和真实流量转发是两条链路：前者决定怎么走，后者真正产生访问。</text>
-
-  <rect class="panelC" x="70" y="150" width="1300" height="210"/>
-  <text class="lane" x="104" y="194">控制面：生成、分发、应用配置</text>
-  <rect class="nodeV" x="124" y="230" width="230" height="76"/>
-  <text class="text" x="154" y="262">节点来源</text>
-  <text class="small" x="154" y="286">平台 / 文件 / 人工维护</text>
-  <rect class="nodeV" x="438" y="230" width="230" height="76"/>
-  <text class="text" x="468" y="262">订阅配置</text>
-  <text class="small" x="468" y="286">节点、代理组、规则</text>
-  <rect class="nodeV" x="752" y="230" width="230" height="76"/>
-  <text class="text" x="782" y="262">客户端拉取</text>
-  <text class="small" x="782" y="286">解析并合并配置</text>
-  <rect class="nodeV" x="1066" y="230" width="230" height="76"/>
-  <text class="text" x="1096" y="262">内核生效</text>
-  <text class="small" x="1096" y="286">更新规则和节点状态</text>
-
-  <rect class="panelD" x="70" y="420" width="1300" height="210"/>
-  <text class="lane" x="104" y="464">数据面：应用流量真实转发</text>
-  <rect class="node" x="124" y="500" width="230" height="76"/>
-  <text class="text" x="154" y="532">应用流量</text>
-  <text class="small" x="154" y="556">浏览器 / API / 工具</text>
-  <rect class="node" x="438" y="500" width="230" height="76"/>
-  <text class="text" x="468" y="532">客户端内核</text>
-  <text class="small" x="468" y="556">规则匹配与 DNS</text>
-  <rect class="node" x="752" y="500" width="230" height="76"/>
-  <text class="text" x="782" y="532">远端代理服务</text>
-  <text class="small" x="782" y="556">认证、解密、出口</text>
-  <rect class="node" x="1066" y="500" width="230" height="76"/>
-  <text class="text" x="1096" y="532">目标服务</text>
-  <text class="small" x="1096" y="556">网站 / SaaS / API</text>
-
-  <path class="lineV" d="M354 268H438"/>
-  <path class="lineV" d="M668 268H752"/>
-  <path class="lineV" d="M982 268H1066"/>
-  <path class="lineV" d="M1181 306V394C1181 438 630 414 553 500"/>
-  <text class="label" x="788" y="396">配置驱动转发策略</text>
-
-  <path class="lineG" d="M354 538H438"/>
-  <path class="lineG" d="M668 538H752"/>
-  <path class="lineG" d="M982 538H1066"/>
-  <text class="label" x="393" y="526">进入代理内核</text>
-  <text class="label" x="700" y="526">命中代理规则</text>
-  <text class="label" x="1012" y="526">访问目标</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="620" viewBox="0 0 1120 620" role="img" aria-labelledby="ctrl-title ctrl-desc">
+<title id="ctrl-title">配置下发不等于访问成功</title><desc id="ctrl-desc">节点来源生成配置，经客户端解析检查后应用到内核，检查失败保留旧配置。业务应用由内核匹配代理规则后经远端访问目标，控制面和数据面分别验收。</desc>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M1 1L9 5L1 9Z" fill="#527184"/></marker></defs>
+<rect width="1120" height="620" fill="#f7f9fb"/>
+<g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+<text x="40" y="52" font-size="28" font-weight="700">配置生效与业务可用，分别验收</text><text x="40" y="88" font-size="18" fill="#52616d">下方只展开命中代理的分支；DIRECT 与 REJECT 见数据分流图。</text>
+<text x="40" y="140" font-size="20" font-weight="600">控制面：节点与配置变更</text>
+<g fill="none" stroke="#527184" stroke-width="2" marker-end="url(#a)"><path d="M242 214H300"/><path d="M510 214H568"/><path d="M778 214H836"/><path d="M944 258V300Q944 308 936 308H414Q406 308 406 316V388" stroke-dasharray="6 5"/>
+<path d="M242 432H300"/><path d="M510 432H568"/><path d="M778 432H836"/></g>
+<g stroke="#91a6b5" fill="#eaf3fb"><rect x="40" y="170" width="202" height="88" rx="6"/><rect x="300" y="170" width="210" height="88" rx="6"/><rect x="568" y="170" width="210" height="88" rx="6"/><rect x="836" y="170" width="244" height="88" rx="6"/></g>
+<g stroke="#91a6b5" fill="#fff"><rect x="40" y="388" width="202" height="88" rx="6"/><rect x="300" y="388" width="210" height="88" rx="6" fill="#e8f5ef"/><rect x="568" y="388" width="210" height="88" rx="6"/><rect x="836" y="388" width="244" height="88" rx="6"/></g>
+<g font-size="22" font-weight="600"><text x="62" y="205">节点与策略来源</text><text x="322" y="205">订阅 / 本地文件</text><text x="590" y="205">客户端检查</text><text x="858" y="205">应用到运行内核</text><text x="62" y="423">应用请求</text><text x="322" y="423">内核匹配规则</text><text x="590" y="423">远端代理服务</text><text x="858" y="423">目标 API</text></g>
+<g font-size="17" fill="#52616d"><text x="62" y="236">人工维护或平台</text><text x="322" y="236">可能仅含节点列表</text><text x="590" y="236">解析、合并与引用</text><text x="858" y="236">失败保留旧配置</text><text x="62" y="454">真实接入本机端口</text><text x="322" y="454">选择有效出站</text><text x="590" y="454">认证与出口连接</text><text x="858" y="454">验证真实响应</text></g>
+<rect x="562" y="292" width="228" height="30" fill="#f7f9fb"/><text x="574" y="314" font-size="18">配置决定后续连接策略</text>
+<text x="40" y="358" font-size="20" font-weight="600">数据面：真实连接与业务响应</text>
+<g font-size="18" fill="#52616d"><text x="40" y="530">配置能解析：不能证明远端在线；节点测速成功：不能证明业务目标与规则正确。</text><text x="40" y="568">例：节点改名但代理组仍引用旧名，应拒绝该次配置更新，再修复引用后重试。</text></g>
+</g></svg>

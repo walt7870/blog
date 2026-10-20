@@ -1,258 +1,78 @@
-# Android Studio
+# Android Studio：JDK、构建与编辑器排错
 
-Android Studio 里最容易混淆的是 JDK：同一个项目里可能同时存在“构建用 JDK”“编辑器索引用 SDK”“IDE 自身运行时”。排查构建问题时，优先看 Gradle JDK；代码提示异常时，再看 Project SDK；只有 IDE 自己启动异常或运行时问题，才需要改 Boot Runtime。
+同一个 Android 项目可能同时用到三套 Java 环境：Android Studio 自己运行的 JBR、Gradle Daemon 运行的 JDK，以及编译源代码的 Java toolchain。应用能调用哪些 Android API，又由 `compileSdk`、`minSdk` 和脱糖支持共同约束。把这几件事都称为“项目 JDK”，很容易出现命令行构建通过、IDE Sync 却失败的情况。
 
-![Android Studio JDK 选择链](/editor/android-studio-jdk-flow.svg)
+![Android Studio 的运行时与编译边界](/editor/android-studio-jdk-flow.svg)
 
-## 先判断要改哪一个 JDK
+## 先确定失败发生在哪条链路
 
-| 场景 | 优先检查 | 典型现象 |
+| 现象 | 检查入口 | 判断依据 |
 | --- | --- | --- |
-| Gradle Sync 失败、命令行构建失败 | Gradle JDK | `Unsupported class file major version`、`Android Gradle plugin requires Java ...` |
-| IDE 能构建，但代码飘红、跳转异常 | Project SDK | 编辑器提示不准、索引异常、Java API 识别不完整 |
-| Android Studio 本体启动慢、崩溃、运行时异常 | IDE Runtime | IDE 自身启动或插件运行异常 |
+| Studio 无法启动、IDE 插件崩溃 | IDE Runtime 与 IDE 日志 | 是否连空项目都无法打开 |
+| Sync 或构建报 Java 版本错误 | Gradle 的运行 JVM | AGP 最低要求、Wrapper 支持的 JVM 范围 |
+| Java 编译语法或目标版本错误 | toolchain、`compileOptions` | 编译器版本、source/target 是否一致 |
+| 某 Android API 飘红或低版本运行崩溃 | `compileSdk`、依赖、`minSdk` | API 引入版本、脱糖范围、运行系统版本 |
 
-一句话：**构建问题先改 Gradle JDK，不要一上来改 IDE Runtime。**
+例如订单应用使用 AGP 8.5.2、Gradle 8.7：AGP 要求至少 JDK 17，Gradle 8.7 必须支持所选运行 JVM。把 IDE 的 Boot Runtime 改成 17，不会自动修复终端仍由 `JAVA_HOME` 指向 Java 11 的问题。
 
-## Gradle JDK：真正决定构建
+## 确认 Gradle 实际运行的 JVM
 
-Gradle JDK 是 Gradle Daemon 和 Android Gradle Plugin 实际运行时使用的 JDK。绝大多数 Android 项目的 JDK 问题都在这里。
-
-### 在界面里修改
-
-路径：
-
-```text
-File -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Gradle JDK
-```
-
-macOS 上入口是：
-
-```text
-Android Studio -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Gradle JDK
-```
-
-常用选择：
-
-- `jbr-17` 或 `jbr-21`：Android Studio 自带的 JetBrains Runtime。
-- `Download JDK...`：让 IDE 下载一套项目可用 JDK。
-- `Add Local JDK...`：选择本机已安装的 JDK。
-
-选择后重新执行：
-
-```text
-File -> Sync Project with Gradle Files
-```
-
-### 在文件里确认
-
-当前项目的 Gradle JDK 通常会写在 `.idea/gradle.xml`：
-
-```xml
-<option name="gradleJvm" value="jbr-17" />
-```
-
-这表示当前项目使用 Android Studio 自带的 JBR 17 作为 Gradle JDK。这个配置是项目级的，不等于系统 `JAVA_HOME`。
-
-新建项目也可能使用 `GRADLE_LOCAL_JAVA_HOME`，它会从 `.gradle/config.properties` 里的 `java.home` 读取项目本地 JDK 路径：
-
-```properties
-java.home=/path/to/jdk
-```
-
-团队项目里如果希望不同机器保持一致，可以优先固定 Gradle Wrapper、AGP 版本和 Gradle JDK，再考虑是否提交项目级 IDE 配置。
-
-### 用命令验证命令行构建
-
-在 Android Studio 底部 Terminal 执行：
+先看 `gradle/wrapper/gradle-wrapper.properties` 的 `distributionUrl`，再看根构建文件或 `gradle/libs.versions.toml` 中的 AGP 版本。使用项目 Wrapper，避免机器全局 `gradle` 与项目版本不同。
 
 ```bash
-# macOS / Linux
-./gradlew --version | grep "JVM"
-
-# Windows
-gradlew.bat --version | findstr "JVM"
+./gradlew --version
+./gradlew :app:assembleDebug --stacktrace
 ```
 
-输出示例：
+Windows 使用 `gradlew.bat`。新版本 Gradle 的输出会分别列出 Launcher JVM 和 Daemon JVM，旧版可能只列 `JVM`；保留完整输出，不能只截取一个版本号。构建失败时先读取第一个有业务含义的 `Caused by`，栈底的“任务失败”只是结果。
 
-```text
-JVM:          17.0.12 (JetBrains s.r.o. 17.0.12+1-b1207.1)
-```
+**存在 `gradle/gradle-daemon-jvm.properties` 时，先检查 Daemon JVM criteria。** 该机制在受支持的 Gradle 中按 Java 版本、厂商等条件选择 Daemon JVM，并优先于 `JAVA_HOME`、`org.gradle.java.home`。Android Studio Panda 1 起的新项目默认采用该方式，旧项目也可能迁移。选择条件不是一条固定的本机安装路径，自动下载还需要相应配置和网络条件。
 
-这里显示的是命令行 Gradle 构建实际使用的 JDK。注意：在普通 Terminal 里运行 Gradle 时，`JAVA_HOME` 或 `PATH` 也可能参与选择；如果是 Android Studio 的 Sync 或工具按钮触发的构建，则以 Gradle 设置里的 JDK 为准。
+没有采用该机制的项目，再检查以下入口：
 
-## Project SDK：影响编辑器理解代码
+| 构建入口 | JVM 选择位置 |
+| --- | --- |
+| Studio 的 Sync 或构建按钮 | Settings → Build, Execution, Deployment → Build Tools → Gradle |
+| 普通终端执行 Wrapper | `JAVA_HOME`，未设置时看 `PATH` 中的 `java`；同时检查 `org.gradle.java.home` |
+| Studio Terminal 的 “Run highlighted command” | 可能使用 IDE Gradle 设置，区别于直接敲入终端命令 |
 
-Project SDK 主要影响 Android Studio 的代码分析、索引、跳转和部分编辑器体验，不直接决定 Gradle 构建。
+macOS 的 Settings 在 Android Studio 菜单中。旧式项目的 IDE 选择通常记录为 `.idea/gradle.xml` 中的 `gradleJvm`；`GRADLE_LOCAL_JAVA_HOME` 从 `.gradle/config.properties` 的 `java.home` 解析路径。`jbr-17` 是 JDK 表条目名称，不能由它推断所有 Studio 发行版内置 JBR 都是 17。用设置中展示的实际版本和构建输出确认。
 
-路径：
+团队应固定 Wrapper、AGP 和 JVM 条件，将机器绝对路径留在本地。SDK 版本管理器只改变当前 shell 环境，不保证已启动的 IDE、已有 Daemon 或 CI 自动跟随；切换后分别验证这些入口。
 
-```text
-File -> Project Structure -> Project -> SDK
-```
+## 分清编译器、语言级别与 Android API
 
-处理建议：
+Gradle 运行在 JDK 21，并不表示应用可以直接使用所有 Java 21 API。Java toolchain 决定编译器；`sourceCompatibility` 决定 Java 语法级别，`targetCompatibility` 决定产生的 class 格式；Kotlin 另有自己的编译目标。Android 构建还会将字节码转换为 DEX。
 
-- 普通 Android 项目：Project SDK 与 Gradle JDK 保持同一大版本。
-- 老项目：先让 Gradle JDK 满足构建，再让 Project SDK 跟随。
-- 如果只是代码飘红但 `./gradlew assembleDebug` 能过，优先尝试重新 Sync、Invalidate Caches，再看 Project SDK。
-
-常用操作：
-
-```text
-File -> Invalidate Caches...
-File -> Sync Project with Gradle Files
-```
-
-## IDE Runtime：Android Studio 自己用
-
-IDE Runtime 是 Android Studio 本体运行使用的 JetBrains Runtime。它不是项目构建 JDK。
-
-入口：
-
-```text
-Help -> Change IDE Boot Runtime...
-```
-
-使用建议：
-
-- 一般不要手动修改。
-- Android Studio 能正常启动时，不靠改它解决项目构建问题。
-- 只有 IDE 自身启动、插件兼容或运行时崩溃问题，才考虑切换官方提供的 Runtime。
-
-## 版本判断方法
-
-不要死记版本表，先从项目文件判断当前使用的 Android Gradle Plugin 和 Gradle。
-
-### 查看 Android Gradle Plugin 版本
-
-常见位置：
+下面是模块 `build.gradle.kts` 中的局部示例，适用于已经配置 Android 插件的模块：
 
 ```kotlin
-// settings.gradle.kts 或 build.gradle.kts
-plugins {
-    id("com.android.application") version "8.5.2" apply false
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
-```
 
-Groovy 写法：
-
-```groovy
-plugins {
-    id 'com.android.application' version '8.5.2' apply false
-}
-```
-
-老项目也可能写在根目录 `build.gradle`：
-
-```groovy
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+android {
+    compileSdk = 34
+    defaultConfig { minSdk = 26 }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 ```
 
-### 查看 Gradle 版本
+这是边界示例，不是当前新项目的版本推荐。安装对应 JDK 或配置 toolchain resolver 后才能解析工具链；Kotlin 项目还需按其插件版本设置相同目标。`compileSdk = 34` 提供 API 34 的编译符号，但不让 API 26 设备自动具备 API 34 的能力。新 API 要做版本保护，或采用明确支持的核心库脱糖；脱糖也不覆盖所有 Java API。
 
-看 `gradle/wrapper/gradle-wrapper.properties`：
+Android 模块的编辑器模型来自 Gradle Sync、Android SDK 和构建配置。不要套用普通 IntelliJ Java 项目的 “Project SDK 跟随 Gradle JDK” 作为通用修复。代码飘红时，先确认选中的 build variant、SDK 平台是否安装、依赖是否解析、source set 是否纳入，再看 Sync 日志。模型正确但索引持续异常时，才执行 Invalidate Caches。
 
-```properties
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-bin.zip
-```
+## 按证据修复常见故障
 
-这里的 `8.7` 就是项目使用的 Gradle Wrapper 版本。
+`Android Gradle plugin requires Java 17` 说明运行 AGP 的 JVM 太旧。确认是否有 Daemon criteria，再调整对应 Gradle JVM 入口，并重新执行 `--version` 和原失败任务。只改变编译 toolchain 不会修复 AGP 的运行要求。
 
-### 选择 JDK 的经验规则
+`Unsupported class file major version` 可能是旧 Gradle/Groovy 无法读取较新 class，也可能是插件或依赖由较新 Java 编译。常见 class major 为 52（Java 8）、55（11）、61（17）、65（21）。需要沿栈确认出错组件，再选择兼容 JVM 或升级 Wrapper/插件；不能仅凭编号就升级所有依赖。
 
-| 项目情况 | Gradle JDK 选择 |
-| --- | --- |
-| AGP 8.x / 9.x 项目 | 优先 JDK 17 |
-| AGP 7.x 项目 | 优先 JDK 11 或 17，具体看构建报错与 Gradle 版本 |
-| AGP 4.x 老项目 | 优先 JDK 8 或 11，避免直接上 JDK 17+ |
-| 不确定版本 | 先运行 `./gradlew --version` 和一次 Sync，看错误提示 |
+老项目必须同时满足“AGP 要求的最低 JDK”和“当前 Gradle 支持的运行 JVM”。先按项目的精确版本核对兼容性，不按项目年代猜选 8、11 或 17。升级时保留一次成功构建基线，每步只调整一项，检查 Sync、编译、测试以及目标设备运行。
 
-实际工程里以项目的 AGP、Gradle Wrapper 和报错信息为准。版本信息变化很快，长期维护文档里不放完整对照表，避免读者按过期表格处理问题。
-
-## 常见报错处理
-
-### Unsupported class file major version
-
-常见原因：Gradle 或插件运行在不匹配的 JDK 上。
-
-处理步骤：
-
-1. 执行 `./gradlew --version | grep "JVM"`，确认当前构建 JDK。
-2. 查看项目 AGP 和 Gradle Wrapper 版本。
-3. 在 Gradle JDK 里切换到更匹配的 JDK。
-4. 重新 Sync。
-
-常见 major version 对照：
-
-| major version | Java 版本 |
-| --- | --- |
-| 52 | Java 8 |
-| 55 | Java 11 |
-| 61 | Java 17 |
-| 65 | Java 21 |
-
-### Android Gradle plugin requires Java 17
-
-原因：当前 AGP 需要 Java 17，但 Gradle JDK 使用了更低版本。
-
-处理：
-
-```text
-Gradle JDK -> 选择 jbr-17 或本机 JDK 17 -> Sync
-```
-
-然后验证：
-
-```bash
-./gradlew --version | grep "JVM"
-```
-
-### Gradle JDK version too high
-
-原因：老项目使用较旧 Gradle 或 AGP，却运行在过高 JDK 上。
-
-处理：
-
-1. 不要先升级 Android Studio。
-2. 把 Gradle JDK 切回 JDK 8、11 或 17 中更接近项目年代的版本。
-3. 如果必须使用新 JDK，再分步骤升级 Gradle Wrapper 和 AGP。
-
-### IDE 代码飘红但命令行能构建
-
-这通常不是 Gradle JDK 问题。
-
-处理顺序：
-
-1. `File -> Sync Project with Gradle Files`
-2. `File -> Invalidate Caches...`
-3. 检查 Project SDK。
-4. 检查模块 SDK、源码目录标记、Gradle source set。
-
-## 推荐排查流程
-
-从最可验证的地方开始，不要凭感觉改配置：
-
-```text
-1. 复制完整错误信息
-2. ./gradlew --version 看 JVM
-3. 看 AGP 版本
-4. 看 Gradle Wrapper 版本
-5. 切 Gradle JDK
-6. Sync
-7. 仍失败再考虑升级 Gradle / AGP
-```
-
-排查时尽量一次只改一个变量。比如只切 Gradle JDK，然后 Sync；不要同时改 JDK、Gradle、AGP、compileSdk，否则很难判断到底是哪一步修好了问题。
-
-## 最小结论
-
-- 构建失败：先查 Gradle JDK。
-- 代码飘红：先 Sync 和清缓存，再查 Project SDK。
-- IDE 自己异常：才考虑 IDE Runtime。
-- 长期项目不要依赖静态版本表，直接看项目文件和实际报错。
+IDE 本体通常使用随 Studio 分发的 JBR。只有 IDE 自身启动或运行故障，才考虑 Help → Change IDE Boot Runtime；记录原设置以便恢复。构建故障的验收是同一提交在终端、IDE 和 CI 使用预期 JVM 完成相同任务，不能只以错误提示消失为准。

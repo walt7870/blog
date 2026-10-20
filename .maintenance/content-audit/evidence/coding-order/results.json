@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-10-20T01:46:39.034Z",
+  "java": "release 17; local runtime 21",
+  "results": [
+    {
+      "name": "baseline",
+      "exit": 0,
+      "expectedSuccess": true
+    },
+    {
+      "name": "contract-red",
+      "exit": 1,
+      "expectedSuccess": false
+    },
+    {
+      "name": "final-green",
+      "exit": 0,
+      "expectedSuccess": true
+    },
+    {
+      "name": "paid-allowed",
+      "exit": 1,
+      "expectedSuccess": false
+    },
+    {
+      "name": "repeat-save",
+      "exit": 1,
+      "expectedSuccess": false
+    },
+    {
+      "name": "wrong-404",
+      "exit": 1,
+      "expectedSuccess": false
+    },
+    {
+      "name": "wrong-409",
+      "exit": 1,
+      "expectedSuccess": false
+    },
+    {
+      "name": "package-green",
+      "exit": 0,
+      "expectedSuccess": true
+    }
+  ],
+  "http": [
+    {
+      "path": "/api/orders",
+      "status": 201,
+      "code": "CREATED"
+    },
+    {
+      "path": "/api/orders/{uuid}/cancel",
+      "status": 200,
+      "code": "CANCELLED"
+    },
+    {
+      "path": "/api/orders/{uuid}/cancel",
+      "status": 200,
+      "code": "CANCELLED"
+    },
+    {
+      "path": "/api/orders/{uuid}/cancel",
+      "status": 404,
+      "code": "ORDER_NOT_FOUND"
+    },
+    {
+      "path": "/api/orders/not-a-uuid/cancel",
+      "status": 400,
+      "code": 400
+    },
+    {
+      "path": "/api/orders",
+      "status": 400,
+      "code": 400
+    }
+  ],
+  "scope": "Local source snapshots; 409 verified via MockMvc fixture, no external payment endpoint."
+}

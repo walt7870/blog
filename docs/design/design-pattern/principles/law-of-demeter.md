@@ -1,89 +1,59 @@
 # 迪米特法则
 
-迪米特法则也叫最少知识原则。它强调一个对象应该尽量少了解其他对象的内部结构，只和直接朋友通信。
+迪米特法则也叫最少知识原则：对象应通过稳定的直接协作者完成任务，减少对其他对象内部结构的了解。它源于 Demeter 项目中的对象设计实践，目标是缩小内部结构变化对外部的影响。
 
-![迪米特法则示意图](/design-pattern/principles/lod.svg)
+![配送标签生成前后的对象知识边界](/design-pattern/principles/lod.svg)
 
-## 历史脉络
+## 调用链暴露了什么
 
-迪米特法则源于 Demeter 项目中的面向对象设计经验，后来被广泛用于描述低耦合对象协作。它关注的不是类数量，而是对象之间知道多少内部细节。
+生成配送标签时，外部服务可能先取订单的客户，再取客户的地址，最后拼接省、市、街道。问题不在点号数量，而在于它了解了客户的内部模型，并把“客户当前地址”误当成“这笔订单的配送地址”。
 
-## 准确理解
+订单创建后，配送地址通常需要保留当时的快照。客户后来修改常用地址，不应悄悄改变已经确认的订单。将标签生成交给持有地址快照的订单对象，可以同时收敛知识边界与业务含义。
 
-问题不在于方法调用链的点号数量本身，而在于调用方是否穿透了多个对象的内部结构。
+## 示例
 
-例如：
-
-```java
-order.getCustomer().getWallet().deduct(amount);
-```
-
-调用方知道订单有客户、客户有钱包、钱包可以扣款。以后钱包模型变化，调用方也要跟着改。更稳定的方式是表达业务意图：
+下面是可独立编译的 Java 17+ 示例。地址类型本身只读，不将内部可变对象暴露给调用者。
 
 ```java
-order.pay(amount);
-```
+import java.util.Objects;
 
-## 代码坏味道
+record ShippingAddress(String province, String city, String street) {
+    ShippingAddress {
+        Objects.requireNonNull(province);
+        Objects.requireNonNull(city);
+        Objects.requireNonNull(street);
+    }
 
-- 大量出现 `a.getB().getC().doSomething()`。
-- 调用方为了完成一个业务动作，需要理解多个对象内部结构。
-- 一个类修改内部字段结构后，外部很多地方跟着改。
-- DTO、实体、聚合根被外部随意层层取值并修改。
+    String label() {
+        return province + city + street;
+    }
+}
 
-## 重构示例
+record Order(ShippingAddress shippingAddress) {
+    Order {
+        Objects.requireNonNull(shippingAddress);
+    }
 
-问题代码：
+    String deliveryLabel() {
+        return shippingAddress.label();
+    }
+}
 
-```java
-public class PaymentService {
-    public void pay(Order order, BigDecimal amount) {
-        Wallet wallet = order.getCustomer().getWallet();
-        wallet.deduct(amount);
-        order.setPaid(true);
+class DeliveryService {
+    String labelFor(Order order) {
+        return order.deliveryLabel();
     }
 }
 ```
 
-封装业务意图：
+调用方只表达“生成这笔订单的配送标签”。地址从三个字段改成行政区编码与详细地址后，外部调用仍可保持不变。示例不涉及打印协议、隐私遮盖和地址校验；这些要求应在相应边界处理，不能靠封装方法自动获得。
 
-```java
-public class Order {
-    private Customer customer;
-    private boolean paid;
+## 如何收敛知识边界
 
-    public void pay(BigDecimal amount) {
-        customer.pay(amount);
-        this.paid = true;
-    }
-}
+先定位反复出现的链式访问，再问调用方真正想完成什么。若多个调用者都在解析同一内部结构，把这项意图放到拥有数据的对象或稳定服务入口。外部查询需要结构化数据时，可以提供只读快照，不必强迫所有查询都变成命令。
 
-public class Customer {
-    private Wallet wallet;
+流式 API 的 `stream().filter().map()` 没有穿透业务内部结构；只读 DTO 的遍历也未必需要封装。相反，哪怕只有一次 getter，如果返回了可随意修改的内部集合，也可能泄露不变量。判断依据是结构变化和修改权限，不是点号计数。
 
-    public void pay(BigDecimal amount) {
-        wallet.deduct(amount);
-    }
-}
-```
+## 验收与边界
 
-`PaymentService` 不再关心钱包在哪里，只调用 `order.pay(amount)`。
-
-## 落地步骤
-
-1. 搜索长链式调用。
-2. 判断这段调用表达的业务意图是什么。
-3. 把意图方法移动到拥有数据或更接近数据的对象上。
-4. 保留必要的只读查询，不暴露可变内部对象。
-5. 如果子系统太复杂，可以用外观模式提供统一入口。
-
-## 常见误区
-
-- 把所有调用都封装一层，导致无意义转发方法过多。
-- 为避免链式调用牺牲必要的数据查询能力。
-- 只看点号数量，不看是否真的泄漏内部结构。
-- 把所有操作都放到一个外观类，形成新的大对象。
-
-## 判断标准
-
-内部对象结构调整时，外部调用方是否基本不变。如果需要大面积修改链式调用，说明对象知道得太多。
+测试订单创建后的地址快照不随客户地址变化，检查缺少地址时的失败方式，再验证内部字段调整不要求修改所有标签调用方。不要为了少写 getter 建立大量无语义的转发方法，也不要把订单、钱包、支付状态简单串成一个 `order.pay()` 就当作事务已经解决；跨对象一致性仍需要明确事务与协调机制。

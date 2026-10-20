@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="flink-late-title flink-late-desc">
+  <title id="flink-late-title">Flink 支付窗口触发与迟到处理</title>
+  <desc id="flink-late-desc">UTC的01:00至01:05窗口先输出5000分，清理前的迟到支付使完整结果更新为8000分，清理后的事件进入迟到侧输出，下游按窗口键覆盖而非相加。</desc>
+  <defs><marker id="flink-late-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#flink-late-arrow)}.life{stroke:#bac4c9;stroke-dasharray:5,5}.mask{fill:#f7f9fa}</style></defs>
+  <rect width="1200" height="780" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">窗口首次输出不代表以后绝不会修正</text><text x="36" y="78" class="small">默认事件时间触发器；滚动窗口 [01:00,01:05)，allowedLateness = 2分钟；时间均为UTC。</text>
+  <path d="M164 156V672M516 156V672M848 156V672M1088 156V672" class="life"/>
+  <path d="M164 204H516" class="line"/><path d="M164 276H516" class="line"/>
+  <path d="M516 332H848" class="line"/><path d="M164 404H516" class="line"/>
+  <path d="M516 460H848" class="line"/><path d="M164 532H516" class="line"/>
+  <path d="M164 604H516" class="line"/><path d="M516 660H1088" class="line" stroke-dasharray="5,4"/>
+  <rect x="36" y="108" width="256" height="48" class="box"/><text x="164" y="140" class="head" text-anchor="middle">源事件与Watermark</text>
+  <rect x="372" y="108" width="288" height="48" class="focus"/><text x="516" y="140" class="head" text-anchor="middle">支付窗口状态</text>
+  <rect x="728" y="108" width="240" height="48" class="focus"/><text x="848" y="140" class="head" text-anchor="middle">结果表 upsert</text>
+  <rect x="1008" y="108" width="160" height="48" class="box"/><text x="1088" y="140" class="head" text-anchor="middle">迟到修正链路</text>
+  <rect x="208" y="168" width="252" height="26" class="mask"/><text x="220" y="186" class="small">p101：01:01支付，5000分</text>
+  <rect x="208" y="240" width="260" height="26" class="mask"/><text x="220" y="258" class="small">Watermark到01:04:59.999</text>
+  <rect x="556" y="296" width="248" height="26" class="mask"/><text x="568" y="314" class="small">首次输出：1笔，5000分</text>
+  <rect x="208" y="368" width="264" height="26" class="mask"/><text x="220" y="386" class="small">迟到p102：01:04，3000分</text>
+  <rect x="556" y="424" width="248" height="26" class="mask"/><text x="568" y="442" class="small">更新输出：2笔，8000分</text>
+  <rect x="208" y="496" width="260" height="26" class="mask"/><text x="220" y="514" class="small">Watermark到01:06:59.999</text>
+  <rect x="556" y="504" width="216" height="26" class="mask"/><text x="568" y="522" class="small">清理此窗口的状态</text>
+  <rect x="208" y="568" width="264" height="26" class="mask"/><text x="220" y="586" class="small">再到p103：仍属于01:04</text>
+  <rect x="556" y="624" width="472" height="26" class="mask"/><text x="568" y="642" class="small">超过清理边界 → 侧输出；未配置时丢弃</text>
+  <path d="M36 704H1168" stroke="#bac4c9"/>
+  <text x="36" y="736">结果键 = 租户 + 窗口起点；8000替换5000，不能累计成13000。</text>
+  <text x="36" y="764" class="small">自上而下为处理顺序；Watermark是进度判断，不保证真实数据已经完整。侧输出需要单独补算与验收。</text>
+</svg>

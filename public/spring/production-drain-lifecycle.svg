@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="530" viewBox="0 0 1240 530" role="img" aria-labelledby="production-drain-lifecycle-title production-drain-lifecycle-desc">
+  <title id="production-drain-lifecycle-title">Spring Boot 实例摘流量与资源关闭</title>
+  <desc id="production-drain-lifecycle-desc">发布流程先阻止新工作并等待路由传播，再排空在途请求和任务，关闭容器资源，最后结束进程。平台宽限期覆盖传播、排空与关闭时间。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8Z" fill="#64748b"/></marker>
+    <style>
+      text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#1e293b}
+      .title{font-size:30px;font-weight:700}.h{font-size:22px;font-weight:700}.p{font-size:18px}.s{font-size:16px;fill:#475569}
+      .node{fill:#fff;stroke:#cbd5e1;stroke-width:2;rx:6}.focus{fill:#fff7ed;stroke:#c2410c;stroke-width:2;rx:6}
+      .line{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1240" height="530" fill="#f8fafc"/>
+  <text x="40" y="56" class="title">旧实例先退出流量与任务分配，再释放资源</text>
+  <text x="40" y="94" class="p">这是发布协调流程；readiness、停止信号和服务端关闭需要平台与应用共同实现。</text>
+  <path class="line" d="M240 236 H280"/><path class="line" d="M480 236 H520"/><path class="line" d="M720 236 H760"/><path class="line" d="M960 236 H1000"/>
+  <rect class="node" x="40" y="150" width="200" height="172"/>
+  <text x="58" y="190" class="h">1 · 停止分配</text>
+  <text x="58" y="230" class="p">摘除路由后端</text>
+  <text x="58" y="261" class="p">停止领取新任务</text>
+  <text x="58" y="301" class="s">平台 + 应用协调</text>
+  <rect class="focus" x="280" y="150" width="200" height="172"/>
+  <text x="298" y="190" class="h">2 · 等待传播</text>
+  <text x="298" y="230" class="p">网关与服务发现</text>
+  <text x="298" y="261" class="p">缓存和连接有延迟</text>
+  <text x="298" y="301" class="s">探针变化有传播延迟</text>
+  <rect class="node" x="520" y="150" width="200" height="172"/>
+  <text x="538" y="190" class="h">3 · 排空在途</text>
+  <text x="538" y="230" class="p">HTTP 请求与任务</text>
+  <text x="538" y="261" class="p">完成或到安全点</text>
+  <text x="538" y="301" class="s">超时需有恢复语义</text>
+  <rect class="node" x="760" y="150" width="200" height="172"/>
+  <text x="778" y="190" class="h">4 · 关闭资源</text>
+  <text x="778" y="230" class="p">Context 生命周期</text>
+  <text x="778" y="261" class="p">线程池、连接池等</text>
+  <text x="778" y="301" class="s">按实际依赖顺序清理</text>
+  <rect class="node" x="1000" y="150" width="200" height="172"/>
+  <text x="1018" y="190" class="h">5 · 进程结束</text>
+  <text x="1018" y="230" class="p">记录关闭结果</text>
+  <text x="1018" y="261" class="p">核对错误、消息确认</text>
+  <text x="1018" y="301" class="s">超宽限期会被强制结束</text>
+  <path d="M40 366 H1200" stroke="#cbd5e1"/>
+  <text x="40" y="409" class="h">平台宽限期 &gt; 路由传播等待 + 最长排空时间 + 资源关闭时间 + 余量</text>
+  <text x="40" y="449" class="p">例如：网关摘流延迟 5 秒、在途订单最多 10 秒、关闭资源 3 秒，不能只给进程 10 秒。</text>
+  <text x="40" y="493" class="s">应用优雅停机不能替代数据库兼容、消息幂等与任务重放；实际顺序和时间预算必须通过发布演练验证。</text>
+</svg>

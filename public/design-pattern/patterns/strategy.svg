@@ -1,17 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
-  <title id="title">策略模式结构图</title>
-  <desc id="desc">展示上下文对象通过策略接口调用不同算法实现。</desc>
-  <style>.bg{fill:#f8fafc}.ctx{fill:#e0f2fe;stroke:#0284c7}.strategy{fill:#ede9fe;stroke:#8b5cf6}.impl{fill:#fff;stroke:#94a3b8}.box{stroke-width:2;rx:14}.t{font:700 19px Arial,'Microsoft YaHei',sans-serif;fill:#0f172a}.s{font:14px Arial,'Microsoft YaHei',sans-serif;fill:#334155}.line{stroke:#64748b;stroke-width:2;fill:none}.arrow{fill:#64748b}</style>
-  <rect class="bg" width="1040" height="520" rx="22"/>
-  <text class="t" x="48" y="52">策略模式：把可替换算法从主流程中拆出去</text>
-  <rect class="box ctx" x="80" y="190" width="230" height="100" rx="14"/><text class="t" x="142" y="228">PromotionService</text><text class="s" x="126" y="255">按 type 找策略并执行</text>
-  <path class="line" d="M310 240H430"/><polygon class="arrow" points="430,240 417,232 417,248"/>
-  <rect class="box strategy" x="430" y="190" width="230" height="100" rx="14"/><text class="t" x="482" y="228">PromotionStrategy</text><text class="s" x="496" y="255">calculate(order)</text>
-  <path class="line" d="M660 240H750"/><polygon class="arrow" points="750,240 737,232 737,248"/>
-  <rect class="box impl" x="750" y="92" width="220" height="70" rx="14"/><text class="t" x="796" y="136">折扣策略</text>
-  <rect class="box impl" x="750" y="208" width="220" height="70" rx="14"/><text class="t" x="796" y="252">满减策略</text>
-  <rect class="box impl" x="750" y="324" width="220" height="70" rx="14"/><text class="t" x="796" y="368">优惠券策略</text>
-  <path class="line" d="M750 127H700Q660 127 660 190"/><path class="line" d="M750 243H660"/><path class="line" d="M750 359H700Q660 359 660 290"/>
-  <text class="s" x="92" y="410">主流程稳定：查找策略、执行策略、处理结果。</text>
-  <text class="s" x="430" y="410">变化点独立：每种算法单独测试、单独扩展。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="510" viewBox="0 0 1120 510" role="img" aria-labelledby="title desc">
+<title id="title">策略：每次请求选择算法，保留费用规则版本</title><desc id="desc">请求携带客户方案与人民币分金额。费用服务校验并按方案选择无状态策略，普通费率百分之一或会员费率千分之五。未知类型拒绝。报价返回规则版本、方案和费用分。</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172033}.title{font-size:27px;font-weight:700}.sub{font-size:16px;fill:#526173}.h{font-size:19px;font-weight:700}.t{font-size:16px}.box{fill:#fff;stroke:#b8c8d7;stroke-width:1.5}.accent{fill:#e9f7f4;stroke:#339786;stroke-width:1.5}.line{fill:none;stroke:#64748b;stroke-width:1.7;marker-end:url(#arrow)}</style>
+<rect width="1120" height="510" fill="#f8fafc"/>
+<text class="title" x="40" y="52">策略：每次请求选择算法，保留费用规则版本</text>
+<text class="sub" x="40" y="84">共同合同：金额与费用均为人民币分，按分四舍五入；无状态算法可共享。</text>
+<path class="line" d="M260 196H330"/><path class="line" d="M590 178H650Q660 178 660 168V147Q660 137 670 137H750"/><path class="line" d="M590 218H650Q660 218 660 228V257Q660 267 670 267H750"/>
+<path class="line" d="M460 246V350"/>
+<text class="sub" x="616" y="120">normal</text><text class="sub" x="616" y="297">vip</text><text class="sub" x="480" y="306">未知方案</text>
+<rect class="box" x="40" y="151" width="220" height="95" rx="6"/><text class="h" x="60" y="185">请求</text><text class="t" x="60" y="215">方案 + 金额 10001 分</text>
+<rect class="accent" x="330" y="151" width="260" height="95" rx="6"/><text class="h" x="350" y="185">FeeService</text><text class="t" x="350" y="215">校验；选择本次局部策略</text>
+<rect class="box" x="750" y="102" width="330" height="90" rx="6"/><text class="h" x="770" y="137">普通客户：100 基点</text><text class="t" x="770" y="168">10001 × 1% → 100 分</text>
+<rect class="box" x="750" y="232" width="330" height="90" rx="6"/><text class="h" x="770" y="267">会员：50 基点</text><text class="t" x="770" y="298">10001 × 0.5% → 50 分</text>
+<rect class="box" x="330" y="350" width="260" height="65" rx="6"/><text class="h" x="350" y="389">明确拒绝，不默认优惠</text>
+<text class="t" x="750" y="379">返回 Quote：版本 / 方案 / 费用分</text>
+<text class="sub" x="40" y="462">更新配置形成新版本；历史订单保留实际使用的版本与结果。</text>
+<text class="sub" x="40" y="488">策略只计算费用，不代表扣款；共享服务不保存可变的“当前策略”。</text>
 </svg>

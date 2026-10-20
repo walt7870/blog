@@ -1,0 +1,164 @@
+[
+  {
+    "name": "api-response-gates.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "batch-classification.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 11
+  },
+  {
+    "name": "batch-file-boundaries.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 11
+  },
+  {
+    "name": "cli-path-contract.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "contact-date-decision.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 18
+  },
+  {
+    "name": "csv-validation-path.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "customer-object-ownership.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 10
+  },
+  {
+    "name": "customer-record-shape.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 12
+  },
+  {
+    "name": "customer-rule-branches.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 14
+  },
+  {
+    "name": "daily-report-composition.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "delivery-validation-gates.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "field-conversion-contract.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "function-rule-contract.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "group-summary-grain.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 10
+  },
+  {
+    "name": "json-response-contract.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "module-dependency.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 8
+  },
+  {
+    "name": "order-amount-status.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 14
+  },
+  {
+    "name": "python-basics-map.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 21
+  },
+  {
+    "name": "python-learning-routes.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 16
+  },
+  {
+    "name": "python-tool-delivery-loop.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 16
+  },
+  {
+    "name": "row-error-boundary.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 13
+  },
+  {
+    "name": "run-log-evidence.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "script-path-boundaries.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 12
+  },
+  {
+    "name": "source-normalization.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "table-health-gates.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "traceback-reading-path.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 15
+  },
+  {
+    "name": "venv-interpreter-contract.svg",
+    "clipped": [],
+    "outsideBoxes": [],
+    "texts": 14
+  }
+]

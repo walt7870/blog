@@ -1,0 +1,153 @@
+{
+  "root": "/tmp/blog-front-engineering-CeAo37",
+  "commands": [
+    {
+      "command": "node",
+      "args": [
+        "--test",
+        "quote.test.mjs"
+      ],
+      "exit": 0,
+      "output": "✔ 两件商品以整数分计算为3980 (0.318375ms)\n✔ 拒绝无效数量，不将空值当作零 (0.170625ms)\n✔ 拒绝负价与金额溢出 (0.062ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 40.571042\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "--test",
+        "quote.test.mjs"
+      ],
+      "exit": 1,
+      "output": "✖ 两件商品以整数分计算为3980 (0.593625ms)\n✔ 拒绝无效数量，不将空值当作零 (0.180167ms)\n✔ 拒绝负价与金额溢出 (0.0625ms)\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 37.542291\n\n✖ failing tests:\n\ntest at quote.test.mjs:5:1\n✖ 两件商品以整数分计算为3980 (0.593625ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  1992 !== 3980\n  \n      at TestContext.<anonymous> (file:///private/tmp/blog-front-engineering-CeAo37/quote.test.mjs:6:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1402:25)\n      at Test.start (node:internal/test_runner/test:1262:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 1992,\n    expected: 3980,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/eslint/bin/eslint.js",
+        "src",
+        "--max-warnings",
+        "0"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/eslint/bin/eslint.js",
+        "src",
+        "--max-warnings",
+        "0"
+      ],
+      "exit": 1,
+      "output": "\n/private/tmp/blog-front-engineering-CeAo37/src/bad.js\n  1:1  error  'missingPrice' is not defined  no-undef\n\n✖ 1 problem (1 error, 0 warnings)\n\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "src"
+      ],
+      "exit": 1,
+      "output": "Checking formatting...\n[warn] src/quote.js\n[warn] src/site.css\n[warn] Code style issues found in 2 files. Run Prettier with --write to fix.\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/prettier/bin/prettier.cjs",
+        "--write",
+        "src"
+      ],
+      "exit": 0,
+      "output": "src/quote.js 12ms\nsrc/site.css 7ms\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/prettier/bin/prettier.cjs",
+        "--check",
+        "src"
+      ],
+      "exit": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/stylelint/bin/stylelint.mjs",
+        "src/**/*.css"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": "node",
+      "args": [
+        "/tmp/blog-front-engineering-checker/node_modules/stylelint/bin/stylelint.mjs",
+        "src/**/*.css"
+      ],
+      "exit": 2,
+      "output": "\nsrc/bad.css\n  1:10  ✖  Unexpected unknown property \"colr\"  property-no-unknown\n\n✖ 1 problem (1 error, 0 warnings)\n\n"
+    },
+    {
+      "command": "/opt/homebrew/bin/nginx",
+      "args": [
+        "-t",
+        "-p",
+        "/tmp/blog-front-engineering-CeAo37/",
+        "-c",
+        "/tmp/blog-front-engineering-CeAo37/nginx.conf"
+      ],
+      "exit": 0,
+      "output": "nginx: the configuration file /tmp/blog-front-engineering-CeAo37/nginx.conf syntax is ok\nnginx: configuration file /tmp/blog-front-engineering-CeAo37/nginx.conf test is successful\n"
+    },
+    {
+      "command": "/opt/homebrew/bin/nginx",
+      "args": [
+        "-v"
+      ],
+      "exit": 0,
+      "output": "nginx version: nginx/1.31.6\n"
+    }
+  ],
+  "assertions": [
+    "Pinia3正文store：3980分、非法数量拒绝、reset通过",
+    "TanStack Query5核心：租户键隔离、精确失效、clear通过；不冒称React Hook或真实接口集成"
+  ],
+  "nginx": {
+    "version": "nginx version: nginx/1.31.6",
+    "rows": [
+      {
+        "url": "/admin/orders/42",
+        "status": 200,
+        "cache": "no-cache",
+        "mime": "text/html"
+      },
+      {
+        "url": "/admin/assets/missing.js",
+        "status": 404,
+        "cache": null,
+        "mime": "text/html"
+      },
+      {
+        "url": "/admin/assets/export.old.js",
+        "status": 200,
+        "cache": "public, max-age=31536000, immutable",
+        "mime": "application/javascript"
+      },
+      {
+        "url": "/admin/config.js",
+        "status": 200,
+        "cache": "no-cache",
+        "mime": "application/javascript"
+      },
+      {
+        "url": "/api/orders/42?view=full",
+        "status": 200,
+        "cache": null,
+        "mime": null
+      }
+    ],
+    "redirect": 308
+  }
+}

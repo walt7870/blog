@@ -2,7 +2,7 @@
 
 Maven 是 Java 工程里最常见的构建与依赖管理工具。它不是单纯的“下载 jar 包工具”，而是把项目坐标、依赖版本、源码目录、测试、打包、发布和插件执行统一放进一套可重复的工程模型里。一个项目只要给出 `pom.xml`，团队成员、CI 服务器和发布流水线就能用同一套命令得到一致的构建结果。
 
-Maven 的核心价值可以概括为四件事：用 `pom.xml` 描述项目，用仓库保存构件，用生命周期组织构建步骤，用插件执行具体工作。理解这四件事之后，`mvn clean package`、`dependencyManagement`、`scope`、多模块聚合、私服发布和依赖冲突排查就会落到同一条主线上。
+Maven 用 `pom.xml` 描述项目，用仓库保存构件，用生命周期组织步骤，用插件执行具体工作。相同 POM 不保证所有环境产生相同结果：构建工具、JDK、插件版本、可变快照、资源过滤和环境配置都可能影响输出。本页以 Maven 3.9、JDK 17 为示例基线；Maven 4 的行为与兼容性应单独核对。
 
 ## 视频讲解
 
@@ -73,7 +73,7 @@ mvn archetype:generate \
   -DinteractiveMode=false
 ```
 
-Spring Boot 项目更常见的入口是 Spring Initializr。它会直接生成 Maven 结构、启动类、测试类和适配 Spring Boot 的 `pom.xml`。无论从哪个入口创建，后续判断项目是否是 Maven 工程，只看根目录是否有 `pom.xml`。
+Spring Boot 项目常从 Spring Initializr 创建。它生成 Maven 结构、启动类、测试类和匹配的 `pom.xml`。但仓库根目录未必就是 Maven 根工程：先找实际 POM、父子模块和 README 中的构建入口；多技术仓库可能只在某个子目录使用 Maven。Archetype 也应固定版本并检查生成结果，不把旧模板默认值当成当前工具链配置。
 
 ## 安装与验证
 
@@ -104,7 +104,7 @@ sudo apt install maven
 mvn -version
 ```
 
-输出中需要关注三类信息：Maven 版本、Java 版本、用户主目录。用户主目录会影响默认本地仓库路径，一般是 `~/.m2/repository`。
+输出中核对 Maven 版本、Java 版本与 Java home。默认用户配置在 `~/.m2/settings.xml`，默认本地仓库为 `~/.m2/repository`，但可被配置或参数覆盖。项目已带 Wrapper 时优先运行 `./mvnw -version` 与 `./mvnw verify`；Wrapper 固定 Maven 分发版本，不会自动固定 JDK 或全部依赖。
 
 ## POM 的核心结构
 
@@ -140,8 +140,18 @@ mvn -version
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
             </plugin>
         </plugins>
     </build>
@@ -151,6 +161,21 @@ mvn -version
 坐标由 `groupId`、`artifactId`、`version` 组成。`groupId` 通常表示组织或业务域，`artifactId` 表示模块名，`version` 表示产物版本。其他项目引用当前模块时，本质上也是引用这个坐标。
 
 `packaging` 决定产物形态。普通库和服务常用 `jar`，传统 Servlet 应用可能使用 `war`，父工程或版本管理工程常用 `pom`。当 `packaging` 不同时，Maven 默认绑定的插件目标也会不同。
+
+### 验证一个真实产物
+
+[订单构建示例](/java/examples/order-build-lab.zip) 包含完整 POM、相同源码对应的 Gradle 配置和 4 个金额计算测试。解压后进入 `order-build-lab`，执行：
+
+```bash
+mvn -version
+mvn clean verify
+jar tf target/order-build-lab-1.0.0-SNAPSHOT.jar
+java -cp target/order-build-lab-1.0.0-SNAPSHOT.jar example.orders.OrderTotal
+```
+
+预期 Surefire 报告为 4 个测试、0 失败、0 错误，运行输出 `5970`。测试覆盖正常金额、零价格、非法数量及乘法溢出。普通 JAR 中是本项目 class，JUnit 属于测试依赖，不应打入；这里用 `-cp` 指定入口，不需要 `Main-Class`，也不宣称这个 JAR 已能使用 `java -jar` 启动。
+
+POM 中固定的插件与 JUnit 版本用于重现实验，不代表生产项目当前补丁建议。示例不包含真实支付、数据库或外部服务，测试通过仅说明这些本地规则被构建正确执行。
 
 ## settings 与 pom 的边界
 
@@ -179,15 +204,20 @@ mvn -version
             <username>${env.MAVEN_REPO_USER}</username>
             <password>${env.MAVEN_REPO_PASSWORD}</password>
         </server>
+        <server>
+            <id>company-public</id>
+            <username>${env.MAVEN_REPO_USER}</username>
+            <password>${env.MAVEN_REPO_PASSWORD}</password>
+        </server>
     </servers>
 </settings>
 ```
 
-`server.id` 要和 `pom.xml` 中 `distributionManagement` 或仓库配置里的 `id` 对上。这样项目里只保存发布地址，账号密码留在开发机或 CI 密钥里。
+认证按实际访问的仓库 ID 匹配。下载被镜像改写后，应匹配 `mirror.id`，本例为 `company-public`；发布则匹配 `distributionManagement` 中的发布仓库 ID。示例的服务器均为占位地址。将账号留在 CI 密钥中，避免打印或提交实际有效 settings。
 
 ## 仓库与依赖解析
 
-Maven 仓库保存的是构件，常见文件包括 `.pom`、`.jar`、源码包、Javadoc 包和校验文件。依赖解析时，Maven 先看本地仓库；本地没有，再按远程仓库或镜像配置下载；下载成功后缓存到本地仓库，后续构建直接复用。
+Maven 仓库保存构件，常见文件包括 `.pom`、`.jar`、源码包、Javadoc 包和校验文件。先尝试本地可用结果，再按仓库路由与更新策略访问远程。快照、缺失结果缓存和更新检查不能概括成“本地有文件就永远不联网”。企业私服可以代理 Central；配置镜像后，也不是每次私服失败都由 Maven 自动绕过它直连 Central。
 
 ![Maven 依赖解析链路](/java/maven-dependency-resolution.svg)
 
@@ -220,11 +250,11 @@ mvn dependency:analyze
 </dependencyManagement>
 ```
 
-`dependencyManagement` 只管理版本，不会自动引入依赖。真正使用某个库，仍然要在 `dependencies` 里声明。
+`dependencyManagement` 可以管理版本、scope 等默认依赖信息，但不会自动引入依赖；实际使用仍需在 `dependencies` 中声明。直接声明的版本、管理表和传递依赖调解需要结合有效 POM 与依赖树判断。示例的 Boot 3.2.6 仅展示 BOM 导入结构，不是建议新项目采用该旧补丁；生产版本按维护范围与兼容矩阵选择。
 
 ## scope 与 classpath
 
-`scope` 决定依赖在哪些阶段可见。判断 scope 时不要只问“会不会下载”，而要问“编译、测试、运行、打包时是否进入 classpath”。
+`scope` 决定依赖在哪些 classpath 中可见。打包插件另有组装规则：普通 JAR 不会把所有 `compile` 依赖自动塞进包内；WAR 和 Boot 重打包的规则又不同。
 
 | scope | 编译 | 测试 | 运行 | 典型场景 |
 | --- | --- | --- | --- | --- |
@@ -233,9 +263,9 @@ mvn dependency:analyze
 | `runtime` | 否 | 是 | 是 | JDBC 驱动、运行时实现 |
 | `test` | 否 | 是 | 否 | JUnit、Mockito、测试工具 |
 | `import` | 否 | 否 | 否 | 在 `dependencyManagement` 中导入 BOM |
-| `system` | 是 | 是 | 取决于手工路径 | 绑定本机文件，不适合团队项目 |
+| `system` | 是 | 是 | 否 | 绑定本机文件，破坏可移植性，应改为正规仓库构件 |
 
-常见误区是把 Lombok、Servlet API 这类编译期需要但运行期不应打进包的依赖写成 `compile`，导致最终产物混入不需要的库。另一个误区是把 JDBC 驱动写成 `provided`，本地编译没问题，运行时连接数据库才报 `ClassNotFoundException`。
+传统外部 Servlet 容器部署时，Servlet API 通常由容器提供；嵌入式服务器的独立服务要按框架打包合同配置，不能把所有 Web 依赖一律改成 `provided`。Lombok 还涉及注解处理器配置，新 JDK 的处理器发现规则也需核对。JDBC 驱动若误写 `provided`，可能直到运行时才暴露缺失；编译成功不能证明运行依赖齐全。
 
 ## 生命周期与插件
 
@@ -256,6 +286,8 @@ Maven 命令不是直接调用“编译器”或“打包器”，而是请求�
 | `mvn deploy` | 发布产物到远程仓库 | CI 发布公共库 |
 
 插件是生命周期真正做事的执行者。`maven-compiler-plugin` 负责编译，`maven-surefire-plugin` 负责单元测试，`maven-jar-plugin` 负责普通 jar，`maven-war-plugin` 负责 war，`maven-deploy-plugin` 负责发布。生命周期提供顺序，插件提供能力。
+
+`verify` 不会凭空发现并执行所有集成测试。若采用 Failsafe，需要把它的 `integration-test`、`verify` 目标绑定到相应阶段；质量检查也需要插件执行配置。直接运行某个 `plugin:goal`，不能假定此前的全部生命周期阶段已自动执行。`clean` 属于另一条生命周期，不是每次构建的必经前置步骤。
 
 常见编译配置：
 
@@ -306,7 +338,7 @@ mvn clean install
 # 查看最终生效的 POM
 mvn help:effective-pom
 
-# 查看当前项目最终解析出的属性
+# 查看当前环境生效的 settings
 mvn help:effective-settings
 ```
 
@@ -396,7 +428,7 @@ mvn clean install -rf :order-service
 mvn clean install -pl order-service,payment-service -am
 ```
 
-`-pl` 选择模块，`-am` 同时构建所需依赖模块，`-rf` 用于失败后从指定模块恢复构建。
+`-pl` 选择模块，`-am` 同时构建所需依赖模块，`-rf` 用于失败后从指定模块恢复构建。`-rf` 不保证补建被跳过的上游：若上次只到 `package`，兄弟模块可能并未安装进本地仓库；缺少上游结果时回根工程用 `-pl … -am` 重建。Reactor 使用实际模块依赖等关系排序，`dependencyManagement` 中仅管理一个坐标不会建立构建依赖。
 
 ## 版本管理与 BOM
 
@@ -460,6 +492,8 @@ mvn clean deploy -Prelease
 ```
 
 Profile 越多，构建结果越难判断。一个项目如果需要通过 Profile 切换大量源码、依赖和插件，通常说明模块边界或部署模型需要重新整理。
+
+上面的 `skip.integration.tests` 是项目自定义属性；只有插件配置显式引用它才生效。例如配置 Failsafe 的 `<skipITs>${skip.integration.tests}</skipITs>`，并绑定其两个目标。仅复制 properties 不会自动跳过集成测试；应从实际测试报告核对执行数量。
 
 ## 私服与发布
 
@@ -530,7 +564,7 @@ Spring Boot Maven 项目通常通过父 POM 或 BOM 继承大量版本管理能�
 </build>
 ```
 
-普通 `maven-jar-plugin` 打出的 jar 通常只包含项目自己的 class，不能直接运行完整 Spring Boot 应用；`spring-boot-maven-plugin` 会把依赖和启动器结构一起组织进可执行包。
+使用 Boot 父 POM 时，它提供 `repackage` 的执行配置，声明插件后可在 `package` 时重打包。仅导入 Boot BOM 只管理依赖，不会带来插件版本或执行绑定，需要自行补齐。普通 JAR 通常只包含项目自己的 class 和资源；Boot 重打包则组织依赖和启动器，两者应通过实际包结构与启动命令区分。
 
 ## 常见排错路径
 
@@ -547,7 +581,7 @@ mvn -U dependency:resolve
 mvn help:effective-settings
 ```
 
-`-U` 会强制检查远程更新。若私服需要账号，检查 `settings.xml` 中 `server.id` 是否和仓库 `id` 一致。若本地仓库缓存了失败结果，可以删除对应目录后重新解析。
+`-U` 强制检查缺失 release 与更新的 SNAPSHOT，不是重新下载所有已存在的正式构件。私服认证按实际仓库或镜像 ID 核对；先定位具体坐标、HTTP 状态和失败缓存，再处理该构件。避免删除整个本地仓库，让原始错误被大批重新下载掩盖。
 
 ### 版本冲突或运行时报错
 

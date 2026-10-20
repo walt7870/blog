@@ -1,0 +1,56 @@
+[
+  {
+    "name": "mcp-architecture",
+    "check": {
+      "clip": [],
+      "height": 560,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "mcp-tool-call-sequence",
+    "check": {
+      "clip": [],
+      "height": 800,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "skill-layer",
+    "check": {
+      "clip": [],
+      "height": 540,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "skill-selection-boundaries",
+    "check": {
+      "clip": [],
+      "height": 652,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "skill-review-execution",
+    "check": {
+      "clip": [],
+      "height": 612,
+      "nodeOverflow": [],
+      "width": 1120
+    }
+  },
+  {
+    "name": "rsi-two-round-feedback",
+    "check": {
+      "clip": [],
+      "height": 530,
+      "nodeOverflow": [],
+      "width": 1200
+    }
+  }
+]

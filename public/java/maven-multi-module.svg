@@ -1,53 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="title desc">
-  <title id="title">Maven 多模块组织方式</title>
-  <desc id="desc">展示父 POM、聚合模块、依赖管理和模块构建顺序。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="#2563eb"/>
-    </marker>
-    <style>
-      .bg{fill:#f8fafc}.root{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.module{fill:#fff;stroke:#cbd5e1;stroke-width:2}.shared{fill:#ecfdf5;stroke:#059669;stroke-width:2}.warn{fill:#fff7ed;stroke:#ea580c;stroke-width:2}.t{font:700 22px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font:700 16px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.s{font:14px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#475569}.m{font:13px Consolas,monospace;fill:#334155}.line{stroke:#2563eb;stroke-width:2.3;fill:none;marker-end:url(#arrow)}.dep{stroke:#059669;stroke-width:2.3;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 5;fill:none}
-    </style>
-  </defs>
-  <rect class="bg" width="1120" height="540" rx="22"/>
-  <text class="t" x="56" y="50">多模块：父 POM 管公共规则，聚合构建管执行顺序</text>
-  <text class="s" x="56" y="80">继承解决配置复用，聚合解决一次构建多个模块。</text>
-
-  <rect class="root" x="420" y="112" width="280" height="150" rx="16"/>
-  <text class="h" x="560" y="150" text-anchor="middle">shop-platform</text>
-  <text class="m" x="560" y="178" text-anchor="middle">packaging = pom</text>
-  <text class="s" x="560" y="206" text-anchor="middle">dependencyManagement</text>
-  <text class="s" x="560" y="232" text-anchor="middle">pluginManagement / modules</text>
-
-  <rect class="shared" x="80" y="340" width="190" height="100" rx="14"/>
-  <text class="h" x="175" y="378" text-anchor="middle">shop-common</text>
-  <text class="s" x="175" y="410" text-anchor="middle">公共 DTO / 工具</text>
-
-  <rect class="module" x="330" y="340" width="190" height="100" rx="14"/>
-  <text class="h" x="425" y="378" text-anchor="middle">order-service</text>
-  <text class="s" x="425" y="410" text-anchor="middle">订单服务</text>
-
-  <rect class="module" x="580" y="340" width="190" height="100" rx="14"/>
-  <text class="h" x="675" y="378" text-anchor="middle">payment-service</text>
-  <text class="s" x="675" y="410" text-anchor="middle">支付服务</text>
-
-  <rect class="module" x="830" y="340" width="190" height="100" rx="14"/>
-  <text class="h" x="925" y="378" text-anchor="middle">inventory-service</text>
-  <text class="s" x="925" y="410" text-anchor="middle">库存服务</text>
-
-  <path class="line" d="M504 262C420 294 272 316 175 340"/>
-  <path class="line" d="M540 262C500 300 460 316 425 340"/>
-  <path class="line" d="M590 262C626 300 650 316 675 340"/>
-  <path class="line" d="M630 262C720 294 842 316 925 340"/>
-  <path class="dep" d="M270 390H330"/>
-  <path class="dep" d="M270 410C420 486 548 486 630 440"/>
-  <path class="dep" d="M270 374C540 286 744 286 870 340"/>
-
-  <rect class="warn" x="766" y="118" width="260" height="124" rx="14"/>
-  <text class="h" x="896" y="158" text-anchor="middle">局部构建</text>
-  <text class="m" x="896" y="190" text-anchor="middle">mvn install -pl order-service -am</text>
-  <text class="s" x="896" y="218" text-anchor="middle">选择模块并补齐依赖模块</text>
-  <path class="dash" d="M700 184H766"/>
-  <text class="m" x="286" y="322">parent 继承公共配置</text>
-  <text class="m" x="318" y="470">模块依赖决定构建顺序</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="540" viewBox="0 0 1120 540" role="img" aria-labelledby="maven-multi-module-title maven-multi-module-desc">
+  <title id="maven-multi-module-title">继承、聚合和模块依赖是三种关系</title><desc id="maven-multi-module-desc">根POM可聚合并被子模块继承，真实模块依赖形成Reactor顺序。箭头表示消费方依赖提供方，common先构建。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="540" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">继承、聚合和模块依赖是三种关系</text>
+  <text x="36" y="82" class="small">parent 复用配置；modules 选择聚合项目；真实依赖让 Reactor 先构建生产者。</text>
+  <rect x="36" y="132" width="486" height="118" rx="6" class="blue"/><text x="54" y="167" class="head">根 POM：shop-platform</text>
+  <text x="54" y="201" class="small">packaging=pom；modules 列出各项目</text>
+  <text x="54" y="228" class="small">子模块用 parent 继承公共配置</text>
+  <rect x="586" y="132" width="498" height="118" rx="6" class="box"/><text x="604" y="167" class="head">两个机制可以分开</text>
+  <text x="604" y="201" class="small">聚合根不必是父 POM</text>
+  <text x="604" y="228" class="small">只在管理表列出坐标，不建立模块依赖</text>
+  <path d="M316 365H446" class="line"/>
+  <rect x="36" y="306" width="280" height="118" rx="6" class="box"/><text x="54" y="341" class="head">order-service</text>
+  <text x="54" y="375" class="small">声明依赖 shop-common</text>
+  <text x="54" y="402" class="small">消费方</text>
+  <rect x="446" y="306" width="260" height="118" rx="6" class="focus"/><text x="464" y="341" class="head">shop-common</text>
+  <text x="464" y="375" class="small">公共库生产者</text>
+  <text x="464" y="402" class="small">先于订单模块构建</text>
+  <text x="836" y="341" class="head">由依赖推导构建顺序</text>
+  <text x="854" y="375" class="small">common → order</text>
+  <text x="854" y="402" class="small">不是代码调用方向</text>
+  <text x="334" y="346" class="small">依赖</text>
+  <text x="36" y="476" class="small">mvn install -pl order-service -am：选择订单及其所需模块。</text>
+  <text x="36" y="510" class="small">-rf 只从选定位置恢复，未必补建已跳过的上游；缺少上游产物时回根工程用 -pl 与 -am。</text>
 </svg>

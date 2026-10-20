@@ -1,0 +1,44 @@
+[
+  {
+    "page": "engineering/",
+    "expected": "/blog/docs/ai/engineering/serving-deployment.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/engineering/serving-deployment.html",
+    "title": "模型服务与部署\n​"
+  },
+  {
+    "page": "engineering/serving-deployment.html",
+    "expected": "/blog/docs/ai/engineering/mlops-llmops.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/engineering/mlops-llmops.html",
+    "title": "MLOps 与 LLMOps\n​"
+  },
+  {
+    "page": "engineering/mlops-llmops.html",
+    "expected": "/blog/docs/ai/engineering/cost-capacity.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/engineering/cost-capacity.html",
+    "title": "成本、容量与性能\n​"
+  },
+  {
+    "page": "engineering/cost-capacity.html",
+    "expected": "/blog/docs/ai/engineering/security-governance.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/engineering/security-governance.html",
+    "title": "AI 安全、隐私与治理\n​"
+  },
+  {
+    "page": "engineering/security-governance.html",
+    "expected": "/blog/docs/ai/evaluation-troubleshooting.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/evaluation-troubleshooting.html",
+    "title": "AI 应用评估与排错\n​"
+  },
+  {
+    "page": "evaluation-troubleshooting.html",
+    "expected": "/blog/docs/ai/practice/",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/practice/",
+    "title": "AI 项目实践\n​"
+  },
+  {
+    "page": "first-ai-app.html",
+    "expected": "/blog/docs/ai/mcp.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/mcp.html",
+    "title": "MCP\n​"
+  }
+]

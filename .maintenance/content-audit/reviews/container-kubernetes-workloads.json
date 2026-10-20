@@ -1,0 +1,60 @@
+{
+  "pages": [
+    {
+      "file": "docs/container/kubernetes/video-series.md",
+      "status": "verified",
+      "reviewedHash": "1895a95576bb8e892e723f002fd7f04a459a286d6b33e2de2e04b29575363e09",
+      "pageType": "视频目录与实验导读",
+      "decision": "完整阅读24集目录及全部配套链接，保留表格形式；补订单API三个副本与故意配错targetPort的贯穿实验，说明恢复配置和各阶段证据产物。目录不添加无信息增量的装饰图。",
+      "validation": ["24条B站公开view元数据此前逐一核对code0/state0与编号标题；没有视频播放验证。桌面1280×900、手机390×844浅深色完整截图检查通过，手机页面宽390无整页横溢。最终整站构建14.39秒通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/index.md",
+      "status": "verified",
+      "reviewedHash": "ef82ee5598b83b3e5c81ec20433f433080833fccbcae1b3ff60c6441836b957c",
+      "pageType": "资源地图与阅读入口",
+      "decision": "完整阅读并复用请求配置与数据路径图，说明EndpointSlice不转发流量；补Namespace隔离、Gateway实现和PDB的Eviction边界，资源地图保留全部细节页入口。",
+      "validation": ["桌面/手机浅深色全页截图及图片原尺寸1120宽加载关闭通过，手机无整页横溢；客户端分页进入Pod后URL/H1正确。旧图手机固定宽度局部滚动已记录最终共享UI阶段复验事项。整站构建与本地引用扫描通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/pod.md",
+      "status": "verified",
+      "reviewedHash": "f3b27e813f89f304ae760d5015a4db8ee39f7281067e7cba381a128e6dddb11a",
+      "pageType": "最小调度对象与生命周期",
+      "decision": "完整阅读并核对生命周期图；补卷显式挂载、新UID、Running与Ready区别、普通init和原生sidecar边界、镜像及ServiceAccount前提和previous日志范围。",
+      "validation": ["1段YAML经Ruby解析，1段Bash经bash -n与zsh -n通过；未做集群实验。桌面/手机双主题全页和图片原尺寸1120加载关闭通过；手机两处代码ArrowRight后scrollLeft40/32，页面宽390无横溢。客户端分页到Deployment URL/H1正确；旧图局部滚动列入最终UI复验。最终整站构建通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/deployment.md",
+      "status": "verified",
+      "reviewedHash": "d9eb48e4209c57d4b5e3aff08b27fb891e20e25b0291e9eb13f4bce2bd974797",
+      "pageType": "滚动发布与容量边界",
+      "decision": "完整阅读后新增目标副本与终止资源占用图，补selector不可变、Terminating资源、updatedReplicas含义、deadline不自动回滚及数据回滚边界；手机复验拆开过长Condition/reason字段，修复说明列被挤出视口。",
+      "validation": ["Deployment官方selector、terminating资源、rollout/deadline相关段核对；1段YAML解析和2段Bash双shell语法检查通过。新SVG1120原尺寸实际字体边界及截图通过；状态表修改后桌面/手机双主题重新完整截图通过；两端图片原尺寸关闭、手机3处代码scrollLeft40/40/35.5通过。14.39秒整站构建通过，无集群发布实验。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/statefulset.md",
+      "status": "verified",
+      "reviewedHash": "94b0fbc5b52ba25d0ccc53f056412952ed35fcc19798d3c94eba21866251ec1a",
+      "pageType": "稳定身份、存储与发布",
+      "decision": "完整阅读后新增旧新Pod复用身份和PVC图；校准UID、强删与旧进程隔离、应用复制前提、PVC保留与PV回收、RWO边界、扩缩容与发布顺序、Parallel与partition及卡住回退。",
+      "validation": ["官方identity、OrderedReady/Parallel、PVC retention、partition和forced rollback相关段核对。1段YAML含Service/StatefulSet两个对象经Ruby解析，1段Bash双shell语法通过；无数据库或CSI集成实验。SVG1120原尺寸字体边界截图、桌面/手机双主题全页、图片原尺寸关闭通过；手机代码scrollLeft20/40/36.5，分页到DaemonSet URL/H1正确。最终整站构建通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/daemonset.md",
+      "status": "verified",
+      "reviewedHash": "8081765ab2828fc87da629b5874107659af749e4e49439be9fc11fcc7e1a3ad4",
+      "pageType": "节点覆盖与代理发布",
+      "decision": "完整阅读后新增标签选择、cordon与覆盖范围图；修正仅可调度节点的断言，说明自动污点容忍；去除普通代理默认system-critical和全污点容忍，补十节点预算与surge共存约束。",
+      "validation": ["DaemonSet官方自动tolerations、unschedulable及示例相关段核对。1段YAML解析、1段Bash双shell语法通过，无节点实验。SVG1120原尺寸字体边界截图、桌面/手机双主题全页与图片原尺寸关闭通过；手机代码scrollLeft40/40，无页面横溢；分页到Job URL/H1正确。最终整站构建通过。"]
+    },
+    {
+      "file": "docs/container/kubernetes/resources/job-cronjob.md",
+      "status": "verified",
+      "reviewedHash": "cd224ea2f40f130b13e68090d94e53130f13828dea4ee2f60518c48b66e386a7",
+      "pageType": "任务调度、重试与业务幂等",
+      "decision": "完整阅读后新增同一业务日期两次尝试的唯一约束图；补deadline优先级、Failed不自动重启、Forbid仅同CronJob、jobTemplate与suspend作用范围、事务checkpoint及外部outbox/幂等闭环，说明单次logs不代表全部Pod。",
+      "validation": ["CronJob官方全文与Job重复启动、backoff、deadline、Failed相关段核对，Job抓取截断未称全文。2段YAML解析、1段Bash双shell语法通过，无调度或业务事务集成实验。SVG1120原尺寸字体边界截图、桌面/手机双主题全页及图片原尺寸关闭通过；手机代码scrollLeft40/40/25，无页面横溢。最终14.39秒构建通过。"]
+    }
+  ]
+}

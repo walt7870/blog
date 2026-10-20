@@ -1,0 +1,58 @@
+[
+  {
+    "page": "",
+    "viewport": "desktop",
+    "height": 600,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "agent-project.html",
+    "viewport": "desktop",
+    "height": 672,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "machine-learning-project.html",
+    "viewport": "desktop",
+    "height": 580,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "vision-project.html",
+    "viewport": "desktop",
+    "height": 624,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "",
+    "viewport": "mobile",
+    "height": 600,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "agent-project.html",
+    "viewport": "mobile",
+    "height": 672,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "machine-learning-project.html",
+    "viewport": "mobile",
+    "height": 580,
+    "natural": 1120,
+    "width": 1120
+  },
+  {
+    "page": "vision-project.html",
+    "viewport": "mobile",
+    "height": 624,
+    "natural": 1120,
+    "width": 1120
+  }
+]

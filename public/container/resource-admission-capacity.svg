@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="640" viewBox="0 0 1120 640" role="img" aria-labelledby="resource-admission-title resource-admission-desc">
+  <title id="resource-admission-title">资源默认值、团队配额和调度容量的边界</title>
+  <desc id="resource-admission-desc">Pod 创建先经过默认补值和单对象约束，再检查命名空间配额。拒绝的Pod不会保存；通过准入的Pod仍可能因节点容量不足而Pending。</desc>
+  <defs><marker id="resource-admission-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526779"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#172b3a}.title{font-size:28px;font-weight:700}.h{font-size:20px;font-weight:700}.t{font-size:17px;fill:#465c6b}.box{fill:#fff;stroke:#b6c5cf;stroke-width:1.5}.api{fill:#eaf4fc;stroke:#5686a6;stroke-width:1.5}.run{fill:#edf8f1;stroke:#729c87;stroke-width:1.5}.edge{fill:none;stroke:#526779;stroke-width:2;marker-end:url(#resource-admission-arrow)}.label{fill:#f7f9fb}</style>
+  <rect width="1120" height="640" fill="#f7f9fb"/>
+  <text class="title" x="48" y="52">对象能创建，不代表节点能接住</text><text class="t" x="48" y="84">聚焦资源相关检查；认证、授权及其他准入规则仍须通过，图中没有展开。</text>
+  <path class="edge" d="M280 212H312"/><path class="edge" d="M544 212H576"/><path class="edge" d="M808 212H840"/>
+  <path class="edge" d="M164 288V384"/><path class="edge" d="M428 288V384"/>
+  <rect class="api" x="48" y="128" width="232" height="160" rx="6"/><text class="h" x="68" y="164">LimitRange</text><text class="t" x="68" y="200">补齐默认 requests/limits</text><text class="t" x="68" y="232">检查单对象上下限</text><text class="t" x="68" y="264">以补值后的对象为准</text>
+  <rect class="api" x="312" y="128" width="232" height="160" rx="6"/><text class="h" x="332" y="164">ResourceQuota</text><text class="t" x="332" y="200">检查 Namespace 总预算</text><text class="t" x="332" y="232">已声明18核，hard 20核</text><text class="t" x="332" y="264">再申请3核会超额</text>
+  <rect class="box" x="576" y="128" width="232" height="160" rx="6"/><text class="h" x="596" y="164">保存 Pod</text><text class="t" x="596" y="200">通过准入后对象才存在</text><text class="t" x="596" y="232">Deployment 创建成功</text><text class="t" x="596" y="264">不代表所有 Pod 已创建</text>
+  <rect class="run" x="840" y="128" width="232" height="160" rx="6"/><text class="h" x="860" y="164">scheduler</text><text class="t" x="860" y="200">按 requests 与约束放置</text><text class="t" x="860" y="232">无合适节点仍会 Pending</text><text class="t" x="860" y="264">运行限制由节点侧执行</text>
+  <rect class="label" x="104" y="320" width="120" height="28"/><text class="t" x="116" y="340">约束不满足</text><rect class="label" x="384" y="320" width="88" height="28"/><text class="t" x="392" y="340">预算不足</text>
+  <rect class="box" x="48" y="384" width="232" height="104" rx="6"/><text class="h" x="68" y="420">拒绝创建</text><text class="t" x="68" y="456">先检查最终字段与默认值</text>
+  <rect class="box" x="312" y="384" width="232" height="104" rx="6"/><text class="h" x="332" y="420">拒绝创建</text><text class="t" x="332" y="456">先检查 used / hard / 增量</text>
+  <text class="h" x="592" y="408">把新 Pod 改为请求2核？</text><text class="t" x="592" y="444">18 + 2 = 20，只满足这一项配额检查。</text><text class="t" x="592" y="476">没有节点空位时，Pod 仍可能等待调度。</text>
+  <text class="t" x="48" y="552">准入拒绝：Pod 未保存，检查 ReplicaSet FailedCreate；调度失败：Pod 已存在，检查 Pod Events。</text>
+  <text class="t" x="48" y="592">配额不是实时用量，也不是节点预留；调整 hard、扩容节点、修改默认值是三个不同动作。</text>
+</svg>

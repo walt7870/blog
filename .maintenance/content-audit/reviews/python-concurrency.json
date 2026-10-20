@@ -1,0 +1,244 @@
+{
+  "pages": [
+    {
+      "file": "docs/devlanguage/python/concurrency-series/index.md",
+      "pageType": "系列导读",
+      "decision": "保留视频与篇目入口，补录音流水线案例、模拟服务范围和Python运行环境。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "a37411cb57232c9979128e38b782a7ef151fc02aa7677543565f512bd19db009"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map.md",
+      "pageType": "并发总览",
+      "decision": "按阶段拆分1000份录音任务，说明容量、吞吐与checkpoint不替代背压。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "e9810303cc6f8dbb3d3cbc1666482573df85fc344cbbb577ca94f6b93939aab8"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency.md",
+      "pageType": "瓶颈诊断",
+      "decision": "纠正ru_maxrss单位与峰值含义，限定Unix和tracemalloc观测范围。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "2b9d9422a808980d073de442f20522be37a923012b4e0abfffcd16f4bc3db152"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline.md",
+      "pageType": "模型对比",
+      "decision": "区分首份延迟与流水线稳态吞吐，用等待和计算任务解释并发并行。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "6f693288f41db03c3e74e1e69d64a498b342ba0570c4957d7d1f084b5363605a"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map.md",
+      "pageType": "工具选型",
+      "decision": "区分阻塞SDK与异步客户端，明确ffmpeg子进程和asyncio.Queue的线程边界。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "c110dc059217f6e4e28a4b3c162bd368061d39f59c99af4ce6e63ae230c50a7a"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/04-threadpool-practice.md",
+      "pageType": "线程池实操",
+      "decision": "改为分批提交有界Future，说明取消不能终止已运行线程。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "735912abb57e22db725a69c5ace11b0222c4ed5ef19e9a3f5bc1c7bbdf13d7d7"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state.md",
+      "pageType": "共享状态",
+      "decision": "补有界结果队列、单writer及故障监督，区分join完成与写入成功。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "76fc604953ec4e9b7c717c24c8958dc4310a460bdd3fb7f02a8735d2a49d6938"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model.md",
+      "pageType": "事件循环",
+      "decision": "修正任务完成返回创建的错误图，说明await已完成对象不保证切换。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "e1d86ea1ef4b98839150f4b3f148606ccbe2bbb6eb799cd299e98db34b44bf7c"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/07-async-task-orchestration.md",
+      "pageType": "异步生命周期",
+      "decision": "重画成功失败超时取消分支，区分gather和TaskGroup并保留取消传播。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "83a51e2c955d134a846537c6e4f61f4f738b1ff7b7febf9ca7c4689f0edb5ea7"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
+      "pageType": "同步异步边界",
+      "decision": "补外层超时后to_thread继续执行的例子，解释SDK继续扣费风险。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "3902a7dd996dcb644b7353a6bafa9e0e41900152dc942589221b744231585347"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work.md",
+      "pageType": "进程池实操",
+      "decision": "显式spawn与入口守卫，核对四项计算结果及序列化限制。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "840a7a6204440de87d64e2b1b3e646fb8841c0ca78f1bae1b36bbe34ca2d87c1"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue.md",
+      "pageType": "流水线实操",
+      "decision": "重写失败透传和STOP所有权，上一阶段全部退出后才终止下一阶段。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "e752c2cfa0fa908096fa95541865a16b3d46159481b8e480537668fa527ec046"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry.md",
+      "pageType": "速率与重试",
+      "decision": "新增Pacer实际限速门，重试重新经过限速，限制重试预算。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "96b669202fec3d428562b2266640601c49ab26e037f24bb0ea323c744622e3e2"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint.md",
+      "pageType": "批处理恢复",
+      "decision": "按输入SHA256识别变化，状态移出扫描树，原子替换失败保留旧状态。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "8e70f9a4c2c00ba564b8102d3fe3bc50c0513bc2b5a6f9570de96a1e74c7d094"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess.md",
+      "pageType": "音频预处理",
+      "decision": "加入超时、临时输出、格式检查、同名路径摘要和排他硬链接发布。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "c4afae2c83a63b4329ddc7b77c5e486b691f15ac309bf0523613e509b3f3b3e5"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency.md",
+      "pageType": "API并发",
+      "decision": "分离执行和费用状态，超时标unknown，金额用Decimal，done避免重复执行。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "a3d52440e3bbec8ef44ac1925cee37d3b0b3308df0c6e8e58bd76b0e69755be9"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference.md",
+      "pageType": "模型队列",
+      "decision": "TaskGroup监督batcher，修复模型失败后的队列挂起和取消清理。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "ce1539970f4d0d4bf39599ce06e3b569aaca5c073a9a5eab016a2027897360e4"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline.md",
+      "pageType": "实时音频",
+      "decision": "移除重复读取ring buffer的假VAD，改连续帧号和截止时间检查。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "852262fddd35ca3834f38ce8d8ac635a43d094fb994885e64e005d98c58a2f03"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/17-observability-benchmark.md",
+      "pageType": "性能观测",
+      "decision": "使用真实worker参数，统计提交起延迟、最近秩P95及成功和完成吞吐。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "823699f2c18258a91ead2614f150e66103e4d652fd85f3bbec925fe8c8622dd3"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
+      "pageType": "运行时选型",
+      "decision": "核对Python3.14正式支持可选free-threaded构建，区分构建能力与依赖导入后GIL状态。",
+      "status": "verified",
+      "findings": [],
+      "validation": [
+        "全文、代码与图示已逐项审查；完整构建、桌面明暗、390像素iframe明暗、390×844图片键盘预览和真实分页通过，详见batches/python-concurrency.md。",
+        "Python3.12与3.14实际执行，模拟与真实ffmpeg范围见evidence/python-concurrency/code-checks.json及code-checks-312.json。"
+      ],
+      "reviewedHash": "4b1cbd5caa41d3267401b58f225483c4ec2e3116aab7ce0eb6755395d001beb3"
+    }
+  ]
+}

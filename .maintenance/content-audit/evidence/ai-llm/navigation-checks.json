@@ -1,0 +1,38 @@
+[
+  {
+    "page": "llm/",
+    "expected": "/blog/docs/ai/llm/concepts.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/llm/concepts.html",
+    "title": "大模型核心概念分类\n​"
+  },
+  {
+    "page": "llm/concepts.html",
+    "expected": "/blog/docs/ai/llm/training.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/llm/training.html",
+    "title": "大模型训练与微调\n​"
+  },
+  {
+    "page": "llm/training.html",
+    "expected": "/blog/docs/ai/llm/sft.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/llm/sft.html",
+    "title": "监督微调 SFT\n​"
+  },
+  {
+    "page": "llm/sft.html",
+    "expected": "/blog/docs/ai/llm/inference.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/llm/inference.html",
+    "title": "大模型推理与部署\n​"
+  },
+  {
+    "page": "llm/inference.html",
+    "expected": "/blog/docs/ai/llm/rag-tools.html",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/llm/rag-tools.html",
+    "title": "RAG 与工具调用\n​"
+  },
+  {
+    "page": "llm/rag-tools.html",
+    "expected": "/blog/docs/ai/applications/",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/applications/",
+    "title": "AI 应用开发\n​"
+  }
+]

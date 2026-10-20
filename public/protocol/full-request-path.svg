@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
-  <title id="title">一条 HTTPS 请求穿过网络的完整路径</title>
-  <desc id="desc">从域名解析、路由和邻居解析，到连接、安全、代理和应用处理的分层流程。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="request-title request-desc">
+  <title id="request-title">新建 HTTPS 连接的请求路径，以 TCP 为例</title>
+  <desc id="request-desc">以HTTP/1.1或HTTP/2的新建连接为例，从DNS、路由与邻居到TCP、TLS及业务响应；HTTP/3另用集成TLS的QUIC。</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#42b883"/></marker>
     <style>
@@ -8,8 +8,8 @@
     </style>
   </defs>
   <rect class="bg" width="1440" height="720" rx="18"/>
-  <text class="title" x="64" y="68">一条 HTTPS 请求的完整路径</text>
-  <text class="sub" x="64" y="102">每一步只证明下一层可继续，不代表整条业务链路已经成功</text>
+  <text class="title" x="64" y="68">新建 HTTPS 连接的请求路径（TCP 示例）</text>
+  <text class="sub" x="64" y="102">HTTP/3 改用集成 TLS 1.3 的 QUIC；缓存与连接复用会跳过部分新建步骤</text>
   <g transform="translate(64 145)">
     <rect class="panel" width="250" height="130" rx="10"/><text class="step" x="24" y="34">01 / NAME</text><text class="label" x="24" y="72">DNS 解析</text><text class="sub" x="24" y="104">域名 → A / AAAA</text>
   </g>
@@ -19,7 +19,7 @@
   </g>
   <path class="line" d="M624 210H684"/>
   <g transform="translate(684 145)">
-    <rect class="active" width="250" height="130" rx="10"/><text class="step" x="24" y="34">03 / TRANSPORT</text><text class="label" x="24" y="72">TCP 或 QUIC</text><text class="sub" x="24" y="104">连接、可靠性、拥塞</text>
+    <rect class="active" width="250" height="130" rx="10"/><text class="step" x="24" y="34">03 / TRANSPORT</text><text class="label" x="24" y="72">TCP 建连</text><text class="sub" x="24" y="104">三次握手、传输状态</text>
   </g>
   <path class="line" d="M934 210H994"/>
   <g transform="translate(994 145)">
@@ -31,7 +31,7 @@
   </g>
   <path class="line" d="M374 451H474"/>
   <g transform="translate(474 386)">
-    <rect class="panel" width="300" height="130" rx="10"/><text class="step" x="24" y="34">06 / EDGE</text><text class="label" x="24" y="72">CDN 与负载均衡</text><text class="sub" x="24" y="104">缓存、路由、连接终止</text>
+    <rect class="panel" width="300" height="130" rx="10"/><text class="step" x="24" y="34">06 / EDGE</text><text class="label" x="24" y="72">CDN 与负载均衡</text><text class="sub" x="24" y="104">命中则返回；否则转上游</text>
   </g>
   <path class="line" d="M774 451H874"/>
   <g transform="translate(874 386)">
@@ -39,5 +39,5 @@
   </g>
   <rect x="124" y="574" width="1050" height="78" rx="8" fill="#14262e" stroke="#41636b"/>
   <text class="note" x="649" y="608" text-anchor="middle">排障时依次记录 DNS、Connect、TLS、TTFB 和 Body</text>
-  <text class="sub" x="649" y="636" text-anchor="middle">连接成功不等于 TLS 成功，HTTP 200 也不等于业务状态正确</text>
+  <text class="sub" x="649" y="636" text-anchor="middle">代理终止 TLS 后须另建上游连接；HTTP 200 不代表业务状态正确</text>
 </svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="570" viewBox="0 0 1120 570" role="img" aria-labelledby="gradle-task-graph-title gradle-task-graph-desc">
+  <title id="gradle-task-graph-title">生成资源通过 Provider 接入主代码任务图</title><desc id="gradle-task-graph-desc">箭头表示生产者到消费者，writeBuildInfo生产的资源进入processResources，后者与compileJava一起组成classes，再供jar及测试使用。</desc>
+  <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#74818a"/></marker>
+  <style>text{font:18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b}.title{font-size:25px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.4}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5}.blue{fill:#eef5ff;stroke:#a5b9cf;stroke-width:1.4}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}.rule{stroke:#d1d9dd;stroke-width:1}</style></defs>
+  <rect width="1120" height="570" fill="#f7f9fa"/>
+  <text x="36" y="45" class="title">生成资源通过 Provider 接入主代码任务图</text>
+  <text x="36" y="82" class="small">箭头表示生产者 → 消费者；下面只展开主代码及生成资源链路。</text>
+  <path d="M246 211H306" class="line"/>
+  <path d="M516 211H560Q568 211 568 219V252Q568 260 576 260H616" class="line"/>
+  <path d="M516 391H560Q568 391 568 383V304Q568 296 576 296H616" class="line"/>
+  <path d="M806 260H842Q850 260 850 252V211Q850 203 858 203H886" class="line"/>
+  <path d="M806 296H842Q850 296 850 304V391Q850 399 858 399H886" class="line"/>
+  <rect x="36" y="150" width="210" height="122" rx="6" class="focus"/><text x="54" y="185" class="head">writeBuildInfo</text>
+  <text x="54" y="219" class="small">输入：buildVersion</text>
+  <text x="54" y="246" class="small">输出：资源文件</text>
+  <rect x="306" y="150" width="210" height="122" rx="6" class="box"/><text x="324" y="185" class="head">processResources</text>
+  <text x="324" y="219" class="small">from(任务 Provider)</text>
+  <text x="324" y="246" class="small">复制生成资源</text>
+  <rect x="306" y="330" width="210" height="122" rx="6" class="box"/><text x="324" y="365" class="head">compileJava</text>
+  <text x="324" y="399" class="small">Java 源码、工具链</text>
+  <text x="324" y="426" class="small">生成 class</text>
+  <rect x="616" y="222" width="190" height="122" rx="6" class="blue"/><text x="634" y="257" class="head">classes</text>
+  <text x="634" y="291" class="small">生命周期任务</text>
+  <text x="634" y="318" class="small">依赖两条主链</text>
+  <rect x="886" y="150" width="198" height="122" rx="6" class="box"/><text x="904" y="185" class="head">jar</text>
+  <text x="904" y="219" class="small">组装主代码</text>
+  <text x="904" y="246" class="small">与主资源</text>
+  <rect x="886" y="330" width="198" height="122" rx="6" class="box"/><text x="904" y="365" class="head">测试链路</text>
+  <text x="904" y="399" class="small">使用主输出</text>
+  <text x="904" y="426" class="small">执行测试</text>
+  <text x="36" y="500" class="small">测试链路另有 compileTestJava、testClasses 等前置任务，此图未展开；以 --dry-run 核对完整计划。</text>
+  <text x="36" y="535" class="small">dependsOn 加入前置任务；mustRunAfter 只约束已选中任务的顺序，不会主动选择任务。</text>
+</svg>

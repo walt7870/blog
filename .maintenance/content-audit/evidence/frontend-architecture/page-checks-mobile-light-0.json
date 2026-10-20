@@ -1,0 +1,58 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端框架比较：更新模型、生态与团队约束",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "Web 渲染架构：HTML 来源与交互激活",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端应用架构：路由、查询、草稿与保存",
+    "width": 390
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
+    "method": "iframe-390-full-document",
+    "dark": false,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 390,
+    "title": "前端测试分层：每种证据能覆盖什么",
+    "width": 390
+  }
+]

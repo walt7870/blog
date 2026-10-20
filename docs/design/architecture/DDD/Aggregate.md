@@ -6,156 +6,124 @@ date: 2024-06-01 10:00:00
 
 # 聚合根（Aggregate Root）
 
-> 本文旨在帮助读者**从零开始**理解聚合根的概念、作用与设计方法，并通过示例快速上手。
+订单有订单项、金额和状态。若外部代码能直接向订单项列表塞数据，或者把已提交订单的数量改成负数，就会绕过业务规则。聚合把需要一起保护的对象组织起来，由一个根实体控制修改入口；数据库事务和并发控制负责让这些规则在持久化时仍然成立。
 
----
+## 一致性边界和修改入口
 
-## 一、什么是聚合（Aggregate）？
+聚合是一致性边界，聚合根是这个边界对外的修改入口。一个订单可以有多个订单项实体，根仍然只有一个。根的 ID 在约定身份范围内唯一，跨上下文引用时还需明确租户、来源等命名空间，不必为“全宇宙唯一”引入额外机制。
 
-在领域驱动设计（DDD）中，**聚合**是一组**高度内聚**的领域对象（实体与值对象）的集合，它们共同表达一个完整的业务概念。聚合的核心目标是：
+![订单聚合的修改入口与外部商品引用](/architecture/ddd-aggregate-boundary.svg)
 
-- **维护业务规则的一致性**：确保聚合内的对象始终满足业务不变性条件（Invariants）。
-- **定义事务边界**：聚合是数据持久化的最小单元，确保事务的原子性。
+实体依靠身份区分，即使字段相同，两个订单项也可能是不同条目。值对象依靠值比较，例如同币种、同数额的金额；不可变只是实现手段，校验和语义也要放在对象中。聚合内部实体的标识可以只在聚合内唯一。
 
-### 1.1 聚合的组成
+只读查询不必强制经过聚合根加载全部对象，可以使用独立 DTO/SQL，见 [CQRS](../cqrs-architecture)。但查询得到的可变对象不能成为绕过根的修改通道。返回集合时，应使用不可变视图或副本；元素自身也要避免泄漏可变引用。
 
-- **聚合根（Aggregate Root）**：聚合的入口点，外部系统只能通过聚合根访问聚合内部对象。
-- **实体（Entity）**：具有唯一标识的对象，生命周期由聚合根管理。
-- **值对象（Value Object）**：描述属性的不可变对象，无独立生命周期。
+## 从不变量识别聚合
 
----
+先问“哪条规则必须在这次提交时成立”，再决定包含哪些对象。例如草稿订单允许增减明细，提交后明细冻结；订单总额等于各行金额之和。订单和明细应一起维护这些规则。
 
-## 二、什么是聚合根（Aggregate Root）？
+商品目录可以独立变价，但已下单明细应保留成交价格。因此订单项保存商品 ID 和价格快照，不应每次计算都读取商品当前价，也不该把整个商品目录纳入订单事务。库存和付款有独立生命周期，更适合通过明确流程协作。
 
-**聚合根**是聚合中的**唯一实体**，它：
+聚合并非越小越好。拆得过细会使一个简单规则变成跨边界补偿；做得过大则增加锁冲突、加载量和并发更新失败。是否拆分，要看规则和冲突，而不是数据库外键或类数量。
 
-1. **作为聚合的“门面”**：所有对聚合的操作（查询、修改）必须通过聚合根进行。
-2. **维护聚合的完整性**：确保聚合内的业务规则不被破坏。
-3. **全局唯一标识**：聚合根拥有全局唯一ID，其他对象通过聚合根间接访问。
+## 一个可运行的内存模型
 
-### 2.1 为什么需要聚合根？
-
-- **避免对象间混乱的引用**：防止外部系统直接修改聚合内部对象。
-- **简化复杂业务逻辑**：将复杂的业务规则封装在聚合根内。
-- **优化性能**：减少数据库事务的粒度，避免不必要的锁冲突。
-
----
-
-## 三、如何识别聚合根？
-
-### 3.1 设计步骤
-
-1. **分析业务场景**：识别业务操作的核心对象。
-2. **定义不变性条件**：明确哪些规则必须始终成立。
-3. **划分聚合边界**：将关联紧密的对象划分为一个聚合。
-4. **选择聚合根**：选择最能代表业务概念的实体作为聚合根。
-
-### 3.2 判断标准
-
-- **生命周期控制**：聚合根决定聚合内其他对象的创建与销毁。
-- **业务规则集中**：聚合根负责验证所有业务规则。
-- **全局可访问性**：聚合根是外部系统唯一可直接引用的对象。
-
----
-
-## 四、示例：电商订单聚合
-
-### 4.1 业务场景
-
-在一个电商系统中，**订单（Order）**是一个典型的聚合根，它包含：
-
-- **订单项（OrderItem）**：订单中的商品条目。
-- **收货地址（Address）**：值对象，描述配送信息。
-- **订单状态（OrderStatus）**：枚举值，描述订单当前状态。
-
-### 4.2 聚合设计
+下面使用 Java 17+ 的 `record` 表达不可变明细，金额用同一币种的最小单位整数，示例约定人民币分。本例不单独追踪某一行，明细作为值对象；需要逐行售后、拆分发货时，可增加聚合内行 ID，按实体管理。`Math.*Exact` 检查溢出；真实业务还需定义币种、折扣、舍入和计价来源。保存为 `OrderExample.java` 后执行 `java OrderExample.java`，可观察正常提交和非法修改被拒绝。
 
 ```java
-// 聚合根：Order
-public class Order {
-    private OrderId id; // 全局唯一标识
-    private List<OrderItem> items; // 订单项集合
-    private Address shippingAddress; // 收货地址（值对象）
-    private OrderStatus status; // 订单状态
+import java.util.ArrayList;
+import java.util.List;
 
-    // 业务方法：添加商品
-    public void addProduct(Product product, int quantity) {
-        if (status != OrderStatus.DRAFT) {
-            throw new IllegalStateException("只能修改草稿订单");
+public class OrderExample {
+    enum Status { DRAFT, SUBMITTED }
+
+    record OrderLine(String productId, long unitPriceMinor, int quantity) {
+        OrderLine {
+            if (productId == null || productId.isBlank()
+                    || unitPriceMinor < 0 || quantity <= 0) {
+                throw new IllegalArgumentException("无效订单项");
+            }
         }
-        items.add(new OrderItem(product, quantity));
-        recalculateTotal(); // 重新计算总价
-    }
-
-    // 业务方法：提交订单
-    public void submit() {
-        if (items.isEmpty()) {
-            throw new IllegalStateException("订单不能为空");
+        long subtotalMinor() {
+            return Math.multiplyExact(unitPriceMinor, quantity);
         }
-        this.status = OrderStatus.SUBMITTED;
     }
 
-    // 不变性条件：订单总价需与所有订单项金额之和一致
-    private void recalculateTotal() {
-        // 实现总价计算逻辑
+    static final class Order {
+        private final String id;
+        private final List<OrderLine> lines = new ArrayList<>();
+        private Status status = Status.DRAFT;
+
+        Order(String id) {
+            if (id == null || id.isBlank()) {
+                throw new IllegalArgumentException("订单 ID 不能为空");
+            }
+            this.id = id;
+        }
+
+        void addProduct(String productId, long quotedPriceMinor, int quantity) {
+            requireDraft();
+            var line = new OrderLine(productId, quotedPriceMinor, quantity);
+            Math.addExact(totalMinor(), line.subtotalMinor());
+            lines.add(line);
+        }
+
+        void submit() {
+            requireDraft();
+            if (lines.isEmpty()) throw new IllegalStateException("空订单不能提交");
+            status = Status.SUBMITTED;
+        }
+
+        List<OrderLine> lines() { return List.copyOf(lines); }
+        long totalMinor() {
+            long total = 0;
+            for (var line : lines) total = Math.addExact(total, line.subtotalMinor());
+            return total;
+        }
+        private void requireDraft() {
+            if (status != Status.DRAFT) throw new IllegalStateException("订单已冻结");
+        }
     }
-}
 
-// 实体：OrderItem（生命周期由Order控制）
-public class OrderItem {
-    private ProductId productId;
-    private int quantity;
-    private BigDecimal price;
-}
-
-// 值对象：Address
-public class Address {
-    private final String city;
-    private final String street;
-    private final String zipCode;
+    public static void main(String[] args) {
+        var order = new Order("O-1001");
+        order.addProduct("P-01", 2500, 2);
+        order.submit();
+        System.out.println("总额：" + order.totalMinor() + " 分");
+        try {
+            order.addProduct("P-02", 1000, 1);
+            throw new AssertionError("不应允许修改已提交订单");
+        } catch (IllegalStateException expected) {
+            System.out.println(expected.getMessage());
+        }
+        try {
+            order.lines().clear();
+            throw new AssertionError("不应允许外部清空明细");
+        } catch (UnsupportedOperationException expected) {
+            System.out.println("外部不能修改明细集合");
+        }
+    }
 }
 ```
 
-### 4.3 关键点说明
+这段模型用累计计算避免总额字段与明细不同步，新增明细前先检查溢出，失败不留下半修改状态。它只演示内存内规则；价格参数必须来自服务端确认的报价，不能直接相信客户端传入金额。
 
-- **聚合根**：`Order` 是唯一可直接访问的实体，外部系统通过 `Order.addProduct()` 添加商品。
-- **不变性条件**：订单提交前必须包含商品（`items.isEmpty()` 检查）。
-- **事务边界**：`Order` 及其所有 `OrderItem` 必须作为一个事务单元持久化。
+## 聚合不自动提供事务
 
----
+两个请求可能分别加载订单版本 3。一个提交，另一个仍按草稿修改；即使两个内存对象都调用了正确方法，最后无条件保存也可能覆盖已提交状态。
 
-## 五、常见误区与最佳实践
+仓储保存时应配合数据库事务、版本号条件更新或合适的锁。使用乐观锁时，以 `WHERE id = ? AND version = 3` 更新，检查影响行数，再在同一事务保存明细；冲突后重新加载并按最新状态判断，不能无条件重试旧修改。持久化失败时不要继续复用已被内存修改的聚合实例。
 
-### 5.1 误区
+外部支付、库存等系统不能因为被模型引用就加入本地原子事务。跨边界需定义幂等、重试、补偿或人工处理，具体见 [订单支付实践](./practice)。领域事件描述已发生的事实，可靠投递仍依赖 Outbox 等机制。
 
-- **聚合过大**：包含过多对象会导致事务冲突和性能问题。
-- **聚合过小**：过度拆分聚合会导致复杂的跨聚合调用。
-- **直接暴露内部对象**：违反聚合根的封装原则。
+## 设计检查
 
-### 5.2 最佳实践
+| 检查对象 | 应能回答的问题 | 失败信号 |
+| --- | --- | --- |
+| 修改入口 | 提交后还能从哪里改订单项？ | 公共 setter、可变集合或 ORM 实体被外部直接持有 |
+| 不变量 | 哪个方法保护数量、状态和总额？ | 规则散落在页面、控制器和 SQL，模型只是字段 |
+| 并发提交 | 两个请求同时修改时谁失败？ | 保存没有版本条件，也不检查更新行数 |
+| 边界规模 | 为何这些对象需要同一事务？ | 只因有外键就把客户、库存、支付全装进订单 |
+| 运行边界 | 一个聚合是否一定一个服务？ | 为每个聚合新建独立服务，却没有部署需求 |
 
-1. **保持聚合小而专注**：聚合应仅包含与核心业务规则相关的对象。
-2. **通过ID引用其他聚合**：避免直接引用其他聚合根，使用ID关联。
-3. **使用领域事件**：跨聚合的通信通过领域事件（Domain Event）实现。
-4. **优先使用值对象**：减少不必要的实体，用值对象描述属性。
-
----
-
-## 六、进阶：聚合根与微服务
-
-在微服务架构中，聚合根天然对应**微服务的边界**：
-
-- 每个聚合根可独立部署为一个微服务。
-- 聚合根之间通过API或事件总线通信。
-- 避免跨聚合的事务，使用**最终一致性**（Eventual Consistency）。
-
----
-
-## 七、总结
-
-| 概念       | 作用                          | 示例（电商订单）           |
-|------------|-------------------------------|----------------------------|
-| **聚合**   | 维护业务规则的一致性          | 订单+订单项+地址           |
-| **聚合根** | 聚合的唯一入口，控制生命周期  | `Order` 实体               |
-| **实体**   | 有独立生命周期的业务对象      | `OrderItem`                |
-| **值对象** | 描述属性的不可变对象          | `Address`、`OrderStatus`   |
+聚合是业务一致性边界，微服务是部署与运行边界。订单和退货申请可以作为不同聚合留在同一个上下文，也可以先在模块化单体中维护；服务拆分由独立发布、团队职责和伸缩需求共同决定。

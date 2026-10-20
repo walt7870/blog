@@ -1,0 +1,52 @@
+{
+  "pages": [
+    {
+      "file": "docs/design/design-pattern/structural/decorator.md",
+      "status": "verified",
+      "reviewedHash": "ba6f7fc108e919edc192254c378531383e7e6341b47ba942048f1179c3427494",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读1086行全部正文和代码，删除前缀伪AES、删空格伪压缩、清空缓存伪LRU及不当异步/监控示例；改为JDK GZIP真实往返程序，说明字节方向、关闭、容量与异常边界。",
+      "validation": [
+        "完整正文及全部代码审查；JDK25 GZIPOutputStream、Integer.valueOf与Spring AOP代理官方合同核对",
+        "5个完整Java程序在本机JDK21使用javac --release 17编译运行通过：压缩往返、外观失败、并发样式复用、跨租户与撤销拒绝、反射异常解包",
+        "4张SVG独立浏览器逐图检查中文边界、连线及画布，xmllint通过；生产构建25.34秒通过；4页逐页桌面与390×844手机亮深色视口及首图原尺寸/关闭通过，无破图或控制台错误，手机深色无页面溢出；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/facade.md",
+      "status": "verified",
+      "reviewedHash": "18850ea92b4586b4a3385311a40356f63605bf4ba7fbd5cf31c83da4469eebe7",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读675行全部正文和代码，移除支付后异常统一释放库存及框架类型泛化；以校验、生成、存储三组件完整程序解释同步READY、异步待处理、未知结果与补偿。",
+      "validation": [
+        "完整正文及全部代码审查；JDK25 GZIPOutputStream、Integer.valueOf与Spring AOP代理官方合同核对",
+        "5个完整Java程序在本机JDK21使用javac --release 17编译运行通过：压缩往返、外观失败、并发样式复用、跨租户与撤销拒绝、反射异常解包",
+        "4张SVG独立浏览器逐图检查中文边界、连线及画布，xmllint通过；生产构建25.34秒通过；4页逐页桌面与390×844手机亮深色视口及首图原尺寸/关闭通过，无破图或控制台错误，手机深色无页面溢出；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/flyweight.md",
+      "status": "verified",
+      "reviewedHash": "86b55f593a55ffa4f4a3cad63e24ed0a32ef52095d2cf3ff85969696c24c4904",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读916行全部正文和代码，修正对象池等同享元、Integer200引用比较固定结论和对象数等同内存节省；改为有界样式共享程序，补外部状态、弱引用与容量边界。",
+      "validation": [
+        "完整正文及全部代码审查；JDK25 GZIPOutputStream、Integer.valueOf与Spring AOP代理官方合同核对",
+        "5个完整Java程序在本机JDK21使用javac --release 17编译运行通过：压缩往返、外观失败、并发样式复用、跨租户与撤销拒绝、反射异常解包",
+        "4张SVG独立浏览器逐图检查中文边界、连线及画布，xmllint通过；生产构建25.34秒通过；4页逐页桌面与390×844手机亮深色视口及首图原尺寸/关闭通过，无破图或控制台错误，手机深色无页面溢出；本批未做全页截图"
+      ]
+    },
+    {
+      "file": "docs/design/design-pattern/structural/proxy.md",
+      "status": "verified",
+      "reviewedHash": "11d8268bd517a4199f265f197087d2f0dd1aa1225255f9a5252e027912268c5e",
+      "pageType": "模式机制与可运行示例",
+      "decision": "完整阅读1590行全部正文和代码，修正共享currentUser、构造期固定授权、伪延迟创建、并发Map假设原子与动态代理异常传播；补跨租户及撤销验证和完整JDK动态代理程序。",
+      "validation": [
+        "完整正文及全部代码审查；JDK25 GZIPOutputStream、Integer.valueOf与Spring AOP代理官方合同核对",
+        "5个完整Java程序在本机JDK21使用javac --release 17编译运行通过：压缩往返、外观失败、并发样式复用、跨租户与撤销拒绝、反射异常解包",
+        "4张SVG独立浏览器逐图检查中文边界、连线及画布，xmllint通过；生产构建25.34秒通过；4页逐页桌面与390×844手机亮深色视口及首图原尺寸/关闭通过，无破图或控制台错误，手机深色无页面溢出；本批未做全页截图"
+      ]
+    }
+  ]
+}

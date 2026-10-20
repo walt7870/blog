@@ -1,229 +1,95 @@
-# 抽象工厂方法 (Abstract Factory Pattern)
+# 抽象工厂
 
-## 历史脉络
+抽象工厂提供一组相关产品的创建接口，让调用方整体切换产品族。它适合“这些对象要配套工作”的边界，例如同一套界面主题的按钮与输入框；只有一种产品时，通常无需产品族结构。
 
-抽象工厂是 GoF 创建型模式之一，早期常用于图形界面工具包、跨平台组件库和数据库驱动适配。它解决的是“产品族”问题：系统不只是创建一个对象，而是要创建一组彼此风格一致、可以配套工作的对象。
+![抽象工厂按主题成套创建按钮与文本框](/design-pattern/patterns/abstract-factory.svg)
 
-![抽象工厂模式结构图](/design-pattern/patterns/abstract-factory.svg)
+## 产品种类与产品族
 
-## 准确理解
+按钮、文本框是不同产品种类，浅色、深色是不同产品族。新增一个主题，可以增加具体工厂与产品实现；新增一种控件，则需要调整工厂接口和所有相应实现。这是两个扩展方向，不能笼统说“新增需求都不用改旧代码”。
 
-抽象工厂关注的是一组相关产品的整体切换。工厂方法通常创建一个产品，抽象工厂创建多个相关产品。例如 Windows 风格工厂同时创建按钮、输入框、菜单；Mac 风格工厂也创建同一组组件，但具体实现不同。
+抽象工厂能把配套创建集中在同一处，但接口不会自动禁止混装。调用方若分别从两个工厂取得对象，仍可能破坏一致性；类型设计、装配约束与运行时校验要共同承担这项合同。
 
-## 问题识别
+## 可运行示例
 
-适合使用抽象工厂的信号：
-
-- 系统需要一组互相关联的对象，而不是单个对象。
-- 这些对象必须成套切换，不能混用。
-- 调用方只关心抽象产品，不关心具体产品族。
-- 产品族数量可能增加，例如新增云厂商、操作系统、主题风格。
-
-不适合的情况：
-
-- 只有一个产品维度，工厂方法更简单。
-- 产品族内部对象经常变化，抽象工厂接口会频繁修改。
-- 只是为了隐藏 `new`，没有产品族一致性问题。
-
-## 落地要点
-
-- 先识别“产品族”，再设计抽象工厂接口。
-- 抽象工厂的方法数量应保持稳定，否则新增产品等级会影响所有工厂实现。
-- 调用方应依赖抽象工厂和抽象产品，避免直接依赖具体产品。
-- 产品族切换适合放在配置、启动装配或运行环境识别处。
-
-## 概括
-
-**抽象工厂模式**提供一个接口，用于创建一系列相关或相互依赖的对象，而无需指定它们的具体类。
-
-它用于解决 **一组产品族如何统一创建** 的问题，并确保产品之间的一致性（比如：UI 组件中的按钮和文本框属于同一风格）。
-
-## 使用场景
-
-适合以下场景：
-
-* 一个系统需要使用多个“产品族”，且希望保持产品族之间的风格一致性；
-
-* 系统需要在运行时决定使用哪个产品族；
-
-* 需要对“创建一整组对象”的过程进行封装。
-
-## 类图说明
-
-```plaintext
-        ┌────────────────────────┐
-        │   AbstractFactory      │  ← 抽象工厂：定义创建一组产品的接口
-        └──────────▲─────────────┘
-                   │
-     ┌─────────────┴────────────┐
-     │                          │
-ConcreteFactoryA        ConcreteFactoryB
-  （如：Mac 风格）         （如：Windows 风格）
-
-        ┌──────────────┐          ┌──────────────┐
-        │ AbstractButton│         │ AbstractTextBox│ ← 抽象产品
-        └──────▲───────┘          └──────▲───────┘
-               │                             │
-   ┌───────────┴──────────┐     ┌────────────┴───────────┐
-   │   MacButton          │     │    MacTextBox          │
-   └──────────────────────┘     └────────────────────────┘
-   │ WindowsButton        │     │  WindowsTextBox        │
-   └──────────────────────┘     └────────────────────────┘
-
-```
-
-## 使用示例
-
-我们要实现一个可以根据系统风格（Mac / Windows）生产统一风格的 UI 组件：按钮和文本框。
-
-1. 抽象产品接口
+以下 Java 17+ 示例用主题名称验证产品搭配，不创建真实桌面控件。客户端只接收一个工厂，并从中取得两类产品。
 
 ```java
-public interface Button {
-    void paint();
-}
+import java.util.List;
 
-public interface TextBox {
-    void draw();
-}
+public final class AbstractFactoryDemo {
+    enum Theme { LIGHT, DARK }
 
-
-```
-
-2. 具体产品类
-
-```java
-// Mac 风格
-public class MacButton implements Button {
-    public void paint() {
-        System.out.println("绘制 Mac 风格的按钮");
-    }
-}
-
-public class MacTextBox implements TextBox {
-    public void draw() {
-        System.out.println("绘制 Mac 风格的文本框");
-    }
-}
-
-// Windows 风格
-public class WindowsButton implements Button {
-    public void paint() {
-        System.out.println("绘制 Windows 风格的按钮");
-    }
-}
-
-public class WindowsTextBox implements TextBox {
-    public void draw() {
-        System.out.println("绘制 Windows 风格的文本框");
-    }
-}
-
-
-```
-
-3. 抽象工厂接口
-
-```java
-public interface GUIFactory {
-    Button createButton();
-    TextBox createTextBox();
-}
-
-
-```
-
-4. 具体工厂类
-
-```java
-public class MacFactory implements GUIFactory {
-    public Button createButton() {
-        return new MacButton();
+    interface Button {
+        Theme theme();
     }
 
-    public TextBox createTextBox() {
-        return new MacTextBox();
-    }
-}
-
-public class WindowsFactory implements GUIFactory {
-    public Button createButton() {
-        return new WindowsButton();
+    interface TextBox {
+        Theme theme();
     }
 
-    public TextBox createTextBox() {
-        return new WindowsTextBox();
-    }
-}
-
-
-
-```
-
-5. 客户端调用
-
-```java
-public class Application {
-    private Button button;
-    private TextBox textBox;
-
-    public Application(GUIFactory factory) {
-        button = factory.createButton();
-        textBox = factory.createTextBox();
+    interface WidgetFactory {
+        Button createButton();
+        TextBox createTextBox();
     }
 
-    public void render() {
-        button.paint();
-        textBox.draw();
+    record ThemedButton(Theme theme) implements Button {}
+    record ThemedTextBox(Theme theme) implements TextBox {}
+
+    static final class LightFactory implements WidgetFactory {
+        public Button createButton() {
+            return new ThemedButton(Theme.LIGHT);
+        }
+        public TextBox createTextBox() {
+            return new ThemedTextBox(Theme.LIGHT);
+        }
+    }
+
+    static final class DarkFactory implements WidgetFactory {
+        public Button createButton() {
+            return new ThemedButton(Theme.DARK);
+        }
+        public TextBox createTextBox() {
+            return new ThemedTextBox(Theme.DARK);
+        }
+    }
+
+    static final class Application {
+        private final Button button;
+        private final TextBox textBox;
+
+        Application(WidgetFactory factory) {
+            button = factory.createButton();
+            textBox = factory.createTextBox();
+            if (button.theme() != textBox.theme()) {
+                throw new IllegalArgumentException("产品族不一致");
+            }
+        }
+
+        String describe() {
+            return button.theme() + ": 按钮与文本框配套";
+        }
     }
 
     public static void main(String[] args) {
-        GUIFactory factory;
-
-        String os = "Mac"; // 可改为 "Windows"
-        if (os.equals("Mac")) {
-            factory = new MacFactory();
-        } else {
-            factory = new WindowsFactory();
+        for (WidgetFactory factory :
+                List.of(new LightFactory(), new DarkFactory())) {
+            System.out.println(new Application(factory).describe());
         }
-
-        Application app = new Application(factory);
-        app.render();
     }
 }
-
-
 ```
 
-## 优缺点分析
+使用 `javac AbstractFactoryDemo.java && java AbstractFactoryDemo` 运行，分别输出 LIGHT 与 DARK 的配套结果。示例用带主题字段的产品实现压缩重复代码；实际组件可以有不同绘制与交互实现，抽象工厂不要求所有产品必须共用一个具体类。
 
-**✅  优点**
+## 跨厂商组件不是天然产品族
 
-| 优点            | 说明                                      |
-| ------------- | --------------------------------------- |
-| **1. 产品族一致性** | 抽象工厂可以保证一组相关产品（如按钮和文本框）风格一致，不会混用不兼容的产品。 |
-| **2. 解耦具体类**  | 客户端只依赖接口，不依赖具体实现类，符合**依赖倒置原则**，方便维护和扩展。 |
-| **3. 符合开闭原则** | 添加新的产品族，只需增加一个新的具体工厂类，不影响已有代码结构。        |
-| **4. 更高层的封装** | 将产品“组”的创建过程统一封装，有利于整体构建更一致、更模块化的系统结构。   |
+对象存储、消息队列和数据库即使来自同一云厂商，也不意味着必须一起切换。只有它们之间确有兼容合同、租户上下文或事务要求，并且需要整套选择时，产品族才有意义。若需要自由混搭，独立端口与适配器通常更灵活。
 
-**❌ 缺点**
+反过来，工厂同名也不能保证兼容。网络客户端还可能依赖区域、凭据、协议版本和资源所有权。创建整套对象的中途失败时，应清理已经创建且由该工厂拥有的资源，不能留下半套可用状态。
 
-| 缺点                | 说明                                                            |
-| ----------------- | ------------------------------------------------------------- |
-| **1. 扩展产品等级结构困难** | 如果要在所有产品族中添加一个新产品（比如增加 Slider），**必须修改所有工厂接口和所有具体工厂类**，违反开闭原则。 |
-| **2. 系统复杂度提高**    | 为每一个产品族都需要定义多个类（接口 + 实现 + 工厂），结构较重，**不适合产品结构简单的系统**。          |
-| **3. 灵活性差于组合**    | 抽象工厂天生强调“产品组的一致性”，但现实中有时需要不同厂商的组件混用，这种模式反而受限。                 |
+## 验收与取舍
 
-## 与工厂模式的区别
+对每个具体工厂检查全部产品种类，验证主题或协议兼容、必需配置、创建失败及关闭责任。再故意混装不兼容产品，确认系统在明确的边界拒绝它，而不是运行到深处才失败。
 
-| 对比点         | 工厂方法模式             | 抽象工厂模式                         |
-| ----------- | ------------------ | ------------------------------ |
-| **解决问题的粒度** | 创建一个“产品”的过程        | 创建“一组产品”的过程                    |
-| **产品数量**    | 一个工厂对应一个产品         | 一个工厂创建多个相关产品                   |
-| **扩展方式**    | 添加新产品：创建新工厂 + 新产品类 | 添加新产品族：创建一组新产品类 + 新工厂类         |
-| **结构复杂度**   | 中等                 | 较高，结构更复杂                       |
-| **例子**      | 日志系统只创建 Logger 实例  | UI 工厂创建 Button、TextBox 等多个组件实例 |
-
-## 总结
-
-抽象工厂是一种超级工厂，它不仅生产一个产品，而是生产多个相关产品对象，使得客户端能以统一的方式使用这些对象，而不需要关心其具体实现。它是实现产品“风格一致性”的利器。
+当产品种类稳定、产品族会增加时，抽象工厂收益较明显；当产品种类本身频繁增删或无需配套时，额外接口与实现会放大维护成本。与[工厂方法](./factory-method.md)相比，区别是产品之间的关系与扩展方向，不是工厂类名称长短。

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">订单聚合的修改入口与引用边界</title>
+  <desc id="desc">应用服务只通过订单聚合根修改订单项。订单项保存商品 ID 和价格快照，商品目录属于外部边界。本地数据库事务和并发控制保护保存过程。</desc>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#0f172a}.h{font-size:24px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:15px;fill:#475569}.b{fill:white;stroke:#cbd5e1;stroke-width:2}.l{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#a)}</style>
+  <rect width="1120" height="600" fill="#f8fafc"/>
+  <text x="48" y="52" class="h">聚合：保护一起成立的规则，不收纳所有相关对象</text>
+  <text x="48" y="84" class="t">订单项跟随订单冻结；商品目录独立变价，历史订单保留成交快照。</text>
+  <rect x="344" y="132" width="448" height="300" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-dasharray="6 4"/>
+  <text x="368" y="164" class="n">订单聚合：一个一致性边界</text>
+  <path class="l" d="M272 248H376"/>
+  <path class="l" d="M484 296V324"/>
+  <path class="l" d="M760 364H812Q820 364 820 356V256Q820 248 828 248H856" stroke-dasharray="6 4"/>
+  <rect class="b" x="48" y="200" width="224" height="96" rx="6"/>
+  <text class="n" x="72" y="236">应用服务</text><text class="t" x="72" y="268">编排用例、事务与仓储</text>
+  <rect x="376" y="200" width="384" height="96" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text class="n" x="400" y="234">Order：聚合根实体</text><text class="t" x="400" y="266">addProduct / submit：校验后修改</text>
+  <rect class="b" x="376" y="324" width="384" height="80" rx="6"/>
+  <text class="n" x="400" y="356">OrderLine：内部订单项</text><text class="t" x="400" y="384">商品 ID、数量、成交价格快照</text>
+  <rect class="b" x="856" y="200" width="216" height="96" rx="6"/>
+  <text class="n" x="880" y="236">商品目录</text><text class="t" x="880" y="268">独立聚合，按 ID 关联</text>
+  <text class="t" x="864" y="348">只存引用，不纳入订单事务</text>
+  <path d="M344 452V468H792V452" fill="none" stroke="#64748b" stroke-width="2"/>
+  <text class="n" x="348" y="504">保存时：本地事务 + 版本条件或锁</text>
+  <text class="t" x="348" y="536">聚合封装不等于数据库原子性，也不会自动隔离并发请求。</text>
+  <text class="t" x="48" y="576">只读查询可使用 DTO；外部不能取得可变明细后绕过根修改。聚合边界不等于微服务边界。</text>
+</svg>

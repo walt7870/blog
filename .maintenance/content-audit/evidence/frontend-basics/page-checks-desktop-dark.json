@@ -1,0 +1,93 @@
+[
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "现代前端技术全景：Web 平台、工程化与框架生态",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "浏览器导航流程：URL、DNS、HTTP、DOM 与渲染管线",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "Web 平台的三门语言：HTML、CSS 与 JavaScript",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "浏览器 DevTools 技术体系：DOM、网络、运行时与性能",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "语义 HTML 与 DOM 结构",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "HTML 表单模型：label、输入控件与原生校验",
+    "width": 1280
+  },
+  {
+    "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
+    "dark": true,
+    "images": [
+      {
+        "complete": true,
+        "width": 1120
+      }
+    ],
+    "scroll": 1280,
+    "title": "前端全链路：从浏览器基础到现代生态",
+    "width": 1280
+  }
+]

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress';
-import { ArrowUpRight, ArrowRight, Layers3, BriefcaseBusiness, NotebookText, GitFork, Mail } from '@lucide/vue';
+import { ArrowUpRight, ArrowRight, Layers3, BriefcaseBusiness, NotebookText, GitFork, Mail, Video } from '@lucide/vue';
 import { projects } from './projects';
 import { projectMedia } from './media';
 import './profile.css';
@@ -22,7 +22,11 @@ const selected = ['amphion-cloud', 'speech-sdk', 'gitlab-platform'].map(id => pr
       <h1>牛万成</h1>
       <p class="profile-summary">10 年以上软件研发经验，兼具团队管理、系统架构与全栈开发能力。曾带领后端团队推进营销云的微服务和云原生改造，项目经历覆盖智慧安防、AI 平台与跨端应用。围绕业务目标制定技术方案，统筹研发协作并深入核心实现，推动产品从方案设计走向稳定运行与持续演进。</p>
       <a class="profile-primary" :href="withBase('/projects/')">查看项目实践 <ArrowRight :size="19" /></a>
-      <nav class="profile-contact" aria-label="联系与代码"><a href="https://github.com/walt7870" target="_blank" rel="noopener noreferrer"><GitFork :size="17" aria-hidden="true" /><span>GitHub</span><ArrowUpRight :size="14" aria-hidden="true" /></a><a v-if="contactEmail" :href="`mailto:${contactEmail}`"><Mail :size="17" aria-hidden="true" /><span>{{ contactEmail }}</span></a></nav>
+      <nav class="profile-contact" aria-label="联系与作品平台">
+        <a href="https://github.com/walt7870" target="_blank" rel="noopener noreferrer"><GitFork :size="17" aria-hidden="true" /><span>GitHub</span><ArrowUpRight :size="14" aria-hidden="true" /></a>
+        <a href="https://space.bilibili.com/181407346" target="_blank" rel="noopener noreferrer"><Video :size="17" aria-hidden="true" /><span>B站 · 技术视频</span><ArrowUpRight :size="14" aria-hidden="true" /></a>
+        <a v-if="contactEmail" :href="`mailto:${contactEmail}`"><Mail :size="17" aria-hidden="true" /><span>{{ contactEmail }}</span></a>
+      </nav>
     </header>
 
     <section class="profile-experience" aria-labelledby="profile-directions">

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="480" viewBox="0 0 1100 480" role="img" aria-labelledby="loading-boundaries-title loading-boundaries-desc">
+  <title id="loading-boundaries-title">类初始化前提与解析时机</title>
+  <desc id="loading-boundaries-desc">加载、验证和准备是初始化的前提；符号引用解析可以提早或延迟，不能把全部解析固定在初始化之前。初始化失败会使类型在同一定义加载器中进入错误状态。</desc>
+  <defs><marker id="loading-boundaries-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#loading-boundaries-arrow)}</style>
+  <rect width="1100" height="480" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">初始化有前提，解析时机可延迟</text>
+  <text class="body" x="32" y="76">以下是职责与约束图；不是所有类型、所有符号引用统一走完一次的请求流水线。</text>
+  <path class="edge" d="M246 186H300"/><path class="edge" d="M530 186H584"/><path class="edge" d="M814 186H868"/>
+  <rect class="node" x="32" y="132" width="214" height="110" rx="6"/>
+  <text class="name" x="52" y="168">加载</text><text class="body" x="52" y="204">建立类型与加载器身份</text>
+  <rect class="node" x="300" y="132" width="230" height="110" rx="6"/>
+  <text class="name" x="320" y="168">验证、准备</text><text class="body" x="320" y="204">校验并建立静态存储</text>
+  <rect x="584" y="132" width="230" height="110" rx="6" fill="#f0fdf4" stroke="#86b49b" stroke-width="1.5"/>
+  <text class="name" x="604" y="168">初始化</text><text class="body" x="604" y="204">触发条件满足后执行</text>
+  <rect class="node" x="868" y="132" width="200" height="110" rx="6"/>
+  <text class="name" x="888" y="168">后续使用</text><text class="body" x="888" y="204">方法、字段等操作</text>
+  <rect x="32" y="286" width="498" height="150" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="name" x="52" y="320">解析：另一条时机维度</text>
+  <text class="body" x="52" y="354">符号引用 → 目标类、方法、字段</text>
+  <text class="body" x="52" y="386">可提早或延迟到使用；失败时报告链接错误。</text>
+  <text class="note" x="52" y="418">同一类型的不同符号引用，可以在不同时间解析。</text>
+  <path class="edge" d="M700 242V286"/>
+  <rect x="716" y="248" width="114" height="28" fill="#f8fafc"/><text class="note" x="730" y="268">初始化失败</text>
+  <rect x="584" y="286" width="484" height="150" rx="6" fill="#fff7ed" stroke="#e4b68b"/>
+  <text class="name" x="604" y="320">该类型进入初始化错误状态</text>
+  <text class="body" x="604" y="354">保留第一次异常；后续使用可能报</text>
+  <text class="body" x="604" y="386">NoClassDefFoundError，不会自动重试。</text>
+  <text class="note" x="604" y="418">范围：同一定义加载器中的该类型。</text>
+  <text class="note" x="32" y="464">常量字段有独立规则；类卸载还需要定义加载器具备可回收条件，详见元空间页。</text>
+</svg>

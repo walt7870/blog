@@ -1,0 +1,328 @@
+{
+  "root": "/tmp/blog-package-cases-iJiyWE",
+  "cases": [
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/npm",
+      "command": "npm",
+      "args": [
+        "--version"
+      ],
+      "exit": 0,
+      "output": "11.19.1\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/npm",
+      "command": "npm",
+      "args": [
+        "install",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit": 0,
+      "output": "\nadded 1 package in 234ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/npm",
+      "command": "npm",
+      "args": [
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit": 0,
+      "output": "\nadded 1 package in 106ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/npm",
+      "command": "node",
+      "args": [
+        "-e",
+        "if(!require('is-number')(42))process.exit(1)"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/npm",
+      "command": "npm",
+      "args": [
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit": 1,
+      "output": "npm error code EUSAGE\nnpm error\nnpm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.\nnpm error\nnpm error Invalid: lock file's is-number@7.0.0 does not satisfy is-number@6.0.0\nnpm error\nnpm error Clean install a project\nnpm error\nnpm error Usage:\nnpm error npm ci\nnpm error\nnpm error Options:\nnpm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]\nnpm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]\nnpm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]\nnpm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts]\nnpm error [--allow-directory <all|none|root>] [--allow-file <all|none|root>]\nnpm error [--allow-git <all|none|root>] [--allow-remote <all|none|root>]\nnpm error [--allow-scripts <package-list> [--allow-scripts <package-list> ...]]\nnpm error [--strict-allow-scripts] [--dangerously-allow-all-scripts] [--no-audit]\nnpm error [--no-bin-links] [--no-fund] [--dry-run]\nnpm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]\nnpm error [--workspaces] [--include-workspace-root] [--install-links]\nnpm error\nnpm error   --install-strategy\nnpm error     Sets the strategy for installing packages in node_modules.\nnpm error\nnpm error   --legacy-bundling\nnpm error     Instead of hoisting package installs in `node_modules`, install packages\nnpm error\nnpm error   --global-style\nnpm error     Only install direct dependencies in the top level `node_modules`,\nnpm error\nnpm error   --omit\nnpm error     Dependency types to omit from the installation tree on disk.\nnpm error\nnpm error   --include\nnpm error     Option that allows for defining which types of dependencies to install.\nnpm error\nnpm error   --strict-peer-deps\nnpm error     If set to `true`, and `--legacy-peer-deps` is not set, then _any_\nnpm error\nnpm error   --foreground-scripts\nnpm error     Run all build scripts (ie, `preinstall`, `install`, and\nnpm error\nnpm error   --ignore-scripts\nnpm error     If true, npm does not run scripts specified in package.json files.\nnpm error\nnpm error   --allow-directory\nnpm error     Limits the ability for npm to install dependencies from directories.\nnpm error\nnpm error   --allow-file\nnpm error     Limits the ability for npm to install dependencies from tarball files.\nnpm error\nnpm error   --allow-git\nnpm error     Limits the ability for npm to fetch dependencies from git references.\nnpm error\nnpm error   --allow-remote\nnpm error     Limits the ability for npm to fetch dependencies from urls.\nnpm error\nnpm error   --allow-scripts\nnpm error     Comma-separated list of packages whose install-time lifecycle scripts\nnpm error\nnpm error   --strict-allow-scripts\nnpm error     If `true`, turn the install-script policy from a warning into a hard\nnpm error\nnpm error   --dangerously-allow-all-scripts\nnpm error     If `true`, bypass the `allowScripts` policy entirely and run every\nnpm error\nnpm error   --audit\nnpm error     When \"true\" submit audit reports alongside the current npm command to the\nnpm error\nnpm error   --bin-links\nnpm error     Tells npm to create symlinks (or `.cmd` shims on Windows) for package\nnpm error\nnpm error   --fund\nnpm error     When \"true\" displays the message at the end of each `npm install`\nnpm error\nnpm error   --dry-run\nnpm error     Indicates that you don't want npm to make any changes and that it should\nnpm error\nnpm error   -w|--workspace\nnpm error     Enable running a command in the context of the configured workspaces of the\nnpm error\nnpm error   --workspaces\nnpm error     Set to true to run the command in the context of **all** configured\nnpm error\nnpm error   --include-workspace-root\nnpm error     Include the workspace root when workspaces are enabled for a command.\nnpm error\nnpm error   --install-links\nnpm error     When set file: protocol dependencies will be packed and installed as\nnpm error\nnpm error\nnpm error aliases: clean-install, ic, install-clean, isntall-clean\nnpm error\nnpm error Run \"npm help ci\" for more info\nnpm error A complete log of this run can be found in: /Users/waltniu/.npm/_logs/2026-10-20T07_01_23_193Z-debug-0.log\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm",
+      "command": "pnpm.cjs",
+      "args": [
+        "--version"
+      ],
+      "exit": 0,
+      "output": "10.32.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm",
+      "command": "pnpm.cjs",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "Progress: resolved 1, reused 0, downloaded 0, added 0\nPackages: +1\n+\n WARN  Tarball download average speed 3 KiB/s (size 3 KiB) is below 50 KiB/s: https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz (GET)\nProgress: resolved 1, reused 0, downloaded 1, added 0\nProgress: resolved 1, reused 0, downloaded 1, added 1, done\n\ndependencies:\n+ is-number 7.0.0\n\nDone in 2.3s using pnpm v10.32.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm",
+      "command": "pnpm.cjs",
+      "args": [
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit": 0,
+      "output": "Lockfile is up to date, resolution step is skipped\nAlready up to date\n\nDone in 382ms using pnpm v10.32.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm",
+      "command": "node",
+      "args": [
+        "-e",
+        "if(!require('is-number')(42))process.exit(1)"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm",
+      "command": "pnpm.cjs",
+      "args": [
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit": 1,
+      "output": " ERR_PNPM_OUTDATED_LOCKFILE  Cannot install with \"frozen-lockfile\" because pnpm-lock.yaml is not up to date with <ROOT>/package.json\n\nNote that in CI environments this setting is true by default. If you still need to run install in such cases, use \"pnpm install --no-frozen-lockfile\"\n\n  Failure reason:\n  specifiers in the lockfile don't match specifiers in package.json:\n* 1 dependencies are mismatched:\n  - is-number (lockfile: 7.0.0, manifest: 6.0.0)\n\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "--version"
+      ],
+      "exit": 0,
+      "output": "4.9.2\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0085: │ + is-number@npm:7.0.0\n➤ YN0000: └ Completed in 1s 504ms\n➤ YN0000: ┌ Fetch step\n➤ YN0013: │ A package was added to the project (+ 10.17 KiB).\n➤ YN0000: └ Completed in 0s 229ms\n➤ YN0000: ┌ Link step\n➤ YN0000: └ Completed\n➤ YN0000: · Done in 1s 747ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "install",
+        "--immutable"
+      ],
+      "exit": 0,
+      "output": "➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0000: └ Completed\n➤ YN0000: ┌ Fetch step\n➤ YN0000: └ Completed\n➤ YN0000: ┌ Link step\n➤ YN0000: └ Completed\n➤ YN0000: · Done in 0s 14ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "node",
+        "-e",
+        "if(!require('is-number')(42))process.exit(1)"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "install",
+        "--immutable"
+      ],
+      "exit": 0,
+      "output": "➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0000: └ Completed\n➤ YN0000: ┌ Fetch step\n➤ YN0000: └ Completed\n➤ YN0000: ┌ Link step\n➤ YN0000: └ Completed\n➤ YN0000: · Done in 0s 22ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "node",
+      "args": [
+        "-e",
+        "if(!require('is-number')(42))process.exit(1)"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/yarn",
+      "command": "yarn.js",
+      "args": [
+        "install",
+        "--immutable"
+      ],
+      "exit": 1,
+      "output": "➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0085: │ + is-number@npm:6.0.0\n➤ YN0085: │ - is-number@npm:7.0.0\n➤ YN0000: └ Completed\n\n➤ YN0000: ┌ Post-resolution validation\n➤ YN0000: │ @@ -8,14 +8,13 @@\n➤ YN0000: │  \"audit-fixture@workspace:.\":\n➤ YN0000: │    version: 0.0.0-use.local\n➤ YN0000: │    resolution: \"audit-fixture@workspace:.\"\n➤ YN0000: │    dependencies:\n➤ YN0028: │ -    is-number: \"npm:7.0.0\"\n➤ YN0028: │ +    is-number: \"npm:6.0.0\"\n➤ YN0000: │    languageName: unknown\n➤ YN0000: │    linkType: soft\n➤ YN0000: │  \n➤ YN0028: │ -\"is-number@npm:7.0.0\":\n➤ YN0028: │ -  version: 7.0.0\n➤ YN0028: │ -  resolution: \"is-number@npm:7.0.0\"\n➤ YN0028: │ -  checksum: 10c0/b4686d0d3053146095ccd45346461bc8e53b80aeb7671cc52a4de02dbbf7dc0d1d2a986e2fe4ae206984b4d34ef37e8b795ebc4f4295c978373e6575e295d811\n➤ YN0028: │ +\"is-number@npm:6.0.0\":\n➤ YN0028: │ +  version: 6.0.0\n➤ YN0028: │ +  resolution: \"is-number@npm:6.0.0\"\n➤ YN0000: │    languageName: node\n➤ YN0000: │    linkType: hard\n➤ YN0000: │ \n➤ YN0028: │ The lockfile would have been modified by this install, which is explicitly forbidden.\n➤ YN0000: └ Completed\n➤ YN0000: · Failed with errors in 0s 15ms\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun",
+      "command": "bun",
+      "args": [
+        "--version"
+      ],
+      "exit": 0,
+      "output": "1.3.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun",
+      "command": "bun",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "bun install v1.3.0 (b0a6feca)\n\n+ is-number@7.0.0\n\n1 package installed [1123.00ms]\nResolving dependencies\nResolved, downloaded and extracted [4]\nSaved lockfile\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun",
+      "command": "bun",
+      "args": [
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit": 0,
+      "output": "bun install v1.3.0 (b0a6feca)\n\nChecked 1 install across 2 packages (no changes) [2.00ms]\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun",
+      "command": "node",
+      "args": [
+        "-e",
+        "if(!require('is-number')(42))process.exit(1)"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun",
+      "command": "bun",
+      "args": [
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit": 1,
+      "output": "bun install v1.3.0 (b0a6feca)\nResolving dependencies\nResolved, downloaded and extracted [2]\nerror: lockfile had changes, but lockfile is frozen\nnote: try re-running without --frozen-lockfile and commit the updated lockfile\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/controlled-script",
+      "command": "npm",
+      "args": [
+        "pack",
+        "--ignore-scripts"
+      ],
+      "exit": 0,
+      "output": "blog-controlled-script-1.0.0.tgz\nnpm notice\nnpm notice 📦  blog-controlled-script@1.0.0\nnpm notice Tarball Contents\nnpm notice 123B package.json\nnpm notice 108B postinstall.cjs\nnpm notice Tarball Details\nnpm notice name: blog-controlled-script\nnpm notice version: 1.0.0\nnpm notice filename: blog-controlled-script-1.0.0.tgz\nnpm notice package size: 291 B\nnpm notice unpacked size: 231 B\nnpm notice shasum: 2d46e019341b1be721accc8ffed682beed3ec29a\nnpm notice integrity: sha512-dA9cDs2s8jho1[...]ts9iuFPB0ChNQ==\nnpm notice total files: 2\nnpm notice\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm-trust",
+      "command": "pnpm.cjs",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "Progress: resolved 0, reused 0, downloaded 1, added 0\nPackages: +1\n+\nProgress: resolved 1, reused 0, downloaded 1, added 1, done\n\ndependencies:\n+ blog-controlled-script 1.0.0\n\n╭ Warning ─────────────────────────────────────────────────────────────────────╮\n│                                                                              │\n│   Ignored build scripts: blog-controlled-script@file:../../../../tmp/blog-   │\n│   package-cases-iJiyWE/controlled-script/blog-controlled-script-1.0.0.tgz.   │\n│   Run \"pnpm approve-builds\" to pick which dependencies should be allowed     │\n│   to run scripts.                                                            │\n│                                                                              │\n╰──────────────────────────────────────────────────────────────────────────────╯\nDone in 172ms using pnpm v10.32.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/pnpm-trust",
+      "command": "pnpm.cjs",
+      "args": [
+        "rebuild",
+        "blog-controlled-script"
+      ],
+      "exit": 0,
+      "output": ".../node_modules/blog-controlled-script postinstall$ node postinstall.cjs\n.../node_modules/blog-controlled-script postinstall: Done\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun-trust",
+      "command": "bun",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "bun install v1.3.0 (b0a6feca)\n\n+ blog-controlled-script@/tmp/blog-package-cases-iJiyWE/controlled-script/blog-controlled-script-1.0.0.tgz\n\n1 package installed [3.00ms]\n\nBlocked 1 postinstall. Run `bun pm untrusted` for details.\nResolving dependencies\nResolved, downloaded and extracted [1]\nSaved lockfile\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/bun-trust",
+      "command": "bun",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "bun install v1.3.0 (b0a6feca)\n\n+ blog-controlled-script@/tmp/blog-package-cases-iJiyWE/controlled-script/blog-controlled-script-1.0.0.tgz\n\n1 package installed [34.00ms]\nSaved lockfile\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/corepack",
+      "command": "corepack",
+      "args": [
+        "install"
+      ],
+      "exit": 0,
+      "output": "Adding pnpm@10.32.0 to the cache...\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/corepack",
+      "command": "corepack",
+      "args": [
+        "pnpm",
+        "--version"
+      ],
+      "exit": 0,
+      "output": "10.32.0\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/corepack",
+      "command": "corepack",
+      "args": [
+        "yarn",
+        "--version"
+      ],
+      "exit": 1,
+      "output": "This project is configured to use pnpm because /private/tmp/blog-package-cases-iJiyWE/corepack/package.json has a \"packageManager\" field\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/registry",
+      "command": "npm",
+      "args": [
+        "config",
+        "get",
+        "@company:registry"
+      ],
+      "exit": 0,
+      "output": "https://npm.company.com/\n"
+    },
+    {
+      "cwd": "/tmp/blog-package-cases-iJiyWE/registry",
+      "command": "yarn.js",
+      "args": [
+        "config",
+        "get",
+        "npmRegistryServer"
+      ],
+      "exit": 0,
+      "output": "https://registry.npmjs.org\n"
+    }
+  ],
+  "boundaries": [
+    "所有脚本为自制无害夹具",
+    "企业仓库只解析配置，未请求或发布",
+    "不修改全局安装器或博客依赖"
+  ]
+}

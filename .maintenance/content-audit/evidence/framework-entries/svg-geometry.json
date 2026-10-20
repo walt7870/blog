@@ -1,0 +1,18 @@
+[
+  {
+    "name": "svelte-runtime",
+    "issues": []
+  },
+  {
+    "name": "rendering-boundaries",
+    "issues": []
+  },
+  {
+    "name": "component-contract",
+    "issues": []
+  },
+  {
+    "name": "platform-adapters",
+    "issues": []
+  }
+]

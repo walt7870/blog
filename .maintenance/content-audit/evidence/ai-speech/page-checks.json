@@ -1,0 +1,398 @@
+[
+  {
+    "page": "",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "流式语音系统技术实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "处理链路与运行架构 ​",
+    "width": 1280
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "角色证据与目标说话人识别 ​",
+    "width": 1280
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "断句、收尾与逐句时延 ​",
+    "width": 1280
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "动态批处理与推理调度 ​",
+    "width": 1280
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "推理输入合同与资源生命周期 ​",
+    "width": 1280
+  },
+  {
+    "page": "hotword-routing.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "共享热词召回与请求隔离 ​",
+    "width": 1280
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "音频回放与质量回归 ​",
+    "width": 1280
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "离线推理容器与工件一致性 ​",
+    "width": 1280
+  },
+  {
+    "page": "incident-playbook.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "语音故障的技术定位 ​",
+    "width": 1280
+  },
+  {
+    "page": "release-and-collaboration.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 1280,
+    "title": "离线运行技术 ​",
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "流式语音系统技术实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "处理链路与运行架构 ​",
+    "width": 1280
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "角色证据与目标说话人识别 ​",
+    "width": 1280
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "断句、收尾与逐句时延 ​",
+    "width": 1280
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "动态批处理与推理调度 ​",
+    "width": 1280
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "推理输入合同与资源生命周期 ​",
+    "width": 1280
+  },
+  {
+    "page": "hotword-routing.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "共享热词召回与请求隔离 ​",
+    "width": 1280
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "音频回放与质量回归 ​",
+    "width": 1280
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "离线推理容器与工件一致性 ​",
+    "width": 1280
+  },
+  {
+    "page": "incident-playbook.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "语音故障的技术定位 ​",
+    "width": 1280
+  },
+  {
+    "page": "release-and-collaboration.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 1280,
+    "title": "离线运行技术 ​",
+    "width": 1280
+  },
+  {
+    "page": "",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "流式语音系统技术实践 ​",
+    "width": 390
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "处理链路与运行架构 ​",
+    "width": 390
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "角色证据与目标说话人识别 ​",
+    "width": 390
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "断句、收尾与逐句时延 ​",
+    "width": 390
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "动态批处理与推理调度 ​",
+    "width": 390
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "推理输入合同与资源生命周期 ​",
+    "width": 390
+  },
+  {
+    "page": "hotword-routing.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "共享热词召回与请求隔离 ​",
+    "width": 390
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "音频回放与质量回归 ​",
+    "width": 390
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "离线推理容器与工件一致性 ​",
+    "width": 390
+  },
+  {
+    "page": "incident-playbook.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "语音故障的技术定位 ​",
+    "width": 390
+  },
+  {
+    "page": "release-and-collaboration.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "离线运行技术 ​",
+    "width": 390
+  },
+  {
+    "page": "",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "流式语音系统技术实践 ​",
+    "width": 390
+  },
+  {
+    "page": "architecture-and-workflow.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "处理链路与运行架构 ​",
+    "width": 390
+  },
+  {
+    "page": "pipeline-boundaries.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "角色证据与目标说话人识别 ​",
+    "width": 390
+  },
+  {
+    "page": "latency-and-finalization.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "断句、收尾与逐句时延 ​",
+    "width": 390
+  },
+  {
+    "page": "performance-and-capacity.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "动态批处理与推理调度 ​",
+    "width": 390
+  },
+  {
+    "page": "inference-contracts-and-lifecycle.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "推理输入合同与资源生命周期 ​",
+    "width": 390
+  },
+  {
+    "page": "hotword-routing.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "共享热词召回与请求隔离 ​",
+    "width": 390
+  },
+  {
+    "page": "evidence-driven-validation.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "音频回放与质量回归 ​",
+    "width": 390
+  },
+  {
+    "page": "delivery-and-handoff.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "离线推理容器与工件一致性 ​",
+    "width": 390
+  },
+  {
+    "page": "incident-playbook.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "语音故障的技术定位 ​",
+    "width": 390
+  },
+  {
+    "page": "release-and-collaboration.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "离线运行技术 ​",
+    "width": 390
+  }
+]

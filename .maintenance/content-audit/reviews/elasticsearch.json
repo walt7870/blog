@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "file": "docs/database/elasticsearch.md",
+      "status": "verified",
+      "reviewedHash": "db714241d42ee21c829342f5d9938f416b8322cac4357f6022ee35679cedf9cc",
+      "pageType": "搜索派生视图、写入可见性、分页与恢复",
+      "decision": "旧1572行全文阅读。统一为订单索引连续练习，修副本当备份、mapping type、公开无认证端口、重复建同名索引、term/text与filter混用、nested基数、_id分页排序、PIT续页合同、Bulk200等于全批成功、旧事件覆盖、缺path.repo的快照、首次引导和过时参数/线程池/ILM模板。补两SVG与完整映射、查询、分页、版本冲突和新索引恢复。",
+      "validation": [
+        "旧8.19官网读取失败，两个猜测raw路径404后停止；现行官方分页页浏览器已读search_after/PIT/scroll相关段，官方近实时搜索与self-managed仓库页全文核对。明确8.19.6复现基线，未将现代9.5功能写入8.x。/tmp/blog-elasticsearch-check.mjs实际8.19.6运行全部11个HTTP围栏，PIT与search_after按响应替换占位，GET实时与count0到4、nested与object反例、paid2单8990分、Bulk成功200与失败400并存、PIT排除中途新增999、同/旧版本409、OCC409均过",
+        "快照SUCCESS与零失败分片、恢复4单13990分、nested/strict映射、102版本2与paid核对过。无网络实验初因hostname解析失败，改localhost重建；首次green断言受辅助索引默认副本1影响，修测试后全量重跑退出0，单节点副本1 yellow反例过。官方ECR镜像digest e2d7e20893ad820bcad241bf47b89958787f6b38225478dfe100b66937840b0f；慢速vendor下载已终止，不修改全局Docker代理或凭据。未测HA/TLS/跨版本/远端仓库/并发快照",
+        "双SVG XML/技能结构检查/实际中文边界/截图通过。初构建误用输出目录为源码根不计通过；正确根目录19.86秒，去除新增Flux高亮警告后19.29秒完整构建通过并重启preview。桌面1280和真实390×844手机亮深色、双图放大/原尺寸/关闭、代码局部滚动通过，无破图/全页溢出/客户端error，viewport reset"
+      ]
+    }
+  ]
+}

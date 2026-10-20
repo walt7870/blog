@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/network.md",
+      "status": "verified",
+      "reviewedHash": "f86ce9336678e935835fa6063d8521b3eeace2ea55fd530b3f98986ed9429864",
+      "pageType": "网络请求证据链与诊断实验",
+      "decision": "全文审查旧646行，按应用环境、NSS/DNS、路由、TCP/TLS、HTTP业务重组。修IP唯一身份、lsof筛选OR、ss端口误匹配、dig ANY、ping/nc失败推断和iftop-N含义；补请求证据SVG与回环HTTP实验。",
+      "validation": ["全部正文Bash在Debian12容器执行成功，健康文件、127.0.0.1:8080监听、missing_http=404、curl_exit=22符合预期，实验子进程和容器已清理。1280×800和390×844浅深色全页、代码键盘横滚、图示预览原尺寸关闭、网络三页键盘客户端互链通过。独立SVG中文尺寸与截图通过。构建14.20秒，本地引用零错误。未实测跨主机、TLS、代理和真实订单。"]
+    },
+    {
+      "file": "docs/linux/command/network-basic.md",
+      "status": "verified",
+      "reviewedHash": "8dec06b67726b0b070b4eb01327b0463bc1c999745af404770d2c9a326620e64",
+      "pageType": "网络工具选择与速查",
+      "decision": "全文审查旧334行，改为问题驱动入口，解释监听、连接、解析、路径、流量与传输的边界，复用请求图并链接机制和配置页。减少重复选项清单，保留可运行只读片段。",
+      "validation": ["全部Bash只读片段在Debian12容器执行成功。桌面手机浅深色全页无整页溢出，手机两列表342px可读，超宽代码键盘滚动、图示原尺寸关闭及客户端互链通过。构建成功；占位域名模板未当作真实服务测试。"]
+    },
+    {
+      "file": "docs/linux/command/network-config.md",
+      "status": "verified",
+      "reviewedHash": "ec8b4bf8823be726a36dac0ff7aff79ceaff705e45ec6d89a092b8549936e457",
+      "pageType": "配置所有权、作用期与回退",
+      "decision": "全文审查旧389行，区分临时与持久配置及管理器，补NM手动method、DNS管理权、firewalld运行时/永久和防火墙来源。删除清空规则、覆盖resolv.conf、远程down/up和未经测量整套sysctl，补配置关系SVG。",
+      "validation": ["官方nmcli连接修改/激活及resolvectl revert相关段落核对，正文占位配置明确为测试范围。两图技能检查及独立中文尺寸截图通过；本页1280×800与390×844浅深色、图片原尺寸关闭、代码键盘横滚、客户端跳转通过。构建成功。未运行真实管理器激活、防火墙变更或网络重启，未修改宿主网络。"]
+    }
+  ]
+}

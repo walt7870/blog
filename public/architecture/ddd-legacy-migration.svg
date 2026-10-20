@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="ddd-legacy-title ddd-legacy-desc">
+  <title id="ddd-legacy-title">遗留系统按用例逐段切换写入权</title>
+  <desc id="ddd-legacy-desc">先从变更与故障证据选定用例，明确模型边界和契约，再做无副作用的影子验证，随后按稳定归属切换写入权，观察恢复与兼容性；失败时停止扩流并按数据兼容规则回退。</desc>
+  <defs><marker id="ddd-legacy-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#657768"/></marker></defs>
+  <rect width="1120" height="600" fill="#f8fafc"/>
+  <g font-family="'PingFang SC','Microsoft YaHei',sans-serif" fill="#26372e">
+    <text x="40" y="48" font-size="26" font-weight="600">遗留改造：先证明模型，再移交写入权</text>
+    <text x="40" y="80" font-size="16" fill="#5d6f64">以“接受支付事实”为一条用例；单体内也可以逐步改造</text>
+    <g fill="none" stroke="#657768" stroke-width="2" marker-end="url(#ddd-legacy-arrow)">
+      <path d="M328 196H416"/><path d="M704 196H792"/>
+      <path d="M936 252V312Q936 320 928 320H192Q184 320 184 328V364"/>
+      <path d="M328 420H416"/><path d="M704 420H792"/>
+      <path d="M936 476V508Q936 516 928 516H568Q560 516 560 508V476" stroke-dasharray="6 5"/>
+    </g>
+    <g fill="#fff" stroke="#c4cdd5">
+      <rect x="40" y="140" width="288" height="112" rx="6"/>
+      <rect x="416" y="140" width="288" height="112" rx="6"/>
+      <rect x="792" y="140" width="288" height="112" rx="6"/>
+      <rect x="40" y="364" width="288" height="112" rx="6"/>
+      <rect x="416" y="364" width="288" height="112" rx="6" fill="#e5f3e9" stroke="#468363"/>
+      <rect x="792" y="364" width="288" height="112" rx="6"/>
+    </g>
+    <g font-size="21" font-weight="600"><text x="64" y="180">1 记录业务证据</text><text x="440" y="180">2 明确边界</text><text x="816" y="180">3 固定协作契约</text><text x="64" y="404">4 影子验证</text><text x="440" y="404">5 分段切换写入</text><text x="816" y="404">6 观察与恢复</text></g>
+    <g font-size="16" fill="#5d6f64"><text x="64" y="212">变更、竞争、失败与实际规则</text><text x="440" y="212">订单状态由谁解释和修改</text><text x="816" y="212">支付事实、标识和失败处理</text><text x="64" y="436">回放比较，不重复外部副作用</text><text x="440" y="436">同一订单保持稳定处理归属</text><text x="816" y="436">核对业务效果、积压与兼容性</text></g>
+    <rect x="644" y="488" width="232" height="24" fill="#f8fafc"/><text x="760" y="506" font-size="15" text-anchor="middle">失败：停扩流，核对回退条件</text>
+    <text x="40" y="566" font-size="17">流量可回切，不代表数据和资金可逆；旧实现不认识的新状态，必须先完成兼容或生命周期移交。</text>
+  </g>
+</svg>

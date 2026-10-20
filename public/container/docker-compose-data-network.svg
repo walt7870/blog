@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="630" viewBox="0 0 1120 630" role="img" aria-labelledby="title desc">
+  <title id="title">订单组合部署的网络与数据边界</title><desc id="desc">宿主回环端口转发到订单API，API通过内部服务名连接数据库并将导出写到独立卷。数据库健康条件仅控制启动门槛，运行期间仍需要重连。命名卷与容器删除分开管理。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="630" fill="#f8fafc"/><text class="h" x="40" y="51">端口接入、内部通信与文件保存分开声明</text><text class="t muted" x="40" y="84">Compose 在单机组合服务；服务名、挂载和健康条件都需要实际运行验证。</text>
+  <rect x="350" y="125" width="730" height="214" rx="6" fill="#f0f5f8" stroke="#abbecb" stroke-dasharray="6 5"/><text class="t muted" x="370" y="154">Compose 项目网络：API 与数据库使用容器端口通信</text>
+  <path class="line" d="M295 236H385"/><path class="line" d="M650 236H755"/><path class="line" d="M517 304V405"/><path class="line" d="M897 304V405"/>
+  <rect class="box" x="40" y="176" width="255" height="120" rx="6"/><text class="n" x="60" y="212">宿主请求入口</text><text class="t" x="60" y="246">127.0.0.1:8080</text><text class="t" x="60" y="275">发布到 API 的 8080</text>
+  <rect class="blue" x="385" y="176" width="265" height="128" rx="6"/><text class="n" x="405" y="212">订单 API</text><text class="t" x="405" y="246">监听 0.0.0.0:8080</text><text class="t" x="405" y="275">应用读取配置并处理重连</text>
+  <rect class="blue" x="755" y="176" width="285" height="128" rx="6"/><text class="n" x="775" y="212">PostgreSQL / db:5432</text><text class="t" x="775" y="246">通过数据库协议连接</text><text class="t" x="775" y="275">无需向宿主发布数据库端口</text>
+  <rect class="green" x="385" y="405" width="265" height="94" rx="6"/><text class="n" x="405" y="440">exports 命名卷</text><text class="t" x="405" y="474">/exports 保存 CSV 结果</text>
+  <rect class="green" x="755" y="405" width="285" height="94" rx="6"/><text class="n" x="775" y="440">db-data 命名卷</text><text class="t" x="775" y="474">数据库文件，需一致性备份</text>
+  <text class="t muted" x="40" y="379">service_healthy 只建立启动门槛，不能消除运行期间的依赖失败。</text>
+  <text class="t muted" x="40" y="551">unhealthy 通常不触发 Docker 重启；restart 策略主要针对进程退出。</text><text class="t muted" x="40" y="583">down 通常保留命名卷；down -v 扩大清理范围。项目名变化时先核对实际卷对象。</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="470" viewBox="0 0 1100 470" role="img" aria-labelledby="jni-data-title jni-data-desc">
+  <title id="jni-data-title">JNI 校验和实验的数据边界</title>
+  <desc id="jni-data-desc">Java byte数组由GC管理，GetByteArrayRegion将最多256字节复制进当前native调用的栈缓冲，C代码计算无符号字节和并返回jlong。示例不保留裸指针，异常检查后返回Java异常路径。所有代码仍在同一进程。</desc>
+  <defs><marker id="jni-data-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#64748b"/></marker></defs>
+  <style>text{font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#1e293b}.title{font-size:26px;font-weight:700}.name{font-size:20px;font-weight:700}.body{font-size:17px}.note{font-size:15px;fill:#475569}.node{fill:#fff;stroke:#94a3b8;stroke-width:1.5}.edge{fill:none;stroke:#64748b;stroke-width:2;marker-end:url(#jni-data-arrow)}</style>
+  <rect width="1100" height="470" fill="#f8fafc"/>
+  <text class="title" x="32" y="44">跨语言调用，不跨进程隔离边界</text>
+  <text class="body" x="32" y="76">本页示例只复制输入并返回数值；没有把 Java 数组当作长期有效的 native 地址。</text>
+  <rect x="32" y="108" width="1036" height="204" rx="6" fill="none" stroke="#94a3b8" stroke-dasharray="5 4"/>
+  <text class="note" x="52" y="135">同一 Java 进程</text>
+  <path class="edge" d="M300 201H392"/><path class="edge" d="M710 201H802"/>
+  <path class="edge" d="M942 248V278Q942 286 934 286H185Q177 286 177 278V248"/>
+  <rect x="384" y="272" width="350" height="28" fill="#f8fafc"/><text class="note" x="398" y="292">返回 jlong；pending exception 走异常路径</text>
+  <rect class="node" x="54" y="154" width="246" height="94" rx="6"/>
+  <text class="name" x="74" y="189">Java：byte[]</text><text class="body" x="74" y="222">GC 管理，调用期间可访问</text>
+  <rect x="392" y="154" width="318" height="94" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+  <text class="name" x="412" y="189">JNI：GetByteArrayRegion</text><text class="body" x="412" y="222">分块复制，检查 pending exception</text>
+  <rect x="802" y="154" width="244" height="94" rx="6" fill="#f0fdf4" stroke="#86b49b"/>
+  <text class="name" x="822" y="189">C：block[256]</text><text class="body" x="822" y="222">当前调用的栈缓冲</text>
+  <text class="name" x="32" y="355">换成长期会话时，额外明确三个合同</text>
+  <text class="body" x="32" y="390">引用：Local / Global 的范围与删除；线程：JNIEnv 只属于当前线程。</text>
+  <text class="body" x="32" y="422">资源：create / close、取消与失败成对释放；裸地址不能在释放后继续使用。</text>
+  <text class="note" x="32" y="454">Java try/catch 不能隔离 native 越界崩溃；-Xcheck:jni 只检查部分 JNI 误用。</text>
+</svg>

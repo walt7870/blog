@@ -1,0 +1,5 @@
+{
+  "badQueue": "咖啡豆：2 件，共 39.80 元",
+  "expectedCorrect": "4 件，共 79.60 元",
+  "mutationCaught": true
+}

@@ -14,7 +14,7 @@ Kubernetes 可扩展，不代表所有问题都应写 CRD。扩展点位于 API 
 
 | 扩展点 | 所在路径 | 典型用途 | 失败影响 |
 | --- | --- | --- | --- |
-| CRD + Controller | API 存储 + 异步调谐 | 领域资源、平台 API | CR 可写但可能不收敛 |
+| CRD + Controller | API 存储 + 异步调谐 | 领域资源、平台 API | 无同步Webhook依赖时CR仍可写，但可能不收敛 |
 | Admission Webhook/Policy | API 同步写路径 | 默认化、校验、策略 | 匹配请求延迟或失败 |
 | Aggregated API | API 请求路径 | 自定义存储和 API 行为 | 对应 APIService 不可用 |
 | Scheduler Plugin | 调度路径 | 特殊放置、协同调度 | Pod 无法绑定或延迟 |
@@ -33,6 +33,8 @@ CRD 复用 kube-apiserver 的存储、watch、RBAC、schema、Status 和通用�
 如果只是需要复杂校验或控制逻辑，CRD + CEL + Controller 往往仍足够；只有确实需要 CRD 无法提供的 API 语义时才承担聚合 API 成本。
 
 Admission 更接近门禁：ValidatingAdmissionPolicy 可以用 CEL 在 API Server 内声明校验；Webhook 适合必须调用自定义代码的场景。它们不应执行慢业务流程，也不应把外部创建动作放在一次 API 请求事务中。
+
+CRD并非永远只走异步链：其Conversion Webhook参与版本读取/写入，Admission Webhook参与匹配的写请求。这些后端不可用时，用户可能连CR都无法读写。比如数据库创建应放到Controller重试；“字段region不可修改”可用CEL；把同一数据库API放进准入验证会使云API故障直接阻断发布。
 
 ## 调度器扩展
 
@@ -56,7 +58,7 @@ CSI 把供应、发布和挂载分到控制器服务与节点服务。驱动升�
 
 ## Device Plugin 与 DRA
 
-Device Plugin 通过 kubelet注册和 gRPC `ListAndWatch` 上报设备健康，在 `Allocate` 时返回容器需要的设备、挂载或环境配置。插件通常以 DaemonSet 部署；kubelet重启后，插件必须重新注册。它适合整型扩展资源，但请求表达和共享模型有限。
+Device Plugin 通过 kubelet注册和 gRPC `ListAndWatch` 上报设备健康，在 `Allocate` 时返回容器需要的设备、挂载或环境配置。插件通常以 DaemonSet 部署；kubelet重启后，插件必须重新注册。它适合整型扩展资源，但请求表达和共享模型有限。设备标为unhealthy通常先减少可分配容量，不保证自动迁移或重启已经使用该设备的Pod。
 
 Dynamic Resource Allocation（DRA）通过 DeviceClass、ResourceClaim、ResourceSlice 等 API 让设备请求、发现和分配更结构化，适合复杂设备属性与动态选择。DRA 能力仍随 Kubernetes 版本演进，采用前必须核对当前 API 稳定级别、驱动支持和 feature gates，不能把实验字段写成长期平台契约。
 
@@ -86,9 +88,3 @@ RuntimeClass 则用于选择容器运行时 handler，并可附带调度开销�
 | Device Plugin/DRA | 设备变为 unhealthy | 容量更新、调度结果和运行中 Pod 边界 |
 
 扩展设计完成的标志不是 Demo 成功，而是每个失败阶段都有可解释状态和退出路径。
-
-## 官方资料
-
-- [Compute, Storage, and Networking Extensions](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/)
-- [Device Plugins](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
-- [Dynamic Resource Allocation](https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)

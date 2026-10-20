@@ -1,0 +1,37 @@
+[
+  {
+    "file": "docs/devlanguage/front/package-managers/index.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/npm.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/npm.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/corepack.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/registry.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/registry.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/npm.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/pnpm.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/pnpm.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/pnpm.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/yarn.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/yarn.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/yarn.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/bun.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/bun.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/bun.md",
+    "href": "/blog/docs/devlanguage/front/package-managers/corepack.html",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/package-managers/corepack.html"
+  },
+  {
+    "file": "docs/devlanguage/front/package-managers/registry.md",
+    "href": "/blog/docs/devlanguage/front/framework/",
+    "url": "http://127.0.0.1:5177/blog/docs/devlanguage/front/framework/"
+  }
+]

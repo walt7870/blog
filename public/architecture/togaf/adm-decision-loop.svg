@@ -10,7 +10,7 @@
     </marker>
   </defs>
   <rect width="1440" height="640" fill="#fff"/>
-  <text x="72" y="58" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">ADM 管理四次收敛，而不是排列八个阶段</text>
+  <text x="72" y="58" fill="#172033" font-family="Arial, 'PingFang SC', sans-serif" font-size="30" font-weight="700">用四类收敛理解 ADM 阶段与反馈</text>
   <text x="72" y="95" fill="#526078" font-family="Arial, 'PingFang SC', sans-serif" font-size="18">每次收敛都减少一种不确定性，运行证据会重新进入下一轮。</text>
   <g font-family="Arial, 'PingFang SC', sans-serif">
     <rect x="72" y="150" width="300" height="170" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>

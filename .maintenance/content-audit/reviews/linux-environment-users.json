@@ -1,0 +1,20 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/command/environment.md",
+      "status": "verified",
+      "reviewedHash": "c88eb6fa4d86c6ea4f96f7be0905faa624d22fca0d780f8078adcfa12705a96d",
+      "pageType": "环境继承机制与启动排查",
+      "decision": "全文审查旧137行，区分shell变量与export、父子进程副本、Bash各启动模式和systemd配置入口；核对GNU Bash官方启动规则，删除全局刷新环境的误导。新增订单服务环境继承SVG与隔离实验。",
+      "validation": ["机械提取正文Bash实验在Debian容器运行，before=unset、inherited=local、parent=local、once=once、after=local，退出0。SVG技能自检、实际中文字体边界及截图通过；两页1280×800和390×844浅深色、图片预览原尺寸关闭、全部超宽代码键盘滚动通过，无整页溢出。用户页到环境页客户端键盘导航通过。构建14.77秒成功；未实测真实systemd服务。"]
+    },
+    {
+      "file": "docs/linux/command/user-management.md",
+      "status": "verified",
+      "reviewedHash": "21e9a9b0aebca0fe60468eb2d1fcd73c5bbd8304f02ab0ec1a5cd1ea8d6bfbb1",
+      "pageType": "数值身份、账号生命周期与权限验证",
+      "decision": "全文审查旧173行，补NSS与进程凭据区别、补充组刷新边界、服务账号权限、su/sudo环境与遗留UID对象，删除无上下文改密清理指令。新增组配置与新进程凭据关系图。",
+      "validation": ["正文getent/id及服务账号创建在隔离Debian容器运行，uid/gid=999、家目录/nonexistent、shell/usr/sbin/nologin，退出0；本机账号未修改。SVG字体与连线、桌面手机浅深色和放大、全部超宽代码滚动通过；构建14.77秒及本地引用/diff检查通过。未实测真实sudo授权、已有服务组变更或真实systemd集成。"]
+    }
+  ]
+}

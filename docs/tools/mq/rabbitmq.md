@@ -3,7 +3,7 @@
 RabbitMQ 是一个成熟的消息代理（Message Broker），最核心的特点是**路由能力强、协议支持丰富、任务队列好用、管理工具友好**。  
 它非常适合业务系统里的异步任务、削峰填谷、事件通知和微服务解耦。
 
-## 一句话理解
+## 路由模型
 
 RabbitMQ 像一个“带规则的分拣中心”：生产者把消息交给 `Exchange`，`Exchange` 根据规则把消息投递到一个或多个 `Queue`，消费者从队列里取消息处理。
 
@@ -46,7 +46,7 @@ RabbitMQ 的核心不是“队列”两个字，而是 Exchange、Binding 和 Qu
 | --- | --- | --- |
 | Direct | routing key 完全匹配 | 明确类型分发，如 `error`、`order_paid` |
 | Fanout | 忽略 routing key，广播到所有绑定队列 | 系统广播、缓存刷新 |
-| Topic | 通配符匹配，`*` 匹配一个单词，`#` 匹配多个单词 | 事件总线，如 `order.*` |
+| Topic | 点分单词匹配，`*` 匹配一个，`#` 匹配零个或多个 | 事件总线，如 `order.*` |
 | Headers | 根据消息头匹配 | 复杂规则，使用较少 |
 
 Topic Exchange 示例：
@@ -79,9 +79,9 @@ RabbitMQ 的 TCP Connection 成本较高，应用通常复用连接，再在连�
 
 ## 消息发送与消费流程
 
-![RabbitMQ 消息发送与消费流程](/mq/rabbitmq-publish-consume-flow.svg)
-
 如果消费者处理失败，可以 `nack/reject`，让消息重新入队或进入死信队列。
+
+`requeue=true` 可能立即重投并形成热循环，不等于延迟重试；`requeue=false` 只有配置了 DLX 才会转发，否则丢弃。ack 的 delivery tag 属于当前 Channel，不能在另一个 Channel 确认，也不应随意用批量 ack 确认尚未完成的并发任务。
 
 ## 可靠性能力
 
@@ -102,6 +102,8 @@ RabbitMQ 的可靠性分两段：
 
 这里有一个常见误区：`durable=true` 只表示队列定义可持久化，不代表消息一定持久化。消息本身也要设置持久化属性，并且生产者最好启用 Publisher Confirms，确认 broker 已经接收消息。消费者侧则应使用手动 ack，只有业务处理成功后再确认。
 
+还有一个独立窗口：消息成功到达 Exchange，却没有匹配的 Queue，仍可能得到 confirm。需要在发布时设置 `mandatory` 并处理 `basic.return`，或设计 alternate exchange，不能把 confirm 视为路由成功。对持久队列中的持久消息，确认还涉及相应存储条件；Quorum Queue 则涉及多数副本接受。消费者提交数据库后 ack 丢失仍会重复，所以幂等记录和业务结果要原子提交。
+
 可靠投递通常要形成闭环：
 
 1. 生产者发送消息并等待 confirm。
@@ -113,8 +115,6 @@ RabbitMQ 的可靠性分两段：
 ## TTL、死信与重试
 
 RabbitMQ 常用 TTL + DLX 实现延迟重试：
-
-![RabbitMQ TTL、死信与重试](/mq/rabbitmq-ttl-dlx-retry.svg)
 
 核心参数：
 
@@ -134,6 +134,8 @@ RabbitMQ 常用 TTL + DLX 实现延迟重试：
 
 死信队列不是垃圾桶。生产环境应监控死信数量、死信原因和最早死信时间，否则问题只会从主队列转移到无人处理的角落。
 
+每条消息设置不同 TTL 时，过期消息可能要等到队首才被移除或死信，不能用它实现严格定时。固定延时可按档位建独立延迟队列，到期后检查业务状态；队列不得被普通消费者提前取走。DLX 默认转发也不等于端到端至少一次，目标不可用时存在丢失窗口。需要时评估 Quorum Queue 的 at-least-once dead-lettering 及其前提，并用补偿扫描覆盖超时任务缺失。
+
 ## 队列类型
 
 | 队列类型 | 特点 | 使用建议 |
@@ -143,6 +145,8 @@ RabbitMQ 常用 TTL + DLX 实现延迟重试：
 | Stream | 追加日志模型，支持重复读取和回放 | 大 fan-out、回放、高吞吐场景 |
 
 Quorum Queue 更适合需要高可用和数据安全的业务队列；Stream 更接近日志流，不是传统任务队列。
+
+RabbitMQ 4.x 的 Classic Queue 不提供镜像复制，集群中的另一个节点不会自动拥有它的消息副本。重要业务的复制需求应明确采用 Quorum Queue 或适合的 Stream 模型；不能只因部署三节点就宣称所有队列高可用。
 
 选型时可以这样判断：
 
@@ -183,6 +187,8 @@ RabbitMQ 通过 `Virtual Host` 做逻辑隔离：
 - write：能否发布消息。
 - read：能否消费消息。
 
+这是权限类别的概括，实际会按操作检查多个资源权限：例如绑定队列涉及队列的 write 与交换机的 read，并不是 configure 一项可以覆盖所有拓扑操作。Virtual Host 也只是逻辑隔离，共享节点的 CPU、磁盘和内存仍需配额、容量与告警约束。
+
 生产环境应删除默认 `guest/guest` 或限制其访问范围。
 
 ## 统一案例：订单超时关闭 + 支付成功发券
@@ -206,6 +212,8 @@ RabbitMQ 通过 `Virtual Host` 做逻辑隔离：
 - 超时关闭不能只依赖消息，要以订单库状态为准。
 - 发券必须幂等，避免重复消费导致重复发券。
 - 死信队列要接入告警，不能只堆在那里。
+
+超时消费者应以 `status='PENDING'` 和到期时间为条件原子关闭，不能“先查未支付，再无条件更新”。发券若一个订单允许多种券，应以 `orderId + couponTemplateId` 唯一，而不是只按订单排重。收到已处理消息应返回成功，让重复投递结束。
 
 ## 监控指标
 
@@ -235,10 +243,12 @@ RabbitMQ 通过 `Virtual Host` 做逻辑隔离：
 5. 只配置 durable 队列，忘了消息持久化。
 6. 没有 publisher confirm，生产者以为发成功但 broker 没收到。
 
-## 参考资料整理
+## 验证入口
 
-- [RabbitMQ Tutorials](https://www.rabbitmq.com/tutorials.html)：官方入门教程，覆盖 work queue、publish/subscribe、routing、topic 等模式。
-- [Consumer Acknowledgements and Publisher Confirms](https://www.rabbitmq.com/docs/next/confirms)：解释 ack 与 confirm 的边界。
-- [Quorum Queues](https://www.rabbitmq.com/docs/quorum-queues)：生产高可用队列能力。
-- [Streams](https://www.rabbitmq.com/docs/streams)：RabbitMQ 的日志流能力。
-- [Federation Reference](https://www.rabbitmq.com/federation-reference.html)：跨集群消息转发。
+在测试环境查看队列类型与未确认消息，Virtual Host 名称需要替换：
+
+```bash
+rabbitmqctl list_queues -p /test-order name type messages_ready messages_unacknowledged consumers
+```
+
+逐项验证无绑定时的 return、消费者写库后断连的重投、DLX 目标不可用、重复发券和超过重试上限的告警。恢复后检查业务结果与积压消退，不能只以队列清空作为成功依据，消息也可能被 TTL 或丢弃策略移除了。

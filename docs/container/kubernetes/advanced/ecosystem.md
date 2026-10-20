@@ -10,6 +10,10 @@ Gateway API、Cilium、Service Mesh、GitOps 和策略引擎解决的是不同�
 
 本文用于横向选型。需要跟踪实际数据路径和迁移证据时阅读 [Gateway、Cilium 与 Service Mesh](./traffic-engineering)；需要设计 GitOps、Admission、Pod Security 和镜像信任链时阅读 [GitOps、策略与供应链安全](./delivery-security)；需要比较 CRI、CNI、CSI、DRA 等接口时阅读 [扩展点与接口边界](./extension-points)。
 
+![先定位业务需求再选择模板、控制器或运行路径扩展](/container/extension-selection-path.svg)
+
+以订单API为例：复用发布清单用模板；外部请求到不了服务查Gateway；Pod间策略拒绝查网络数据面；提交配置后被持续改回查GitOps所有权。这些现象可能同时出现，但对应不同证据，不能用“再装一个Operator”统一处理。
+
 ## Gateway API
 
 Ingress API 已冻结：仍是稳定 API，项目没有移除计划，但不再继续扩展。Gateway API 通过 `GatewayClass`、`Gateway`、`HTTPRoute` 等资源拆分基础设施提供者、集群运维和应用团队的职责，并提供更明确的状态与可移植路由模型。

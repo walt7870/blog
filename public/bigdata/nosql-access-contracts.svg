@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="nosql-title nosql-desc">
+  <title id="nosql-title">NoSQL查询与数据模型对应关系</title>
+  <desc id="nosql-desc">完整键查缓存适合键值，整体读写商品资料适合文档，设备时间范围事件围绕宽列行键，账户关联路径围绕图关系。每种模型分别校验过期、聚合大小、热点或路径基数。</desc>
+  <defs><marker id="nosql-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker><style>text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:18px}.title{font-size:24px;font-weight:700}.head{font-size:20px;font-weight:600}.small{font-size:16px;fill:#52616a}.box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.focus{fill:#e4f3ee;stroke:#3b8573;stroke-width:1.5;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#nosql-arrow)}</style></defs>
+  <rect width="1200" height="760" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">先写出查询，再选择数据怎么组织</text><text x="36" y="80" class="small">同样叫NoSQL，更新单位、复制确认与查询代价仍需逐项定义；不是一套通用事务合同。</text>
+  <path d="M296 188H384" class="line"/><path d="M296 332H384" class="line"/><path d="M296 476H384" class="line"/><path d="M296 620H384" class="line"/>
+  <rect x="36" y="132" width="260" height="112" class="box"/><text x="56" y="172" class="head">拿订单号查缓存</text><text x="56" y="212">已知完整业务键</text>
+  <rect x="384" y="132" width="356" height="112" class="box"/><text x="404" y="172" class="head">键值 / 数据结构</text><text x="404" y="212">cache:order:t1:102 → 状态值</text>
+  <text x="800" y="172" class="head">Redis 等</text><text x="800" y="212" class="small">TTL、回源与故障后数据保留</text>
+  <rect x="36" y="276" width="260" height="112" class="box"/><text x="56" y="316" class="head">整体读取商品资料</text><text x="56" y="356">名称、规格、少量配置</text>
+  <rect x="384" y="276" width="356" height="112" class="focus"/><text x="404" y="316" class="head">文档聚合</text><text x="404" y="356">商品ID → 字段与嵌套对象</text>
+  <text x="800" y="316" class="head">MongoDB 等</text><text x="800" y="356" class="small">文档大小、索引与事务范围</text>
+  <rect x="36" y="420" width="260" height="112" class="box"/><text x="56" y="460" class="head">设备一小时事件</text><text x="56" y="500">租户、设备、时间范围</text>
+  <rect x="384" y="420" width="356" height="112" class="focus"/><text x="404" y="460" class="head">宽列：示意HBase行键</text><text x="404" y="500">租户|设备|时间|事件 → 单元格</text>
+  <text x="800" y="460" class="head">HBase / Cassandra 等</text><text x="800" y="500" class="small">模型有差异，热点与范围要验证</text>
+  <rect x="36" y="564" width="260" height="112" class="box"/><text x="56" y="604" class="head">账户间有什么关联</text><text x="56" y="644">从起点沿关系找路径</text>
+  <rect x="384" y="564" width="356" height="112" class="box"/><text x="404" y="604" class="head">图关系</text><text x="404" y="644">账户 → 共用设备 ← 账户</text>
+  <text x="800" y="604" class="head">Neo4j 等</text><text x="800" y="644" class="small">方向、跳数、去重与超级节点</text>
+  <path d="M36 712H1164" stroke="#bac4c9"/><text x="36" y="744" class="small">箭头表示业务查询与主访问模型的对应关系，不表示必须同时部署四种数据库。</text>
+</svg>

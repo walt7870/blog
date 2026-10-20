@@ -1,0 +1,59 @@
+[
+  {
+    "from": "",
+    "target": "/blog/docs/ai/speech-engineering/architecture-and-workflow.html",
+    "title": "处理链路与运行架构\n​"
+  },
+  {
+    "from": "architecture-and-workflow.html",
+    "target": "/blog/docs/ai/speech-engineering/pipeline-boundaries.html",
+    "title": "角色证据与目标说话人识别\n​"
+  },
+  {
+    "from": "pipeline-boundaries.html",
+    "target": "/blog/docs/ai/speech-engineering/latency-and-finalization.html",
+    "title": "断句、收尾与逐句时延\n​"
+  },
+  {
+    "from": "latency-and-finalization.html",
+    "target": "/blog/docs/ai/speech-engineering/performance-and-capacity.html",
+    "title": "动态批处理与推理调度\n​"
+  },
+  {
+    "from": "performance-and-capacity.html",
+    "target": "/blog/docs/ai/speech-engineering/inference-contracts-and-lifecycle.html",
+    "title": "推理输入合同与资源生命周期\n​"
+  },
+  {
+    "from": "inference-contracts-and-lifecycle.html",
+    "target": "/blog/docs/ai/speech-engineering/hotword-routing.html",
+    "title": "共享热词召回与请求隔离\n​"
+  },
+  {
+    "from": "hotword-routing.html",
+    "target": "/blog/docs/ai/speech-engineering/evidence-driven-validation.html",
+    "title": "音频回放与质量回归\n​"
+  },
+  {
+    "from": "evidence-driven-validation.html",
+    "target": "/blog/docs/ai/speech-engineering/delivery-and-handoff.html",
+    "title": "离线推理容器与工件一致性\n​"
+  },
+  {
+    "from": "delivery-and-handoff.html",
+    "target": "/blog/docs/ai/llm/",
+    "title": "大语言模型\n​"
+  },
+  {
+    "from": "release-and-collaboration.html",
+    "target": "http://127.0.0.1:5177/blog/docs/ai/speech-engineering/delivery-and-handoff.html",
+    "title": "离线推理容器与工件一致性\n​",
+    "method": "Enter"
+  },
+  {
+    "from": "incident-playbook.html",
+    "target": "http://127.0.0.1:5177/blog/docs/ai/speech-engineering/evidence-driven-validation.html",
+    "title": "音频回放与质量回归\n​",
+    "method": "Enter"
+  }
+]

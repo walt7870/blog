@@ -75,14 +75,14 @@ TOGAF 定义责任和演进目标，不会直接规定部署单元。应用架�
 
 支付平台
   -> 订单管理：支付结果回调（可能重复、延迟、乱序）
-  -> 订单管理：校验状态并记录订单已支付
-  -> 事件总线：发布 OrderPaid
+  -> 订单管理：验证回调并持久化支付事实，按订单状态裁决
+  -> 事件总线：可靠发布 OrderPaid（已接受支付的订单）
        -> 库存平台：预占转确认
-       -> 履约系统：创建履约计划
+            -> InventoryConfirmed：满足支付与库存条件后允许履约
        -> 会员中心：发放交易权益
 ```
 
-同步接口适合需要立即决定是否继续的操作，例如库存预占；事件适合传播已经发生的事实。两者都必须设计幂等、超时、重试和补偿，但失败语义不同：同步调用要给当前请求明确结果，事件消费失败则要可重放并避免重复副作用。
+同步接口适合在请求内尝试取得预占结果；超时可能表示结果未知，调用方需要稳定请求标识、结果查询和恢复状态，不能将其当作未执行。事件适合传播已经发生的事实。订单状态与 Outbox 在本地事务提交，再可靠投递；消费者去重和本地业务更新协调提交。支付已发生但库存确认失败时，保留支付事实并挂起、重新预占或退款，不能仅凭 OrderPaid 就不可逆发货。远端权益发放仍需业务幂等键和结果核对。
 
 ## 契约首先表达责任
 
@@ -98,7 +98,7 @@ business_failures:
   - OUT_OF_STOCK
   - LOCATION_NOT_SERVABLE
   - RESERVATION_LIMIT_EXCEEDED
-timeout: order remains pending-reservation and can be retried
+timeout: result unknown; query or retry the same idempotency key
 side_effect: publish InventoryReserved only after durable state is committed
 ```
 
@@ -117,7 +117,7 @@ side_effect: publish InventoryReserved only after durable state is committed
 
 支付成功回调到达时，如果订单已经因超时取消，系统不能简单把状态改成已支付。它需要依据状态机和业务补偿规则决定是否重新激活、挂起人工处理或发起退款。状态机是应用架构与业务规则的交界面，不能只留在某个 Controller 的条件分支里。
 
-## 读模型不是事实副本
+## 读模型不是裁决入口
 
 客服需要跨渠道查询订单，首页需要快速展示库存，分析平台需要沉淀历史。它们可以建立读模型，但读模型必须声明：
 

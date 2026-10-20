@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">Docker 排查的对象与证据</title><desc id="desc">先核对 CLI 端点，再观察容器状态和日志，区分进程、网络与挂载问题；修复后用原请求和数据验证，不直接批量清理。</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#526878"/></marker></defs>
+  <style>text{font-family:Arial,'PingFang SC','Microsoft YaHei',sans-serif;fill:#193245}.h{font-size:28px;font-weight:700}.n{font-size:19px;font-weight:700}.t{font-size:16px}.muted{fill:#506475}.box{fill:#fff;stroke:#abbecb;stroke-width:1.5}.blue{fill:#e9f4fc;stroke:#3991bc;stroke-width:1.5}.green{fill:#e9f7f0;stroke:#399574;stroke-width:1.5}.line{fill:none;stroke:#526878;stroke-width:2;marker-end:url(#arrow)}</style>
+  <rect width="1120" height="600" fill="#f8fafc"/><text class="h" x="40" y="51">从端点到原始请求，把故障定位到具体对象</text><text class="t muted" x="40" y="84">运行中、端口已发布、检查命令成功，都不单独等于业务可用。</text>
+  <path class="line" d="M290 191H345"/><path class="line" d="M680 191H735"/>
+  <rect class="box" x="40" y="131" width="250" height="120" rx="6"/><text class="n" x="60" y="166">管理端点</text><text class="t" x="60" y="199">context / version</text><text class="t" x="60" y="230">是不是目标 daemon？</text>
+  <rect class="blue" x="345" y="131" width="335" height="120" rx="6"/><text class="n" x="365" y="166">实例状态与时间线</text><text class="t" x="365" y="199">ps -a / inspect / logs / stats</text><text class="t" x="365" y="230">退出、错误、OOM 与请求时间关联</text>
+  <rect class="green" x="735" y="131" width="345" height="120" rx="6"/><text class="n" x="755" y="166">修改后复验</text><text class="t" x="755" y="199">重放原失败请求，核对数据结果</text><text class="t" x="755" y="230">需要时验证停止与重建恢复</text>
+  <path class="line" d="M512 251V279Q512 287 504 287H208Q200 287 200 295V330"/><path class="line" d="M512 287V330"/><path class="line" d="M512 275H880Q888 275 888 283V330"/>
+  <rect class="box" x="40" y="330" width="320" height="135" rx="6"/><text class="n" x="60" y="366">进程与命令</text><text class="t" x="60" y="399">入口、退出码、实际存在的工具</text><text class="t" x="60" y="430">exec 是额外进程，不替换 PID 1</text>
+  <rect class="box" x="400" y="330" width="320" height="135" rx="6"/><text class="n" x="420" y="366">网络与协议</text><text class="t" x="420" y="399">名称 → 监听 → 连接 → 认证</text><text class="t" x="420" y="430">数据库用数据库协议验证</text>
+  <rect class="box" x="760" y="330" width="320" height="135" rx="6"/><text class="n" x="780" y="366">挂载与文件</text><text class="t" x="780" y="399">Mounts、路径、UID 与生命周期</text><text class="t" x="780" y="430">重定向先判断由哪一侧 shell 执行</text>
+  <text class="t muted" x="40" y="529">清理是有范围的数据操作：先列出候选对象与所有者，再按对象删除。</text><text class="t muted" x="40" y="561">修复写回源码与受控配置；在容器里临时安装或修改程序，不能作为可重复交付。</text>
+</svg>

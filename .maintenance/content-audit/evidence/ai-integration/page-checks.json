@@ -1,0 +1,230 @@
+[
+  {
+    "page": "mcp.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/agent.html",
+    "nextName": "Next page智能体",
+    "scroll": 1280,
+    "title": "MCP ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/recommendations.html",
+    "nextName": "Next page推荐与选型",
+    "scroll": 1280,
+    "title": "Agent Skill ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/recommendations.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/claude-code-best-practices.html",
+    "nextName": "Next pageClaude Code 实践",
+    "scroll": 1280,
+    "title": "Skill 推荐与选型 ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/coding-agent-series/",
+    "nextName": "Next page系列导读",
+    "scroll": 1280,
+    "title": "Claude Code Skill 实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "rsi/",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/rsi/01-recursive-self-improvement.html",
+    "nextName": "Next page01. 机制、实践与影响",
+    "scroll": 1280,
+    "title": "RSI 递归自我改进 ​",
+    "width": 1280
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "mode": "desktop-light",
+    "bad": [],
+    "next": "/blog/docs/ai/applications/langchain/",
+    "nextName": "Next page系列导读",
+    "scroll": 1280,
+    "title": "RSI 递归自我改进：机制、实践与影响 ​",
+    "width": 1280
+  },
+  {
+    "page": "mcp.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/agent.html",
+    "nextName": "Next page智能体",
+    "scroll": 1280,
+    "title": "MCP ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/recommendations.html",
+    "nextName": "Next page推荐与选型",
+    "scroll": 1280,
+    "title": "Agent Skill ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/recommendations.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/skill/claude-code-best-practices.html",
+    "nextName": "Next pageClaude Code 实践",
+    "scroll": 1280,
+    "title": "Skill 推荐与选型 ​",
+    "width": 1280
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/coding-agent-series/",
+    "nextName": "Next page系列导读",
+    "scroll": 1280,
+    "title": "Claude Code Skill 实践 ​",
+    "width": 1280
+  },
+  {
+    "page": "rsi/",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/rsi/01-recursive-self-improvement.html",
+    "nextName": "Next page01. 机制、实践与影响",
+    "scroll": 1280,
+    "title": "RSI 递归自我改进 ​",
+    "width": 1280
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "mode": "desktop-dark",
+    "bad": [],
+    "next": "/blog/docs/ai/applications/langchain/",
+    "nextName": "Next page系列导读",
+    "scroll": 1280,
+    "title": "RSI 递归自我改进：机制、实践与影响 ​",
+    "width": 1280
+  },
+  {
+    "page": "mcp.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "MCP ​",
+    "width": 390
+  },
+  {
+    "page": "skill/",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "Agent Skill ​",
+    "width": 390
+  },
+  {
+    "page": "skill/recommendations.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "Skill 推荐与选型 ​",
+    "width": 390
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "Claude Code Skill 实践 ​",
+    "width": 390
+  },
+  {
+    "page": "rsi/",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "RSI 递归自我改进 ​",
+    "width": 390
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "mode": "mobile-light",
+    "bad": [],
+    "dark": false,
+    "scroll": 390,
+    "title": "RSI 递归自我改进：机制、实践与影响 ​",
+    "width": 390
+  },
+  {
+    "page": "mcp.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "MCP ​",
+    "width": 390
+  },
+  {
+    "page": "skill/",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "Agent Skill ​",
+    "width": 390
+  },
+  {
+    "page": "skill/recommendations.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "Skill 推荐与选型 ​",
+    "width": 390
+  },
+  {
+    "page": "skill/claude-code-best-practices.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "Claude Code Skill 实践 ​",
+    "width": 390
+  },
+  {
+    "page": "rsi/",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "RSI 递归自我改进 ​",
+    "width": 390
+  },
+  {
+    "page": "rsi/01-recursive-self-improvement.html",
+    "mode": "mobile-dark",
+    "bad": [],
+    "dark": true,
+    "scroll": 390,
+    "title": "RSI 递归自我改进：机制、实践与影响 ​",
+    "width": 390
+  }
+]

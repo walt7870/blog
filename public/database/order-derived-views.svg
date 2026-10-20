@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+  <title id="title">商城交易事实与异步派生视图</title>
+  <desc id="desc">应用在关系库事务内写订单与outbox事件，CDC解码已提交日志并投递Kafka，独立消费者更新搜索和分析视图。数据库提交与搜索可见之间存在延迟。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="#74818a"/></marker>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#27343b;font-size:16px}
+      .title{font-size:22px;font-weight:700}.head{font-size:18px;font-weight:600}.small{fill:#52616a}
+      .box{fill:#fff;stroke:#bac4c9;stroke-width:1.3;rx:6}.line{fill:none;stroke:#74818a;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="500" fill="#f7f9fa"/>
+  <text x="36" y="44" class="title">主库已提交，搜索仍可能稍晚可见</text>
+  <text x="36" y="78" class="small">示例约定：订单与商品在关系库中维护，搜索和报表由事件派生。</text>
+  <path class="line" d="M184 225H216"/><path class="line" d="M432 225H464"/><path class="line" d="M650 225H682"/>
+  <path class="line" d="M836 204H860Q868 204 868 196V172Q868 164 876 164H900"/>
+  <path class="line" d="M836 246H852Q860 246 860 254V308Q860 316 868 316H900"/>
+  <rect x="36" y="174" width="148" height="102" class="box"/><text x="56" y="210" class="head">应用服务</text><text x="56" y="246" class="small">创建订单</text>
+  <rect x="216" y="164" width="216" height="122" rx="6" fill="#eaf5ef" stroke="#638d7d" stroke-width="1.3"/>
+  <text x="236" y="198" class="head">同一个本地事务</text><text x="236" y="232">订单 + outbox 事件</text><text x="236" y="266" class="small">提交后才对外发布</text>
+  <rect x="464" y="174" width="186" height="102" class="box"/><text x="484" y="210" class="head">CDC 连接器</text><text x="484" y="246" class="small">日志解码与位点</text>
+  <rect x="682" y="174" width="154" height="102" class="box"/><text x="702" y="210" class="head">Kafka</text><text x="702" y="246" class="small">事件传输</text>
+  <rect x="900" y="118" width="184" height="92" class="box"/><text x="920" y="154" class="head">搜索消费者</text><text x="920" y="188" class="small">更新搜索索引</text>
+  <rect x="900" y="270" width="184" height="92" class="box"/><text x="920" y="306" class="head">分析消费者</text><text x="920" y="340" class="small">更新分析表</text>
+  <text x="440" y="330" class="small">读取 binlog / WAL 中的已提交变更</text>
+  <text x="36" y="420" class="small">重放：事件可能重复到达，消费者按事件 ID 或记录版本处理；写入成功后确认消费进度。</text>
+  <text x="36" y="456" class="small">恢复：保留初始快照、日志/消息与位点；搜索索引损坏后可以重新构建并核对版本。</text>
+</svg>

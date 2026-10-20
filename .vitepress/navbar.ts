@@ -1,5 +1,5 @@
 import type { DefaultTheme } from 'vitepress';
-import { topicGroups } from './topics';
+import { topicGroups } from './topics.ts';
 
 export const nav: DefaultTheme.NavItem[] = [
   ...topicGroups.map(group => ({

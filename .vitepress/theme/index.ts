@@ -3,12 +3,15 @@ import { h } from 'vue'
 import GlobalPet from './components/GlobalPet.vue'
 import ImageLightbox from './components/ImageLightbox.vue'
 import MermaidDiagram from './components/MermaidDiagram.vue'
+import TopicDirectory from './components/TopicDirectory.vue'
 import './style.css'
+import './reading.css'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     app.component('MermaidDiagram', MermaidDiagram)
+    app.component('TopicDirectory', TopicDirectory)
   },
   Layout() {
     return h(DefaultTheme.Layout, null, {

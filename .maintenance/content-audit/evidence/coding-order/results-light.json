@@ -1,0 +1,1170 @@
+[
+  {
+    "idx": 0,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/agent-verification-loop.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/skill/claude-code-best-practices.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html"
+    ],
+    "scroll": 1280,
+    "title": "AI 编程深度系列 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+    "w": 1280
+  },
+  {
+    "idx": 0,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/agent-verification-loop.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/skill/claude-code-best-practices.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html"
+    ],
+    "scroll": 390,
+    "title": "AI 编程深度系列 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+    "w": 390
+  },
+  {
+    "idx": 1,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/agent-verification-loop.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html"
+    ],
+    "scroll": 1280,
+    "title": "AI 编程的任务闭环与自治边界 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+    "w": 1280
+  },
+  {
+    "idx": 1,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/agent-verification-loop.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep01/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html"
+    ],
+    "scroll": 390,
+    "title": "AI 编程的任务闭环与自治边界 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+    "w": 390
+  },
+  {
+    "idx": 2,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/harness-control-plane.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-08.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html"
+    ],
+    "scroll": 1280,
+    "title": "Coding Agent 的工具执行循环 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+    "w": 1280
+  },
+  {
+    "idx": 2,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/harness-control-plane.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep02/fig-08.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/01-ai-coding-agent-era.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html"
+    ],
+    "scroll": 390,
+    "title": "Coding Agent 的工具执行循环 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+    "w": 390
+  },
+  {
+    "idx": 3,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/runtime-selection.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html"
+    ],
+    "scroll": 1280,
+    "title": "AI 编程工具的工作流选型 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+    "w": 1280
+  },
+  {
+    "idx": 3,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/runtime-selection.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep03/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/02-coding-agent-internals.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html"
+    ],
+    "scroll": 390,
+    "title": "AI 编程工具的工作流选型 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+    "w": 390
+  },
+  {
+    "idx": 4,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/develop-method/ai-choice.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html"
+    ],
+    "scroll": 1280,
+    "title": "Vibe Coding、Agentic Engineering 与 Spec-Driven：三种方法的边界 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+    "w": 1280
+  },
+  {
+    "idx": 4,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/develop-method/ai-choice.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep04/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/03-ai-coding-tool-landscape-2026.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html"
+    ],
+    "scroll": 390,
+    "title": "Vibe Coding、Agentic Engineering 与 Spec-Driven：三种方法的边界 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+    "w": 390
+  },
+  {
+    "idx": 5,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html"
+    ],
+    "scroll": 1280,
+    "title": "Agent 任务契约与验收证据 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+    "w": 1280
+  },
+  {
+    "idx": 5,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep05/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/04-vibe-agentic-spec-driven.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html"
+    ],
+    "scroll": 390,
+    "title": "Agent 任务契约与验收证据 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+    "w": 390
+  },
+  {
+    "idx": 6,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/context-package-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html"
+    ],
+    "scroll": 1280,
+    "title": "Context Engineering：决定 Agent 依据什么事实行动 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+    "w": 1280
+  },
+  {
+    "idx": 6,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/context-package-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep06/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/05-executable-task-contract.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html"
+    ],
+    "scroll": 390,
+    "title": "Context Engineering：决定 Agent 依据什么事实行动 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+    "w": 390
+  },
+  {
+    "idx": 7,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html"
+    ],
+    "scroll": 1280,
+    "title": "AGENTS.md、Rules、Skills 与 Hooks 的职责 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+    "w": 1280
+  },
+  {
+    "idx": 7,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep07/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/06-context-engineering.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html"
+    ],
+    "scroll": 390,
+    "title": "AGENTS.md、Rules、Skills 与 Hooks 的职责 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+    "w": 390
+  },
+  {
+    "idx": 8,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/mcp-architecture.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html"
+    ],
+    "scroll": 1280,
+    "title": "MCP 与 Agent 工具工程：连接能力不是越多越好 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+    "w": 1280
+  },
+  {
+    "idx": 8,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/mcp-architecture.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep08/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/07-agents-rules-skills-hooks.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html"
+    ],
+    "scroll": 390,
+    "title": "MCP 与 Agent 工具工程：连接能力不是越多越好 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+    "w": 390
+  },
+  {
+    "idx": 9,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-request-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html"
+    ],
+    "scroll": 1280,
+    "title": "Brownfield 实战一：建立基线与修改范围 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+    "w": 1280
+  },
+  {
+    "idx": 9,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-request-map.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html"
+    ],
+    "scroll": 390,
+    "title": "Brownfield 实战一：建立基线与修改范围 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+    "w": 390
+  },
+  {
+    "idx": 10,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-verification-stages.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html"
+    ],
+    "scroll": 1280,
+    "title": "Brownfield 实战二：用测试约束 Agent 修改 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+    "w": 1280
+  },
+  {
+    "idx": 10,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-verification-stages.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-cancel-state.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/09-brownfield-understand-before-edit.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html"
+    ],
+    "scroll": 390,
+    "title": "Brownfield 实战二：用测试约束 Agent 修改 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+    "w": 390
+  },
+  {
+    "idx": 11,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-verification-stages.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-request-map.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html"
+    ],
+    "scroll": 1280,
+    "title": "Brownfield 实战三：验证、审查与交付 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+    "w": 1280
+  },
+  {
+    "idx": 11,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-verification-stages.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/order-request-map.svg"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/10-brownfield-test-driven-agent-change.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html"
+    ],
+    "scroll": 390,
+    "title": "Brownfield 实战三：验证、审查与交付 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+    "w": 390
+  },
+  {
+    "idx": 12,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/runtime-selection.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/worktree-integration.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html"
+    ],
+    "scroll": 1280,
+    "title": "Cloud Agent、Worktree 与多 Agent：并行不是把任务复制十份 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+    "w": 1280
+  },
+  {
+    "idx": 12,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/runtime-selection.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/worktree-integration.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-08.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep12/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/11-brownfield-verification-review-delivery.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html"
+    ],
+    "scroll": 390,
+    "title": "Cloud Agent、Worktree 与多 Agent：并行不是把任务复制十份 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+    "w": 390
+  },
+  {
+    "idx": 13,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html"
+    ],
+    "scroll": 1280,
+    "title": "AI 编程安全与团队治理：从 Prompt 到真实副作用的威胁模型 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+    "w": 1280
+  },
+  {
+    "idx": 13,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-01.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-03.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-07.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep13/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/12-cloud-agent-worktree-multi-agent.html",
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html"
+    ],
+    "scroll": 390,
+    "title": "AI 编程安全与团队治理：从 Prompt 到真实副作用的威胁模型 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+    "w": 390
+  },
+  {
+    "idx": 14,
+    "label": "desktop",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/productivity-example.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+      "http://127.0.0.1:5177/blog/docs/ai/vibe-coding/"
+    ],
+    "scroll": 1280,
+    "title": "AI 编程到底有没有提效：从研究数字到团队净收益 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html",
+    "w": 1280
+  },
+  {
+    "idx": 14,
+    "label": "mobile",
+    "dark": false,
+    "empty": false,
+    "images": [
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-02.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/productivity-example.svg"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-04.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-05.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-06.png"
+      },
+      {
+        "loaded": true,
+        "src": "/blog/ai/coding-agent-series/ep14/fig-09.png"
+      }
+    ],
+    "pager": [
+      "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/13-ai-coding-security-governance.html",
+      "http://127.0.0.1:5177/blog/docs/ai/vibe-coding/"
+    ],
+    "scroll": 390,
+    "title": "AI 编程到底有没有提效：从研究数字到团队净收益 ​",
+    "url": "http://127.0.0.1:5177/blog/docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.html",
+    "w": 390
+  }
+]
