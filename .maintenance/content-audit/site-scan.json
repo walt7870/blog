@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 603,
-    "bytes": 4104458,
+    "bytes": 4104954,
     "batches": 72,
     "scanned": 603,
     "reviewed": 603,
@@ -332,7 +332,7 @@
         "docs/ai/coding-agent-series/01-ai-coding-agent-era.md",
         "docs/ai/coding-agent-series/02-coding-agent-internals.md"
       ],
-      "bytes": 95065
+      "bytes": 95561
     },
     {
       "id": "B014",
@@ -1413,16 +1413,16 @@
     },
     {
       "file": "docs/ai/applications/langchain/index.md",
-      "contentHash": "4ed843e575b9a187a94e0f026e67fb67a24dec1a0dc9c58e7ab734c2b024b080",
-      "reviewHash": "4574e4c10ceb20bd9ee0a6389474c916cd30981bd0e768967d3f7eac42316b96",
+      "contentHash": "2336406845732ec0a32d844d2e2b8184df1d5f0db8dcf3a2170051cd1dea2097",
+      "reviewHash": "0d23ad1d742d01bbdfb98238c50481982b8d60fad5e3a267094696d4669f4d86",
       "dependencies": [
         "public/ai/examples/requirements-lock.txt",
         "public/ai/examples/workflow_demo.py",
         "public/ai/langchain-request-flow.svg"
       ],
-      "bytes": 4871,
-      "lines": 84,
-      "proseChars": 1600,
+      "bytes": 5367,
+      "lines": 86,
+      "proseChars": 1788,
       "headings": 7,
       "codeLines": 11,
       "visualCount": 1,

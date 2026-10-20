@@ -145,14 +145,15 @@
       "file": "docs/ai/applications/langchain/index.md",
       "batch": "B013",
       "status": "verified",
-      "reviewedHash": "4574e4c10ceb20bd9ee0a6389474c916cd30981bd0e768967d3f7eac42316b96",
+      "reviewedHash": "0d23ad1d742d01bbdfb98238c50481982b8d60fad5e3a267094696d4669f4d86",
       "pageType": "系列导读与环境准备",
       "findings": [],
-      "decision": "补Python3.11独立环境和实际安装固定版本，提供源码与全依赖锁；区分流程替身、Chroma集成和真实模型能力。",
+      "decision": "保留已验证的教学环境与离线源码；补充ChromaDB 1.5.9已知代码注入和跨租户漏洞、尚无已标注修复版本，以及隔离教学和生产部署边界。",
       "validation": [
-        "全文及安装版本已核；独立Python3.11环境运行全部离线检查通过。",
-        "双视口浅深色截图、客户端分页通过；浏览器真实下载源码SHA256与public源文件一致，下载URL保留/blog前缀；完整构建14.19秒。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "原正文、源码和依赖安装验证见ai-applications及zzz-final-ui记录，本轮只增加依赖使用边界段落。",
+        "核对GitHub当前4项ChromaDB公告及离线源码，确认示例不启动Chroma服务，未声称漏洞已修复。",
+        "最终构建14.62秒，线上正文已出现新增段落；桌面浅深色全文与同构建本地390像素iframe浅深色全文复核，宽度无溢出，证据/tmp/blog-live-langchain-*。",
+        "线上390像素iframe正文宽度与滚动宽度均为390；跨域自动输入受工具限制，同源移动导航和主题切换实际通过。"
       ],
       "dependencyFiles": [
         "public/ai/examples/workflow_demo.py",
