@@ -1,0 +1,97 @@
+{
+  "schema": "foundations-video-v2",
+  "revision": "beginner-20261022",
+  "title": "模型怎样修改参数：梯度与学习率",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 25,
+  "duration": 455.72,
+  "bytes": 12553331,
+  "sha256": "ca42be3dd581b54109130419c8bff473fb5230a676b19bfafc1eb3f43ee82110",
+  "voice": {
+    "engine": "Emilia2-tts",
+    "voice": "噜噜",
+    "mode": "xvector_only",
+    "scope": "本地教学样片；未投稿"
+  },
+  "source_manifest": "voice-source-20261022.local/manifest.json",
+  "caption_count": 197,
+  "caption_timing": "逐句实长内按短句字数分配，尚未经逐字强制对齐",
+  "elapsed_seconds": 53.86,
+  "scenes": [
+    {
+      "kind": "predict",
+      "title": "预测错了，该拧哪个旋钮？",
+      "start": 0.0,
+      "end": 37.0
+    },
+    {
+      "kind": "residual",
+      "title": "先量偏差，再给预测评分",
+      "start": 37.0,
+      "end": 70.19
+    },
+    {
+      "kind": "half",
+      "title": "平方前的 0.5 从哪里来？",
+      "start": 70.19,
+      "end": 109.50999999999999
+    },
+    {
+      "kind": "loss",
+      "title": "每个参数，都对应一个损失",
+      "start": 109.50999999999999,
+      "end": 138.94
+    },
+    {
+      "kind": "probe",
+      "title": "轻轻试转，发现下降方向",
+      "start": 138.94,
+      "end": 180.26
+    },
+    {
+      "kind": "gradient",
+      "title": "梯度是坡度，不是新参数",
+      "start": 180.26,
+      "end": 222.38
+    },
+    {
+      "kind": "small",
+      "title": "方向有了，接下来决定步长",
+      "start": 222.38,
+      "end": 255.17000000000002
+    },
+    {
+      "kind": "large",
+      "title": "方向正确，也可能一步走过头",
+      "start": 255.17000000000002,
+      "end": 287.0
+    },
+    {
+      "kind": "average",
+      "title": "多条记录，怎样合成一个分数？",
+      "start": 287.0,
+      "end": 335.2
+    },
+    {
+      "kind": "surface",
+      "title": "两个旋钮，展开一张损失地形",
+      "start": 335.2,
+      "end": 387.64
+    },
+    {
+      "kind": "loop",
+      "title": "把重复计算交给训练循环",
+      "start": 387.64,
+      "end": 423.87
+    },
+    {
+      "kind": "boundary",
+      "title": "会下降之后，再问能不能用于新数据",
+      "start": 423.87,
+      "end": 455.70000000000005
+    }
+  ]
+}

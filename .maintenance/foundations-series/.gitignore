@@ -1,0 +1,5 @@
+video/generated/
+video/exports/
+evidence/
+*.local
+__pycache__/

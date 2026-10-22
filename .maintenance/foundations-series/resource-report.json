@@ -1,0 +1,80 @@
+{
+  "svg": [
+    {
+      "name": "data-split-mobile.svg",
+      "bytes": 2582,
+      "gzipBytes": 1006
+    },
+    {
+      "name": "data-split.svg",
+      "bytes": 2569,
+      "gzipBytes": 1005
+    },
+    {
+      "name": "loss-contours-mobile.svg",
+      "bytes": 30005,
+      "gzipBytes": 11682
+    },
+    {
+      "name": "loss-contours.svg",
+      "bytes": 30185,
+      "gzipBytes": 11828
+    },
+    {
+      "name": "prediction-residuals-mobile.svg",
+      "bytes": 3079,
+      "gzipBytes": 1015
+    },
+    {
+      "name": "prediction-residuals.svg",
+      "bytes": 2955,
+      "gzipBytes": 997
+    },
+    {
+      "name": "single-update-mobile.svg",
+      "bytes": 4001,
+      "gzipBytes": 1707
+    },
+    {
+      "name": "single-update.svg",
+      "bytes": 3976,
+      "gzipBytes": 1706
+    },
+    {
+      "name": "tensor-layout-mobile.svg",
+      "bytes": 6809,
+      "gzipBytes": 1173
+    },
+    {
+      "name": "tensor-layout.svg",
+      "bytes": 6788,
+      "gzipBytes": 1141
+    },
+    {
+      "name": "training-cycle-mobile.svg",
+      "bytes": 2685,
+      "gzipBytes": 1067
+    },
+    {
+      "name": "training-cycle.svg",
+      "bytes": 2661,
+      "gzipBytes": 1068
+    }
+  ],
+  "video": {
+    "bytes": 2502353,
+    "budget": 2621440
+  },
+  "poster": {
+    "bytes": 18826,
+    "budget": 20480
+  },
+  "engines": [
+    {
+      "name": "three.module.C8enonVg.js",
+      "bytes": 736440,
+      "gzipBytes": 184536
+    }
+  ],
+  "note": "gzip为本地计算结果，线上压缩头尚未验收；浏览器按需请求另行记录。"
+}
