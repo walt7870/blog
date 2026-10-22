@@ -8,6 +8,21 @@ REMOTE_SITE="${REMOTE_SITE:-/opt/blog}"
 rm -rf ./.vitepress/dist
 npm run docs:build
 
+# Non-asset files are deleted by rsync; verify the build retains every live path.
+DEPLOY_LOCAL_FILES=$(mktemp)
+DEPLOY_REMOTE_FILES=$(mktemp)
+DEPLOY_MISSING_FILES=$(mktemp)
+trap 'rm -f "$DEPLOY_LOCAL_FILES" "$DEPLOY_REMOTE_FILES" "$DEPLOY_MISSING_FILES"' EXIT
+(cd .vitepress/dist && find . -type f ! -path './assets/*' -print | LC_ALL=C sort) > "$DEPLOY_LOCAL_FILES"
+ssh "${REMOTE_HOST}" "cd '${REMOTE_SITE}/dist' && find . -type f ! -path './assets/*' -print | LC_ALL=C sort" > "$DEPLOY_REMOTE_FILES"
+LC_ALL=C comm -23 "$DEPLOY_REMOTE_FILES" "$DEPLOY_LOCAL_FILES" > "$DEPLOY_MISSING_FILES"
+if [ -s "$DEPLOY_MISSING_FILES" ]; then
+  echo '部署已停止：以下线上页面或资源未包含在本次构建中：' >&2
+  cat "$DEPLOY_MISSING_FILES" >&2
+  exit 1
+fi
+echo '线上非哈希资源保留检查通过。'
+
 cd ./.vitepress/
 rm -rf dist.zip
 zip -qr dist.zip ./dist/*
