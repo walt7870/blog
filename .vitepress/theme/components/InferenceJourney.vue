@@ -5,15 +5,15 @@ import { Eye, Layers3, Wrench, Network, ArrowRight } from '@lucide/vue'
 
 const selected = ref(0)
 const stages = [
-  { name: '看见现象', range: '01—02', icon: Eye, question: '小林问“年假怎么申请”，屏幕上的回答怎样出现？', result: '先分清应用、引擎与模型，再观察读完输入和逐步生成。', links: [['01-landscape', '01. 谁在处理问题'], ['02-lifecycle', '02. 一次回答怎样生成']] },
-  { name: '拆开资源', range: '03—05', icon: Layers3, question: '文档越来越长、同事越来越多，机器为什么装不下或排长队？', result: '把显存当工作台、KV 当计算便笺，再观察如何复用和安排多人。', links: [['03-memory', '03. 工作台装了什么'], ['04-cache-attention', '04. 哪些状态可以复用'], ['05-scheduling', '05. 多人怎样一起算']] },
-  { name: '走进实现', range: '06—09', icon: Wrench, question: '同一套服务，怎样少搬、少算、少等？这些机制放在哪个框架里？', result: '量化与编译降低单步成本，推测减少串行轮次，再进入 vLLM 和 SGLang。', links: [['06-quantization', '06. 降低一次计算的成本'], ['07-speculative', '07. 先写草稿再校对'], ['08-vllm', '08. vLLM 怎样组织执行'], ['09-sglang', '09. SGLang 怎样组织前缀']] },
-  { name: '回到工程', range: '10—13', icon: Network, question: '一台机器不够，或想直接语音提问，应该怎样扩展与验证？', result: '先理解多卡与语音链路，再选择候选框架，用相同负载验证收益。', links: [['10-distributed', '10. 扩展到多卡与多机'], ['11-speech', '11. 从文字走向语音'], ['12-selection-versions', '12. 比较方案与版本'], ['13-practice', '13. 用实验检验理解']] },
+  { name: '基础概念', range: '01—02', icon: Eye, question: '输入一句话，机器怎样接出回答？', result: '从模型中的数字开始，跟着一个问题看答案逐步出现。', links: [['01-landscape', '01. 推理系统的分工'], ['02-lifecycle', '02. 从输入到逐步生成']] },
+  { name: '资源与状态', range: '03—05', icon: Layers3, question: '文档更长、用的人更多，机器为什么吃不消？', result: '先看空间花在哪里，再看怎样省掉重复计算、安排多人一起使用。', links: [['03-memory', '03. GPU 与显存预算'], ['04-cache-attention', '04. 注意力与 KV 缓存'], ['05-scheduling', '05. 批处理与调度']] },
+  { name: '优化机制', range: '06—09', icon: Wrench, question: '相同的模型计算，如何减少存储、搬运和串行等待？', result: '从量化、编译和推测解码进入 vLLM、SGLang 的执行组织。', links: [['06-quantization', '06. 量化、算子与编译'], ['07-speculative', '07. 推测解码'], ['08-vllm', '08. vLLM 的执行机制'], ['09-sglang', '09. SGLang 的执行机制']] },
+  { name: '工程实践', range: '10—13', icon: Network, question: '多卡、语音和真实流量场景，怎样做出可验证的部署判断？', result: '最后连接分布式执行、语音链路、框架选型和压测排错。', links: [['10-distributed', '10. 多卡、MoE 与分离部署'], ['11-speech', '11. 语音与多模态推理'], ['12-selection-versions', '12. 框架对比与版本'], ['13-practice', '13. 部署、压测与排错']] },
 ]
 </script>
 
 <template>
-  <nav class="journey" aria-label="从浅到深的学习路线">
+  <nav class="journey" aria-label="模型推理学习路线">
     <div class="journey-stages" role="group" aria-label="选择学习阶段"><button v-for="(stage, i) in stages" :key="stage.name" type="button" :aria-pressed="selected === i" @click="selected = i"><component :is="stage.icon" :size="24" aria-hidden="true" /><span>{{ i + 1 }}. {{ stage.name }}</span><small>{{ stage.range }} 章</small></button></div>
     <div class="journey-explanation" aria-live="polite"><p class="journey-question">{{ stages[selected].question }}</p><p>{{ stages[selected].result }}</p><ol><li v-for="[path, title] in stages[selected].links" :key="path"><a :href="withBase(`/docs/ai/inference-series/${path}.html`)">{{ title }}<ArrowRight :size="16" aria-hidden="true" /></a></li></ol></div>
   </nav>

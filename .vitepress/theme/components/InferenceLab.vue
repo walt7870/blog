@@ -3,7 +3,13 @@ import { computed, ref } from 'vue'
 import { ArrowRight, RotateCcw } from '@lucide/vue'
 import { kvBytes, matchPrefix, schedule, greedyVerification } from './inferenceMath.mjs'
 
-defineProps<{ mode: 'lifecycle' | 'memory' | 'prefix' | 'batch' | 'speculative' | 'speech' | 'roofline' }>()
+defineProps<{ mode: 'generation' | 'lifecycle' | 'memory' | 'prefix' | 'batch' | 'speculative' | 'speech' | 'roofline' }>()
+const generationStep = ref(0)
+const generationCandidates = [
+  [{ text: '先', probability: 60 }, { text: '请', probability: 30 }, { text: '可以', probability: 10 }],
+  [{ text: '提交', probability: 70 }, { text: '打开', probability: 20 }, { text: '查看', probability: 10 }],
+  [{ text: '申请', probability: 80 }, { text: '表单', probability: 15 }, { text: '材料', probability: 5 }],
+]
 const step = ref(0)
 const lifecycle = [
   ['排队与分词', '输入已转换为 4 个教学 token；尚未进行模型计算。'],
@@ -84,7 +90,20 @@ const boundMs = computed(() => Math.max(bandwidthMs.value, computeMs.value))
 
 <template>
   <section class="inference-lab" :data-lab="mode" :aria-label="`${mode} 教学实验`">
-    <template v-if="mode === 'lifecycle'">
+    <template v-if="mode === 'generation'">
+      <div class="lab-heading"><strong>接出下一段文字</strong><span>固定候选概率的教学演示</span></div>
+      <p>问题：年假怎么申请？</p>
+      <div class="token-line"><span class="row-label">已生成</span><span v-for="(token, i) in output.slice(0, generationStep)" :key="i" class="token blue">{{ token }}</span><span v-if="!generationStep">等待选择第一段</span></div>
+      <template v-if="generationStep < 3">
+        <p>根据问题{{ generationStep ? '和已生成的内容' : '' }}，下一段的候选为：</p>
+        <div v-for="candidate in generationCandidates[generationStep]" :key="candidate.text" class="bound-row"><span>{{ candidate.text }}</span><meter min="0" max="100" :value="candidate.probability" :aria-label="`${candidate.text}，示例概率 ${candidate.probability}%`" /><strong>{{ candidate.probability }}%</strong></div>
+      </template>
+      <p v-else>已经接出“先提交申请”。真实生成还可以继续接字句，直到结束；这里在第三段停下。</p>
+      <p class="result" aria-live="polite">{{ generationStep < 3 ? `第 ${generationStep + 1} 轮：当前最高的是“${generationCandidates[generationStep][0].text}”。` : '三轮选择完成，每一轮都使用了前面选出的结果。' }}</p>
+      <div class="lab-actions"><button type="button" class="icon-button" title="重新开始生成" aria-label="重新开始生成" @click="generationStep = 0"><RotateCcw :size="18" /></button><button type="button" :disabled="generationStep === 3" @click="generationStep++">选择最高项<ArrowRight :size="18" /></button></div>
+    </template>
+
+    <template v-else-if="mode === 'lifecycle'">
       <div class="lab-heading"><strong>逐步观察一个请求</strong><span>教学 token，不是真实分词</span></div>
       <ol class="phase-track"><li v-for="(phase, i) in lifecycle" :key="phase[0]" :class="{ current: step === i, done: step > i }"><span>{{ i + 1 }}</span>{{ phase[0] }}</li></ol>
       <div class="token-line"><span class="row-label">输入</span><span v-for="(token, i) in input" :key="i" class="token" :class="{ green: step > 0 && step < 4 }">{{ token }}</span></div>

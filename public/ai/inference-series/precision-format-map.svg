@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">浮点格式的位段与工程取舍</title>
+  <desc id="desc">比较 FP32、FP16、BF16、FP8 和 FP4 的符号位、指数位、尾数位，以及范围、细节和常见用途。</desc>
+  <rect width="1120" height="560" fill="#f8fafc"/>
+  <g font-family="Arial,'PingFang SC','Microsoft YaHei',sans-serif" fill="#172b3a">
+    <text x="36" y="46" font-size="29">浮点格式不是只比较位数</text>
+    <text x="36" y="78" font-size="18" fill="#475569">指数位决定范围，尾数位决定同一数量级内的细节；scale 和 kernel 决定低位格式能否真正工作。</text>
+    <text x="36" y="120" font-size="16" fill="#475569">格式</text>
+    <text x="178" y="120" font-size="16" fill="#475569">位段：符号 / 指数 / 尾数</text>
+    <text x="486" y="120" font-size="16" fill="#475569">范围</text>
+    <text x="670" y="120" font-size="16" fill="#475569">细节</text>
+    <text x="852" y="120" font-size="16" fill="#475569">常见位置</text>
+    <g stroke="#cbd5e1" stroke-width="1">
+      <path d="M36 134 H1084"/>
+      <path d="M36 202 H1084"/>
+      <path d="M36 270 H1084"/>
+      <path d="M36 338 H1084"/>
+      <path d="M36 406 H1084"/>
+      <path d="M36 474 H1084"/>
+    </g>
+    <g font-size="23" font-weight="600">
+      <text x="36" y="176">FP32</text>
+      <text x="36" y="244">FP16</text>
+      <text x="36" y="312" fill="#be123c">BF16</text>
+      <text x="36" y="380">FP8</text>
+      <text x="36" y="448">FP4</text>
+    </g>
+    <g font-family="'SFMono-Regular',Consolas,monospace" font-size="18">
+      <text x="178" y="176">1 / 8 / 23</text>
+      <text x="178" y="244">1 / 5 / 10</text>
+      <text x="178" y="312" fill="#be123c">1 / 8 / 7</text>
+      <text x="178" y="380">1 / 4 / 3 或 1 / 5 / 2</text>
+      <text x="178" y="448">1 / 2 / 1 + block scale</text>
+    </g>
+    <g font-size="18">
+      <text x="486" y="176">最大，约 10^38</text>
+      <text x="486" y="244">较窄，约 6.5×10^4</text>
+      <text x="486" y="312" fill="#be123c">接近 FP32</text>
+      <text x="486" y="368">E4M3 约 448</text>
+      <text x="486" y="392">E5M2 约 57344</text>
+      <text x="486" y="448">依赖格式与 scale</text>
+      <text x="670" y="176">24 个有效位</text>
+      <text x="670" y="244">11 个有效位</text>
+      <text x="670" y="312" fill="#be123c">8 个有效位</text>
+      <text x="670" y="380">约 3 或 4 个有效位</text>
+      <text x="670" y="448">约 2 个有效位</text>
+      <text x="852" y="176">基线、敏感算子</text>
+      <text x="852" y="244">训练、推理</text>
+      <text x="852" y="312" fill="#be123c">训练、推理主干</text>
+      <text x="852" y="380">权重、激活、KV</text>
+      <text x="852" y="448">专用量化 kernel</text>
+    </g>
+    <rect x="36" y="496" width="1048" height="40" fill="#fff1f2" stroke="#be123c"/>
+    <text x="56" y="522" font-size="17" fill="#172b3a">BF16 保留 FP32 的指数宽度，所以常比 FP16 更能承受大范围值；代价是尾数更短，细节误差要靠累加和敏感算子处理。</text>
+  </g>
+</svg>

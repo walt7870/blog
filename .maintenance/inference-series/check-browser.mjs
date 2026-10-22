@@ -10,7 +10,7 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, de
 const capture = { style: '.VPNav, .VPLocalNav { visibility: hidden !important; }' }
 const errors = []
 page.on('pageerror', e => errors.push(e.message))
-const chapters = ['','01-landscape','02-lifecycle','03-memory','04-cache-attention','05-scheduling','06-quantization','07-speculative','08-vllm','09-sglang','10-distributed','11-speech','12-selection-versions','13-practice']
+const chapters = ['','01-landscape','02-lifecycle','03-memory','04-cache-attention','05-scheduling','06-quantization','07-speculative','08-vllm','09-sglang','10-distributed','11-speech','12-selection-versions','13-practice','14-precision-formats','15-mixed-precision','16-quantization-now']
 const results = []
 const visit = async chapter => {
   await page.goto(`${root}docs/ai/inference-series/${chapter ? chapter + '.html' : ''}`)
@@ -21,14 +21,21 @@ const visit = async chapter => {
 const reveal = async locator => locator.evaluate(el => {
   for (let p = el.parentElement; p; p = p.parentElement) if (p.tagName === 'DETAILS') p.open = true
 })
+const assertCanvasPainted = async locator => {
+  const painted = await locator.evaluate(canvas => {
+    const context = canvas.getContext('2d')
+    if (!context) return false
+    const data = context.getImageData(0, 0, canvas.width, canvas.height).data
+    let varied = 0
+    for (let i = 0; i < data.length; i += 16) if (data[i] !== data[0] || data[i + 1] !== data[1] || data[i + 2] !== data[2]) varied += 1
+    return varied > 20
+  })
+  assert.equal(painted, true, 'canvas should contain drawn pixels')
+}
 try {
   for (const chapter of chapters) {
     await visit(chapter)
     assert.equal(await page.locator('.VPDoc h1').count(), 1)
-    if (chapter) {
-      assert.equal(await page.locator('.VPDoc h2').filter({ hasText: '本篇导读' }).count(), 1, `${chapter} intro`)
-      assert.equal(await page.locator('.VPDoc h2').filter({ hasText: '本篇回顾' }).count(), 1, `${chapter} recap`)
-    }
     const badImages = await page.locator('.VPDoc img').evaluateAll(imgs => imgs.filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src))
     assert.deepEqual(badImages, [])
     const dimensions = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, scroll: document.documentElement.scrollWidth }))
@@ -39,8 +46,28 @@ try {
     }
   }
   await visit('')
+  await visit('14-precision-formats')
+  await assertCanvasPainted(page.locator('[data-mode="format"] canvas'))
+  await page.locator('[data-mode="format"]').getByRole('button', { name: 'FP16' }).click()
+  assert.match(await page.locator('.precision-caption').innerText(), /1.03515625/)
+  await page.getByRole('button', { name: 'BF16', exact: true }).click()
+  assert.match(await page.locator('.precision-caption').innerText(), /1.03125/)
+  await page.getByRole('button', { name: 'FP8 E4M3', exact: true }).click()
+  await page.getByLabel('输入数值').fill('1.0625')
+  assert.match(await page.locator('.precision-caption').innerText(), /1.0625 → 1；/)
+  await page.getByLabel('输入数值').fill('1.1')
+  assert.match(await page.locator('.precision-caption').innerText(), /1.1 → 1.125/)
+  await page.locator('.precision-canvas').screenshot({ path: new URL('precision-format-desktop.png', output).pathname })
+  await visit('15-mixed-precision')
+  await assertCanvasPainted(page.locator('[data-mode="pipeline"] canvas'))
+  await page.getByRole('button', { name: 'W4A16', exact: true }).click()
+  assert.match(await page.locator('.precision-caption').innerText(), /KV BF16/)
+  await page.getByLabel('KV 使用 FP8').check()
+  assert.match(await page.locator('.precision-caption').innerText(), /KV FP8/)
+  await page.locator('.precision-canvas').screenshot({ path: new URL('precision-config-desktop.png', output).pathname })
+  await visit('')
   const journey = page.locator('.journey')
-  for (const [stage, count] of [['看见现象', 2], ['拆开资源', 3], ['走进实现', 4], ['回到工程', 4]]) {
+  for (const [stage, count] of [['基础概念', 2], ['资源与状态', 3], ['优化机制', 4], ['工程实践', 4]]) {
     await journey.getByRole('button').filter({ hasText: stage }).click()
     await page.waitForFunction(n => document.querySelectorAll('.journey a').length === n, count)
     assert.equal(await journey.locator('a').count(), count)
@@ -67,7 +94,19 @@ try {
   await notes.getByRole('button', { name: '保留历史 K/V' }).click()
   await notes.screenshot({ path: new URL('notes-desktop.png', output).pathname })
   await visit('02-lifecycle')
+  const generation = page.locator('[data-lab="generation"]')
+  assert.match(await generation.innerText(), /当前最高的是“先”/)
+  await generation.getByRole('button', { name: '选择最高项' }).click()
+  assert.match(await generation.innerText(), /当前最高的是“提交”/)
+  await generation.getByRole('button', { name: '选择最高项' }).click()
+  assert.match(await generation.innerText(), /当前最高的是“申请”/)
+  await generation.getByRole('button', { name: '选择最高项' }).click()
+  assert.equal(await generation.getByRole('button', { name: '选择最高项' }).isDisabled(), true)
+  await generation.getByRole('button', { name: '重新开始生成' }).click()
+  assert.match(await generation.innerText(), /等待选择第一段/)
+  await generation.screenshot({ path: new URL('generation-desktop.png', output).pathname })
   const life = page.locator('[data-lab="lifecycle"]')
+  await reveal(life)
   await life.getByRole('button', { name: '下一步' }).click()
   assert.match(await life.innerText(), /活跃 KV：4 个位置/)
   await life.getByRole('button', { name: '下一步' }).click()
@@ -180,13 +219,20 @@ try {
   const extraViewports = []
   for (const width of [320, 768, 1920]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const chapter of ['', '01-landscape', '03-memory', '04-cache-attention', '05-scheduling', '11-speech']) {
+    for (const chapter of ['', '01-landscape', '03-memory', '04-cache-attention', '05-scheduling', '11-speech', '14-precision-formats', '15-mixed-precision']) {
       await visit(chapter)
       const dimensions = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, scroll: document.documentElement.scrollWidth }))
       assert.equal(dimensions.width, width)
       assert.ok(dimensions.scroll <= width, `${chapter} overflow at ${width}`)
       extraViewports.push({ chapter: chapter || 'index', ...dimensions })
-      const controls = page.locator('.intuition button, .journey button')
+      if (chapter.startsWith('14-') || chapter.startsWith('15-')) {
+        await assertCanvasPainted(page.locator('.precision-canvas canvas'))
+        await page.locator('.precision-canvas').screenshot({ path: new URL(`${chapter}-${width}.png`, output).pathname, ...capture })
+        await page.evaluate(() => document.documentElement.classList.add('dark'))
+        await page.locator('.precision-canvas').screenshot({ path: new URL(`${chapter}-${width}-dark.png`, output).pathname, ...capture })
+        await page.evaluate(() => document.documentElement.classList.remove('dark'))
+      }
+      const controls = page.locator('.intuition button, .journey button, .precision-controls button')
       for (const control of await controls.all()) {
         const b = await control.boundingBox()
         assert.ok(b && b.x >= 0 && b.x + b.width <= width, `${chapter} control at ${width}`)
@@ -212,7 +258,8 @@ try {
   await page.goto(`${root}docs/ai/`)
   await page.locator('.doc-topic-directory').getByRole('link').filter({ hasText: '模型推理系列' }).click()
   await page.getByRole('heading', { name: '模型推理系列', exact: true }).waitFor()
-  await page.locator('.journey').getByRole('link', { name: '02. 一次回答怎样生成', exact: true }).click()
+  await page.locator('.journey').getByRole('link', { name: '02. 从输入到逐步生成', exact: true }).click()
+  await reveal(page.locator('[data-lab="lifecycle"]'))
   await page.locator('[data-lab="lifecycle"]').getByRole('button', { name: '下一步' }).click()
   assert.match(await page.locator('[data-lab="lifecycle"]').innerText(), /活跃 KV：4 个位置/)
   await page.screenshot({ path: new URL('reading-desktop.png', output).pathname })

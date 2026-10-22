@@ -181,6 +181,45 @@
         "height": 844,
         "scroll": 390
       }
+    },
+    {
+      "chapter": "14-precision-formats",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "15-mixed-precision",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
+    },
+    {
+      "chapter": "16-quantization-now",
+      "desktop": {
+        "width": 1440,
+        "height": 1000,
+        "scroll": 1440
+      },
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "scroll": 390
+      }
     }
   ],
   "extraViewports": [
@@ -221,6 +260,18 @@
       "scroll": 320
     },
     {
+      "chapter": "14-precision-formats",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
+      "chapter": "15-mixed-precision",
+      "width": 320,
+      "height": 900,
+      "scroll": 320
+    },
+    {
       "chapter": "index",
       "width": 768,
       "height": 900,
@@ -257,6 +308,18 @@
       "scroll": 768
     },
     {
+      "chapter": "14-precision-formats",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
+      "chapter": "15-mixed-precision",
+      "width": 768,
+      "height": 900,
+      "scroll": 768
+    },
+    {
       "chapter": "index",
       "width": 1920,
       "height": 900,
@@ -288,6 +351,18 @@
     },
     {
       "chapter": "11-speech",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "14-precision-formats",
+      "width": 1920,
+      "height": 900,
+      "scroll": 1920
+    },
+    {
+      "chapter": "15-mixed-precision",
       "width": 1920,
       "height": 900,
       "scroll": 1920
@@ -424,6 +499,13 @@
       "name": "pd-deployment",
       "width": 1120,
       "height": 650,
+      "overflow": [],
+      "boxOverflow": []
+    },
+    {
+      "name": "precision-format-map",
+      "width": 1120,
+      "height": 560,
       "overflow": [],
       "boxOverflow": []
     },
