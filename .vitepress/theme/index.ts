@@ -8,6 +8,7 @@ import MermaidDiagram from './components/MermaidDiagram.vue'
 import TopicDirectory from './components/TopicDirectory.vue'
 import './style.css'
 import './reading.css'
+import './showcase.css'
 
 export default {
   extends: DefaultTheme,

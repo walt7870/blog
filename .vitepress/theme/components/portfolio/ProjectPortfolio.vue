@@ -5,6 +5,7 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Search, X, LayoutGrid, List, Link,
 import { categories, projects } from './projects';
 import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
+import { toneOf } from './tones';
 import './portfolio.css';
 import './portfolio-browser.css';
 import './portfolio-refresh.css';
@@ -91,22 +92,31 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
   <div class="portfolio" :class="{ 'portfolio-detail': project }">
     <a class="pf-skip" href="#portfolio-main">跳到项目内容</a>
     <div v-if="!projectId" id="portfolio-main" class="pf-index">
-      <header class="pf-intro">
-        <div class="pf-collection-title"><h1>项目实践</h1><a :href="withBase(profilePath || '/')">个人概览 <ArrowUpRight :size="16" /></a></div>
-        <p class="pf-collection-summary">AI 应用、云平台与跨端 SDK，从业务场景到系统架构和交付验证。</p>
+      <header class="pf-intro sc-hero sc-bleed">
+        <div class="sc-hero-inner sc-single">
+          <p class="sc-eyebrow"><span class="sc-pulse" aria-hidden="true"></span>牛万成 · 项目作品集</p>
+          <h1 class="sc-title">项目<span>实践</span></h1>
+          <p class="sc-lead">AI 应用、云平台与跨端 SDK，从业务场景到系统架构和交付验证。每个案例给出负责范围、关键机制与有范围说明的验证结果。</p>
+          <div class="sc-actions">
+            <dl class="sc-stats"><div><dd>{{ projects.length }}</dd><dt>个项目案例</dt></div><div><dd>{{ categories.length - 1 }}</dd><dt>个项目领域</dt></div></dl>
+            <a class="sc-link pf-profile-link" :href="withBase(profilePath || '/')">个人概览 <ArrowUpRight :size="15" /></a>
+          </div>
+        </div>
       </header>
       <section class="pf-browser" aria-label="项目作品">
+        <div class="pf-toolbar">
         <div class="pf-tools">
           <div class="pf-search"><Search :size="17" aria-hidden="true"/><input v-model="query" type="search" aria-label="搜索项目或技术栈" placeholder="搜索项目或技术栈"/><button v-if="query" class="pf-icon" title="清除搜索" aria-label="清除搜索" @click="query = ''"><X :size="16"/></button></div>
           <div class="pf-view" role="group" aria-label="展示方式"><button class="pf-icon" :class="{ active: view === 'grid' }" :aria-pressed="view === 'grid'" title="网格视图" aria-label="网格视图" @click="view = 'grid'"><LayoutGrid :size="18"/></button><button class="pf-icon" :class="{ active: view === 'list' }" :aria-pressed="view === 'list'" title="列表视图" aria-label="列表视图" @click="view = 'list'"><List :size="19"/></button></div>
         </div>
         <div class="pf-filters" role="group" aria-label="项目分类"><button v-for="c in categories" :key="c" :class="{ active: category === c }" :aria-pressed="category === c" @click="category = c">{{ c }}<span>{{ c === '全部项目' ? projects.length : projects.filter(p => p.category === c).length }}</span></button></div>
+        </div>
         <div class="pf-results-line"><span>{{ category === '全部项目' ? '精选与项目实践' : category }}</span><span aria-live="polite">{{ filtered.length }} 个项目</span></div>
         <Transition name="pf-results">
         <div v-if="filtered.length" :key="`${category}:${query}:${view}`" class="pf-grid" :class="{ 'pf-list': view === 'list' }">
           <template v-for="(p, index) in filtered" :key="p.id">
           <div v-if="category === '全部项目' && p.category === '公司基础设施' && filtered[index - 1]?.category !== p.category" class="pf-module-heading"><h2>公司基础设施</h2><p>代码协作 · 持续交付 · 内部 AI 接入</p></div>
-          <article class="pf-project" :class="[{ featured: !query && category === '全部项目' && index === 0 && view === 'grid' }, `tone-${p.color}`]">
+          <article class="pf-project" :data-tone="toneOf(p.category)" :class="[{ featured: !query && category === '全部项目' && index === 0 && view === 'grid' }, `tone-${p.color}`]">
             <a :href="link(p.id)" class="pf-preview" :aria-label="`查看${p.title}项目详情`"><img :src="image(p.id)" :alt="`${p.title}项目预览`" width="1440" height="900" :loading="index < 2 ? 'eager' : 'lazy'"/><span class="pf-preview-label">{{ index === 0 && category === '全部项目' && !query ? '精选案例' : p.category }}</span><span class="pf-preview-arrow"><ArrowUpRight :size="22"/></span></a>
             <div class="pf-project-info"><div class="pf-project-meta"><span>{{ p.category }}</span><span class="pf-status"><i></i>{{ p.status }}</span></div><h2><a :href="link(p.id)">{{ p.title }}<ArrowUpRight :size="19"/></a></h2><p>{{ p.summary }}</p><div class="pf-tags"><span v-for="tag in p.tags" :key="tag">{{ tag }}</span></div><a v-if="!query && category === '全部项目' && index === 0 && view === 'grid'" :href="link(p.id)" class="pf-feature-link">查看项目实践 <ArrowRight :size="17"/></a></div>
           </article>
@@ -119,11 +129,13 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
     </div>
 
     <div v-else-if="project" id="portfolio-main">
-      <header class="pf-case-header">
+      <header class="pf-case-header sc-hero sc-bleed" :data-tone="toneOf(project.category)">
+        <div class="sc-hero-inner sc-single">
         <div class="pf-case-top"><a :href="withBase('/projects/')"><ArrowLeft :size="17"/> 全部项目</a><button class="pf-share" @click="share"><Check v-if="copied" :size="16"/><Link v-else :size="16"/>{{ copied ? '链接已复制' : '分享项目' }}</button><span v-if="copyError" role="status">请复制浏览器地址分享</span></div>
         <div class="pf-eyebrow">{{ project.category }}<span class="pf-divider">/</span>{{ project.status }}</div>
-        <h1>{{ project.title }}</h1><p class="pf-case-subtitle">{{ project.subtitle }}</p>
+        <h1 class="sc-title">{{ project.title }}</h1><p class="pf-case-subtitle">{{ project.subtitle }}</p>
         <div class="pf-case-tags"><span v-for="tag in project.tags" :key="tag">{{ tag }}</span></div>
+        </div>
       </header>
       <figure v-if="selectedMedia" class="pf-case-visual" :class="[{ 'pf-phone-visual': project.id === 'speech-sdk' }, `tone-${project.color}`]"><button @click="enlarge()" :aria-label="`放大${project.title}预览`"><img :src="screenshot(selectedMedia.id)" :alt="selectedMedia.label"/><span class="pf-zoom"><Maximize2 :size="18"/></span></button><figcaption><span>{{ selectedMedia.label }}</span><span>{{ String(mediaTab + 1).padStart(2, '0') }} / {{ String(media.length).padStart(2, '0') }}</span></figcaption></figure>
       <div v-if="media.length > 1" class="pf-media-rail" role="group" aria-label="项目画面"><button v-for="(item, i) in media" :key="item.id" :class="{ active: mediaTab === i }" :aria-pressed="mediaTab === i" @click="mediaTab = i"><img :src="screenshot(item.id)" :alt="item.label"/><span>{{ item.label }}</span></button></div>

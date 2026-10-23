@@ -47,27 +47,27 @@ function openSearch() {
 
 <template>
   <div class="home">
-    <section class="hero" aria-labelledby="home-title">
-      <div class="hero-inner">
+    <section class="sc-hero" aria-labelledby="home-title">
+      <div class="sc-hero-inner">
         <div class="hero-copy">
-          <p class="hero-eyebrow"><span class="pulse" aria-hidden="true"></span>工程实践知识库 · 持续更新</p>
-          <h1 id="home-title">稻草<span>小站</span></h1>
-          <p class="hero-lead">从协议、Linux、容器和数据库，到 Java、架构设计、AI 与语音工程。每个专题先讲清概念边界，再给出配置入口、典型场景和排查路径。</p>
+          <p class="sc-eyebrow"><span class="sc-pulse" aria-hidden="true"></span>工程实践知识库 · 持续更新</p>
+          <h1 id="home-title" class="sc-title">稻草<span>小站</span></h1>
+          <p class="sc-lead">从协议、Linux、容器和数据库，到 Java、架构设计、AI 与语音工程。每个专题先讲清概念边界，再给出配置入口、典型场景和排查路径。</p>
           <button type="button" class="hero-search" @click="openSearch">
             <Search :size="18" aria-hidden="true" />
             <span>搜索文章、命令或概念</span>
             <kbd>{{ searchKey }}</kbd>
           </button>
-          <dl class="hero-stats">
+          <dl class="sc-stats">
             <div><dd>{{ data.total }}</dd><dt>篇文章</dt></div>
             <div><dd>{{ data.topicCount }}</dd><dt>个专题</dt></div>
             <div><dd>{{ projects.length }}</dd><dt>个项目案例</dt></div>
           </dl>
         </div>
 
-        <div class="hero-collage" aria-label="项目实践画面">
-          <a v-for="(p, i) in showcase" :key="p.id" :href="withBase(`/projects/${p.id}`)" class="shot" :class="`shot-${i}`">
-            <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><b>{{ p.title }}</b></span>
+        <div class="sc-collage" aria-label="项目实践画面">
+          <a v-for="(p, i) in showcase" :key="p.id" :href="withBase(`/projects/${p.id}`)" class="sc-shot" :class="`sc-shot-${i}`">
+            <span class="sc-shot-bar" aria-hidden="true"><i></i><i></i><i></i><b>{{ p.title }}</b></span>
             <img :src="withBase(`/projects/screenshots/${p.image?.id}.webp`)" :alt="p.image?.label" width="720" height="450" :loading="i ? 'lazy' : 'eager'" />
           </a>
         </div>
@@ -76,8 +76,8 @@ function openSearch() {
 
     <div class="home-body">
       <section v-if="data.updates.length" class="section updates-panel" aria-labelledby="updates-title">
-        <header class="section-head">
-          <h2 id="updates-title"><span class="idx">01</span>最近更新</h2>
+        <header class="sc-head">
+          <h2 id="updates-title"><span class="sc-idx">01</span>最近更新</h2>
           <p v-if="data.latest">最近一次更新于 {{ data.latest }}</p>
         </header>
         <ol class="updates">
@@ -92,8 +92,8 @@ function openSearch() {
       </section>
 
       <section class="section" aria-labelledby="catalog-title">
-        <header class="section-head">
-          <h2 id="catalog-title"><span class="idx">02</span>专题目录</h2>
+        <header class="sc-head">
+          <h2 id="catalog-title"><span class="sc-idx">02</span>专题目录</h2>
           <p>入口页负责总览和阅读路径，细节页拆解机制、配置与排错。</p>
         </header>
         <div class="catalog">
@@ -120,8 +120,8 @@ function openSearch() {
       </section>
 
       <section class="section" aria-labelledby="projects-title">
-        <header class="section-head">
-          <h2 id="projects-title"><span class="idx">03</span>项目实践</h2>
+        <header class="sc-head">
+          <h2 id="projects-title"><span class="sc-idx">03</span>项目实践</h2>
           <a :href="withBase('/projects/')">全部 {{ projects.length }} 个案例 <ArrowRight :size="15" aria-hidden="true" /></a>
         </header>
         <div class="showcase">
@@ -138,8 +138,8 @@ function openSearch() {
       </section>
 
       <section class="section" aria-labelledby="routes-title">
-        <header class="section-head">
-          <h2 id="routes-title"><span class="idx">04</span>按问题进入</h2>
+        <header class="sc-head">
+          <h2 id="routes-title"><span class="sc-idx">04</span>按问题进入</h2>
           <p>从当前要解决的问题进入，再沿专题页的导读继续深入。</p>
         </header>
         <ol class="routes">
@@ -170,10 +170,6 @@ function openSearch() {
   --tone-green: #0f9f6e;
   --tone-orange: #e8692c;
   --tone-violet: #7c5ce0;
-  --hero-bg: #08130f;
-  --hero-ink: #f2f7f4;
-  --hero-muted: #a9bab1;
-  --hero-accent: #5ee0a8;
   color: var(--vp-c-text-1);
   overflow-x: clip;
 }
@@ -181,63 +177,20 @@ function openSearch() {
 .home a { color: inherit; text-decoration: none; }
 .home a:focus-visible, .hero-search:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; border-radius: 8px; }
 
-/* Hero: full-bleed dark band, the one dramatic surface on the page. */
-.hero { position: relative; isolation: isolate; background: var(--hero-bg); color: var(--hero-ink); overflow: hidden; }
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(48rem 30rem at 12% 8%, rgba(46, 204, 138, .28), transparent 60%),
-    radial-gradient(40rem 28rem at 92% 70%, rgba(64, 120, 255, .26), transparent 62%),
-    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
-  background-size: auto, auto, 48px 48px, 48px 48px;
-}
-.hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: center; width: min(1240px, 100% - 48px); min-height: 600px; margin: 0 auto; padding: 72px 0 120px; }
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 6px 14px; border: 1px solid rgba(94, 224, 168, .3); border-radius: 999px; background: rgba(94, 224, 168, .08); color: var(--hero-accent); font-size: 13px; font-weight: 600; }
-.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-accent); box-shadow: 0 0 0 0 rgba(94, 224, 168, .6); animation: pulse 2.4s ease-out infinite; }
-.hero-copy h1 { margin: 22px 0 0; color: var(--hero-ink); font-size: 80px; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
-.hero-copy h1 span { background: linear-gradient(100deg, #5ee0a8 10%, #7cb2ff 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hero-lead { max-width: 32em; margin: 24px 0 0; color: var(--hero-muted); font-size: 17px; line-height: 1.85; }
 .hero-search { display: flex; align-items: center; gap: 12px; width: min(100%, 480px); height: 54px; margin-top: 34px; padding: 0 12px 0 18px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 12px; background: rgba(255, 255, 255, .06); color: #cfdcd5; font-size: 15px; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease; }
 .hero-search:hover { border-color: rgba(94, 224, 168, .6); background: rgba(255, 255, 255, .09); box-shadow: 0 0 0 4px rgba(94, 224, 168, .1); }
 .hero-search span { flex: 1; min-width: 0; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hero-search kbd { padding: 3px 8px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 6px; color: #9fb2a8; font: 12px/1.5 var(--vp-font-family-mono); }
-.hero-stats { display: flex; gap: 40px; margin: 40px 0 0; }
-.hero-stats div { display: grid; }
-.hero-stats dd { margin: 0; color: var(--hero-ink); font: 700 34px/1.1 var(--vp-font-family-mono); font-variant-numeric: tabular-nums; }
-.hero-stats dt { margin-top: 6px; color: var(--hero-muted); font-size: 13px; }
 
-/* Collage of real project screens */
-.hero-collage { position: relative; height: 470px; }
-.shot { position: absolute; display: block; width: 74%; border: 1px solid rgba(255, 255, 255, .14); border-radius: 12px; background: #0f1d18; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7); overflow: hidden; transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease; }
-.shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: #fff; }
-.shot-bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #13231d; color: #9fb2a8; font-size: 11px; }
-.shot-bar i { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #3a4a43; }
-.shot-bar i:first-child { background: #ff6b5f; }
-.shot-bar i:nth-child(2) { background: #ffbe3d; }
-.shot-bar i:nth-child(3) { background: #2bcf6a; }
-.shot-bar b { margin-left: 8px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.shot-0 { top: 0; right: 0; z-index: 3; transform: rotate(2deg); }
-.shot-1 { top: 130px; left: 0; z-index: 2; width: 62%; transform: rotate(-4deg); }
-.shot-2 { bottom: 0; right: 10%; z-index: 1; width: 56%; transform: rotate(-1deg); }
-.shot:hover { z-index: 5; transform: rotate(0) translateY(-6px) scale(1.02); box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8), 0 0 0 1px rgba(94, 224, 168, .5); }
 
 /* Body */
 .home-body { width: min(1240px, 100% - 48px); margin: 0 auto; padding: 0 0 96px; }
 .section { margin-top: 80px; }
-.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 28px; }
-.section-head h2 { display: flex; align-items: baseline; gap: 14px; margin: 0; padding: 0; border: 0; font-size: 32px; font-weight: 750; line-height: 1.2; letter-spacing: -.01em; }
-.idx { color: var(--vp-c-brand-1); font: 600 14px/1 var(--vp-font-family-mono); }
-.section-head p { margin: 0; color: var(--vp-c-text-2); font-size: 15px; }
-.section-head > a { display: inline-flex; align-items: center; gap: 6px; color: var(--vp-c-brand-1); font-weight: 600; font-size: 15px; }
 
 /* Recent updates: a raised panel overlapping the hero edge. */
 .updates-panel { position: relative; z-index: 2; margin-top: -60px; padding: 28px 28px 24px; border: 1px solid var(--vp-c-divider); border-radius: 18px; background: var(--vp-c-bg); box-shadow: 0 24px 48px -24px rgba(8, 19, 15, .35); }
-.updates-panel .section-head { margin-bottom: 18px; }
-.updates-panel .section-head h2 { font-size: 22px; }
+.updates-panel .sc-head { margin-bottom: 18px; }
+.updates-panel .sc-head h2 { font-size: 22px; }
 .updates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
 .updates a { display: grid; gap: 6px; height: 100%; padding: 16px 18px; border-radius: 12px; background: var(--vp-c-bg-soft); transition: background-color .2s ease, transform .2s ease; }
 .updates a:hover { background: var(--vp-c-brand-soft); transform: translateY(-2px); }
@@ -301,11 +254,8 @@ function openSearch() {
 .more a:hover strong { color: var(--vp-c-brand-1); }
 .more span { color: var(--vp-c-text-3); font-size: 13px; }
 
-@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(94, 224, 168, 0); } 100% { box-shadow: 0 0 0 0 rgba(94, 224, 168, 0); } }
 
 @media (max-width: 1080px) {
-  .hero-inner { grid-template-columns: minmax(0, 1fr); min-height: 0; padding: 56px 0 120px; }
-  .hero-collage { width: 100%; max-width: 640px; height: 380px; }
   .catalog { columns: 1; }
   .showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .showcase .case:first-child { grid-column: 1 / -1; }
@@ -313,19 +263,10 @@ function openSearch() {
   .updates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .hero-inner, .home-body { width: calc(100% - 32px); }
-  .hero-inner { gap: 36px; padding: 40px 0 100px; }
-  .hero-copy h1 { font-size: 52px; }
-  .hero-lead { font-size: 15px; }
+  .home-body { width: calc(100% - 32px); }
   .hero-search kbd { display: none; }
-  .hero-stats { gap: 24px; }
-  .hero-stats dd { font-size: 26px; }
-  .hero-collage { height: 250px; }
-  .shot-bar { height: 22px; }
-  .shot-bar b { display: none; }
   .section { margin-top: 56px; }
   .updates-panel { padding: 20px 16px 16px; border-radius: 14px; }
-  .section-head h2 { font-size: 24px; }
   .updates, .showcase, .routes, .more { grid-template-columns: minmax(0, 1fr); }
   .showcase .case:first-child { grid-column: auto; }
   .group { padding: 20px 16px 8px; }
