@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" role="img" aria-labelledby="number-encoding-mobile-title number-encoding-mobile-desc">
+  <title id="number-encoding-mobile-title">1.25 的 FP16 编码</title>
+  <desc id="number-encoding-mobile-desc">正号保存为 0，指数零加偏移十五保存为 01111，小数部分四分之一保存为 0100000000。</desc>
+  <rect width="360" height="480" fill="#f4f7f9"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="#243b45">
+    <text x="24" y="40" font-size="20" font-weight="600">1.25 怎样存成 FP16</text>
+    <text x="24" y="80" font-size="20">1.25 = +1.01₂ × 2⁰</text>
+    <text x="24" y="112" font-size="16">1 + 0 × ½ + 1 × ¼</text>
+    <text x="24" y="156" font-size="16">符号：正数用 0，分配 1 位</text>
+    <rect x="24" y="168" width="312" height="44" rx="4" fill="#f9e5e9"/>
+    <text x="40" y="198" font-size="22" font-family="ui-monospace, monospace">0</text>
+    <text x="24" y="248" font-size="16">指数：0 + 15 = 15，分配 5 位</text>
+    <rect x="24" y="260" width="312" height="44" rx="4" fill="#dcece9"/>
+    <text x="40" y="290" font-size="22" font-family="ui-monospace, monospace">01111</text>
+    <text x="24" y="340" font-size="16">小数部分：¼，分配 10 位</text>
+    <rect x="24" y="352" width="312" height="44" rx="4" fill="#e0e9f6"/>
+    <text x="40" y="382" font-size="22" font-family="ui-monospace, monospace">0100000000</text>
+    <text x="24" y="438" font-size="16">读取：(+1) × (1 + ¼) × 2⁰</text>
+    <text x="24" y="464" font-size="16">得到 1.25，共用 16 位</text>
+  </g>
+</svg>

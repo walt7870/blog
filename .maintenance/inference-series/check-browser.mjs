@@ -10,7 +10,7 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, de
 const capture = { style: '.VPNav, .VPLocalNav { visibility: hidden !important; }' }
 const errors = []
 page.on('pageerror', e => errors.push(e.message))
-const chapters = ['','01-landscape','02-lifecycle','03-memory','04-cache-attention','05-scheduling','06-quantization','07-speculative','08-vllm','09-sglang','10-distributed','11-speech','12-selection-versions','13-practice','14-precision-formats','15-mixed-precision','16-quantization-now']
+const chapters = ['','01-landscape','02-lifecycle','03-memory','04-cache-attention','05-scheduling','06-quantization','07-speculative','08-vllm','09-sglang','10-distributed','11-speech','12-selection-versions','13-practice']
 const results = []
 const visit = async chapter => {
   await page.goto(`${root}docs/ai/inference-series/${chapter ? chapter + '.html' : ''}`)

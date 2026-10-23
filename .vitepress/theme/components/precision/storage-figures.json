@@ -1,0 +1,310 @@
+{
+  "fp64": {
+    "title": "FP64",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 728
+    }
+  },
+  "fp32": {
+    "title": "FP32",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 688
+    }
+  },
+  "fp16": {
+    "title": "FP16",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 688
+    }
+  },
+  "bf16": {
+    "title": "BF16",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 708
+    }
+  },
+  "fp8-e4m3fn": {
+    "title": "FP8 E4M3FN",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 708
+    }
+  },
+  "fp8-e5m2": {
+    "title": "FP8 E5M2",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 688
+    }
+  },
+  "fp8-e4m3fnuz": {
+    "title": "FP8 E4M3FNUZ",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 708
+    }
+  },
+  "fp8-e5m2fnuz": {
+    "title": "FP8 E5M2FNUZ",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 708
+    }
+  },
+  "fp6-e2m3": {
+    "title": "FP6 E2M3",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 708
+    }
+  },
+  "fp6-e3m2": {
+    "title": "FP6 E3M2",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 688
+    }
+  },
+  "fp4-e2m1": {
+    "title": "FP4 E2M1",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 688
+    }
+  },
+  "int8": {
+    "title": "INT8",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 564
+    }
+  },
+  "int4": {
+    "title": "INT4",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 588
+    }
+  },
+  "uint8": {
+    "title": "UINT8",
+    "desktop": {
+      "width": 720,
+      "height": 392
+    },
+    "mobile": {
+      "width": 320,
+      "height": 444
+    }
+  },
+  "uint4": {
+    "title": "UINT4",
+    "desktop": {
+      "width": 720,
+      "height": 392
+    },
+    "mobile": {
+      "width": 320,
+      "height": 444
+    }
+  },
+  "int16": {
+    "title": "INT16",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 544
+    }
+  },
+  "int32": {
+    "title": "INT32",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 568
+    }
+  },
+  "int64": {
+    "title": "INT64",
+    "desktop": {
+      "width": 720,
+      "height": 496
+    },
+    "mobile": {
+      "width": 320,
+      "height": 588
+    }
+  },
+  "nf4": {
+    "title": "NF4",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 728
+    }
+  },
+  "e8m0": {
+    "title": "E8M0 缩放格式",
+    "desktop": {
+      "width": 720,
+      "height": 392
+    },
+    "mobile": {
+      "width": 320,
+      "height": 508
+    }
+  },
+  "mxfp8": {
+    "title": "MXFP8（图中采用 E4M3）",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 608
+    }
+  },
+  "mxfp6": {
+    "title": "MXFP6",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 608
+    }
+  },
+  "mxfp4": {
+    "title": "MXFP4",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 608
+    }
+  },
+  "nvfp4": {
+    "title": "NVFP4",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 728
+    }
+  },
+  "gguf-q4-0": {
+    "title": "GGUF / GGML Q4_0",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 628
+    }
+  },
+  "gguf-q4-k": {
+    "title": "GGUF / GGML Q4_K",
+    "desktop": {
+      "width": 720,
+      "height": 564
+    },
+    "mobile": {
+      "width": 320,
+      "height": 728
+    }
+  },
+  "tf32": {
+    "title": "TF32 矩阵计算模式",
+    "desktop": {
+      "width": 720,
+      "height": 648
+    },
+    "mobile": {
+      "width": 320,
+      "height": 848
+    }
+  },
+  "int4-packing": {
+    "title": "两个 INT4 怎样装进一字节",
+    "desktop": {
+      "width": 720,
+      "height": 476
+    },
+    "mobile": {
+      "width": 320,
+      "height": 588
+    }
+  }
+}

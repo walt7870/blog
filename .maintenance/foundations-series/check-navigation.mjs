@@ -7,7 +7,7 @@ try {
   const page = await browser.newPage()
   const errors = []
   page.on('pageerror', error => errors.push(error.message))
-  for (const [query, target] of [['为什么要平方', '06-loss-and-objective'], ['混合精度', '15-mixed-precision']]) {
+  for (const [query, target] of [['为什么要平方', '06-loss-and-objective'], ['混合精度', '04-mixed-precision']]) {
     await page.goto(root)
     await page.waitForFunction(() => Boolean(document.querySelector('#app')?.__vue_app__))
     await page.locator('.VPNavBarSearch button').click()

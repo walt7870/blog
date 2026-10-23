@@ -66,7 +66,8 @@ RAG 和 Agent 是应用机制：RAG 把检索结果带入模型上下文；Agent
 初次接触可先读[发展脉络](./history.md)、[概念词典](./glossary.md)与[学习路线](./learning-path.md)。已有具体任务时，按下面的场景进入对应专题。
 
 <TopicDirectory :items="[
-  { title: '基础与模型原理', href: '/docs/ai/foundations/', icon: 'brain', description: '模型怎样从样本中学习，为什么训练表现好却在新数据上出错。' },
+  { title: '模型数值精度', href: '/docs/ai/precision/', icon: 'gauge', description: '跟着一个数字理解 FP32、FP16、BF16：怎样保存、误差从哪里来，混合精度与量化怎样工作。' },
+  { title: '模型训练入门', href: '/docs/ai/foundations/', icon: 'brain', description: '模型怎样从样本中学习，为什么训练表现好却在新数据上出错。' },
   { title: '主要应用方向', href: '/docs/ai/domains/', icon: 'layers', description: '识别图片缺陷、转写会议语音、预测销量：先确定输入、输出与错误代价。' },
   { title: '大语言模型', href: '/docs/ai/llm/', icon: 'book', description: '理解上下文、生成与推理的边界，再选择提示词、检索和工具调用。' },
   { title: '模型推理系列', href: '/docs/ai/inference-series/', icon: 'gauge', description: '从逐步生成、显存和缓存实验，理解 vLLM、SGLang、语音推理与部署取舍。' },

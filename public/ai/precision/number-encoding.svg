@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="number-encoding-title number-encoding-desc">
+  <title id="number-encoding-title">1.25 怎样保存成浮点数</title>
+  <desc id="number-encoding-desc">1.25 等于二进制 1.01 乘以 2 的零次方，FP16 分别保存符号 0、带偏移的指数 01111 和小数部分 0100000000。</desc>
+  <rect width="640" height="400" fill="#f4f7f9"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="#243b45">
+    <text x="32" y="48" font-size="22" font-weight="600">跟着 1.25，看三段位怎样分工</text>
+    <text x="32" y="96" font-size="20">1.25 = +1.01₂ × 2⁰</text>
+    <text x="32" y="132" font-size="15" fill="#536975">1 + 0 × ½ + 1 × ¼</text>
+    <rect x="32" y="200" width="64" height="60" rx="4" fill="#f9e5e9"/>
+    <rect x="112" y="200" width="192" height="60" rx="4" fill="#dcece9"/>
+    <rect x="320" y="200" width="288" height="60" rx="4" fill="#e0e9f6"/>
+    <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="22" text-anchor="middle"><text x="64" y="238">0</text><text x="208" y="238">01111</text><text x="464" y="238">0100000000</text></g>
+    <g font-size="16"><text x="32" y="292">符号：正</text><text x="112" y="292">指数：15 − 15 = 0</text><text x="320" y="292">小数部分：¼</text></g>
+    <text x="32" y="340" font-size="16">读取：(+1) × (1 + ¼) × 2⁰ = 1.25</text>
+    <text x="32" y="376" font-size="14" fill="#536975">FP16 共 16 位：1 位符号 + 5 位指数 + 10 位小数部分</text>
+  </g>
+</svg>
