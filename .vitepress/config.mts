@@ -8,6 +8,8 @@
  */
 import { defineConfig } from 'vitepress';
 import { Buffer } from 'node:buffer';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import { nav } from './navbar.ts';
 import { sidebar } from './sidebar.ts';
@@ -19,17 +21,19 @@ export default  defineConfig({
   title: '稻草小站',
   lang: 'zh-CN',
   description: siteDescription,
+  lastUpdated: true,
   sitemap: {
     hostname: siteUrl,
     transformItems: items => items.filter(item => publicRoute(item.url)),
   },
-  async transformPageData(pageData) {
+  async transformPageData(pageData, { siteConfig }) {
     const metadata = await pageMetadata(pageData);
     const updated = { ...pageData, ...metadata };
     return {
       ...metadata,
       frontmatter: {
         ...pageData.frontmatter,
+        readingMinutes: readingMinutes(resolve(siteConfig.srcDir, pageData.filePath)),
         head: [...(pageData.frontmatter.head || []), ...pageHead(updated)],
       },
     };
@@ -79,6 +83,7 @@ export default  defineConfig({
     outline: {
       label: '本页目录',
     },
+    docFooter: { prev: '上一篇', next: '下一篇' },
     footer: {
       message:
         '专题：<a href="/blog/docs/ai/skill/">Agent Skill</a> · <a href="/blog/docs/ai/skill/recommendations">推荐与选型</a>',
@@ -105,3 +110,13 @@ export default  defineConfig({
     },
   },
 })
+
+// Chinese prose is read at roughly 400 characters a minute; code blocks and markup are not counted.
+function readingMinutes(file: string) {
+  let text = '';
+  try { text = readFileSync(file, 'utf8'); } catch { return 0; }
+  text = text.replace(/^---[\s\S]*?\n---/, '').replace(/^(```|~~~)[\s\S]*?^\1/gm, '').replace(/<[^>]+>/g, '');
+  const han = text.match(/[\u4e00-\u9fff]/g)?.length || 0;
+  const words = text.replace(/[\u4e00-\u9fff]/g, ' ').match(/[A-Za-z0-9]+/g)?.length || 0;
+  return Math.round(han / 400 + words / 200);
+}

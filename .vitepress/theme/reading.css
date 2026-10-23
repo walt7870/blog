@@ -59,3 +59,6 @@
 @media (prefers-reduced-motion: reduce) {
   .VPSidebarItem .link { transition: none; }
 }
+/* The doc header already shows the update date; keep the footer for pagination only. */
+.VPDocFooter .edit-info:not(:has(.edit-link)) { display: none; }
+.VPDoc .vp-doc > div > h1:first-child { margin-top: 0; }
