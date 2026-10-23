@@ -1,0 +1,65 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/inference-series/index.md",
+      "status": "verified",
+      "pageType": "总览",
+      "decision": "保留入门主线，只补语音回放与已有 sherpa-onnx 专题入口。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
+      ],
+      "reviewedHash": "0e43fbafdf7d1ce062a092ff8828a79863fb40a71864cd05812fd741c512a1e6"
+    },
+    {
+      "file": "docs/ai/inference-series/01-landscape.md",
+      "status": "verified",
+      "pageType": "机制入门",
+      "decision": "从同一个年假问题补充语音推理定位，不在第一篇引入后端清单。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
+      ],
+      "reviewedHash": "0f21a3d3eec3684f254b58eaaf02a3dbacdec0d638d5e4cb456f9d9dd7eff6e8"
+    },
+    {
+      "file": "docs/ai/inference-series/11-speech.md",
+      "status": "verified",
+      "pageType": "机制与选型",
+      "decision": "补语音框架与计算后端分工图、七阶段流程回放、热词配置因果实验、能力边界与已有详细页入口。",
+      "findings": [],
+      "dependencyFiles": [
+        ".vitepress/theme/components/SpeechRuntimeLab.vue",
+        ".vitepress/theme/components/InferenceFigure.vue",
+        "public/ai/inference-series/sherpa-runtime.svg",
+        "public/ai/inference-series/sherpa-runtime-mobile.svg"
+      ],
+      "validation": [
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
+      ],
+      "reviewedHash": "38af764294f7f1180d9598bdda5f6a3ea7270854cd85563066934f1d9640f3fe"
+    },
+    {
+      "file": "docs/ai/inference-series/12-selection-versions.md",
+      "status": "verified",
+      "pageType": "对比与版本速查",
+      "decision": "在任务选型中补 sherpa-onnx，语音版本使用独立核查日期；保留其他项目原有快照，无需追加重复图示。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
+      ],
+      "reviewedHash": "15968bcbd52dce6634ab4ee49507b105e4086aea4237cc1004a638a10adf3c0d"
+    }
+  ]
+}

@@ -62,4 +62,4 @@ import InferenceStory from '../../../.vitepress/theme/components/InferenceStory.
 
 接下来从[第一篇：推理系统的分工](./01-landscape.md)开始，看看你按下发送之后，应用、推理引擎、模型和硬件分别接手哪一部分工作。
 
-如果你更关心语音服务中的断句、收尾和角色识别，可以继续阅读[流式语音技术实践](../speech-engineering/)。
+如果你更关心语音，可以从[语音与多模态推理](./11-speech.md)里的 sherpa-onnx 流程回放和热词实验开始，再进入 [sherpa-onnx 专题](../../basic/acoustics/sherpa-onnx/)学习模型与 API；语音服务中的断句、收尾和角色识别则在[流式语音技术实践](../speech-engineering/)展开。

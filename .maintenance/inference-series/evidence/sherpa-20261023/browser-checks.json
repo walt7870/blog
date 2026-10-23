@@ -1,0 +1,324 @@
+{
+  "devDark": [
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "height": 1000,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 1440,
+      "theme": "dark mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "height": 1000,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 1440,
+      "theme": "dark mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "height": 1000,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 1440,
+      "theme": "dark mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "height": 1000,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 1440,
+      "theme": "dark mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 390,
+      "theme": "dark mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 390,
+      "theme": "dark mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 390,
+      "theme": "dark mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 390,
+      "theme": "dark mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 320,
+      "theme": "dark mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 320,
+      "theme": "dark mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 320,
+      "theme": "dark mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "height": 844,
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 320,
+      "theme": "dark mac",
+      "width": 320
+    }
+  ],
+  "builtLight": [
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 1440,
+      "theme": "mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 1440,
+      "theme": "mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 1440,
+      "theme": "mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 1440,
+      "theme": "mac",
+      "width": 1440
+    },
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 390,
+      "theme": "mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 390,
+      "theme": "mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 390,
+      "theme": "mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 390,
+      "theme": "mac",
+      "width": 390
+    },
+    {
+      "failedImages": [],
+      "heading": "模型推理系列 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/",
+      "scroll": 320,
+      "theme": "mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "01. 推理系统的分工 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/01-landscape.html",
+      "scroll": 320,
+      "theme": "mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "11. 语音与多模态推理 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/11-speech.html",
+      "scroll": 320,
+      "theme": "mac",
+      "width": 320
+    },
+    {
+      "failedImages": [],
+      "heading": "12. 框架对比与版本 ​",
+      "overflowingControls": [],
+      "path": "/blog/docs/ai/inference-series/12-selection-versions.html",
+      "scroll": 320,
+      "theme": "mac",
+      "width": 320
+    }
+  ],
+  "stagesDesktop": [
+    {
+      "height": 567.984375,
+      "output": "模型需要的声学特征与历史状态",
+      "owner": "2 / 7 · sherpa-onnx · 特征与流状态"
+    },
+    {
+      "height": 567.984375,
+      "output": "模型输出的分数或中间表示",
+      "owner": "3 / 7 · ONNX Runtime · 计算后端"
+    },
+    {
+      "height": 567.984375,
+      "output": "“年假怎么申请？”",
+      "owner": "4 / 7 · sherpa-onnx · 解码与结果"
+    },
+    {
+      "height": 567.984375,
+      "output": "“在内部系统提交申请，由直属主管审批。”",
+      "owner": "5 / 7 · 应用 + vLLM / SGLang"
+    },
+    {
+      "height": 567.984375,
+      "output": "可交给播放器的音频采样",
+      "owner": "6 / 7 · sherpa-onnx + TTS 模型 + 计算后端"
+    },
+    {
+      "height": 567.984375,
+      "output": "小林听见回答",
+      "owner": "7 / 7 · 应用 · 播放器"
+    }
+  ],
+  "stagesMobile": [
+    {
+      "height": 729.78125,
+      "owner": "2 / 7 · sherpa-onnx · 特征与流状态",
+      "scroll": 390,
+      "width": 390
+    },
+    {
+      "height": 729.78125,
+      "owner": "3 / 7 · ONNX Runtime · 计算后端",
+      "scroll": 390,
+      "width": 390
+    },
+    {
+      "height": 729.78125,
+      "owner": "4 / 7 · sherpa-onnx · 解码与结果",
+      "scroll": 390,
+      "width": 390
+    },
+    {
+      "height": 729.78125,
+      "owner": "5 / 7 · 应用 + vLLM / SGLang",
+      "scroll": 390,
+      "width": 390
+    },
+    {
+      "height": 729.78125,
+      "owner": "6 / 7 · sherpa-onnx + TTS 模型 + 计算后端",
+      "scroll": 390,
+      "width": 390
+    },
+    {
+      "height": 729.78125,
+      "owner": "7 / 7 · 应用 · 播放器",
+      "scroll": 390,
+      "width": 390
+    }
+  ],
+  "diagrams": [
+    {
+      "boxOutside": [],
+      "font": "Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "outside": [],
+      "viewBox": "0 0 1120 420"
+    },
+    {
+      "boxOutside": [],
+      "font": "Arial, \"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+      "outside": [],
+      "viewBox": "0 0 480 820"
+    }
+  ],
+  "notes": [
+    "流程六次推进、终点禁用、回退、重置与键盘 Enter 通过",
+    "热词模型/解码组合与启用开关条件通过",
+    "构建成品中文搜索点击到新增小节、第一篇锚点和已有专题跳转通过",
+    "图示原尺寸1120px与Escape关闭通过"
+  ]
+}
