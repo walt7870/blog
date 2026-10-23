@@ -1,0 +1,10 @@
+{
+  "commit": "0c1654c",
+  "localCount": 1499,
+  "remoteCount": 1497,
+  "missing": [],
+  "added": [
+    "./ai/inference-series/sherpa-runtime-mobile.svg",
+    "./ai/inference-series/sherpa-runtime.svg"
+  ]
+}
