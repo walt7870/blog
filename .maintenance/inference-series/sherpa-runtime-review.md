@@ -29,3 +29,17 @@
 - 在隔离扫描目录运行原有 `script/audit-site.mjs --gate`，避免覆盖工作区正在修改的全站台账。624 页、本地死链 0、本次四页 findings 为空；全站仍有 604 条过期审查及 20 条待审，门禁 exitCode=1，不能宣称全站发布验收通过。相关四页的实际阅读与验证记录单独保存在 `content-audit/reviews/zzzzzz-sherpa-runtime.json`。
 
 截图与尺寸记录见 [evidence/sherpa-20261023](./evidence/sherpa-20261023/)，隔离全站扫描摘要见其中 `site-audit.json`。未安装引擎、下载模型或运行真实 ASR/TTS；本轮未提交、推送或发布。预览使用 `http://127.0.0.1:5188/blog/docs/ai/inference-series/11-speech.html`。
+
+## 2026-10-23 发布
+
+用户后续授权提交、推送并部署。内容提交 `3180f4d`，发布构建提交 `0c1654c`，均已推送至 GitHub main；此前四个本地提交也随 main 正常同步。导读只提交语音入口的一段改动，其余数值精度重组保留给原任务。
+
+发布使用主工作区依赖与 public 资源，按固定提交导出源码，避免未完成内容进入页面、导航及搜索。`RELEASE_REF=0c1654c RELEASE_LIVE_HOST=root@117.72.10.198 node .maintenance/inference-series/build-sherpa-release.mjs` 完整构建通过，17.36 秒；过滤 65 个未提交且线上未提供的静态文件。构建保留全部 1497 个线上非哈希文件，仅新增两张 sherpa-runtime SVG，完整文件比较见 `evidence/sherpa-20261023/release-files.json`。
+
+复用 `dep.sh` 的文件保留门禁、打包、上传、远端备份及 rsync 流程；执行时用已验收的构建替换脚本开头的重复构建步骤，未修改部署脚本。发布包 31,988,047 字节，本地与远端 SHA-256 均为 `8adafd6929428c9ee41f44652029d1b1e1ec8127a43f68822f7f2fcfe670d123`。部署前备份 `/opt/tmpfile/20261023142158_backup`。
+
+线上地址：https://www.niuwancheng.cn/blog/docs/ai/inference-series/11-speech.html 。浏览器确认客户端启动，六次推进至第七阶段、终点禁用、重置及热词解码条件变化通过。桌面 1280px、手机实际 390px 均无整页横向溢出，手机图源切换为移动 SVG、全部图片加载成功。第一篇到语音篇锚点、侧边栏到版本篇、中文搜索并点击新增小节均通过，控制台无错误。原有精度章节导航保留。证据 `online-desktop.jpg`、`online-mobile.jpg`。
+
+并发暂存曾让另一个任务的精度文件进入本任务未推送提交；已停止该构建，用独立索引重新拆分本任务提交，原文件和暂存内容保留，错误提交未推送。后续发布固定 commit，不随并行任务的 HEAD 变化。全站历史待审记录仍存在，此次为已核验语音补充发布，不视为全站内容审查完成。GitHub 推送提示仓库已有 67 条依赖告警，本次未变更依赖。
+
+发布从 14:16 开始，约 10 分钟内完成，处于预估的 7–15 分钟范围。清理本次中断产生且已无打开文件的 `.vitepress/.sherpa-release-WrpPTt`、`.vitepress/.sherpa-ssr-i9ZzA9`，约 42 MiB；保留发布包、源码、浏览器证据及远端备份，其他任务的构建目录不动。
