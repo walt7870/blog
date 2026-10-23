@@ -132,3 +132,79 @@
 .portfolio .pf-intro .sc-title { margin-top: 22px; }
 .portfolio .pf-intro .sc-lead { margin-top: 20px; }
 .portfolio .pf-intro .sc-actions { margin-top: 32px; }
+
+/* ---------- Case page content structure ---------- */
+/* At-a-glance: business context, personal scope and scoped results before the long read. */
+.pf-overview { margin-top: 40px; padding: 28px; border: 1px solid color-mix(in srgb, var(--tone) 26%, var(--pf-line)); border-radius: 22px; background: linear-gradient(135deg, color-mix(in srgb, var(--tone) 10%, var(--pf-bg)), var(--pf-bg) 60%); scroll-margin-top: 96px; }
+.pf-overview-title { margin: 0 0 18px !important; font-size: 22px; font-weight: 750; }
+.pf-overview-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; }
+.pf-overview-label { display: inline-block; margin-bottom: 8px; color: var(--tone); font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+.pf-overview-brief p { color: var(--pf-text); font-size: 15px; line-height: 1.9; }
+.pf-overview-scope ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pf-overview-scope li { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; line-height: 1.6; }
+.pf-overview-scope svg { flex: none; margin-top: 3px; color: var(--tone); }
+.pf-overview-evidence { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 24px; }
+.pf-overview-evidence > div { padding: 16px 18px; border-radius: 14px; background: var(--pf-bg); border: 1px solid var(--pf-line); }
+.pf-overview-evidence strong { display: block; color: var(--tone); font: 800 22px/1.25 var(--vp-font-family-mono); overflow-wrap: anywhere; }
+.pf-overview-evidence h3 { margin: 6px 0 4px; font-size: 14px; font-weight: 700; }
+.pf-overview-evidence p { color: var(--pf-muted); font-size: 13px; line-height: 1.7; }
+
+/* Sticky case navigation with the current section highlighted */
+.portfolio-detail .pf-case-nav { border-left: 2px solid var(--pf-line); }
+.portfolio-detail .pf-case-nav a { margin-left: -20px; padding: 4px 0 4px 18px; border-left: 2px solid transparent; transition: color .18s ease, border-color .18s ease; }
+.portfolio-detail .pf-case-nav a:hover { background: none; color: var(--pf-accent); }
+.portfolio-detail .pf-case-nav a.active { border-color: var(--pf-accent); color: var(--pf-accent); font-weight: 600; }
+
+/* Business domains as cards */
+.pf-domain-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 24px 0 0 !important; }
+.pf-domain-cards > div { padding: 18px 20px; border: 1px solid var(--pf-line); border-radius: 14px; background: var(--pf-soft); }
+.pf-domain-cards dt { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
+.pf-domain-cards dt b { color: var(--pf-accent); font: 700 12px/1 var(--vp-font-family-mono); }
+.pf-domain-cards dd { margin: 8px 0 0; color: var(--pf-muted); font-size: 13.5px; line-height: 1.8; }
+
+/* Stack as grouped chips */
+.pf-stack-chips { display: grid; gap: 14px; margin: 0; }
+.pf-stack-chips > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; align-items: baseline; padding-bottom: 14px; border-bottom: 1px solid var(--pf-line); }
+.pf-stack-chips > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.pf-stack-chips dt { color: var(--pf-muted); font-size: 13px; font-weight: 600; }
+.pf-stack-chips dd { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.pf-stack-chips dd span { padding: 3px 10px; border: 1px solid var(--pf-line); border-radius: 8px; background: var(--pf-bg); font: 13px/1.6 var(--vp-font-family-mono); overflow-wrap: anywhere; }
+
+/* Flows: the path becomes numbered steps */
+.pf-scenario-card + .pf-scenario-card { margin-top: 20px; }
+.pf-scenario-card { padding: 22px 24px; border: 1px solid var(--pf-line); border-radius: 16px; }
+.pf-scenario-card h3 { font-size: 18px; font-weight: 700; }
+.pf-steps { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 16px 0 !important; padding: 0; list-style: none; }
+.pf-steps li { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; background: var(--vp-c-brand-soft); font-size: 13.5px; line-height: 1.4; }
+.pf-steps li:not(:last-child)::after { content: ''; position: absolute; right: -16px; top: 50%; width: 10px; height: 2px; background: var(--pf-accent); opacity: .6; }
+.pf-steps b { display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--pf-accent); color: var(--vp-c-white); font: 700 11px/1 var(--vp-font-family-mono); }
+.dark .pf-steps b { color: #0b1210; }
+.pf-scenario-card p { color: var(--pf-muted); font-size: 14px; line-height: 1.9; }
+
+/* Mechanisms: constraint, implementation and effect labelled */
+.pf-mechanism-card + .pf-mechanism-card { margin-top: 20px; }
+.pf-mechanism-card { padding: 22px 24px; border: 1px solid var(--pf-line); border-radius: 16px; }
+.pf-mechanism-card h3 { display: flex; align-items: baseline; gap: 12px; font-size: 18px; font-weight: 700; }
+.pf-mechanism-card h3 b { color: var(--pf-accent); font: 700 13px/1 var(--vp-font-family-mono); }
+.pf-mechanism-card dl { display: grid; gap: 10px; margin: 16px 0 0; }
+.pf-mechanism-card dl > div { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; align-items: baseline; }
+.pf-mechanism-card dt { justify-self: start; padding: 1px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+.pf-mechanism-card dd { margin: 0; color: var(--pf-muted); font-size: 14px; line-height: 1.85; }
+.is-constraint dt { background: color-mix(in srgb, var(--sc-orange) 14%, transparent); color: var(--sc-orange); }
+.is-implementation dt { background: color-mix(in srgb, var(--sc-blue) 14%, transparent); color: var(--sc-blue); }
+.is-effect { margin-top: 2px; padding: 12px 14px; border-radius: 12px; background: var(--vp-c-brand-soft); }
+.is-effect dt { background: var(--pf-accent); color: var(--vp-c-white); }
+.dark .is-effect dt { color: #0b1210; }
+.is-effect dd { color: var(--pf-text); font-weight: 500; }
+
+@media (max-width: 760px) {
+  .pf-overview { margin-top: 28px; padding: 18px; border-radius: 16px; }
+  .pf-overview-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .pf-stack-chips > div { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pf-scenario-card, .pf-mechanism-card { padding: 16px; }
+  .pf-steps { flex-direction: column; gap: 8px; }
+  .pf-steps li:not(:last-child)::after { right: auto; left: 16px; top: auto; bottom: -8px; width: 2px; height: 8px; }
+  .pf-mechanism-card dl > div { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .portfolio-detail .pf-case-nav a { margin-left: 0; padding: 0; border: 0; }
+  .portfolio-detail .pf-case-nav a.active { text-decoration: underline; text-underline-offset: 4px; }
+}

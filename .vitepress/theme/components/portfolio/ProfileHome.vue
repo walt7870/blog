@@ -5,6 +5,7 @@ import { categories, projects } from './projects';
 import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
 import { toneOf } from './tones';
+import './showcase.css';
 
 defineProps<{ showKnowledge?: boolean; contactEmail?: string }>();
 

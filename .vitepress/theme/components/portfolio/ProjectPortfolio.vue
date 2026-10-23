@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { withBase } from 'vitepress';
 import { ArrowUpRight, ArrowLeft, ArrowRight, Search, X, LayoutGrid, List, Link, Maximize2, Check, RotateCcw, ZoomIn, ZoomOut, Scan } from '@lucide/vue';
 import { categories, projects } from './projects';
@@ -9,6 +9,7 @@ import { toneOf } from './tones';
 import './portfolio.css';
 import './portfolio-browser.css';
 import './portfolio-refresh.css';
+import './showcase.css';
 
 const props = defineProps<{ projectId?: string; profilePath?: string }>();
 const category = ref('全部项目');
@@ -84,7 +85,33 @@ async function share() {
 }
 function reset() { category.value = '全部项目'; query.value = ''; }
 watch(() => props.projectId, () => { modal.value?.close(); endDrag(); architectureTab.value = 0; mediaTab.value = 0; });
-onBeforeUnmount(() => clearTimeout(copyTimer));
+const caseSections = computed(() => {
+  const design = project.value?.type === 'design';
+  return [
+    { id: 'overview', label: '项目速览' },
+    { id: 'business', label: '核心业务' },
+    { id: 'stack', label: '技术栈' },
+    { id: 'architecture', label: design ? '内容与页面结构' : '架构设计' },
+    { id: 'flow', label: design ? '设计与维护流程' : '核心流程' },
+    { id: 'decisions', label: design ? '设计决策' : '关键机制' },
+    { id: 'results', label: '阶段成果' },
+  ];
+});
+// Highlights the section nearest the top of the viewport in the case navigation.
+const activeSection = ref('overview');
+let sectionObserver: IntersectionObserver | undefined;
+function observeSections() {
+  sectionObserver?.disconnect();
+  if (!props.projectId || typeof IntersectionObserver === 'undefined') return;
+  sectionObserver = new IntersectionObserver(entries => {
+    const visible = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if (visible) activeSection.value = visible.target.id;
+  }, { rootMargin: '-96px 0px -60% 0px' });
+  caseSections.value.forEach(item => { const el = document.getElementById(item.id); if (el) sectionObserver!.observe(el); });
+}
+onMounted(observeSections);
+watch(() => props.projectId, () => { activeSection.value = 'overview'; nextTick(observeSections); });
+onBeforeUnmount(() => { clearTimeout(copyTimer); sectionObserver?.disconnect(); });
 async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram === true; zoom.value = 1; endDrag(); await nextTick(); modal.value?.showModal(); await nextTick(); fitImage(); }
 </script>
 
@@ -112,7 +139,7 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
         <div class="pf-filters" role="group" aria-label="项目分类"><button v-for="c in categories" :key="c" :class="{ active: category === c }" :aria-pressed="category === c" @click="category = c">{{ c }}<span>{{ c === '全部项目' ? projects.length : projects.filter(p => p.category === c).length }}</span></button></div>
         </div>
         <div class="pf-results-line"><span>{{ category === '全部项目' ? '精选与项目实践' : category }}</span><span aria-live="polite">{{ filtered.length }} 个项目</span></div>
-        <Transition name="pf-results">
+        <Transition name="pf-results" mode="out-in">
         <div v-if="filtered.length" :key="`${category}:${query}:${view}`" class="pf-grid" :class="{ 'pf-list': view === 'list' }">
           <template v-for="(p, index) in filtered" :key="p.id">
           <div v-if="category === '全部项目' && p.category === '公司基础设施' && filtered[index - 1]?.category !== p.category" class="pf-module-heading"><h2>公司基础设施</h2><p>代码协作 · 持续交付 · 内部 AI 接入</p></div>
@@ -139,15 +166,23 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
       </header>
       <figure v-if="selectedMedia" class="pf-case-visual" :class="[{ 'pf-phone-visual': project.id === 'speech-sdk' }, `tone-${project.color}`]"><button @click="enlarge()" :aria-label="`放大${project.title}预览`"><img :src="screenshot(selectedMedia.id)" :alt="selectedMedia.label"/><span class="pf-zoom"><Maximize2 :size="18"/></span></button><figcaption><span>{{ selectedMedia.label }}</span><span>{{ String(mediaTab + 1).padStart(2, '0') }} / {{ String(media.length).padStart(2, '0') }}</span></figcaption></figure>
       <div v-if="media.length > 1" class="pf-media-rail" role="group" aria-label="项目画面"><button v-for="(item, i) in media" :key="item.id" :class="{ active: mediaTab === i }" :aria-pressed="mediaTab === i" @click="mediaTab = i"><img :src="screenshot(item.id)" :alt="item.label"/><span>{{ item.label }}</span></button></div>
+      <section v-if="study" id="overview" class="pf-overview" :data-tone="toneOf(project.category)" aria-labelledby="overview-title">
+        <h2 id="overview-title" class="pf-overview-title">项目速览</h2>
+        <div class="pf-overview-grid">
+          <div class="pf-overview-brief"><span class="pf-overview-label">业务背景</span><p>{{ project.business }}</p></div>
+          <div class="pf-overview-scope"><span class="pf-overview-label">负责范围</span><ul><li v-for="s in project.scope" :key="s"><Check :size="15" aria-hidden="true"/>{{ s }}</li></ul></div>
+        </div>
+        <div v-if="study.evidence.length" class="pf-overview-evidence"><div v-for="item in study.evidence" :key="item.label"><strong>{{ item.value }}</strong><h3>{{ item.label }}</h3><p>{{ item.detail }}</p></div></div>
+      </section>
       <div class="pf-case-layout">
-        <nav class="pf-case-nav" aria-label="项目详情目录"><span>项目概览</span><a href="#business">核心业务</a><a href="#stack">技术栈</a><a href="#architecture">{{ project.type === 'design' ? '内容与页面结构' : '架构设计' }}</a><a href="#flow">{{ project.type === 'design' ? '设计与维护流程' : '核心流程' }}</a><a href="#decisions">{{ project.type === 'design' ? '设计决策' : '关键设计' }}</a><a href="#results">阶段成果</a></nav>
+        <nav class="pf-case-nav" aria-label="项目详情目录"><span>项目概览</span><a v-for="item in caseSections" :key="item.id" :href="`#${item.id}`" :class="{ active: activeSection === item.id }" :aria-current="activeSection === item.id ? 'location' : undefined">{{ item.label }}</a></nav>
         <div class="pf-case-content">
-          <section id="business"><div class="pf-section-heading"><span>01</span><h2>核心业务</h2></div><p v-for="text in study?.context" :key="text" class="pf-business">{{ text }}</p><dl class="pf-domains"><div v-for="[name, detail] in study?.domains" :key="name"><dt>{{ name }}</dt><dd>{{ detail }}</dd></div></dl></section>
-          <section id="stack"><div class="pf-section-heading"><span>02</span><h2>技术栈</h2></div><dl class="pf-stack"><div v-for="[name, value] in project.stack" :key="name"><dt>{{ name }}</dt><dd>{{ value }}</dd></div></dl></section>
+          <section id="business"><div class="pf-section-heading"><span>01</span><h2>核心业务</h2></div><p v-for="text in study?.context" :key="text" class="pf-business">{{ text }}</p><dl class="pf-domain-cards"><div v-for="([name, detail], i) in study?.domains" :key="name"><dt><b>{{ String(i + 1).padStart(2, '0') }}</b>{{ name }}</dt><dd>{{ detail }}</dd></div></dl></section>
+          <section id="stack"><div class="pf-section-heading"><span>02</span><h2>技术栈</h2></div><dl class="pf-stack-chips"><div v-for="[name, value] in project.stack" :key="name"><dt>{{ name }}</dt><dd><span v-for="item in value.split(' · ')" :key="item">{{ item }}</span></dd></div></dl></section>
           <section id="architecture"><div class="pf-section-heading"><span>03</span><h2>{{ project.type === 'design' ? '信息架构与页面设计' : '系统架构与部署' }}</h2></div><div class="pf-diagram-tabs" role="tablist" aria-label="架构视图"><button v-for="(d, i) in study?.diagrams" :id="`tab-${d.id}`" :key="d.id" role="tab" :aria-selected="architectureTab === i" aria-controls="architecture-panel" :class="{ active: architectureTab === i }" @click="architectureTab = i">{{ d.label }}</button></div><div v-if="diagram" id="architecture-panel" role="tabpanel" :aria-labelledby="`tab-${diagram.id}`"><figure class="pf-topology"><button @click="enlarge(true)" :aria-label="`放大${diagram.label}`"><img :src="diagramImage(diagram.id)" :alt="diagram.label"/><span class="pf-zoom"><Maximize2 :size="18"/></span></button><figcaption>{{ diagram.description }}</figcaption></figure></div><div class="pf-deployment"><div v-for="[name, technology, responsibility] in study?.deployment" :key="name"><h3>{{ name }}</h3><span>{{ technology }}</span><p>{{ responsibility }}</p></div></div></section>
-          <section id="flow"><div class="pf-section-heading"><span>04</span><h2>{{ project.type === 'design' ? '内容访问与维护' : '核心业务链路' }}</h2></div><article v-for="scenario in study?.scenarios" :key="scenario.title" class="pf-scenario"><h3>{{ scenario.title }}</h3><p class="pf-path">{{ scenario.path }}</p><p>{{ scenario.detail }}</p></article></section>
-          <section id="decisions"><div class="pf-section-heading"><span>05</span><h2>{{ project.type === 'design' ? '设计决策' : '关键机制与取舍' }}</h2></div><article v-for="mechanism in study?.mechanisms" :key="mechanism.title" class="pf-mechanism"><h3>{{ mechanism.title }}</h3><p>{{ mechanism.constraint }}</p><p>{{ mechanism.implementation }}</p><p class="pf-effect">{{ mechanism.effect }}</p></article></section>
-          <section id="results"><div class="pf-section-heading"><span>06</span><h2>实践成果与验证</h2></div><div class="pf-evidence"><div v-for="item in study?.evidence" :key="item.label"><strong>{{ item.value }}</strong><h3>{{ item.label }}</h3><p>{{ item.detail }}</p></div></div><ul class="pf-outcomes"><li v-for="r in study?.outcomes" :key="r"><Check :size="18"/>{{ r }}</li></ul></section>
+          <section id="flow"><div class="pf-section-heading"><span>04</span><h2>{{ project.type === 'design' ? '内容访问与维护' : '核心业务链路' }}</h2></div><article v-for="scenario in study?.scenarios" :key="scenario.title" class="pf-scenario-card"><h3>{{ scenario.title }}</h3><ol class="pf-steps" :aria-label="`${scenario.title}步骤`"><li v-for="(step, i) in scenario.path.split(' → ')" :key="step"><b>{{ i + 1 }}</b>{{ step }}</li></ol><p>{{ scenario.detail }}</p></article></section>
+          <section id="decisions"><div class="pf-section-heading"><span>05</span><h2>{{ project.type === 'design' ? '设计决策' : '关键机制与取舍' }}</h2></div><article v-for="(mechanism, i) in study?.mechanisms" :key="mechanism.title" class="pf-mechanism-card"><h3><b>{{ String(i + 1).padStart(2, '0') }}</b>{{ mechanism.title }}</h3><dl><div class="is-constraint"><dt>约束</dt><dd>{{ mechanism.constraint }}</dd></div><div class="is-implementation"><dt>做法</dt><dd>{{ mechanism.implementation }}</dd></div><div class="is-effect"><dt>效果</dt><dd>{{ mechanism.effect }}</dd></div></dl></article></section>
+          <section id="results"><div class="pf-section-heading"><span>06</span><h2>阶段成果</h2></div><ul class="pf-outcomes"><li v-for="r in study?.outcomes" :key="r"><Check :size="18"/>{{ r }}</li></ul></section>
         </div>
       </div>
       <section class="pf-more"><h2>继续浏览</h2><div><a v-for="p in relatedProjects" :key="p.id" :href="link(p.id)"><img :src="image(p.id)" :alt="`${p.title}预览`" width="1440" height="900" loading="lazy"/><span>{{ p.title }}<ArrowUpRight :size="18"/></span></a></div></section>
