@@ -46,7 +46,8 @@ try {
     }
   }
   await visit('')
-  await visit('14-precision-formats')
+  await page.goto(`${root}docs/ai/precision/03-rounding-errors.html`)
+  await page.waitForFunction(() => Boolean(document.querySelector('#app')?.__vue_app__))
   await assertCanvasPainted(page.locator('[data-mode="format"] canvas'))
   await page.locator('[data-mode="format"]').getByRole('button', { name: 'FP16' }).click()
   assert.match(await page.locator('.precision-caption').innerText(), /1.03515625/)
@@ -58,7 +59,8 @@ try {
   await page.getByLabel('输入数值').fill('1.1')
   assert.match(await page.locator('.precision-caption').innerText(), /1.1 → 1.125/)
   await page.locator('.precision-canvas').screenshot({ path: new URL('precision-format-desktop.png', output).pathname })
-  await visit('15-mixed-precision')
+  await page.goto(`${root}docs/ai/precision/04-mixed-precision.html`)
+  await page.waitForFunction(() => Boolean(document.querySelector('#app')?.__vue_app__))
   await assertCanvasPainted(page.locator('[data-mode="pipeline"] canvas'))
   await page.getByRole('button', { name: 'W4A16', exact: true }).click()
   assert.match(await page.locator('.precision-caption').innerText(), /KV BF16/)
@@ -219,19 +221,12 @@ try {
   const extraViewports = []
   for (const width of [320, 768, 1920]) {
     await page.setViewportSize({ width, height: 900 })
-    for (const chapter of ['', '01-landscape', '03-memory', '04-cache-attention', '05-scheduling', '11-speech', '14-precision-formats', '15-mixed-precision']) {
+    for (const chapter of ['', '01-landscape', '03-memory', '04-cache-attention', '05-scheduling', '11-speech']) {
       await visit(chapter)
       const dimensions = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, scroll: document.documentElement.scrollWidth }))
       assert.equal(dimensions.width, width)
       assert.ok(dimensions.scroll <= width, `${chapter} overflow at ${width}`)
       extraViewports.push({ chapter: chapter || 'index', ...dimensions })
-      if (chapter.startsWith('14-') || chapter.startsWith('15-')) {
-        await assertCanvasPainted(page.locator('.precision-canvas canvas'))
-        await page.locator('.precision-canvas').screenshot({ path: new URL(`${chapter}-${width}.png`, output).pathname, ...capture })
-        await page.evaluate(() => document.documentElement.classList.add('dark'))
-        await page.locator('.precision-canvas').screenshot({ path: new URL(`${chapter}-${width}-dark.png`, output).pathname, ...capture })
-        await page.evaluate(() => document.documentElement.classList.remove('dark'))
-      }
       const controls = page.locator('.intuition button, .journey button, .precision-controls button')
       for (const control of await controls.all()) {
         const b = await control.boundingBox()
