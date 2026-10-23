@@ -7,6 +7,7 @@ import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
 import './portfolio.css';
 import './portfolio-browser.css';
+import './portfolio-refresh.css';
 
 const props = defineProps<{ projectId?: string; profilePath?: string }>();
 const category = ref('全部项目');
