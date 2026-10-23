@@ -3,8 +3,22 @@ import { onMounted, ref } from 'vue'
 import { withBase } from 'vitepress'
 import { ArrowRight, ArrowUpRight, AudioLines, Code2, Database, Search, Wrench } from '@lucide/vue'
 import { data } from './home.data.ts'
+import { projects } from '../portfolio/projects'
+import { caseStudies } from '../portfolio/caseStudies'
+import { projectMedia } from '../portfolio/media'
 
-const groupIcons: Record<string, typeof Code2> = { development: Code2, 'ai-audio': AudioLines, 'systems-data': Database, tools: Wrench }
+const groupMeta: Record<string, { icon: typeof Code2; tone: string; tag: string }> = {
+  development: { icon: Code2, tone: 'blue', tag: '语言 · 架构 · 算法' },
+  'ai-audio': { icon: AudioLines, tone: 'green', tag: '大模型 · Agent · 语音' },
+  'systems-data': { icon: Database, tone: 'orange', tag: '数据 · 容器 · 网络' },
+  tools: { icon: Wrench, tone: 'violet', tag: 'Git · 编辑器 · 运行时' },
+}
+
+const showcase = ['amphion-cloud', 'memo-ai', 'voice-platform'].map(id => projects.find(p => p.id === id)!).map(p => ({
+  ...p,
+  image: projectMedia[p.id]?.[0],
+  evidence: caseStudies[p.id]?.evidence?.[0],
+}))
 
 const routes = [
   { title: '理解后端运行时', path: 'JVM、GC、Spring、MySQL、Redis', link: '/docs/devlanguage/java/jvm/' },
@@ -33,218 +47,291 @@ function openSearch() {
 
 <template>
   <div class="home">
-    <section class="home-hero" aria-labelledby="home-title">
-      <div class="hero-copy">
-        <p class="home-eyebrow">工程实践知识库</p>
-        <h1 id="home-title">稻草小站</h1>
-        <p class="hero-lead">
-          从协议、Linux、容器和数据库，到 Java、架构设计、AI 与语音工程。每个专题先讲清概念边界，再给出配置入口、典型场景和排查路径。
-        </p>
-        <button type="button" class="hero-search" @click="openSearch">
-          <Search :size="18" aria-hidden="true" />
-          <span>搜索文章、命令或概念</span>
-          <kbd>{{ searchKey }}</kbd>
-        </button>
-        <dl class="hero-stats">
-          <div><dt>文章</dt><dd>{{ data.total }}</dd></div>
-          <div><dt>专题</dt><dd>{{ data.topicCount }}</dd></div>
-          <div v-if="data.latest"><dt>最近更新</dt><dd>{{ data.latest }}</dd></div>
-        </dl>
-      </div>
+    <section class="hero" aria-labelledby="home-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-eyebrow"><span class="pulse" aria-hidden="true"></span>工程实践知识库 · 持续更新</p>
+          <h1 id="home-title">稻草<span>小站</span></h1>
+          <p class="hero-lead">从协议、Linux、容器和数据库，到 Java、架构设计、AI 与语音工程。每个专题先讲清概念边界，再给出配置入口、典型场景和排查路径。</p>
+          <button type="button" class="hero-search" @click="openSearch">
+            <Search :size="18" aria-hidden="true" />
+            <span>搜索文章、命令或概念</span>
+            <kbd>{{ searchKey }}</kbd>
+          </button>
+          <dl class="hero-stats">
+            <div><dd>{{ data.total }}</dd><dt>篇文章</dt></div>
+            <div><dd>{{ data.topicCount }}</dd><dt>个专题</dt></div>
+            <div><dd>{{ projects.length }}</dd><dt>个项目案例</dt></div>
+          </dl>
+        </div>
 
-      <aside class="hero-updates" aria-labelledby="updates-title">
-        <h2 id="updates-title">最近更新</h2>
-        <ol v-if="data.updates.length">
+        <div class="hero-collage" aria-label="项目实践画面">
+          <a v-for="(p, i) in showcase" :key="p.id" :href="withBase(`/projects/${p.id}`)" class="shot" :class="`shot-${i}`">
+            <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><b>{{ p.title }}</b></span>
+            <img :src="withBase(`/projects/screenshots/${p.image?.id}.webp`)" :alt="p.image?.label" width="720" height="450" :loading="i ? 'lazy' : 'eager'" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="home-body">
+      <section v-if="data.updates.length" class="section updates-panel" aria-labelledby="updates-title">
+        <header class="section-head">
+          <h2 id="updates-title"><span class="idx">01</span>最近更新</h2>
+          <p v-if="data.latest">最近一次更新于 {{ data.latest }}</p>
+        </header>
+        <ol class="updates">
           <li v-for="item in data.updates" :key="item.url">
             <a :href="withBase(item.url)">
-              <span class="update-title">{{ item.title }}</span>
-              <span class="update-meta">{{ item.topic }} · <time :datetime="item.date">{{ item.date }}</time></span>
+              <span class="update-topic">{{ item.topic }}</span>
+              <strong>{{ item.title }}</strong>
+              <time :datetime="item.date">{{ item.date }}</time>
             </a>
           </li>
         </ol>
-        <p v-else class="updates-empty">更新记录暂不可用，可从下方专题目录进入。</p>
-      </aside>
-    </section>
+      </section>
 
-    <section class="home-section" aria-labelledby="catalog-title">
-      <header class="section-head">
-        <h2 id="catalog-title">专题目录</h2>
-        <p>入口页负责总览和阅读路径，细节页拆解机制、配置与排错。</p>
-      </header>
-      <div class="catalog">
-        <section v-for="group in data.groups" :key="group.id" class="catalog-group" :class="`group-${group.id}`" :aria-labelledby="`group-${group.id}`">
-          <h3 :id="`group-${group.id}`">
-            <component :is="groupIcons[group.id] || Code2" :size="18" aria-hidden="true" />
-            <span>{{ group.title }}</span>
-            <small>{{ group.count }} 篇</small>
-          </h3>
-          <ul>
-            <li v-for="topic in group.topics" :key="topic.link">
-              <a :href="withBase(topic.link)">
-                <span class="topic-text">
-                  <strong>{{ topic.text }}</strong>
-                  <span>{{ topic.description }}</span>
-                </span>
-                <span class="topic-count">{{ topic.count }}</span>
-                <ArrowRight class="topic-arrow" :size="16" aria-hidden="true" />
-              </a>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </section>
+      <section class="section" aria-labelledby="catalog-title">
+        <header class="section-head">
+          <h2 id="catalog-title"><span class="idx">02</span>专题目录</h2>
+          <p>入口页负责总览和阅读路径，细节页拆解机制、配置与排错。</p>
+        </header>
+        <div class="catalog">
+          <section v-for="group in data.groups" :key="group.id" class="group" :class="`tone-${groupMeta[group.id]?.tone || 'blue'}`" :aria-labelledby="`group-${group.id}`">
+            <header class="group-head">
+              <span class="group-icon"><component :is="groupMeta[group.id]?.icon || Code2" :size="24" aria-hidden="true" /></span>
+              <div>
+                <h3 :id="`group-${group.id}`">{{ group.title }}</h3>
+                <p>{{ groupMeta[group.id]?.tag }}</p>
+              </div>
+              <span class="group-count"><b>{{ group.count }}</b>篇</span>
+            </header>
+            <ul>
+              <li v-for="topic in group.topics" :key="topic.link">
+                <a :href="withBase(topic.link)">
+                  <span class="topic-text"><strong>{{ topic.text }}</strong><span>{{ topic.description }}</span></span>
+                  <span class="topic-count">{{ topic.count }}</span>
+                  <ArrowRight class="topic-arrow" :size="16" aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </section>
 
-    <section class="home-section" aria-labelledby="routes-title">
-      <header class="section-head">
-        <h2 id="routes-title">按问题进入</h2>
-        <p>不是线性教程。从当前要解决的问题进入，再沿专题页的导读继续深入。</p>
-      </header>
-      <ol class="routes">
-        <li v-for="(route, index) in routes" :key="route.link">
-          <a :href="withBase(route.link)">
-            <span class="route-index">{{ String(index + 1).padStart(2, '0') }}</span>
-            <strong>{{ route.title }}</strong>
-            <span>{{ route.path }}</span>
+      <section class="section" aria-labelledby="projects-title">
+        <header class="section-head">
+          <h2 id="projects-title"><span class="idx">03</span>项目实践</h2>
+          <a :href="withBase('/projects/')">全部 {{ projects.length }} 个案例 <ArrowRight :size="15" aria-hidden="true" /></a>
+        </header>
+        <div class="showcase">
+          <a v-for="p in showcase" :key="p.id" :href="withBase(`/projects/${p.id}`)" class="case">
+            <span class="case-media"><img :src="withBase(`/projects/screenshots/${p.image?.id}.webp`)" :alt="p.image?.label" width="720" height="450" loading="lazy" /></span>
+            <span class="case-body">
+              <span class="case-meta">{{ p.category }} · {{ p.status }}</span>
+              <strong>{{ p.title }}</strong>
+              <span class="case-summary">{{ p.summary }}</span>
+              <span v-if="p.evidence" class="case-evidence"><b>{{ p.evidence.value }}</b>{{ p.evidence.label }}</span>
+            </span>
           </a>
-        </li>
-      </ol>
-    </section>
+        </div>
+      </section>
 
-    <nav class="home-more" aria-label="更多内容">
-      <a v-for="item in more" :key="item.text" :href="item.link" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noreferrer' : undefined">
-        <strong>{{ item.text }}<ArrowUpRight v-if="item.external" :size="14" aria-label="在新窗口打开" /></strong>
-        <span>{{ item.note }}</span>
-      </a>
-    </nav>
+      <section class="section" aria-labelledby="routes-title">
+        <header class="section-head">
+          <h2 id="routes-title"><span class="idx">04</span>按问题进入</h2>
+          <p>从当前要解决的问题进入，再沿专题页的导读继续深入。</p>
+        </header>
+        <ol class="routes">
+          <li v-for="(route, index) in routes" :key="route.link">
+            <a :href="withBase(route.link)">
+              <span class="route-index">{{ String(index + 1).padStart(2, '0') }}</span>
+              <strong>{{ route.title }}</strong>
+              <span>{{ route.path }}</span>
+              <ArrowUpRight class="route-arrow" :size="18" aria-hidden="true" />
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <nav class="more" aria-label="更多内容">
+        <a v-for="item in more" :key="item.text" :href="item.link" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noreferrer' : undefined">
+          <strong>{{ item.text }}<ArrowUpRight :size="14" aria-hidden="true" /></strong>
+          <span>{{ item.note }}</span>
+        </a>
+      </nav>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .home {
-  --home-accent-development: #3d719d;
-  --home-accent-ai-audio: var(--vp-c-brand-1);
-  --home-accent-systems-data: #bb624b;
-  --home-accent-tools: #6b6f86;
-  width: min(1200px, 100% - 48px);
-  margin: 0 auto;
-  padding: 56px 0 88px;
+  --tone-blue: #2f6fe4;
+  --tone-green: #0f9f6e;
+  --tone-orange: #e8692c;
+  --tone-violet: #7c5ce0;
+  --hero-bg: #08130f;
+  --hero-ink: #f2f7f4;
+  --hero-muted: #a9bab1;
+  --hero-accent: #5ee0a8;
   color: var(--vp-c-text-1);
+  overflow-x: clip;
 }
-.dark .home {
-  --home-accent-development: #91badb;
-  --home-accent-systems-data: #e5a18a;
-  --home-accent-tools: #b4b7cc;
-}
-
+.dark .home { --tone-blue: #7aa7ff; --tone-green: #46d39b; --tone-orange: #ff9a63; --tone-violet: #a993ff; }
 .home a { color: inherit; text-decoration: none; }
-.home a:focus-visible, .hero-search:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; border-radius: 6px; }
+.home a:focus-visible, .hero-search:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 3px; border-radius: 8px; }
 
-/* Hero: identity and search on the left, real recent updates on the right. */
-.home-hero {
-  display: grid;
-  align-items: center;
-  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
-  gap: 64px;
-  padding-bottom: 56px;
-  border-bottom: 1px solid var(--vp-c-divider);
+/* Hero: full-bleed dark band, the one dramatic surface on the page. */
+.hero { position: relative; isolation: isolate; background: var(--hero-bg); color: var(--hero-ink); overflow: hidden; }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(48rem 30rem at 12% 8%, rgba(46, 204, 138, .28), transparent 60%),
+    radial-gradient(40rem 28rem at 92% 70%, rgba(64, 120, 255, .26), transparent 62%),
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
 }
-.home-eyebrow { margin: 0 0 14px; color: var(--vp-c-brand-1); font-size: 14px; font-weight: 600; letter-spacing: .04em; }
-.hero-copy h1 { margin: 0; font-size: 52px; line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
-.hero-lead { max-width: 34em; margin: 20px 0 0; color: var(--vp-c-text-2); font-size: 17px; line-height: 1.85; }
-
-.hero-search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: min(100%, 460px);
-  height: 48px;
-  margin-top: 32px;
-  padding: 0 12px 0 16px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-2);
-  font-size: 15px;
-  cursor: pointer;
-  transition: border-color .16s ease, background-color .16s ease;
-}
-.hero-search:hover { border-color: var(--vp-c-brand-1); background: var(--vp-c-bg); }
+.hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: center; width: min(1240px, 100% - 48px); min-height: 600px; margin: 0 auto; padding: 72px 0 120px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 6px 14px; border: 1px solid rgba(94, 224, 168, .3); border-radius: 999px; background: rgba(94, 224, 168, .08); color: var(--hero-accent); font-size: 13px; font-weight: 600; }
+.pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--hero-accent); box-shadow: 0 0 0 0 rgba(94, 224, 168, .6); animation: pulse 2.4s ease-out infinite; }
+.hero-copy h1 { margin: 22px 0 0; color: var(--hero-ink); font-size: 80px; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
+.hero-copy h1 span { background: linear-gradient(100deg, #5ee0a8 10%, #7cb2ff 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-lead { max-width: 32em; margin: 24px 0 0; color: var(--hero-muted); font-size: 17px; line-height: 1.85; }
+.hero-search { display: flex; align-items: center; gap: 12px; width: min(100%, 480px); height: 54px; margin-top: 34px; padding: 0 12px 0 18px; border: 1px solid rgba(255, 255, 255, .16); border-radius: 12px; background: rgba(255, 255, 255, .06); color: #cfdcd5; font-size: 15px; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease; }
+.hero-search:hover { border-color: rgba(94, 224, 168, .6); background: rgba(255, 255, 255, .09); box-shadow: 0 0 0 4px rgba(94, 224, 168, .1); }
 .hero-search span { flex: 1; min-width: 0; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.hero-search kbd { padding: 2px 7px; border: 1px solid var(--vp-c-divider); border-radius: 4px; background: var(--vp-c-bg); color: var(--vp-c-text-3); font: 12px/1.6 var(--vp-font-family-mono); }
+.hero-search kbd { padding: 3px 8px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 6px; color: #9fb2a8; font: 12px/1.5 var(--vp-font-family-mono); }
+.hero-stats { display: flex; gap: 40px; margin: 40px 0 0; }
+.hero-stats div { display: grid; }
+.hero-stats dd { margin: 0; color: var(--hero-ink); font: 700 34px/1.1 var(--vp-font-family-mono); font-variant-numeric: tabular-nums; }
+.hero-stats dt { margin-top: 6px; color: var(--hero-muted); font-size: 13px; }
 
-.hero-stats { display: flex; flex-wrap: wrap; gap: 12px 40px; margin: 32px 0 0; }
-.hero-stats div { display: grid; gap: 2px; }
-.hero-stats dt { color: var(--vp-c-text-3); font-size: 13px; }
-.hero-stats dd { margin: 0; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Collage of real project screens */
+.hero-collage { position: relative; height: 470px; }
+.shot { position: absolute; display: block; width: 74%; border: 1px solid rgba(255, 255, 255, .14); border-radius: 12px; background: #0f1d18; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7); overflow: hidden; transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease; }
+.shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: #fff; }
+.shot-bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #13231d; color: #9fb2a8; font-size: 11px; }
+.shot-bar i { flex: none; width: 9px; height: 9px; border-radius: 50%; background: #3a4a43; }
+.shot-bar i:first-child { background: #ff6b5f; }
+.shot-bar i:nth-child(2) { background: #ffbe3d; }
+.shot-bar i:nth-child(3) { background: #2bcf6a; }
+.shot-bar b { margin-left: 8px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.shot-0 { top: 0; right: 0; z-index: 3; transform: rotate(2deg); }
+.shot-1 { top: 130px; left: 0; z-index: 2; width: 62%; transform: rotate(-4deg); }
+.shot-2 { bottom: 0; right: 10%; z-index: 1; width: 56%; transform: rotate(-1deg); }
+.shot:hover { z-index: 5; transform: rotate(0) translateY(-6px) scale(1.02); box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8), 0 0 0 1px rgba(94, 224, 168, .5); }
 
-.hero-updates { padding-left: 32px; border-left: 1px solid var(--vp-c-divider); }
-.hero-updates h2 { margin: 6px 0 10px; color: var(--vp-c-text-2); font-size: 14px; font-weight: 600; }
-.hero-updates ol { margin: 0; padding: 0; list-style: none; }
-.hero-updates li + li { border-top: 1px solid var(--vp-c-divider); }
-.hero-updates a { display: grid; gap: 4px; padding: 12px 0; }
-.update-title { font-size: 15px; font-weight: 500; line-height: 1.55; overflow-wrap: anywhere; transition: color .16s ease; }
-.hero-updates a:hover .update-title { color: var(--vp-c-brand-1); }
-.update-meta { color: var(--vp-c-text-3); font-size: 13px; font-variant-numeric: tabular-nums; }
-.updates-empty { margin: 0; color: var(--vp-c-text-2); font-size: 14px; line-height: 1.7; }
+/* Body */
+.home-body { width: min(1240px, 100% - 48px); margin: 0 auto; padding: 0 0 96px; }
+.section { margin-top: 80px; }
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 28px; }
+.section-head h2 { display: flex; align-items: baseline; gap: 14px; margin: 0; padding: 0; border: 0; font-size: 32px; font-weight: 750; line-height: 1.2; letter-spacing: -.01em; }
+.idx { color: var(--vp-c-brand-1); font: 600 14px/1 var(--vp-font-family-mono); }
+.section-head p { margin: 0; color: var(--vp-c-text-2); font-size: 15px; }
+.section-head > a { display: inline-flex; align-items: center; gap: 6px; color: var(--vp-c-brand-1); font-weight: 600; font-size: 15px; }
 
-/* Sections */
-.home-section { margin-top: 64px; }
-.home-section:has(.catalog) .section-head { margin-bottom: 20px; }
-.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 24px; }
-.section-head h2 { margin: 0; font-size: 26px; font-weight: 650; line-height: 1.3; }
-.section-head p { margin: 0; color: var(--vp-c-text-2); font-size: 15px; line-height: 1.7; }
+/* Recent updates: a raised panel overlapping the hero edge. */
+.updates-panel { position: relative; z-index: 2; margin-top: -60px; padding: 28px 28px 24px; border: 1px solid var(--vp-c-divider); border-radius: 18px; background: var(--vp-c-bg); box-shadow: 0 24px 48px -24px rgba(8, 19, 15, .35); }
+.updates-panel .section-head { margin-bottom: 18px; }
+.updates-panel .section-head h2 { font-size: 22px; }
+.updates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.updates a { display: grid; gap: 6px; height: 100%; padding: 16px 18px; border-radius: 12px; background: var(--vp-c-bg-soft); transition: background-color .2s ease, transform .2s ease; }
+.updates a:hover { background: var(--vp-c-brand-soft); transform: translateY(-2px); }
+.update-topic { color: var(--vp-c-brand-1); font-size: 12px; font-weight: 600; }
+.updates strong { font-size: 15px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.updates time { color: var(--vp-c-text-3); font: 12px/1.4 var(--vp-font-family-mono); }
 
-.catalog { columns: 2; column-gap: 56px; }
-.catalog-group { --accent: var(--home-accent-development); break-inside: avoid; padding-bottom: 40px; }
-.group-ai-audio { --accent: var(--home-accent-ai-audio); }
-.group-systems-data { --accent: var(--home-accent-systems-data); }
-.group-tools { --accent: var(--home-accent-tools); }
-.catalog-group h3 { display: flex; align-items: center; gap: 8px; margin: 0; padding-bottom: 10px; border-bottom: 2px solid var(--accent); font-size: 16px; font-weight: 600; }
-.catalog-group h3 svg { color: var(--accent); }
-.catalog-group h3 small { margin-left: auto; color: var(--vp-c-text-3); font-size: 13px; font-weight: 400; font-variant-numeric: tabular-nums; }
-.catalog-group ul { margin: 0; padding: 0; list-style: none; }
-.catalog-group li { border-bottom: 1px solid var(--vp-c-divider); }
-.catalog-group a { display: flex; align-items: center; gap: 16px; padding: 14px 8px; margin: 0 -8px; border-radius: 6px; transition: background-color .16s ease; }
-.catalog-group a:hover { background: var(--vp-c-bg-soft); }
-.topic-text { display: grid; flex: 1; gap: 3px; min-width: 0; }
-.topic-text strong { font-size: 15px; font-weight: 600; line-height: 1.5; }
-.topic-text span { color: var(--vp-c-text-2); font-size: 13px; line-height: 1.65; overflow-wrap: anywhere; }
-.topic-count { flex: none; min-width: 2.5em; color: var(--vp-c-text-3); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
-.topic-count::after { content: ' 篇'; }
-.topic-arrow { flex: none; color: var(--vp-c-text-3); transition: transform .16s ease, color .16s ease; }
-.catalog-group a:hover .topic-arrow { color: var(--accent); transform: translateX(2px); }
+/* Topic groups: each group is a tinted panel with its own colour. */
+.catalog { columns: 2; column-gap: 20px; }
+.catalog .group { break-inside: avoid; margin-bottom: 20px; }
+.group { --tone: var(--tone-blue); position: relative; padding: 24px 24px 12px; border: 1px solid color-mix(in srgb, var(--tone) 24%, var(--vp-c-divider)); border-radius: 18px; background: linear-gradient(160deg, color-mix(in srgb, var(--tone) 12%, var(--vp-c-bg)) 0%, var(--vp-c-bg) 55%); overflow: hidden; }
+.tone-green { --tone: var(--tone-green); }
+.tone-orange { --tone: var(--tone-orange); }
+.tone-violet { --tone: var(--tone-violet); }
+.group::after { content: ''; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--tone) 24%, transparent), transparent 70%); pointer-events: none; }
+.group-head { position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+.group-icon { display: grid; place-items: center; flex: none; width: 52px; height: 52px; border-radius: 14px; background: var(--tone); color: #fff; box-shadow: 0 10px 24px -10px var(--tone); }
+.dark .group-icon { color: #0b1210; }
+.group-head h3 { margin: 0; font-size: 20px; font-weight: 700; }
+.group-head p { margin: 2px 0 0; color: var(--vp-c-text-2); font-size: 13px; }
+.group-count { margin-left: auto; color: var(--vp-c-text-2); font-size: 13px; white-space: nowrap; }
+.group-count b { margin-right: 3px; color: var(--tone); font: 700 26px/1 var(--vp-font-family-mono); }
+.group ul { margin: 0; padding: 0; list-style: none; }
+.group li + li { border-top: 1px solid color-mix(in srgb, var(--tone) 14%, var(--vp-c-divider)); }
+.group a { display: flex; align-items: center; gap: 14px; padding: 13px 10px; margin: 0 -10px; border-radius: 10px; transition: background-color .18s ease; }
+.group a:hover { background: color-mix(in srgb, var(--tone) 9%, transparent); }
+.topic-text { display: grid; flex: 1; gap: 2px; min-width: 0; }
+.topic-text strong { font-size: 15px; font-weight: 600; }
+.topic-text span { color: var(--vp-c-text-2); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.topic-count { flex: none; min-width: 2.6em; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--tone) 12%, transparent); color: var(--tone); font: 600 12px/1.6 var(--vp-font-family-mono); text-align: center; }
+.topic-arrow { flex: none; color: var(--vp-c-text-3); transition: transform .18s ease, color .18s ease; }
+.group a:hover .topic-arrow { color: var(--tone); transform: translateX(3px); }
 
+/* Project showcase */
+.showcase { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 20px; }
+.case { display: flex; flex-direction: column; border: 1px solid var(--vp-c-divider); border-radius: 18px; background: var(--vp-c-bg); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.case:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--vp-c-brand-1) 50%, var(--vp-c-divider)); box-shadow: 0 24px 48px -24px rgba(8, 19, 15, .35); }
+.case-media { display: block; overflow: hidden; border-bottom: 1px solid var(--vp-c-divider); background: var(--vp-c-bg-soft); aspect-ratio: 16 / 10; }
+.case-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform .5s ease; }
+.case:hover .case-media img { transform: scale(1.04); }
+.case-body { display: grid; gap: 6px; padding: 20px 22px 22px; }
+.case-meta { color: var(--vp-c-brand-1); font-size: 12px; font-weight: 600; }
+.case-body strong { font-size: 19px; font-weight: 700; }
+.case-summary { color: var(--vp-c-text-2); font-size: 14px; line-height: 1.7; }
+.case-evidence { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; padding-top: 12px; border-top: 1px dashed var(--vp-c-divider); color: var(--vp-c-text-2); font-size: 12px; }
+.case-evidence b { color: var(--vp-c-text-1); font: 700 16px/1.3 var(--vp-font-family-mono); }
+
+/* Routes */
 .routes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
-.routes a { display: grid; gap: 6px; height: 100%; padding: 18px 20px 20px; border: 1px solid var(--vp-c-divider); border-radius: 8px; transition: border-color .16s ease; }
-.routes a:hover { border-color: var(--vp-c-brand-1); }
-.route-index { color: var(--vp-c-brand-1); font: 600 13px/1.4 var(--vp-font-family-mono); }
-.routes strong { font-size: 16px; font-weight: 600; line-height: 1.5; }
-.routes span:last-child { color: var(--vp-c-text-2); font-size: 13px; line-height: 1.7; }
+.routes a { position: relative; display: grid; align-content: start; gap: 8px; height: 100%; padding: 22px 22px 24px; border-radius: 16px; background: var(--vp-c-bg-soft); overflow: hidden; transition: background-color .2s ease, transform .2s ease; }
+.routes a:hover { background: var(--vp-c-brand-soft); transform: translateY(-3px); }
+.route-index { color: color-mix(in srgb, var(--vp-c-brand-1) 40%, transparent); font: 800 40px/1 var(--vp-font-family-mono); }
+.routes strong { font-size: 17px; font-weight: 700; }
+.routes span:not(.route-index) { color: var(--vp-c-text-2); font-size: 13px; line-height: 1.7; }
+.route-arrow { position: absolute; top: 22px; right: 20px; color: var(--vp-c-text-3); transition: color .2s ease, transform .2s ease; }
+.routes a:hover .route-arrow { color: var(--vp-c-brand-1); transform: translate(2px, -2px); }
 
-.home-more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 64px; border-top: 1px solid var(--vp-c-divider); }
-.home-more a { display: grid; gap: 4px; padding: 20px 20px 0 0; }
-.home-more strong { display: inline-flex; align-items: center; gap: 4px; font-size: 15px; font-weight: 600; }
-.home-more a:hover strong { color: var(--vp-c-brand-1); }
-.home-more span { color: var(--vp-c-text-3); font-size: 13px; line-height: 1.6; }
+.more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--vp-c-divider); }
+.more a { display: grid; gap: 4px; }
+.more strong { display: inline-flex; align-items: center; gap: 4px; font-size: 15px; font-weight: 600; }
+.more a:hover strong { color: var(--vp-c-brand-1); }
+.more span { color: var(--vp-c-text-3); font-size: 13px; }
 
-@media (max-width: 960px) {
-  .home-hero { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .hero-updates { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--vp-c-divider); }
+@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(94, 224, 168, 0); } 100% { box-shadow: 0 0 0 0 rgba(94, 224, 168, 0); } }
+
+@media (max-width: 1080px) {
+  .hero-inner { grid-template-columns: minmax(0, 1fr); min-height: 0; padding: 56px 0 120px; }
+  .hero-collage { width: 100%; max-width: 640px; height: 380px; }
   .catalog { columns: 1; }
-  .routes, .home-more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .showcase .case:first-child { grid-column: 1 / -1; }
+  .routes, .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .updates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .home { width: calc(100% - 32px); padding: 32px 0 64px; }
-  .hero-copy h1 { font-size: 38px; }
-  .hero-lead { font-size: 16px; }
+  .hero-inner, .home-body { width: calc(100% - 32px); }
+  .hero-inner { gap: 36px; padding: 40px 0 100px; }
+  .hero-copy h1 { font-size: 52px; }
+  .hero-lead { font-size: 15px; }
   .hero-search kbd { display: none; }
-  .home-section, .home-more { margin-top: 48px; }
-  .section-head h2 { font-size: 22px; }
-  .routes { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  .home-more { grid-template-columns: minmax(0, 1fr); }
-  .home-more a { padding: 16px 0 0; }
+  .hero-stats { gap: 24px; }
+  .hero-stats dd { font-size: 26px; }
+  .hero-collage { height: 250px; }
+  .shot-bar { height: 22px; }
+  .shot-bar b { display: none; }
+  .section { margin-top: 56px; }
+  .updates-panel { padding: 20px 16px 16px; border-radius: 14px; }
+  .section-head h2 { font-size: 24px; }
+  .updates, .showcase, .routes, .more { grid-template-columns: minmax(0, 1fr); }
+  .showcase .case:first-child { grid-column: auto; }
+  .group { padding: 20px 16px 8px; }
+  .group-icon { width: 44px; height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home *, .home *::after { transition: none !important; }
+  .home *, .home *::before, .home *::after { animation: none !important; transition: none !important; }
 }
 </style>
