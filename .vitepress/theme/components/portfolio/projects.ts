@@ -49,8 +49,8 @@ const allProjects: Project[] = [
   },
   {
     id: 'memo-ai', title: '声纪 · 会议工作台', subtitle: '从实时转写到可回听的会议记录',
-    category: 'AI 产品', status: 'Web 试用', color: 'lavender', tags: ['Rust', 'Axum', 'SQLite', 'Web Audio'],
-    summary: '把录音、转写、笔记与纪要连接起来，保留会议结束后的校对和回听体验。',
+    category: 'AI 产品', status: '受邀试用', color: 'lavender', tags: ['Rust', 'Axum', 'SQLite', 'Vue 3', 'RAG'],
+    summary: '把录音、转写、笔记、纪要与跨会议检索连接起来，保留会议结束后的校对、回听和问答体验。',
     business: '会议记录需要覆盖采集、转写、保存、回放和整理，而不仅是生成一段文字。声纪提供实时会议与文件转写工作台，让用户在同一条工作流中管理音频、发言、笔记和最终纪要；多场会议可以组成集合，按原句检索和提问；线上会议的声音可以和麦克风一起采集。',
     scope: ['Web 会议工作台', '实时采集、线上会议声音与暂停恢复', '持久转写任务与会议记录', '会议集合检索与原句引用问答', '纪要、校对、导出与限时分享'],
     stack: [['前端', 'Vue 3 · Element Plus · Web Audio · MediaRecorder · IndexedDB'], ['服务端', 'Rust · Axum · Tokio · WebSocket'], ['持久化', 'SQLite · 音频分片 · 本机录音备份'], ['模型与多端', 'Amphion ASR · OpenAI 兼容总结接口 · Android Demo · Tauri 桌面工程']],
