@@ -68,7 +68,7 @@ const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
           </dl>
         </div>
         <div class="sc-collage" aria-label="重点项目画面">
-          <a v-for="(p, i) in featured" :key="p.id" :href="projectLink(p.id)" class="sc-shot" :class="[`sc-shot-${i}`, { 'is-phone': p.id === 'speech-sdk' }]">
+          <a v-for="(p, i) in featured" :key="p.id" :href="projectLink(p.id)" class="sc-shot" :class="[`sc-shot-${i}`, { 'is-phone': ['speech-sdk', 'livecode-duplex'].includes(p.id) }]">
             <span class="sc-shot-bar" aria-hidden="true"><i></i><i></i><i></i><b>{{ p.title }}</b></span>
             <img :src="shot(p.image?.id)" :alt="p.image?.label" width="720" height="450" :loading="i ? 'lazy' : 'eager'" />
           </a>
@@ -88,7 +88,7 @@ const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
           <p>负责范围、关键工程问题和有范围说明的验证结果。</p>
         </header>
         <article v-for="(p, index) in featured" :id="`project-${p.id}`" :key="p.id" class="feature" :class="{ flip: index % 2 }" :data-tone="p.tone">
-          <a class="feature-media" :class="{ 'is-phone': p.id === 'speech-sdk' }" :href="projectLink(p.id)" tabindex="-1" aria-hidden="true">
+          <a class="feature-media" :class="{ 'is-phone': ['speech-sdk', 'livecode-duplex'].includes(p.id) }" :href="projectLink(p.id)" tabindex="-1" aria-hidden="true">
             <span class="sc-shot-bar"><i></i><i></i><i></i><b>{{ p.image?.label }}</b></span>
             <img v-if="p.image" :src="shot(p.image.id)" :alt="p.image.label" width="720" height="450" loading="lazy" />
           </a>

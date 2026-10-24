@@ -1,6 +1,7 @@
-export type ProjectMedia = { id: string; label: string; kind?: 'flow' };
+export type ProjectMedia = { id: string; label: string; kind?: 'flow' | 'phone' };
 export const projectMedia: Record<string, ProjectMedia[]> = {
   'amphion-cloud': [{ id: 'amphion-cloud', label: '开发者控制台 · 用量与消费趋势' }, { id: 'cloud-entitlements', label: '企业控制台 · 权益与授权' }, { id: 'cloud-licenses', label: '企业控制台 · 离线许可证' }, { id: 'cloud-devices', label: '企业控制台 · 在线激活与设备' }],
+  'livecode-duplex': [{ id: 'livecode', label: '管理后台 · 在线会话与手机下发的任务', kind: 'phone' }, { id: 'livecode-call', label: '手机网页 · 通话与连接详情', kind: 'phone' }, { id: 'livecode-login', label: '手机网页 · 邀请码登录', kind: 'phone' }],
   'memo-ai': [{ id: 'memo-ai', label: '实时转写与会议笔记' }, { id: 'memo-workspace', label: '录音恢复与文件转写工作台' }],
   'voice-platform': [{ id: 'voice-platform', label: '应用配置与原生语音资源' }, { id: 'voice-experience', label: '语音会话与播放恢复' }],
   commerce: [{ id: 'commerce', label: '商品管理与渠道映射' }, { id: 'commerce-app', label: '移动端商品与购物车入口' }],

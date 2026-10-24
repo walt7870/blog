@@ -78,7 +78,7 @@
 .pf-index .pf-preview { border: 0 !important; border-radius: 0; background: #0f1d18; }
 .pf-index .pf-preview img { object-fit: cover !important; object-position: top left; background: #fff !important; transition: transform .5s ease; }
 .pf-index .pf-project:hover .pf-preview img { transform: scale(1.04); }
-.pf-index .pf-preview img[src*='speech-sdk'], .pf-index .pf-preview img[src*='sdk-tts'] { object-fit: contain !important; object-position: center; background: #eef2ef !important; }
+.pf-index .pf-preview img[src*='speech-sdk'], .pf-index .pf-preview img[src*='sdk-tts'], .pf-index .pf-preview img[src*='livecode'] { object-fit: contain !important; object-position: center; background: #eef2ef !important; }
 .pf-index .pf-preview-label { top: 14px; left: 14px; padding: 3px 10px; border: 0; border-radius: 999px; background: rgba(8, 19, 15, .78); color: #e6f0ea; font-size: 11px; font-weight: 600; }
 .pf-index .pf-preview-arrow { border-radius: 12px; background: var(--pf-project-accent); color: #fff; }
 .pf-index .pf-project h2 { font-weight: 750; }
@@ -256,9 +256,9 @@
 .pf-bench-legend span:last-child { margin-left: auto; }
 .pf-bench-group { margin-top: 18px; }
 .pf-bench-group h3 { margin-bottom: 8px; font-size: 14px; font-weight: 700; }
-.pf-bench-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 12px; align-items: center; padding: 6px 0; }
+.pf-bench-row { display: grid; grid-template-columns: minmax(52px, max-content) minmax(0, 1fr) 52px; gap: 12px; align-items: center; padding: 6px 0; }
 .pf-bench-row + .pf-bench-row { border-top: 1px dashed var(--pf-line); }
-.pf-bench-label { color: var(--pf-muted); font: 600 13px/1 var(--vp-font-family-mono); }
+.pf-bench-label { white-space: nowrap; color: var(--pf-muted); font: 600 13px/1 var(--vp-font-family-mono); }
 .pf-bench-bars { display: grid; gap: 4px; }
 .pf-bench-bars > div { display: flex; align-items: center; gap: 8px; }
 .pf-bench-bars i { display: block; height: 10px; border-radius: 3px; }
@@ -282,6 +282,7 @@
 .pf-rejected strong { margin-right: 6px; color: var(--pf-text); }
 
 .portfolio-detail .pf-tools-visual { margin: 20px 0 0 !important; box-shadow: none; }
+.portfolio-detail .pf-tools-visual.pf-phone-visual > button { height: 720px; }
 .pf-tools-visual figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
 
 @media (max-width: 1080px) {
@@ -306,5 +307,6 @@
   .pf-capacity { grid-template-columns: minmax(0, 1fr); }
   .pf-delivery-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pf-bench { padding: 16px; }
+  .portfolio-detail .pf-tools-visual.pf-phone-visual > button { height: 480px; }
   .pf-rejected ul { grid-template-columns: minmax(0, 1fr); }
 }
