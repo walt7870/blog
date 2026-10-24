@@ -13,6 +13,6 @@ export const projectMedia: Record<string, ProjectMedia[]> = {
   'gitlab-platform': [{ id: 'gitlab-platform', label: 'GitLab 实例与代码迁移链路', kind: 'flow' }],
   'delivery-platform': [{ id: 'delivery-platform', label: '制品晋级与发布信任边界', kind: 'flow' }],
   'sub2api-platform': [{ id: 'sub2api-platform', label: '内部客户端与模型接入链路', kind: 'flow' }],
-  'siwei-marketing-cloud': [{ id: 'siwei-marketing-cloud', label: '思为科技营销云 · 业务域与服务集', kind: 'flow' }],
-  'times-private-delivery': [{ id: 'times-private-delivery', label: '时代营销云 · 私有化交付架构', kind: 'flow' }],
+  'siwei-marketing-cloud': [{ id: 'siwei-marketing-cloud', label: '业务入口、公共能力与数据智能', kind: 'flow' }],
+  'marketing-cloud-private': [{ id: 'marketing-cloud-private', label: '部署单元与客户环境依赖', kind: 'flow' }],
 };

@@ -2,7 +2,7 @@
 layout: page
 pageClass: portfolio-page
 title: 思为科技营销云
-description: 地产营销业务、数据智能与平台服务的长期演进。
+description: 地产营销 SaaS 的服务化与数据智能演进。
 sidebar: false
 outline: false
 ---

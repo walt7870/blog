@@ -1,8 +1,8 @@
 ---
 layout: page
 pageClass: portfolio-page
-title: 时代营销云私有化交付
-description: 小程序 API、PC 管理后台与数据面板的一体化私有化部署经验。
+title: 营销云私有化交付
+description: 小程序 API、管理后台与数据面板在客户集群的独立部署与验收。
 sidebar: false
 outline: false
 ---
@@ -11,4 +11,4 @@ outline: false
 import ProjectPortfolio from '../.vitepress/theme/components/portfolio/ProjectPortfolio.vue'
 </script>
 
-<ProjectPortfolio project-id="times-private-delivery" />
+<ProjectPortfolio project-id="marketing-cloud-private" />

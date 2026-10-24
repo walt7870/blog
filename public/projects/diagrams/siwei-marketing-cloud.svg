@@ -1,72 +1,178 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
-  <title id="title">思为科技营销云的两套项目集</title>
-  <desc id="desc">company 主线、公共能力和 useproject 服务集之间的关系。</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0L10 5L0 10z" fill="#3167c9"/>
-    </marker>
-    <style>
-      .bg{fill:#f7faf8}.panel{fill:#fff;stroke:#ccd8d2;stroke-width:2}.company{fill:#e8f0ff;stroke:#3c70c9;stroke-width:2}.shared{fill:#e8f7f1;stroke:#13956c;stroke-width:2}.use{fill:#fff1e8;stroke:#d7783e;stroke-width:2}.data{fill:#f1ecff;stroke:#7a5ac8;stroke-width:2}.title{font:700 28px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.head{font:700 20px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.label{font:600 16px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24332c}.small{font:14px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#52625a}.mono{font:13px Menlo,Consolas,monospace;fill:#415149}.line{stroke:#3167c9;stroke-width:2.6;fill:none;marker-end:url(#arrow)}.dash{stroke:#79958a;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
-    </style>
-  </defs>
-  <rect class="bg" width="1440" height="760" rx="24"/>
-  <text class="title" x="56" y="58">思为科技营销云：主线业务与服务化项目集</text>
-  <text class="small" x="56" y="88">company 保留业务连续性，useproject 重新组织领域服务；公共能力把两种视角连接起来。</text>
-
-  <rect class="panel" x="48" y="130" width="390" height="520" rx="18"/>
-  <text class="head" x="78" y="176">company 主线</text>
-  <text class="small" x="78" y="204">完整业务、历史兼容与公共组件</text>
-  <rect class="company" x="78" y="240" width="330" height="72" rx="12"/>
-  <text class="label" x="243" y="270" text-anchor="middle">认证、权限与用户</text>
-  <text class="small" x="243" y="294" text-anchor="middle">authentication · authority · user</text>
-  <rect class="company" x="78" y="332" width="330" height="72" rx="12"/>
-  <text class="label" x="243" y="362" text-anchor="middle">客户、活动与交易</text>
-  <text class="small" x="243" y="386" text-anchor="middle">customer · activity · sign · house pay</text>
-  <rect class="company" x="78" y="424" width="330" height="72" rx="12"/>
-  <text class="label" x="243" y="454" text-anchor="middle">企微、第三方与前端</text>
-  <text class="small" x="243" y="478" text-anchor="middle">WeChat · enterprise WeChat · Vue / miniapp</text>
-  <rect class="company" x="78" y="516" width="330" height="72" rx="12"/>
-  <text class="label" x="243" y="546" text-anchor="middle">公共模块与历史表</text>
-  <text class="small" x="243" y="570" text-anchor="middle">starter · Feign · legacy compatibility</text>
-
-  <rect class="panel" x="525" y="130" width="390" height="520" rx="18"/>
-  <text class="head" x="555" y="176">共享能力</text>
-  <text class="small" x="555" y="204">跨服务稳定契约与异步协作</text>
-  <rect class="shared" x="555" y="240" width="330" height="72" rx="12"/>
-  <text class="label" x="720" y="270" text-anchor="middle">用户中心与角色</text>
-  <text class="small" x="720" y="294" text-anchor="middle">tenant · organization · identity</text>
-  <rect class="shared" x="555" y="332" width="330" height="72" rx="12"/>
-  <text class="label" x="720" y="362" text-anchor="middle">事件中心与消息</text>
-  <text class="small" x="720" y="386" text-anchor="middle">publish · subscribe · delay · replay</text>
-  <rect class="shared" x="555" y="424" width="330" height="72" rx="12"/>
-  <text class="label" x="720" y="454" text-anchor="middle">支付中心与第三方适配</text>
-  <text class="small" x="720" y="478" text-anchor="middle">payment · refund · callback · Feign</text>
-  <rect class="shared" x="555" y="516" width="330" height="72" rx="12"/>
-  <text class="label" x="720" y="546" text-anchor="middle">配置、文件与任务</text>
-  <text class="small" x="720" y="570" text-anchor="middle">Nacos · OSS · XXL-JOB · Docker</text>
-
-  <rect class="panel" x="1002" y="130" width="390" height="520" rx="18"/>
-  <text class="head" x="1032" y="176">useproject 服务集</text>
-  <text class="small" x="1032" y="204">领域服务、平台能力与数据智能</text>
-  <rect class="use" x="1032" y="240" width="330" height="72" rx="12"/>
-  <text class="label" x="1197" y="270" text-anchor="middle">营销云领域服务</text>
-  <text class="small" x="1197" y="294" text-anchor="middle">activity · channel · content · payment</text>
-  <rect class="use" x="1032" y="332" width="330" height="72" rx="12"/>
-  <text class="label" x="1197" y="362" text-anchor="middle">Zeus 与开放平台</text>
-  <text class="small" x="1197" y="386" text-anchor="middle">tenant · user · gateway · app</text>
-  <rect class="data" x="1032" y="424" width="330" height="72" rx="12"/>
-  <text class="label" x="1197" y="454" text-anchor="middle">DaaS、CDP 与标签</text>
-  <text class="small" x="1197" y="478" text-anchor="middle">report · lifecycle · bitmap · tracking</text>
-  <rect class="data" x="1032" y="516" width="330" height="72" rx="12"/>
-  <text class="label" x="1197" y="546" text-anchor="middle">AI / NLP 与智能工牌</text>
-  <text class="small" x="1197" y="570" text-anchor="middle">recording · intent · OCR · Feishu bot</text>
-
-  <path class="line" d="M438 276H555"/>
-  <path class="line" d="M438 368H555"/>
-  <path class="line" d="M438 460H555"/>
-  <path class="line" d="M885 276H1032"/>
-  <path class="line" d="M885 368H1032"/>
-  <path class="dash" d="M885 460H1032"/>
-  <path class="dash" d="M885 552H1032"/>
-  <text class="mono" x="720" y="700" text-anchor="middle">业务事实 → 稳定契约 → 领域服务 → 数据与智能</text>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 16.1.0 (20260904.0139)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="1674pt" height="412pt"
+ viewBox="0.00 0.00 1674.00 412.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(28.8 382.8)">
+<title>G</title>
+<polygon fill="#ffffff" stroke="none" points="-28.8,28.8 -28.8,-382.8 1645.19,-382.8 1645.19,28.8 -28.8,28.8"/>
+<g id="clust1" class="cluster">
+<title>cluster_entry</title>
+<polygon fill="#ffffff" stroke="black" points="8,-8 8,-346 172.82,-346 172.82,-8 8,-8"/>
+<text xml:space="preserve" text-anchor="start" x="66.41" y="-313.6" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="16.00">业务入口</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_core</title>
+<polygon fill="#ffffff" stroke="black" points="219.82,-118 219.82,-256 843.72,-256 843.72,-118 219.82,-118"/>
+<text xml:space="preserve" text-anchor="start" x="489.77" y="-223.6" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="16.00">身份与业务服务</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_platform</title>
+<polygon fill="#ffffff" stroke="black" points="922.72,-44 922.72,-292 1143.7,-292 1143.7,-44 922.72,-44"/>
+<text xml:space="preserve" text-anchor="start" x="1009.21" y="-259.6" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="16.00">平台能力</text>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_data</title>
+<polygon fill="#ffffff" stroke="black" points="1190.7,-44 1190.7,-292 1608.39,-292 1608.39,-44 1190.7,-44"/>
+<text xml:space="preserve" text-anchor="start" x="1369.55" y="-259.6" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="16.00">数据与智能</text>
+</g>
+<!-- mini -->
+<g id="node1" class="node">
+<title>mini</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M152.82,-285.52C152.82,-285.52 28,-285.52 28,-285.52 22,-285.52 16,-279.52 16,-273.52 16,-273.52 16,-248.48 16,-248.48 16,-242.48 22,-236.48 28,-236.48 28,-236.48 152.82,-236.48 152.82,-236.48 158.82,-236.48 164.82,-242.48 164.82,-248.48 164.82,-248.48 164.82,-273.52 164.82,-273.52 164.82,-279.52 158.82,-285.52 152.82,-285.52"/>
+<text xml:space="preserve" text-anchor="middle" x="90.41" y="-256.8" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">微信小程序 / H5</text>
+</g>
+<!-- auth -->
+<g id="node4" class="node">
+<title>auth</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M376.46,-195.99C376.46,-195.99 239.82,-195.99 239.82,-195.99 233.82,-195.99 227.82,-189.99 227.82,-183.99 227.82,-183.99 227.82,-138.01 227.82,-138.01 227.82,-132.01 233.82,-126.01 239.82,-126.01 239.82,-126.01 376.46,-126.01 376.46,-126.01 382.46,-126.01 388.46,-132.01 388.46,-138.01 388.46,-138.01 388.46,-183.99 388.46,-183.99 388.46,-189.99 382.46,-195.99 376.46,-195.99"/>
+<text xml:space="preserve" text-anchor="middle" x="308.14" y="-165.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">鉴权 / 用户中心</text>
+<text xml:space="preserve" text-anchor="middle" x="308.14" y="-148.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">租户 · 组织 · 角色</text>
+</g>
+<!-- mini&#45;&gt;auth -->
+<g id="edge1" class="edge">
+<title>mini&#45;&gt;auth</title>
+<path fill="none" stroke="#6c8379" d="M145.29,-236.02C168.81,-225.12 196.93,-212.09 223.09,-199.96"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="224.07,-202.21 229.39,-197.04 222.01,-197.76 224.07,-202.21"/>
+</g>
+<!-- wecom -->
+<g id="node2" class="node">
+<title>wecom</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M136.59,-195.99C136.59,-195.99 44.24,-195.99 44.24,-195.99 38.24,-195.99 32.24,-189.99 32.24,-183.99 32.24,-183.99 32.24,-138.01 32.24,-138.01 32.24,-132.01 38.24,-126.01 44.24,-126.01 44.24,-126.01 136.59,-126.01 136.59,-126.01 142.59,-126.01 148.59,-132.01 148.59,-138.01 148.59,-138.01 148.59,-183.99 148.59,-183.99 148.59,-189.99 142.59,-195.99 136.59,-195.99"/>
+<text xml:space="preserve" text-anchor="middle" x="90.41" y="-165.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">企微工作台</text>
+<text xml:space="preserve" text-anchor="middle" x="90.41" y="-148.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">顾问 / 自渠</text>
+</g>
+<!-- wecom&#45;&gt;auth -->
+<g id="edge2" class="edge">
+<title>wecom&#45;&gt;auth</title>
+<path fill="none" stroke="#6c8379" d="M148.94,-161C170.49,-161 195.49,-161 219.17,-161"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="218.97,-163.45 225.97,-161 218.97,-158.55 218.97,-163.45"/>
+</g>
+<!-- pc -->
+<g id="node3" class="node">
+<title>pc</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M140.33,-85.99C140.33,-85.99 40.49,-85.99 40.49,-85.99 34.49,-85.99 28.49,-79.99 28.49,-73.99 28.49,-73.99 28.49,-28.01 28.49,-28.01 28.49,-22.01 34.49,-16.01 40.49,-16.01 40.49,-16.01 140.33,-16.01 140.33,-16.01 146.33,-16.01 152.33,-22.01 152.33,-28.01 152.33,-28.01 152.33,-73.99 152.33,-73.99 152.33,-79.99 146.33,-85.99 140.33,-85.99"/>
+<text xml:space="preserve" text-anchor="middle" x="90.41" y="-55.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">PC 管理后台</text>
+<text xml:space="preserve" text-anchor="middle" x="90.41" y="-38.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">销冠应用</text>
+</g>
+<!-- pc&#45;&gt;auth -->
+<g id="edge3" class="edge">
+<title>pc&#45;&gt;auth</title>
+<path fill="none" stroke="#6c8379" d="M152.65,-82.23C176.8,-94.54 204.81,-108.82 230.3,-121.82"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="229.07,-123.94 236.42,-124.94 231.29,-119.58 229.07,-123.94"/>
+</g>
+<!-- biz -->
+<g id="node5" class="node">
+<title>biz</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M600.09,-195.99C600.09,-195.99 463.46,-195.99 463.46,-195.99 457.46,-195.99 451.46,-189.99 451.46,-183.99 451.46,-183.99 451.46,-138.01 451.46,-138.01 451.46,-132.01 457.46,-126.01 463.46,-126.01 463.46,-126.01 600.09,-126.01 600.09,-126.01 606.09,-126.01 612.09,-132.01 612.09,-138.01 612.09,-138.01 612.09,-183.99 612.09,-183.99 612.09,-189.99 606.09,-195.99 600.09,-195.99"/>
+<text xml:space="preserve" text-anchor="middle" x="531.77" y="-165.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">客户 · 活动 · 内容</text>
+<text xml:space="preserve" text-anchor="middle" x="531.77" y="-148.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">项目 · 线索</text>
+</g>
+<!-- auth&#45;&gt;biz -->
+<g id="edge4" class="edge">
+<title>auth&#45;&gt;biz</title>
+<path fill="none" stroke="#6c8379" d="M388.84,-161C406.38,-161 425.06,-161 442.9,-161"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="442.52,-163.45 449.52,-161 442.52,-158.55 442.52,-163.45"/>
+</g>
+<!-- pay -->
+<g id="node6" class="node">
+<title>pay</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M823.72,-195.99C823.72,-195.99 687.09,-195.99 687.09,-195.99 681.09,-195.99 675.09,-189.99 675.09,-183.99 675.09,-183.99 675.09,-138.01 675.09,-138.01 675.09,-132.01 681.09,-126.01 687.09,-126.01 687.09,-126.01 823.72,-126.01 823.72,-126.01 829.72,-126.01 835.72,-132.01 835.72,-138.01 835.72,-138.01 835.72,-183.99 835.72,-183.99 835.72,-189.99 829.72,-195.99 823.72,-195.99"/>
+<text xml:space="preserve" text-anchor="middle" x="755.4" y="-165.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">支付中心</text>
+<text xml:space="preserve" text-anchor="middle" x="755.4" y="-148.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">流水 · 回调 · 退款</text>
+</g>
+<!-- biz&#45;&gt;pay -->
+<g id="edge5" class="edge">
+<title>biz&#45;&gt;pay</title>
+<path fill="none" stroke="#6c8379" d="M612.47,-161C630.01,-161 648.69,-161 666.53,-161"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="666.15,-163.45 673.15,-161 666.15,-158.55 666.15,-163.45"/>
+</g>
+<!-- event -->
+<g id="node7" class="node">
+<title>event</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M1123.7,-121.99C1123.7,-121.99 942.72,-121.99 942.72,-121.99 936.72,-121.99 930.72,-115.99 930.72,-109.99 930.72,-109.99 930.72,-64.01 930.72,-64.01 930.72,-58.01 936.72,-52.01 942.72,-52.01 942.72,-52.01 1123.7,-52.01 1123.7,-52.01 1129.7,-52.01 1135.7,-58.01 1135.7,-64.01 1135.7,-64.01 1135.7,-109.99 1135.7,-109.99 1135.7,-115.99 1129.7,-121.99 1123.7,-121.99"/>
+<text xml:space="preserve" text-anchor="middle" x="1033.21" y="-91.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">事件中心</text>
+<text xml:space="preserve" text-anchor="middle" x="1033.21" y="-74.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">发布 · 订阅 · 延迟 · 重推</text>
+</g>
+<!-- biz&#45;&gt;event -->
+<g id="edge7" class="edge">
+<title>biz&#45;&gt;event</title>
+<path fill="none" stroke="#6c8379" d="M591.94,-125.6C616.73,-112.67 646.42,-99.56 675.09,-92.8 756.3,-73.65 850.81,-73.03 922.2,-76.75"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="921.71,-79.18 928.83,-77.12 921.98,-74.28 921.71,-79.18"/>
+<text xml:space="preserve" text-anchor="middle" x="755.4" y="-96.1" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="11.00" fill="#53685f">业务事实</text>
+</g>
+<!-- pay&#45;&gt;event -->
+<g id="edge8" class="edge">
+<title>pay&#45;&gt;event</title>
+<path fill="none" stroke="#6c8379" d="M836.18,-139.6C863.01,-132.4 893.43,-124.23 922.17,-116.52"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="922.64,-118.93 928.77,-114.75 921.37,-114.2 922.64,-118.93"/>
+<text xml:space="preserve" text-anchor="middle" x="883.22" y="-133.93" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="11.00" fill="#53685f">支付成功</text>
+</g>
+<!-- third -->
+<g id="node8" class="node">
+<title>third</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M1101.2,-231.99C1101.2,-231.99 965.22,-231.99 965.22,-231.99 959.22,-231.99 953.22,-225.99 953.22,-219.99 953.22,-219.99 953.22,-174.01 953.22,-174.01 953.22,-168.01 959.22,-162.01 965.22,-162.01 965.22,-162.01 1101.2,-162.01 1101.2,-162.01 1107.2,-162.01 1113.2,-168.01 1113.2,-174.01 1113.2,-174.01 1113.2,-219.99 1113.2,-219.99 1113.2,-225.99 1107.2,-231.99 1101.2,-231.99"/>
+<text xml:space="preserve" text-anchor="middle" x="1033.21" y="-201.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">third&#45;platform</text>
+<text xml:space="preserve" text-anchor="middle" x="1033.21" y="-184.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">微信 · 企微 · ERP</text>
+</g>
+<!-- pay&#45;&gt;third -->
+<g id="edge6" class="edge">
+<title>pay&#45;&gt;third</title>
+<path fill="none" stroke="#6c8379" d="M836.18,-171.41C870.2,-175.85 910,-181.05 944.82,-185.59"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="944.33,-188 951.59,-186.48 944.97,-183.14 944.33,-188"/>
+<text xml:space="preserve" text-anchor="middle" x="883.22" y="-182.3" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="11.00" fill="#53685f">渠道协议</text>
+</g>
+<!-- cdp -->
+<g id="node9" class="node">
+<title>cdp</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M1364.76,-121.99C1364.76,-121.99 1210.7,-121.99 1210.7,-121.99 1204.7,-121.99 1198.7,-115.99 1198.7,-109.99 1198.7,-109.99 1198.7,-64.01 1198.7,-64.01 1198.7,-58.01 1204.7,-52.01 1210.7,-52.01 1210.7,-52.01 1364.76,-52.01 1364.76,-52.01 1370.76,-52.01 1376.76,-58.01 1376.76,-64.01 1376.76,-64.01 1376.76,-109.99 1376.76,-109.99 1376.76,-115.99 1370.76,-121.99 1364.76,-121.99"/>
+<text xml:space="preserve" text-anchor="middle" x="1287.73" y="-91.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">CDP 标签 / 生命周期</text>
+<text xml:space="preserve" text-anchor="middle" x="1287.73" y="-74.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">ClickHouse 位图</text>
+</g>
+<!-- event&#45;&gt;cdp -->
+<g id="edge9" class="edge">
+<title>event&#45;&gt;cdp</title>
+<path fill="none" stroke="#6c8379" d="M1136.19,-87C1154.12,-87 1172.72,-87 1190.48,-87"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="1190.06,-89.45 1197.06,-87 1190.06,-84.55 1190.06,-89.45"/>
+</g>
+<!-- daas -->
+<g id="node10" class="node">
+<title>daas</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M1588.39,-176.99C1588.39,-176.99 1451.76,-176.99 1451.76,-176.99 1445.76,-176.99 1439.76,-170.99 1439.76,-164.99 1439.76,-164.99 1439.76,-119.01 1439.76,-119.01 1439.76,-113.01 1445.76,-107.01 1451.76,-107.01 1451.76,-107.01 1588.39,-107.01 1588.39,-107.01 1594.39,-107.01 1600.39,-113.01 1600.39,-119.01 1600.39,-119.01 1600.39,-164.99 1600.39,-164.99 1600.39,-170.99 1594.39,-176.99 1588.39,-176.99"/>
+<text xml:space="preserve" text-anchor="middle" x="1520.08" y="-146.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">DaaS 指标模型</text>
+<text xml:space="preserve" text-anchor="middle" x="1520.08" y="-129.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">报表 · 下钻 · 导出</text>
+</g>
+<!-- cdp&#45;&gt;daas -->
+<g id="edge10" class="edge">
+<title>cdp&#45;&gt;daas</title>
+<path fill="none" stroke="#6c8379" d="M1377.13,-108.11C1394.95,-112.36 1413.68,-116.83 1431.48,-121.08"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="1430.73,-123.42 1438.11,-122.67 1431.87,-118.66 1430.73,-123.42"/>
+</g>
+<!-- nlp -->
+<g id="node11" class="node">
+<title>nlp</title>
+<path fill="#f1f7f4" stroke="#b5c8be" d="M1333.55,-231.99C1333.55,-231.99 1241.92,-231.99 1241.92,-231.99 1235.92,-231.99 1229.92,-225.99 1229.92,-219.99 1229.92,-219.99 1229.92,-174.01 1229.92,-174.01 1229.92,-168.01 1235.92,-162.01 1241.92,-162.01 1241.92,-162.01 1333.55,-162.01 1333.55,-162.01 1339.55,-162.01 1345.55,-168.01 1345.55,-174.01 1345.55,-174.01 1345.55,-219.99 1345.55,-219.99 1345.55,-225.99 1339.55,-231.99 1333.55,-231.99"/>
+<text xml:space="preserve" text-anchor="middle" x="1287.73" y="-201.2" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">录音 / NLP</text>
+<text xml:space="preserve" text-anchor="middle" x="1287.73" y="-184.4" font-family="PingFang SC,Noto Sans CJK SC,Microsoft YaHei,sans-serif" font-size="14.00" fill="#203c31">接待分析</text>
+</g>
+<!-- nlp&#45;&gt;daas -->
+<g id="edge11" class="edge">
+<title>nlp&#45;&gt;daas</title>
+<path fill="none" stroke="#6c8379" d="M1345.97,-183.33C1371.79,-177.17 1402.86,-169.75 1431.51,-162.91"/>
+<polygon fill="#6c8379" stroke="#6c8379" points="1431.81,-165.36 1438.05,-161.35 1430.67,-160.59 1431.81,-165.36"/>
+</g>
+</g>
 </svg>

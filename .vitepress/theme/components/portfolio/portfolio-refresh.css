@@ -220,7 +220,7 @@
 .pf-specs dd { margin: 0; background: linear-gradient(100deg, #5ee0a8 10%, #7cb2ff 90%); -webkit-background-clip: text; background-clip: text; color: transparent; font: 800 30px/1.15 var(--vp-font-family-mono); font-variant-numeric: tabular-nums; }
 .pf-specs dt { margin-top: 6px; color: var(--sc-hero-muted); font-size: 13px; }
 
-.pf-pipeline { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); margin: -72px 0 0 !important; padding: 0 !important; list-style: none; border: 1px solid var(--pf-line); border-radius: 18px; background: var(--pf-bg); box-shadow: 0 40px 80px -40px rgba(8, 19, 15, .55); overflow: hidden; }
+.pf-pipeline { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(var(--stages, 8), minmax(0, 1fr)); margin: -72px 0 0 !important; padding: 0 !important; list-style: none; border: 1px solid var(--pf-line); border-radius: 18px; background: var(--pf-bg); box-shadow: 0 40px 80px -40px rgba(8, 19, 15, .55); overflow: hidden; }
 .pf-pipeline li { position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 0; margin: 0 !important; padding: 18px 16px 20px; }
 .pf-pipeline li + li { border-left: 1px solid var(--pf-line); }
 .pf-pipeline li + li::before { content: ''; position: absolute; left: -6px; top: 26px; width: 10px; height: 10px; border-top: 1.5px solid var(--tone); border-right: 1.5px solid var(--tone); background: var(--pf-bg); transform: rotate(45deg); }
@@ -294,6 +294,13 @@
   .pf-pipeline li:nth-child(n + 5) { border-top: 1px solid var(--pf-line); }
   .pf-modes { grid-template-columns: minmax(0, 1fr); }
   .pf-capacity { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 761px) and (max-width: 1080px) {
+  .pf-pipeline[data-stages="6"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pf-pipeline[data-stages="6"] li:nth-child(5) { border-left: 1px solid var(--pf-line); }
+  .pf-pipeline[data-stages="6"] li:nth-child(5)::before { content: ''; }
+  .pf-pipeline[data-stages="6"] li:nth-child(4) { border-left: 0; border-top: 1px solid var(--pf-line); }
+  .pf-pipeline[data-stages="6"] li:nth-child(4)::before { content: none; }
 }
 @media (max-width: 760px) {
   .pf-hero-specs > .pf-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
