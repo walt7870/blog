@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">时代营销云私有化交付架构</title>
+  <desc id="desc">微信小程序和 PC 管理后台进入三个独立部署服务，公共模块在构建期复用，配置与基础设施由 Kubernetes 运行边界提供。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f4b860"/></marker>
+    <style>
+      .bg{fill:#101a24}.title{font:700 34px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#f5f7fa}.sub{font:400 18px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#9eafbf}.head{font:700 21px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#101a24}.body{font:500 19px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#203040}.small{font:400 16px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#415467}.line{stroke:#f4b860;stroke-width:4;fill:none;marker-end:url(#arrow)}.dash{stroke:#7990a5;stroke-width:3;stroke-dasharray:9 10;fill:none}.label{font:700 15px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#e7edf3}
+    </style>
+  </defs>
+  <rect class="bg" width="1600" height="900"/>
+  <text x="80" y="76" class="title">时代营销云 · 私有化交付架构</text>
+  <text x="80" y="112" class="sub">入口、业务服务、数据面板与集群运行边界分开验收</text>
+  <rect x="60" y="150" width="310" height="610" rx="18" fill="#d9edf2"/>
+  <text x="90" y="198" class="head">业务入口</text>
+  <rect x="90" y="236" width="250" height="96" rx="12" fill="#f5fbfc"/>
+  <text x="115" y="278" class="body">微信小程序 / 公众号</text><text x="115" y="307" class="small">授权 · 项目 · 活动 · 支付</text>
+  <rect x="90" y="368" width="250" height="96" rx="12" fill="#f5fbfc"/>
+  <text x="115" y="410" class="body">PC 管理后台</text><text x="115" y="439" class="small">项目 · 客户 · 权限 · 内容</text>
+  <rect x="90" y="500" width="250" height="96" rx="12" fill="#f5fbfc"/>
+  <text x="115" y="542" class="body">经纪人 / 顾问工作台</text><text x="115" y="571" class="small">线索 · 访客 · 运营协同</text>
+  <text x="90" y="684" class="small">入口只携带身份和业务请求</text><text x="90" y="711" class="small">规则在服务端统一收敛</text>
+  <rect x="430" y="150" width="370" height="610" rx="18" fill="#f6e5d1"/>
+  <text x="460" y="198" class="head">业务服务</text>
+  <rect x="460" y="236" width="310" height="130" rx="12" fill="#fffaf5"/>
+  <text x="485" y="278" class="body">api-times · 8092</text><text x="485" y="309" class="small">小程序 API、微信生态、报名</text><text x="485" y="337" class="small">支付、访客、内容与通知</text>
+  <rect x="460" y="402" width="310" height="130" rx="12" fill="#fffaf5"/>
+  <text x="485" y="444" class="body">pc-api · 8380</text><text x="485" y="475" class="small">管理后台、角色、项目、客户</text><text x="485" y="503" class="small">活动、优惠券、报表配置</text>
+  <rect x="460" y="568" width="310" height="130" rx="12" fill="#fffaf5"/>
+  <text x="485" y="610" class="body">公共 Maven 模块</text><text x="485" y="641" class="small">订阅消息 · 品牌 · 公共基础能力</text><text x="485" y="669" class="small">构建期复用，不独立接公网流量</text>
+  <path d="M370 284H430" class="line"/><path d="M370 416H430" class="line"/><path d="M370 548H430" class="line"/>
+  <rect x="860" y="150" width="300" height="610" rx="18" fill="#dce8f7"/>
+  <text x="890" y="198" class="head">数据与分析</text>
+  <rect x="890" y="236" width="240" height="128" rx="12" fill="#f8fbff"/>
+  <text x="915" y="278" class="body">MySQL / Redis</text><text x="915" y="309" class="small">业务事实 · 缓存 · 统计</text><text x="915" y="337" class="small">消息与定时汇总</text>
+  <rect x="890" y="402" width="240" height="128" rx="12" fill="#f8fbff"/>
+  <text x="915" y="444" class="body">data-panel · 8083</text><text x="915" y="475" class="small">活动 · 到访 · 访客</text><text x="915" y="503" class="small">排行 · 导出 · 趋势</text>
+  <rect x="890" y="568" width="240" height="130" rx="12" fill="#f8fbff"/>
+  <text x="915" y="610" class="body">事实 → 查询模型</text><text x="915" y="641" class="small">Redis 统计与任务汇总</text><text x="915" y="669" class="small">按时间口径回读验收</text>
+  <path d="M800 470H860" class="line"/><path d="M800 620H860" class="line"/>
+  <rect x="1220" y="150" width="320" height="610" rx="18" fill="#e4e7e9"/>
+  <text x="1250" y="198" class="head">Kubernetes 运行边界</text>
+  <rect x="1250" y="236" width="260" height="100" rx="12" fill="#ffffff"/>
+  <text x="1275" y="278" class="body">Nacos / ConfigMap</text><text x="1275" y="307" class="small">环境配置 · /config 挂载</text>
+  <rect x="1250" y="374" width="260" height="100" rx="12" fill="#ffffff"/>
+  <text x="1275" y="416" class="body">Deployment / Service</text><text x="1275" y="445" class="small">镜像 · 端口 · 日志</text>
+  <rect x="1250" y="512" width="260" height="100" rx="12" fill="#ffffff"/>
+  <text x="1275" y="554" class="body">探针与流量入口</text><text x="1275" y="583" class="small">ready / live · Ingress</text>
+  <rect x="1250" y="650" width="260" height="78" rx="12" fill="#ffffff"/>
+  <text x="1275" y="697" class="body">回读 · 回滚 · 留档</text>
+  <path d="M1160 300H1220" class="dash"/><path d="M1160 450H1220" class="dash"/><path d="M1160 620H1220" class="dash"/>
+  <text x="80" y="826" class="label">实线：业务请求与数据流　　虚线：配置、部署与验收边界</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720" role="img" aria-labelledby="title desc">
+  <title id="title">思为科技营销云的业务数据流</title>
+  <desc id="desc">从用户触达、身份统一到客户经营、支付事件和经营分析的数据链路。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#3167c9"/>
+    </marker>
+    <style>
+      .bg{fill:#f7faf8}.box{fill:#fff;stroke:#ccd8d2;stroke-width:2}.blue{fill:#e8f0ff;stroke:#3c70c9;stroke-width:2}.green{fill:#e8f7f1;stroke:#13956c;stroke-width:2}.orange{fill:#fff1e8;stroke:#d7783e;stroke-width:2}.purple{fill:#f1ecff;stroke:#7a5ac8;stroke-width:2}.title{font:700 28px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.head{font:700 18px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.label{font:600 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24332c}.small{font:14px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#52625a}.lane{font:700 15px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#687870}.line{stroke:#3167c9;stroke-width:2.6;fill:none;marker-end:url(#arrow)}.event{stroke:#13956c;stroke-width:2.4;stroke-dasharray:8 7;fill:none;marker-end:url(#arrow)}.note{font:13px Menlo,Consolas,monospace;fill:#415149}
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="720" rx="24"/>
+  <text class="title" x="56" y="58">从用户触达到经营分析</text>
+  <text class="small" x="56" y="88">同步请求承载当前业务状态，事件和数据任务承载跨服务协作与长期分析。</text>
+
+  <text class="lane" x="62" y="156">入口层</text>
+  <rect class="blue" x="62" y="178" width="210" height="88" rx="14"/>
+  <text class="head" x="167" y="216" text-anchor="middle">小程序 / 企微 / PC</text>
+  <text class="small" x="167" y="242" text-anchor="middle">访客、顾问、经纪人、管理员</text>
+
+  <text class="lane" x="62" y="326">身份层</text>
+  <rect class="green" x="62" y="348" width="210" height="88" rx="14"/>
+  <text class="head" x="167" y="386" text-anchor="middle">鉴权与用户中心</text>
+  <text class="small" x="167" y="412" text-anchor="middle">tenant · role · channel · user</text>
+
+  <text class="lane" x="370" y="156">业务层</text>
+  <rect class="orange" x="370" y="178" width="235" height="88" rx="14"/>
+  <text class="head" x="487" y="216" text-anchor="middle">客户 / 项目 / 活动</text>
+  <text class="small" x="487" y="242" text-anchor="middle">内容、线索、报名、客户关系</text>
+  <rect class="orange" x="370" y="348" width="235" height="88" rx="14"/>
+  <text class="head" x="487" y="386" text-anchor="middle">交易 / 签约 / 支付</text>
+  <text class="small" x="487" y="412" text-anchor="middle">订单、流水、回调、佣金</text>
+
+  <text class="lane" x="700" y="156">协作层</text>
+  <rect class="green" x="700" y="178" width="235" height="88" rx="14"/>
+  <text class="head" x="817" y="216" text-anchor="middle">事件中心</text>
+  <text class="small" x="817" y="242" text-anchor="middle">发布、订阅、延迟、消费状态</text>
+  <rect class="green" x="700" y="348" width="235" height="88" rx="14"/>
+  <text class="head" x="817" y="386" text-anchor="middle">第三方适配</text>
+  <text class="small" x="817" y="412" text-anchor="middle">微信、企微、ERP、飞书、支付渠道</text>
+
+  <text class="lane" x="1030" y="156">数据与智能层</text>
+  <rect class="purple" x="1030" y="178" width="300" height="88" rx="14"/>
+  <text class="head" x="1180" y="216" text-anchor="middle">埋点 / 采集 / 生命周期</text>
+  <text class="small" x="1180" y="242" text-anchor="middle">statistics-adapter · CDP · tag-tidy</text>
+  <rect class="purple" x="1030" y="348" width="300" height="88" rx="14"/>
+  <text class="head" x="1180" y="386" text-anchor="middle">DaaS / NLP / 运营分析</text>
+  <text class="small" x="1180" y="412" text-anchor="middle">指标模型、用户人群、录音和语义分析</text>
+
+  <path class="line" d="M272 222H370"/>
+  <path class="line" d="M167 266V348"/>
+  <path class="line" d="M272 392H370"/>
+  <path class="line" d="M605 222H700"/>
+  <path class="line" d="M605 392H700"/>
+  <path class="line" d="M935 222H1030"/>
+  <path class="event" d="M605 244C660 286 676 300 700 348"/>
+  <path class="event" d="M935 392H1030"/>
+  <path class="event" d="M817 266V348"/>
+  <text class="note" x="640" y="304">领域事件</text>
+  <text class="note" x="950" y="374">事实 / 事件数据</text>
+  <text class="note" x="1180" y="510" text-anchor="middle">结果：报表 · 人群 · 运营动作 · 业务回流</text>
+  <path class="event" d="M1180 436V560H487V436"/>
+  <text class="note" x="820" y="586" text-anchor="middle">分析结果回到业务服务，形成下一轮客户经营和活动策略</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">时代营销云从用户触达到经营分析</title>
+  <desc id="desc">用户从微信入口进入身份和业务服务，活动与支付事实经过消息协作，统计与标签链路最终进入数据面板和运营动作。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f4b860"/></marker>
+    <style>
+      .bg{fill:#101a24}.title{font:700 34px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#f5f7fa}.sub{font:400 18px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#9eafbf}.head{font:700 21px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#101a24}.body{font:500 19px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#203040}.small{font:400 16px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#415467}.line{stroke:#f4b860;stroke-width:4;fill:none;marker-end:url(#arrow)}.dash{stroke:#7990a5;stroke-width:3;stroke-dasharray:9 10;fill:none}.label{font:700 15px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#e7edf3}.note{font:600 15px -apple-system,BlinkMacSystemFont,"Noto Sans SC",sans-serif;fill:#f4b860}
+    </style>
+  </defs>
+  <rect class="bg" width="1600" height="900"/>
+  <text x="80" y="76" class="title">从用户触达到经营分析</text>
+  <text x="80" y="112" class="sub">同步请求、异步事件和查询模型各自承担一段可验收的事实</text>
+  <rect x="60" y="170" width="230" height="510" rx="18" fill="#d9edf2"/><text x="88" y="218" class="head">01 · 触达</text>
+  <rect x="88" y="260" width="174" height="110" rx="12" fill="#f5fbfc"/><text x="108" y="302" class="body">微信入口</text><text x="108" y="331" class="small">授权 / 项目</text><text x="108" y="356" class="small">活动 / 报名</text>
+  <rect x="88" y="410" width="174" height="110" rx="12" fill="#f5fbfc"/><text x="108" y="452" class="body">用户身份</text><text x="108" y="481" class="small">手机号 / 角色</text><text x="108" y="506" class="small">租户 / 项目范围</text>
+  <text x="88" y="612" class="note">验收：登录与权限</text>
+  <rect x="350" y="170" width="270" height="510" rx="18" fill="#f6e5d1"/><text x="378" y="218" class="head">02 · 经营</text>
+  <rect x="378" y="260" width="214" height="110" rx="12" fill="#fffaf5"/><text x="398" y="302" class="body">项目与活动</text><text x="398" y="331" class="small">内容 / 规则</text><text x="398" y="356" class="small">报名 / 访客</text>
+  <rect x="378" y="410" width="214" height="110" rx="12" fill="#fffaf5"/><text x="398" y="452" class="body">支付与库存</text><text x="398" y="481" class="small">订单 / 流水</text><text x="398" y="506" class="small">回调 / 幂等</text>
+  <text x="378" y="612" class="note">验收：重复与失败路径</text>
+  <rect x="680" y="170" width="270" height="510" rx="18" fill="#e9e2f5"/><text x="708" y="218" class="head">03 · 协作</text>
+  <rect x="708" y="260" width="214" height="110" rx="12" fill="#fbf9ff"/><text x="728" y="302" class="body">事件中心</text><text x="728" y="331" class="small">支付成功 / 活动变更</text><text x="728" y="356" class="small">订阅 / 延迟 / 重试</text>
+  <rect x="708" y="410" width="214" height="110" rx="12" fill="#fbf9ff"/><text x="728" y="452" class="body">统计采集</text><text x="728" y="481" class="small">业务事实 / 埋点</text><text x="728" y="506" class="small">Redis / 定时汇总</text>
+  <text x="708" y="612" class="note">验收：消息与汇总延迟</text>
+  <rect x="1010" y="170" width="230" height="510" rx="18" fill="#dce8f7"/><text x="1038" y="218" class="head">04 · 分析</text>
+  <rect x="1038" y="260" width="174" height="110" rx="12" fill="#f8fbff"/><text x="1058" y="302" class="body">数据面板</text><text x="1058" y="331" class="small">活动 / 访客</text><text x="1058" y="356" class="small">趋势 / 排行</text>
+  <rect x="1038" y="410" width="174" height="110" rx="12" fill="#f8fbff"/><text x="1058" y="452" class="body">导出与复盘</text><text x="1058" y="481" class="small">Excel / 明细</text><text x="1058" y="506" class="small">时间口径</text>
+  <text x="1038" y="612" class="note">验收：口径与导出</text>
+  <rect x="1300" y="170" width="240" height="510" rx="18" fill="#e4e7e9"/><text x="1328" y="218" class="head">05 · 交付</text>
+  <rect x="1328" y="260" width="184" height="110" rx="12" fill="#ffffff"/><text x="1348" y="302" class="body">配置注入</text><text x="1348" y="331" class="small">Nacos / ConfigMap</text><text x="1348" y="356" class="small">密钥留在环境</text>
+  <rect x="1328" y="410" width="184" height="110" rx="12" fill="#ffffff"/><text x="1348" y="452" class="body">探针接流量</text><text x="1348" y="481" class="small">ready / live</text><text x="1348" y="506" class="small">Service / Ingress</text>
+  <text x="1328" y="612" class="note">验收：镜像与回滚</text>
+  <path d="M290 315H350" class="line"/><path d="M620 315H680" class="line"/><path d="M950 315H1010" class="line"/><path d="M1240 315H1300" class="line"/>
+  <path d="M290 465H350" class="dash"/><path d="M620 465H680" class="dash"/><path d="M950 465H1010" class="dash"/><path d="M1240 465H1300" class="dash"/>
+  <text x="80" y="770" class="label">实线：用户与业务主链路　　虚线：事实、事件、统计与交付信息的异步或回读关系</text>
+  <text x="80" y="815" class="small" fill="#9eafbf">健康探针只说明运行条件，业务验收仍需回读授权、支付、权限、报表和导出。</text>
+</svg>

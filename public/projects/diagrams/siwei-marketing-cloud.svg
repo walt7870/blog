@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="760" viewBox="0 0 1440 760" role="img" aria-labelledby="title desc">
+  <title id="title">思为科技营销云的两套项目集</title>
+  <desc id="desc">company 主线、公共能力和 useproject 服务集之间的关系。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#3167c9"/>
+    </marker>
+    <style>
+      .bg{fill:#f7faf8}.panel{fill:#fff;stroke:#ccd8d2;stroke-width:2}.company{fill:#e8f0ff;stroke:#3c70c9;stroke-width:2}.shared{fill:#e8f7f1;stroke:#13956c;stroke-width:2}.use{fill:#fff1e8;stroke:#d7783e;stroke-width:2}.data{fill:#f1ecff;stroke:#7a5ac8;stroke-width:2}.title{font:700 28px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.head{font:700 20px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#15231d}.label{font:600 16px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#24332c}.small{font:14px Arial,"PingFang SC","Microsoft YaHei",sans-serif;fill:#52625a}.mono{font:13px Menlo,Consolas,monospace;fill:#415149}.line{stroke:#3167c9;stroke-width:2.6;fill:none;marker-end:url(#arrow)}.dash{stroke:#79958a;stroke-width:2;stroke-dasharray:8 8;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1440" height="760" rx="24"/>
+  <text class="title" x="56" y="58">思为科技营销云：主线业务与服务化项目集</text>
+  <text class="small" x="56" y="88">company 保留业务连续性，useproject 重新组织领域服务；公共能力把两种视角连接起来。</text>
+
+  <rect class="panel" x="48" y="130" width="390" height="520" rx="18"/>
+  <text class="head" x="78" y="176">company 主线</text>
+  <text class="small" x="78" y="204">完整业务、历史兼容与公共组件</text>
+  <rect class="company" x="78" y="240" width="330" height="72" rx="12"/>
+  <text class="label" x="243" y="270" text-anchor="middle">认证、权限与用户</text>
+  <text class="small" x="243" y="294" text-anchor="middle">authentication · authority · user</text>
+  <rect class="company" x="78" y="332" width="330" height="72" rx="12"/>
+  <text class="label" x="243" y="362" text-anchor="middle">客户、活动与交易</text>
+  <text class="small" x="243" y="386" text-anchor="middle">customer · activity · sign · house pay</text>
+  <rect class="company" x="78" y="424" width="330" height="72" rx="12"/>
+  <text class="label" x="243" y="454" text-anchor="middle">企微、第三方与前端</text>
+  <text class="small" x="243" y="478" text-anchor="middle">WeChat · enterprise WeChat · Vue / miniapp</text>
+  <rect class="company" x="78" y="516" width="330" height="72" rx="12"/>
+  <text class="label" x="243" y="546" text-anchor="middle">公共模块与历史表</text>
+  <text class="small" x="243" y="570" text-anchor="middle">starter · Feign · legacy compatibility</text>
+
+  <rect class="panel" x="525" y="130" width="390" height="520" rx="18"/>
+  <text class="head" x="555" y="176">共享能力</text>
+  <text class="small" x="555" y="204">跨服务稳定契约与异步协作</text>
+  <rect class="shared" x="555" y="240" width="330" height="72" rx="12"/>
+  <text class="label" x="720" y="270" text-anchor="middle">用户中心与角色</text>
+  <text class="small" x="720" y="294" text-anchor="middle">tenant · organization · identity</text>
+  <rect class="shared" x="555" y="332" width="330" height="72" rx="12"/>
+  <text class="label" x="720" y="362" text-anchor="middle">事件中心与消息</text>
+  <text class="small" x="720" y="386" text-anchor="middle">publish · subscribe · delay · replay</text>
+  <rect class="shared" x="555" y="424" width="330" height="72" rx="12"/>
+  <text class="label" x="720" y="454" text-anchor="middle">支付中心与第三方适配</text>
+  <text class="small" x="720" y="478" text-anchor="middle">payment · refund · callback · Feign</text>
+  <rect class="shared" x="555" y="516" width="330" height="72" rx="12"/>
+  <text class="label" x="720" y="546" text-anchor="middle">配置、文件与任务</text>
+  <text class="small" x="720" y="570" text-anchor="middle">Nacos · OSS · XXL-JOB · Docker</text>
+
+  <rect class="panel" x="1002" y="130" width="390" height="520" rx="18"/>
+  <text class="head" x="1032" y="176">useproject 服务集</text>
+  <text class="small" x="1032" y="204">领域服务、平台能力与数据智能</text>
+  <rect class="use" x="1032" y="240" width="330" height="72" rx="12"/>
+  <text class="label" x="1197" y="270" text-anchor="middle">营销云领域服务</text>
+  <text class="small" x="1197" y="294" text-anchor="middle">activity · channel · content · payment</text>
+  <rect class="use" x="1032" y="332" width="330" height="72" rx="12"/>
+  <text class="label" x="1197" y="362" text-anchor="middle">Zeus 与开放平台</text>
+  <text class="small" x="1197" y="386" text-anchor="middle">tenant · user · gateway · app</text>
+  <rect class="data" x="1032" y="424" width="330" height="72" rx="12"/>
+  <text class="label" x="1197" y="454" text-anchor="middle">DaaS、CDP 与标签</text>
+  <text class="small" x="1197" y="478" text-anchor="middle">report · lifecycle · bitmap · tracking</text>
+  <rect class="data" x="1032" y="516" width="330" height="72" rx="12"/>
+  <text class="label" x="1197" y="546" text-anchor="middle">AI / NLP 与智能工牌</text>
+  <text class="small" x="1197" y="570" text-anchor="middle">recording · intent · OCR · Feishu bot</text>
+
+  <path class="line" d="M438 276H555"/>
+  <path class="line" d="M438 368H555"/>
+  <path class="line" d="M438 460H555"/>
+  <path class="line" d="M885 276H1032"/>
+  <path class="line" d="M885 368H1032"/>
+  <path class="dash" d="M885 460H1032"/>
+  <path class="dash" d="M885 552H1032"/>
+  <text class="mono" x="720" y="700" text-anchor="middle">业务事实 → 稳定契约 → 领域服务 → 数据与智能</text>
+</svg>
