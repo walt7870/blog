@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-23",
+  "scope": "CUA浏览器实际DOM和截图检查；页面内确定性模拟，不涉及真实服务",
+  "layouts": [
+    { "width": 1280, "height": 820, "dark": false, "documentWidth": 1280, "detailsOpen": 9, "imagesLoaded": 3, "imagesWithReservedSize": 3, "clippedButtons": 0 },
+    { "width": 1280, "height": 820, "dark": true, "documentWidth": 1280, "detailsOpen": 9, "imagesLoaded": 3, "imagesWithReservedSize": 3, "clippedButtons": 0 },
+    { "width": 390, "height": 844, "dark": true, "documentWidth": 390, "detailsOpen": 9, "imagesLoaded": 3, "imagesWithReservedSize": 3, "clippedButtons": 0 },
+    { "width": 390, "height": 844, "dark": false, "documentWidth": 390, "detailsOpen": 9, "imagesLoaded": 3, "imagesWithReservedSize": 3, "clippedButtons": 0 }
+  ],
+  "observations": [
+    "8月超时后保留7个月证据；新会话复用7个月、补查5个月，累计13次，聚合后不宣称报告和归档已验收。",
+    "1月超时无可复用分区；12月超时后复用11个月，只补1个月。",
+    "原键回查最终1份归档、report-1；换键重发反例最终2份归档、当前report-2，旧report-1仍存在。",
+    "3次无进展后暂停，换会话仍4/6；修正计划后耗尽6/6，业务调用控件禁用。",
+    "取消请求后远端仍运行，模拟确认后才停止；两阶段文案与状态一致。",
+    "Enter执行查询，Space接手会话，Enter展开详情，原生焦点可见。",
+    "新增SVG实际字体Arial/PingFang SC/Microsoft YaHei；无文字越画布、越节点，箭头和节点无视觉重叠。",
+    "手机原尺寸查看图像宽960px，局部容器宽354px、scrollWidth960px且overflow-x:auto；Escape关闭有效。",
+    "中文搜索长任务能找到文章，实际点击到达正确H1锚点。"
+  ],
+  "screenshots": "已通过工具查看桌面/手机浅深色关键状态，未另存截图文件。"
+}

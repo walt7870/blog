@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-10-23T01:54:35.592Z",
+  "node": "v24.22.1",
+  "scope": "单执行者本地模拟；独立子进程恢复，无真实外部接口或模型。",
+  "results": [
+    {
+      "name": "初始化",
+      "exit": 0,
+      "stdout": "已初始化十二个月的教学报告与独立的执行端、服务端文件。",
+      "stderr": ""
+    },
+    {
+      "name": "成功写入后响应丢失",
+      "exit": 75,
+      "stdout": "",
+      "stderr": "模拟响应丢失：归档已完成，本地仍为 unknown。退出码 75。"
+    },
+    {
+      "name": "检查未知状态",
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"unknown\",\n  \"archive_count\": 1,\n  \"report_id\": null,\n  \"remote_report_id\": \"report-1\"\n}",
+      "stderr": ""
+    },
+    {
+      "name": "新进程恢复",
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"succeeded\",\n  \"report_id\": \"report-1\",\n  \"archive_count\": 1,\n  \"attempts\": 1\n}",
+      "stderr": ""
+    },
+    {
+      "name": "再次运行复用结果",
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"succeeded\",\n  \"report_id\": \"report-1\",\n  \"archive_count\": 1,\n  \"attempts\": 1\n}",
+      "stderr": ""
+    },
+    {
+      "name": "拒绝覆盖现有实验",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "目录已有实验数据，请换用一个新的空目录。"
+    },
+    {
+      "name": "过期输入初始化",
+      "exit": 0,
+      "stdout": "已初始化十二个月的教学报告与独立的执行端、服务端文件。",
+      "stderr": ""
+    },
+    {
+      "name": "输入变化拒绝执行",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "输入或版本已变化：原验收证据过期，停止执行。"
+    },
+    {
+      "name": "冲突初始化",
+      "exit": 0,
+      "stdout": "已初始化十二个月的教学报告与独立的执行端、服务端文件。",
+      "stderr": ""
+    },
+    {
+      "name": "冲突前保存远端结果",
+      "exit": 75,
+      "stdout": "",
+      "stderr": "模拟响应丢失：归档已完成，本地仍为 unknown。退出码 75。"
+    },
+    {
+      "name": "同键不同参数拒绝执行",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "服务端拒绝：同键不同参数。"
+    },
+    {
+      "name": "内容异常初始化",
+      "exit": 0,
+      "stdout": "已初始化十二个月的教学报告与独立的执行端、服务端文件。",
+      "stderr": ""
+    },
+    {
+      "name": "内容异常前保存远端结果",
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"succeeded\",\n  \"report_id\": \"report-1\",\n  \"archive_count\": 1,\n  \"attempts\": 1\n}",
+      "stderr": ""
+    },
+    {
+      "name": "回读内容变化保留验证状态",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "回读验证失败，保留 verifying 状态供核查。"
+    },
+    {
+      "name": "验证状态下记录丢失不能新建",
+      "exit": 2,
+      "stdout": "",
+      "stderr": "检查点声称已有结果，但服务端记录缺失。"
+    }
+  ]
+}

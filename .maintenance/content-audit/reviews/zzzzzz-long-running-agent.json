@@ -1,0 +1,67 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/practice/long-running-agent.md",
+      "status": "verified",
+      "reviewedHash": "39449cdf7c725a710f4b03d8561ad1b8b67b127f0d88290ca3fdc4dd8afc3609",
+      "pageType": "机制与实践",
+      "findings": [],
+      "decision": "采用图解与分层阅读：三个可操作实验呈现分区恢复、原键回查与换键反例、共享预算与取消确认；新增证据依赖失效图。九个展开区保留契约、持久状态、并发、接口语义、补偿、验收及独立进程实验的完整技术深度。",
+      "validation": [
+        "全文与九个展开区核对，主线约1000汉字；原有机制均有对应归属，交互仅为页面教学模拟，刷新重置。详见batches/long-running-agent.md。",
+        "Node.js v24.22.1 独立进程恢复实验全部15项检查通过，重复运行归档数量保持1；过期输入、同键冲突、异常回读及已验证结果缺失按预期停止。",
+        "新交互模型在Node.js v24.22.1下8组语义检查通过，浏览器实际执行分区恢复、1/12月边界、正确回查、重复归档反例、停滞、耗尽与取消两阶段。",
+        "实际390×844与1280×820、浅深色检查通过；全部展开后整页无横向溢出，表格与代码局部滚动，图示有尺寸预留；图示放大、Escape关闭、搜索跳转与Enter/Space操作通过。",
+        "Node.js 24下独立临时目录最终全站构建通过，14.75秒；常规构建曾遇到共享临时文件缺失，未将失败隐藏为通过；git diff --check通过。全站审查门禁仍有范围外待审与失效记录，不据此声称全站可发布。"
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/long-agent-resume.mjs",
+        "public/ai/long-agent-step-state.svg",
+        "public/ai/long-agent-unknown-recovery.svg",
+        "public/ai/long-agent-evidence-chain.svg",
+        ".vitepress/theme/components/AgentTaskLab.vue",
+        ".vitepress/theme/components/agentTaskModel.mjs"
+      ]
+    },
+    {
+      "file": "docs/ai/agent.md",
+      "status": "verified",
+      "reviewedHash": "7d1cd1d5ae42813a847a9ed85a3b41255fcbb5ffc86c0b7dd574e49f334bb2bd",
+      "pageType": "总览",
+      "findings": [],
+      "decision": "保留概述职责，仅增加长任务跨会话的状态、证据和恢复边界，完整机制链接到实践页，避免在总览重复扩写。",
+      "validation": ["全文阅读与新增段落核对；实际桌面/窄屏、浅深色、资源和布局检查通过；中文搜索结果覆盖新增小节；全站构建通过。"],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/coding-agent-series/06-context-engineering.md",
+      "status": "verified",
+      "reviewedHash": "c86f4a4fa7e312fb406a845f859202eee2eac9d18b4f8c96e341202b6a2983c5",
+      "pageType": "机制与实践",
+      "findings": [],
+      "decision": "在handoff后补充运行系统的持久状态、已用预算和证据版本，区分交接索引与恢复事实；保留已有上下文工程主线。",
+      "validation": ["全文阅读；实际桌面/窄屏、浅深色检查通过；实际点击新链接到达长任务页；全站构建通过。"],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/practice/index.md",
+      "status": "verified",
+      "reviewedHash": "e883d11bafe2198219d33a1527489fbb6b1d8509fcfc74b9b2e948464e6a29d9",
+      "pageType": "总览导读",
+      "findings": [],
+      "decision": "增加已有工具闭环之后的长任务阅读路径，保留原有项目选读和交付证据说明；无需为单段入口追加图示。",
+      "validation": ["全文阅读；实际桌面/窄屏、浅深色检查通过，链接路径与侧边栏入口核对；全站构建通过。"],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/vibe-coding/harness-engineering.md",
+      "status": "verified",
+      "reviewedHash": "bef50a10aba87cf63b5fb2157559cca5a07835a5a68d70ee410507e2fed68d7c",
+      "pageType": "机制与工程实践",
+      "findings": [],
+      "decision": "在分层建设中纳入长任务运行控制，明确模型建议与程序状态推进、检查点恢复与外部副作用的边界，细节链接实践页。",
+      "validation": ["全文阅读与新增段落核对；实际桌面/窄屏、浅深色检查通过，无新增资源失效与整页溢出；全站构建通过。"],
+      "dependencyFiles": []
+    }
+  ]
+}

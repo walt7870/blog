@@ -336,6 +336,7 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '产品质量分类', link: '/docs/ai/practice/vision-project' },
             { text: '知识库问答', link: '/docs/ai/first-ai-app' },
             { text: '工单处理助手', link: '/docs/ai/practice/agent-project' },
+            { text: 'Agent 长任务与恢复', link: '/docs/ai/practice/long-running-agent' },
           ],
         },
         {

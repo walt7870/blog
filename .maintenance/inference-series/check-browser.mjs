@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync, readdirSync } from 'node:fs'
 import assert from 'node:assert/strict'
 
 const root = process.env.INFERENCE_PREVIEW_URL || 'http://127.0.0.1:5187/blog/'
-const output = new URL('./evidence/', import.meta.url)
+const output = new URL(process.env.INFERENCE_EVIDENCE_DIR || './evidence/', import.meta.url)
 mkdirSync(output, { recursive: true })
 const browser = await chromium.launch({ headless: true, channel: 'chrome' })
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 })
