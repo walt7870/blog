@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress';
-import { ArrowRight, ArrowUpRight, BrainCircuit, Code2, GitFork, Layers3, Mail, Video } from '@lucide/vue';
+import { ArrowRight, ArrowUpRight, Bot, BrainCircuit, Code2, GitFork, Layers3, Mail, Video } from '@lucide/vue';
 import { categories, projects } from './projects';
 import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
@@ -35,6 +35,7 @@ const strengths = [
   { title: '技术管理与系统架构', icon: Layers3, tone: 'blue', text: '在思为科技承担后端负责人、架构设计与团队管理工作，围绕营销云业务划分服务边界，推进微服务与云原生改造；近期项目中建设代码治理、持续集成与发布流程。' },
   { title: '全栈开发与产品建设', icon: Code2, tone: 'violet', text: '覆盖前端工作台、后端服务、数据与消息链路，以及桌面和移动端适配，处理权限、状态一致性、数据恢复和跨端交互等贯穿系统的问题。' },
   { title: 'AI 应用与工程化', icon: BrainCircuit, tone: 'green', text: '在科大讯飞参与行业 AI 方案与私有化项目，近期延伸至 AI 能力云平台、语音 SDK 和模型服务，连接模型能力、业务系统和不同运行环境。' },
+  { title: 'AI Agent 协作开发', icon: Bot, tone: 'orange', text: '把 Claude Code、Codex 等 Coding Agent 纳入十几个项目的日常交付：仓库规则约束生产操作，交接文档支撑多会话接力，测试、真机与线上回读分级验证，发布与对外发送按单次授权执行。' },
 ];
 const stack = [['服务端', ['Java / Spring Cloud', 'Go', 'Rust']], ['前端与跨端', ['Vue / TypeScript', 'Flutter', '原生桥接']], ['数据与消息', ['MySQL', 'PostgreSQL', 'Redis', 'RocketMQ']], ['工程平台', ['Docker', 'Kubernetes', 'GitLab CI']]] as const;
 const topics = [
@@ -42,6 +43,7 @@ const topics = [
   { title: '架构设计', description: '领域建模、服务边界与系统演进', path: '/docs/design/architecture/' },
   { title: '容器与部署', description: 'Docker、Kubernetes 与运行维护', path: '/docs/container/' },
   { title: '工程工具', description: 'Git、CI 与交付实践', path: '/docs/tools/git/' },
+  { title: 'AI 编程实战', description: '多 Agent 分工、规则、验证与复盘', path: '/docs/ai/ai-coding-practice/' },
 ];
 const projectLink = (id: string) => withBase(`/projects/${id}`);
 const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
@@ -54,7 +56,7 @@ const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
         <div>
           <p class="sc-eyebrow"><span class="sc-pulse" aria-hidden="true"></span>技术管理 · 系统架构 · 全栈工程</p>
           <h1 id="profile-name" class="sc-title">牛万成</h1>
-          <p class="sc-lead">10 年以上软件研发经验。曾带领后端团队推进营销云的微服务和云原生改造，项目经历覆盖智慧安防、AI 能力平台、私有化语音系统与跨端 SDK。从服务边界、数据所有权到部署与验收，围绕业务目标制定方案并深入核心实现。</p>
+          <p class="sc-lead">10 年以上软件研发经验。曾带领后端团队推进营销云的微服务和云原生改造，项目经历覆盖智慧安防、AI 能力平台、私有化语音系统与跨端 SDK。从服务边界、数据所有权到部署与验收，围绕业务目标制定方案并深入核心实现；近期以多个 Coding Agent 协作推进开发与交付，用规则和分级验证保证结果可核对。</p>
           <div class="sc-actions">
             <a class="sc-btn" :href="withBase('/projects/')">全部项目案例 <ArrowRight :size="17" aria-hidden="true" /></a>
             <a class="sc-link" href="https://github.com/walt7870" target="_blank" rel="noopener noreferrer"><GitFork :size="16" aria-hidden="true" />GitHub<ArrowUpRight :size="13" aria-hidden="true" /></a>
@@ -218,7 +220,7 @@ const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
 .card:hover .card-arrow { color: var(--tone); transform: translateX(3px); }
 
 /* Strengths */
-.strengths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.strengths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .strength { padding: 24px; border: 1px solid color-mix(in srgb, var(--tone) 22%, var(--vp-c-divider)); border-radius: 18px; background: linear-gradient(160deg, color-mix(in srgb, var(--tone) 10%, var(--vp-c-bg)), var(--vp-c-bg) 60%); }
 .strength-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: var(--tone); color: #fff; box-shadow: 0 10px 24px -10px var(--tone); }
 .dark .strength-icon { color: #0b1210; }
@@ -229,7 +231,7 @@ const shot = (id?: string) => withBase(`/projects/screenshots/${id}.webp`);
 .stack dd { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
 .stack dd span { padding: 2px 9px; border-radius: 6px; background: var(--vp-c-bg); font: 12.5px/1.7 var(--vp-font-family-mono); }
 
-.topics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.topics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
 .topics a { display: grid; gap: 6px; padding: 20px 22px; border-radius: 16px; background: var(--vp-c-bg-soft); transition: background-color .2s ease, transform .2s ease; }
 .topics a:hover { background: var(--vp-c-brand-soft); transform: translateY(-3px); }
 .topics strong { display: flex; align-items: center; justify-content: space-between; font-size: 16px; font-weight: 700; }

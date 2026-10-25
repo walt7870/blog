@@ -268,6 +268,11 @@
 .pf-bench-bars .is-before b { color: var(--pf-muted); font-weight: 500; }
 .pf-bench-delta { justify-self: end; color: var(--pf-accent); font: 700 13px/1 var(--vp-font-family-mono); }
 
+.pf-ai { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 20px 0 0 !important; padding: 0 !important; list-style: none; }
+.pf-ai li { margin: 0 !important; padding: 18px 18px 20px; border: 1px solid color-mix(in srgb, var(--tone) 24%, var(--pf-line)); border-radius: 14px; background: linear-gradient(160deg, color-mix(in srgb, var(--tone) 9%, var(--pf-bg)), var(--pf-bg) 70%); }
+.pf-ai-role { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--tone) 14%, transparent); color: var(--tone); font-size: 12px; font-weight: 650; }
+.pf-ai h3 { margin: 12px 0 0 !important; font-size: 16px; font-weight: 700; line-height: 1.5; }
+.pf-ai p { margin: 6px 0 0 !important; color: var(--pf-muted); font-size: 13.5px; line-height: 1.75; }
 .pf-delivery-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .pf-delivery-steps li { align-items: flex-start; border-radius: 12px; padding: 10px 12px 10px 10px; }
 .pf-delivery-steps li::after { content: none !important; }

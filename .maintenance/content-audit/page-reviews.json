@@ -31,6 +31,111 @@
       "dependencyFiles": []
     },
     {
+      "file": "docs/ai/ai-coding-practice/01-what-is-agent.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "448de165f76c359672ece96ec1738cd0a4c7840f7ed93859bc577cf00bb46ee8",
+      "pageType": "机制入门",
+      "findings": [],
+      "decision": "以博客案例更新为贯穿场景解释补全、对话与 Agent 的差别和工作循环，用两次真实的过度宣称引出验证问题。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/02-multi-session-workflow.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "0e845d8ce6cea4d3014445e63247d61bb16eac48e82765000aafb3b69cf76f13",
+      "pageType": "经验",
+      "findings": [],
+      "decision": "多会话分工：四层记忆、交接三要素、两个会话同改仓库的真实事件与 GPU 时段规则。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/03-rules-and-grants.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "9b8717e0370507b3a5d728c44a31757a18b18083b5330cafd35001be1529a93e",
+      "pageType": "经验",
+      "findings": [],
+      "decision": "四层规则，按防住的问题列出各项目真实 AGENTS.md 条目，技能软链共享与单次授权范围。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/04-evidence.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "583748fe868cae9e4dd1a4c359289a2c60acbaacc68d046275aeb47cb7ec8245",
+      "pageType": "经验",
+      "findings": [],
+      "decision": "证据五级台阶与项目内实际测试规模，三个易误读点均来自真实记录。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/05-postmortems.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "4f151008d5d2bf58815e3d87e0d961fbb9290aa5f32a6aeac1f71c278ceb0a95",
+      "pageType": "经验",
+      "findings": [],
+      "decision": "四次复盘：约 13 分钟中断、无证据的完成声明、AI 审查门禁移除（原因未记录，只写设计与代价）、公开页面的客户信息。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/06-what-to-delegate.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "acab056379b1a6d7731826e45ce2ca27d5eb4fe1d3246aae8e9f0f99ed4b9a49",
+      "pageType": "经验",
+      "findings": [],
+      "decision": "用可验证 × 可撤回划分任务，每格配项目实例，结尾回到深度系列。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
+      "file": "docs/ai/ai-coding-practice/index.md",
+      "batch": "B013",
+      "status": "verified",
+      "reviewedHash": "ebe0800ada294b496753329b1dbfeffd8b44466f99a97d19274f7a8e5b7b2fe1",
+      "pageType": "总览",
+      "findings": [],
+      "decision": "新增实战手记系列总览：真实项目背景、六篇路线图、案例边界，概念讲解链接到深度系列。",
+      "validation": [
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
+    },
+    {
       "file": "docs/ai/applications/application-architecture.md",
       "batch": "B013",
       "status": "verified",
@@ -91,7 +196,7 @@
     },
     {
       "file": "docs/ai/applications/langchain/03-rag-from-zero.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "a007fc75a768771e1f609472bace775080958f9ea3e058b86eb7dfabbab26161",
       "pageType": "检索证据与拒答流程",
@@ -108,7 +213,7 @@
     },
     {
       "file": "docs/ai/applications/langchain/04-tools-workflows-agents.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "0e2832fc2536877cfbfdb33272d0dba80f394ec33590f0c44bc6b3a32f573298",
       "pageType": "工具与决策权边界",
@@ -125,7 +230,7 @@
     },
     {
       "file": "docs/ai/applications/langchain/05-production-practices.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "dfa52849d511e7bdd8662d855b3f5c18dae98ae2994d3d82c8737e314b1623c5",
       "pageType": "SQL执行边界与生产验证",
@@ -142,7 +247,7 @@
     },
     {
       "file": "docs/ai/applications/langchain/index.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "0d23ad1d742d01bbdfb98238c50481982b8d60fad5e3a267094696d4669f4d86",
       "pageType": "系列导读与环境准备",
@@ -161,7 +266,7 @@
     },
     {
       "file": "docs/ai/applications/model-api.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "617ece72aef8a62424855930be8a8eafa70d604d6f49f6709ea89f9dfa1743a1",
       "pageType": "模型输出合同",
@@ -175,7 +280,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/01-ai-coding-agent-era.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "1a74e4f2e3531507f30f503e6428052527c5df255af92e95b0d8fa9711d1f57d",
       "pageType": "执行闭环与自治边界",
@@ -188,7 +293,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/02-coding-agent-internals.md",
-      "batch": "B013",
+      "batch": "B014",
       "status": "verified",
       "reviewedHash": "69b22b5c2d6136a6545148be29ba7bbd3a03663c130b9ed50e3b39ffae6c1033",
       "pageType": "Agent运行机制",
@@ -249,7 +354,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/05-executable-task-contract.md",
-      "batch": "B014",
+      "batch": "B015",
       "status": "verified",
       "reviewedHash": "4314182be668200680e3a45339ac1f76d0ab655406cf166086bee2ad3e7bb31f",
       "pageType": "任务与验收合同",
@@ -284,7 +389,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/06-context-engineering.md",
-      "batch": "B014",
+      "batch": "B015",
       "status": "verified",
       "reviewedHash": "c86f4a4fa7e312fb406a845f859202eee2eac9d18b4f8c96e341202b6a2983c5",
       "pageType": "机制与实践",
@@ -297,7 +402,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/07-agents-rules-skills-hooks.md",
-      "batch": "B014",
+      "batch": "B015",
       "status": "verified",
       "reviewedHash": "32c2fa6e77861f25882ee53889b83d5d22bcb8357d590b1d71528d15fe07a4c5",
       "pageType": "指令与确定性门禁",
@@ -310,7 +415,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/08-mcp-agent-tool-engineering.md",
-      "batch": "B014",
+      "batch": "B015",
       "status": "verified",
       "reviewedHash": "a42c08882cb0794510d1da685c26e200fa17cc00a3c8204ca3e2a6a8f9b13e4c",
       "pageType": "工具协议与权限边界",
@@ -444,7 +549,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/13-ai-coding-security-governance.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "39b99c2c979711566be979fd57a9596e014c843592b4f692e2a0ed0fa03453d4",
       "pageType": "威胁建模与治理",
@@ -457,7 +562,7 @@
     },
     {
       "file": "docs/ai/coding-agent-series/14-does-ai-coding-improve-productivity.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "3fee973b94b667f797ecd6827b5b26453c762e0c5043985bdf63b9bd68d199f8",
       "pageType": "研究外推与计量",
@@ -470,42 +575,22 @@
     },
     {
       "file": "docs/ai/coding-agent-series/index.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
-      "reviewedHash": "1acd903d94e67be71c529fd12e95f28d07a11619c0b698cf5d65ce8a53fcc4c5",
-      "pageType": "系列导读",
+      "reviewedHash": "9d7df2b07a9d402b191f592ef2a2c8834750883d42cd0a42b97e685ac916a5be",
+      "pageType": "总览",
       "findings": [],
-      "decision": "去掉132图计数和五Git节点声明，增加带/blog的源码下载、实际快照与红绿验证路线；保留14篇完整入口。",
+      "decision": "只在阅读路线中加入实战手记链接，其余未改。",
       "validation": [
-        "全文与14篇入口核对；双视口浅深色全文截图、图片加载及首篇客户端跳转通过；实际下载ZIP SHA256一致。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "dependencyFiles": [
-        "public/ai/examples/coding-order-lab.zip",
-        "public/ai/examples/coding-order-lab/README.txt",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
-        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
-        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
-        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
-        "public/ai/examples/coding-order-lab/pom.xml",
-        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
-      ]
+      "dependencyFiles": []
     },
     {
       "file": "docs/ai/deep-learning/architectures.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "657ab2a4c9bc5cf9ae52cbc1466624a36694903db151c262778fbdb4c45b3576",
       "pageType": "结构与生成方法选型",
@@ -518,7 +603,7 @@
     },
     {
       "file": "docs/ai/deep-learning/framework-practice.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "dcdaa8099bfc43795dd0e0cddb6b4a9a3b8721ac12410a25464dad836d5e1f3c",
       "pageType": "可运行训练与部署合同",
@@ -535,7 +620,7 @@
     },
     {
       "file": "docs/ai/deep-learning/index.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "9853aab6c4f44852869cddb792bb99170f512f01979761cac1e49e07082fd1ee",
       "pageType": "深度学习导读",
@@ -548,7 +633,7 @@
     },
     {
       "file": "docs/ai/deep-learning/neural-networks.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "84356569eefc53b7252bd5e0aa39f511779f062e34133b3b68e0834faad8e5df",
       "pageType": "张量形状与反向传播",
@@ -561,7 +646,7 @@
     },
     {
       "file": "docs/ai/domains/computer-vision.md",
-      "batch": "B015",
+      "batch": "B016",
       "status": "verified",
       "reviewedHash": "aa8becfe228212e517f44b1d1ea0d906824f30f690da7edf6040c1ea20bc843b",
       "pageType": "视觉输入与坐标合同",
@@ -626,7 +711,7 @@
     },
     {
       "file": "docs/ai/domains/reinforcement-learning.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "18754deca4050f938e75f3cd5ae04d6a005a0cc3d9cdf1722c27edeba5e2b158",
       "pageType": "连续决策与安全边界",
@@ -639,7 +724,7 @@
     },
     {
       "file": "docs/ai/domains/speech.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "25f608fce8522a1b0aa1d482774171da65dcc3b76b0174bd889628ad2c6bf950",
       "pageType": "语音运行时概览",
@@ -652,7 +737,7 @@
     },
     {
       "file": "docs/ai/domains/time-series.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "e4359072d50254227e0aec9824b005e3aac3494407c18a9e98c749e6f209ab51",
       "pageType": "时间可见性与回测",
@@ -665,7 +750,7 @@
     },
     {
       "file": "docs/ai/engineering/cost-capacity.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "28bf33e281b3704b782fe924de07d0f1318b1ccd04d78d3068134b220a99f7d3",
       "pageType": "容量和成本核算",
@@ -678,7 +763,7 @@
     },
     {
       "file": "docs/ai/engineering/index.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "8320db8cfe4f1cf061100e90a1802956665ac43b836f3d1d5018109188bd0818",
       "pageType": "生产生命周期导读",
@@ -691,7 +776,7 @@
     },
     {
       "file": "docs/ai/engineering/mlops-llmops.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "0c3d303cb80a0a6798cb68eb5c15cdf35c62f1640b36763b4c2e7a0a143716d4",
       "pageType": "版本合同与恢复",
@@ -704,7 +789,7 @@
     },
     {
       "file": "docs/ai/engineering/security-governance.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "88c7588b31fa6db22a171c2d06ee7d6d9e983d47333a500ae708c6f04de064a4",
       "pageType": "工具权限与信任边界",
@@ -717,7 +802,7 @@
     },
     {
       "file": "docs/ai/engineering/serving-deployment.md",
-      "batch": "B016",
+      "batch": "B017",
       "status": "verified",
       "reviewedHash": "1a672916d6fa65574a124ac3b667dcc0e0d646184feccf5a3ca610a1684277d9",
       "pageType": "在线推理与业务写入边界",
@@ -776,7 +861,7 @@
     },
     {
       "file": "docs/ai/foundations/03-data-task-and-split.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -786,7 +871,7 @@
     },
     {
       "file": "docs/ai/foundations/04-linear-prediction.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -796,7 +881,7 @@
     },
     {
       "file": "docs/ai/foundations/05-vectors-and-tensors.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -806,7 +891,7 @@
     },
     {
       "file": "docs/ai/foundations/06-loss-and-objective.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -816,7 +901,7 @@
     },
     {
       "file": "docs/ai/foundations/07-gradient-and-learning-rate.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -826,7 +911,7 @@
     },
     {
       "file": "docs/ai/foundations/08-first-training-loop.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -836,7 +921,7 @@
     },
     {
       "file": "docs/ai/foundations/data-and-tasks.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "verified",
       "reviewedHash": "1471dc9651bad2b28f4ef8ce858a6f464231e1010d45a57854a05204fac7e35b",
       "pageType": "样本与时间合同",
@@ -849,7 +934,7 @@
     },
     {
       "file": "docs/ai/foundations/generalization-evaluation.md",
-      "batch": "B017",
+      "batch": "B018",
       "status": "verified",
       "reviewedHash": "7bdd6aa740f04f321c4d3772034adbd1c85d098767cae5b1ff70e320fba8d8c0",
       "pageType": "评估与错误成本",
@@ -911,7 +996,7 @@
     },
     {
       "file": "docs/ai/glossary.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "d4ce4bca0ec2832f5ac12390723f153ba1c04ca6b8d33c44580220c514109db2",
       "pageType": "概念速查",
@@ -924,7 +1009,7 @@
     },
     {
       "file": "docs/ai/history.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "bbefac5b742972c227557a8050cf61444816c5fa280a8cfcebc576d9af1b7ff1",
       "pageType": "技术发展机制",
@@ -937,66 +1022,37 @@
     },
     {
       "file": "docs/ai/index.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
-      "reviewedHash": "a1d628a73c7fd8dc9d2207731a6a192950dccb9dee111eb5ca152ff87f49b838",
-      "pageType": "技术全景导读",
+      "reviewedHash": "eede62c6e607b8c9eac9794813dd6aa93e12c6c26b26acedcc7a04ba803ba56b",
+      "pageType": "总览",
       "findings": [],
-      "decision": "压缩重复定义和列表；客服链路图解释规则、分类器、RAG与受控退款，训练图分清学习与推理；撤下RAG/Agent属于模型子类及所有AI都反传的断言。",
+      "decision": "只在专题卡片中加入实战手记入口，其余未改。",
       "validation": [
-        "全文审查；双视口浅深色全文截图、资源加载、分页通过；两图双视口键盘放大与原尺寸通过。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
-      ]
+        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+      ],
+      "dependencyFiles": []
     },
     {
       "file": "docs/ai/inference-series/01-landscape.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
-      "reviewedHash": "6809140b441f460a0b7ee3f17c5cd069d4aebeae778ca7e3f93553c302a24e64",
-      "pageType": "机制与实验",
+      "reviewedHash": "0f21a3d3eec3684f254b58eaaf02a3dbacdec0d638d5e4cb456f9d9dd7eff6e8",
+      "pageType": "机制入门",
       "findings": [],
-      "decision": "核对引擎、应用和训练职责；保留柜台类比、选型边界与职责交互。",
+      "decision": "从同一个年假问题补充语音推理定位，不在第一篇引入后端清单。",
       "validation": [
-        "完整阅读14页及4个Vue组件、计算模块与客户端；显存/页粒度/调度/推测检查和4项本地HTTP/SSE测试通过。未运行GPU引擎或付费模型。",
-        "本轮14页56份四模式全文截图通过；原专题29图字体边界、移动排版和交互验收见.maintenance/inference-series/validation.md，最终共享UI复验另行记录。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
       ],
-      "dependencyFiles": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ]
+      "dependencyFiles": []
     },
     {
       "file": "docs/ai/inference-series/02-lifecycle.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "be4182ddcb791e347756ca991c87f6cffe78fa097c1c8f94ca81f86961d4d52f",
       "pageType": "机制与实验",
@@ -1042,7 +1098,7 @@
     },
     {
       "file": "docs/ai/inference-series/03-memory.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "d533823d8ebcf90edcb6f183efe3f196e067578839f6340e2065334765564235",
       "pageType": "机制与实验",
@@ -1088,7 +1144,7 @@
     },
     {
       "file": "docs/ai/inference-series/04-cache-attention.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "46dd237883ce95cf64b6dae37f9a2908f4eea639719c3f44e7f57a43791aba1e",
       "pageType": "机制与实验",
@@ -1134,7 +1190,7 @@
     },
     {
       "file": "docs/ai/inference-series/05-scheduling.md",
-      "batch": "B018",
+      "batch": "B019",
       "status": "verified",
       "reviewedHash": "0b71dbecd8258b28dda1204ac73f7ea2be03e3dc87640ff4d95584a00ae49553",
       "pageType": "机制与实验",
@@ -1364,7 +1420,7 @@
     },
     {
       "file": "docs/ai/inference-series/10-distributed.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "verified",
       "reviewedHash": "2ca3f6f0244fa6c2bb08a09671e2caa5a0f6da817579974563cdea41fe7e1a93",
       "pageType": "机制与实验",
@@ -1410,99 +1466,42 @@
     },
     {
       "file": "docs/ai/inference-series/11-speech.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "verified",
-      "reviewedHash": "6f0a01540eb24c1de4307cce8792d584fd8ded34bd369d115f6d1f5c614ec0d2",
-      "pageType": "机制与实验",
+      "reviewedHash": "38af764294f7f1180d9598bdda5f6a3ea7270854cd85563066934f1d9640f3fe",
+      "pageType": "机制与选型",
       "findings": [],
-      "decision": "核对ASR/LLM/TTS/Codec边界，流式与全量首音频按教学时间线计算，引用语音工程详解。",
+      "decision": "补语音框架与计算后端分工图、七阶段流程回放、热词配置因果实验、能力边界与已有详细页入口。",
       "validation": [
-        "完整阅读14页及4个Vue组件、计算模块与客户端；显存/页粒度/调度/推测检查和4项本地HTTP/SSE测试通过。未运行GPU引擎或付费模型。",
-        "本轮14页56份四模式全文截图通过；原专题29图字体边界、移动排版和交互验收见.maintenance/inference-series/validation.md，最终共享UI复验另行记录。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
       ],
       "dependencyFiles": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
+        ".vitepress/theme/components/SpeechRuntimeLab.vue",
+        ".vitepress/theme/components/InferenceFigure.vue",
+        "public/ai/inference-series/sherpa-runtime.svg",
+        "public/ai/inference-series/sherpa-runtime-mobile.svg"
       ]
     },
     {
       "file": "docs/ai/inference-series/12-selection-versions.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "verified",
-      "reviewedHash": "5ceb86b3158389d82c414f8ba770d6ee2d80d078aea7c07cc6982bfd91825d1a",
-      "pageType": "机制与实验",
+      "reviewedHash": "15968bcbd52dce6634ab4ee49507b105e4086aea4237cc1004a638a10adf3c0d",
+      "pageType": "对比与版本速查",
       "findings": [],
-      "decision": "重新核对8个引擎官方GitHub最新正式版及日期，区分TRT-LLM预发布，不以版本新旧直接决定选型。",
+      "decision": "在任务选型中补 sherpa-onnx，语音版本使用独立核查日期；保留其他项目原有快照，无需追加重复图示。",
       "validation": [
-        "完整阅读14页及4个Vue组件、计算模块与客户端；显存/页粒度/调度/推测检查和4项本地HTTP/SSE测试通过。未运行GPU引擎或付费模型。",
-        "本轮14页56份四模式全文截图通过；原专题29图字体边界、移动排版和交互验收见.maintenance/inference-series/validation.md，最终共享UI复验另行记录。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
       ],
-      "dependencyFiles": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ]
+      "dependencyFiles": []
     },
     {
       "file": "docs/ai/inference-series/13-practice.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "verified",
       "reviewedHash": "0e28fe7c726031ea42ca97433bd50a7546bb8f2486c9388966725c283e514db6",
       "pageType": "机制与实验",
@@ -1548,7 +1547,7 @@
     },
     {
       "file": "docs/ai/inference-series/14-precision-formats.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1558,7 +1557,7 @@
     },
     {
       "file": "docs/ai/inference-series/15-mixed-precision.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1568,7 +1567,7 @@
     },
     {
       "file": "docs/ai/inference-series/16-quantization-now.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1578,49 +1577,18 @@
     },
     {
       "file": "docs/ai/inference-series/index.md",
-      "batch": "B019",
+      "batch": "B020",
       "status": "verified",
-      "reviewedHash": "9da8d158a786c956f8171395e1694b20cebdc4b040ccf8935e8070bd62cf1104",
-      "pageType": "机制与实验",
+      "reviewedHash": "0e43fbafdf7d1ce062a092ff8828a79863fb40a71864cd05812fd741c512a1e6",
+      "pageType": "总览",
       "findings": [],
-      "decision": "核对14页阅读路径、四阶段交互和机制实验入口，导读以资料助手业务串联。",
+      "decision": "保留入门主线，只补语音回放与已有 sherpa-onnx 专题入口。",
       "validation": [
-        "完整阅读14页及4个Vue组件、计算模块与客户端；显存/页粒度/调度/推测检查和4项本地HTTP/SSE测试通过。未运行GPU引擎或付费模型。",
-        "本轮14页56份四模式全文截图通过；原专题29图字体边界、移动排版和交互验收见.maintenance/inference-series/validation.md，最终共享UI复验另行记录。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
+        "全文阅读；语音框架职责、热词条件、FunASR 推理部署能力与 sherpa-onnx v1.13.8 发布说明经官方页面核查。",
+        "四页在实际 1440/390/320 宽度、浅深色检查，无整页横向溢出或失败图片；浅色针对完整构建成品。交互推进、回退、重置、热词条件、站内跳转与中文搜索已实际操作。",
+        "Node.js v24.19.0 独立全站构建通过，67.16 秒；两版 SVG 自检与真实字体文字边界通过。完整证据见 inference-series/evidence/sherpa-20261023。"
       ],
-      "dependencyFiles": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ]
+      "dependencyFiles": []
     },
     {
       "file": "docs/ai/learning-path.md",
@@ -1676,7 +1644,7 @@
     },
     {
       "file": "docs/ai/llm/rag-tools.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "9d062f18ab46fe901d238351d6afc919b9af159020bd66a1bdaeccbc2acc2ae9",
       "pageType": "文档证据与工具职责",
@@ -1689,7 +1657,7 @@
     },
     {
       "file": "docs/ai/llm/sft.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "c66a17fdf92031f060f860abb9a130b23d800142f27e80190c30343bfcc52381",
       "pageType": "监督微调任务合同",
@@ -1702,7 +1670,7 @@
     },
     {
       "file": "docs/ai/llm/training.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "7c937db1d11907cd4d3b5f45cc3aada77573687fc19094332f360e1429292672",
       "pageType": "训练目标与参数更新",
@@ -1715,7 +1683,7 @@
     },
     {
       "file": "docs/ai/mcp.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "548c79d1a6c06065d31308bc7bc22ca0be6ce8989493bb00c867fcdebf1d09ea",
       "pageType": "协议机制与工具调用",
@@ -1728,7 +1696,7 @@
     },
     {
       "file": "docs/ai/ml.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "9f9c4ec43d63190d3f627e1043db312bdf1b3e9eb4b900389f216c118b198132",
       "pageType": "机器学习全局机制",
@@ -1741,7 +1709,7 @@
     },
     {
       "file": "docs/ai/practice/agent-project.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "d63f978e040958086a844e7a68d6cc7c0b557ef8be084e9278807646caaa1230",
       "pageType": "工单状态与写入合同实践",
@@ -1754,7 +1722,7 @@
     },
     {
       "file": "docs/ai/practice/index.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "e883d11bafe2198219d33a1527489fbb6b1d8509fcfc74b9b2e948464e6a29d9",
       "pageType": "总览导读",
@@ -1767,7 +1735,7 @@
     },
     {
       "file": "docs/ai/practice/long-running-agent.md",
-      "batch": "B020",
+      "batch": "B021",
       "status": "verified",
       "reviewedHash": "39449cdf7c725a710f4b03d8561ad1b8b67b127f0d88290ca3fdc4dd8afc3609",
       "pageType": "机制与实践",
@@ -1837,7 +1805,7 @@
     },
     {
       "file": "docs/ai/precision/03-rounding-errors.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1847,7 +1815,7 @@
     },
     {
       "file": "docs/ai/precision/04-mixed-precision.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1857,7 +1825,7 @@
     },
     {
       "file": "docs/ai/precision/05-quantization.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1867,7 +1835,7 @@
     },
     {
       "file": "docs/ai/precision/06-choosing-precision.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1877,7 +1845,17 @@
     },
     {
       "file": "docs/ai/precision/index.md",
-      "batch": "B021",
+      "batch": "B022",
+      "status": "pending",
+      "reviewedHash": null,
+      "pageType": null,
+      "findings": [],
+      "decision": null,
+      "validation": []
+    },
+    {
+      "file": "docs/ai/precision/storage-atlas.md",
+      "batch": "B022",
       "status": "pending",
       "reviewedHash": null,
       "pageType": null,
@@ -1887,7 +1865,7 @@
     },
     {
       "file": "docs/ai/rsi/01-recursive-self-improvement.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "verified",
       "reviewedHash": "fc8dc978aac70166fc6483c28835add1c4501e8246c55f47ec0d4cf3a4af05a2",
       "pageType": "递归反馈机制与研究边界",
@@ -1900,7 +1878,7 @@
     },
     {
       "file": "docs/ai/rsi/index.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "verified",
       "reviewedHash": "c1c022b5f366a7fe8bd3d8a8f17da2b46227f816cc39129b4b6ecde9a25570d7",
       "pageType": "研究专题导读",
@@ -1913,7 +1891,7 @@
     },
     {
       "file": "docs/ai/skill/claude-code-best-practices.md",
-      "batch": "B021",
+      "batch": "B022",
       "status": "verified",
       "reviewedHash": "f68588eb87d46db6e3e2c634c976924fc9c890c367a90a53a40d3d98422c5a03",
       "pageType": "Claude Code技能配置实践",
@@ -1965,7 +1943,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/delivery-and-handoff.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "b121108551098ebabf4ef60a50cd36232c6ec62fcbb9422e9e22698f4988a202",
       "pageType": "离线依赖与工件DAG",
@@ -1978,7 +1956,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/evidence-driven-validation.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "ab01a3bdf70f9bbc43d2ae5be7cb007130301095e93888ee098d81f6bb50affd",
       "pageType": "分层证据与回归方法",
@@ -1991,7 +1969,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/hotword-routing.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "ac173dd8fa12940bdceee2d84d656e7d63811e9d0f24e90f33c638c04a5a7c10",
       "pageType": "召回、重解与请求隔离",
@@ -2004,7 +1982,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/incident-playbook.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "retained",
       "reviewedHash": "15fefbb090ede494caed0883f1fbce9277ecaad7c4134243102c7b62032bc15b",
       "pageType": "旧入口迁移",
@@ -2017,7 +1995,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/index.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "1e0bdc0d0e5fed0c3cbb7271d081352c826ca49a3aad8d83781230787ad6cd74",
       "pageType": "语音工程专题导读",
@@ -2030,7 +2008,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "5c66712011d648747ebe48e35b761f2d9366f0a2f20f487e934da71a9469eccb",
       "pageType": "输入与原生任务所有权",
@@ -2043,7 +2021,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/latency-and-finalization.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "5eaf6b695cec2b144f5bda43ef355ba021087c1918c21c97c7425c14ab9d072e",
       "pageType": "边界、所有权与收尾机制",
@@ -2056,7 +2034,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/performance-and-capacity.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "38c3368bc4e70fe4786d3dec579b256dfeba32e576bd6a2336df02ce045619c0",
       "pageType": "排队容量与执行调度",
@@ -2069,7 +2047,7 @@
     },
     {
       "file": "docs/ai/speech-engineering/pipeline-boundaries.md",
-      "batch": "B022",
+      "batch": "B023",
       "status": "verified",
       "reviewedHash": "188357043185fdf1f025563693cb3f19da03034208f45a2078fc399531d58708",
       "pageType": "角色与目标输入合同",
@@ -2124,7 +2102,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/index.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "edea3319023dfa86c6aca4bb061040ea501d0a3da0de5c6d653425eb45fbb5c4",
       "pageType": "专题总览",
@@ -2140,7 +2118,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/organizational-engineering.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "0c745e945efe9614ace261867b0f5ff99c21fb08daf4a3c6f0967a79b78d7daf",
       "pageType": "组织反馈",
@@ -2156,7 +2134,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/project-practice.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "e4b807822d77072debb42bddc6548a0cc793b5acaf5f5af6f61dcbe0bb7b81be",
       "pageType": "贯穿实践",
@@ -2172,7 +2150,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/prompt-engineering.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "e67020c3aa6e60b56cb4f47759eac7be315fdff751159264629b4b56eecf5a5d",
       "pageType": "输入合同",
@@ -2193,7 +2171,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/spec-driven.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "8b1aef736b108aa92f58786664cbfe2f7aa882800e5a1324ab5590eae63ec1de",
       "pageType": "规格与验收",
@@ -2209,7 +2187,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/tool-agent-engineering.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "verified",
       "reviewedHash": "5ba2b01494b0a91c189741424101f0711ed96513114a27ffc3432f6a545fe8b3",
       "pageType": "执行与验证循环",
@@ -2230,7 +2208,7 @@
     },
     {
       "file": "docs/ai/vibe-coding/vibe-coding.md",
-      "batch": "B023",
+      "batch": "B024",
       "status": "retained",
       "reviewedHash": "9a681b5a6997c734d198ab001321ef348000b013332f9f6cbce39ec215782a41",
       "pageType": "原型实践",
@@ -2246,7 +2224,7 @@
     },
     {
       "file": "docs/algorithm/backtracking.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "6202b6ca7647e61845e48488c4b8ce472adebc0b5d69bcbf347e3651cbcfa1f8",
       "pageType": "搜索机制与约束优化",
@@ -2260,7 +2238,7 @@
     },
     {
       "file": "docs/algorithm/complexity-analysis.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "retained",
       "reviewedHash": "876ce519fdc6d1ed3bd0f24a6a38484ad5846cd4184c7c3ea43311356d33e3c1",
       "pageType": "机制与对照实验",
@@ -2274,7 +2252,7 @@
     },
     {
       "file": "docs/algorithm/divide-and-conquer.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "c2be901dfa25dfd949a36a160e890a5e52125e5b41b328a76f14a6e2c73a2eab",
       "pageType": "分解合并机制与计数实例",
@@ -2288,7 +2266,7 @@
     },
     {
       "file": "docs/algorithm/dynamic-programming.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "84a6d8beee4536b110eaaed693e09464f94eb97c6499e55025c0b59eed502610",
       "pageType": "机制推导与完整程序",
@@ -2302,7 +2280,7 @@
     },
     {
       "file": "docs/algorithm/graph-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "d99683014fbf209406a3a8166a6cac804588956b2b3d301dcfcd972f62893b74",
       "pageType": "图模型与路径算法",
@@ -2316,7 +2294,7 @@
     },
     {
       "file": "docs/algorithm/greedy-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "6d83af291dc8710536f4cfa63aae6f92a3fb2aa4bdad9da3d95620dab943ca87",
       "pageType": "策略证明与区间调度",
@@ -2330,7 +2308,7 @@
     },
     {
       "file": "docs/algorithm/index.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "e1bba44c0eded4251a387d720f004c87b8f17a57ff07ab6f9567016f3845226c",
       "pageType": "专题入口与选型地图",
@@ -2344,7 +2322,7 @@
     },
     {
       "file": "docs/algorithm/mathematical-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "271ee5dfc7fdc736e369c465b278c90952835a5aaa59164b2f550e89818ec051",
       "pageType": "精确、概率与数值算法边界",
@@ -2358,7 +2336,7 @@
     },
     {
       "file": "docs/algorithm/search-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "15378c8fddb4b00ce5fda5058ff650149f757e40cb252993624e48eb67c7ef3e",
       "pageType": "索引选型与二分边界",
@@ -2372,7 +2350,7 @@
     },
     {
       "file": "docs/algorithm/sorting-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "b1c6f1d344aed95d86d053a416ef7a301dc329c9688637765ca3ef2af405f99c",
       "pageType": "排序机制与业务顺序",
@@ -2386,7 +2364,7 @@
     },
     {
       "file": "docs/algorithm/string-algorithms.md",
-      "batch": "B024",
+      "batch": "B025",
       "status": "verified",
       "reviewedHash": "596eb05546623d6d06f7059f1f4c6cd9c922f53c139d8e54eb77762dd397a75f",
       "pageType": "文本单位与流式匹配",
@@ -2400,7 +2378,7 @@
     },
     {
       "file": "docs/basic/acoustics/capture-playback.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "550eaf952bef8d52cce60be870ce0619f26120607276a0d694f527f572206c00",
       "pageType": "采集播放链路",
@@ -2413,7 +2391,7 @@
     },
     {
       "file": "docs/basic/acoustics/engineering.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "791bdf30d416e21d4ca8d60aa9a719390e466a35cb65b9d587b5fd0b171fdcfe",
       "pageType": "设备选型与排查",
@@ -2426,7 +2404,7 @@
     },
     {
       "file": "docs/basic/acoustics/index.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "c7f45c4596784b4ae94338b98822efd5cec686f9b91c3c3b01b338e739c3bc47",
       "pageType": "声学专题导读",
@@ -2439,7 +2417,7 @@
     },
     {
       "file": "docs/basic/acoustics/noise-reduction.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "0301680cf7c085bf17bc8f060a53f859b508d50fd4d4f167db4c782da0bd34fd",
       "pageType": "3A与双讲机制",
@@ -2452,7 +2430,7 @@
     },
     {
       "file": "docs/basic/acoustics/quality-evaluation.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "4fbec00b80e9b8e1c7192284a71c347a226705c59844141e5c6b24ae007a39b6",
       "pageType": "声学与识别质量评估",
@@ -2465,7 +2443,7 @@
     },
     {
       "file": "docs/basic/acoustics/sherpa-onnx/index.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "0d03b4b26942369bfaefab065555f17df4eb7658acecde125c4fe41ec4429b4a",
       "pageType": "sherpa运行边界",
@@ -2478,7 +2456,7 @@
     },
     {
       "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "retained",
       "reviewedHash": "92262aee3fe70c4b873203c088a7f61b6ebcd8c876999a9f53e3ec2e925ac21b",
       "pageType": "模型选择与部署",
@@ -2491,7 +2469,7 @@
     },
     {
       "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "34e61a1a3064cba6d21298953844bb35bad7715f6adbc8fcf409d8ab57eb3046",
       "pageType": "识别模式与EOF处理",
@@ -2504,7 +2482,7 @@
     },
     {
       "file": "docs/basic/acoustics/sound-fundamentals.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "6f9b79f60669992fa038e41aba9a806fdd1cf023b0bba53c53912bb2db88e80b",
       "pageType": "采样与波形基础",
@@ -2517,7 +2495,7 @@
     },
     {
       "file": "docs/basic/acoustics/speech-recognition.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "575a6b944c94be0ce7191e7a863bdaf8edb00e741c6f10e7f712e3cbc49cac74",
       "pageType": "识别与解码边界",
@@ -2530,7 +2508,7 @@
     },
     {
       "file": "docs/basic/acoustics/speech-synthesis.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "ad16e33bb3f605dec078dcb4b9e818481f6a6f5dc0ee2b47b36775f4ae04792f",
       "pageType": "语音生成机制",
@@ -2543,7 +2521,7 @@
     },
     {
       "file": "docs/basic/acoustics/structure.md",
-      "batch": "B025",
+      "batch": "B026",
       "status": "verified",
       "reviewedHash": "f2c178ed526fb712c27a58b56fa0ecdaaf0215e4444da4e14c3ba0fb0a0b3bdf",
       "pageType": "声学结构与声场",
@@ -2556,7 +2534,7 @@
     },
     {
       "file": "docs/basic/acoustics/vad/index.md",
-      "batch": "B026",
+      "batch": "B027",
       "status": "verified",
       "reviewedHash": "5138bf0de1eb7171d81a7657501a5c9b70f0c0c0142858838a7b1920d9ec7783",
       "pageType": "VAD状态机制",
@@ -2569,7 +2547,7 @@
     },
     {
       "file": "docs/basic/acoustics/vad/silero-vad.md",
-      "batch": "B026",
+      "batch": "B027",
       "status": "verified",
       "reviewedHash": "cac6ebb85ed1c41212749e0fff4792d11e6788f29fe6702795b927ceccabb46e",
       "pageType": "Silero配置与流式收尾",
@@ -2582,7 +2560,7 @@
     },
     {
       "file": "docs/basic/acoustics/voice-interaction.md",
-      "batch": "B026",
+      "batch": "B027",
       "status": "verified",
       "reviewedHash": "468e06490a17bbcd314e884d4902d8236d9e5b5bb8e6beea7857604296da44e9",
       "pageType": "语音交互状态与取消",
@@ -2595,7 +2573,7 @@
     },
     {
       "file": "docs/basic/acoustics/wake-word.md",
-      "batch": "B026",
+      "batch": "B027",
       "status": "verified",
       "reviewedHash": "cdb296525d4262a6e49c538a792d5fbbdfb43bc83f78763666f3ba748d50baed",
       "pageType": "唤醒检测与评估",
@@ -2608,7 +2586,7 @@
     },
     {
       "file": "docs/basic/protocol/application-realtime.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "34c526e071590cc1c0d059f169c3ca32fb44f76135542aa0d941220b236e1791",
       "pageType": "现代应用协议机制与选型",
@@ -2621,7 +2599,7 @@
     },
     {
       "file": "docs/basic/protocol/capacity-performance.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "3e031e43e4317a61228c7e526da793b51f7132c56851395dfadbdc66cb0bd15a",
       "pageType": "连接容量与背压机制",
@@ -2634,7 +2612,7 @@
     },
     {
       "file": "docs/basic/protocol/embedded-protocols.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "27e3dca154b95ce866aa9cda6fe25ef60b80b24b1a2c40793964359f75b69eb5",
       "pageType": "嵌入式总线与工业通信选型",
@@ -2647,7 +2625,7 @@
     },
     {
       "file": "docs/basic/protocol/http-vs-websocket.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "7524f545859c45676b22566728ecb4e8e836abec82c3bc710274bed163a0c99a",
       "pageType": "HTTP与WebSocket通信选型",
@@ -2660,7 +2638,7 @@
     },
     {
       "file": "docs/basic/protocol/index.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "565e3d71632ae6ca624d7ec3a211739295dea0b601b8cf5dee487312e6305ee5",
       "pageType": "网络协议主题地图",
@@ -2673,7 +2651,7 @@
     },
     {
       "file": "docs/basic/protocol/network-foundations.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "0665e09766707c61ab14af03e3ead72f4aad1038c557dbcb9e39fed3c1895c68",
       "pageType": "封装寻址与路由机制",
@@ -2686,7 +2664,7 @@
     },
     {
       "file": "docs/basic/protocol/transport-socket.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "532114d643298fbf88d45d73e73731f41213c6fc6f4849a2825ef194ada0b075",
       "pageType": "传输状态与Socket机制",
@@ -2699,7 +2677,7 @@
     },
     {
       "file": "docs/basic/protocol/troubleshooting.md",
-      "batch": "B027",
+      "batch": "B028",
       "status": "verified",
       "reviewedHash": "7ec6388ba06787b5d09acab10e7d41b41f212b4a79f399469a731fd20df1e5d9",
       "pageType": "网络分层排障与案例",
@@ -2712,7 +2690,7 @@
     },
     {
       "file": "docs/container/basic/concepts.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "cfb6bae7cdfe904bb30d2e382b4c08b14d24971b4bcdebdf9843389f1eafa120",
       "pageType": "镜像实例与隔离机制",
@@ -2725,7 +2703,7 @@
     },
     {
       "file": "docs/container/basic/index.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "1c9ad75fdee3b598a677d14a754707817fa47d75b986481146bb953c1ada44ea",
       "pageType": "基础模块阅读导览",
@@ -2738,7 +2716,7 @@
     },
     {
       "file": "docs/container/basic/runtimes.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "0f0843f054c87d4f3c6f6f279e1bf5957a36a2d943a92b2b5d64e4dff21ee2eb",
       "pageType": "运行时与管理工具调用链",
@@ -2751,7 +2729,7 @@
     },
     {
       "file": "docs/container/basic/standards.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "79dd728575083f6c77fdd5f8206f8d682d817f238923eac87163b8416a401ac2",
       "pageType": "OCI与CRI/CNI/CSI接口边界",
@@ -2764,7 +2742,7 @@
     },
     {
       "file": "docs/container/docker/command.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "c5cb54f1ab84f7608eed1863c25770034693917a3cc71284f51e9a81efe6c5e3",
       "pageType": "Docker 排查命令",
@@ -2777,7 +2755,7 @@
     },
     {
       "file": "docs/container/docker/image-build-supply-chain.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "9a818079d9973cd4a0d740e46ce36fc10e5c4b889a74baad2b68d8d014bb8e7b",
       "pageType": "镜像构建与晋级机制",
@@ -2790,7 +2768,7 @@
     },
     {
       "file": "docs/container/docker/index.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "09a98cc7c55e7409a9a430978c8da3f313cd8d781f788104f6c97d494ecc8972",
       "pageType": "Docker 阅读导览",
@@ -2803,7 +2781,7 @@
     },
     {
       "file": "docs/container/docker/java-application.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "5defd289e5384f749ac4b6fbacc16a1f3befa3069dcfc3f2dbb35b4f054bf1cf",
       "pageType": "Java 容器运行合同",
@@ -2816,7 +2794,7 @@
     },
     {
       "file": "docs/container/docker/storage-network-compose.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "5fb91a874739d0f55e59eea756fc926255a014a4cac0d1be7b1dab638e9be323",
       "pageType": "Compose 存储网络与恢复",
@@ -2829,7 +2807,7 @@
     },
     {
       "file": "docs/container/index.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "cc48fa583a4038add942e46a6fe35996fca3c453e9490ef515b5ec250673ae3e",
       "pageType": "容器专题总览",
@@ -2842,7 +2820,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/CR-CRD.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "3772f9f7cc862927846e82b9fd817c05ad7c465ea592919d6517d77c023fe87a",
       "pageType": "API合同、校验和存储迁移",
@@ -2855,7 +2833,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/delivery-security.md",
-      "batch": "B028",
+      "batch": "B029",
       "status": "verified",
       "reviewedHash": "eef9be75e25368e555d6e0c9f0464e6bbfcb37c0425f0003aab0e53cc2850d3f",
       "pageType": "GitOps、准入和制品信任证据",
@@ -2868,7 +2846,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/ecosystem.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "93f39230ac6922a41149cc2b58289b1153f72b6e1c68f8b11d785542871ee17f",
       "pageType": "云原生生态横向选型",
@@ -2881,7 +2859,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/extension-points.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "192a1478ecdf520224ce613cac6376d55948366972a6c5d3d5de33fc9aa03b3b",
       "pageType": "API同步、异步、调度和节点故障边界",
@@ -2900,7 +2878,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/index.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "eca24fba1a7c6e89cf6037d25bbafd1f43f8dc976e668176903c0b39c497d3ca",
       "pageType": "扩展机制选型与阅读地图",
@@ -2913,7 +2891,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/operator.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "e1db7ea81cc87d1902db2101bafaa0f6b63752ecb376f7a0e24909cd1148ea47",
       "pageType": "调谐恢复、外部幂等和删除状态机",
@@ -2932,7 +2910,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/platform-engineering.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "25cd37ec222d729158a3569fb97334524be13e191cf0cea944ce1d81d3275e45",
       "pageType": "平台意图、字段所有权和状态反馈",
@@ -2951,7 +2929,7 @@
     },
     {
       "file": "docs/container/kubernetes/advanced/traffic-engineering.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "60bc00089f8a0c97f1f77cd27b355c7f9d34840822ebe120767317b437c094a7",
       "pageType": "入口配置、网络数据面和Ambient请求证据",
@@ -2964,7 +2942,7 @@
     },
     {
       "file": "docs/container/kubernetes/control-plane.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "7582f6c8c9b5bdb44b9aa841e07c4fadde645e372ff0f66da29a0bfa0092e712",
       "pageType": "API 与异步控制机制",
@@ -2977,7 +2955,7 @@
     },
     {
       "file": "docs/container/kubernetes/data-plane-reliability.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "74a3ad8442b37bb589e27f4c5ba6a51ac4036e4537f3f14bf6641889977a2c0a",
       "pageType": "请求与存储数据面机制",
@@ -2990,7 +2968,7 @@
     },
     {
       "file": "docs/container/kubernetes/index.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "16384db4d9c51d3dd6526aac31a2c74b48cb02f4046e04c7876639e844741bcd",
       "pageType": "Kubernetes 机制与阅读导览",
@@ -3003,7 +2981,7 @@
     },
     {
       "file": "docs/container/kubernetes/observability.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "19e6672e3e1ebb57782f565e7e3b3673f84379d767b24b7f02ab2927f6207d2f",
       "pageType": "跨层观测与排查",
@@ -3016,7 +2994,7 @@
     },
     {
       "file": "docs/container/kubernetes/production-practice.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "0a8fc1998c861c709ec19c2069f4409548d97e6e4cbdd8221af2284864e78d05",
       "pageType": "生产配置与排障入口",
@@ -3029,7 +3007,7 @@
     },
     {
       "file": "docs/container/kubernetes/reliability-capacity.md",
-      "batch": "B029",
+      "batch": "B030",
       "status": "verified",
       "reviewedHash": "a77ca8e5dd69734729214dc89d2ae89cc368c5b005dbc789600545a7dc212606",
       "pageType": "容量与故障预算机制",
@@ -3042,7 +3020,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/configmap.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "f8b73a8a27296a14e17074c3224c4c7b2fd9fcf5dc77c9562f3f4ace02177154",
       "pageType": "配置消费、生效与回滚边界",
@@ -3055,7 +3033,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/customresource.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "2cad2553689c6de3ebd9698f7b600ed1159ad4a7fa30528d89d2889bc7a9292d",
       "pageType": "机制专题阅读入口",
@@ -3068,7 +3046,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/daemonset.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "4d1436ff3748c7eb671c8412d37a35104d68d29d9e2a7c49c0b60fac9fff34f8",
       "pageType": "节点覆盖与代理发布",
@@ -3081,7 +3059,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/deployment.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "e943f5c65168d739e982bdbc30f0041ec03a9cd1eb2480b7d3c460b1fd5bef84",
       "pageType": "滚动发布与容量边界",
@@ -3094,7 +3072,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/endpoint.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "7f6b0febd1333af41c7382d4ad6e3e86696017abb5f6adf9a874d95c972a7982",
       "pageType": "后端配置对象、分片与终止状态",
@@ -3107,7 +3085,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/hpa.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "e9db7a33406e07c1c52e14cff4995da0ba77ef22a8e7238a02083cae66dfedee",
       "pageType": "反馈伸缩、指标合同与容量延迟",
@@ -3126,7 +3104,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/index.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "b30c390e0ee07c26c475cf5d88f87302978c1560ac7077b2a4d66a45d6e5c777",
       "pageType": "资源地图与阅读入口",
@@ -3139,7 +3117,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/ingress.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "faae579aa51ee1062b98ef4a408e3755305cba7da621ea1beeefcb620493227b",
       "pageType": "入口路由、TLS与Gateway迁移",
@@ -3152,7 +3130,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/job-cronjob.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "accc7dfdcd0e497775e6d23513f3ee757d405c5b42d4b831b6f8cd3e3c3a5bab",
       "pageType": "任务调度、重试与业务幂等",
@@ -3165,7 +3143,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/limitrange.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "c04275c5eb58e91e702c3bea12ce54ecd9161962b6496e350ff22eae10094606",
       "pageType": "资源默认值与单对象约束",
@@ -3178,7 +3156,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/namespace.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "c4c3d14bde8484655fcc659702e4abfc22e6ce3172b840fb0cf317fb4e2b9133",
       "pageType": "命名、策略与删除作用范围",
@@ -3191,7 +3169,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/networkpolicy.md",
-      "batch": "B030",
+      "batch": "B031",
       "status": "verified",
       "reviewedHash": "6912be10e11b500b2aa1cb5452953e263f22db3ad48b37d1c0e77e47cd001e83",
       "pageType": "网络允许集合与策略验证",
@@ -3204,7 +3182,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/pod.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "b3fe4cb1f160961966853a9fc4695b9282c5dcd87031542035238ba009dcb2ab",
       "pageType": "最小调度对象与生命周期",
@@ -3217,7 +3195,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/poddisruptionbudget.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "ddc814fc22f559b47196bef0c25f289bbd188a5cd83e29eec76e220c76f7679e",
       "pageType": "健康预算、自愿驱逐与维护边界",
@@ -3230,7 +3208,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/pv-pvc.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "2c7276f9f55fad287fbbffb0970e329288a64019656509df490a6824bd2b0051",
       "pageType": "声明、供应、挂载与数据生命周期",
@@ -3243,7 +3221,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/rbac.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "563be4068a3ab47d2d46982e57a75736b795066235b3d2541eb4a1518de0c69e",
       "pageType": "主体、规则、绑定与权限合并",
@@ -3256,7 +3234,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/resourcequota.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "b084b22e9f115240d9a3cc46afc6316d57db5525ab39cff4efd87aa55d439e12",
       "pageType": "团队预算、准入拒绝与发布容量",
@@ -3269,7 +3247,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/secret.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "39a18605935fe50901d2028ce6b76c8107391065c4f8cf950d7df01157c344a3",
       "pageType": "凭据注入、轮换时序与权限边界",
@@ -3282,7 +3260,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/service.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "cf6dad3431ec53702cc1ee03dcf9b2b69cb31e8fdb34660fc443b6ba10394131",
       "pageType": "服务发现、命名端口与流量边界",
@@ -3295,7 +3273,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/serviceaccount.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "efd61147d8be8c6edb6c36741ca2db122d49d8bcd8f49e18506eee0570dde34f",
       "pageType": "机器身份、投影轮换与接收方授权",
@@ -3308,7 +3286,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/statefulset.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "1469146619d873d450285e4e969772e5bb911497480cd1e5d3c65ba55831f51b",
       "pageType": "稳定身份、存储与发布",
@@ -3321,7 +3299,7 @@
     },
     {
       "file": "docs/container/kubernetes/resources/vpa.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "e15f3f58acdfb174026536c48939f737eda91a0ab7864c82792190dc21d31847",
       "pageType": "资源建议、更新模式与驱逐恢复",
@@ -3334,7 +3312,7 @@
     },
     {
       "file": "docs/container/kubernetes/scheduling-node-lifecycle.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "ae098990e82af3fa30adf3c16bb3257aa64a3c25fa9c42881b99470e1014b529",
       "pageType": "调度与节点生命周期机制",
@@ -3347,7 +3325,7 @@
     },
     {
       "file": "docs/container/kubernetes/version-upgrade.md",
-      "batch": "B031",
+      "batch": "B032",
       "status": "verified",
       "reviewedHash": "f2f248ec56b704c8327c0bbb10bf363153e0d89484272ceec9d47705c69a6724",
       "pageType": "版本治理与迁移",
@@ -3360,7 +3338,7 @@
     },
     {
       "file": "docs/container/kubernetes/video-series.md",
-      "batch": "B032",
+      "batch": "B033",
       "status": "verified",
       "reviewedHash": "4b9d7875ddd3cb81d7d9e0c662d048283f3e7a5fbfac1885bc84fb555928814f",
       "pageType": "视频目录与实验导读",
@@ -3373,7 +3351,7 @@
     },
     {
       "file": "docs/container/tools/colima.md",
-      "batch": "B032",
+      "batch": "B033",
       "status": "verified",
       "reviewedHash": "52758472f7cc806b381bf9c4ee66f0cf9e7c8e8eaaf9f4767a43d27e951ba718",
       "pageType": "Colima 配置与排错",
@@ -3386,7 +3364,7 @@
     },
     {
       "file": "docs/container/tools/index.md",
-      "batch": "B032",
+      "batch": "B033",
       "status": "verified",
       "reviewedHash": "38c74b3a966bab93dd5deaba3d49ee633fc3ff3dcadf84a6d69c0fe152d74ae7",
       "pageType": "容器工具阅读导览",
@@ -3399,7 +3377,7 @@
     },
     {
       "file": "docs/container/video-series.md",
-      "batch": "B032",
+      "batch": "B033",
       "status": "verified",
       "reviewedHash": "31a4eaaf6c3917443c201d9fd380c0b7a5557c827ab038591444336db63f95e0",
       "pageType": "容器视频与正文映射",
@@ -3412,7 +3390,7 @@
     },
     {
       "file": "docs/database/bigdata/apache-flink.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "6ba7e9444ad7074f367b1b1c27c41b304c1ed052f272c6792379e7b63c98c8ff",
       "pageType": "Flink事件时间、按键状态与端到端恢复边界",
@@ -3430,7 +3408,7 @@
     },
     {
       "file": "docs/database/bigdata/apache-kafka.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "eaca5800b0c3007a0c964645e5d588d37b695c4634fd77ebd40e8a470e72e1dd",
       "pageType": "Kafka数据接入、业务身份与连续提交前沿",
@@ -3446,7 +3424,7 @@
     },
     {
       "file": "docs/database/bigdata/apache-spark.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "7c374b0370525a1b3249210bc7948efb9c8fa77de6b8e858946598853ad794be",
       "pageType": "Spark执行边界、订单版本去重与日报发布",
@@ -3461,7 +3439,7 @@
     },
     {
       "file": "docs/database/bigdata/data-layering.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "4b3416857b119b7a772f735ca13b80393bf60b483a4aafae3e1545276003b3e9",
       "pageType": "数据分层、事实粒度与可追溯发布",
@@ -3475,7 +3453,7 @@
     },
     {
       "file": "docs/database/bigdata/data-warehouse-lake.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "556181ba4597b95b943aed200efd5fb4758e4c2b1c5b907e0afbc9022aeec179",
       "pageType": "仓库湖仓选型、快照提交与迁移验收",
@@ -3489,7 +3467,7 @@
     },
     {
       "file": "docs/database/bigdata/dolphinscheduler.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "210a8c9f52812044d75c330e49fac2014c46c0d3e0f8966ad7dc743f3b49772a",
       "pageType": "调度组件、订单DAG、重试补数与部署排障",
@@ -3504,7 +3482,7 @@
     },
     {
       "file": "docs/database/bigdata/hdfs.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "f3207482816bd841ad12a7ee09ac10135a581632fd9c96bef7d07176f0ec8e9f",
       "pageType": "HDFS块读写、元数据HA与文件排障",
@@ -3519,7 +3497,7 @@
     },
     {
       "file": "docs/database/bigdata/index.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "3c8969fdfefb7e7dbe91cfa90d55bd001a20153246ff5fe5e1d64a15578e695d",
       "pageType": "大数据主题地图与订单批流入口",
@@ -3533,7 +3511,7 @@
     },
     {
       "file": "docs/database/bigdata/nosql-databases.md",
-      "batch": "B033",
+      "batch": "B034",
       "status": "verified",
       "reviewedHash": "1e86c56a55a5fd4a297fe2f16535d8ddf81e13e50b3b0594c9d72935b6ff6d4c",
       "pageType": "NoSQL访问模型、聚合和分区边界导读",
@@ -3548,7 +3526,7 @@
     },
     {
       "file": "docs/database/elasticsearch.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "906a6352ee8fcf860be0a02ed47e7ad0ba97432b4acae76c41e0804b52220086",
       "pageType": "搜索派生视图、写入可见性、分页与恢复",
@@ -3563,7 +3541,7 @@
     },
     {
       "file": "docs/database/graph-database.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "d743f7f38c1c2f443f0ec8ee5a9ae4ce93f2a34af89c929ba2561b679665cd9f",
       "pageType": "属性图模型与有界关系查询",
@@ -3577,7 +3555,7 @@
     },
     {
       "file": "docs/database/index.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "7a1dd0fe142babda0c9d472f54a6a66c41353f8362fe7f1fbc9073995c364993",
       "pageType": "数据库与数据链路主题地图",
@@ -3591,7 +3569,7 @@
     },
     {
       "file": "docs/database/influxdb.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "b159b9728a0fedfc48dedc54bded2f5b943a6bb2f274d2176f1ad8d3fe77e973",
       "pageType": "时序身份、窗口分组、降采样补数与恢复",
@@ -3606,7 +3584,7 @@
     },
     {
       "file": "docs/database/mongodb.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "8c1ab30387bdaa228c39d32e0b318e740954e83c2be10a45653adcd794bb1f74",
       "pageType": "文档建模、条件写入、事务与副本读写边界",
@@ -3620,7 +3598,7 @@
     },
     {
       "file": "docs/database/mysql/backup-recovery.md",
-      "batch": "B034",
+      "batch": "B035",
       "status": "verified",
       "reviewedHash": "b9f16e14461945688c3e20f1ace6c072cff17346b01164ed068864107cec6d97",
       "pageType": "备份恢复链、隔离还原与文件位点PITR",
@@ -3634,7 +3612,7 @@
     },
     {
       "file": "docs/database/mysql/basic-syntax.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "e5871d0ab5cb47fbf511cc28d99f5bdd276940c888486aed4540e6add3501757",
       "pageType": "统一订单数据集的SQL语义与事务入门",
@@ -3648,7 +3626,7 @@
     },
     {
       "file": "docs/database/mysql/data-types-design.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "21d743d5e9b66f3ccbe05d1210fcc8500df6e0d10101ea1b97592a7e793fabdb",
       "pageType": "字段值域、精度、时区与约束",
@@ -3662,7 +3640,7 @@
     },
     {
       "file": "docs/database/mysql/high-availability.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "4eb81b5246a22a6f22a14e4d1b5e6b410ce781ad77dc22095044bc52408541b1",
       "pageType": "复制进度、GTID练习与切换隔离机制",
@@ -3676,7 +3654,7 @@
     },
     {
       "file": "docs/database/mysql/index-system.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "9481b825c0da6c1bf0ac2a937b838c9c10874f1d7c61306c8af5b23db3d234ed",
       "pageType": "索引键序与访问路径",
@@ -3690,7 +3668,7 @@
     },
     {
       "file": "docs/database/mysql/index.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "ba74f8cb3b31ad136fabc1e25f13903eaa49c8ad8cdd47bc47663afe4556008f",
       "pageType": "MySQL主题地图与库存实验",
@@ -3705,7 +3683,7 @@
     },
     {
       "file": "docs/database/mysql/monitoring-operations.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "42526da5be460c92f481925bdff3953ab362fecfde3c5c443134016bad1b8982",
       "pageType": "业务指标、MySQL证据链与监控接入实操",
@@ -3719,7 +3697,7 @@
     },
     {
       "file": "docs/database/mysql/partitioning.md",
-      "batch": "B035",
+      "batch": "B036",
       "status": "verified",
       "reviewedHash": "9aabb1f1da8d96244cbf2faec53b76d43fdbfb5108aec97d6eac13c418c17400",
       "pageType": "分区边界、裁剪与维护",
@@ -3733,7 +3711,7 @@
     },
     {
       "file": "docs/database/mysql/query-optimization.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "92c4bb70694a3491204240f849e335e104a786dda075f26169d7bcf5e9cb1eee",
       "pageType": "查询等价性、订单分页与执行计划实操",
@@ -3747,7 +3725,7 @@
     },
     {
       "file": "docs/database/mysql/security-permissions.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "cf1026c989df237d0270d6325be2787c3e034f5e6e36040bf72c0f437267b20a",
       "pageType": "连接认证、最小权限与数据保护实操",
@@ -3761,7 +3739,7 @@
     },
     {
       "file": "docs/database/mysql/service-modules.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "9615e8cdcd4cb936184394a529b0cda60ed33786ce4aabef8d5e15503949e02b",
       "pageType": "SQL执行与InnoDB职责",
@@ -3775,7 +3753,7 @@
     },
     {
       "file": "docs/database/mysql/storage-engines.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "649c2665939ec3765cbfad200d8c82bda4a0581144e9b534b420a833cc9c3f38",
       "pageType": "存储引擎事务与生命周期",
@@ -3789,7 +3767,7 @@
     },
     {
       "file": "docs/database/mysql/transaction-system.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "88b927cd18999dcd372b007a48e3aa88161180fda56b78bee0652ab08f17d720",
       "pageType": "事务、快照与锁等待机制",
@@ -3803,7 +3781,7 @@
     },
     {
       "file": "docs/database/postgresql.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "13b34f68b782a2a9a73a8a01cdb1c45cb436cc1dd1c75f95455081373a9a8846",
       "pageType": "关系建模、JSONB查询、MVCC维护与恢复入口",
@@ -3817,7 +3795,7 @@
     },
     {
       "file": "docs/database/redis.md",
-      "batch": "B036",
+      "batch": "B037",
       "status": "verified",
       "reviewedHash": "4b328ba34c5454ce82944f8ad510452eb7451bfe362e835f45330399568a533e",
       "pageType": "缓存竞态、原子边界、任务投递与持久化机制",
@@ -5158,7 +5136,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/architecture.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "fe0e760838978a95482bd4ff796606b7aac7be9d3d0510ba62bc9671ffa5cb44",
       "pageType": "机制与工程实践",
@@ -5172,7 +5150,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/hands-on.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "2950fab14102c8a7861261ffc0217b215842fd54741a138098aa6b8e4dab2ff6",
       "pageType": "机制与工程实践",
@@ -5186,7 +5164,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/index.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "db2a9bf99d25256f4b883b1eecda0f3789aca1c79e03efc1ed969049b44382fc",
       "pageType": "专题导读",
@@ -5200,7 +5178,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/project-delivery.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "1dbbf1556c2e87c8d5d9b62f108cecf2c67f7eeccc13b9848ac4823d13974168",
       "pageType": "机制与工程实践",
@@ -5214,7 +5192,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/project-practice.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "c11359720e6a88d663b68a3d27cf94ccb5bf8c3bdbcdc3aed1de34176bd64943",
       "pageType": "机制与工程实践",
@@ -5228,7 +5206,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/troubleshooting.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "43844fe59da86529a579228429b5c2b9e9383ca169bc42ffb8573163b87fc7fb",
       "pageType": "机制与工程实践",
@@ -5242,7 +5220,7 @@
     },
     {
       "file": "docs/devlanguage/flutter/video-series.md",
-      "batch": "B038",
+      "batch": "B039",
       "status": "verified",
       "reviewedHash": "d1d56625059ca57147a0696128814d0c19f01e876094e5edad30306b93813d8a",
       "pageType": "机制与工程实践",
@@ -5256,7 +5234,7 @@
     },
     {
       "file": "docs/devlanguage/front/deployment/index.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "191fdf6ac5eb8dd7e50d45cb23d5f5df64cf06ccf6d8558bd622484bdbaa6c81",
       "pageType": "发布与恢复",
@@ -5270,7 +5248,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/01-electron-startup-runtime.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "40db1bb66c42375a574c684f1e6e228bc45c3d97093cd685b8e176f573ca8cdd",
       "pageType": "启动机制",
@@ -5284,7 +5262,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/02-electron-process-model.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "16e236b26c82758c7825bbfb8e8ad3ca3cb2d8bc5042c0c3beb618ceef11fe66",
       "pageType": "进程关系",
@@ -5298,7 +5276,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/03-electron-preload-ipc-security.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "fb73fb273fcbc2bd79d74826097e618e66ab3e40a19d09936d4c55713e8b5db3",
       "pageType": "权限边界",
@@ -5312,7 +5290,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/04-electron-lifecycle-single-instance.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "82bfcdb7c3f30a3808dc7e1369ada4ee8dd3338cef5a1e96df23da2673024289",
       "pageType": "生命周期",
@@ -5326,7 +5304,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/05-electron-forge-build-release.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "28f5823c5b0e655dfefe8d8e04aaa5701e2774263f4bc6cc8934aec3fae82457",
       "pageType": "构建交付",
@@ -5340,7 +5318,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/06-electron-asar-unpack-fuses.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "9f4427c2df976eba44a324c1bf61b2fc5c7c144e9ccbfd505fd97f0d9b2bcd6a",
       "pageType": "归档边界",
@@ -5354,7 +5332,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/07-electron-native-module-abi.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "2648cc3203096264474ae9a67d59b804bc8f494999b707aca4530ba43ba77a08",
       "pageType": "兼容性排错",
@@ -5368,7 +5346,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/08-electron-signing-notarization.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "763c48b0cf295c301cb75dc74411e80000cc82115b71e382adf5ec899ddd30e5",
       "pageType": "平台信任",
@@ -5382,7 +5360,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/09-electron-auto-update-state-machine.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "8443dbed73f8a799dcb2a9d8c11e85eefe816d82ad6e74c5dd27d606181a8456",
       "pageType": "更新状态",
@@ -5396,7 +5374,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/10-electron-performance-measurement.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "c8173eb88b69852272a10d5fde750b09b0178276d0c624a8433dc8478f93c67d",
       "pageType": "性能测量",
@@ -5410,7 +5388,7 @@
     },
     {
       "file": "docs/devlanguage/front/electron-series/index.md",
-      "batch": "B039",
+      "batch": "B040",
       "status": "verified",
       "reviewedHash": "bba6df4a4ad3c0395aaf682a02ab9faa063e2c5209202fead1ae913b4cd8244e",
       "pageType": "系列导读",
@@ -5424,7 +5402,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/angular.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "9d37588461f227a83979a4294e5d7c35d377848348f3206102c9fdee6b3208fe",
       "pageType": "框架应用实践",
@@ -5438,7 +5416,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/cross-platform.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "e76c107b53f02837f7f0c896d8fc17a8f1e53a256bd2d2e54888c50076c54323",
       "pageType": "平台选型与边界",
@@ -5451,7 +5429,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/index.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "e7b546ccf8f9d1cdbb81fdf2d0f358991344ac9e7b955cec4373f3c45f452b28",
       "pageType": "专题总览",
@@ -5465,7 +5443,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/lightweight-frameworks.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "a8074b6dd4d8be2e88df02a45f2cf71cee7193a5515a56d4da4b1fb0f7737d39",
       "pageType": "组件合同实践",
@@ -5479,7 +5457,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/meta-frameworks.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "f54c4cde5c492adbb183103032d2954f8d7298bea64f690c3bf91b6178857d16",
       "pageType": "选型机制",
@@ -5492,7 +5470,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/parcel.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "fd560ed5130a7e473c6257b61daa62b718db0ac22a08d00900a731650740b7bd",
       "pageType": "构建工具实践",
@@ -5506,7 +5484,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/react.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "ee63d65c67ffe396b8f4ab2747cb09745c07168902c67b5c34707b02b1b10365",
       "pageType": "框架应用实践",
@@ -5520,7 +5498,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/rollup.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "bfb2adf1a8cb256da610e1447d234a127b84890a31876eee85c5497ce38a2ad9",
       "pageType": "库构建实践",
@@ -5534,7 +5512,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/svelte.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "9bb14895ae217ef536b59eca9fd61c648cc715081b874c3c1978a977ed31ccf6",
       "pageType": "框架机制与实践",
@@ -5548,7 +5526,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/vite.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "3cfec4886cd82f3eb4edb644597603c9f3d83b5c632fbbacf44fa2812ba1ee22",
       "pageType": "构建工具实践",
@@ -5562,7 +5540,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/vue.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "56785f1ff6d791e0fafc8bddc37d7caf83d20755377da5e72d27b0b4ea0d8bdb",
       "pageType": "框架应用实践",
@@ -5576,7 +5554,7 @@
     },
     {
       "file": "docs/devlanguage/front/framework/webpack.md",
-      "batch": "B040",
+      "batch": "B041",
       "status": "verified",
       "reviewedHash": "e3bf708005e06a1ef5e215d4500f6c97e7a7560273cccdaf24e814941d521c6c",
       "pageType": "构建工具实践",
@@ -5590,7 +5568,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "acf06a8b3dae88482d46fa3193a8e21e7df2a2e527d45443f4708ca51c377710",
       "pageType": "技术全景",
@@ -5604,7 +5582,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/02-browser-navigation-pipeline.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "663eea5f875af18bf881c6c4941fe4c545bb1cebf14f3ca7b1e61359504c161d",
       "pageType": "导航机制",
@@ -5618,7 +5596,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/03-html-css-javascript-responsibilities.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "3768fd8eb05dd38d4ce8eedb2abb442dd2b245b6e47a4408ad71a220eccc89f1",
       "pageType": "平台职责",
@@ -5632,7 +5610,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/04-devtools-evidence-chain.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "e9307fb1bed043ebfc52208a7a69b2ee7abc56a45a1429d9668bcebcd6380cd3",
       "pageType": "故障排查",
@@ -5646,7 +5624,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/05-semantic-html-dom-structure.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "86855c2fc3716887b9d2455aa1e773df11130c63edf901f0f64f59bb2b135886",
       "pageType": "语义机制",
@@ -5660,7 +5638,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/06-html-form-model.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "4607580a25788f243ccfa5b0835c77e1bc2ea058bfd43b20bd6739b710b5f67a",
       "pageType": "表单机制",
@@ -5674,7 +5652,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/07-css-cascade-specificity.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "701c9dd2dc24ae7e931c2b8bde0428c78c6d678fec0f8450fcf4a3c7b58cdd3f",
       "pageType": "层叠机制",
@@ -5688,7 +5666,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/08-css-layout-flex-grid.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "24122f83308d4d23dcdbda54eb7de6d72896eec8105593ffb2145b35c757b533",
       "pageType": "空间布局",
@@ -5702,7 +5680,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/09-responsive-design.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "12b78875f86f7e137cb73552670db064a0f7ef6362965c424d7aa3dc982863c1",
       "pageType": "响应式机制",
@@ -5716,7 +5694,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/10-web-accessibility-basics.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "283efe927ff979e5731b43652dafbc8e9e22b1b15db8428856bce7d56475f0bf",
       "pageType": "可访问交互",
@@ -5730,7 +5708,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/11-javascript-language-model.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "cd48b6d09adaeb82ccd1e4c603fd68dae67008d9972ebfb3b4a2d2ee06fa8d61",
       "pageType": "语言模型",
@@ -5744,7 +5722,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/12-dom-programming.md",
-      "batch": "B041",
+      "batch": "B042",
       "status": "verified",
       "reviewedHash": "4ecfd0bddf6672e350496ecd8761939fb054c949bc7604b2552a51cfbf48dd48",
       "pageType": "DOM机制",
@@ -5758,7 +5736,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "e0a387f488c9564ed6f6f4034d8a34b77a84a6424ada7b87f75c93a3447238ad",
       "pageType": "事件机制",
@@ -5772,7 +5750,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/14-javascript-event-loop.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "bc2fe8106b8b0773e8d5f48a17f4eafcbb980b9f066be48ce70954ed29ea01ad",
       "pageType": "异步机制",
@@ -5786,7 +5764,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/15-fetch-network-requests.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "afb546560ddea797aee084f961adad844d47178b52bb164e307f5896b9376fb9",
       "pageType": "网络合同",
@@ -5800,7 +5778,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/16-browser-storage.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "4fbdd1ab35fdfccf727d10df87b46331f09878f13c0cc931d622eb80aeb147b7",
       "pageType": "存储机制",
@@ -5814,7 +5792,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/17-javascript-modules.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "7af35f4c847c938eb39d9cb05e087a59789fcbdf92fd8ef6001271d57daae2b6",
       "pageType": "模块机制",
@@ -5828,7 +5806,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/18-typescript-static-types.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "f412b146374eb7cb149bf791066b145a31e6e325ee89bdcbb8b0d2aa6d49fd85",
       "pageType": "类型合同",
@@ -5842,7 +5820,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/19-node-package-management.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "56a8d89e0f4ff876734cbce7cacfd194a98855039e61f56399fb1b3cb97060b1",
       "pageType": "工程环境",
@@ -5856,7 +5834,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/20-vite-build-pipeline.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "f3437b8d29bb26f9f2efb9bebbce5197af3e51a6ee55a1cbbc1a8e267f21834d",
       "pageType": "构建机制",
@@ -5870,7 +5848,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/21-frontend-quality-toolchain.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "e437cc377b0b912ae785e2ef07aae7d2e0717101e9661ccdc2e45ba123724066",
       "pageType": "质量门禁",
@@ -5884,7 +5862,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/22-component-reactive-ui.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "9a071f435c4ba05c5dfc09b583cc59a9b574456e127fd1f237b3c59c492423a3",
       "pageType": "组件机制",
@@ -5898,7 +5876,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/23-framework-architecture-comparison.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "0fe322a5027facf6a96d109f7d0e4d8c28dd6b025ddccc9717ba6df72cede2b3",
       "pageType": "框架选型",
@@ -5912,7 +5890,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/24-web-rendering-architecture.md",
-      "batch": "B042",
+      "batch": "B043",
       "status": "verified",
       "reviewedHash": "7d28be180ffae322ca1fd4760d0f9cf2ca94fcdc8fc0ae3424d89b1c5e343829",
       "pageType": "渲染模型",
@@ -5926,7 +5904,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "8628d3dfb7bd5e2bd7eae415c986c4ddeab6b1a21d094c85ecde8daa2842057d",
       "pageType": "应用机制",
@@ -5940,7 +5918,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/26-frontend-testing-layers.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "489dc5ac6c22cb9f62edaa93401c67aa64d3595fe93b265ae33a501915ac2305",
       "pageType": "测试策略",
@@ -5954,7 +5932,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/27-web-performance-engineering.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "7123933d165fc47ee6b20373efd9df61b721c767b8aec78fc9403ab6b4b74885",
       "pageType": "性能机制",
@@ -5968,7 +5946,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/28-web-frontend-security.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "f3bbfa5172e6af2d140df978e10be0296eeff2b227f645cfc5160b5d024c890d",
       "pageType": "安全边界",
@@ -5982,7 +5960,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/29-frontend-delivery-observability.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "5cfb8b1a0c3574cebd145bd246f313dc50b92ade04bc87958cad0074db594777",
       "pageType": "交付机制",
@@ -5996,7 +5974,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/30-ai-assisted-frontend-learning-path.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "a2b69234f4b612aef80a04fb974b2da1277160dc136c752df461f0e15abe2a6d",
       "pageType": "AI协作",
@@ -6010,7 +5988,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/31-react-components-hooks-state.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "c97c2241bebc8b0314e3b02566d6e2d3459c44157a25a114267622d9e3f6da8d",
       "pageType": "React机制与实践",
@@ -6024,7 +6002,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/32-vue-sfc-reactivity-composition.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "631637ce80f25e070f0679af0d2336da43466542be8b4934e30bc912e70053c7",
       "pageType": "Vue机制与实践",
@@ -6038,7 +6016,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/33-angular-di-signals-application-structure.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "128ee7cf2dadbee47ebc7575734a5f419886204c51a7450210a28fc971a0e072",
       "pageType": "Angular机制与实践",
@@ -6052,7 +6030,7 @@
     },
     {
       "file": "docs/devlanguage/front/frontend-foundations-series/index.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "e5a077a737e0c1803646da2fb9009b148ddca4a048a67792590a6d69a60fa93a",
       "pageType": "系列导读",
@@ -6066,7 +6044,7 @@
     },
     {
       "file": "docs/devlanguage/front/index.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "6c000715f600c9143ebe987be959f53169afb169b51e0b89013beec1531fb11d",
       "pageType": "专题导读",
@@ -6080,7 +6058,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/bun.md",
-      "batch": "B043",
+      "batch": "B044",
       "status": "verified",
       "reviewedHash": "f87a5e5bd31145e171efcad9150c89ea34b060bf5a53d49b671da76e962fced3",
       "pageType": "安装器机制与实践",
@@ -6093,7 +6071,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/corepack.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "11b131c0bda431bc129a9adb4ae9ecac883d787918f6b9d042cc4a9efd47f200",
       "pageType": "工具版本合同",
@@ -6106,7 +6084,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/index.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "7a627c99048a16f83046ba35c5756e5154c86173420dd205c52782a759ae95a3",
       "pageType": "专题导读",
@@ -6119,7 +6097,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/npm.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "e818cc74ece4232fadb1e37cf5bcd5ef02ec9c088b07162c625a81fd5d312221",
       "pageType": "安装与排障",
@@ -6132,7 +6110,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/pnpm.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "1acb7c275b3fcdfeffd7896f46a55a35cc5890a4d0e8712a2cf29b9e83c41a53",
       "pageType": "依赖布局与信任",
@@ -6145,7 +6123,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/registry.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "06020f71b4ade669aea97d3a667270bf1e6372a5636fdffa7dd2a5a978c5e9d2",
       "pageType": "仓库配置与凭证边界",
@@ -6158,7 +6136,7 @@
     },
     {
       "file": "docs/devlanguage/front/package-managers/yarn.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "40c2faa5d7120dd0381e367813ce7cec89d26554f1e5f952ff3512bfb307e15b",
       "pageType": "模块解析机制",
@@ -6171,7 +6149,7 @@
     },
     {
       "file": "docs/devlanguage/front/performance/index.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "c58a4908f687104b352eb0be9dfcbd97fd327e68f90637e194db1de1b8a2286c",
       "pageType": "性能机制与排查",
@@ -6185,7 +6163,7 @@
     },
     {
       "file": "docs/devlanguage/front/quality-tools/index.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "6e725cf0986335042a7c61119ca980529cfdd0c5498f0c6ce46d3638ed2a5132",
       "pageType": "质量门禁实践",
@@ -6199,7 +6177,7 @@
     },
     {
       "file": "docs/devlanguage/front/state-management/index.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "d4d8cd64ef6f15176fb6a78e2e8fae7bb08921fdd5bc3f047e5da363020ee3c5",
       "pageType": "状态生命周期",
@@ -6213,7 +6191,7 @@
     },
     {
       "file": "docs/devlanguage/front/testing/index.md",
-      "batch": "B044",
+      "batch": "B045",
       "status": "verified",
       "reviewedHash": "fb55f66d177a602f64d42ee7b4d7db165e482a8ee974663f8e134790fb87e2eb",
       "pageType": "验证策略",
@@ -6227,7 +6205,7 @@
     },
     {
       "file": "docs/devlanguage/index.md",
-      "batch": "B037",
+      "batch": "B038",
       "status": "verified",
       "reviewedHash": "98504831e3f478363752cc97a168949765541bb0fec0caeda96b14bf36861092",
       "pageType": "专题导读",
@@ -6241,7 +6219,7 @@
     },
     {
       "file": "docs/devlanguage/java/basic/base-class.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "e896cd6e829f26085324298c81ef1bc818d253b104b0036e9fa6ba3ed4f56d0f",
       "pageType": "Java标准工具类的对象、数值、容器、时间与失败合同",
@@ -6256,7 +6234,7 @@
     },
     {
       "file": "docs/devlanguage/java/basic/index.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "de9d9e567e6fd9e30a46b463f3e5b8b934f83652a556e9ef5a8dde71e010c58e",
       "pageType": "Java基础专题导读与订单语法实例",
@@ -6271,7 +6249,7 @@
     },
     {
       "file": "docs/devlanguage/java/basic/jdk/index.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "c5fe8be425f589dd97e742698155bc86fc8dca942418b5f31933d482e8ab0eb1",
       "pageType": "JDK版本地图与编译运行合同导读",
@@ -6286,7 +6264,7 @@
     },
     {
       "file": "docs/devlanguage/java/basic/jdk/upgrade.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "36a687c6c15275232e3e6c91d677b5063666e08e0b051663ab4fa57c79a6da1b",
       "pageType": "JDK迁移实操与验证回退边界",
@@ -6301,7 +6279,7 @@
     },
     {
       "file": "docs/devlanguage/java/basic/special.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "ed4004ad490528d5b7f86726ae9719a6d0f104033ecbfcfc5937c45a51c77044",
       "pageType": "Java语言特性的对象合同与运行机制",
@@ -6316,7 +6294,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/index.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "2dbe28732d8d12e884255c11ef0001ed51f7e8ebb39d238ed2d7dd14fa3b7840",
       "pageType": "Java框架主题地图",
@@ -6330,7 +6308,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/mybatis/index.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "641f4d85a8868ae0589d4be281d84f4da77bab5f1f75fcbdf550b4f799d5b9e6",
       "pageType": "映射会话事务机制与可运行练习",
@@ -6345,7 +6323,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/mybatis/plugin.md",
-      "batch": "B045",
+      "batch": "B046",
       "status": "verified",
       "reviewedHash": "0d47aab2dd9158cff3fb46b7c2df286ca38f420297dcc2149fbd0d2f09d5d4a3",
       "pageType": "插件拦截层与观测合同",
@@ -6362,7 +6340,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/annotations.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "2cefcdb9bcd1756dcb37eb98e1b5545951ad0488f76ef741e5bedc7b6397d908",
       "pageType": "注解读取者与处理阶段",
@@ -6376,7 +6354,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/aop.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "069002efa1eaba91d69dad40e74c590ceeab97a62f6015e50a97263f6c8550b5",
       "pageType": "代理调用与事务传播边界",
@@ -6390,7 +6368,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/boot-autoconfiguration.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "fd1e9cc025b3bd2b21deb1995280e3454aee49eec34a7bf8ff4eb106f40791ba",
       "pageType": "自动配置候选条件与定义注册",
@@ -6404,7 +6382,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/boot-config-data.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "0bcf5c29441d5cf6d6b76be2e70749382969ab0a3e6e5096b782e78fe2cba6e8",
       "pageType": "配置发现覆盖与绑定合同",
@@ -6418,7 +6396,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/boot-production.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "f788aaa83df51ae20ec32625f240ddfcea42665937a8b31017b6a3658ca0df49",
       "pageType": "生产探针观测与发布闭环",
@@ -6432,7 +6410,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/boot-startup.md",
-      "batch": "B046",
+      "batch": "B047",
       "status": "verified",
       "reviewedHash": "c4047c8c8b62ced695385c19ab6437a9347b102a3e9b9138853b847c680d52f2",
       "pageType": "Boot启动阶段与就绪机制",
@@ -6446,7 +6424,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "1efc296a70fd3db754823a28e2bb4bed1f128a82cfe36e1f83f0afe80bf688d4",
       "pageType": "标准框架与服务器职责边界",
@@ -6460,7 +6438,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/foundation/why-spring.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "1c5e7b66f1f51c8a42404a687eb07cdebf0803709146463667a870044df349f7",
       "pageType": "框架责任边界与可运行订单练习",
@@ -6483,7 +6461,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/index.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "b93341f7a68f25344f25079d3241f5835a6f8cd59f002f2ff0962127d7c1fd7f",
       "pageType": "Spring主题地图",
@@ -6496,7 +6474,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/ioc.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "9100ab1ee5cf2188b4fe98005cdd20e62b25aa281f736b0623c7eb08c6a35607",
       "pageType": "对象装配与生命周期机制",
@@ -6510,7 +6488,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/mvc.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "622af60977a2b318a9500062f4ef5fc0fbe55445f0553ae8171ec79b72dd221e",
       "pageType": "Servlet请求分派与异常分支",
@@ -6524,7 +6502,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/runtime-model.md",
-      "batch": "B047",
+      "batch": "B048",
       "status": "verified",
       "reviewedHash": "9fe1a8ba38285cc3513d5812b0b9d777d226d4638ffa7e99873798a983cf8cd4",
       "pageType": "启动与HTTP调用生命线",
@@ -6538,7 +6516,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/springboot.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "4e168631f61173005b55627e14650fb81e23b11f9ff51af5514df86f53b3fe0e",
       "pageType": "Boot应用装配总览",
@@ -6552,7 +6530,7 @@
     },
     {
       "file": "docs/devlanguage/java/framework/spring/video-series.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "c0e82cb90bd86b61fb307e6ba6f3cf7a46c248fc416060643a0e2cc838a3dc1f",
       "pageType": "源码视频目录与可重复跟踪练习",
@@ -6569,7 +6547,7 @@
     },
     {
       "file": "docs/devlanguage/java/index.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "5342fb077dfa0b4ad1fa57124c1565d11fee86e5f3b5123f3bf5760b6e532bb2",
       "pageType": "语言阅读地图与有限实验",
@@ -6593,7 +6571,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/class-file-bytecode.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "5586b77c39d1efb8ee24f9fbd8e0f57786e7d044b71779d23d4c6aa82167c83f",
       "pageType": "二进制方法合同与依赖冲突",
@@ -6607,7 +6585,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/class-loading.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "28a8e669132bb50fb8d9024ad5c73244928bf9f99f4f6e21476915cf20731442",
       "pageType": "加载初始化与插件隔离机制",
@@ -6621,7 +6599,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/diagnostic-cases.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "1dc7c8d835369e7bb7af36678afa19022e9a91e2c7a107f6bae779eeacd4dbf9",
       "pageType": "按证据分支的工程诊断",
@@ -6635,7 +6613,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/execution-engine-jit.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "d2e79cf15a4c2add48caa05ab15edec63c24acf9c4bf58dd15bbabfa0cf7b7b0",
       "pageType": "编译执行与观测实验",
@@ -6649,7 +6627,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/cms.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "7ec24d1dc212e4339a507c3eec3ca38751b5c29d757d48fe0301449623c45c62",
       "pageType": "历史并发回收机制",
@@ -6663,7 +6641,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/epsilon.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "6ceda1de710c1c4cbb334974daf36b135439b8907bfb944ff9056d4165b6a712",
       "pageType": "有限分配对照实验",
@@ -6677,7 +6655,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/g1.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "25856f1812c2f675b40860a13f28ddb14c571c08e4a1a8645faf8c39dc280d23",
       "pageType": "分区与复制机制",
@@ -6691,7 +6669,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/index.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "efef76425d4c441b359e140328b47cecbbf4925369f6ec0aa06aeea28c5e8a7c",
       "pageType": "机制总览与有限实验",
@@ -6705,7 +6683,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/parallel.md",
-      "batch": "B048",
+      "batch": "B049",
       "status": "verified",
       "reviewedHash": "040e74af81807d73c54c1c21b4aa5d67a76c47d65ae53489a31b6590efa3293b",
       "pageType": "吞吐目标与暂停机制",
@@ -6719,7 +6697,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/parnew.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "2c2909d34e8fa0f87c1588f59d9060120cdd1bec7b6a62dc698bf330706b82e3",
       "pageType": "历史组合与迁移",
@@ -6733,7 +6711,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/serial.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "53ce83a4acb28f2a6c1af8968aa1770663ca3f645c6f91c38f1b277eb00dc460",
       "pageType": "回收器机制与实验",
@@ -6747,7 +6725,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/shenandoah.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "dbb457364bcfbc7ef5dd0ef91f47670022959a7ba9646fa8df28d17ef09b9569",
       "pageType": "并发转移与退化边界",
@@ -6761,7 +6739,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/gc/zgc.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "191257100cabb8c3f2d9cefa6a736e7a058f5314027bc9a3815763ebc0400206",
       "pageType": "版本模式与并发预算",
@@ -6775,7 +6753,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/hands-on.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "d4c6376b98440d76b285da15f8751f0280e07d2d4ac5710867a9bd7220459a82",
       "pageType": "JDK最小运行观测实验",
@@ -6789,7 +6767,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/index.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "1ba3c33080dac34c30ac5ce33afa2636673d4a07ba95821e66701a37f4af4389",
       "pageType": "JVM主题地图",
@@ -6802,7 +6780,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/jni.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "198a2c0492c8b493960c42e3f3c9c8c0b54893a106949b379893b6c24cdb5c65",
       "pageType": "跨语言数据与资源实验",
@@ -6816,7 +6794,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/modern-jvm.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "c5c73386d2783f017e64eeebcb88bd85e8c8e23f0044a3d5deebe0f4b4791c2f",
       "pageType": "版本与部署能力边界",
@@ -6830,7 +6808,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/object-lifecycle.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "d2dffc3e04356addb2b805735afe63d8fbe43a393a4787ad6fac645b26f2891e",
       "pageType": "初始化与引用生命周期",
@@ -6844,7 +6822,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/direct-memory.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "56d5fc0eba5e0716f64ff5ab9f42da45e16020913d3134d5e2d0a1c4e5db43fa",
       "pageType": "NIO直接缓冲与堆外预算",
@@ -6857,7 +6835,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/heap.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "cd725e35059b53f6e83718bdfc63e34de65f736f25a4893c873f62eb0de083ef",
       "pageType": "堆分配与对象保留机制",
@@ -6870,7 +6848,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/index.md",
-      "batch": "B049",
+      "batch": "B050",
       "status": "verified",
       "reviewedHash": "cd139393982e9ac483631761dada98018cfcf7b2cba7100a60aed163dc17f73b",
       "pageType": "逻辑数据区与物理内存总览",
@@ -6883,7 +6861,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/method-area.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "df44842157440398acc904baf404bc92f5ba8c6280399753dd870d2c90c20c5b",
       "pageType": "类元数据与卸载边界",
@@ -6896,7 +6874,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/native-method-stack.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "0d7f4cbeacba6f20c2627e47d38180dfcfd5d04e888a2f2e0c80c6859f2af8ea",
       "pageType": "native调用与资源生命周期",
@@ -6909,7 +6887,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/program-counter.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "eac82cf185b7ee80f85d57b936757573ea379a27858aa0afddd76851de52bc59",
       "pageType": "执行位置与字节码偏移",
@@ -6922,7 +6900,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/runtime-area/vm-stack.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "e6bbb46a753531e2b2eee119acdf3bce0a19eb637e94594db9d6ef70e85c8b08",
       "pageType": "调用现场与线程栈容量",
@@ -6935,7 +6913,7 @@
     },
     {
       "file": "docs/devlanguage/java/jvm/video-series.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "b9aec1acff01754639b324eab6a91103240a78c9863980520e41aa7ef8e303bc",
       "pageType": "视频与机制阅读导航",
@@ -6949,7 +6927,7 @@
     },
     {
       "file": "docs/devlanguage/java/manager/gradle.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "e35152fd4824fd13950c1ae095b3ac0bb0916e59c3a2e0c1186de561d2557b29",
       "pageType": "构建机制与有限实验",
@@ -6973,7 +6951,7 @@
     },
     {
       "file": "docs/devlanguage/java/manager/index.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "b197b3e22f3c26ba51cad7003d50d902312cf8dd234439a65af3874f2869a6e9",
       "pageType": "构建专题总览",
@@ -6997,7 +6975,7 @@
     },
     {
       "file": "docs/devlanguage/java/manager/maven.md",
-      "batch": "B050",
+      "batch": "B051",
       "status": "verified",
       "reviewedHash": "4efee7d51a639bd6d6195ac9a638226be89e33bd2dce83c1a45a09245c0ff85b",
       "pageType": "构建机制与实操",
@@ -7021,7 +6999,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "d92dc27699bd368112d1131da3fd573355bc059fee5cfa71fb77e82387e67e64",
       "pageType": "课程地图",
@@ -7035,7 +7013,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/01-customer-list-data-cleaning.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "c461a2aa0319c417abe43cc08c201d597f8f76181e65d88950f71fd0cf0178ae",
       "pageType": "客户清洗入门",
@@ -7049,7 +7027,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/02-run-python-script.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "a5999f00133b7a5be633f98055c42d2932624c2d01d6863354bbeb64581f4dd4",
       "pageType": "脚本运行与路径",
@@ -7063,7 +7041,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/03-field-types.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "8fde2be5b0cd0df25d5b1213a5db1714ef0b324f25fd9dde068310b4e56124db",
       "pageType": "字段转换",
@@ -7077,7 +7055,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/04-customer-records-list-dict.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "00ef9ba96a9b257bfd9de9276fc807a778ce5b05d4b7cf0572d790240b6b937e",
       "pageType": "对象关系",
@@ -7091,7 +7069,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/05-customer-rules-if.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "0808052918343b5a9b046a12963775afb1580117b7a4fcd3d875939ed5a63e9d",
       "pageType": "规则分支",
@@ -7105,7 +7083,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/06-batch-loop.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "77d4951da996caad50c7e279689b85cf89d5582be05f568131e30dabee4a04ff",
       "pageType": "循环与累计",
@@ -7119,7 +7097,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/07-string-cleaning.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "5ff600388f8e4cac52b5f2b40c6b4fea087ffc5eba053a09448e4afbf10d5aac",
       "pageType": "来源归一化",
@@ -7133,7 +7111,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/08-numbers-dates-overdue.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "8e10b5457f233800270d466f7ab52b9c79312658419812bdebec317d3bc30a87",
       "pageType": "金额日期",
@@ -7147,7 +7125,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/09-functions-reusable-rules.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "fc7309479ae3a9ad4a2e68d1b46ff3b5177c48b2b3c9435f7ff33f9a85eede52",
       "pageType": "函数合同",
@@ -7161,7 +7139,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/10-modules-split-script.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "b7b10bddf5d477b67fd95639517dfda5371f5febd62484cc7deeb7e2e6d6abad",
       "pageType": "模块依赖",
@@ -7175,7 +7153,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/11-csv-read-write.md",
-      "batch": "B051",
+      "batch": "B052",
       "status": "verified",
       "reviewedHash": "8386eacbeeeed6f5a269c2f320253a39ee8ee96417e76026163706bc77d7d809",
       "pageType": "CSV读写",
@@ -7189,7 +7167,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/12-json-api-shape.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "a04e031a206ffe5f18c044c5ac598e8e0ab7abb5ca41e4474cb53e1250dcb141",
       "pageType": "JSON合同",
@@ -7203,7 +7181,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/13-table-health-check.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "42accb93408264a57255fd698595297e3fe003f85672ee8d81a388fa1216cb0c",
       "pageType": "表格校验",
@@ -7217,7 +7195,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/14-group-summary.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "85cd381fc1b25d399e019cc23a6300a8c272564e12a6c6cdf8d590ab38e7a984",
       "pageType": "分组口径",
@@ -7231,7 +7209,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/15-order-check.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "eff211035ecb78efe3d5dd5664dba22cfce50525db9dc3f6929378094fc9666e",
       "pageType": "金额状态对账",
@@ -7245,7 +7223,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/16-daily-report.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "cc583cefaa52449b52c33c4bf984cb1c03b4edb567625f2b31bd955d1c9ba8d6",
       "pageType": "日报组合",
@@ -7259,7 +7237,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/17-venv-dependencies.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "343a120a70aef90eb1989fbd69ac63ec2bfe5f9850f38d82ba801fb71ed3c268",
       "pageType": "环境依赖",
@@ -7273,7 +7251,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/18-read-traceback.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "ac28a2e6e55e4ac04a8c84f9ddb4c6e553d98974357c9707b822453688e5790a",
       "pageType": "异常定位",
@@ -7287,7 +7265,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/19-exception-handling.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "247ce2e4b7f1f8d3e1b602be8a6a14ecd7410bfee5312fe52f61a695168eb489",
       "pageType": "异常边界",
@@ -7301,7 +7279,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/20-logging.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "51e8b2f7c916dfabbb7e5114ff9ed16bfa722b792334152f64c3ce19bb34d24a",
       "pageType": "日志证据",
@@ -7315,7 +7293,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/21-api-fetch-customers.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "202e8e7e4a4615b6d4796564de7684b437b13084a5d95178e9c7f4b6af5fbf6d",
       "pageType": "API获取",
@@ -7329,7 +7307,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/22-batch-files.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "c2de0506fe379a6b84fcc8e24dcb03cad0db9196baaff0fdfdc0ec8c49b0b746",
       "pageType": "文件批处理",
@@ -7343,7 +7321,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/23-argparse-config.md",
-      "batch": "B052",
+      "batch": "B053",
       "status": "verified",
       "reviewedHash": "44e4e38dfae89fc01f24d819f94f3612d0c253979d65bf902c217db923dbad1a",
       "pageType": "命令行合同",
@@ -7357,7 +7335,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/24-delivery-package.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "5cb8a644991850a38c282f73a6e22eb9acd0d22898033fe70e071f47b5eac4dd",
       "pageType": "交付验收",
@@ -7371,7 +7349,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/25-classes-and-objects.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "2e254199cb553bdaa60596689154ea8525f39181bbdcfe72daf3d395b2f83873",
       "pageType": "实例状态",
@@ -7385,7 +7363,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/26-first-usable-tool.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "176629b5b589f8c1d556831f983346f9e52b5a71cac8f7cd02c93af8de544770",
       "pageType": "首个工具交付",
@@ -7399,7 +7377,7 @@
     },
     {
       "file": "docs/devlanguage/python/basics-series/index.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "07581159bf9788595d7667b9d1299487624fe5d92561fbfd870b4a23934115c6",
       "pageType": "基础系列导读",
@@ -7413,7 +7391,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/00-python-concurrency-engineering-map.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "ce3fb7adad783af62a583d931fb3eb428fdafdbcc51ae8ec20cf2d0f0f869366",
       "pageType": "并发总览",
@@ -7427,7 +7405,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/01-find-the-bottleneck-before-concurrency.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "2569cdc084dc59bc7603ffd9b5287d5a22972755119d99f0cb6071eaa8f39c00",
       "pageType": "瓶颈诊断",
@@ -7441,7 +7419,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/02-concurrency-parallelism-async-pipeline.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "263432924ecac74eec205773c3f8b97bb793ee7e27d30ac2f16fdcdc1330b156",
       "pageType": "模型对比",
@@ -7455,7 +7433,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/03-python-concurrency-tool-map.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "4aae0e8a3126b1a7e1c1452364212128ec4c6bef773298da52a47cb6a46dbd8c",
       "pageType": "工具选型",
@@ -7469,7 +7447,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/04-threadpool-practice.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "9630b458cd85838cbb797ca7300fc0b3e1db75a715bf7f805665dc114aea436e",
       "pageType": "线程池实操",
@@ -7483,7 +7461,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/05-thread-safety-shared-state.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "972b2292715a63e63e57760eec8c95ca249d3589f2c418d75579f1204ec200b5",
       "pageType": "共享状态",
@@ -7497,7 +7475,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/06-asyncio-event-loop-model.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "b85c277a4469b3ebf52837a17b7f610c95055ccdb2a31d09ad09575d5e740f20",
       "pageType": "事件循环",
@@ -7511,7 +7489,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/07-async-task-orchestration.md",
-      "batch": "B053",
+      "batch": "B054",
       "status": "verified",
       "reviewedHash": "95cabc9a78830ba8b6c5d024d5fe6475cecf350680f4c8537660be6f9ba50bd6",
       "pageType": "异步生命周期",
@@ -7525,7 +7503,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "edbfcc5b071b89b0ce84f5bf90728a9f0c57a68eaede6fc6b1859943d0009dd6",
       "pageType": "同步异步边界",
@@ -7539,7 +7517,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/09-processpool-cpu-bound-work.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "40be2e22b5cbefb8f68820a10cb24dfac20cf6f6663122e0efb49d756e7f6d36",
       "pageType": "进程池实操",
@@ -7553,7 +7531,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/10-producer-consumer-task-queue.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "5b2c65fa46c3d35e28231d2fac29fc2dc09e7c2efb46206d7e4499111cbddc0e",
       "pageType": "流水线实操",
@@ -7567,7 +7545,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/11-rate-limit-backpressure-retry.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "37d44e25c02d338106c69de12d64f921dcdf7af3f301c6c8c9e04a4144ca8d9c",
       "pageType": "速率与重试",
@@ -7581,7 +7559,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/12-file-batch-checkpoint.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "77a42f9017f1b45441b994f9fe8fb4fbb24a822bb9f1af983dbcb0410de256d1",
       "pageType": "批处理恢复",
@@ -7595,7 +7573,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/13-audio-transcode-preprocess.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "760f520d99bb0eea55b3ccc8ebf61a8681c73cee4a9b81b048df2a2ba308735e",
       "pageType": "音频预处理",
@@ -7609,7 +7587,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/14-asr-tts-api-concurrency.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "145299acab649c300706bce8815623ab56a6523a4c1c94c48f10868e6976ec04",
       "pageType": "API并发",
@@ -7623,7 +7601,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/15-local-model-gpu-inference.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "e8a48c03036cf950bb50c4bfc625c2015237717b47be20e85de4cd15aafe0fd4",
       "pageType": "模型队列",
@@ -7637,7 +7615,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/16-realtime-audio-pipeline.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "b774c45259d4f6d4aaf671a8089abc4504bd219a50499aa8667bd575ddd5a84b",
       "pageType": "实时音频",
@@ -7651,7 +7629,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/17-observability-benchmark.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "1bd883bbaf9fc61479a643cdf2148158de80353a00d057560b4caabce4150276",
       "pageType": "性能观测",
@@ -7665,7 +7643,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "1026d61e55d019c6ee4575a6a494357a4541d4c07d7fd1c9bd88aec1e853a796",
       "pageType": "运行时选型",
@@ -7679,7 +7657,7 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/index.md",
-      "batch": "B054",
+      "batch": "B055",
       "status": "verified",
       "reviewedHash": "14ed2790f4fa6a5cce33e2d8052aee6b3c3b790bdddcbfa76a7dba9dd61c4d52",
       "pageType": "系列导读",
@@ -7693,7 +7671,7 @@
     },
     {
       "file": "docs/devlanguage/python/index.md",
-      "batch": "B055",
+      "batch": "B056",
       "status": "verified",
       "reviewedHash": "e533a4e4316870c155ad995bcf661ce9e760e55c07c6e540d48868000446f73d",
       "pageType": "Python专题总览",
@@ -7707,7 +7685,7 @@
     },
     {
       "file": "docs/devlanguage/rust/advantages.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "79a9814cd778731d5fef6d58847c8e0aaae854bae4527c074ebd257974daa7b0",
       "pageType": "机制与工程实践",
@@ -7721,7 +7699,7 @@
     },
     {
       "file": "docs/devlanguage/rust/basic.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "5838684a2c74ae2176e00cd2ee2f3ed3f7a1f87cc5dd6c44f27e1f4d48f8854e",
       "pageType": "机制与工程实践",
@@ -7735,7 +7713,7 @@
     },
     {
       "file": "docs/devlanguage/rust/concurrency.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "dcb8d0b7bc1aed0efb8ce7bc3aa3bae2373bcd54b9ed336b71aa144c230d3d56",
       "pageType": "机制与工程实践",
@@ -7749,7 +7727,7 @@
     },
     {
       "file": "docs/devlanguage/rust/ecosystem.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "5964fb7c81db8d87671d934090ab07053f0203537d92c4b7e8a41bcc44ff31fb",
       "pageType": "机制与工程实践",
@@ -7763,7 +7741,7 @@
     },
     {
       "file": "docs/devlanguage/rust/hands-on.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "fc556b61b636b32bf163c01d541d033419d77af456caacaee53856c56e0a1fe1",
       "pageType": "机制与工程实践",
@@ -7777,7 +7755,7 @@
     },
     {
       "file": "docs/devlanguage/rust/history.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "0674772b9db0e3f3e27fad5ad7bcc4f762439605c911a10202a4b29b402451cc",
       "pageType": "机制与工程实践",
@@ -7791,7 +7769,7 @@
     },
     {
       "file": "docs/devlanguage/rust/index.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "6792e81e2b8ae23fbf2638bbf1c0bf60a020865f9d7846aaedc3739c0ecf4967",
       "pageType": "专题导读",
@@ -7805,7 +7783,7 @@
     },
     {
       "file": "docs/devlanguage/rust/learning-path.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "528548fef534f40d6f8636e4cfe6adec1392d8010ef85316811364499297b9f9",
       "pageType": "机制与工程实践",
@@ -7819,7 +7797,7 @@
     },
     {
       "file": "docs/devlanguage/rust/ownership.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "8a22184344be35c1408a6b471197020750da94338bd521e0bc026e6b5b5d3632",
       "pageType": "机制与工程实践",
@@ -7833,7 +7811,7 @@
     },
     {
       "file": "docs/devlanguage/rust/project-practice.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "980db9eff1415b6e24bbbec1ecabce09ad277db7fb59f164115c2a5d6141b8a7",
       "pageType": "机制与工程实践",
@@ -7847,7 +7825,7 @@
     },
     {
       "file": "docs/devlanguage/rust/tooling.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "926de70c74ea75786ad289c4195e844d0f9ea52d23237bcf1b46b9c737317f18",
       "pageType": "机制与工程实践",
@@ -7861,7 +7839,7 @@
     },
     {
       "file": "docs/devlanguage/rust/troubleshooting.md",
-      "batch": "B056",
+      "batch": "B057",
       "status": "verified",
       "reviewedHash": "d3d313f7d68a44789e54ced3117743796968eab713bf97c3395718626c033a69",
       "pageType": "机制与工程实践",
@@ -7875,7 +7853,7 @@
     },
     {
       "file": "docs/devlanguage/rust/type-system.md",
-      "batch": "B057",
+      "batch": "B058",
       "status": "verified",
       "reviewedHash": "62f83c75dc6da76f2ff8603c51e9dc7e4e69f8c2c35dca54fb3e362a89abb282",
       "pageType": "机制与工程实践",
@@ -7889,7 +7867,7 @@
     },
     {
       "file": "docs/devlanguage/rust/video-series.md",
-      "batch": "B057",
+      "batch": "B058",
       "status": "verified",
       "reviewedHash": "1cc71b26b86e5e23a4179d71dac368e7f77f75edbf4b48e376ae0d7d0f33b724",
       "pageType": "机制与工程实践",
@@ -7903,7 +7881,7 @@
     },
     {
       "file": "docs/embedded/c-programming.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "879aa4df8ef8793df63ad6e81a8cf4c584e2255ac5d4f9f208ef211f31e41e92",
       "pageType": "机制与工程实践",
@@ -7917,7 +7895,7 @@
     },
     {
       "file": "docs/embedded/career.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "408400809bdd07774c148c07736880b573b45917413f2aea1b417e88950c47c0",
       "pageType": "机制与工程实践",
@@ -7931,7 +7909,7 @@
     },
     {
       "file": "docs/embedded/communication.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "152b1b39002ee4b1476b13ada72a1673e9fb49f5434a761725aed71779db46a0",
       "pageType": "机制与工程实践",
@@ -7945,7 +7923,7 @@
     },
     {
       "file": "docs/embedded/electronics.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "e970ebc863c277eaf414e6f83e53c6e62d453d3a6a08b830ce6ee00f7019c9e3",
       "pageType": "机制与工程实践",
@@ -7959,7 +7937,7 @@
     },
     {
       "file": "docs/embedded/hardware-design.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "4fdd8394f91dcfa29f3e03bdfa61392c6c130b06fed0a1dcf24889baaecc97ee",
       "pageType": "机制与工程实践",
@@ -7973,7 +7951,7 @@
     },
     {
       "file": "docs/embedded/index.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "b653d3b8413f50d2685883611ab684d0486dbfae9fe6560b8831b97488584233",
       "pageType": "专题导读",
@@ -7987,7 +7965,7 @@
     },
     {
       "file": "docs/embedded/linux-embedded.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "1300a7bd19f641e6377bf44572a12e07ec04bc2438c7c269122f60e8d7ea7606",
       "pageType": "机制与工程实践",
@@ -8001,7 +7979,7 @@
     },
     {
       "file": "docs/embedded/mcu.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "52181217b59337f48c03ebaca6a2e01e1d8ea7afc3b63dd3b1554c14eb6f9d23",
       "pageType": "机制与工程实践",
@@ -8015,7 +7993,7 @@
     },
     {
       "file": "docs/embedded/peripherals.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "7eb94f32f8c17d13030e1c8e1df1ae691d59eacc37617c5f9fb4b7a07aef5a91",
       "pageType": "机制与工程实践",
@@ -8029,7 +8007,7 @@
     },
     {
       "file": "docs/embedded/platforms.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "0721840be30ab4b08299a4e9882dfaca70357e084b981f6ea74b63afdc361240",
       "pageType": "机制与工程实践",
@@ -8043,7 +8021,7 @@
     },
     {
       "file": "docs/embedded/projects.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "72517abfd34e875e523d92562ef40a27fd112b83a4c89802de3154fe92ffdba1",
       "pageType": "机制与工程实践",
@@ -8057,7 +8035,7 @@
     },
     {
       "file": "docs/embedded/rtos.md",
-      "batch": "B058",
+      "batch": "B059",
       "status": "verified",
       "reviewedHash": "1723f732e1a138eab042a6bb97b5eb53572f8ebc4b35323c090da7d9e6bf8f7e",
       "pageType": "机制与工程实践",
@@ -8071,7 +8049,7 @@
     },
     {
       "file": "docs/embedded/toolchain.md",
-      "batch": "B059",
+      "batch": "B060",
       "status": "verified",
       "reviewedHash": "ce1a6ece2a08c5befec0915ba97b2f5c491d37401fd3bc56178ac31757fe7d21",
       "pageType": "机制与工程实践",
@@ -8085,7 +8063,7 @@
     },
     {
       "file": "docs/linux/command/archive-compress.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "0a08aef8a25415022444ecb7bd2d0a4d38137efd6d741a9fbd10ceec6086082d",
       "pageType": "压缩归档任务速查",
@@ -8098,7 +8076,7 @@
     },
     {
       "file": "docs/linux/command/archive.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "5cfb87b49b8de8738551443edee6cdbab28261478335658c4454fea895cb6ee7",
       "pageType": "归档机制与恢复实验",
@@ -8111,7 +8089,7 @@
     },
     {
       "file": "docs/linux/command/environment.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "d8e0ca388f4be6cca8f2b96c494310ee1de3b97f74b45d0e7101a184bc987510",
       "pageType": "环境继承机制与启动排查",
@@ -8124,7 +8102,7 @@
     },
     {
       "file": "docs/linux/command/file-basic.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "c77c24dcc95c86189998542cc610090614caa42622a48d97d181a272ac48aa99",
       "pageType": "文件机制与操作实验",
@@ -8137,7 +8115,7 @@
     },
     {
       "file": "docs/linux/command/file-permissions.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "71997351df4007da65b2e8d02b4dc864e73afde8254fed859d63d6149bd6ca42",
       "pageType": "DAC与创建权限机制",
@@ -8150,7 +8128,7 @@
     },
     {
       "file": "docs/linux/command/file-search.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "317561654c199c2f593e557f659f64f446cba862890ff74f2f8ef590d4fb54df",
       "pageType": "查找语义与有限实验",
@@ -8163,7 +8141,7 @@
     },
     {
       "file": "docs/linux/command/file-view-edit.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "retained",
       "reviewedHash": "e5d264fb20d4c12d24b47b5960e67a3badc8c6539255ddaf4545830921577c02",
       "pageType": "日志读取与配置修改闭环",
@@ -8176,7 +8154,7 @@
     },
     {
       "file": "docs/linux/command/index.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "9d4f75902098585c76c4ba1b9dc35c4c7f68693a0d51d6105243ca2bfa11e0d6",
       "pageType": "命令专题阅读地图",
@@ -8189,7 +8167,7 @@
     },
     {
       "file": "docs/linux/command/network-basic.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "8a9fe237a0615bd46f13eb961d21f6186fd46ada3e61457cce0ff6cf748a86cc",
       "pageType": "网络工具选择与速查",
@@ -8202,7 +8180,7 @@
     },
     {
       "file": "docs/linux/command/network-config.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "5b1f9521078091d825ff15c76ba8a1e2da75cea5030b4f14c337c4c69cb59c55",
       "pageType": "配置所有权、作用期与回退",
@@ -8215,7 +8193,7 @@
     },
     {
       "file": "docs/linux/command/network.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "da98f849cef197b7775d38bfcae3f4dbadcbdace87f504f8d79ed5b1b9b97dc4",
       "pageType": "网络请求证据链与诊断实验",
@@ -8228,7 +8206,7 @@
     },
     {
       "file": "docs/linux/command/package.md",
-      "batch": "B060",
+      "batch": "B061",
       "status": "verified",
       "reviewedHash": "15c46c2db0484fe77bd461b6b2ef63ad251ffbe853be1aa0b5e9e419f00fa3cc",
       "pageType": "软件包来源与升级生命周期",
@@ -8241,7 +8219,7 @@
     },
     {
       "file": "docs/linux/command/permissions.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "e0efef86fbcd64d5f9a86a51eb5154ceba43bc76cb75a4ed3534cc962b0b08af",
       "pageType": "访问诊断与ACL实验",
@@ -8254,7 +8232,7 @@
     },
     {
       "file": "docs/linux/command/process-management.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "53372de045ea544a5668c251b918cbc3874a308dd3a793fdbfe317c93c8635de",
       "pageType": "进程工具速查",
@@ -8267,7 +8245,7 @@
     },
     {
       "file": "docs/linux/command/process.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "c85aefcdb7a472c21282275759cfde4991e582594be2393f72a089f2a02355cf",
       "pageType": "进程操作范围与退出验证",
@@ -8280,7 +8258,7 @@
     },
     {
       "file": "docs/linux/command/system-info.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "9f2f3805c93691560a5d496d132e726154b6c4b21f9c5b2610e13720c7f13a7d",
       "pageType": "系统观察范围与容量排查",
@@ -8293,7 +8271,7 @@
     },
     {
       "file": "docs/linux/command/system-monitoring.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "4f18347be0e0c090212591a3602a424b94ed7b75d3527ee4ddef1e8fe4b083fe",
       "pageType": "同窗采样与假设复验",
@@ -8306,7 +8284,7 @@
     },
     {
       "file": "docs/linux/command/text-compare.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "85ac731d2d3818ba971250aeb4e90e853137562122773aae704b83632510489f",
       "pageType": "比较合同与合并实验",
@@ -8319,7 +8297,7 @@
     },
     {
       "file": "docs/linux/command/text-processing.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "2eae4a035c16537f22893e5b7661df0c8375fdd8cc5520c6ebe8d6cb6eed0e52",
       "pageType": "记录处理机制与有限实验",
@@ -8332,7 +8310,7 @@
     },
     {
       "file": "docs/linux/command/user-management.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "cde511b53b92528020dee6d036c7ef8b78c1015fcef9b0a29b3529cc08d2f77e",
       "pageType": "数值身份、账号生命周期与权限验证",
@@ -8345,7 +8323,7 @@
     },
     {
       "file": "docs/linux/index.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "ba987230fefdd1aba2732bf5d568665ba57499929c1362abb6aa8d62ad32c2de",
       "pageType": "系统总览与阅读地图",
@@ -8361,7 +8339,7 @@
     },
     {
       "file": "docs/linux/nginx/auto-renew-cert.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "b8a14b8ccfa15fb3792dca4c84656bd25f6cdd69e7322bc7edf0a17c3c9ec51d",
       "pageType": "证书签发部署与运行生效",
@@ -8374,7 +8352,7 @@
     },
     {
       "file": "docs/linux/nginx/location.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "fb2c4cb30735a4d0e01ad8d0e84efc065d4c007175e74bf0d74b3a24cf0abbac",
       "pageType": "同层location决策与路径合同",
@@ -8387,7 +8365,7 @@
     },
     {
       "file": "docs/linux/nginx/nginx.md",
-      "batch": "B061",
+      "batch": "B062",
       "status": "verified",
       "reviewedHash": "c81164cf3dea51694e902dc0b0bdf3063686eb366e9dcb94c0e34ad5d4d24a92",
       "pageType": "Nginx请求与配置总览",
@@ -8400,7 +8378,7 @@
     },
     {
       "file": "docs/linux/process/index.md",
-      "batch": "B062",
+      "batch": "B063",
       "status": "verified",
       "reviewedHash": "e6ea561ce5b845ea437cfdc710ec126074f581cb491ab826e648c25d68ab3692",
       "pageType": "进程机制总览",
@@ -8416,7 +8394,7 @@
     },
     {
       "file": "docs/linux/process/init-process.md",
-      "batch": "B062",
+      "batch": "B063",
       "status": "verified",
       "reviewedHash": "34e997f72bbc9bcd6b0001a4bca979a73bc8fe95f8fbef0abbaf8f9838a49cd3",
       "pageType": "启动与子进程回收机制",
@@ -8432,7 +8410,7 @@
     },
     {
       "file": "docs/linux/process/kernel-threads.md",
-      "batch": "B062",
+      "batch": "B063",
       "status": "verified",
       "reviewedHash": "47f1083041c8057d331bea5c1685a0b7892d37ecaf2687b9c8d0258163005ef3",
       "pageType": "内核后台机制与排障",
@@ -8448,7 +8426,7 @@
     },
     {
       "file": "docs/linux/process/systemd.md",
-      "batch": "B062",
+      "batch": "B063",
       "status": "verified",
       "reviewedHash": "2021237b073a83b0770c7d2e258b4ef4424ad3f8f429894dd0884bafd9dcb666",
       "pageType": "服务配置与排障",
@@ -8464,7 +8442,7 @@
     },
     {
       "file": "docs/linux/process/user-processes.md",
-      "batch": "B062",
+      "batch": "B063",
       "status": "verified",
       "reviewedHash": "788e55ae2f9e214c1a97cfd4311b0755346202f7e0f78ba7dccda9e09a4e16af",
       "pageType": "用户进程机制与有限实验",
@@ -8480,7 +8458,7 @@
     },
     {
       "file": "docs/network-proxy/certificate.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "145671e9d5e4211f55bada9b62c68ba87c9d29fe979843c46f2bba011cae00e8",
       "pageType": "证书签发安装与续期实操",
@@ -8493,7 +8471,7 @@
     },
     {
       "file": "docs/network-proxy/clash-verge.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "2195d110f621c64fde0a44fe7a1809671294b1a934607bb0dbc9e326a8ba7651",
       "pageType": "客户端接入与验证实操",
@@ -8506,7 +8484,7 @@
     },
     {
       "file": "docs/network-proxy/components.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "c016001f9ee9d7941ba941d80add35957e1ff1bd53d264f921eb96d099c29525",
       "pageType": "代理组件与控制数据面关系",
@@ -8519,7 +8497,7 @@
     },
     {
       "file": "docs/network-proxy/cross-border-diagnosis.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "8340b07dfdb64c3cf3d6a339833dc05d64105b702c2f710e7d2bf556a7476a63",
       "pageType": "上传停顿诊断与对照实验",
@@ -8532,7 +8510,7 @@
     },
     {
       "file": "docs/network-proxy/fundamentals.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "6629f54cbeb260898efd7f35725f7e9f470f7fe274fc8f490501756865ae0617",
       "pageType": "本机接入与规则决策机制",
@@ -8545,7 +8523,7 @@
     },
     {
       "file": "docs/network-proxy/hysteria2-practice.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "bd79c1c79176b8c18685ac06f8e41bbc1a7dfb31fc04922acf4dc8ddbc9f77b2",
       "pageType": "QUIC双通道与账号订阅发布实践",
@@ -8558,7 +8536,7 @@
     },
     {
       "file": "docs/network-proxy/implementation.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "1cdbdbd5455e9264fe1829ca3bf24100fc22fcc16452da0fc94cd9da77ead071",
       "pageType": "部署路径与验收导读",
@@ -8571,7 +8549,7 @@
     },
     {
       "file": "docs/network-proxy/index.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "5ad465357dc2e1742eec9b7d80ffd8506a56a506cac10c02c9158c20ac49ef49",
       "pageType": "网络代理主题地图",
@@ -8584,7 +8562,7 @@
     },
     {
       "file": "docs/network-proxy/operations.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "39f831b2393362bfc2763deb183dab8156fc50c50830ef3b181f6ea28f0c0e18",
       "pageType": "分层排障与运维机制",
@@ -8597,7 +8575,7 @@
     },
     {
       "file": "docs/network-proxy/protocol-stack.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "56b919a31072003b54f57b2e6282ed15a99db497d87efbe0c0b97615d2fe6787",
       "pageType": "实现与协议封装边界",
@@ -8610,7 +8588,7 @@
     },
     {
       "file": "docs/network-proxy/server-docker.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "3c1e3934be7d60630c57afba73daeb72513adb7878c6df6bcd37d2dddbf27a39",
       "pageType": "容器部署与变更实操",
@@ -8623,7 +8601,7 @@
     },
     {
       "file": "docs/network-proxy/server-systemd.md",
-      "batch": "B063",
+      "batch": "B064",
       "status": "verified",
       "reviewedHash": "b3091c8fae4a36991516d17467cf7ea380ec4ad52ec359fe79f2e1e47e967161",
       "pageType": "宿主机进程部署实操",
@@ -8636,7 +8614,7 @@
     },
     {
       "file": "docs/network-proxy/user-management.md",
-      "batch": "B064",
+      "batch": "B065",
       "status": "verified",
       "reviewedHash": "839af0bde533d3bd4d9766dfeab0e0743f42a54d583fa011fececec63f16e3a6",
       "pageType": "凭据变更与撤销操作",
@@ -8649,7 +8627,7 @@
     },
     {
       "file": "docs/reading/2022-07-31/高效能人士的7个习惯.md",
-      "batch": "B065",
+      "batch": "B066",
       "status": "verified",
       "reviewedHash": "d02577306f74db9a7bff75eee91c5fd2cb0ebf154f686caf2809bed94ad66b53",
       "pageType": "阅读实践",
@@ -8664,7 +8642,7 @@
     },
     {
       "file": "docs/reading/index.md",
-      "batch": "B065",
+      "batch": "B066",
       "status": "verified",
       "reviewedHash": "ec08da83cbd227a032cac36808a14672e6752b332349dd9940c0dbaafd636b05",
       "pageType": "阅读导读",
@@ -8679,7 +8657,7 @@
     },
     {
       "file": "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
-      "batch": "B066",
+      "batch": "B067",
       "status": "verified",
       "reviewedHash": "b4776776dcec1dec3247533318274f6ba614c40648df2b5b04981de922e957e5",
       "pageType": "历史维护归档",
@@ -8694,7 +8672,7 @@
     },
     {
       "file": "docs/superpowers/specs/2026-07-26-togaf-marketing-flow-visuals-design.md",
-      "batch": "B066",
+      "batch": "B067",
       "status": "verified",
       "reviewedHash": "81a49d9bd7aec5d958fb72d22359cdaf3108b66733d236fefe7dc88822197b93",
       "pageType": "历史维护归档",
@@ -8709,7 +8687,7 @@
     },
     {
       "file": "docs/tools/editor/andorid-studio/index.md",
-      "batch": "B067",
+      "batch": "B068",
       "status": "verified",
       "reviewedHash": "fd188b848f39f4a222b04a132ae62d6b8d54847380ce7886d69dbe123c53b375",
       "pageType": "IDE与构建排错",
@@ -8724,7 +8702,7 @@
     },
     {
       "file": "docs/tools/git/advanced.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "7b61eb6a52895e0b9b70c6bb1b7c4a58eba27d419faf9d8d15fbc63be076fb4f",
       "pageType": "进阶命令与适用边界",
@@ -8738,7 +8716,7 @@
     },
     {
       "file": "docs/tools/git/branching.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "9a9a3943b55eecb6d3b059f34a94cb6bbc8bc0e8ba1d4eb1d3d066ca38f5f114",
       "pageType": "提交整合机制",
@@ -8751,7 +8729,7 @@
     },
     {
       "file": "docs/tools/git/concepts.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "ee945f93d48ddc9b32877691b81a8d4a0f001a86f27d3639c48d11f82baf6c98",
       "pageType": "索引对象引用机制",
@@ -8764,7 +8742,7 @@
     },
     {
       "file": "docs/tools/git/conventions.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "02d56b9fe738011f7f32c28e1d05194baef87447c5ec626d18db390de4042a30",
       "pageType": "提交意图与评审规范",
@@ -8778,7 +8756,7 @@
     },
     {
       "file": "docs/tools/git/ecosystem.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "eef669219e4d48b08dcc04d036403f876c1a275e567b659cd960dccb181d5dc6",
       "pageType": "工具职责与交付流程",
@@ -8792,7 +8770,7 @@
     },
     {
       "file": "docs/tools/git/git.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "d4380cfe5446f55b16139ba53a5eca3ceb6e32184d37e50d9f55d8779578bcd9",
       "pageType": "日常命令速查",
@@ -8805,7 +8783,7 @@
     },
     {
       "file": "docs/tools/git/gitlab-cicd.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "8544db9c2793197be1411c309953a70425ccfed88ae5f9cf7882821b69e43f88",
       "pageType": "平台部署与受信发布链路",
@@ -8825,7 +8803,7 @@
     },
     {
       "file": "docs/tools/git/index.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "c633894febfc487a5622d2b80fe052836e1dcdbd51fe697426f0fc1425d629ac",
       "pageType": "主题地图",
@@ -8838,7 +8816,7 @@
     },
     {
       "file": "docs/tools/git/internals-large-repositories.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "3aa3d485cae790e21c782af42c72c363afdb746e25e434d3a1a25ed944ce418c",
       "pageType": "对象图与大型仓库边界",
@@ -8858,7 +8836,7 @@
     },
     {
       "file": "docs/tools/git/recovery.md",
-      "batch": "B068",
+      "batch": "B069",
       "status": "verified",
       "reviewedHash": "37bf396ad37a4d3f967e9c3e4c45c46da9594b828232b6caa04a0c4f29a0d840",
       "pageType": "恢复范围与风险判断",
@@ -8871,7 +8849,7 @@
     },
     {
       "file": "docs/tools/git/repository-strategies.md",
-      "batch": "B069",
+      "batch": "B070",
       "status": "verified",
       "reviewedHash": "03910b6ae17d8747edd4806b41028e91fd704106a93857b13b3fb17056d26cc3",
       "pageType": "源码所有权与依赖交付",
@@ -8885,7 +8863,7 @@
     },
     {
       "file": "docs/tools/git/security.md",
-      "batch": "B069",
+      "batch": "B070",
       "status": "verified",
       "reviewedHash": "941021362b4e02244c24eacb5686243774785b8b725fa67bc27ade1b325e9667",
       "pageType": "泄露处置与恢复范围",
@@ -8899,7 +8877,7 @@
     },
     {
       "file": "docs/tools/git/video-series.md",
-      "batch": "B069",
+      "batch": "B070",
       "status": "retained",
       "reviewedHash": "f73ca352cabeec30926ca50b36463dc9685def93c39de76e7f28d83fa102d4e8",
       "pageType": "十八集视频与阅读导航",
@@ -8913,7 +8891,7 @@
     },
     {
       "file": "docs/tools/git/workflow.md",
-      "batch": "B069",
+      "batch": "B070",
       "status": "verified",
       "reviewedHash": "78eeaf1cb95e9510378321f02ee5fcc71e06e722f427f0d272dfe3d5cbdf3925",
       "pageType": "任务评审集成发布流程",
@@ -8926,7 +8904,7 @@
     },
     {
       "file": "docs/tools/mq/index.md",
-      "batch": "B070",
+      "batch": "B071",
       "status": "verified",
       "reviewedHash": "cafb44d93171051bdbb42ce88b7787718e93f268b67eba33e6557b1552de6073",
       "pageType": "消息系统全景与选型",
@@ -8941,7 +8919,7 @@
     },
     {
       "file": "docs/tools/mq/kafka.md",
-      "batch": "B070",
+      "batch": "B071",
       "status": "verified",
       "reviewedHash": "1d4ac462380874a1825d2f2c42b376e66851dde653cf74200a67f4a782105e9c",
       "pageType": "分区日志与消费进度",
@@ -8956,7 +8934,7 @@
     },
     {
       "file": "docs/tools/mq/pulsar/index.md",
-      "batch": "B070",
+      "batch": "B071",
       "status": "verified",
       "reviewedHash": "7c9da49640bcf9bbd2e1e5fff2a4d21a5b8407d7f5d8f4f7ec2b900bf900f2e1",
       "pageType": "订阅与存算分离",
@@ -8971,7 +8949,7 @@
     },
     {
       "file": "docs/tools/mq/rabbitmq.md",
-      "batch": "B070",
+      "batch": "B071",
       "status": "verified",
       "reviewedHash": "032e7b5f80d5756ce9f5c4598297b7b1adfbe360a1d197d473c5380f11a8fb46",
       "pageType": "路由与可靠投递",
@@ -8986,7 +8964,7 @@
     },
     {
       "file": "docs/tools/mq/rocketmq.md",
-      "batch": "B070",
+      "batch": "B071",
       "status": "verified",
       "reviewedHash": "803d01826c718ded0a253d38484cf0fda7d0e15f8158f88ff70d39891fc90e4c",
       "pageType": "交易消息与版本边界",
@@ -9001,7 +8979,7 @@
     },
     {
       "file": "docs/tools/sdkman/index.md",
-      "batch": "B071",
+      "batch": "B072",
       "status": "verified",
       "reviewedHash": "417f5d11c5c0181e634ae8e0cd320eb85c52b59e3917c48af3bbf74bf33ddf3b",
       "pageType": "JVM环境管理",
@@ -9016,7 +8994,7 @@
     },
     {
       "file": "docs/tools/vfox/index.md",
-      "batch": "B072",
+      "batch": "B073",
       "status": "verified",
       "reviewedHash": "505a1570041aca93e154a3d9f870f57226c6a42642747deecf5a20ee8bb56dd8",
       "pageType": "多语言运行时管理",
@@ -9031,7 +9009,7 @@
     },
     {
       "file": "docs/tools/vim/index.md",
-      "batch": "B073",
+      "batch": "B074",
       "status": "verified",
       "reviewedHash": "d72bd7e0045115d97b40f88a1482b157a0250455ca4a7177077f3309d28e4185",
       "pageType": "编辑模型与操作入口",
@@ -9046,7 +9024,7 @@
     },
     {
       "file": "docs/tools/vim/plugin.md",
-      "batch": "B073",
+      "batch": "B074",
       "status": "verified",
       "reviewedHash": "feffc367ecafc8c3f4ef68a737fa1c65ae20017124b976eb2b1782d6c86bb168",
       "pageType": "插件职责与配置排错",
@@ -9061,7 +9039,7 @@
     },
     {
       "file": "docs/tools/vim/register.md",
-      "batch": "B073",
+      "batch": "B074",
       "status": "verified",
       "reviewedHash": "059c8f602e2aaf42ddc9d26776f07d7a1cf805ad5d1a67bfdf1c9ed66865183c",
       "pageType": "寄存器与剪贴板",
@@ -9076,7 +9054,7 @@
     },
     {
       "file": "docs/tools/vim/special.md",
-      "batch": "B073",
+      "batch": "B074",
       "status": "verified",
       "reviewedHash": "4317841f1acb3d830cb08f2892aeede3a6ae526468f69312650a45e2a47683b6",
       "pageType": "替换与范围验证",
@@ -9703,6 +9681,26 @@
       ]
     },
     {
+      "file": "projects/livecode-duplex.md",
+      "batch": "B002",
+      "status": "pending",
+      "reviewedHash": null,
+      "pageType": null,
+      "findings": [],
+      "decision": null,
+      "validation": []
+    },
+    {
+      "file": "projects/marketing-cloud-private.md",
+      "batch": "B002",
+      "status": "pending",
+      "reviewedHash": null,
+      "pageType": null,
+      "findings": [],
+      "decision": null,
+      "validation": []
+    },
+    {
       "file": "projects/materials-website.md",
       "batch": "B002",
       "status": "verified",
@@ -9914,6 +9912,16 @@
         "public/projects/screenshots/voice-experience.webp",
         "public/projects/screenshots/voice-platform.webp"
       ]
+    },
+    {
+      "file": "projects/siwei-marketing-cloud.md",
+      "batch": "B002",
+      "status": "pending",
+      "reviewedHash": null,
+      "pageType": null,
+      "findings": [],
+      "decision": null,
+      "validation": []
     },
     {
       "file": "projects/speech-playground.md",

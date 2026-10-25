@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="agent-loop-title agent-loop-desc" id="agent-loop-root">
+<title id="agent-loop-title">Coding Agent 的工作循环</title>
+<desc id="agent-loop-desc">人给出任务和边界，Agent 反复读取仓库、修改文件、运行命令并读取结果，失败就回到计划，通过后带着证据交付，由人审查和授权。</desc>
+<defs><style>
+#agent-loop-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#agent-loop-root .h { font-size: 26px; font-weight: 700; }
+#agent-loop-root .t { font-size: 19px; font-weight: 600; }
+#agent-loop-root .s { font-size: 15px; fill: #475569; }
+#agent-loop-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#agent-loop-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#agent-loop-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#agent-loop-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#agent-loop-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#agent-loop-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#agent-loop-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#agent-loop-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#agent-loop-arrow); }
+#agent-loop-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#agent-loop-arrow); }
+#agent-loop-root .line { stroke: #cbd5e1; stroke-width: 1.5; }
+</style><marker id="agent-loop-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">Agent 和补全工具的差别：它会自己跑命令、看结果</text>
+<text x="32" y="78" class="s">模型负责判断下一步，工具负责真的执行；人守住目标、权限和最后的确认。</text>
+<g data-node="task"><rect x="32" y="128" width="220" height="112" rx="8" class="amber"/><text x="50" y="164" class="t">人：任务与边界</text><text x="50" y="192" class="s">目标、范围、验收</text><text x="50" y="215" class="s">哪些操作要先问</text></g>
+<g data-node="read"><rect x="320" y="128" width="220" height="112" rx="8" class="node"/><text x="338" y="164" class="t">读</text><text x="338" y="192" class="s">仓库、文档、日志</text><text x="338" y="215" class="s">交接笔记</text></g>
+<g data-node="edit"><rect x="608" y="128" width="220" height="112" rx="8" class="node"/><text x="626" y="164" class="t">改</text><text x="626" y="192" class="s">编辑文件</text><text x="626" y="215" class="s">写测试、脚本</text></g>
+<g data-node="run"><rect x="608" y="320" width="220" height="112" rx="8" class="blue"/><text x="626" y="356" class="t">跑</text><text x="626" y="384" class="s">构建、测试、浏览器</text><text x="626" y="407" class="s">查询服务状态</text></g>
+<g data-node="check"><rect x="320" y="320" width="220" height="112" rx="8" class="blue"/><text x="338" y="356" class="t">看结果</text><text x="338" y="384" class="s">对照验收条件</text><text x="338" y="407" class="s">失败就找原因</text></g>
+<g data-node="deliver"><rect x="32" y="320" width="220" height="112" rx="8" class="green"/><text x="50" y="356" class="t">交付与证据</text><text x="50" y="384" class="s">改了什么、跑了什么</text><text x="50" y="407" class="s">还没验证什么</text></g>
+<path d="M252 184H320" class="edge"/>
+<path d="M540 184H608" class="edge"/>
+<path d="M718 240V320" class="edge"/>
+<path d="M608 376H540" class="edge"/>
+<path d="M430 320V240" class="dash"/>
+<rect x="434" y="270" width="168" height="26" rx="4" fill="#f8fafc"/><text x="440" y="288" class="s">未通过：回到读和改</text>
+<path d="M320 376H252" class="edge"/>
+<rect x="256" y="342" width="44" height="26" rx="4" fill="#f8fafc"/><text x="262" y="360" class="s">通过</text>
+<path d="M32 488H928" class="line"/>
+<text x="32" y="524" class="s">循环里的每一步都受权限约束：读和本地测试通常放开，推送、发布、改线上数据要等人确认。</text>
+<text x="32" y="552" class="s">人审查的对象是证据和改动范围，而不是 Agent 的自我评价。</text>
+</svg>

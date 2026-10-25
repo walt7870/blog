@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="evidence-ladder-title evidence-ladder-desc" id="evidence-ladder-root">
+<title id="evidence-ladder-title">验证证据的五级台阶</title>
+<desc id="evidence-ladder-desc">能编译、单元测试、模拟集成、真实服务调用、线上回读逐级证明更多事情；每份证据要写明它站在哪一级。</desc>
+<defs><style>
+#evidence-ladder-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#evidence-ladder-root .h { font-size: 26px; font-weight: 700; }
+#evidence-ladder-root .t { font-size: 19px; font-weight: 600; }
+#evidence-ladder-root .s { font-size: 15px; fill: #475569; }
+#evidence-ladder-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#evidence-ladder-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#evidence-ladder-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#evidence-ladder-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#evidence-ladder-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#evidence-ladder-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#evidence-ladder-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#evidence-ladder-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#evidence-ladder-arrow); }
+#evidence-ladder-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#evidence-ladder-arrow); }
+#evidence-ladder-root .line { stroke: #cbd5e1; stroke-width: 1.5; }
+</style><marker id="evidence-ladder-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">证据有高低：先说清这份证据证明到哪一级</text>
+<text x="32" y="78" class="s">越往右越接近用户真实看到的结果，成本和风险也越高。</text>
+<g data-node="build"><rect x="32" y="392" width="168" height="128" rx="8" class="node"/><text x="50" y="428" class="t">能编译</text><text x="50" y="456" class="s">语法与依赖</text><text x="50" y="479" class="s">能打出包</text></g>
+<g data-node="unit"><rect x="214" y="336" width="168" height="184" rx="8" class="node"/><text x="232" y="372" class="t">单元测试</text><text x="232" y="400" class="s">函数和状态</text><text x="232" y="423" class="s">边界条件</text><text x="232" y="446" class="s">失败用例</text></g>
+<g data-node="mock"><rect x="396" y="280" width="168" height="240" rx="8" class="blue"/><text x="414" y="316" class="t">模拟集成</text><text x="414" y="344" class="s">夹具、Mock</text><text x="414" y="367" class="s">本地浏览器</text><text x="414" y="390" class="s">协议往返</text><text x="414" y="413" class="s">标明是模拟</text></g>
+<g data-node="real"><rect x="578" y="224" width="168" height="296" rx="8" class="green"/><text x="596" y="260" class="t">真实调用</text><text x="596" y="288" class="s">真实服务</text><text x="596" y="311" class="s">真实设备</text><text x="596" y="334" class="s">真实音频</text><text x="596" y="357" class="s">有限样本</text><text x="596" y="380" class="s">写明环境</text></g>
+<g data-node="prod"><rect x="760" y="168" width="168" height="352" rx="8" class="green"/><text x="778" y="204" class="t">线上回读</text><text x="778" y="232" class="s">发布后用</text><text x="778" y="255" class="s">业务路径</text><text x="778" y="278" class="s">读回结果</text><text x="778" y="301" class="s">对比发布前</text><text x="778" y="324" class="s">记录时间</text><text x="778" y="347" class="s">保留回滚</text></g>
+<text x="32" y="560" class="s">“SKIP 不算通过”：跳过的检查要单独列出，不能并进通过数。</text>
+</svg>

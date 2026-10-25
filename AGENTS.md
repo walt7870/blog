@@ -100,7 +100,7 @@
 - 首页的数据全部来自构建：`home/home.data.ts` 统计文章数和专题篇数，并从 git 提交时间取得“最近更新”；专题目录由 `topics.ts` 生成，与顶部导航同源，不在首页手写专题清单。
 - 文章页模板由 `DocHeader.vue` 注入：标题上方是所属专题面包屑与“更新于 · 阅读时长”，页尾是返回所属专题的卡片。更新日期来自 `lastUpdated`（git），阅读时长按正文汉字约 400 字/分钟估算且不计代码块；单页可用 frontmatter `docHeader: false` 关闭。
 - 项目作品集组件的源头仓库是 `walt7870/project-portfolio`（本机 `~/Documents/项目/工作记录/项目整理`），通过其 `npm run sync:blog` 复制 `portfolio/` 目录、`projects/` 与 `public/projects/` 到本仓库。在本仓库修改作品集组件后，要把同名文件回写到作品集仓库并运行它的 `build` 与 `verify`，否则下次同步会覆盖本仓库的改动。项目事实、表达边界与截图规则以该仓库 `context/FACTS.md`、`context/DESIGN.md` 为准。
-- 项目案例页的内容按“项目速览（业务背景、负责范围、有范围说明的验证结果）→ 核心业务 → 技术栈 → 架构 → 核心链路（步骤化）→ 关键机制（约束 / 做法 / 效果）→ 阶段成果”组织；改版只调整呈现结构，不改写或扩大 `caseStudies.ts` 中已核实的事实。技术密度高的案例可用可选字段 `specs`、`pipeline`、`modes`、`capacity`、`benchmark`、`delivery`（见 private-asr）：首屏换成指标与处理链路，截图后移到「调试工具」；字段与事实口径记录在作品集仓库 `context/DESIGN.md`、`context/FACTS.md`。
+- 项目案例页的内容按“项目速览（业务背景、负责范围、有范围说明的验证结果）→ 核心业务 → 技术栈 → 架构 → 核心链路（步骤化）→ 关键机制（约束 / 做法 / 效果）→ 阶段成果”组织；改版只调整呈现结构，不改写或扩大 `caseStudies.ts` 中已核实的事实。技术密度高的案例可用可选字段 `specs`、`pipeline`、`modes`、`capacity`、`benchmark`、`delivery`（见 private-asr）：首屏换成指标与处理链路，截图后移到「调试工具」；可选字段 `ai` 渲染「AI 协作开发」章节（Agent 职责、仓库规则、验证口径），只写有记录支撑的事实，不写客户、人员、地址与编号；字段与事实口径记录在作品集仓库 `context/DESIGN.md`、`context/FACTS.md`。
 - 界面改动的验收至少覆盖桌面 1440、手机 390 与深色模式三种截图，检查无横向溢出、无文字裁切、无运行错误，并在发布后对线上页面回读同样的项目。
 
 ## 协作方式

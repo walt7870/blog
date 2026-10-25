@@ -370,6 +370,19 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
+          text: 'AI 编程实战手记',
+          collapsed: true,
+          items: [
+            { text: '手记导读', link: '/docs/ai/ai-coding-practice/' },
+            { text: '01. 从补全到 Agent', link: '/docs/ai/ai-coding-practice/01-what-is-agent' },
+            { text: '02. 多会话分工', link: '/docs/ai/ai-coding-practice/02-multi-session-workflow' },
+            { text: '03. 仓库规则与单次授权', link: '/docs/ai/ai-coding-practice/03-rules-and-grants' },
+            { text: '04. 验证的五级台阶', link: '/docs/ai/ai-coding-practice/04-evidence' },
+            { text: '05. 出错以后的复盘', link: '/docs/ai/ai-coding-practice/05-postmortems' },
+            { text: '06. 什么活交给 Agent', link: '/docs/ai/ai-coding-practice/06-what-to-delegate' },
+          ],
+        },
+        {
           text: 'AI 编程工程化',
           collapsed: true,
           items: [

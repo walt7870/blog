@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { withBase } from 'vitepress';
-import { ArrowUpRight, ArrowLeft, ArrowRight, Search, X, LayoutGrid, List, Link, Maximize2, Check, RotateCcw, ZoomIn, ZoomOut, Scan } from '@lucide/vue';
+import { ArrowUpRight, ArrowLeft, ArrowRight, Search, X, LayoutGrid, List, Link, Maximize2, Check, RotateCcw, ZoomIn, ZoomOut, Scan, Bot } from '@lucide/vue';
 import { categories, projects } from './projects';
 import { caseStudies } from './caseStudies';
 import { projectMedia } from './media';
@@ -99,6 +99,7 @@ const caseSections = computed(() => {
     { id: 'flow', label: design ? '设计与维护流程' : '核心流程' },
     { id: 'decisions', label: design ? '设计决策' : '关键机制' },
     s?.delivery && { id: 'delivery', label: s.delivery.label },
+    s?.ai && { id: 'ai', label: 'AI 协作开发' },
     s?.specs && selectedMedia.value && { id: 'tools', label: s.mediaLabel || '产品界面' },
     { id: 'results', label: '阶段成果' },
   ].filter((item): item is { id: string; label: string } => Boolean(item));
@@ -198,6 +199,7 @@ async function enlarge(isDiagram = false) { enlargedDiagram.value = isDiagram ==
           <section id="flow"><div class="pf-section-heading"><span>{{ sectionNo('flow') }}</span><h2>{{ project.type === 'design' ? '内容访问与维护' : '核心业务链路' }}</h2></div><article v-for="scenario in study?.scenarios" :key="scenario.title" class="pf-scenario-card"><h3>{{ scenario.title }}</h3><ol class="pf-steps" :aria-label="`${scenario.title}步骤`"><li v-for="(step, i) in scenario.path.split(' → ')" :key="step"><b>{{ i + 1 }}</b>{{ step }}</li></ol><p>{{ scenario.detail }}</p></article></section>
           <section id="decisions"><div class="pf-section-heading"><span>{{ sectionNo('decisions') }}</span><h2>{{ project.type === 'design' ? '设计决策' : '关键机制与取舍' }}</h2></div><article v-for="(mechanism, i) in study?.mechanisms" :key="mechanism.title" class="pf-mechanism-card"><h3><b>{{ String(i + 1).padStart(2, '0') }}</b>{{ mechanism.title }}</h3><dl><div class="is-constraint"><dt>约束</dt><dd>{{ mechanism.constraint }}</dd></div><div class="is-implementation"><dt>做法</dt><dd>{{ mechanism.implementation }}</dd></div><div class="is-effect"><dt>效果</dt><dd>{{ mechanism.effect }}</dd></div></dl></article></section>
           <section v-if="study?.delivery" id="delivery"><div class="pf-section-heading"><span>{{ sectionNo('delivery') }}</span><h2>{{ study.delivery.label }}</h2></div><p class="pf-business">{{ study.delivery.lead }}</p><ol class="pf-steps pf-delivery-steps" aria-label="迭代交付步骤"><li v-for="([step, detail], i) in study.delivery.steps" :key="step"><b>{{ i + 1 }}</b><span><strong>{{ step }}</strong>{{ detail }}</span></li></ol><div class="pf-overview-evidence pf-quality"><div v-for="item in study.delivery.quality" :key="item.label"><strong>{{ item.value }}</strong><h3>{{ item.label }}</h3><p>{{ item.detail }}</p></div></div><div class="pf-rejected"><h3>{{ study.delivery.rejectedTitle }}</h3><ul><li v-for="[name, reason] in study.delivery.rejected" :key="name"><X :size="15" aria-hidden="true"/><span><strong>{{ name }}</strong>{{ reason }}</span></li></ul></div></section>
+          <section v-if="study?.ai" id="ai"><div class="pf-section-heading"><span>{{ sectionNo('ai') }}</span><h2>AI 协作开发</h2></div><p class="pf-business">{{ study.ai.lead }}</p><ul class="pf-ai" :data-tone="toneOf(project.category)"><li v-for="item in study.ai.items" :key="item.title"><span class="pf-ai-role"><Bot :size="15" aria-hidden="true"/>{{ item.role }}</span><h3>{{ item.title }}</h3><p>{{ item.detail }}</p></li></ul><p class="pf-note">{{ study.ai.guard }}</p></section>
           <section v-if="study?.specs && selectedMedia" id="tools"><div class="pf-section-heading"><span>{{ sectionNo('tools') }}</span><h2>{{ study.mediaLabel || '产品界面' }}</h2></div><figure class="pf-case-visual pf-tools-visual" :class="{ 'pf-phone-visual': selectedMedia.kind === 'phone' }"><button @click="enlarge()" :aria-label="`放大${project.title}预览`"><img :src="screenshot(selectedMedia.id)" :alt="selectedMedia.label" loading="lazy"/><span class="pf-zoom"><Maximize2 :size="18"/></span></button><figcaption><span>{{ selectedMedia.label }}</span><span>{{ study.caption }}</span></figcaption></figure><div v-if="media.length > 1" class="pf-media-rail" role="group" aria-label="项目画面"><button v-for="(item, i) in media" :key="item.id" :class="{ active: mediaTab === i }" :aria-pressed="mediaTab === i" @click="mediaTab = i"><img :src="screenshot(item.id)" :alt="item.label" loading="lazy"/><span>{{ item.label }}</span></button></div></section>
           <section id="results"><div class="pf-section-heading"><span>{{ sectionNo('results') }}</span><h2>阶段成果</h2></div><ul class="pf-outcomes"><li v-for="r in study?.outcomes" :key="r"><Check :size="18"/>{{ r }}</li></ul></section>
         </div>

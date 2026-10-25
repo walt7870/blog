@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="630" viewBox="0 0 960 630" role="img" aria-labelledby="memory-layers-title memory-layers-desc" id="memory-layers-root">
+<title id="memory-layers-title">多会话协作的四层记忆</title>
+<desc id="memory-layers-desc">会话上下文只活在当前对话里；仓库内的规则和交接文档随 git 跨机器、跨工具；本机知识笔记沉淀跨项目经验；个人记忆只保存偏好和指针。</desc>
+<defs><style>
+#memory-layers-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#memory-layers-root .h { font-size: 26px; font-weight: 700; }
+#memory-layers-root .t { font-size: 19px; font-weight: 600; }
+#memory-layers-root .s { font-size: 15px; fill: #475569; }
+#memory-layers-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#memory-layers-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#memory-layers-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#memory-layers-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#memory-layers-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#memory-layers-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#memory-layers-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#memory-layers-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#memory-layers-arrow); }
+#memory-layers-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#memory-layers-arrow); }
+#memory-layers-root .line { stroke: #cbd5e1; stroke-width: 1.5; }
+</style><marker id="memory-layers-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="630" fill="#f8fafc"/>
+<text x="32" y="46" class="h">会话会结束，事实要写到比会话活得久的地方</text>
+<text x="32" y="78" class="s">四层各管一段寿命；每层只放适合它的东西，密钥哪层都不放。</text>
+<g data-node="session"><rect x="32" y="112" width="896" height="100" rx="8" class="node"/><text x="50" y="138" class="k">活到会话结束</text><text x="50" y="164" class="t">会话上下文</text><text x="50" y="192" class="s">本次对话读过的文件和结论；上下文压缩后细节会丢</text></g>
+<g data-node="repo"><rect x="32" y="224" width="896" height="100" rx="8" class="blue"/><text x="50" y="250" class="k">跟随仓库</text><text x="50" y="276" class="t">仓库内：AGENTS.md、HANDOFF.md、验收文档</text><text x="50" y="304" class="s">跟着 git 走，换电脑、换 Claude / Codex 都能读到；交接写“结论、位置、待办”</text></g>
+<g data-node="notes"><rect x="32" y="336" width="896" height="100" rx="8" class="green"/><text x="50" y="362" class="k">跨项目</text><text x="50" y="388" class="t">本机知识笔记：INDEX + 主题笔记</text><text x="50" y="416" class="s">跨项目的部署、交付经验；最新状态写在前面并带日期，旧结论标为历史</text></g>
+<g data-node="memory"><rect x="32" y="448" width="896" height="100" rx="8" class="violet"/><text x="50" y="474" class="k">跨会话</text><text x="50" y="500" class="t">个人记忆</text><text x="50" y="528" class="s">偏好、红线和指针：指向仓库文档或知识笔记，不重复事实</text></g>
+<text x="32" y="596" class="s">会话收尾前把新结论写回仓库或笔记；下一个会话先读 INDEX 和 HANDOFF，再核对线上现状。</text>
+</svg>
