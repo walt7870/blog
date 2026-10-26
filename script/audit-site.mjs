@@ -44,7 +44,8 @@ const sharedHash = sha(JSON.stringify(sharedInputs));
 function visit(relative) {
   for (const entry of fs.readdirSync(path.join(root, relative), { withFileTypes: true })) {
     const file = path.posix.join(relative, entry.name);
-    if (entry.isDirectory()) visit(file);
+    // miniapp/ has its own dependencies and build output; their Markdown is not site content.
+    if (entry.isDirectory()) { if (!['node_modules', 'dist', 'unpackage'].includes(entry.name)) visit(file); }
     else if (file.endsWith('.md')) files.push(file);
   }
 }
