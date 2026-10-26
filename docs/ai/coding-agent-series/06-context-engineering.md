@@ -30,9 +30,13 @@ Prompt Engineering 关注“这一轮怎样表达”，Context Engineering 关�
 
 五层的生命周期不同。仓库规则可能持续数月，任务只持续一个分支，代码读取只服务几轮决策，失败日志可能下一轮就应被摘要，工具权限在任务结束后应撤销。把它们都当成一段永久 Prompt，会造成过期和噪声。
 
+## 一次任务里，上下文怎样被组合、消耗和变质
+
+五层信息在一次任务中并不是静态地摆在那里。下面六个机制按任务推进的顺序排列：先看用户的指令和其他信息怎样组合，再看预算怎样被消耗、代码怎样被检索、规则怎样按需加载，最后是错误信息怎样扩散，以及压缩怎样丢掉约束。
+
 ### 1. Prompt 只是当前指令层
 
-![Prompt 与更大上下文环境](/ai/coding-agent-series/ep06/fig-02.png)
+![模型一轮看到的上下文中，用户 Prompt 只占一行](/ai/coding-agent-series/ep06/prompt-in-context.svg)
 
 用户说“实现取消订单”时，模型还会受到系统安全指令、`AGENTS.md`、路径 Rules、当前 Git Diff、打开文件、检索结果、终端输出、工具 Schema 和历史对话影响。一个精心写作的 Prompt 如果与仓库规则冲突、引用错误文件或缺少验证环境，仍然会失败。
 
@@ -40,7 +44,7 @@ Prompt Engineering 关注“这一轮怎样表达”，Context Engineering 关�
 
 ### 2. 上下文预算怎样被消耗
 
-![上下文预算的消耗过程](/ai/coding-agent-series/ep06/fig-03.png)
+![各轮上下文的组成与压缩，比例为示意](/ai/coding-agent-series/ep06/context-budget.svg)
 
 系统指令和工具说明是固定成本；常驻规则每轮加载；代码和文档按探索加入；命令输出可能一次占用大量空间；对话历史持续累积。达到窗口限制前，Harness 也可能为了成本和延迟主动压缩。
 
@@ -50,7 +54,7 @@ Prompt Engineering 关注“这一轮怎样表达”，Context Engineering 关�
 
 ### 3. 代码检索应从任务实体开始
 
-![从任务词到相关代码的检索管线](/ai/coding-agent-series/ep06/fig-04.png)
+![从任务实体到最小相关文件集的检索顺序](/ai/coding-agent-series/ep06/retrieval-pipeline.svg)
 
 订单取消任务包含 `Order`、状态、Repository、HTTP 和测试等实体。Agent 可以先搜索领域符号和路由，再追踪定义与引用，读取相邻测试，最后加入少量相关文件。直接读取整个 `src` 会把配置、支付和无关示例一起带入。
 
@@ -77,7 +81,7 @@ Prompt Engineering 关注“这一轮怎样表达”，Context Engineering 关�
 
 ### 5. 上下文污染怎样形成错误轨迹
 
-![错误信息如何污染后续决策](/ai/coding-agent-series/ep06/fig-06.png)
+![错误假设进入计划后形成自洽的错误轨迹，以及修复路径](/ai/coding-agent-series/ep06/context-pollution.svg)
 
 污染可能来自错误用户描述、旧文档、无关日志、Prompt Injection 或 Agent 自己的推断。如果错误假设进入计划，后续代码和测试会围绕它形成自洽结构。会话越长，模型越倾向维护已经建立的解释。
 
@@ -92,7 +96,7 @@ Prompt Engineering 关注“这一轮怎样表达”，Context Engineering 关�
 
 ## Context Debugging：调试 Agent 看到了什么
 
-![上下文问题的调试路径](/ai/coding-agent-series/ep06/fig-08.png)
+![从结果异常到六个检查问题、修正与小任务验证](/ai/coding-agent-series/ep06/context-debugging.svg)
 
 当结果异常时，按下面顺序排查：
 
@@ -109,9 +113,9 @@ Context Debugging 还要检查工作目录。Monorepo 中 Agent 可能在根目�
 
 ## 上下文生命周期
 
-![上下文从创建到退出的生命周期](/ai/coding-agent-series/ep06/fig-09.png)
+![上下文从创建、选择、使用、验证到沉淀或退出](/ai/coding-agent-series/ep06/context-lifecycle.svg)
 
-信息先从任务和仓库创建，经搜索和规则选择，支持一次决策；环境反馈校正结论；稳定知识回写到测试、文档或规则；临时日志和错误候选退出。健康系统会持续清理和沉淀，而不是让会话无限增长。
+信息先从任务和仓库创建，经搜索和规则选择，支持一次决策；环境反馈校正结论，验证失败就带着反馈回到选择。验证之后有两条去向：稳定知识回写到测试、文档或规则，临时日志和错误候选退出。下一个任务从仓库重新读取这些沉淀，会话本身不必无限增长。
 
 不同信息的沉淀位置：
 
