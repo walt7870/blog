@@ -114,6 +114,7 @@
 - 部署前核对线上页面与导航，不能假定 Git HEAD 就是线上版本。使用隔离构建目录时，应保留已上线但尚未提交的内容，同时避免把其他未发布改动一起上线；发布前检查是否会意外删除页面。
 - 发布到 JD 使用 `REMOTE_HOST=root@117.72.10.198 bash ./dep.sh`（无 `jd` ssh 别名）。必须从主工作区构建：未入库但线上已有的 `public/` 资源在隔离 worktree 里不存在，`rsync --delete` 会误删；发布前用 `LC_ALL=C sort` 对比线上与构建文件集，确认“线上有而构建没有”为空。
 - 工作区存在他人未发布的改动时，从目标提交建立 `git worktree`（不能用 `git archive` 快照：缺少 git 历史会让 `lastUpdated` 和首页“最近更新”失效），软链 `node_modules`，再把主工作区中“未入库但线上已存在”的 `public/` 文件复制进 worktree（与线上文件清单逐一比对，未上线的新素材不复制），然后在 worktree 内执行 `dep.sh`。发布后对比“构建有而线上没有”的文件，确认没有夹带未发布页面。详见 `/Users/waltniu/.codex/knowledge/blog-jd-deploy.md`。
+- 作品集页面、“AI 编程实战手记”系列、页面验收脚本 `script/check-pages.mjs`、审查台账过期规则和发布顺序（含 `dep.sh` 内置的公开内容扫描、删除页面时的服务器备份、GitHub 推送即触发 Pages）见 `.maintenance/agent-workflow.md`，接手这些任务前先读。
 - 网络代理专题（`docs/network-proxy/`）的 VPN/Hysteria2 经验页只用占位域名和保留地址，不写真实域名、IP、账号、人员；后续经验补充到现有两篇实践页。
 - 最终回复简洁说明改了哪些内容、关键文件路径、验证命令和结果。
 - 发布链接必须包含 VitePress 配置中的 `base` 前缀；线上验证需在浏览器中等待客户端启动并检查站内跳转，不能仅凭 HTTP 200 或静态 HTML 正文判定页面正常。

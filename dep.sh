@@ -8,6 +8,14 @@ REMOTE_SITE="${REMOTE_SITE:-/opt/blog}"
 rm -rf ./.vitepress/dist
 npm run docs:build
 
+# The sensitive-term list lives in the private portfolio repo; this repo is public.
+PORTFOLIO_REPO="${PORTFOLIO_REPO:-$HOME/Documents/项目/工作记录/项目整理}"
+if [ -f "${PORTFOLIO_REPO}/scripts/scan-public.mjs" ]; then
+  node "${PORTFOLIO_REPO}/scripts/scan-public.mjs" ./.vitepress/dist
+else
+  echo "未找到作品集仓库的公开内容扫描（${PORTFOLIO_REPO}），跳过；作品集与 AI 实战页面须人工核对敏感信息。" >&2
+fi
+
 # Non-asset files are deleted by rsync; verify the build retains every live path.
 DEPLOY_LOCAL_FILES=$(mktemp)
 DEPLOY_REMOTE_FILES=$(mktemp)
