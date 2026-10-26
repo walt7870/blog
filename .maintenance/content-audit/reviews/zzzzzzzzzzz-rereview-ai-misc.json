@@ -1,0 +1,165 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/agent.md",
+      "status": "verified",
+      "pageType": "总览",
+      "decision": "智能体总览职责清晰：循环、订单通知失败案例、适用与不适用、安全起步、组成表和长任务入口；全文复读未发现事实错误或套话，保持原文。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；与长任务实践页、MCP、Skill、RSI 链接的职责划分一致。",
+        "agent-loop.svg 内嵌渲染并测量文字边界，无越框，方向与正文五步循环一致。",
+        "渲染后页内全部站内链接逐个请求，无 4xx，带锚点链接的目标 id 均存在。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "另以 390×844 展开全部 details 后截全页并分段人工查看（浅色全部、深色抽看），表格与代码局部滚动，scrollWidth 等于 390。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "ac3ed3668bfb13ea8ce0c2510974da0f9c81dabfdf8873dab9b750ffeff2f5d4"
+    },
+    {
+      "file": "docs/ai/coding-agent-series/06-context-engineering.md",
+      "status": "verified",
+      "pageType": "机制与实践",
+      "decision": "上下文五层、预算、检索、污染、压缩、调试与 handoff 主线完整，订单实验命令与 coding-order-lab 的 README、pom.xml（lab.stage）一致，长任务交叉链接有效；正文保持原文，PNG 图示问题记为 findings。",
+      "findings": [
+        {
+          "status": "open",
+          "detail": "ep06 的 fig-02/03/04/06/08/09 是幻灯片式 PNG，带“02 / 09”页码和装饰性 CONTEXT 水印；fig-01/05/07 已从正文移除，页码在文中跳号。仓库内找不到这些 PNG 的生成源稿，无法按规则改脚本重生成，需要补源稿或改画为 SVG。"
+        },
+        {
+          "status": "open",
+          "detail": "fig-09 上下文生命周期图的连线没有箭头，“沉淀→丢弃”画成顺序相连，而正文说的是稳定知识回写与临时信息退出两条去向；在 390 宽度下这些 PNG 的说明文字很小。"
+        },
+        {
+          "status": "open",
+          "detail": "“机制：五层上下文”标题下的 1–6 小节讲的是指令层、预算、检索、渐进披露、污染与压缩，并非逐层展开五层，标题与小节编号的对应关系可再理顺。"
+        }
+      ],
+      "dependencyFiles": [
+        "public/ai/examples/coding-order-lab.zip",
+        "public/ai/examples/coding-order-lab/README.txt",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/baseline/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/contract/example/orders/CancelOrderTest.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/InMemoryOrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/Order.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderApplication.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderCannotBeCancelledException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderController.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderExceptionHandler.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderNotFoundException.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderRepository.java",
+        "public/ai/examples/coding-order-lab/final/example/orders/OrderService.java",
+        "public/ai/examples/coding-order-lab/pom.xml",
+        "public/ai/examples/coding-order-lab/tests/example/orders/CreateOrderTest.java"
+      ],
+      "validation": [
+        "全文阅读；第 06 篇不含作者项目经历类事实，未发现需要追溯 ~/.codex/knowledge 的具体经历细节。",
+        "订单实验段落与 public/ai/examples/coding-order-lab/README.txt 及 pom.xml 的 lab.stage 属性对照一致；本机无 Maven，未实际运行 mvn clean test。",
+        "context-package-map.svg 内嵌渲染无越框；六张 PNG 原尺寸逐张查看。",
+        "渲染后页内全部站内链接逐个请求，无 4xx，带锚点链接的目标 id 均存在。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "另以 390×844 展开全部 details 后截全页并分段人工查看（浅色全部、深色抽看），表格与代码局部滚动，scrollWidth 等于 390。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "c7d4005bf3601b3bf43848e5c33f3f61a0c0ad17d214a78e037ef92511f0ca16"
+    },
+    {
+      "file": "docs/ai/practice/index.md",
+      "status": "verified",
+      "pageType": "总览导读",
+      "decision": "项目实践导读按业务输出选项目、交付证据与最小闭环组织，长任务入口位置合理；保持原文。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；表格中四类项目的链接与侧边栏页面对应。",
+        "practice-project-routes.svg 内嵌渲染无越框，三个分支与正文四类项目（预测与视觉合并为一支）一致。",
+        "渲染后页内全部站内链接逐个请求，无 4xx，带锚点链接的目标 id 均存在。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "另以 390×844 展开全部 details 后截全页并分段人工查看（浅色全部、深色抽看），表格与代码局部滚动，scrollWidth 等于 390。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "a5fa7059d0f9f5af586666bba0bfdecf5cebf6b597537b42e33f2e6ef2a1a25e"
+    },
+    {
+      "file": "docs/ai/practice/long-running-agent.md",
+      "status": "verified",
+      "pageType": "机制与实践",
+      "decision": "长任务实践页的契约、状态、回查、预算与证据失效主线和三组交互、三张图一致；恢复脚本按正文命令实际运行结果与正文描述相符；保持原文。",
+      "findings": [],
+      "dependencyFiles": [
+        "public/ai/examples/long-agent-resume.mjs",
+        "public/ai/long-agent-step-state.svg",
+        "public/ai/long-agent-unknown-recovery.svg",
+        "public/ai/long-agent-evidence-chain.svg",
+        ".vitepress/theme/components/AgentTaskLab.vue",
+        ".vitepress/theme/components/agentTaskModel.mjs"
+      ],
+      "validation": [
+        "全文与九个展开区阅读；页内为教学模拟，没有引用作者项目经历，不涉及需追溯出处的经历细节。",
+        "Node v26.9.0（非 Node 24）在 scratchpad 临时目录按正文命令运行 long-agent-resume.mjs：--crash-after-submit 退出码 75，inspect 为 status=unknown、archive_count=1；随后两次 run 均为 succeeded、report-1、archive_count=1；新目录改 report.json 标题后 run 退出码 2。",
+        "浏览器 390 宽实际操作分区实验：8 月超时→新会话接手→补查→核对聚合，结果 12/12、累计查询 13、复用 7 个月，与正文一致；archive 与 budget 两组本轮未逐项点击。",
+        "三张 SVG 内嵌渲染测量文字边界，唯一命中为时序图标签跨过激活条的误报，人工确认无越框重叠。",
+        "渲染后页内全部站内链接逐个请求，无 4xx，带锚点链接的目标 id 均存在。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "另以 390×844 展开全部 details 后截全页并分段人工查看（浅色全部、深色抽看），表格与代码局部滚动，scrollWidth 等于 390。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "85c0926e9d474cffaa168356be5968967a0782381906e0fc22be862f8cb64819"
+    },
+    {
+      "file": "docs/ai/vibe-coding/harness-engineering.md",
+      "status": "verified",
+      "pageType": "机制与工程实践",
+      "decision": "以订单导出贯穿数据、权限、性能、变更四类边界，明确规则文件、worktree 与沙箱的职责差异和回滚局限，长任务段落衔接自然；保持原文。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；worktree 不等于安全隔离、回滚不收回已下载文件等边界表述准确。",
+        "harness-control-plane.svg 内嵌渲染无越框，六个控制项与正文章节对应。",
+        "渲染后页内全部站内链接逐个请求，无 4xx，带锚点链接的目标 id 均存在。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "另以 390×844 展开全部 details 后截全页并分段人工查看（浅色全部、深色抽看），表格与代码局部滚动，scrollWidth 等于 390。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "bb9c2373a59134b7258b55db3e07e37ce56481ca66d33ab590dd4dee36702e53"
+    },
+    {
+      "file": "index.md",
+      "status": "verified",
+      "pageType": "站点首页",
+      "decision": "首页由 HomePage 组件渲染：文章数 619、专题 18、项目案例 15，最近更新 2026-10-26 与 docs 最近一次提交（北京时间）一致；全部站内链接可打开，手机宽度布局正常；无需改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "按 home.data.ts 规则（排除 superpowers/tmp 与 search: false）独立统计 docs 下 Markdown 为 619，与首页一致；git log -- docs 最近提交为 2026-10-26 00:01 -0700，即北京时间 10-26 15:01。",
+        "首页 32 个链接中 31 个站内链接逐个请求无 4xx，外链为每日资讯站点。",
+        "390×844 浅色全页分段与深色抽看：首屏统计、最近更新卡片、专题目录、项目卡片与问题入口无溢出、无文字裁切。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "e91b514d417e7e9a38e9e09f7257401efa22b34308e77d8246adfd11e0078dd7"
+    },
+    {
+      "file": "profile/index.md",
+      "status": "verified",
+      "pageType": "个人概览",
+      "decision": "个人概览由作品集组件渲染，源头在私有作品集仓库，本仓库只审查不改；项目领域计数之和 15 与首页项目案例数一致，链接与布局正常。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "渲染全文阅读（经历、重点项目、更多项目、能力与技术栈、技术笔记）；未接触作品集仓库，事实口径未与其 context/FACTS.md 逐条复核。",
+        "页内 28 个站内链接逐个请求无 4xx；GitHub 与 B 站外链地址核对存在。",
+        "390×844 浅色全页分段人工查看无溢出与裁切。",
+        "本地 vitepress preview（4184）运行 script/check-pages.mjs：1440/390、浅深色四模式均无整页横向溢出、无失效图片、无页面报错；首页唯一失败项为已知的本地 /favicon.png 404。",
+        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；本机无 Node 24）。"
+      ],
+      "reviewedHash": "b833b8f7b585bb31cbaa13b872287f8b5ad04f3962188b43817446ec37560280"
+    }
+  ]
+}
