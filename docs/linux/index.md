@@ -13,6 +13,7 @@ Nginx 接收连接后把请求转给订单进程，订单进程通过系统调�
 | 要解决的问题 | 阅读入口 | 应得到的结果 |
 | --- | --- | --- |
 | 服务由谁启动、为什么退出 | [进程管理](./process/index.md)、[systemd](./process/systemd.md) | 找到实际进程、退出原因和管理策略 |
+| 线程池开多大、平均耗时正常却有人说慢 | [并发基础](./concurrency/index.md) | 分清谁在干活、在等还是在算，用排队和 P99 判断容量 |
 | 谁收养子进程、为什么有僵尸 | [Init](./process/init-process.md)、[用户进程](./process/user-processes.md) | 区分运行、退出和回收 |
 | kworker、kswapd 持续活跃 | [内核线程](./process/kernel-threads.md) | 用采样增量定位设备或资源压力 |
 | 查文件、日志、权限和端口 | [命令地图](./command/index.md) | 按任务找到命令，明确作用对象 |

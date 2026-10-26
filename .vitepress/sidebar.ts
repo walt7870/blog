@@ -1187,6 +1187,15 @@ export const sidebar: DefaultTheme.Sidebar = {
           { text: 'Init 进程', link: '/docs/linux/process/init-process' },
           { text: '用户进程', link: '/docs/linux/process/user-processes' }
         ]},
+        { text: '并发基础', collapsed: true, items: [
+          { text: '并发基础：一个服务怎样同时处理很多请求', link: '/docs/linux/concurrency/' },
+          { text: '01 进程、线程和协程：谁在替请求干活', link: '/docs/linux/concurrency/01-process-thread-coroutine' },
+          { text: '02 并发和并行：等待型任务与计算型任务', link: '/docs/linux/concurrency/02-concurrency-vs-parallelism' },
+          { text: '03 线程越多越快吗：上下文切换与调度', link: '/docs/linux/concurrency/03-context-switch' },
+          { text: '04 共享状态：竞态、锁与死锁', link: '/docs/linux/concurrency/04-race-lock-deadlock' },
+          { text: '05 线程池开多大：排队、利用率与 Little 定律', link: '/docs/linux/concurrency/05-pool-size-and-queueing' },
+          { text: '06 平均值会骗人：P50、P95、P99 与长尾', link: '/docs/linux/concurrency/06-percentiles-and-tail' },
+        ]},
         { text: 'Nginx', collapsed: true, items: [
           { text: '概述', link: '/docs/linux/nginx/nginx' },
           { text: 'location 匹配', link: '/docs/linux/nginx/location' },

@@ -1,0 +1,4 @@
+# docker run --rm -v ... capacity-lab python deadlock.py
+线程 1  状态 R  在等 -
+线程 7  状态 S  在等 futex_do_wait
+线程 8  状态 S  在等 futex_do_wait

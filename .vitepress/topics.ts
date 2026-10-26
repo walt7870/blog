@@ -26,7 +26,7 @@ export const topicGroups = [
       { text: '数据库与数据工程', description: '关系数据库、缓存、检索与数据处理', link: '/docs/database/' },
       { text: '消息中间件', description: '消息传递、消费语义与异步链路', link: '/docs/tools/mq/' },
       { text: '容器与云原生', description: 'Docker、Kubernetes 与容器运行时', link: '/docs/container/' },
-      { text: 'Linux 系统', description: '进程、网络、权限与服务运行', link: '/docs/linux/' },
+      { text: 'Linux 系统', description: '进程、线程与并发、网络、权限与服务运行', link: '/docs/linux/' },
       { text: '通信协议', description: '网络通信、实时传输与工业协议', link: '/docs/basic/protocol/' },
       { text: '网络代理', description: '代理协议、控制与数据平面、跨境链路诊断、部署与排错', link: '/docs/network-proxy/' },
     ],

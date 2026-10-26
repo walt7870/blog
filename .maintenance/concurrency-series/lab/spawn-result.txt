@@ -1,0 +1,4 @@
+# docker run --rm -v ... capacity-lab python spawn.py
+启动一个全新的 Python 解释器：5.9 ms/个
+启动一个全新的 Python 解释器：6.2 ms/个
+启动一个全新的 Python 解释器：6.8 ms/个

@@ -1,0 +1,24 @@
+# docker run --rm -v ... capacity-lab python race.py
+不加锁：卖出 172 件，库存剩 -72，耗时 0.02 秒
+加锁：卖出 100 件，库存剩 0，耗时 0.14 秒
+count += 1 的字节码： LOAD_NAME LOAD_CONST BINARY_OP STORE_NAME
+A→B：拿着一把锁，等另一把等了 2 秒，放弃
+B→A：转账完成
+A→B：转账完成
+B→A：转账完成
+
+不加锁：卖出 177 件，库存剩 -77，耗时 0.02 秒
+加锁：卖出 100 件，库存剩 0，耗时 0.14 秒
+count += 1 的字节码： LOAD_NAME LOAD_CONST BINARY_OP STORE_NAME
+A→B：拿着一把锁，等另一把等了 2 秒，放弃
+B→A：转账完成
+A→B：转账完成
+B→A：转账完成
+
+不加锁：卖出 186 件，库存剩 -86，耗时 0.02 秒
+加锁：卖出 100 件，库存剩 0，耗时 0.14 秒
+count += 1 的字节码： LOAD_NAME LOAD_CONST BINARY_OP STORE_NAME
+A→B：拿着一把锁，等另一把等了 2 秒，放弃
+B→A：转账完成
+A→B：转账完成
+B→A：转账完成

@@ -44,7 +44,7 @@ export default  defineConfig({
     if (pageData.frontmatter.search === false || !publicRoute(pageRoute(pageData.relativePath))) return;
     return code
       .replace('class="vp-doc ', 'data-pagefind-body class="vp-doc ')
-      .replaceAll('<span class="lang">', '<span class="lang" data-pagefind-ignore>');
+      .replaceAll('<span class="lang"', '<span data-pagefind-ignore class="lang"');
   },
   vite: {
     resolve: {

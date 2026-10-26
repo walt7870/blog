@@ -1,0 +1,144 @@
+{
+  "pages": [
+    {
+      "file": "docs/linux/concurrency/index.md",
+      "status": "verified",
+      "pageType": "专题导读",
+      "decision": "新建并发基础导读：订单服务场景、请求经过的地方总图（标注篇号）、按问题找入口、共用 capacity-lab 实验镜像、GIL 与实验机异构核说明。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；Dockerfile 与连接容量系列一致，镜像已存在并用于全部实验。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "936d0e6db0bc5a7db826fbc37cc348c2f5a678f584f86936ece3d888d579a361"
+    },
+    {
+      "file": "docs/linux/concurrency/01-process-thread-coroutine.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "线程改全局变量主程序可见、子进程不可见；fork/线程/协程创建代价与内存（三次运行范围写入正文）；写时复制、clone/task、协作式切换；对比表与 ps/top -H 观察命令。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；全新解释器启动 5.9–6.8 ms 另行实测（spawn.py）。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "9184a549f875ce3fddc4c4ef4e6940ebe936d7517d6042b4121fc36329bbf9b1"
+    },
+    {
+      "file": "docs/linux/concurrency/02-concurrency-vs-parallelism.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "sleep 型任务 4 线程 0.51 s；纯 Python 计算 4 线程不加速、4 进程约 2.8 倍；并发/并行定义、GIL、释放 GIL 的原生库、free-threading 状态（3.13 引入、3.14 官方支持、默认仍带 GIL，2026-10 核对）；CPU 时间/墙钟判断法与 pidstat。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；宿主繁忙时数值波动大，正文已说明并采用空闲时三次运行。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "711ed1eeba2b3ba7a963245080e3007ef5d0902d05523db49826d19e605d9368"
+    },
+    {
+      "file": "docs/linux/concurrency/03-context-switch.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "管道往返 2.1 µs；1 CPU 上 16 份计算交给 1/4/16 个进程，总时长相近而首份与平均完成时间推迟；主动/被动切换、间接代价、容器内 cpu_count 误判（实测 --cpus 2 返回 10）、Go 1.25 GOMAXPROCS；vmstat/pidstat -w/cpu.stat。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；os.cpu_count/process_cpu_count 在 --cpus 与 --cpuset-cpus 下的返回值实测。Go 1.25 容器感知 GOMAXPROCS 按 Go 官方博客 Container-aware GOMAXPROCS（2025-08-20）核对，依赖 go.mod 的 go 版本。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "83489b39152d9addb2dee445ae0240e8c8e8ba0e64013a97a7fb8da07648cf85"
+    },
+    {
+      "file": "docs/linux/concurrency/04-race-lock-deadlock.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "先查后改超卖（五次 72–86 件）与加锁修复；count += 1 字节码；相反顺序加锁死锁、超时与统一顺序；进程内锁不跨实例，改用数据库条件更新；/proc wchan 观察死锁线程（futex_do_wait）与 jstack/py-spy。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；链接 MySQL 事务页两个锚点已核对存在。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "76a76e3e3d91e1abf940915f711bed6d3969e265caa828cb2d61b798e6d6d2ee"
+    },
+    {
+      "file": "docs/linux/concurrency/05-pool-size-and-queueing.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "吞吐/响应时间/在途数定义；固定速率 500/s 开环实验验证 Little 定律（在途 20.6 vs 21）；线程数下限与 CPU 上限公式；单服务台排队模拟（标注为模拟）与 S/(1-ρ)；真实线程版趋势；线程池监控指标。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；Little 与 M/M/1 公式复算；queue_sim.py 本机与容器输出一致；真实线程版 queueing.py 两次运行记录在 lab。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "e9f1af26a7b1ae759460202a6e5e8a11d257220906e19f3b4120b483f7bec812"
+    },
+    {
+      "file": "docs/linux/concurrency/06-percentiles-and-tail.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "十个请求教学数据讲最近秩百分位；2% 慢调用在扇出 1/5/10/30 下的慢请求比例实测与 1−0.98ⁿ 吻合；会话视角 64%；扇出缓解手段；百分位不能平均、直方图近似、协调遗漏；延迟看板与系列总结。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；30.2、64%、1−0.98ⁿ 等复算。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "068dd4a4b2cbc73c45e6c79111cd42c2bb2fc8de45bb3fe5dc58a40d11199b0a"
+    },
+    {
+      "file": "docs/linux/index.md",
+      "status": "verified",
+      "pageType": "专题总览",
+      "decision": "导航表新增并发基础入口一行，其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "变更行阅读。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "78fbf9cd4148c88fe05d025103e529fbdc29344744b224eeccf70bc94feb4d65"
+    },
+    {
+      "file": "docs/devlanguage/python/concurrency-series/index.md",
+      "status": "verified",
+      "pageType": "专题导读",
+      "decision": "开头新增一段，指向语言无关的并发基础系列，其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "变更段阅读。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "b231ed804444eb777e8082020a5bc8a79ff10e6a715fac51e910bd92708cddbf"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/index.md",
+      "status": "verified",
+      "pageType": "专题导读",
+      "decision": "阅读顺序段前加一句，第 04 篇前置概念指向并发基础，其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "变更句阅读。",
+        "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "9f06227944ebf068c33d8d8183e1507d7c90671f3f9c28b352aa29fcc33672a8"
+    }
+  ]
+}
