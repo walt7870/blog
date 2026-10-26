@@ -80,9 +80,10 @@
       "validation": [
         "全文阅读；Little 与 M/M/1 公式复算；queue_sim.py 本机与容器输出一致；真实线程版 queueing.py 两次运行记录在 lab。实验在 Docker Desktop（Linux 7.0.12-linuxkit，宿主 Apple M4 4P+6E，VM 10 vCPU，Python 3.13）按正文命令实际运行，输出与正文一致，脚本与原始输出见 .maintenance/concurrency-series/lab/。",
         "本地构建（vitepress build --outDir 到 scratchpad，静态服务挂在 /blog/）后 check-pages：1440/390 宽、浅深色四模式，无整页横向溢出、无坏图、无运行错误（唯一失败为本地静态服务缺根路径 /favicon.png，线上由 nginx alias 提供）；截图已逐张查看。正文内站内链接与锚点脚本逐个核对存在。",
-        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+        "整站 vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。",
+        "利用率曲线中“99% → 1518 ms”标签原与曲线重叠，左移后重新生成并在浏览器中查看确认。"
       ],
-      "reviewedHash": "e9f1af26a7b1ae759460202a6e5e8a11d257220906e19f3b4120b483f7bec812"
+      "reviewedHash": "ec037abb05dbd2f0c4b0aaa46ad36b010db6c784d4837fbe37c8c1c4d0a93e32"
     },
     {
       "file": "docs/linux/concurrency/06-percentiles-and-tail.md",

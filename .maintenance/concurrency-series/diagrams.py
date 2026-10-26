@@ -212,7 +212,7 @@ b += f'<path d="M{" L".join(pts)}" fill="none" stroke="{BLUEB}" stroke-width="3"
 for rho, v in [(0.5, 20), (0.7, 33), (0.8, 51), (0.9, 103), (0.95, 207)]:
     x, y = X0 + rho * W, Y0 - v / 300 * H
     b += f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="{ORANGE}"/>' + t(x - 12, y - 12, f"{rho:.0%} → {v} ms", 14, INK, "", "end")
-b += line(f"M{X0 + 0.975 * W:.0f} 196L{X0 + 0.99 * W:.0f} {Y0 - H - 4}", red=True) + t(X0 + 0.97 * W, 176, "99% → 1518 ms", 14, RED, "", "end")
+b += line(f"M{X0 + 0.975 * W:.0f} 196L{X0 + 0.99 * W:.0f} {Y0 - H - 4}", red=True) + t(X0 + 0.935 * W, 176, "99% → 1518 ms", 14, RED, "", "end")
 b += f'<path d="M{X0} {Y0 - 10 / 300 * H:.1f}H{X0 + W}" stroke="{GREENB}" stroke-dasharray="6 5"/>' + t(X0 + 8, Y0 - 10 / 300 * H - 8, "处理时间本身：10 ms", 13, "#3f7a5c")
 b += f'<circle cx="{X0 + 20}" cy="{Y0 + 60}" r="6" fill="{ORANGE}"/>' + t(X0 + 34, Y0 + 65, "模拟结果（每点 20 万个请求）", 14, SUB)
 b += f'<path d="M{X0 + 300} {Y0 + 60}H{X0 + 340}" stroke="{BLUEB}" stroke-width="3"/>' + t(X0 + 350, Y0 + 65, "公式：处理时间 ÷ (1 − 利用率)", 14, SUB)
