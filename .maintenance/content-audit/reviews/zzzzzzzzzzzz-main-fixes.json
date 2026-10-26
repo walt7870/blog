@@ -239,9 +239,10 @@
       "findings": [],
       "dependencyFiles": [],
       "validation": [
-        "npm ci 后 npm run build:mp-weixin 构建成功；各分包实测字节数均小于 2 MB（最大约 1.44 MB），总约 11.7 MB；catalog.json 各分类文章数非零。"
+        "npm ci 后 npm run build:mp-weixin 构建成功；各分包实测字节数均小于 2 MB（最大约 1.44 MB），总约 11.7 MB；catalog.json 各分类文章数非零。",
+        "2026-10-26：overrides 后 npm install，npm audit 由 61 条降为 19 条；覆盖前后 build:mp-weixin 产物 diff -r 无差异。"
       ],
-      "reviewedHash": "17d7672603ff162563f3fe6a6bb850a4f3abc0d526e81aa428f77e4453a45bbd"
+      "reviewedHash": "34cbc540ce32ed7566ee6c08f8117655c35421f3ce4be9b8ef625cd5445e7b1e"
     }
   ]
 }

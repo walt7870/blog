@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 648,
-    "bytes": 4406316,
+    "bytes": 4406639,
     "batches": 75,
     "scanned": 648,
     "reviewed": 648,
@@ -232,7 +232,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 34816
+      "bytes": 35139
     },
     {
       "id": "B002",
@@ -12987,14 +12987,14 @@
     },
     {
       "file": "miniapp/README.md",
-      "contentHash": "07bfe41805db6a43a2c70c3003f568c9efe5ff9bf9e9b75a957cae47854985fc",
-      "reviewHash": "17d7672603ff162563f3fe6a6bb850a4f3abc0d526e81aa428f77e4453a45bbd",
+      "contentHash": "30e314e9b89a3721ee8113947b0a6df07ab5cbd686ac66f0de1ebed20c0c5707",
+      "reviewHash": "34cbc540ce32ed7566ee6c08f8117655c35421f3ce4be9b8ef625cd5445e7b1e",
       "dependencies": [
         "public/reading/miniapp-content-boundary.svg"
       ],
-      "bytes": 4908,
-      "lines": 51,
-      "proseChars": 2035,
+      "bytes": 5231,
+      "lines": 53,
+      "proseChars": 2204,
       "headings": 5,
       "codeLines": 4,
       "visualCount": 1,

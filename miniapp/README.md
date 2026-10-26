@@ -20,6 +20,8 @@ search: false
 
 ## 本地操作
 
+`package.json` 的 `overrides` 把 express、jimp 等间接依赖固定在同一主版本内的已修复版本，覆盖前后构建产物逐字节一致。剩余告警来自 uni-app 固定的 vue 3.4.21、vite 5.2.8 及其 esbuild，只影响本地开发服务，要等 uni-app 官方升级后再处理（2026-10-26）。
+
 在项目根进入小程序目录，再安装其独立依赖。存在可用锁文件时使用 `npm ci`，调整依赖时使用 `npm install` 并审查锁文件变化。
 
 ```bash
