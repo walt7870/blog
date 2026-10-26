@@ -1,0 +1,176 @@
+{
+  "pages": [
+    {
+      "file": "docs/ai/precision/index.md",
+      "status": "verified",
+      "pageType": "专题导读",
+      "decision": "刻度尺比喻、1.0351 三格式对照表、图解入口与 01—06 阅读路径完整；表格即需要比较的数值，保留不加图。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；表中 FP32/FP16/BF16 读回值独立复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "站内链接（01—06、storage-atlas、foundations、inference-series）目标存在，check-browser.mjs 实际点击导读逐篇跳转通过。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "fd2c29519abea1b936fc03c884e9702d2299e2830d880d3dc012db7b1d1b2760"
+    },
+    {
+      "file": "docs/ai/precision/01-number-storage.md",
+      "status": "verified",
+      "pageType": "机制入门",
+      "decision": "从 bit/byte、位编号、位值与位权讲到二进制小数、规格化、偏移指数和 1.25 的 FP16 编码，符合专题的知识依赖要求。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；00000101=5、改位 7 得 133、1011 无符号 11/补码 −5、70 亿参数 28/14 GB、FP16 1.25=0|01111|0100000000 复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "浏览器手动操作 BitByteLab：点击位 6 得 01000101₂=69，读数随位权更新；check-storage-browser.mjs 的位 7/位 0、全零全一与键盘断言通过；NumberEncoding 手机图源正确。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "593b3fa7faebd4d53c4459887a862dd7623a9ba744803d0b5c3cd1448ce2846c"
+    },
+    {
+      "file": "docs/ai/precision/02-floating-formats.md",
+      "status": "verified",
+      "pageType": "机制",
+      "decision": "FP32/FP16/BF16 逐格式字段图、偏移量、指数范围、65504 与约 3.4e38 上限、次正规 2^-24、1 附近间距及 10^-7 附近 BF16 更细的反例均正确。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；1/5/10 与 1/8/7 位分配、偏移 15/127、普通指数 −14..15/−126..127、FP16 max 65504、BF16 max 3.39e38、FP16 最小正规 2^-14 与次正规 2^-24、70000→inf、1e-8→0、1.0351 三种读回值、10^-7 处间距 2^-24 与 2^-31、1024 附近间距 1/8 全部复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "三张 StorageFigure 在 1440 浅色与 390 深色全页截图中人工查看，字段与位编号无越框。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "a115e56370c6667fd7130d2f1fd9ba83ba40d29d079bd435e61cee4ebfd7ef53"
+    },
+    {
+      "file": "docs/ai/precision/03-rounding-errors.md",
+      "status": "verified",
+      "pageType": "机制与交互实验",
+      "decision": "舍入、取偶、累加与三类数值异常推导正确；补一句说明“1024 附近”只比较 FP32/FP16/BF16，FP8 E4M3 最大有限值 448 已不覆盖该范围，并链接 FP8 图解，避免读者被组件的 FP8@1024 结果误导。",
+      "findings": [
+        {
+          "status": "open",
+          "detail": "PrecisionCanvas.vue（mode=\"format\"）在“1024 附近”档选择 FP8 E4M3 时按 3 位小数、间距 128 舍入，显示 1024.25 → 1024；E4M3FN 最大有限值为 448，该值实际应溢出（转为 NaN 或按饱和转换为 448）。组件未改，正文已说明此档只比较 FP32/FP16/BF16；建议组件在 1024 档禁用 FP8 按钮或显示超出范围。"
+        }
+      ],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；1.0351→1.03125 误差 0.00385、E4M3 1.0625→1（取偶）、1.1→1.125、1024+0.25×8 每步 FP16 得 1024 与 FP32 累加得 1026、0.5001→BF16 0.5、FP16 1e-8→0 复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "浏览器手动操作 PrecisionCanvas：四种格式切换、1/1024 两档、滑块键盘 Home/End/方向键，读数与独立计算一致；AccumulationLab 0—8 次逐次断言通过。发现组件在 FP8 E4M3 + 1024 档仍显示 1024.25→1024（间距 128），已记为 finding。",
+        "修改后重新构建并重启 preview，check-pages 四模式复查通过（仅 favicon 404），新增链接实际点击跳到 storage-atlas.html#fp8-variants 且锚点存在。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "7bdae5aec8a5b1677346280af83eb8c0aec2c75954e40723785a7959be24097d"
+    },
+    {
+      "file": "docs/ai/precision/04-mixed-precision.md",
+      "status": "verified",
+      "pageType": "机制",
+      "decision": "权重/激活/累加/输出分工、BF16 转 FP32 不能找回细节、损失缩放 1e-8×1024 与 PyTorch autocast/GradScaler 入口正确。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；1.0351 BF16→FP32 仍为 1.03125、1e-8×1024=1.024e-5 可存入 FP16、28→14 GB 复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "联网核对 PyTorch 主分支 amp.md（2026-10-26 读取）：torch.cuda.amp.GradScaler 已弃用、推荐 torch.amp.GradScaler(\"cuda\")，bfloat16 仅用 autocast，与正文一致。",
+        "浏览器手动切换 BF16 基线 / FP8 权重与激活 / W4A16 及“KV 使用 FP8”，配置表与说明文字随之更新，截图人工查看。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "0e9888e382bd7319e5152760bf45402a6473a01940207cd4b6b5873505ee8e42"
+    },
+    {
+      "file": "docs/ai/precision/05-quantization.md",
+      "status": "verified",
+      "pageType": "机制与交互实验",
+      "decision": "INT4/INT8 补码、对称 INT4 scale、离群值 20 的影响、E4M3FN/E5M2/E2M1 字段与 MXFP4/NVFP4 分组开销正确。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；scale 2/7、0.3→1→0.285714、20/7 下 0.3→0、11111011=−5、E4M3FN 偏移 7/max 448/1.25=00111010、E5M2 偏移 15/max 57344/1.25=00111101、E2M1 幅值集合与 1.25→1、MXFP4 4.25 位与 NVFP4 4.5 位复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "联网核对 NVIDIA Transformer Engine fp8_primer 源稿与 ONNX float4 文档（2026-10-26）：NVFP4 为 16 值块 E4M3 scale + 张量级 FP32 scale、MXFP8 为 32 值 E8M0、E4M3 448/E5M2 57344、ONNX 首元素放低 4 位。",
+        "浏览器手动操作 QuantizationLab：1.5 在 ±2 组得整数 5、恢复 1.428571；加入 20 后 scale 2.857143、整数 1、恢复 2.857143；分组后恢复 0.285714，与独立计算一致。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "135a7d607aac59b0771f0ae0e078ce2b514b2d0017223a0a2cfecb2fc4373a67"
+    },
+    {
+      "file": "docs/ai/precision/06-choosing-precision.md",
+      "status": "verified",
+      "pageType": "选型与验证",
+      "decision": "收益/代价对照表、FP16 与 BF16 取舍、70 亿参数 16 GB 预算推演、性能与质量对照方法和可下载复现脚本完整；对比表与预算表比图更易核对，未加图。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；20/13/9.5/17.5 GB、69 亿×1+1 亿×2=7.1 GB、复现表四行与下载脚本输出一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "正文未写具体框架版本或硬件型号；vLLM/SGLang 只提示对照安装版本的支持矩阵，无需按日期更新。",
+        "390 宽对比表局部横向滚动、整页无溢出，截图人工查看；preview 下载地址 /blog/ai/precision/labs/precision_numbers.py 返回 HTTP 200，本地运行该脚本输出与正文六行一致。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "af32ff3d4d1564afdddafbd5ae40bb30c158ddbc86ebb04946aca2fdd3d801ba"
+    },
+    {
+      "file": "docs/ai/precision/storage-atlas.md",
+      "status": "verified",
+      "pageType": "速查图解",
+      "decision": "28 种格式逐项字段图与读回算例（FP64/32/16、BF16、四种 FP8、FP6、FP4、INT/UINT、NF4、E8M0、MX、NVFP4、Q4_0/Q4_K、TF32、INT4 打包、大小端）核对无误。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；FNUZ 偏移 8/16、max 240/57344、0x80 为 NaN；FP6 E2M3 max 7.5、E3M2 max 28；E8M0 编码 128=2、255=NaN；NF4 16 项码本与 bitsandbytes 一致；NF4 4.5、MXFP8 8.25、MXFP6 6.25、Q4_0 18 字节/4.5 位、Q4_K 144 字节/4.5 位与 d×sc×q−dmin×m 算例 1、INT4 打包 00111011、FP16 1.25=0x3D00 小端 00 3D、INT16/32/64 范围复算一致。用 numpy 2.5.4 + ml_dtypes 0.6.0 独立复算（finfo 位数/最大值/最小正规与次正规值、实际编码位串、舍入结果），并运行 .maintenance/precision-series/check-numbers.py、check-storage.py 与下载脚本 precision_numbers.py，结果与正文一致。",
+        "联网核对 ROCm 精度文档：MI300（gfx94x）仅支持 FNUZ FP8，与“部分 AMD/ROCm 路径”表述一致；TE primer 核对 NVFP4 训练权重 16×16 二维分组。",
+        "1440 与 390 深色下逐个滚动 28 张图确认全部解码、手机用 -mobile 图源；NVFP4、Q4_K、MXFP4、NF4、TF32、E8M0、INT64、INT4 打包单独截图人工查看，文字无越框或重叠。Playwright 对超长页的全页截图出现重复拼接，改用逐图截图核对。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "3e122f5ad6dde4225070f4fc36f3c76a3abcecc20bd3d527b08b9f4cb59d407b"
+    },
+    {
+      "file": "docs/ai/inference-series/14-precision-formats.md",
+      "status": "verified",
+      "pageType": "迁移页",
+      "decision": "旧推理系列第 14 篇迁移入口：search:false，保留旧锚点并指向精度专题 01—05；迁移页无需图示。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；五个链接目标存在，check-browser.mjs 确认链接指向 02-floating-formats.html；保留的旧锚点 id 存在于页面。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "c5f5f8e6a16a61b9e37565f8373369363b6542c1003e4a2f41ecf24f92ca4f25"
+    },
+    {
+      "file": "docs/ai/inference-series/15-mixed-precision.md",
+      "status": "verified",
+      "pageType": "迁移页",
+      "decision": "旧第 15 篇迁移入口：search:false，保留旧锚点并指向 04 与专题导读；迁移页无需图示。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；链接目标存在，check-browser.mjs 确认指向 04-mixed-precision.html。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "89de7655790a4865406e1ad60306f8ed93f8b62055790af1ab7872489b418259"
+    },
+    {
+      "file": "docs/ai/inference-series/16-quantization-now.md",
+      "status": "verified",
+      "pageType": "迁移页",
+      "decision": "旧第 16 篇迁移入口：search:false，保留旧锚点并指向 05、06、专题导读与 03-memory；迁移页无需图示。无改动。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；链接目标（含 inference-series/03-memory.md）存在，check-browser.mjs 确认指向 05-quantization.html。",
+        "本机 Node v26.9.0（非项目指定的 Node 24）下 npm ci 与 npx vitepress build 通过（未跑 pagefind）；vitepress preview 端口 4182。",
+        "node script/check-pages.mjs：1440/390、浅/深色四模式均无横向溢出、无坏图、无页面报错，唯一失败为已知的 /favicon.png 404；人工查看四模式首屏截图，另截全页（1440 浅色、390 深色）分段人工查看。"
+      ],
+      "reviewedHash": "4235b7085e773ae5a043febf345bf8fc4bf34334f2c462aaeef88f973f520b13"
+    }
+  ]
+}
