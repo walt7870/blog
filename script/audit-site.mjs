@@ -11,6 +11,7 @@ const root = path.resolve(values.root || fileURLToPath(new URL('../', import.met
 const directory = path.join(root, '.maintenance/content-audit');
 const ledgerPath = path.join(directory, 'page-reviews.json');
 const scanPath = path.join(directory, 'site-scan.json');
+const themeReviewPath = path.join(directory, 'theme-review.json');
 const markdown = new MarkdownIt({ html: true });
 const sha = value => createHash('sha256').update(value).digest('hex');
 const files = [];
@@ -143,7 +144,8 @@ function inspect(file) {
   return {
     file,
     contentHash: sha(source),
-    reviewHash: sha(JSON.stringify([source, dependencies, sharedHash])),
+    // Theme and config changes are reviewed once in theme-review.json rather than staling every page.
+    reviewHash: sha(JSON.stringify([source, dependencies])),
     dependencies: [...new Set(dependencies.map(([file]) => file))],
     bytes: Buffer.byteLength(source),
     lines: source.split('\n').length,
@@ -196,17 +198,19 @@ const verified = reviews.filter(page => ['verified', 'retained'].includes(page.s
   && page.pageType && page.decision && page.validation.length);
 const stale = reviews.filter(page => page.reviewedHash && page.reviewedHash !== pages.find(item => item.file === page.file).reviewHash);
 const openFindings = reviews.flatMap(page => page.findings.filter(finding => finding.status !== 'resolved').map(finding => ({ file: page.file, ...finding })));
+const themeReview = readJson(themeReviewPath, null);
+const themeReviewed = themeReview?.reviewedSharedHash === sharedHash && !!themeReview.decision && !!themeReview.validation?.length;
 const summary = {
   pages: pages.length, bytes: pages.reduce((sum, page) => sum + page.bytes, 0),
   batches: batches.length, scanned: pages.length, reviewed: verified.length,
   pending: reviews.filter(page => page.status === 'pending').length,
   changesRequired: reviews.filter(page => page.status === 'changes-required').length,
   stale: stale.map(page => page.file), missing: unexplainedMissing.map(page => page.file),
-  brokenLocalReferences: errors.length, openFindings: openFindings.length,
-  releaseReady: verified.length === pages.length && !errors.length && !openFindings.length && !unexplainedMissing.length,
+  brokenLocalReferences: errors.length, openFindings: openFindings.length, themeReviewed,
+  releaseReady: verified.length === pages.length && themeReviewed && !errors.length && !openFindings.length && !unexplainedMissing.length,
 };
 fs.mkdirSync(directory, { recursive: true });
 writeJson(scanPath, { schemaVersion: 2, summary, sharedHash, sharedInputs, batches, pages });
-writeJson(ledgerPath, { schemaVersion: 2, note: '自动扫描只同步清单；逐页审查状态由实际阅读、改造与验证记录维护。reviewedHash 包含正文、直接静态资源、dependencyFiles 和全站主题配置摘要，变化后须复核。', pages: reviews, missing });
+writeJson(ledgerPath, { schemaVersion: 2, note: '自动扫描只同步清单；逐页审查状态由实际阅读、改造与验证记录维护。reviewedHash 包含正文、直接静态资源和 dependencyFiles，变化后须复核；.vitepress 主题与配置的变化记录在 theme-review.json，由一次全站验收覆盖。', pages: reviews, missing });
 console.log(JSON.stringify({ ...summary, errors: errors.slice(0, 30) }, null, 2));
 if (values.gate && !summary.releaseReady) process.exitCode = 1;

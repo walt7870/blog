@@ -4,11 +4,12 @@
     "node": ">=22.12.0"
   },
   "devDependencies": {
+    "pagefind": "^1.5.2",
     "vitepress": "2.0.0-alpha.20"
   },
   "scripts": {
     "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
+    "docs:build": "vitepress build && pagefind --site .vitepress/dist --output-subdir assets/pagefind",
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
@@ -16,5 +17,10 @@
     "markdown-it": "^14.1.0",
     "mermaid": "^11.16.1",
     "three": "0.186.1"
+  },
+  "overrides": {
+    "mermaid": {
+      "katex": "0.18.2"
+    }
   }
 }

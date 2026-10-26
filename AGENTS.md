@@ -6,7 +6,7 @@
 - 静态资源放在项目根目录 `public/` 下（不是 `docs/public/`），按主题建子目录（如 `public/protocol/`、`public/design-pattern/`）。Markdown 中使用站点绝对路径引用，例如 `/protocol/osi-tcpip-layers.svg`。
 - 新增专题时通常需要同时处理三件事：新增 Markdown 内容、必要时补图示资源、补 VitePress 侧边栏或顶部导航入口。
 - 常用验证命令是 `npm run docs:build`。如果构建失败，要说明失败点是否由本次改动引入。
-- 当前固定使用 VitePress `2.0.0-alpha.20`，使用 Node.js 24 和 `npm ci`，以 `package-lock.json` 为唯一依赖锁文件。搜索沿用内置 `provider: 'local'`；升级时先验证干净安装、全站构建、中文搜索跳转及桌面/手机导航，再清理旧依赖和兼容样式。
+- 当前固定使用 VitePress `2.0.0-alpha.20`，使用 Node.js 24 和 `npm ci`，以 `package-lock.json` 为唯一依赖锁文件。站内搜索使用 Pagefind：`npm run docs:build` 在 VitePress 构建后生成分片索引到 `assets/pagefind/`，导航栏搜索由 `.vitepress/theme/components/SiteSearch.vue` 替换默认组件；只有公开路由且未设 `search: false` 的正文进入索引。服务器 nginx 的 `/blog/` 段负责 gzip 和缓存（哈希资源长缓存，Pagefind 入口文件 5 分钟）。升级时先验证干净安装、全站构建、中文搜索跳转及桌面/手机导航，再清理旧依赖和兼容样式。
 
 ## 导航结构规范
 

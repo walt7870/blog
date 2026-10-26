@@ -26,7 +26,7 @@
       "validation": [
         "改动表格全文复读，错误含义与 Linux errno 语义核对；1280/390 构建页面表格可局部横滚，整站构建通过。"
       ],
-      "reviewedHash": "0cc9f36baa4676745d37ee3a7fdb87b52f26b7e254508af82e19ba127902b85f"
+      "reviewedHash": "748b092e9faee9c9c9f9b6ff0ada3427caf7897ac3b4f2547f022ffc6b264c47"
     }
   ]
 }

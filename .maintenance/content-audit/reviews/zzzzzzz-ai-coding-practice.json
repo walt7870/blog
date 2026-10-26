@@ -12,7 +12,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "ebe0800ada294b496753329b1dbfeffd8b44466f99a97d19274f7a8e5b7b2fe1"
+      "reviewedHash": "a0db036b0b33da9b58213fe1311b5ddf8a7cd196fa2278252bda42cab7985ca8"
     },
     {
       "file": "docs/ai/ai-coding-practice/01-what-is-agent.md",
@@ -26,7 +26,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "448de165f76c359672ece96ec1738cd0a4c7840f7ed93859bc577cf00bb46ee8"
+      "reviewedHash": "231fe9f24d4bb2669d95651ef989f31a190435181daaf97fa350a12b18557662"
     },
     {
       "file": "docs/ai/ai-coding-practice/02-multi-session-workflow.md",
@@ -40,7 +40,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "0e845d8ce6cea4d3014445e63247d61bb16eac48e82765000aafb3b69cf76f13"
+      "reviewedHash": "2e88cda85d04e583d5046f9047bac0a58f119c96bc107ff8ee8a773c00ae773e"
     },
     {
       "file": "docs/ai/ai-coding-practice/03-rules-and-grants.md",
@@ -54,7 +54,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "9b8717e0370507b3a5d728c44a31757a18b18083b5330cafd35001be1529a93e"
+      "reviewedHash": "48d1365c2a1b28f8d0682321c8b2179f09524f3f03ea63dc0035e7fc4689bbae"
     },
     {
       "file": "docs/ai/ai-coding-practice/04-evidence.md",
@@ -68,7 +68,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "583748fe868cae9e4dd1a4c359289a2c60acbaacc68d046275aeb47cb7ec8245"
+      "reviewedHash": "2ecc74381b3347a0231cfe715abea0ccbeb4c6befd0f727c4e5c43e94f8ece4f"
     },
     {
       "file": "docs/ai/ai-coding-practice/05-postmortems.md",
@@ -82,7 +82,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "4f151008d5d2bf58815e3d87e0d961fbb9290aa5f32a6aeac1f71c278ceb0a95"
+      "reviewedHash": "ddd7f9c8dd588f32934fc8ffd00356c15bf92017835f770f287845ddb7ef419d"
     },
     {
       "file": "docs/ai/ai-coding-practice/06-what-to-delegate.md",
@@ -96,7 +96,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "acab056379b1a6d7731826e45ce2ca27d5eb4fe1d3246aae8e9f0f99ed4b9a49"
+      "reviewedHash": "15463f116dbc9f3cbad70f7d909863675e97b1c78d2fc9d5bcd8cabd4e584320"
     },
     {
       "file": "docs/ai/index.md",
@@ -110,7 +110,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "eede62c6e607b8c9eac9794813dd6aa93e12c6c26b26acedcc7a04ba803ba56b"
+      "reviewedHash": "1a3cd353fd3c67547595445344315748d7043bbf1d71473a2ecaca4a1887b33f"
     },
     {
       "file": "docs/ai/coding-agent-series/index.md",
@@ -124,7 +124,7 @@
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
         "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
       ],
-      "reviewedHash": "9d7df2b07a9d402b191f592ef2a2c8834750883d42cd0a42b97e685ac916a5be"
+      "reviewedHash": "612cc2bbbb8cf5ca4e6444db445d292da59eda5b66600715dfc2b5c5938ad4e8"
     }
   ]
 }

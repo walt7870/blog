@@ -32,6 +32,9 @@ function fixture(t) {
       validation: ['测试夹具证据'], reviewedHash: source.pages.find(item => item.file === page.file).reviewHash,
     });
     fs.writeFileSync(ledgerPath, JSON.stringify(ledger));
+    fs.writeFileSync(path.join(directory, 'theme-review.json'), JSON.stringify({
+      reviewedSharedHash: source.sharedHash, decision: '测试夹具的主题验收', validation: ['测试夹具证据'],
+    }));
   }
   return { root, scan, approve };
 }
@@ -48,10 +51,10 @@ test('扫描与构建不构成审查，通过必须有当前版本的结论和�
   assert.equal(scan().status, 1);
 });
 
-test('正文、图示和共享样式变化都会使原结论失效', t => {
+test('正文和图示变化会使该页结论失效', t => {
   const { scan, approve, root } = fixture(t);
   scan();
-  for (const file of ['docs/index.md', 'public/example.svg', '.vitepress/style.css']) {
+  for (const file of ['docs/index.md', 'public/example.svg']) {
     approve();
     assert.equal(scan().status, 0);
     fs.appendFileSync(path.join(root, file), '\n');
@@ -59,6 +62,19 @@ test('正文、图示和共享样式变化都会使原结论失效', t => {
     assert.equal(result.status, 1);
     assert.deepEqual(result.stale, ['docs/index.md']);
   }
+});
+
+test('共享样式变化要求重新做主题验收，不使逐页结论失效', t => {
+  const { scan, approve, root } = fixture(t);
+  scan(); approve();
+  assert.equal(scan().status, 0);
+  fs.appendFileSync(path.join(root, '.vitepress/style.css'), '\n');
+  const result = scan();
+  assert.equal(result.status, 1);
+  assert.equal(result.themeReviewed, false);
+  assert.deepEqual(result.stale, []);
+  approve();
+  assert.equal(scan().status, 0);
 });
 
 test('连续重跑仍保留未解释的页面删除', t => {

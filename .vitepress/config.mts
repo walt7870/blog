@@ -10,10 +10,11 @@ import { defineConfig } from 'vitepress';
 import { Buffer } from 'node:buffer';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { nav } from './navbar.ts';
 import { sidebar } from './sidebar.ts';
-import { pageHead, pageMetadata, publicRoute, siteDescription, siteUrl } from './seo.mts';
+import { pageHead, pageMetadata, pageRoute, publicRoute, siteDescription, siteUrl } from './seo.mts';
 
 // https://vitepress.dev/reference/site-config
 export default  defineConfig({
@@ -38,6 +39,21 @@ export default  defineConfig({
       },
     };
   },
+  // Pagefind indexes only marked content, so stubs, maintenance pages and theme chrome stay out of search.
+  transformHtml(code, _id, { pageData }) {
+    if (pageData.frontmatter.search === false || !publicRoute(pageRoute(pageData.relativePath))) return;
+    return code
+      .replace('class="vp-doc ', 'data-pagefind-body class="vp-doc ')
+      .replaceAll('<span class="lang">', '<span class="lang" data-pagefind-ignore>');
+  },
+  vite: {
+    resolve: {
+      alias: [{
+        find: /^.*\/VPNavBarSearch\.vue$/,
+        replacement: fileURLToPath(new URL('./theme/components/SiteSearch.vue', import.meta.url)),
+      }],
+    },
+  },
   transformHead({ pageData, description }) {
     // Attribute serialization escapes quotes in excerpts before crawlers read the HTML.
     return [
@@ -55,28 +71,6 @@ export default  defineConfig({
       light: '/logo-transparent.webp',
       dark: '/logo-transparent.webp',
       // alt: '站点 Logo'
-    },
-    search: {
-      provider: 'local',
-      options: {
-        translations: {
-          button: {
-            buttonText: '搜索文档',
-            buttonAriaLabel: '搜索文档'
-          },
-          modal: {
-            displayDetails: '显示详细结果',
-            noResultsText: '无法找到相关结果',
-            resetButtonTitle: '清除查询条件',
-            backButtonTitle: '关闭搜索',
-            footer: {
-              selectText: '选择',
-              navigateText: '切换',
-              closeText: '关闭'
-            }
-          }
-        }
-      }
     },
     nav: nav,
     sidebar: sidebar,

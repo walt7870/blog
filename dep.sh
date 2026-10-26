@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# The lockfile and build are verified on Node.js 24; Homebrew installs node@24 keg-only.
+if [ "$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null)" != 24 ]; then
+  if [ -x /opt/homebrew/opt/node@24/bin/node ]; then
+    export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
+  else
+    echo '部署需要 Node.js 24，当前为' "$(node -v 2>/dev/null || echo 未安装)" >&2
+    exit 1
+  fi
+fi
+
 : "${REMOTE_HOST:?请通过 REMOTE_HOST 指定部署目标，例如 REMOTE_HOST=jd}"
 REMOTE_TMP="${REMOTE_TMP:-/opt/tmpfile}"
 REMOTE_SITE="${REMOTE_SITE:-/opt/blog}"

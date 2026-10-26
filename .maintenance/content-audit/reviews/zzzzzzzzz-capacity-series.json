@@ -12,7 +12,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "5da0b29bcc0bb6d737021636ebde81fa595d68ce94ba68062f48711be23c9d9f"
+      "reviewedHash": "e5aeee730a7e47e00b4107e75e48efd19e6b07bb8e8dc93f337626345c147980"
     },
     {
       "file": "docs/basic/protocol/capacity/01-ports.md",
@@ -26,7 +26,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "40505a24b9dcab5ea2796157acccf466d83a5734ba0e34d6fb514ac2074e8718"
+      "reviewedHash": "627d2a1ca09f934062b7f0de418e8e87b8e205d752b45f089d2b339e614c3aaa"
     },
     {
       "file": "docs/basic/protocol/capacity/02-file-descriptors.md",
@@ -40,7 +40,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "dc27d26b80dee439e3c66270b737ffdfdc743507e6c9321d9ec7d018b33e3ec0"
+      "reviewedHash": "141cffbea6407ad55fc6e94c6cd3e3902b11818be9758aa9dd114a29fad5b97a"
     },
     {
       "file": "docs/basic/protocol/capacity/03-memory.md",
@@ -54,7 +54,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "3a0bd7f8803fa3bfa4a50f5296e753fb27f60c72b92e6b1fa5fce3377e5786a8"
+      "reviewedHash": "94fe6d1beee0bede73b91a274a07f7fbb4c926d9b5e51bc80610e5b3ed0191d1"
     },
     {
       "file": "docs/basic/protocol/capacity/04-cpu-event-loop.md",
@@ -68,7 +68,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "66cbbb7302231420bac054b606ddb551eddf900f826bbd71f2821a4bc9c01171"
+      "reviewedHash": "4c906eff80c34b0457ea032e1dc039518268f3d6717245ead3f403ddc92a0cf1"
     },
     {
       "file": "docs/basic/protocol/capacity/05-accept-queue.md",
@@ -82,7 +82,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "0b3aa19cb76adaa587febf0d4df0187e6ead05c528b6513da21b0baa20475177"
+      "reviewedHash": "b95d74bc42874cf9adee7bb1125e8b6392d985c8125739b4066378067de49f53"
     },
     {
       "file": "docs/basic/protocol/capacity/06-throughput-backpressure.md",
@@ -96,7 +96,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "fc4b2786d5a6dc00b07155ccc69cbe4be7a9b42982f7c37c28e7e0f8140e4164"
+      "reviewedHash": "96c248e1db5beb5509d48f3848924a0c0c7ac456b93e6579c747bd71d982200d"
     },
     {
       "file": "docs/basic/protocol/capacity-performance.md",
@@ -110,7 +110,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "c9cb31b25e4f22f83b1022bb0f2f63f3d38c334268d1939005c8e6e19c8aed0d"
+      "reviewedHash": "8cbeff38f51d31bcb86a9ad262744268f627a6e6fc3a1adaf27a2da07f9313be"
     },
     {
       "file": "docs/basic/protocol/index.md",
@@ -124,7 +124,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "f6c559ef7e60e1811ea3a5c4afd1ff79fd8bd584114de37afbd908b2b64fceb6"
+      "reviewedHash": "132a134a0c4bea872dc0482218bbaf070dd0d94cdfbbb1a6e1733c5d397aacb5"
     },
     {
       "file": "docs/basic/protocol/http-vs-websocket.md",
@@ -138,7 +138,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "19e53fbf7769a0f75aafc4a76f558306be44d4b1807151bdef273d614652d614"
+      "reviewedHash": "bacfb017a84995fc01c8f610c451f0442142e1aebe0de6bb91e1faa3396199dd"
     },
     {
       "file": "docs/basic/protocol/application-realtime.md",
@@ -152,7 +152,7 @@
         "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
         "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
       ],
-      "reviewedHash": "14564ab5a0e697a3dc9022aae06c5247c60df4b1ae659ed032d341d391eae4a1"
+      "reviewedHash": "6f1e4d0b790621b03aa5cd8c3c9b1f50172787ee350b4dde25e29984f2de5e48"
     }
   ]
 }
