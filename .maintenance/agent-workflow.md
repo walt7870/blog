@@ -29,7 +29,8 @@ Playwright 不是项目依赖：能 `import('playwright')` 就用它，否则回
 ## 审查台账
 
 - 每页记录在 `.maintenance/content-audit/reviews/*.json`，`reviewedHash` 必须等于 `node script/audit-site.mjs` 扫描得到的 `reviewHash`。改动 `.vitepress` 时另在 `.maintenance/content-audit/theme-review.json` 记录一次主题验收。
-- `reviewHash` 包含 `.vitepress` 下全部代码的哈希：改主题、组件或侧边栏，所有页面的记录都会过期。因此 `--gate` 目前因大量旧页面过期而失败，不是本次改动造成的。不要为了让门禁通过批量刷新哈希；只为自己实际读过、验过的页面新增或更新记录，并在交付说明里写明门禁状态。
+- `reviewHash` 只包含页面正文、直接引用的静态资源和 `dependencyFiles`；`.vitepress` 下的主题、组件和侧边栏改动由 `theme-review.json` 单独验收，不会让页面记录过期。通过组件加载的图片（如精度图集）审计发现不了，要写进该页的 `dependencyFiles`。不要为了让门禁通过批量刷新哈希；只为自己实际读过、验过的页面新增或更新记录，并在交付说明里写明门禁状态。
+- 运行审计前确认 `miniapp/node_modules` 不存在：扫描会进入 `miniapp/`，把依赖里的 Markdown 当成页面写进台账；误扫后用 `git checkout` 恢复 `page-reviews.json` 再重跑。
 - 新文件名按字母序排在后面（如 `zzzzzzz-<专题>.json`），避免和其他会话的记录冲突。
 
 ## 发布
