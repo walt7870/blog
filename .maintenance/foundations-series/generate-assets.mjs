@@ -43,14 +43,18 @@ save('tensor-layout','像素、向量和批次','一张八乘八教学图片可�
   const W=m?480:800,H=m?520:330
   let s=text(24,36,'形状改变，像素顺序必须保留',m?23:27)
   const cell=m?18:20,ox=32,oy=76
-  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const on=c===5||r===3||r===1&&c>1&&c<6;s+=`<rect x="${ox+c*cell}" y="${oy+r*cell}" width="${cell-2}" height="${cell-2}" fill="${on?'#347b69':'#e0eaed'}"/>`}
+  const on=(r,c)=>c===5||r===3||r===1&&c>1&&c<6
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++)s+=`<rect x="${ox+c*cell}" y="${oy+r*cell}" width="${cell-2}" height="${cell-2}" fill="${on(r,c)?'#347b69':'#e0eaed'}"/>`
   s+=text(ox,oy+8*cell+28,'单张图片 [8,8]',20)
-  const vx=m?240:264,vy=m?76:100
-  for(let i=0;i<8;i++)s+=`<rect x="${vx}" y="${vy+i*17}" width="100" height="14" fill="${i===5?'#347b69':'#e0eaed'}"/>`
-  s+=text(vx,vy+165,'展平 [64]',20)
-  const bx=m?32:470,by=m?330:104
-  for(let r=0;r<2;r++)for(let c=0;c<10;c++)s+=`<rect x="${bx+c*(m?38:27)}" y="${by+r*34}" width="${m?34:23}" height="26" fill="${r?'#d9eaf5':'#d6eadf'}"/>`
-  s+=text(bx,by+99,'两张图片组成批次 [2,64]',m?20:19)+text(24,H-18,'图中为教学像素；仅展示部分向量元素',m?18:20,'#526a74')
+  // 展平：8 行依次首尾相接；每条保留该行 8 个像素的明暗，便于对照原图
+  const vx=m?240:264,vy=m?76:80,vc=m?14:13
+  for(let r=0;r<8;r++){for(let c=0;c<8;c++)s+=`<rect x="${vx+c*vc}" y="${vy+r*20}" width="${vc-2}" height="14" fill="${on(r,c)?'#347b69':'#e0eaed'}"/>`
+    s+=text(vx+8*vc+8,vy+r*20+12,`第${r+1}行`,m?15:13,'#526a74')}
+  s+=text(vx,vy+8*20+18,'展平 [64]：8 行依次接成一排',m?17:18)
+  const bx=m?32:470,by=m?330:104,bw=m?30:23,bs=m?34:27
+  for(let r=0;r<2;r++){for(let c=0;c<10;c++)s+=`<rect x="${bx+c*bs}" y="${by+r*34}" width="${bw}" height="26" fill="${r?'#d9eaf5':(on(Math.floor(c/8),c%8)?'#347b69':'#d6eadf')}"/>`
+    s+=text(bx+10*bs+4,by+r*34+19,'…',18,'#526a74')+text(bx-8,by+r*34+19,r?'B':'A',16,'#526a74','end')}
+  s+=text(bx,by+99,'两张图片组成批次 [2,64]',m?20:19)+text(24,H-18,'图中为教学像素；批次只画出每张图的前 10 个数',m?17:20,'#526a74')
   return[H,s]
 })
 save('single-update','学习率改变一次更新的结果','单样本x等于2、y等于4，在w等于1处梯度为负4，学习率0.1降低损失而1使损失升高。',m=>{
@@ -75,7 +79,8 @@ save('loss-contours','两参数损失的等高线','三条运费教学样本的�
   for(const level of[.1,.5,2,6,14,28])for(const p of contour(level))s+=`<polyline points="${p.map(([a,b])=>`${x(a).toFixed(1)},${y(b).toFixed(1)}`).join(' ')}" fill="none" stroke="#6caca4" stroke-width="2"/>`
   const run=trajectory(.1,40)
   s+=`<polyline points="${run.map(r=>`${x(r.w).toFixed(1)},${y(r.b).toFixed(1)}`).join(' ')}" fill="none" stroke="#2b78aa" stroke-width="3"/></g>`+line(left,top,left,bottom)+line(left,bottom,right,bottom)
-  s+=`<circle cx="${x(0)}" cy="${y(0)}" r="6" fill="#d14b51"/><circle cx="${x(2)}" cy="${y(1)}" r="6" fill="#287356"/>`+text(x(2)+14,y(1)+6,'最低点 (2,1)',m?17:21)+text(24,H-18,'红点：起点；蓝线：40 次更新',m?18:22)
+  for(const r of run.slice(1))s+=`<circle cx="${x(r.w).toFixed(1)}" cy="${y(r.b).toFixed(1)}" r="3" fill="#2b78aa"/>`
+  s+=`<circle cx="${x(0)}" cy="${y(0)}" r="6" fill="#d14b51"/><circle cx="${x(2)}" cy="${y(1)}" r="6" fill="#287356"/>`+text(x(2)+14,y(1)+6,'最低点 (2,1)',m?17:21)+text(24,H-18,'红点：起点；蓝点：每次更新后的位置',m?18:22)
   for(const v of[0,1,2,3,4])s+=text(x(v),bottom+24,String(v),16,'#526a74','middle')
   for(const v of[-2,0,2,4])s+=text(left-12,y(v)+5,String(v),16,'#526a74','end')
   s+=text(right,top-12,'b 纵轴 / w 横轴',17,'#526a74','end')
