@@ -47,14 +47,14 @@ LangChain 主要统一 Prompt、模型、检索器、Tool 和输出解析器的�
 
 ## 代码运行准备
 
-示例使用 Python 3.11。建立独立虚拟环境，避免依赖修改影响其他项目。以下固定版本对应 2026-10-20 的验证环境：
+示例使用 Python 3.11。建立独立虚拟环境，避免依赖修改影响其他项目。以下固定版本对应 2026-10-26 的验证环境：
 
 ```bash
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install \
   "langchain==1.4.6" "langgraph==1.2.16" \
-  "langchain-openai==1.7.2" "langchain-chroma==1.1.0" \
+  "langchain-openai==1.7.2" \
   "langchain-text-splitters==1.1.3" "sqlglot==30.23.0"
 python -c "import langchain_core, langgraph; print('ready')"
 ```
@@ -72,13 +72,13 @@ python workflow_demo.py sql 'SELECT SUM(amount) FROM sales'
 
 `check` 覆盖 15 组成功和拒绝场景。示例不请求远程模型、不创建真实工单、不连接业务数据库。RAG 使用小词表检索替身，专门演示证据不足时如何停止；它不衡量真实 Embedding、生成模型或生产检索质量。文中的 Chroma 片段属于替换检索层的集成入口，不是该离线文件已经包含的功能。
 
-需要复现同一组间接依赖时，可使用[完整依赖锁定文件](/ai/examples/requirements-lock.txt)，在 Python 3.11 虚拟环境中运行 `python -m pip install -r requirements-lock.txt`。它对应本地教学验证环境；部署到其他操作系统和架构时还需验证相应二进制包是否可用。
+需要复现同一组间接依赖时，可使用[完整依赖锁定文件](/ai/examples/requirements-lock.txt)，在 Python 3.11 虚拟环境中运行 `python -m pip install -r requirements-lock.txt`。它对应本地教学验证环境，2026-10-26 用 pip-audit 检查时没有已知漏洞；部署到其他操作系统和架构时还需验证相应二进制包是否可用。
 
-截至 2026-10-20，锁文件中的 ChromaDB 1.5.9 有代码注入和跨租户权限校验漏洞，安全公告尚未标注已修复版本。这份锁文件仅用于隔离的本地教学复现，不能作为生产部署基线；不要启动对外服务、导入不可信数据库或加载第三方执行代码。前面的离线示例使用检索替身，不启动 Chroma 服务。接入真实检索层前，需要重新核对修复版本、数据来源和权限隔离，再验证集成行为。
+锁文件不含 Chroma。离线示例用检索替身，不需要向量数据库；第 3 篇把检索层换成 Chroma 时再单独安装，那里写明了它当前的安全边界。
 
 ## Demo 与真实模型的区别
 
-实战项目通常同时保留确定性替身和真实模型网关。确定性替身让相同输入得到相同输出，方便离线学习和回归测试；它能演示工作流如何传递状态、检索资料、调用工具和执行护栏，但不代表真实大模型的理解能力。
+实战项目通常同时保留确定性替身和真实模型网关。确定性替身让相同输入得到相同输出，方便离线学习和回归测试；它能演示工作流如何传递状态、检索资料、调用工具和执行护栏；模型的理解和生成质量，要接入真实模型网关才能评估。
 
 切换到兼容 OpenAI 接口的模型后，分类、SQL 生成和基于资料回答可以由模型完成。无论使用哪种模型，检索门控、业务护栏、SQL 校验和权限控制都仍然必须由程序负责。
 

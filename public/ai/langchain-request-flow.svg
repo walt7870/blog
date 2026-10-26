@@ -76,5 +76,5 @@
   <rect x="400" y="386" width="340" height="24" fill="#f8fafc"/>
   <text x="570" y="405" text-anchor="middle" class="small">结果写回状态；配置持久化后才可恢复</text>
 
-  <text x="1090" y="498" text-anchor="end" class="small">权限、事务和业务规则仍由应用代码负责</text>
+  <text x="1146" y="512" text-anchor="end" class="small">权限、事务和业务规则仍由应用代码负责</text>
 </svg>

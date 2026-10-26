@@ -47,7 +47,11 @@ documents = [
 
 ## 将检索层替换为 Chroma
 
-Chroma 集成需要 `langchain-chroma` 和一个实现 Embeddings 接口的 `embeddings` 对象。以下是集成片段，接在上面的 `documents` 后；其中 Embedding 模型必须由应用实际配置：
+Chroma 集成需要 `langchain-chroma` 和一个实现 Embeddings 接口的 `embeddings` 对象。它不在系列的锁定文件里，在同一个虚拟环境中另行安装：`python -m pip install "langchain-chroma==1.1.0"`，会一并装上 `chromadb`。
+
+截至 2026-10-26，`chromadb` 的全部已发布版本（最新为 1.5.9）都受几项安全公告影响，包括未经认证就能通过 HTTP 接口让服务端加载并执行远程模型代码，以及跨租户的权限校验缺失，公告尚未给出修复版本。这些问题都要经由 Chroma 的 HTTP 服务触发；下面的片段在应用进程内使用 Chroma，不启动服务。练习时只放自己的教学数据，不要运行 `chroma run` 对外提供服务，也不要加载来源不明的 Chroma 数据目录。生产环境接入前，先确认官方修复版本，再评估部署方式和权限隔离。
+
+以下是集成片段，接在上面的 `documents` 后；其中 Embedding 模型必须由应用实际配置：
 
 ```python
 from langchain_chroma import Chroma
