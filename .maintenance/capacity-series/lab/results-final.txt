@@ -1,0 +1,46 @@
+### docker run --rm -i --sysctl net.ipv4.ip_local_port_range="50000 50009" capacity-lab python - < ports.py
+连 9000：成功 10 条，第 11 条失败：[Errno 99] Cannot assign requested address
+连 9001：成功 10 条，第 11 条失败：[Errno 99] Cannot assign requested address
+共 20 条连接，用到的本地端口：50000–50009，10 个
+### docker run --rm -v "$PWD":/lab -w /lab capacity-lab sh -c "(ulimit -n 64; exec python fd_server.py) & sleep 1; python fd_client.py; wait"
+服务端 fd 额度：软限制 64
+accept 第 61 条时失败：[Errno 24] Too many open files
+Traceback (most recent call last):
+  File "/lab/fd_server.py", line 15, in <module>
+  File "/usr/local/lib/python3.13/subprocess.py", line 555, in run
+  File "/usr/local/lib/python3.13/subprocess.py", line 1006, in __init__
+  File "/usr/local/lib/python3.13/subprocess.py", line 1751, in _get_handles
+OSError: [Errno 24] Too many open files
+客户端：100 条 connect() 全部成功
+### docker run --rm -i --ulimit nofile=65536 capacity-lab python - < memory.py
+10000 条空闲连接，两端共 20000 个 Socket
+内核 Slab 增加 71.8 MiB，约每个 Socket 3.68 KiB
+TCP 收发缓冲：253 → 253 页
+1000 条连接的客户端不读：TCP 缓冲 139235 页，约 543 MiB
+服务端发送队列平均每条 492 KiB
+### docker run --rm -i --ulimit nofile=65536 capacity-lab python - thread < threads.py
+thread：5000 条连接，线程 5002 个，常驻内存 114 MiB，虚拟地址空间 44.4 GiB
+### docker run --rm -i --ulimit nofile=65536 capacity-lab python - event < threads.py
+event：5000 条连接，线程 2 个，常驻内存 16 MiB，虚拟地址空间 0.1 GiB
+### docker run --rm -i capacity-lab python - < backlog.py
+客户端  1：连接成功
+客户端  2：连接成功
+客户端  3：连接成功
+客户端  4：连接成功
+客户端  5：连接成功
+客户端  6：timed out，等了 2.0 秒
+客户端  7：timed out，等了 2.0 秒
+客户端  8：timed out，等了 2.0 秒
+客户端  9：timed out，等了 2.0 秒
+客户端 10：timed out，等了 2.0 秒
+客户端 11：timed out，等了 2.0 秒
+客户端 12：timed out，等了 2.0 秒
+State  Recv-Q Send-Q Local Address:Port Peer Address:Port
+LISTEN 5      4          127.0.0.1:9000      0.0.0.0:*
+
+ListenOverflows 增加 14
+### docker run --rm -i capacity-lab python - < sendq.py
+服务端写了 2573 KiB 后 send() 返回 EAGAIN
+State Recv-Q Send-Q  Local Address:Port  Peer Address:Port
+ESTAB 0      2581504     127.0.0.1:9000     127.0.0.1:41226
+ESTAB 91136  0           127.0.0.1:41226    127.0.0.1:9000

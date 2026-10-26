@@ -19,7 +19,7 @@ date: 2026-07-12
 | 1. 建立全局模型 | 数据为什么要分层？Frame、Packet、Segment 有何区别？ | [分层、寻址与路由](./network-foundations.md) |
 | 2. 理解可靠传输 | TCP 如何确认、重传、控流和控制拥塞？UDP 为什么仍然重要？ | [TCP、UDP 与 Socket](./transport-socket.md) |
 | 3. 理解应用协议 | TLS、HTTP/2、HTTP/3、WebSocket、gRPC 如何工作？ | [现代应用与实时协议](./application-realtime.md) |
-| 4. 建立容量意识 | 一台主机能维持多少连接？瓶颈为何不只是端口？ | [容量、并发与性能](./capacity-performance.md) |
+| 4. 建立容量意识 | 一台服务器能连多少客户端？为什么不是 65535？ | [连接容量](./capacity/index.md) |
 | 5. 形成排障方法 | DNS 正常为何仍打不开？小包正常、大包为何卡住？ | [网络排障方法与案例](./troubleshooting.md) |
 | 6. 扩展特殊网络 | MCU、工业现场和低功耗设备使用哪些协议？ | [嵌入式与工业通信协议](./embedded-protocols.md) |
 

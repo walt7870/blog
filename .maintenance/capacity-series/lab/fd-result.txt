@@ -1,0 +1,6 @@
+客户端：100 条 connect() 全部成功
+State  Recv-Q Send-Q Local Address:Port Peer Address:Port
+LISTEN 40     1024       127.0.0.1:9000      0.0.0.0:*
+
+服务端 fd 额度：软限制 64
+accept 第 61 条时失败：[Errno 24] Too many open files

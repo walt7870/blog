@@ -41,7 +41,19 @@ export const sidebar: DefaultTheme.Sidebar = {
         { text: '分层、寻址与路由', link: '/docs/basic/protocol/network-foundations' },
         { text: 'TCP、UDP 与 Socket', link: '/docs/basic/protocol/transport-socket' },
         { text: '现代应用与实时协议', link: '/docs/basic/protocol/application-realtime' },
-        { text: '容量、并发与性能', link: '/docs/basic/protocol/capacity-performance' },
+        {
+          text: '连接容量',
+          collapsed: true,
+          items: [
+            { text: '连接容量：一台服务器能连多少客户端', link: '/docs/basic/protocol/capacity/' },
+            { text: '01 65535 卡住的是谁', link: '/docs/basic/protocol/capacity/01-ports' },
+            { text: '02 为什么一千多条就报 Too many open files', link: '/docs/basic/protocol/capacity/02-file-descriptors' },
+            { text: '03 一条连接到底占多少内存', link: '/docs/basic/protocol/capacity/03-memory' },
+            { text: '04 连得上之后：心跳、重连风暴与事件模型', link: '/docs/basic/protocol/capacity/04-cpu-event-loop' },
+            { text: '05 握手完成还要排队：accept 队列', link: '/docs/basic/protocol/capacity/05-accept-queue' },
+            { text: '06 连接之外：吞吐、扇出与背压', link: '/docs/basic/protocol/capacity/06-throughput-backpressure' },
+          ]
+        },
         { text: '网络排障方法与案例', link: '/docs/basic/protocol/troubleshooting' },
         { text: 'HTTP vs WebSocket', link: '/docs/basic/protocol/http-vs-websocket' },
         { text: '嵌入式与工业协议', link: '/docs/basic/protocol/embedded-protocols' },

@@ -249,4 +249,4 @@ CoAP 在 UDP 上提供紧凑的 REST 语义，支持 Confirmable 消息、Observ
 | 音视频 | WebRTC | TURN、拥塞控制、媒体指标 |
 | 设备遥测 | MQTT | 会话、QoS、设备身份 |
 
-选择协议后还要进入 [容量、并发与性能](./capacity-performance.md)，把连接、消息和资源消耗转化为可验证模型。
+选择协议后还要进入 [连接容量](./capacity/index.md)，把连接、消息和资源消耗转化为可验证模型。

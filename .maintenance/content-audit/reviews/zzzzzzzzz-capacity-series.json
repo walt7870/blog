@@ -1,0 +1,158 @@
+{
+  "pages": [
+    {
+      "file": "docs/basic/protocol/capacity/index.md",
+      "status": "verified",
+      "pageType": "专题导读",
+      "decision": "新建连接容量导读：推送网关场景、五道关卡图、按症状找入口、统一实验镜像与实测环境说明。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；Dockerfile 实际构建通过，docker image ls 可列出镜像。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "5da0b29bcc0bb6d737021636ebde81fa595d68ce94ba68062f48711be23c9d9f"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/01-ports.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "四元组解释服务端为何不受 65535 限制；端口范围缩到 10 个的实验展示 EADDRNOTAVAIL 与换目标端口后复用；TIME_WAIT、检查命令、解决方向和压测机误判。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；2^48≈2.8e14 复算；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "40505a24b9dcab5ea2796157acccf466d83a5734ba0e34d6fb514ac2074e8718"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/02-file-descriptors.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "软限制 64 实验：accept 第 61 条 EMFILE，客户端 100 条全部成功，监听 Recv-Q 40；三层额度表、/proc/PID/limits 检查、systemd LimitNOFILE 配置与连接泄漏排查。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；systemd 240 默认值与 select() 原因已核对；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。 systemd 覆盖配置未在真实 systemd 主机执行。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "dc27d26b80dee439e3c66270b737ffdfdc743507e6c9321d9ec7d018b33e3ec0"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/03-memory.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "一万条空闲连接每 Socket 约 3.7 KiB、无缓冲；一千条不读客户端每条积压 492 KiB；8 GiB 估算对比、应用层开销公式、sockstat/tcp_mem 观察与有界队列。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；8 GiB÷3.7 KiB≈227 万、÷492 KiB≈1.7 万复算；memory.py 四次运行 3.68–3.82 KiB；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "3a0bd7f8803fa3bfa4a50f5296e753fb27f60c72b92e6b1fa5fce3377e5786a8"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/04-cpu-event-loop.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "心跳底噪算式；5000 连接线程模型 5002 线程/114 MiB/44.4 GiB 对比 epoll 2 线程/16 MiB；重连风暴 1.7 万/秒与 TLS 握手实测约 2,200–2,300 次/秒；抖动退避、分批重启、限流、会话恢复；CPU 观察命令。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；100万÷30≈3.3万、÷60≈1.7万复算；TLS 实测两次 25012、24733/11 秒；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。 mpstat 需 sysstat，实验镜像未包含，正文已注明。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "66cbbb7302231420bac054b606ddb551eddf900f826bbd71f2821a4bc9c01171"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/05-accept-queue.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "SYN 队列与 accept 队列；backlog=4 实验前 5 成功后 7 超时、Recv-Q 5/Send-Q 4、ListenOverflows 14 的计数解释；ss/nstat 判断、somaxconn 与应用 backlog 调整及根因排查。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；somaxconn 5.4 默认值、backlog+1、SYN 重传间隔、Nginx 511 已核对；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "0b3aa19cb76adaa587febf0d4df0187e6ead05c528b6513da21b0baa20475177"
+    },
+    {
+      "file": "docs/basic/protocol/capacity/06-throughput-backpressure.md",
+      "status": "verified",
+      "pageType": "机制与实验",
+      "decision": "三类容量指标、扇出算式与广播风险；客户端不读实验 Send-Q 2.5 MiB/Recv-Q 89 KiB 与 EAGAIN；背压策略按数据语义选择；链路设备与连接池；压测报告字段。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "全文阅读；100×20×500 B=8 Mbit/s、20 入 5 出 1 MiB≈68 秒复算；实验在 Docker Desktop（Linux 7.0.12-linuxkit，10 vCPU，7.7 GiB，Python 3.13.17）按正文命令实际运行，输出与正文一致，记录见 .maintenance/capacity-series/lab/。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "fc4b2786d5a6dc00b07155ccc69cbe4be7a9b42982f7c37c28e7e0f8140e4164"
+    },
+    {
+      "file": "docs/basic/protocol/capacity-performance.md",
+      "status": "verified",
+      "pageType": "跳转页",
+      "decision": "旧单篇改为跳转页：meta refresh 到 capacity/，search: false，保留旧外链可达。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "预览中访问旧地址 2.5 秒内跳转到 /blog/docs/basic/protocol/capacity/。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "c9cb31b25e4f22f83b1022bb0f2f63f3d38c334268d1939005c8e6e19c8aed0d"
+    },
+    {
+      "file": "docs/basic/protocol/index.md",
+      "status": "verified",
+      "pageType": "总览",
+      "decision": "学习路线第 4 阶段改链到连接容量系列，问题改为“为什么不是 65535”；其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "改动行复读，链接在预览中实际跳转。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "f6c559ef7e60e1811ea3a5c4afd1ff79fd8bd584114de37afbd908b2b64fceb6"
+    },
+    {
+      "file": "docs/basic/protocol/http-vs-websocket.md",
+      "status": "verified",
+      "pageType": "对比",
+      "decision": "相关阅读链接改为连接容量系列；其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "改动行复读，链接在预览中实际跳转。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "19e53fbf7769a0f75aafc4a76f558306be44d4b1807151bdef273d614652d614"
+    },
+    {
+      "file": "docs/basic/protocol/application-realtime.md",
+      "status": "verified",
+      "pageType": "机制",
+      "decision": "结尾容量链接改为连接容量系列；其余未改。",
+      "findings": [],
+      "dependencyFiles": [],
+      "validation": [
+        "改动行复读，链接在预览中实际跳转。",
+        "本地 vitepress preview：1280/390 宽、浅深色四模式逐页访问，图片全部解码、无整页横向溢出、无运行错误；侧边栏高亮与 H1 一致；页内所有站内链接与锚点逐个打开确认存在。",
+        "整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "reviewedHash": "14564ab5a0e697a3dc9022aae06c5247c60df4b1ae659ed032d341d391eae4a1"
+    }
+  ]
+}

@@ -107,4 +107,4 @@ location /ws/ {
 
 验收时分别测试：无消息时跨越代理空闲窗口、断线期间产生事件、收到消息后立即断开、客户端消费速度下降、连接节点重启。检查心跳、补发范围、重复事件和队列上限，而不只验证“握手返回 101”。
 
-相关阅读：[通信协议概览](./index.md)、[容量、并发与性能](./capacity-performance.md)、[网络排障方法与案例](./troubleshooting.md)。
+相关阅读：[通信协议概览](./index.md)、[连接容量](./capacity/index.md)、[网络排障方法与案例](./troubleshooting.md)。
