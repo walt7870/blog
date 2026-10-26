@@ -36,7 +36,8 @@ export default createContentLoader('docs/**/*.md', {
   includeSrc: true,
   transform(raw): HomeData {
     const times = commitTimes();
-    const pages = raw.filter(page => !hidden.test(page.url)).map(page => {
+    // Pages with `search: false` are redirects or entry stubs left after a move, not articles.
+    const pages = raw.filter(page => !hidden.test(page.url) && page.frontmatter.search !== false).map(page => {
       const file = page.url.replace(/^\//, '').replace(/\/$/, '/index').replace(/\.html$/, '') + '.md';
       const heading = page.src?.match(/^#\s+(.+)$/m)?.[1];
       return { url: page.url, title: String(page.frontmatter.title || heading || file.split('/').at(-1)!.replace(/\.md$/, '')).trim(), time: times.get(file) || 0 };
