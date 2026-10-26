@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 641,
-    "bytes": 4331985,
+    "pages": 648,
+    "bytes": 4402348,
     "batches": 75,
-    "scanned": 641,
-    "reviewed": 580,
+    "scanned": 648,
+    "reviewed": 587,
     "pending": 23,
     "changesRequired": 0,
     "stale": [
@@ -51,14 +51,14 @@
     "missing": [],
     "brokenLocalReferences": 0,
     "openFindings": 0,
-    "themeReviewed": false,
+    "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "be636d45a2f0838eb6e4dd923cacdef6070d5bcc939dd95289ec218132f6fe8e",
+  "sharedHash": "0070b1d008cb248ca1db5ddf5bcec586b3d10026338c9599f3bfa1dfecbe6f06",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
-      "0b27c230cd6f1b3b8c60a9e0985e32151b4f055ff6981dd9fcbac881661fa9c5"
+      "374f1853a353d7a92412c35917bcbf81f8311256130cff28a90978cc50d177eb"
     ],
     [
       ".vitepress/navbar.ts",
@@ -70,7 +70,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "a7beb16a3e5a24465990d7d22328156512214fc3abe7319478d70c9716459937"
+      "9f849c2b0960d47bf04a57e860cbcfacc1cafb319aa52ee383798549cfaa3815"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -222,7 +222,7 @@
     ],
     [
       ".vitepress/theme/components/SiteSearch.vue",
-      "3f20f29d687bf23daeb04aa0ed02be1d8078655c2d355a18df08f3b5d52178df"
+      "4a0bde1467abc34b78e9a0e5c7dc3fe4ebf43094b3c907f8ada6dd2169512432"
     ],
     [
       ".vitepress/theme/components/SpeechRuntimeLab.vue",
@@ -250,7 +250,7 @@
     ],
     [
       ".vitepress/topics.ts",
-      "a15a2d4da88d5f95230f3a61503f2b99cdc6ae97c41696dfca3f5107cbc765cf"
+      "b0c77d646be7348bced6ccdfacf4714f64f28957d4671affbcc9dfd8714c59a4"
     ]
   ],
   "batches": [
@@ -271,7 +271,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 34053
+      "bytes": 34557
     },
     {
       "id": "B002",
@@ -727,7 +727,7 @@
         "docs/basic/protocol/http-vs-websocket.md",
         "docs/basic/protocol/index.md"
       ],
-      "bytes": 96620
+      "bytes": 96763
     },
     {
       "id": "B029",
@@ -1185,7 +1185,7 @@
         "docs/devlanguage/python/concurrency-series/18-gil-free-threading-future.md",
         "docs/devlanguage/python/concurrency-series/index.md"
       ],
-      "bytes": 51157
+      "bytes": 51376
     },
     {
       "id": "B057",
@@ -1281,24 +1281,31 @@
         "docs/linux/command/text-compare.md",
         "docs/linux/command/text-processing.md",
         "docs/linux/command/user-management.md",
-        "docs/linux/index.md",
-        "docs/linux/nginx/auto-renew-cert.md",
-        "docs/linux/nginx/location.md",
-        "docs/linux/nginx/nginx.md"
+        "docs/linux/concurrency/01-process-thread-coroutine.md",
+        "docs/linux/concurrency/02-concurrency-vs-parallelism.md",
+        "docs/linux/concurrency/03-context-switch.md",
+        "docs/linux/concurrency/04-race-lock-deadlock.md"
       ],
-      "bytes": 75635
+      "bytes": 88829
     },
     {
       "id": "B064",
       "topic": "docs/linux",
       "pages": [
+        "docs/linux/concurrency/05-pool-size-and-queueing.md",
+        "docs/linux/concurrency/06-percentiles-and-tail.md",
+        "docs/linux/concurrency/index.md",
+        "docs/linux/index.md",
+        "docs/linux/nginx/auto-renew-cert.md",
+        "docs/linux/nginx/location.md",
+        "docs/linux/nginx/nginx.md",
         "docs/linux/process/index.md",
         "docs/linux/process/init-process.md",
         "docs/linux/process/kernel-threads.md",
         "docs/linux/process/systemd.md",
         "docs/linux/process/user-processes.md"
       ],
-      "bytes": 23554
+      "bytes": 79857
     },
     {
       "id": "B065",
@@ -1424,12 +1431,12 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "7631e7431a00427de8056f60a6727a35cd93281c44d76ca0d12e88a6035143cd",
-      "reviewHash": "3c16eab9dcb5f13c857e61834d9ab7885dd5d5bbb1b9a6c9bea4e059ac3b1f0f",
+      "contentHash": "c342b96af43503a7bf45b65ca1d360d1592f62f8555e13546bef0d5e6150671b",
+      "reviewHash": "0cd267f37eba09cf70c51b5e25f2fcf9e1a9ab8ee1ac40202114cc259c183fd8",
       "dependencies": [],
-      "bytes": 22299,
+      "bytes": 22803,
       "lines": 121,
-      "proseChars": 8351,
+      "proseChars": 8643,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 0,
@@ -4832,19 +4839,19 @@
     },
     {
       "file": "docs/basic/protocol/capacity/index.md",
-      "contentHash": "0e0f8f9ec2b8171e65db1cee48d81db60c74e65f1b665163e1b91d7b9a9c8f87",
-      "reviewHash": "e5aeee730a7e47e00b4107e75e48efd19e6b07bb8e8dc93f337626345c147980",
+      "contentHash": "dd3423c3396f51637eaff4f298562640b0c2c1fcb84ab4b69e8327316adc24f9",
+      "reviewHash": "9f06227944ebf068c33d8d8183e1507d7c90671f3f9c28b352aa29fcc33672a8",
       "dependencies": [
         "public/protocol/connection-capacity-gates.svg"
       ],
-      "bytes": 4285,
+      "bytes": 4428,
       "lines": 61,
-      "proseChars": 1465,
+      "proseChars": 1503,
       "headings": 4,
       "codeLines": 4,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 9,
+      "localReferences": 10,
       "findings": []
     },
     {
@@ -11022,19 +11029,19 @@
     },
     {
       "file": "docs/devlanguage/python/concurrency-series/index.md",
-      "contentHash": "4793e088264204b1d8d75b11a968812c2f982a9828d1cf1fcb9d871a9f6fcf39",
-      "reviewHash": "3c553fe001604de220c991dc1dfacac50df1c1a80336baa6aa140313d6583a7d",
+      "contentHash": "7775794d9a2780e730f6bb2cc53db1783f34c01e134c65148c27bc3c21f91413",
+      "reviewHash": "b231ed804444eb777e8082020a5bc8a79ff10e6a715fac51e910bd92708cddbf",
       "dependencies": [
         "public/python/concurrency/concurrency-diagnosis-decision-flow.svg"
       ],
-      "bytes": 4689,
-      "lines": 58,
-      "proseChars": 1419,
+      "bytes": 4908,
+      "lines": 60,
+      "proseChars": 1483,
       "headings": 4,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 20,
+      "localReferences": 21,
       "findings": []
     },
     {
@@ -11855,20 +11862,140 @@
       "findings": []
     },
     {
+      "file": "docs/linux/concurrency/01-process-thread-coroutine.md",
+      "contentHash": "c84ce787a5784322e9aff324e590f3f7b9474a331ced824f6fe9d979fcc4f333",
+      "reviewHash": "9184a549f875ce3fddc4c4ef4e6940ebe936d7517d6042b4121fc36329bbf9b1",
+      "dependencies": [
+        "public/linux/concurrency/process-thread-coroutine.svg"
+      ],
+      "bytes": 10688,
+      "lines": 163,
+      "proseChars": 2668,
+      "headings": 7,
+      "codeLines": 82,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/02-concurrency-vs-parallelism.md",
+      "contentHash": "34530543cb9636c2ada0e760b0919cca20b82e5477b100bb5d63908656e84aa7",
+      "reviewHash": "711ed1eeba2b3ba7a963245080e3007ef5d0902d05523db49826d19e605d9368",
+      "dependencies": [
+        "public/linux/concurrency/concurrency-vs-parallelism.svg"
+      ],
+      "bytes": 8172,
+      "lines": 117,
+      "proseChars": 2310,
+      "headings": 6,
+      "codeLines": 41,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/03-context-switch.md",
+      "contentHash": "10af436753b9e2db994dc502e2bb3559c383421c01d2604520bd5b9db1ac6958",
+      "reviewHash": "83489b39152d9addb2dee445ae0240e8c8e8ba0e64013a97a7fb8da07648cf85",
+      "dependencies": [
+        "public/linux/concurrency/context-switch.svg"
+      ],
+      "bytes": 9603,
+      "lines": 136,
+      "proseChars": 2441,
+      "headings": 5,
+      "codeLines": 68,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/04-race-lock-deadlock.md",
+      "contentHash": "620b54a13917d829337f4b35a83c1b46c6d18472add8a38390d137b1b64de44f",
+      "reviewHash": "76a76e3e3d91e1abf940915f711bed6d3969e265caa828cb2d61b798e6d6d2ee",
+      "dependencies": [
+        "public/linux/concurrency/race-and-deadlock.svg"
+      ],
+      "bytes": 10773,
+      "lines": 166,
+      "proseChars": 2624,
+      "headings": 6,
+      "codeLines": 82,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/05-pool-size-and-queueing.md",
+      "contentHash": "355dd88d460f8673ecdd2010d0b45ea0f1856a4c2d151280c7e7d1d4533cfe9d",
+      "reviewHash": "e9f1af26a7b1ae759460202a6e5e8a11d257220906e19f3b4120b483f7bec812",
+      "dependencies": [
+        "public/linux/concurrency/pool-and-queue.svg",
+        "public/linux/concurrency/utilization-curve.svg"
+      ],
+      "bytes": 13573,
+      "lines": 184,
+      "proseChars": 3408,
+      "headings": 7,
+      "codeLines": 69,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/06-percentiles-and-tail.md",
+      "contentHash": "7f8cb9cde36d349bed792eadf9eda7f8861e59257e0a71646885e07ee854ea92",
+      "reviewHash": "068dd4a4b2cbc73c45e6c79111cd42c2bb2fc8de45bb3fe5dc58a40d11199b0a",
+      "dependencies": [
+        "public/linux/concurrency/percentiles-and-fanout.svg"
+      ],
+      "bytes": 11266,
+      "lines": 138,
+      "proseChars": 3210,
+      "headings": 8,
+      "codeLines": 39,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/linux/concurrency/index.md",
+      "contentHash": "cdba6377fd01ccbfb8dc41225deaf66ed25d604e9e2d2922f0f7970e4d68fd1e",
+      "reviewHash": "936d0e6db0bc5a7db826fbc37cc348c2f5a678f584f86936ece3d888d579a361",
+      "dependencies": [
+        "public/linux/concurrency/request-journey.svg"
+      ],
+      "bytes": 5248,
+      "lines": 63,
+      "proseChars": 1698,
+      "headings": 4,
+      "codeLines": 4,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 9,
+      "findings": []
+    },
+    {
       "file": "docs/linux/index.md",
-      "contentHash": "d995c9f51c43d040778f1cb83b507deda93c82e283a4435693f4b57ef970c9ca",
-      "reviewHash": "5087bd969aa8c0204bb88ac9c51929ee1340005178f21b31924571e86a74ca9b",
+      "contentHash": "cfd141bea642f817b8c88b1e25dbc8cbbfaca22155c1ebdd5cf84bf1f35441fb",
+      "reviewHash": "78fbf9cd4148c88fe05d025103e529fbdc29344744b224eeccf70bc94feb4d65",
       "dependencies": [
         "public/linux/linux-runtime-boundaries.svg"
       ],
-      "bytes": 5601,
-      "lines": 72,
-      "proseChars": 1922,
+      "bytes": 5775,
+      "lines": 73,
+      "proseChars": 1971,
       "headings": 6,
       "codeLines": 5,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 12,
+      "localReferences": 13,
       "findings": []
     },
     {

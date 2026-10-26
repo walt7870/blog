@@ -1,0 +1,10 @@
+{
+  "reviewedSharedHash": "0070b1d008cb248ca1db5ddf5bcec586b3d10026338c9599f3bfa1dfecbe6f06",
+  "reviewedAt": "2026-10-26",
+  "decision": "站内搜索改用 Pagefind 1.4.0：script/build-search.mjs 用 Intl.Segmenter 预先切分中文后建索引，SiteSearch.vue 以同样方式切分查询，词组按序出现的结果优先，并剔除 Pagefind 无匹配时退回短前缀的结果；只索引公开且未设 search: false 的正文，代码块语言标签不入索引。侧边栏新增并发基础分组，Linux 专题描述加入线程与并发。",
+  "validation": [
+    "干净 worktree 上 Node 24.22.0 执行 npm ci 与 npm run docs:build 通过，索引 619 页。",
+    "Pagefind 1.5.2 实测漏词（上下文仅命中 1 页、上下文切换 0 页），1.4.0 直接索引中文时写时复制为 0、文件描述符混入大量无关页；改为预分词后逐词核对：上下文切换、线程池、文件描述符、竞态条件、背压、P99、Little定律、accept 队列、somaxconn、ListenOverflows 首条均为对应文章，xyzqwe 无结果。",
+    "本地 vitepress preview 1440 浅色与 390 深色：搜索首查约 0.41–0.49 秒，摘录中文无多余空格、相邻高亮合并；Esc 关闭、/ 与 Ctrl+K 打开、方向键与回车跳转到对应小节、关闭后滚动解锁均通过；截图已人工查看。"
+  ]
+}

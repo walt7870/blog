@@ -5,6 +5,8 @@ import VPNavBarSearchButton from 'vitepress/dist/client/theme-default/components
 
 // Replaces the default nav search. Pagefind splits its index into chunks and fetches only the ones a
 // query touches, so a search downloads a few hundred KB instead of the whole site's text.
+// script/build-search.mjs indexes Chinese already split into words by Intl.Segmenter, so queries are
+// split the same way here, and the spaces it leaves in titles and excerpts are removed for display.
 
 interface Hit {
   url: string
@@ -15,6 +17,7 @@ interface Hit {
 
 interface PagefindResult {
   url: string
+  content: string
   excerpt: string
   meta: { title?: string }
   sub_results?: { title: string, url: string, excerpt: string, locations?: number[] }[]
@@ -23,10 +26,18 @@ interface PagefindResult {
 interface Pagefind {
   options(options: Record<string, unknown>): Promise<void>
   init(): Promise<void>
-  search(query: string): Promise<{ results: { data(): Promise<PagefindResult> }[] } | null>
+  search(query: string): Promise<{ results: PagefindHit[] } | null>
+}
+
+interface PagefindHit {
+  id: string
+  data(): Promise<PagefindResult>
 }
 
 const MAX_RESULTS = 12
+const segmenter = new Intl.Segmenter('zh', { granularity: 'word' })
+const CJK = '[\\p{Script=Han}\\u3000-\\u303f\\uff00-\\uffef“”‘’]'
+const CJK_GAP = new RegExp(`(${CJK}(?:</mark>)?)\\s+(?=(?:<mark>)?${CJK})`, 'gu')
 
 const router = useRouter()
 const dialog = ref<HTMLDialogElement>()
@@ -87,8 +98,8 @@ async function runSearch() {
   status.value = 'loading'
   try {
     const engine = await loadPagefind()
-    const found = await engine.search(text)
-    const pages = await Promise.all((found?.results ?? []).slice(0, MAX_RESULTS).map(result => result.data()))
+    const found = await Promise.all((await find(engine, text)).slice(0, MAX_RESULTS).map(result => result.data()))
+    const pages = found.filter(page => contains(page, text))
     if (id !== searchId) return
     hits.value = pages.map(toHit)
     selected.value = 0
@@ -97,6 +108,37 @@ async function runSearch() {
   } catch {
     if (id === searchId) status.value = 'error'
   }
+}
+
+// Words are matched anywhere on a page, so 写时复制 alone would rank pages that merely contain 写, 时 and 复制.
+// Pages where the words appear in order (a quoted phrase) move to the front, keeping relevance order.
+async function find(engine: Pagefind, text: string) {
+  const words = splitHan(text, parts => parts.join(' '))
+  const phrase = splitHan(text, parts => parts.length > 1 ? `"${parts.join(' ')}"` : parts[0])
+  const loose = (await engine.search(words))?.results ?? []
+  if (phrase === words) return loose
+  const exact = (await engine.search(phrase))?.results ?? []
+  const inPhrase = new Set(exact.map(hit => hit.id))
+  const ordered = [...loose.filter(hit => inPhrase.has(hit.id)), ...exact, ...loose]
+  return ordered.filter((hit, index) => ordered.findIndex(other => other.id === hit.id) === index)
+}
+
+// With no exact match, Pagefind falls back to ever shorter prefixes, so xyzqwe would return pages that
+// merely contain an x. Keep a page only if it has every query word (a near-full prefix for Latin words,
+// to allow for stemming).
+function contains(page: PagefindResult, text: string) {
+  const content = joinCjk(page.content).toLowerCase()
+  return (text.toLowerCase().match(/\p{Script=Han}+|[^\s\p{Script=Han}]+/gu) ?? []).every(token =>
+    /\p{Script=Han}/u.test(token)
+      ? [...segmenter.segment(token)].every(part => content.includes(part.segment))
+      : content.includes(token.slice(0, Math.max(3, token.length - 2))))
+}
+
+function splitHan(text: string, join: (parts: string[]) => string) {
+  return text
+    .replace(/\p{Script=Han}+/gu, run => ` ${join([...segmenter.segment(run)].map(part => part.segment))} `)
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 // Point each page at the section with the most matches, so the link lands next to the text that matched.
@@ -112,13 +154,17 @@ function toHit(page: PagefindResult): Hit {
     url: best?.url ?? page.url,
     page: title,
     section: best && clean(best.title) !== title ? clean(best.title) : '',
-    excerpt: best?.excerpt || page.excerpt,
+    excerpt: joinCjk(best?.excerpt || page.excerpt),
   }
 }
 
 // Heading anchors leave a zero-width space in section titles.
 function clean(text = '') {
-  return text.replace(/\u200b/g, '').trim()
+  return joinCjk(text.replace(/\u200b/g, '')).trim()
+}
+
+function joinCjk(html: string) {
+  return html.replace(CJK_GAP, '$1').replaceAll('</mark><mark>', '')
 }
 
 watch(query, () => {

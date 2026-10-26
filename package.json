@@ -4,12 +4,12 @@
     "node": ">=22.12.0"
   },
   "devDependencies": {
-    "pagefind": "^1.5.2",
+    "pagefind": "^1.4.0",
     "vitepress": "2.0.0-alpha.20"
   },
   "scripts": {
     "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build && pagefind --site .vitepress/dist --output-subdir assets/pagefind",
+    "docs:build": "vitepress build && node script/build-search.mjs",
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
