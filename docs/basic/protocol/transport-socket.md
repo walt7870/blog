@@ -174,7 +174,9 @@ epoll_wait → accept/read → 协议解析 → 业务工作池 → write
 | `ECONNREFUSED` | 目标端口未监听或主动拒绝 | 检查服务监听与防火墙 REJECT |
 | `ETIMEDOUT` | 路径静默丢弃或对端无响应 | 双端抓包并检查回程路由 |
 | `EADDRINUSE` | 本地地址端口已占用 | 查看监听与绑定策略 |
+| `EADDRNOTAVAIL` | 主动连接时临时端口耗尽，或绑定的本地地址不存在 | 查看 `ip_local_port_range` 和 `TIME_WAIT` 数量 |
 | `EMFILE` | 进程 fd 达到上限 | 检查 `ulimit -n` 和连接泄漏 |
+| `ENFILE` | 系统 fd 总量达到 `fs.file-max` | 查看 `/proc/sys/fs/file-nr` 和占用最多的进程 |
 | `EAGAIN` | 非阻塞操作暂时无法完成 | 等待下一次就绪事件 |
 | `ECONNRESET` | 对端或中间设备发送 RST | 关联关闭原因与应用日志 |
 

@@ -2,10 +2,10 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 634,
-    "bytes": 4290056,
+    "bytes": 4298456,
     "batches": 74,
     "scanned": 634,
-    "reviewed": 9,
+    "reviewed": 11,
     "pending": 23,
     "changesRequired": 0,
     "stale": [
@@ -141,12 +141,10 @@
       "docs/basic/acoustics/voice-interaction.md",
       "docs/basic/acoustics/wake-word.md",
       "docs/basic/protocol/application-realtime.md",
-      "docs/basic/protocol/capacity-performance.md",
       "docs/basic/protocol/embedded-protocols.md",
       "docs/basic/protocol/http-vs-websocket.md",
       "docs/basic/protocol/index.md",
       "docs/basic/protocol/network-foundations.md",
-      "docs/basic/protocol/transport-socket.md",
       "docs/basic/protocol/troubleshooting.md",
       "docs/container/basic/concepts.md",
       "docs/container/basic/index.md",
@@ -1282,7 +1280,7 @@
         "docs/basic/protocol/transport-socket.md",
         "docs/basic/protocol/troubleshooting.md"
       ],
-      "bytes": 83496
+      "bytes": 91896
     },
     {
       "id": "B029",
@@ -5249,19 +5247,20 @@
     },
     {
       "file": "docs/basic/protocol/capacity-performance.md",
-      "contentHash": "a90a3b27360b6461bee6e83386b0789577412b7b970219b8ef566bb39728483d",
-      "reviewHash": "481780c05201ba083a6fd551b924f6f38571edb815cff858713d6a2767aa6f05",
+      "contentHash": "0d33248008f6b379c81982b577378e5a49385461c926d1f7886a781f2347ce6e",
+      "reviewHash": "ad545df9c808f0e65b3d3129bfb18dfa5715bd140d0ea0f581eecf3c296f51d0",
       "dependencies": [
-        "public/protocol/connection-backpressure.svg"
+        "public/protocol/connection-backpressure.svg",
+        "public/protocol/connection-capacity-gates.svg"
       ],
-      "bytes": 6765,
-      "lines": 179,
-      "proseChars": 2096,
-      "headings": 11,
-      "codeLines": 25,
-      "visualCount": 1,
+      "bytes": 14910,
+      "lines": 275,
+      "proseChars": 4950,
+      "headings": 14,
+      "codeLines": 50,
+      "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 2,
+      "localReferences": 4,
       "findings": []
     },
     {
@@ -5336,14 +5335,14 @@
     },
     {
       "file": "docs/basic/protocol/transport-socket.md",
-      "contentHash": "5940cc6be9d24196a974a75adc9e2d8485dcb6e66f0ccf6fe08ceb7859fdf18a",
-      "reviewHash": "0dcf7a11e686ae05b1c6bc793b50dc7a703752d1e1f9e98f7666060973371b7d",
+      "contentHash": "62556e40cfbb4ac0a27f0a86b8ca4cb4de3dfd0e3f9ad3e2ad40e82c53350173",
+      "reviewHash": "0cc9f36baa4676745d37ee3a7fdb87b52f26b7e254508af82e19ba127902b85f",
       "dependencies": [
         "public/protocol/tcp-reliability-loop.svg"
       ],
-      "bytes": 8923,
-      "lines": 204,
-      "proseChars": 2903,
+      "bytes": 9178,
+      "lines": 206,
+      "proseChars": 3036,
       "headings": 14,
       "codeLines": 32,
       "visualCount": 1,

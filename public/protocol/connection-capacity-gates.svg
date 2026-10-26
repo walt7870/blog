@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="cg-title cg-desc">
+<title id="cg-title">一条连接要依次通过的五道关卡</title><desc id="cg-desc">服务端连接数依次受端口与四元组、文件描述符、内存、CPU 与事件模型、内核队列与中间设备限制。实际容量由最先触碰的关卡决定，提高某一道上限后瓶颈会移到下一道。</desc>
+<defs><marker id="cg-arrow" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#596775"/></marker></defs>
+<rect width="1120" height="560" fill="#f7f9fb"/>
+<g font-family="Arial, 'PingFang SC', sans-serif" fill="#23313d">
+<text x="40" y="56" font-size="28" font-weight="700">一条连接要依次通过的五道关卡</text>
+<text x="40" y="92" font-size="18" fill="#52616d">65535 只是端口号字段的上限；服务端靠四元组区分连接，真正的上限在后面几道。</text>
+<g fill="none" stroke="#596775" stroke-width="2" marker-end="url(#cg-arrow)">
+<path d="M234 280H250"/><path d="M450 280H466"/><path d="M666 280H682"/><path d="M882 280H898"/>
+</g>
+<g stroke="#8fa3b1" fill="#fff"><rect x="40" y="140" width="194" height="290" rx="6"/><rect x="256" y="140" width="194" height="290" rx="6"/><rect x="472" y="140" width="194" height="290" rx="6"/><rect x="688" y="140" width="194" height="290" rx="6"/><rect x="904" y="140" width="176" height="290" rx="6"/></g>
+<g font-size="15" fill="#7a8794"><text x="58" y="170">01</text><text x="274" y="170">02</text><text x="490" y="170">03</text><text x="706" y="170">04</text><text x="922" y="170">05</text></g>
+<g font-size="20" font-weight="600"><text x="58" y="200">端口与四元组</text><text x="274" y="200">文件描述符</text><text x="490" y="200">内存</text><text x="706" y="200">CPU 与事件模型</text><text x="922" y="200">队列与中间设备</text></g>
+<g font-size="16" fill="#3d4b57">
+<text x="58" y="238">服务端只占一个</text><text x="58" y="262">监听端口</text><text x="58" y="300">客户端连同一目标</text><text x="58" y="324">约 2.8 万临时端口</text>
+<text x="274" y="238">每条连接一个 fd</text><text x="274" y="262">进程软限制常见 1024</text><text x="274" y="300">系统总量：file-max</text><text x="274" y="324">进程上限：nr_open</text>
+<text x="490" y="238">空闲连接：内核</text><text x="490" y="262">对象约几 KB</text><text x="490" y="300">有数据在途：</text><text x="490" y="324">收发缓冲按需增长</text>
+<text x="706" y="238">心跳、握手、收发包</text><text x="706" y="262">都要消耗算力</text><text x="706" y="300">一连接一线程</text><text x="706" y="324">先耗尽线程与切换</text>
+<text x="922" y="238">accept 队列</text><text x="922" y="262">SYN 队列</text><text x="922" y="300">conntrack、NAT</text><text x="922" y="324">负载均衡</text>
+</g>
+<g font-size="15" fill="#b4473b"><text x="58" y="400">EADDRNOTAVAIL</text><text x="274" y="400">EMFILE / ENFILE</text><text x="490" y="400">tcp_mem 压力、OOM</text><text x="706" y="400">延迟升高、超时断连</text><text x="922" y="400">握手被丢、建连失败</text></g>
+<g font-size="14" fill="#7a8794"><text x="58" y="374">超限表现</text><text x="274" y="374">超限表现</text><text x="490" y="374">超限表现</text><text x="706" y="374">超限表现</text><text x="922" y="374">超限表现</text></g>
+<rect x="40" y="462" width="1040" height="62" rx="6" fill="#e8f5ef" stroke="#74a28b"/>
+<text x="62" y="500" font-size="18">实际容量由最先触碰的那一道决定。把文件描述符从 1024 调到百万，瓶颈会移到内存或 CPU。</text>
+</g></svg>

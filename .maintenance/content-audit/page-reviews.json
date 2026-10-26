@@ -2601,14 +2601,18 @@
       "file": "docs/basic/protocol/capacity-performance.md",
       "batch": "B028",
       "status": "verified",
-      "reviewedHash": "3e031e43e4317a61228c7e526da793b51f7132c56851395dfadbdc66cb0bd15a",
+      "reviewedHash": "ad545df9c808f0e65b3d3129bfb18dfa5715bd140d0ea0f581eecf3c296f51d0",
       "pageType": "连接容量与背压机制",
       "findings": [],
-      "decision": "全文阅读后消除扇出重复相乘，补100事件乘20接收者乘500字节的8Mbit/s例子；用20入5出说明1MiB队列约68秒填满，区分状态合并与支付流水持久恢复，新增队列背压图及Linux性能工具前提。",
+      "decision": "以“65535 是谁的上限”为入口，用长连接推送网关贯穿五道关卡：四元组与临时端口、三层 fd 额度、空闲与积压连接的内存账、心跳与重连风暴的 CPU 账、accept/SYN 队列；新增关卡图和默认与网关配置对比及 systemd/sysctl 示例；后半篇吞吐、扇出、背压与中间设备保持不变。",
       "validation": [
-        "容量与队列算式逐项核对，Bash语法通过；1120宽SVG实际字体边界截图通过。桌面/手机双主题全页、图片原尺寸关闭、3处代码横滚22.5/29/40px与分页正确。整站构建通过，未声称真实压测结果。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
-      ]
+        "全文阅读；算式逐项复算：2^48≈2.8e14，8 GiB÷3.5 KiB≈240 万，÷23.5 KiB≈36 万，3,600×256 KiB≈900 MiB，100 万÷30 s≈3.3 万/秒，100 万÷60 s≈1.7 万/秒。内存数字在正文标为教学估算，未声称实测。",
+        "易变事实于 2026-10-25 核对：somaxconn 自 Linux 5.4 默认 4096（此前 128，提交 19f92a03）；ip_local_port_range 默认 32768–60999；systemd 240 起服务 RLIMIT_NOFILE 软 1024、硬 524288，软限制保持 1024 是为兼容 select()；fs.nr_open 默认 1048576；Nginx Linux 默认 backlog 511。",
+        "Linux 命令与 systemd/sysctl 示例本轮未在 Linux 主机执行（本机为 macOS，Docker 守护进程未运行），只做语法与语义核对；正文已写明执行位置、预期输出与失败定位。",
+        "connection-capacity-gates.svg 为手写 1120 宽 SVG，Chromium 中逐个文本测量未越出节点与画布；本地 vitepress preview 下 1280 桌面与 390 窄屏、浅深色四模式全页截图：无整页横向溢出、图片正常加载、窄屏表格局部横滚、无运行错误。",
+        "本地搜索“文件描述符”“EADDRNOTAVAIL”能命中新小节并跳转到带 /blog/ 前缀的锚点；整站 npm run docs:build 通过（本机 Node v26.9.0，非项目指定的 Node 24）。"
+      ],
+      "dependencyFiles": []
     },
     {
       "file": "docs/basic/protocol/embedded-protocols.md",
@@ -2666,14 +2670,14 @@
       "file": "docs/basic/protocol/transport-socket.md",
       "batch": "B028",
       "status": "verified",
-      "reviewedHash": "532114d643298fbf88d45d73e73731f41213c6fc6f4849a2825ef194ada0b075",
-      "pageType": "传输状态与Socket机制",
+      "reviewedHash": "0cc9f36baa4676745d37ee3a7fdb87b52f26b7e254508af82e19ba127902b85f",
+      "pageType": "传输层机制",
       "findings": [],
-      "decision": "全文阅读后把min(rwnd,cwnd)校准为最大在途量，新增可发量扣除已有在途并给64/32/24KiB例子；补half-close、同时关闭与TIME_WAIT边界，明确nc换行不形成TCP消息边界及Linux工具前提。修正可靠性闭环图。",
+      "decision": "Socket 错误表补 EADDRNOTAVAIL（临时端口耗尽）与 ENFILE（系统 fd 总量），与容量篇的关卡说明对应；其余内容不变。",
       "validation": [
-        "Bash语法通过；1440宽SVG实际字体边界截图复核。桌面/手机浅深色全页通过，手机图片342宽缩略图和1440原尺寸关闭正常，7处长代码键盘横滚3.5至39.5px，分页进入应用页正确。整站构建通过，未运行nc/strace实验。",
-        "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。"
-      ]
+        "改动表格全文复读，错误含义与 Linux errno 语义核对；1280/390 构建页面表格可局部横滚，整站构建通过。"
+      ],
+      "dependencyFiles": []
     },
     {
       "file": "docs/basic/protocol/troubleshooting.md",
