@@ -189,8 +189,8 @@ try {
   for (const [query, target] of [['FP32', '02-floating-formats'], ['混合精度', '04-mixed-precision']]) {
     await visit('')
     await page.locator('.VPNavBarSearch button').click()
-    await page.locator('#localsearch-input').fill(query)
-    const result = page.locator(`.VPLocalSearchBox a.result[href*="/precision/${target}"]`).first()
+    await page.locator('.site-search .search-input').fill(query)
+    const result = page.locator(`.site-search a.result[href*="/precision/${target}"]`).first()
     await result.click()
     await page.waitForURL(`**/precision/${target}.html*`)
     await ready()

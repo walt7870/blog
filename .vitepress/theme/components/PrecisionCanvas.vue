@@ -7,10 +7,10 @@ const selected = ref(props.mode === 'format' ? 'BF16' : 'BF16 基线')
 const input = ref(1.0351)
 const magnitude = ref(1)
 const formats = {
-  FP32: { bits: 23, color: '#2563eb' },
-  FP16: { bits: 10, color: '#0f766e' },
-  BF16: { bits: 7, color: '#be123c' },
-  'FP8 E4M3': { bits: 3, color: '#b45309' },
+  FP32: { bits: 23, max: 3.4028234663852886e38, color: '#2563eb' },
+  FP16: { bits: 10, max: 65504, color: '#0f766e' },
+  BF16: { bits: 7, max: 3.3895313892515355e38, color: '#be123c' },
+  'FP8 E4M3': { bits: 3, max: 448, color: '#b45309' },
 }
 const configurations = {
   'BF16 基线': ['BF16', 'BF16', 'BF16'],
@@ -21,6 +21,8 @@ const cacheFP8 = ref(false)
 const current = computed(() => formats[selected.value as keyof typeof formats] || formats.BF16)
 // Both selectable magnitudes are powers of two, so the interval has one exponent.
 const spacing = computed(() => magnitude.value * 2 ** -current.value.bits)
+// E4M3 tops out at 448, so the 1024 range has no representable values in it.
+const outOfRange = computed(() => input.value > current.value.max)
 const rounded = computed(() => {
   const scaled = input.value / spacing.value
   const lower = Math.floor(scaled)
@@ -29,7 +31,9 @@ const rounded = computed(() => {
   return nearest * spacing.value
 })
 const description = computed(() => props.mode === 'format'
-  ? `${selected.value}：${input.value} → ${rounded.value}；绝对误差 ${Number(Math.abs(rounded.value - input.value).toPrecision(5))}；[${magnitude.value}, ${magnitude.value * 2}) 内间距 ${spacing.value}`
+  ? outOfRange.value
+    ? `${selected.value}：${input.value} 超过最大有限值 ${current.value.max}，这个范围里没有可表示的数。实际使用时先乘缩放因子把数值缩进范围，或按库的设置饱和为 ${current.value.max}。`
+    : `${selected.value}：${input.value} → ${rounded.value}；绝对误差 ${Number(Math.abs(rounded.value - input.value).toPrecision(5))}；[${magnitude.value}, ${magnitude.value * 2}) 内间距 ${spacing.value}`
   : `${selected.value}；KV ${cacheFP8.value ? 'FP8 + scale' : 'BF16'}。归一化与累加示例均保留 FP32。`)
 let resizeObserver: ResizeObserver | undefined
 let themeObserver: MutationObserver | undefined
@@ -69,6 +73,13 @@ function render() {
     const span = magnitude.value * 0.125
     const x = (value: number) => left + (value - magnitude.value) / span * (right - left)
     ctx.fillStyle = ink; ctx.fillText(`放大观察：${magnitude.value} 到 ${magnitude.value + span}`, left, 28)
+    if (outOfRange.value) {
+      ctx.fillStyle = current.value.color
+      ctx.fillText(`${selected.value} 最大只能表示 ${current.value.max}，这一段没有刻度`, left, 82)
+      ctx.fillStyle = muted
+      ctx.fillText('需要先用缩放因子把数值缩小，再存成这个格式', left, 110)
+      return
+    }
     const spacingLabel = spacing.value < 0.0001 ? spacing.value.toExponential(3) : spacing.value
     ctx.fillStyle = muted; ctx.fillText(`刻度间距：${spacingLabel}`, left, 51)
     ctx.strokeStyle = divider

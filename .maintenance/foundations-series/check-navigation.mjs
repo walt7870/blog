@@ -11,8 +11,8 @@ try {
     await page.goto(root)
     await page.waitForFunction(() => Boolean(document.querySelector('#app')?.__vue_app__))
     await page.locator('.VPNavBarSearch button').click()
-    await page.locator('#localsearch-input').fill(query)
-    await page.locator(`.VPLocalSearchBox a.result[href*="${target}"]`).first().click()
+    await page.locator('.site-search .search-input').fill(query)
+    await page.locator(`.site-search a.result[href*="${target}"]`).first().click()
     await page.waitForURL(`**/${target}.html*`)
     await page.locator('.VPDoc h1').waitFor()
   }
