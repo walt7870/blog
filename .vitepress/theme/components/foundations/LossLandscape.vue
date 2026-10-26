@@ -122,17 +122,19 @@ onMounted(async () => {
     const grid = new THREE.GridHelper(10, 10, '#8b9ca1', '#d5dedf'); grid.position.y = -0.02; scene.add(grid)
     const axisMaterial = new THREE.LineBasicMaterial({ color: '#56717b' })
     for (const pair of [[[-4, 0, -3.3], [4.6, 0, -3.3]], [[-4, 0, -3.3], [-4, 0, 4]], [[-4, 0, -3.3], [-4, 5.7, -3.3]]]) scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pair.map(p => new THREE.Vector3(...p))), axisMaterial))
-    function label(value, position, size = 0.9) {
+    function label(value, position, size = 1.3) {
       const bitmap = document.createElement('canvas'); bitmap.width = 256; bitmap.height = 96
       const context = bitmap.getContext('2d')
       context.font = '54px Arial, sans-serif'; context.fillStyle = '#263d45'; context.textAlign = 'center'; context.textBaseline = 'middle'; context.fillText(value, 128, 48)
       const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(bitmap), depthTest: false }))
       sprite.scale.set(size * 256 / 96, size, 1); sprite.position.set(...position); sprite.renderOrder = 12; scene.add(sprite)
     }
-    label('w', [4.7, 0, -3.3]); label('b', [-4, 0, 4.2]); label('L', [-4, 5.9, -3.3])
-    for (const value of [-1, 2, 4]) label(String(value), [(value - 1.5) * 1.6, -.3, -3.7], .65)
-    for (const value of [-2, 1, 4]) label(String(value), [-4.6, -.1, (value - 1) * 1.1], .65)
-    for (const value of [20, 40]) label(String(value), [-4.6, value * .12, -3.3], .65)
+    label('w', [5.4, 0, -3.3]); label('b', [-4, 0, 5]); label('L', [-4, 6.1, -3.3])
+    // Axis names sit past the last tick so they never share its spot.
+    // The axes meet at w = -1, b = -2; ticks there would pile up in one corner, so they start one step in.
+    for (const value of [0, 2, 4]) label(String(value), [(value - 1.5) * 1.6, -.35, -3.9], 1.4)
+    for (const value of [0, 2, 4]) label(String(value), [-4.8, -.1, (value - 1) * 1.1], 1.4)
+    for (const value of [20, 40]) label(String(value), [-4.8, value * .12, -3.3], 1.4)
     marker = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 12), new THREE.MeshBasicMaterial({ color: '#d14b51', depthTest: false }))
     marker.renderOrder = 10; scene.add(marker)
     pathLine = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: '#1b597e', depthTest: false })); pathLine.renderOrder = 9; scene.add(pathLine)
@@ -166,8 +168,8 @@ onUnmounted(() => {
       <img v-if="mode === '3d' && !ready" :src="withBase('/ai/foundations/loss-contours.svg')" alt="两参数损失等高线，最低点为w等于2、b等于1" />
       <svg v-if="mode === '2d'" viewBox="0 0 580 370" role="img" aria-label="当前参数和历史更新在同一损失等高线上的位置">
         <defs><clipPath id="foundation-contour-clip"><rect x="52" y="32" width="486" height="292" /></clipPath></defs>
-        <g clip-path="url(#foundation-contour-clip)"><g v-for="c in contours" :key="c.level"><polyline v-for="(branch, i) in c.branches" :key="i" :points="points(branch)" fill="none" stroke="#629f9b" stroke-width="1.6" /></g><polyline :points="points(history)" fill="none" stroke="#2b78aa" stroke-width="2" /><circle :cx="cx(w)" :cy="cy(b)" r="6" fill="#d14b51" /></g>
-        <path d="M52 32V324H538" fill="none" stroke="var(--vp-c-text-2)" /><text x="540" y="349">w</text><text x="28" y="30">b</text><text :x="cx(2)" :y="cy(1)-10" text-anchor="middle">最低点 (2, 1)</text>
+        <g clip-path="url(#foundation-contour-clip)"><g v-for="c in contours" :key="c.level"><polyline v-for="(branch, i) in c.branches" :key="i" :points="points(branch)" fill="none" stroke="#629f9b" stroke-width="1.6" /></g><polyline :points="points(history)" fill="none" stroke="#2b78aa" stroke-width="2" /><circle :cx="cx(2)" :cy="cy(1)" r="4" fill="var(--vp-c-text-1)" /><circle :cx="cx(w)" :cy="cy(b)" r="6" fill="#d14b51" /></g>
+        <path d="M52 32V324H538" fill="none" stroke="var(--vp-c-text-2)" /><text x="556" y="329" font-style="italic">w</text><text x="52" y="22" text-anchor="middle" font-style="italic">b</text><text :x="cx(2)" :y="cy(1)-12" text-anchor="middle">最低点 (2, 1)</text>
         <g v-for="v in [0,1,2,3,4]" :key="v"><text :x="cx(v)" y="345" text-anchor="middle">{{ v }}</text></g><g v-for="v in [-2,0,2,4]" :key="v"><text x="40" :y="cy(v)+5" text-anchor="end">{{ v }}</text></g>
       </svg>
       <button v-if="mode === '3d' && ready" class="rotate" type="button" aria-label="切换曲面观察角度" title="切换观察角度" @click="rotate"><RotateCw :size="18" /></button>
