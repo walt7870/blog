@@ -67,4 +67,4 @@ import FoundationFigure from '../../../.vitepress/theme/components/foundations/F
 
 原有四个入口继续保留，适合按问题查阅：[数据与任务建模](./data-and-tasks.md)、[数学直觉](./math-intuition.md)、[训练与优化](./training-optimization.md)、[泛化与评估](./generalization-evaluation.md)。从零开始时，先读 [01. 模型怎样从例子中学习](./01-what-models-learn.md)。
 
-FP32、FP16、BF16 的表示方式与误差由独立的[模型数值精度](../precision/)专题展开，从一个数字开始阅读即可。
+本系列的参数都是带小数的数。电脑用有限个二进制位保存它们，常见的 FP32、FP16、BF16 就是几种不同位数和分配方式的格式，位数越少越省内存，误差也可能越大。想了解这些格式怎样表示一个数，可阅读独立的[模型数值精度](../precision/)专题，它从单个数字开始讲起。
