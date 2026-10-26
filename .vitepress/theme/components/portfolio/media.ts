@@ -9,7 +9,7 @@ export const projectMedia: Record<string, ProjectMedia[]> = {
   'speech-sdk': [{ id: 'speech-sdk', label: 'Android 离线语音识别 Demo' }, { id: 'sdk-tts', label: 'Android 离线语音合成 Demo' }],
   'materials-website': [{ id: 'materials-website', label: '材料详情 · 参数与实物展示' }],
   'speech-playground': [{ id: 'speech-playground', label: '模型对比与热词体验工作台' }],
-  'feishu-workflow': [{ id: 'feishu-workflow', label: '任务编排与确认执行', kind: 'flow' }],
+  'feishu-workflow': [{ id: 'feishu-workflow', label: '消息、审批与运维链路', kind: 'flow' }],
   'gitlab-platform': [{ id: 'gitlab-platform', label: 'GitLab 实例与代码迁移链路', kind: 'flow' }],
   'delivery-platform': [{ id: 'delivery-platform', label: '制品晋级与发布信任边界', kind: 'flow' }],
   'sub2api-platform': [{ id: 'sub2api-platform', label: '内部客户端与模型接入链路', kind: 'flow' }],
