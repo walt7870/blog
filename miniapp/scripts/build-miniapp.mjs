@@ -31,6 +31,8 @@ const CATALOG_PATH = path.join(OUTPUT_DIR, 'static', 'catalog.json')
 // 分包定义（细粒度拆分，确保每个分包 < 2MB）
 const SUBPACKAGES = [
   'ai',
+  'ai-engineering',
+  'ai-coding',
   'container-docker',
   'container-k8s-core',
   'container-k8s-ext',
@@ -46,13 +48,16 @@ const SUBPACKAGES = [
   'devlanguage-java-jvm',
   'devlanguage-java-framework',
   'devlanguage-front',
+  'devlanguage-other',
   'linux',
   'tools'
 ]
 
 // 分包到显示名称的映射
 const CATEGORY_NAMES = {
-  'ai': '人工智能',
+  'ai': 'AI 基础',
+  'ai-engineering': 'AI 工程',
+  'ai-coding': 'AI 编程',
   'container-docker': 'Docker 容器',
   'container-k8s-core': 'K8s 核心资源',
   'container-k8s-ext': 'K8s 扩展资源',
@@ -68,6 +73,7 @@ const CATEGORY_NAMES = {
   'devlanguage-java-jvm': 'JVM',
   'devlanguage-java-framework': 'Java 框架',
   'devlanguage-front': '前端开发',
+  'devlanguage-other': 'Python、Rust 与 Flutter',
   'linux': 'Linux 系统',
   'tools': '开发工具'
 }
@@ -83,7 +89,7 @@ function generateCategoryVue(categoryKey, categoryName, articlesMeta) {
     ...item,
     idx: String(idx + 1).padStart(2, '0')
   }))
-  const metaLiteral = JSON.stringify(withIndex)
+  const metaLiteral = scriptLiteral(withIndex)
 
   return `<script setup>
 import { ref } from 'vue'
@@ -242,13 +248,18 @@ const openArticle = (id) => {
 `
 }
 
+// 字面量嵌在 <script setup> 里，正文中的 </script 会提前结束脚本块
+function scriptLiteral(value) {
+  return JSON.stringify(value).replace(/<\/(script)/gi, '<\\/$1')
+}
+
 /**
  * 生成分包内的 article.vue 页面
  * 每个分包一个独立的 article.vue，静态 import 同分包的 content.json
  */
 function generateArticleVue(categoryKey, fullArticles) {
   // 完整文章内容作为字面量嵌入
-  const articlesLiteral = JSON.stringify(fullArticles)
+  const articlesLiteral = scriptLiteral(fullArticles)
 
   return `<script setup>
 import { ref } from 'vue'

@@ -12,11 +12,11 @@ search: false
 
 ## 代码入口与数据去向
 
-`scripts/build-miniapp.mjs` 从项目根 `docs/` 扫描 Markdown，调用 `scripts/parse-md.mjs` 推断分类、提取标题、渲染 HTML 和注入内联样式。`SUBPACKAGES` 当前列出 18 个分类，只有匹配这些分类的文件才会进入输出；未定义分类会被日志标为跳过。这不是覆盖全部博客的导出器，文章数随源文件和分类规则变化，不在说明中固定成旧统计值。
+`scripts/build-miniapp.mjs` 从项目根 `docs/` 扫描 Markdown，调用 `scripts/parse-md.mjs` 推断分类、提取标题、渲染 HTML 和注入内联样式。`SUBPACKAGES` 当前列出 21 个分类，只有匹配这些分类的文件才会进入输出；未定义分类会被日志标为跳过。这不是覆盖全部博客的导出器，文章数随源文件和分类规则变化，不在说明中固定成旧统计值。
 
 主包 `src/static/catalog.json` 只保存分类名称和文章数。每个 `src/subpackages/<分类>/pages/category.vue` 内嵌文章标题与 ID，`article.vue` 内嵌该包的完整文章内容，避免把完整 JSON import 提升到主包。同目录的 `content.json` 仅保留元信息用于调试。路由在 `src/pages.json` 的 `subPackages` 中声明，必须与生成分类一致。
 
-例如 `docs/ai/agent.md` 进入 `ai` 分包，而 `docs/devlanguage/java/jvm/` 进入 `devlanguage-java-jvm`。新增专题时，先核对 `inferCategory()` 返回值、`SUBPACKAGES`、显示名称与路由四处配置；只添加 Markdown 文件，可能在构建中被跳过或归到不合适的旧分类。
+例如 `docs/ai/agent.md` 进入 `ai` 分包，`docs/ai/inference-series/` 进入 `ai-engineering`，而 `docs/devlanguage/java/jvm/` 进入 `devlanguage-java-jvm`。新增专题时，先核对 `inferCategory()` 返回值、`SUBPACKAGES`、显示名称与路由四处配置；只添加 Markdown 文件，可能在构建中被跳过或归到不合适的旧分类。
 
 ## 本地操作
 

@@ -259,6 +259,11 @@ export function parseMarkdownFile(filePath) {
     content = rawContent.slice(frontmatterMatch[0].length)
   }
 
+  // VitePress 页面里的 <script setup>/<style> 和 withBase 绑定在小程序里没有运行时，渲染前去掉
+  content = content
+    .replace(/^<(script|style)\b[^>]*>[\s\S]*?^<\/\1>\s*$/gm, '')
+    .replace(/:(href|src)="withBase\('([^']*)'\)"/g, '$1="$2"')
+
   // 渲染 HTML 并注入 inline 样式
   const rawHtml = md.render(content)
   const html = applyStyles(rawHtml)
@@ -305,6 +310,8 @@ export function inferCategory(relativePath) {
 
   if (parts[0] === 'container') {
     if (parts[1] === 'docker' || parts[0] === 'docker-component.md') return 'container-docker'
+    // Kubernetes 文章在 container/kubernetes/ 下：资源对象归扩展包，其余（概念、控制面、运维）归核心包
+    if (parts[1] === 'kubernetes') return parts[2] === 'resources' ? 'container-k8s-ext' : 'container-k8s-core'
     if (parts[1] === 'resources') {
       // k8s resources 再拆：前半归 k8s-core，后半归 k8s-ext
       const coreResources = ['pod.md', 'deployment.md', 'service.md', 'ingress.md', 'configmap.md', 'secret.md', 'pv-pvc.md', 'statefulset.md', 'daemonset.md', 'job-cronjob.md', 'namespace.md']
@@ -319,6 +326,13 @@ export function inferCategory(relativePath) {
     return 'container-docker'
   }
 
+  if (parts[0] === 'ai') {
+    // 单个分包不能超过 2MB，按主题拆成三个
+    if (['inference-series', 'speech-engineering', 'applications', 'engineering'].includes(parts[1])) return 'ai-engineering'
+    if (['coding-agent-series', 'vibe-coding', 'ai-coding-practice', 'practice'].includes(parts[1])) return 'ai-coding'
+    return 'ai'
+  }
+
   if (parts[0] === 'devlanguage') {
     if (parts[1] === 'java') {
       if (parts[2] === 'jvm') return 'devlanguage-java-jvm'
@@ -326,7 +340,8 @@ export function inferCategory(relativePath) {
       return 'devlanguage-java-core'
     }
     if (parts[1] === 'front') return 'devlanguage-front'
-    return 'devlanguage-java-core'
+    if (parts[1] === 'index.md') return 'devlanguage-java-core'
+    return 'devlanguage-other'
   }
 
   return parts[0]

@@ -47,7 +47,15 @@
   },
   "subPackages": [
     { "root": "subpackages/ai", "pages": [
-      { "path": "pages/category", "style": { "navigationBarTitleText": "人工智能" } },
+      { "path": "pages/category", "style": { "navigationBarTitleText": "AI 基础" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/ai-engineering", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "AI 工程" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/ai-coding", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "AI 编程" } },
       { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
     ]},
     { "root": "subpackages/container-docker", "pages": [
@@ -108,6 +116,10 @@
     ]},
     { "root": "subpackages/devlanguage-front", "pages": [
       { "path": "pages/category", "style": { "navigationBarTitleText": "前端开发" } },
+      { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
+    ]},
+    { "root": "subpackages/devlanguage-other", "pages": [
+      { "path": "pages/category", "style": { "navigationBarTitleText": "Python、Rust 与 Flutter" } },
       { "path": "pages/article", "style": { "navigationBarTitleText": "文章详情" } }
     ]},
     { "root": "subpackages/linux", "pages": [
