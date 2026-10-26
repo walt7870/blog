@@ -1,10 +1,10 @@
 {
-  "reviewedSharedHash": "0070b1d008cb248ca1db5ddf5bcec586b3d10026338c9599f3bfa1dfecbe6f06",
+  "reviewedSharedHash": "43388bd3a027cbf79ec8dae50178e3b4a2b93db4b5a7b3767c4fb9fea4fbaa3e",
   "reviewedAt": "2026-10-26",
-  "decision": "站内搜索改用 Pagefind 1.4.0：script/build-search.mjs 用 Intl.Segmenter 预先切分中文后建索引，SiteSearch.vue 以同样方式切分查询，词组按序出现的结果优先，并剔除 Pagefind 无匹配时退回短前缀的结果；只索引公开且未设 search: false 的正文，代码块语言标签不入索引。侧边栏新增并发基础分组，Linux 专题描述加入线程与并发。",
+  "decision": "本轮主题改动：PrecisionCanvas 在超出格式最大有限值时提示无法表示；LossLandscape 轴名移出刻度、补最低点、三维刻度去重放大；作品集组件随源头仓库同步（案例数据、首屏标签、纵向架构图在手机不再限高）；搜索索引对 page 布局页面标记 .VPPage，首页不入索引。",
   "validation": [
-    "干净 worktree 上 Node 24.22.0 执行 npm ci 与 npm run docs:build 通过，索引 619 页。",
-    "Pagefind 1.5.2 实测漏词（上下文仅命中 1 页、上下文切换 0 页），1.4.0 直接索引中文时写时复制为 0、文件描述符混入大量无关页；改为预分词后逐词核对：上下文切换、线程池、文件描述符、竞态条件、背压、P99、Little定律、accept 队列、somaxconn、ListenOverflows 首条均为对应文章，xyzqwe 无结果。",
-    "本地 vitepress preview 1440 浅色与 390 深色：搜索首查约 0.41–0.49 秒，摘录中文无多余空格、相邻高亮合并；Esc 关闭、/ 与 Ctrl+K 打开、方向键与回车跳转到对应小节、关闭后滚动解锁均通过；截图已人工查看。"
+    "干净 worktree，Node 24.22.0，npm ci 与 npm run docs:build 通过，搜索索引 638 页。",
+    "check-pages：首页、精度 03、基础 07、项目列表、全双工、思为营销云、语音 SDK、营销云私有化、个人概览，1440/390 浅深色均无溢出、坏图与运行错误（仅本地静态服务下根路径 favicon 404）。",
+    "浏览器操作：FP8 E4M3 在 1024 附近显示超过 448 的说明；LossLandscape 二维与三维视图 1440/390 截图人工查看；搜索“思为营销云”“全双工语音”“飞书助手”“上下文切换”首条均为对应页面。"
   ]
 }
