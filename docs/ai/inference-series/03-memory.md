@@ -18,7 +18,7 @@ import InferenceFigure from '../../../.vitepress/theme/components/InferenceFigur
 70 亿个数 × 2 字节 = 140 亿字节 ≈ 14 GB
 ```
 
-这里的 2 字节是一种常用的 16 位表示，例如 FP16 或 BF16；第 14 篇会解释二者差别。现在先看乘法：参数越多，或者每个数保存得越宽，占用就越大。14 GB 是这个例子中原始参数的估算，实际运行还需要下面这些空间。
+这里的 2 字节是一种常用的 16 位表示，例如 FP16 或 BF16，二者差别见[模型数值精度](../precision/02-floating-formats.md)专题。现在先看乘法：参数越多，或者每个数保存得越宽，占用就越大。14 GB 是这个例子中原始参数的估算，实际运行还需要下面这些空间。
 
 <InferenceFigure name="memory-workbench" alt="显存工作台中共享权重、各请求状态与临时工作区的区别" />
 
