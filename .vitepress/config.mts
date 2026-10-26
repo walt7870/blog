@@ -41,9 +41,12 @@ export default  defineConfig({
   },
   // Pagefind indexes only marked content, so stubs, maintenance pages and theme chrome stay out of search.
   transformHtml(code, _id, { pageData }) {
-    if (pageData.frontmatter.search === false || !publicRoute(pageRoute(pageData.relativePath))) return;
-    return code
-      .replace('class="vp-doc ', 'data-pagefind-body class="vp-doc ')
+    if (pageData.frontmatter.search === false || pageData.relativePath === 'index.md' || !publicRoute(pageRoute(pageData.relativePath))) return;
+    // Doc pages keep their text in .vp-doc; `layout: page` pages (profile, project cases) only have .VPPage.
+    const body = code.includes('class="vp-doc ')
+      ? code.replace('class="vp-doc ', 'data-pagefind-body class="vp-doc ')
+      : code.replace('<div class="VPPage"', '<div data-pagefind-body class="VPPage"');
+    return body
       .replaceAll('<span class="lang"', '<span data-pagefind-ignore class="lang"');
   },
   vite: {
