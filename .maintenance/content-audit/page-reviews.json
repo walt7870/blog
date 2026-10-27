@@ -1411,14 +1411,15 @@
       "file": "docs/ai/llm-inference/03-kv-cache.md",
       "batch": "B020",
       "status": "verified",
-      "reviewedHash": "ae8a112f2d88d3c46e723e6f2a61984380d1c91c8f7c5b26739c31f42f05cd2e",
+      "reviewedHash": "d7c2d59da7ddf2ebc8001ad80659407cd9e24c4c22d8dae9090aef255584dde6",
       "pageType": "机制入门",
       "findings": [],
-      "decision": "注意力 Q/K/V、不缓存的重算量（119,900 vs 699）、只存 K/V 的原因、KV 生命周期与未省掉的部分。",
+      "decision": "注意力 Q/K/V、不缓存的重算量（119,900 vs 699）、只存 K/V 的原因、KV 生命周期与未省掉的部分。 2026-10-26 整合“AI基础-76：KV缓存”一文：补复杂度口径（线性的是重算位置数，注意力读取仍随长度平方增长）、KV 属于请求而非会话、训练为何不用 KV Cache、缓解 KV 压力的五类做法与章节索引。",
       "validation": [
         "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
         "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
-        "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+        "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
+        "补充段落全文复读；npm run docs:build 通过，本地 preview 1440/390 浅深色无溢出、坏图与报错；新增表格在 390 宽度局部滚动，整页无横向溢出。"
       ],
       "dependencyFiles": []
     },

@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 671,
-    "bytes": 4528803,
+    "bytes": 4531945,
     "batches": 77,
     "scanned": 671,
     "reviewed": 671,
@@ -550,7 +550,7 @@
         "docs/ai/llm-inference/02-prefill-decode.md",
         "docs/ai/llm-inference/03-kv-cache.md"
       ],
-      "bytes": 32556
+      "bytes": 35698
     },
     {
       "id": "B021",
@@ -3303,16 +3303,16 @@
     },
     {
       "file": "docs/ai/llm-inference/03-kv-cache.md",
-      "contentHash": "8cf14aea69b4ffbbf09e34c946cbdc31e0051d9120864f3f4b16312114037959",
-      "reviewHash": "ae8a112f2d88d3c46e723e6f2a61984380d1c91c8f7c5b26739c31f42f05cd2e",
+      "contentHash": "d881cfd2f63ccb2b33b91d00e5f58cdf434500967b486475891876536e6171bd",
+      "reviewHash": "d7c2d59da7ddf2ebc8001ad80659407cd9e24c4c22d8dae9090aef255584dde6",
       "dependencies": [
         "public/ai/llm-inference/kv-lifecycle.svg",
         "public/ai/llm-inference/kv-recompute.svg"
       ],
-      "bytes": 6936,
-      "lines": 84,
-      "proseChars": 2478,
-      "headings": 6,
+      "bytes": 10078,
+      "lines": 108,
+      "proseChars": 3630,
+      "headings": 8,
       "codeLines": 1,
       "visualCount": 2,
       "htmlComponents": true,
