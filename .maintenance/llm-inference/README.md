@@ -44,3 +44,7 @@ node .maintenance/llm-inference/check-svg.mjs public/ai/llm-inference <png 输�
 - `npm run docs:build` 全站构建。
 - `node script/check-pages.mjs <站点地址> <截图目录> docs/ai/llm-inference/ ...`：1440 / 390、浅色 / 深色检查横向溢出、失效图片和报错。
 - 逐页审查记录在 `.maintenance/content-audit/reviews/zzzzzzzzzzzzz-llm-inference.json`。
+
+## 后续整合
+
+- 2026-10-26：微信文章“AI基础-76：KV缓存”（https://mp.weixin.qq.com/s/3co5gF6fe-wkNyaLtT2sjQ）要点已被系列覆盖，只在第 03 篇补充复杂度口径、KV 属于请求而非会话、训练为何不用 KV Cache、缓解 KV 压力的五类做法。通用的整合流程见 `.maintenance/article-integration.md`。

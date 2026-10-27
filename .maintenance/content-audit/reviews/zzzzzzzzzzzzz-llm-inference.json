@@ -579,13 +579,13 @@
    "file": "AGENTS.md",
    "status": "verified",
    "pageType": "维护说明",
-   "decision": "补充推理内容统一在 llm-inference 系列维护的约定。",
+   "decision": "补充推理内容统一在 llm-inference 系列维护的约定；新增外部文章整合流程的入口，指向 .maintenance/article-integration.md。",
    "findings": [],
    "dependencyFiles": [],
    "validation": [
-    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+    "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。"
    ],
-   "reviewedHash": "1e3e24ef0f8bb7dc5e9443561047398db70a8ad2118b37ed9adb40804387e780"
+   "reviewedHash": "57f43dded42004874d9dfdcb68003681d85caf35e3c66243fe616966ea7820e1"
   }
  ]
 }

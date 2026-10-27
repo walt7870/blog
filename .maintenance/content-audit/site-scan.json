@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 671,
-    "bytes": 4531945,
+    "bytes": 4532320,
     "batches": 77,
     "scanned": 671,
     "reviewed": 671,
@@ -232,7 +232,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 35467
+      "bytes": 35842
     },
     {
       "id": "B002",
@@ -1429,12 +1429,12 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "f1b9cf63cc986e9ef77efaa1186c2a9a53312fa6603975a0feee7750d94943a5",
-      "reviewHash": "1e3e24ef0f8bb7dc5e9443561047398db70a8ad2118b37ed9adb40804387e780",
+      "contentHash": "a1ed8bd4ccdc18e40e31067a5aa498aaaaa4a68048e29afd0ad99bfd51cbee03",
+      "reviewHash": "57f43dded42004874d9dfdcb68003681d85caf35e3c66243fe616966ea7820e1",
       "dependencies": [],
-      "bytes": 23131,
-      "lines": 122,
-      "proseChars": 8818,
+      "bytes": 23506,
+      "lines": 123,
+      "proseChars": 8966,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 0,
