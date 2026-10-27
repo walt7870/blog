@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="quant-targets-title quant-targets-desc" id="quant-targets-root">
+<title id="quant-targets-title">量化的三个对象</title>
+<desc id="quant-targets-desc">权重、激活、KV Cache 三类数据都可以量化：权重量化如 W4A16 减少每步搬运的字节，主要加速 Decode；激活量化如 W8A8 让矩阵乘法使用低精度计算单元，主要加速 Prefill；KV 量化如 FP8 KV 扩大 KV 容量、减少读取，主要帮助长上下文和高并发。</desc>
+<defs><style>
+#quant-targets-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#quant-targets-root .h { font-size: 26px; font-weight: 700; }
+#quant-targets-root .t { font-size: 19px; font-weight: 600; }
+#quant-targets-root .s { font-size: 15px; fill: #475569; }
+#quant-targets-root .xs { font-size: 13px; fill: #64748b; }
+#quant-targets-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#quant-targets-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#quant-targets-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#quant-targets-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#quant-targets-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#quant-targets-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#quant-targets-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#quant-targets-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#quant-targets-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#quant-targets-root .fblue { fill: #93c5fd; } #quant-targets-root .fgreen { fill: #6ee7b7; } #quant-targets-root .fred { fill: #fda4af; }
+#quant-targets-root .famber { fill: #fcd34d; } #quant-targets-root .fviolet { fill: #c4b5fd; } #quant-targets-root .fgray { fill: #e2e8f0; }
+#quant-targets-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#quant-targets-arrow); }
+#quant-targets-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#quant-targets-arrow); }
+#quant-targets-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#quant-targets-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="quant-targets-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="560" fill="#f8fafc"/>
+<text x="32" y="46" class="h">量化的三个对象：省的东西不同，受益的阶段也不同</text>
+<text x="32" y="78" class="s">WxAy 只说明权重和激活的位数，KV Cache 的精度要另外看。</text>
+<g data-node="w"><rect x="32" y="120" width="280" height="300" rx="8" class="blue"/><text x="50" y="146" class="k">对象 1</text><text x="50" y="172" class="t">权重</text><text x="50" y="200" class="s">常见格式：W4A16、W8A16</text><text x="50" y="223" class="s">方法：GPTQ、AWQ</text><text x="50" y="246" class="s"></text><text x="50" y="269" class="s">省：权重显存</text><text x="50" y="292" class="s">省：每步搬运的字节</text><text x="50" y="315" class="s"></text><text x="50" y="338" class="s">主要受益：Decode</text><text x="50" y="361" class="s">风险：模型能力下降</text></g>
+<g data-node="a"><rect x="340" y="120" width="280" height="300" rx="8" class="green"/><text x="358" y="146" class="k">对象 2</text><text x="358" y="172" class="t">激活</text><text x="358" y="200" class="s">常见格式：W8A8（INT8 / FP8）</text><text x="358" y="223" class="s">方法：SmoothQuant、在线 FP8</text><text x="358" y="246" class="s"></text><text x="358" y="269" class="s">省：用上低精度计算单元</text><text x="358" y="292" class="s">H100 上 FP8 峰值约 BF16 两倍</text><text x="358" y="315" class="s"></text><text x="358" y="338" class="s">主要受益：Prefill</text><text x="358" y="361" class="s">风险：离群通道难量化</text></g>
+<g data-node="kv"><rect x="648" y="120" width="280" height="300" rx="8" class="amber"/><text x="666" y="146" class="k">对象 3</text><text x="666" y="172" class="t">KV Cache</text><text x="666" y="200" class="s">常见格式：FP8 KV</text><text x="666" y="223" class="s">更激进：2 位（KIVI）</text><text x="666" y="246" class="s"></text><text x="666" y="269" class="s">省：KV 显存，并发翻倍</text><text x="666" y="292" class="s">省：每步读取的 KV</text><text x="666" y="315" class="s"></text><text x="666" y="338" class="s">主要受益：长上下文、高并发</text><text x="666" y="361" class="s">风险：历史信息误差累积</text></g>
+<path d="M32 452H928" class="line"/>
+<text x="32" y="488" class="s">例：Llama-3.1-8B 权重 BF16 约 16.1 GB → 4 位约 4.1 GB；每 token KV 128 KiB → FP8 后 64 KiB。</text>
+<text x="32" y="516" class="s">同一个模型可以只量化其中一项，也可以组合使用；每一项都要单独验收质量与性能。</text>
+</svg>

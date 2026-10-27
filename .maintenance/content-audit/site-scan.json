@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 648,
-    "bytes": 4406639,
-    "batches": 75,
-    "scanned": 648,
-    "reviewed": 648,
+    "pages": 671,
+    "bytes": 4528803,
+    "batches": 77,
+    "scanned": 671,
+    "reviewed": 671,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "43388bd3a027cbf79ec8dae50178e3b4a2b93db4b5a7b3767c4fb9fea4fbaa3e",
+  "sharedHash": "1a5422781db17c434a304af897705e59d16f5c31e80288f1fcf0159139e72c9c",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "9f849c2b0960d47bf04a57e860cbcfacc1cafb319aa52ee383798549cfaa3815"
+      "a0914b9292634ebe2d19a2ee640fbac88e36b263f8a5720d5edba5020da59b3a"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -232,7 +232,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 35139
+      "bytes": 35467
     },
     {
       "id": "B002",
@@ -512,7 +512,7 @@
         "docs/ai/foundations/math-intuition.md",
         "docs/ai/foundations/training-optimization.md"
       ],
-      "bytes": 71763
+      "bytes": 71769
     },
     {
       "id": "B019",
@@ -531,7 +531,7 @@
         "docs/ai/inference-series/08-vllm.md",
         "docs/ai/inference-series/09-sglang.md"
       ],
-      "bytes": 73660
+      "bytes": 24601
     },
     {
       "id": "B020",
@@ -546,16 +546,53 @@
         "docs/ai/inference-series/16-quantization-now.md",
         "docs/ai/inference-series/index.md",
         "docs/ai/learning-path.md",
-        "docs/ai/llm/concepts.md",
-        "docs/ai/llm/index.md",
-        "docs/ai/llm/inference.md"
+        "docs/ai/llm-inference/01-inference-system.md",
+        "docs/ai/llm-inference/02-prefill-decode.md",
+        "docs/ai/llm-inference/03-kv-cache.md"
       ],
-      "bytes": 74439
+      "bytes": 32556
     },
     {
       "id": "B021",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/04-memory-budget.md",
+        "docs/ai/llm-inference/05-metrics.md",
+        "docs/ai/llm-inference/06-gpu-roofline.md",
+        "docs/ai/llm-inference/07-request-path.md",
+        "docs/ai/llm-inference/08-paged-attention.md",
+        "docs/ai/llm-inference/09-continuous-batching.md",
+        "docs/ai/llm-inference/10-prefix-cache.md",
+        "docs/ai/llm-inference/11-chunked-prefill.md",
+        "docs/ai/llm-inference/12-attention-kernels.md",
+        "docs/ai/llm-inference/13-nano-vllm.md"
+      ],
+      "bytes": 92318
+    },
+    {
+      "id": "B022",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/llm-inference/14-quantization.md",
+        "docs/ai/llm-inference/15-speculative-decoding.md",
+        "docs/ai/llm-inference/16-distributed.md",
+        "docs/ai/llm-inference/17-pd-disaggregation.md",
+        "docs/ai/llm-inference/18-vllm-sglang.md",
+        "docs/ai/llm-inference/19-speech-multimodal.md",
+        "docs/ai/llm-inference/20-benchmark.md",
+        "docs/ai/llm-inference/21-production.md",
+        "docs/ai/llm-inference/22-edge.md",
+        "docs/ai/llm-inference/index.md"
+      ],
+      "bytes": 99983
+    },
+    {
+      "id": "B023",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/llm/concepts.md",
+        "docs/ai/llm/index.md",
+        "docs/ai/llm/inference.md",
         "docs/ai/llm/rag-tools.md",
         "docs/ai/llm/sft.md",
         "docs/ai/llm/training.md",
@@ -564,17 +601,17 @@
         "docs/ai/practice/agent-project.md",
         "docs/ai/practice/index.md",
         "docs/ai/practice/long-running-agent.md",
-        "docs/ai/practice/machine-learning-project.md",
-        "docs/ai/practice/vision-project.md",
-        "docs/ai/precision/01-number-storage.md",
-        "docs/ai/precision/02-floating-formats.md"
+        "docs/ai/practice/machine-learning-project.md"
       ],
-      "bytes": 82860
+      "bytes": 86598
     },
     {
-      "id": "B022",
+      "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/practice/vision-project.md",
+        "docs/ai/precision/01-number-storage.md",
+        "docs/ai/precision/02-floating-formats.md",
         "docs/ai/precision/03-rounding-errors.md",
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
@@ -583,17 +620,17 @@
         "docs/ai/precision/storage-atlas.md",
         "docs/ai/rsi/01-recursive-self-improvement.md",
         "docs/ai/rsi/index.md",
-        "docs/ai/skill/claude-code-best-practices.md",
-        "docs/ai/skill/index.md",
-        "docs/ai/skill/recommendations.md",
-        "docs/ai/speech-engineering/architecture-and-workflow.md"
+        "docs/ai/skill/claude-code-best-practices.md"
       ],
-      "bytes": 88174
+      "bytes": 90295
     },
     {
-      "id": "B023",
+      "id": "B025",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/skill/index.md",
+        "docs/ai/skill/recommendations.md",
+        "docs/ai/speech-engineering/architecture-and-workflow.md",
         "docs/ai/speech-engineering/delivery-and-handoff.md",
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
@@ -602,17 +639,17 @@
         "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
         "docs/ai/speech-engineering/latency-and-finalization.md",
         "docs/ai/speech-engineering/performance-and-capacity.md",
-        "docs/ai/speech-engineering/pipeline-boundaries.md",
-        "docs/ai/speech-engineering/release-and-collaboration.md",
-        "docs/ai/vibe-coding/context-engineering.md",
-        "docs/ai/vibe-coding/harness-engineering.md"
+        "docs/ai/speech-engineering/pipeline-boundaries.md"
       ],
-      "bytes": 74937
+      "bytes": 73449
     },
     {
-      "id": "B024",
+      "id": "B026",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/speech-engineering/release-and-collaboration.md",
+        "docs/ai/vibe-coding/context-engineering.md",
+        "docs/ai/vibe-coding/harness-engineering.md",
         "docs/ai/vibe-coding/index.md",
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
@@ -621,10 +658,10 @@
         "docs/ai/vibe-coding/tool-agent-engineering.md",
         "docs/ai/vibe-coding/vibe-coding.md"
       ],
-      "bytes": 48671
+      "bytes": 64771
     },
     {
-      "id": "B025",
+      "id": "B027",
       "topic": "docs/algorithm",
       "pages": [
         "docs/algorithm/backtracking.md",
@@ -642,7 +679,7 @@
       "bytes": 95287
     },
     {
-      "id": "B026",
+      "id": "B028",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/capture-playback.md",
@@ -661,7 +698,7 @@
       "bytes": 92811
     },
     {
-      "id": "B027",
+      "id": "B029",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/vad/index.md",
@@ -672,7 +709,7 @@
       "bytes": 32347
     },
     {
-      "id": "B028",
+      "id": "B030",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/application-realtime.md",
@@ -691,7 +728,7 @@
       "bytes": 96763
     },
     {
-      "id": "B029",
+      "id": "B031",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/network-foundations.md",
@@ -701,7 +738,7 @@
       "bytes": 28481
     },
     {
-      "id": "B030",
+      "id": "B032",
       "topic": "docs/container",
       "pages": [
         "docs/container/basic/concepts.md",
@@ -720,7 +757,7 @@
       "bytes": 65086
     },
     {
-      "id": "B031",
+      "id": "B033",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/advanced/ecosystem.md",
@@ -739,7 +776,7 @@
       "bytes": 91597
     },
     {
-      "id": "B032",
+      "id": "B034",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/configmap.md",
@@ -758,7 +795,7 @@
       "bytes": 59759
     },
     {
-      "id": "B033",
+      "id": "B035",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/pod.md",
@@ -777,7 +814,7 @@
       "bytes": 75747
     },
     {
-      "id": "B034",
+      "id": "B036",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/video-series.md",
@@ -788,7 +825,7 @@
       "bytes": 25018
     },
     {
-      "id": "B035",
+      "id": "B037",
       "topic": "docs/database",
       "pages": [
         "docs/database/bigdata/apache-flink.md",
@@ -804,7 +841,7 @@
       "bytes": 99744
     },
     {
-      "id": "B036",
+      "id": "B038",
       "topic": "docs/database",
       "pages": [
         "docs/database/elasticsearch.md",
@@ -817,7 +854,7 @@
       "bytes": 83081
     },
     {
-      "id": "B037",
+      "id": "B039",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/basic-syntax.md",
@@ -831,7 +868,7 @@
       "bytes": 89719
     },
     {
-      "id": "B038",
+      "id": "B040",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/query-optimization.md",
@@ -845,7 +882,7 @@
       "bytes": 94414
     },
     {
-      "id": "B039",
+      "id": "B041",
       "topic": "docs/devlanguage",
       "pages": [
         "docs/devlanguage/index.md"
@@ -853,7 +890,7 @@
       "bytes": 2701
     },
     {
-      "id": "B040",
+      "id": "B042",
       "topic": "docs/devlanguage/flutter",
       "pages": [
         "docs/devlanguage/flutter/architecture.md",
@@ -867,7 +904,7 @@
       "bytes": 35227
     },
     {
-      "id": "B041",
+      "id": "B043",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/deployment/index.md",
@@ -886,7 +923,7 @@
       "bytes": 46465
     },
     {
-      "id": "B042",
+      "id": "B044",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/framework/angular.md",
@@ -905,7 +942,7 @@
       "bytes": 65552
     },
     {
-      "id": "B043",
+      "id": "B045",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
@@ -924,7 +961,7 @@
       "bytes": 49318
     },
     {
-      "id": "B044",
+      "id": "B046",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
@@ -943,7 +980,7 @@
       "bytes": 57590
     },
     {
-      "id": "B045",
+      "id": "B047",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
@@ -962,7 +999,7 @@
       "bytes": 66015
     },
     {
-      "id": "B046",
+      "id": "B048",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/package-managers/corepack.md",
@@ -979,7 +1016,7 @@
       "bytes": 44995
     },
     {
-      "id": "B047",
+      "id": "B049",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/basic/base-class.md",
@@ -994,7 +1031,7 @@
       "bytes": 86693
     },
     {
-      "id": "B048",
+      "id": "B050",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/annotations.md",
@@ -1007,7 +1044,7 @@
       "bytes": 97489
     },
     {
-      "id": "B049",
+      "id": "B051",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
@@ -1020,7 +1057,7 @@
       "bytes": 96643
     },
     {
-      "id": "B050",
+      "id": "B052",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/springboot.md",
@@ -1039,7 +1076,7 @@
       "bytes": 86011
     },
     {
-      "id": "B051",
+      "id": "B053",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/gc/parnew.md",
@@ -1058,7 +1095,7 @@
       "bytes": 59129
     },
     {
-      "id": "B052",
+      "id": "B054",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/runtime-area/method-area.md",
@@ -1073,7 +1110,7 @@
       "bytes": 67607
     },
     {
-      "id": "B053",
+      "id": "B055",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
@@ -1092,7 +1129,7 @@
       "bytes": 36472
     },
     {
-      "id": "B054",
+      "id": "B056",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/12-json-api-shape.md",
@@ -1111,7 +1148,7 @@
       "bytes": 32741
     },
     {
-      "id": "B055",
+      "id": "B057",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/24-delivery-package.md",
@@ -1130,7 +1167,7 @@
       "bytes": 58591
     },
     {
-      "id": "B056",
+      "id": "B058",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
@@ -1149,7 +1186,7 @@
       "bytes": 51376
     },
     {
-      "id": "B057",
+      "id": "B059",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/index.md"
@@ -1157,7 +1194,7 @@
       "bytes": 3797
     },
     {
-      "id": "B058",
+      "id": "B060",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/advantages.md",
@@ -1176,7 +1213,7 @@
       "bytes": 47582
     },
     {
-      "id": "B059",
+      "id": "B061",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/type-system.md",
@@ -1185,7 +1222,7 @@
       "bytes": 8757
     },
     {
-      "id": "B060",
+      "id": "B062",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/c-programming.md",
@@ -1204,7 +1241,7 @@
       "bytes": 59880
     },
     {
-      "id": "B061",
+      "id": "B063",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/toolchain.md"
@@ -1212,7 +1249,7 @@
       "bytes": 4760
     },
     {
-      "id": "B062",
+      "id": "B064",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/archive-compress.md",
@@ -1231,7 +1268,7 @@
       "bytes": 70764
     },
     {
-      "id": "B063",
+      "id": "B065",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/permissions.md",
@@ -1250,7 +1287,7 @@
       "bytes": 88829
     },
     {
-      "id": "B064",
+      "id": "B066",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/concurrency/05-pool-size-and-queueing.md",
@@ -1269,7 +1306,7 @@
       "bytes": 79857
     },
     {
-      "id": "B065",
+      "id": "B067",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/certificate.md",
@@ -1288,7 +1325,7 @@
       "bytes": 86099
     },
     {
-      "id": "B066",
+      "id": "B068",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/user-management.md"
@@ -1296,7 +1333,7 @@
       "bytes": 5716
     },
     {
-      "id": "B067",
+      "id": "B069",
       "topic": "docs/reading",
       "pages": [
         "docs/reading/2022-07-31/高效能人士的7个习惯.md",
@@ -1305,7 +1342,7 @@
       "bytes": 5001
     },
     {
-      "id": "B068",
+      "id": "B070",
       "topic": "docs/superpowers",
       "pages": [
         "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
@@ -1314,7 +1351,7 @@
       "bytes": 17324
     },
     {
-      "id": "B069",
+      "id": "B071",
       "topic": "docs/tools/editor",
       "pages": [
         "docs/tools/editor/andorid-studio/index.md"
@@ -1322,7 +1359,7 @@
       "bytes": 6275
     },
     {
-      "id": "B070",
+      "id": "B072",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/advanced.md",
@@ -1339,7 +1376,7 @@
       "bytes": 98889
     },
     {
-      "id": "B071",
+      "id": "B073",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/repository-strategies.md",
@@ -1350,7 +1387,7 @@
       "bytes": 26010
     },
     {
-      "id": "B072",
+      "id": "B074",
       "topic": "docs/tools/mq",
       "pages": [
         "docs/tools/mq/index.md",
@@ -1362,7 +1399,7 @@
       "bytes": 57859
     },
     {
-      "id": "B073",
+      "id": "B075",
       "topic": "docs/tools/sdkman",
       "pages": [
         "docs/tools/sdkman/index.md"
@@ -1370,7 +1407,7 @@
       "bytes": 4856
     },
     {
-      "id": "B074",
+      "id": "B076",
       "topic": "docs/tools/vfox",
       "pages": [
         "docs/tools/vfox/index.md"
@@ -1378,7 +1415,7 @@
       "bytes": 5211
     },
     {
-      "id": "B075",
+      "id": "B077",
       "topic": "docs/tools/vim",
       "pages": [
         "docs/tools/vim/index.md",
@@ -1392,12 +1429,12 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "c342b96af43503a7bf45b65ca1d360d1592f62f8555e13546bef0d5e6150671b",
-      "reviewHash": "0cd267f37eba09cf70c51b5e25f2fcf9e1a9ab8ee1ac40202114cc259c183fd8",
+      "contentHash": "f1b9cf63cc986e9ef77efaa1186c2a9a53312fa6603975a0feee7750d94943a5",
+      "reviewHash": "1e3e24ef0f8bb7dc5e9443561047398db70a8ad2118b37ed9adb40804387e780",
       "dependencies": [],
-      "bytes": 22803,
-      "lines": 121,
-      "proseChars": 8643,
+      "bytes": 23131,
+      "lines": 122,
+      "proseChars": 8818,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 0,
@@ -2674,12 +2711,12 @@
     },
     {
       "file": "docs/ai/foundations/index.md",
-      "contentHash": "c6751c73dddbcba34de5ba2462c57b4d1568e434b4284ede919306d452f54241",
-      "reviewHash": "88e849b5f585848a3e2062e88818405ce0a106779eaa65f186628fd747cf7eb7",
+      "contentHash": "5a9785ef8de4bcee07efd46342b2ea038884d52e30efaf4142def7fd20d2621b",
+      "reviewHash": "b91291ec8df370cec87ad87e28e011370ef73d117d6762593759db003f0967e2",
       "dependencies": [],
-      "bytes": 8015,
+      "bytes": 8021,
       "lines": 71,
-      "proseChars": 2352,
+      "proseChars": 2355,
       "headings": 6,
       "codeLines": 0,
       "visualCount": 0,
@@ -2757,13 +2794,13 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "d369cc8cc9068c0b9a24be4f8dae2eec0f1e7ac03dc569daf4604ee32e9ab398",
-      "reviewHash": "1a3cd353fd3c67547595445344315748d7043bbf1d71473a2ecaca4a1887b33f",
+      "contentHash": "a032598284903f20e4ddb86a0224024f6935b420b7502b6094b6812e438b8047",
+      "reviewHash": "fcfb7fa9fe6af103d3381ad875006d9b90d21e254824c8468aebb0e4da2674d1",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 8248,
+      "bytes": 8271,
       "lines": 96,
       "proseChars": 1802,
       "headings": 8,
@@ -2775,518 +2812,341 @@
     },
     {
       "file": "docs/ai/inference-series/01-landscape.md",
-      "contentHash": "1744438da01ef9ddd80f52552fc3e64d4c64e41c17ff29cf3bc2f729e73e6a42",
-      "reviewHash": "539ad38d3d5bd932205913dd1f8501c4f9b9d321f6f919a87bb453e753346016",
-      "dependencies": [
-        "public/ai/inference-series/learn-and-use.svg"
-      ],
-      "bytes": 6564,
-      "lines": 75,
-      "proseChars": 2028,
-      "headings": 7,
+      "contentHash": "8d36272f8540dd4af0241e844dc169b458a3c4951c0c7e1de7d5eeeddaf777ab",
+      "reviewHash": "d53ce12444aae1e167e843a5e58eb9a7e602a428f4c4e659e5100dfb8dbfbf71",
+      "dependencies": [],
+      "bytes": 295,
+      "lines": 12,
+      "proseChars": 71,
+      "headings": 1,
       "codeLines": 0,
-      "visualCount": 1,
-      "htmlComponents": true,
-      "localReferences": 3,
-      "findings": []
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/02-lifecycle.md",
-      "contentHash": "af56899be90d8f7d1f2751ae37492d50a01b650ff6e966c251adf7f04df8a757",
-      "reviewHash": "9c8d965a5d8bf585796a5cd59116fff2694b8ca475b1063710f4336737afc738",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 6624,
-      "lines": 99,
-      "proseChars": 2010,
-      "headings": 6,
-      "codeLines": 2,
+      "contentHash": "b382835dae40422999d4a28acc2c76de1f8e94484406e0f30599d8a7f9487a9a",
+      "reviewHash": "047f759b885f71b060cfb59f4d77d176a5fd5c3d243ac50a312d01fcc6d1647b",
+      "dependencies": [],
+      "bytes": 384,
+      "lines": 13,
+      "proseChars": 113,
+      "headings": 1,
+      "codeLines": 0,
       "visualCount": 0,
-      "htmlComponents": true,
-      "localReferences": 1,
-      "findings": []
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/03-memory.md",
-      "contentHash": "a7c13acd68eabffff78dc6bac744971138d404af3e01ec780133f72d6aefa350",
-      "reviewHash": "9d11d053422733094aa97336ae76ad690854c37cc63b743d0a17782d29189dc4",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 6723,
-      "lines": 96,
-      "proseChars": 2068,
-      "headings": 6,
-      "codeLines": 3,
+      "contentHash": "aa4a722e9b8f087259fa7d71a746a732456961bcd872d095b6f897d659295cdc",
+      "reviewHash": "bcc6783190332980b33ac689e652b0c3f9565387852a4e2022e1d7858ce37685",
+      "dependencies": [],
+      "bytes": 364,
+      "lines": 13,
+      "proseChars": 97,
+      "headings": 1,
+      "codeLines": 0,
       "visualCount": 0,
-      "htmlComponents": true,
-      "localReferences": 2,
-      "findings": []
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/04-cache-attention.md",
-      "contentHash": "33ad80131f61bd5bc104a33141062b14a7259451b41ee58368b9662bd9435c11",
-      "reviewHash": "e69e58d828e421c7b8014d2d47a07bb5ffa543c1e3c55e9d7416944fab2ad5e4",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 5343,
-      "lines": 70,
-      "proseChars": 1647,
-      "headings": 5,
+      "contentHash": "ba7d7a7e51c396a68d76ba8971f298d56fd617601085a8244d86f924192e8a4f",
+      "reviewHash": "97771cd241ceb8362b160d4d7333c5dc0b5846dd889ecde136188e4b2f09c9a0",
+      "dependencies": [],
+      "bytes": 429,
+      "lines": 14,
+      "proseChars": 122,
+      "headings": 1,
       "codeLines": 0,
-      "visualCount": 2,
-      "htmlComponents": true,
-      "localReferences": 3,
-      "findings": []
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/05-scheduling.md",
-      "contentHash": "00de3af33e05abf20371d4260b036c4d1b4a0c7510ab45b2baba59fd4ad0dd98",
-      "reviewHash": "51b0b32cc8fe78cd415fa774f5db2488b7057576de2e6a44f05e41f1b37fa615",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 4702,
-      "lines": 63,
-      "proseChars": 1490,
-      "headings": 5,
+      "contentHash": "33b259e55339346effe33eaa3e35fdc68142d8d98b96af89c444192925704353",
+      "reviewHash": "83bd178197956c7b48ae9a8448849d694a4b124cb5f78a938eb90a1a699cd8ba",
+      "dependencies": [],
+      "bytes": 371,
+      "lines": 13,
+      "proseChars": 83,
+      "headings": 1,
       "codeLines": 0,
       "visualCount": 0,
-      "htmlComponents": true,
-      "localReferences": 2,
-      "findings": []
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/06-quantization.md",
-      "contentHash": "7c0da1766d8a5f6111e3846a1a4ad2434a523599ae98b363cfb20f499a4e7579",
-      "reviewHash": "35d32de20cf3ef09fc81e89b94ac8eb260cd03b28c2829d323f8f40b285f15c7",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 5790,
-      "lines": 68,
-      "proseChars": 2014,
-      "headings": 8,
+      "contentHash": "6e1dc13c402106b40aa0ddcd1ec925fd1d63738ed01283ebc9716e53fa3c087c",
+      "reviewHash": "08d50ac677abf7d5b571982f5c60962c4312815b117d817d30964968d7e67b6c",
+      "dependencies": [],
+      "bytes": 368,
+      "lines": 13,
+      "proseChars": 91,
+      "headings": 1,
       "codeLines": 0,
-      "visualCount": 1,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 4,
-      "findings": []
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/07-speculative.md",
-      "contentHash": "d4656896f19144c545ed7a48c31eba9ad8afc420db13f55b4db286ad80b6f417",
-      "reviewHash": "6bfc464ea8a570963deeda4b68582af64722a921ee61b09a36b02528511a2ed6",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 4964,
-      "lines": 65,
-      "proseChars": 1678,
-      "headings": 6,
-      "codeLines": 2,
+      "contentHash": "7137abdb9e208272fd520beb546d58a7d3934fe74669a2facb68e3e5e5f43742",
+      "reviewHash": "d61bfe1d7f89d72d7b6c4a5524d4367d31e3dbfa09cc15f8045edcd3b2ab93f8",
+      "dependencies": [],
+      "bytes": 281,
+      "lines": 12,
+      "proseChars": 65,
+      "headings": 1,
+      "codeLines": 0,
       "visualCount": 0,
-      "htmlComponents": true,
-      "localReferences": 1,
-      "findings": []
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/08-vllm.md",
-      "contentHash": "f3ada85a3e04c915bdae11b90d77df1bd7d27ecab74e43c0d12383da5dcdb543",
-      "reviewHash": "16b615d5f5558c5cf22ade80edbb225a412c737dbd30c59c77c9105d493eb31b",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 5628,
-      "lines": 78,
-      "proseChars": 2056,
-      "headings": 6,
-      "codeLines": 9,
-      "visualCount": 1,
+      "contentHash": "e6328a4d63cf08c68ec81de36b05fde4f4b0bc10309eb012c3b69f29d10e25c9",
+      "reviewHash": "ace6cfb129a2b52294ea56c8df4915a95a7dcbe5739961fcc25c3eb16fe506ca",
+      "dependencies": [],
+      "bytes": 359,
+      "lines": 13,
+      "proseChars": 101,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 5,
-      "findings": []
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/09-sglang.md",
-      "contentHash": "4a606477ee224439f435a4ccab57b4b61d469275c10fa723054a6ffca642335e",
-      "reviewHash": "c6a5663c136419376ab08e7149817ac1318ff28bc9eddbaeb89922848bb2d0d6",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 5950,
-      "lines": 79,
-      "proseChars": 2087,
-      "headings": 7,
-      "codeLines": 11,
-      "visualCount": 1,
+      "contentHash": "ade620cc965e9b025004f0c87002b35739180d208932fbb9941f493ab8bdace1",
+      "reviewHash": "860ee0e973378ee807e269c3b966b149a38139d1325e55373f2994634db59a9e",
+      "dependencies": [],
+      "bytes": 355,
+      "lines": 13,
+      "proseChars": 104,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 2,
-      "findings": []
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/10-distributed.md",
-      "contentHash": "896f2172f52a2283994b05a2d5938145a2230fec316cfd043999639ca18d09c7",
-      "reviewHash": "adb8007d3b25c47a8ff3165005bd4197fb83d90fe6f61422af4584a98ec7ceb5",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 5669,
-      "lines": 74,
-      "proseChars": 1978,
-      "headings": 7,
-      "codeLines": 1,
-      "visualCount": 2,
+      "contentHash": "cb4a8fefb865b62a9078a02c0d61b46fa8a99c91f9f861f34880c243bd03a783",
+      "reviewHash": "fe7bb2196643811ff2c87301ca1ec1942fe9e38530f16e5cd86ef1a1341f5431",
+      "dependencies": [],
+      "bytes": 346,
+      "lines": 13,
+      "proseChars": 82,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
       "htmlComponents": false,
       "localReferences": 3,
-      "findings": []
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/11-speech.md",
-      "contentHash": "ce112056e685ec1bd5226396e466bdd43679f7e7f17accb7c0b875260e280d8a",
-      "reviewHash": "4a4fa22931d7aa0f9fc023677b98da702e0a27d2435f12709862714924ead9c9",
-      "dependencies": [
-        ".vitepress/theme/components/InferenceFigure.vue",
-        ".vitepress/theme/components/SpeechRuntimeLab.vue",
-        "public/ai/inference-series/sherpa-runtime-mobile.svg",
-        "public/ai/inference-series/sherpa-runtime.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 13682,
-      "lines": 142,
-      "proseChars": 4662,
-      "headings": 11,
+      "contentHash": "4d2ab594d19bbaec366df6bfd9edf9525c91212d7c3a023f5ba90adcc7ff4486",
+      "reviewHash": "59ad8e971c02d9cafeb02d5c88c349fd7234ff4839702d1a9f8dfed6a8e01214",
+      "dependencies": [],
+      "bytes": 302,
+      "lines": 12,
+      "proseChars": 73,
+      "headings": 1,
       "codeLines": 0,
-      "visualCount": 1,
-      "htmlComponents": true,
-      "localReferences": 6,
-      "findings": []
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/12-selection-versions.md",
-      "contentHash": "c8b55b3fe8923c9f87997c2adf179b92c351af8d5bcaf16adb5c2ece7d7a2c01",
-      "reviewHash": "04b6a20d06a6bcf937adfc9b9681e2d8e8c34b830df1d387cf457c7ff51582c4",
-      "dependencies": [
-        "public/ai/inference-series/selection-gates.svg"
-      ],
-      "bytes": 10705,
-      "lines": 114,
-      "proseChars": 4348,
-      "headings": 9,
+      "contentHash": "d4217f7093a782c4148dfc4f62c5c6b2ac9c7770fc9bcda2c5033d15bf13133f",
+      "reviewHash": "50c53145a99ad603dd8622fb23eca7406ceb5bfc15e7671ec43a5e5a1511e829",
+      "dependencies": [],
+      "bytes": 314,
+      "lines": 12,
+      "proseChars": 87,
+      "headings": 1,
       "codeLines": 0,
-      "visualCount": 1,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 3,
-      "findings": []
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/13-practice.md",
-      "contentHash": "1524bce15553df6e5afec5b8b495848690f20e386df14a0d219109d1d364e50a",
-      "reviewHash": "7c69fb80c49ad5762f49b44217bc5a17129710b19c151785890d6e3beb4fc6a3",
-      "dependencies": [
-        "public/ai/inference-series/attention-notebook-mobile.svg",
-        "public/ai/inference-series/attention-notebook.svg",
-        "public/ai/inference-series/cache-questions.svg",
-        "public/ai/inference-series/chunked-prefill-mobile.svg",
-        "public/ai/inference-series/chunked-prefill.svg",
-        "public/ai/inference-series/compute-and-move-mobile.svg",
-        "public/ai/inference-series/compute-and-move.svg",
-        "public/ai/inference-series/engine-loop.svg",
-        "public/ai/inference-series/inference-stack.svg",
-        "public/ai/inference-series/latency-ruler-mobile.svg",
-        "public/ai/inference-series/latency-ruler.svg",
-        "public/ai/inference-series/learn-and-use.svg",
-        "public/ai/inference-series/learning-route-mobile.svg",
-        "public/ai/inference-series/learning-route.svg",
-        "public/ai/inference-series/measure_stream.py",
-        "public/ai/inference-series/measurement-path.svg",
-        "public/ai/inference-series/memory-workbench-mobile.svg",
-        "public/ai/inference-series/memory-workbench.svg",
-        "public/ai/inference-series/paged-kv.svg",
-        "public/ai/inference-series/pd-deployment.svg",
-        "public/ai/inference-series/precision-ruler.svg",
-        "public/ai/inference-series/question-to-answer-mobile.svg",
-        "public/ai/inference-series/question-to-answer.svg",
-        "public/ai/inference-series/radix-branches.svg",
-        "public/ai/inference-series/read-then-write-mobile.svg",
-        "public/ai/inference-series/read-then-write.svg",
-        "public/ai/inference-series/request-lifecycle.svg",
-        "public/ai/inference-series/scaling-choices.svg",
-        "public/ai/inference-series/selection-gates.svg",
-        "public/ai/inference-series/speech-pipeline.svg"
-      ],
-      "bytes": 8786,
-      "lines": 129,
-      "proseChars": 2674,
-      "headings": 9,
-      "codeLines": 29,
-      "visualCount": 1,
+      "contentHash": "9d12a4a15c7c1e47496aec33cdaa6fe34337f7ad2dbbb4028554a5e0a0d57363",
+      "reviewHash": "33e8b0e75d2437d168f40881ecc2be521aabd5a996ceef66d0e761201269e672",
+      "dependencies": [],
+      "bytes": 350,
+      "lines": 13,
+      "proseChars": 81,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 5,
-      "findings": []
+      "localReferences": 3,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/14-precision-formats.md",
@@ -3342,12 +3202,12 @@
     },
     {
       "file": "docs/ai/inference-series/16-quantization-now.md",
-      "contentHash": "5c7c222b6f1eb114ed4f576bf8b6c66310a8d88d68850fb7bc6a916d347f0a2e",
-      "reviewHash": "4235b7085e773ae5a043febf345bf8fc4bf34334f2c462aaeef88f973f520b13",
+      "contentHash": "353fea5c6b0eff40384748d1e3cc4ff2aa31f8934abb5665510ad03a59691a16",
+      "reviewHash": "fdf86302a26b70310d3ec7c475427986263c47a1b5431746e787a64fa717578d",
       "dependencies": [],
-      "bytes": 746,
+      "bytes": 761,
       "lines": 17,
-      "proseChars": 139,
+      "proseChars": 134,
       "headings": 1,
       "codeLines": 0,
       "visualCount": 0,
@@ -3368,18 +3228,29 @@
     },
     {
       "file": "docs/ai/inference-series/index.md",
-      "contentHash": "059ee52d5f8c2ec1a8696a0c8da8472bc686b49b2a1e79264783117c2804eaa2",
-      "reviewHash": "e14ab6dbab64fe7d5ad5767e4343192be0fe69137e4c2badacdb6eb9318181ea",
+      "contentHash": "a26805e69465ab15001b0b43d00f8b61cc23864e2c03f213fc46d06d6ea1a9f1",
+      "reviewHash": "5f6cc2b2e032ccfb14db345c50b78a4c13cf96fea94ac786c2e5b0df7dc355bb",
       "dependencies": [],
-      "bytes": 4968,
-      "lines": 63,
-      "proseChars": 1466,
-      "headings": 5,
+      "bytes": 460,
+      "lines": 12,
+      "proseChars": 179,
+      "headings": 1,
       "codeLines": 0,
       "visualCount": 0,
-      "htmlComponents": true,
-      "localReferences": 18,
-      "findings": []
+      "htmlComponents": false,
+      "localReferences": 1,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
       "file": "docs/ai/learning-path.md",
@@ -3396,6 +3267,407 @@
       "visualCount": 1,
       "htmlComponents": false,
       "localReferences": 37,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/01-inference-system.md",
+      "contentHash": "e19b0b1f6b37c263d8fb3e1dfae4a20103b4e89a56b1d0413374883f2dbaaa71",
+      "reviewHash": "3bd4792ff7df80b5e5df2278c79398f228e629bde9613466c76f3151ac3e211f",
+      "dependencies": [
+        "public/ai/inference-series/learn-and-use.svg"
+      ],
+      "bytes": 6502,
+      "lines": 82,
+      "proseChars": 2080,
+      "headings": 6,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": true,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/02-prefill-decode.md",
+      "contentHash": "d5d30ae9c13ee4f32ae944aa445888edc5e9a200f8488860aa282c8377d27ded",
+      "reviewHash": "e175e670df7afc06172efaa63791b3a20d6a115db913cf46b77f932cf23219f8",
+      "dependencies": [],
+      "bytes": 7035,
+      "lines": 90,
+      "proseChars": 2478,
+      "headings": 6,
+      "codeLines": 2,
+      "visualCount": 0,
+      "htmlComponents": true,
+      "localReferences": 1,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/03-kv-cache.md",
+      "contentHash": "8cf14aea69b4ffbbf09e34c946cbdc31e0051d9120864f3f4b16312114037959",
+      "reviewHash": "ae8a112f2d88d3c46e723e6f2a61984380d1c91c8f7c5b26739c31f42f05cd2e",
+      "dependencies": [
+        "public/ai/llm-inference/kv-lifecycle.svg",
+        "public/ai/llm-inference/kv-recompute.svg"
+      ],
+      "bytes": 6936,
+      "lines": 84,
+      "proseChars": 2478,
+      "headings": 6,
+      "codeLines": 1,
+      "visualCount": 2,
+      "htmlComponents": true,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/04-memory-budget.md",
+      "contentHash": "a8a0e55c92fceebb4bc4bc544ffe277313b6220819c697b4faba14cd0e11ffb4",
+      "reviewHash": "7329ca66534b720e651e089b3cd0617c088a00f1a4e21dfaaf75751b93fbec4f",
+      "dependencies": [
+        "public/ai/llm-inference/gqa-heads.svg",
+        "public/ai/llm-inference/memory-ledger.svg"
+      ],
+      "bytes": 8420,
+      "lines": 132,
+      "proseChars": 3014,
+      "headings": 8,
+      "codeLines": 10,
+      "visualCount": 2,
+      "htmlComponents": true,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/05-metrics.md",
+      "contentHash": "a83c417074bf797c654803319d49cd6fd8bd74f851aa6271895fb313bf937c88",
+      "reviewHash": "331846b910a951e9a6f6f736bf03e5cab4d83051ef4acd3db8bc7849ae4bc266",
+      "dependencies": [
+        "public/ai/llm-inference/latency-timeline.svg"
+      ],
+      "bytes": 7955,
+      "lines": 94,
+      "proseChars": 3010,
+      "headings": 7,
+      "codeLines": 2,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/06-gpu-roofline.md",
+      "contentHash": "18410bd7ae4477a0f566dc24a9c17526e44d62241decf1e192b14081d31b41a5",
+      "reviewHash": "0f375a227cd0520b2b8859c1773c82a913ede3fcbfae51f161dc222925a1f403",
+      "dependencies": [
+        "public/ai/llm-inference/gpu-anatomy.svg",
+        "public/ai/llm-inference/roofline.svg"
+      ],
+      "bytes": 9418,
+      "lines": 141,
+      "proseChars": 3222,
+      "headings": 9,
+      "codeLines": 11,
+      "visualCount": 2,
+      "htmlComponents": true,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/07-request-path.md",
+      "contentHash": "8a5fb60df1210bb68d990307a575ff757bf9cffc8e511b4ae4ca9db95be0669a",
+      "reviewHash": "6d52502812d4baca205f457b4057933a8058b4475776e6a36d72e7b3ace0d617",
+      "dependencies": [
+        "public/ai/llm-inference/request-path.svg"
+      ],
+      "bytes": 8433,
+      "lines": 108,
+      "proseChars": 2952,
+      "headings": 8,
+      "codeLines": 5,
+      "visualCount": 1,
+      "htmlComponents": true,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/08-paged-attention.md",
+      "contentHash": "d4d57ddfc5c40e9c480d5be6f5e44633895b06023b7911e2ec9f0655f0941a05",
+      "reviewHash": "090d2ab069d1a703839867d21657f49eda67507e53518e788bad3bfa6046f223",
+      "dependencies": [
+        "public/ai/inference-series/paged-kv.svg",
+        "public/ai/llm-inference/kv-fragmentation.svg"
+      ],
+      "bytes": 7784,
+      "lines": 92,
+      "proseChars": 2824,
+      "headings": 8,
+      "codeLines": 3,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/09-continuous-batching.md",
+      "contentHash": "167c320fd6e19166f34099600e5a9fa2a70b81c8aae9b9190c0e1a6e4c8c3199",
+      "reviewHash": "3eb6c728438f653cce7f1cd1e0dd6d13e743bf87dc27008acb466eba297d3de8",
+      "dependencies": [
+        "public/ai/llm-inference/batching-timeline.svg",
+        "public/ai/llm-inference/scheduler-states.svg"
+      ],
+      "bytes": 9312,
+      "lines": 122,
+      "proseChars": 3131,
+      "headings": 8,
+      "codeLines": 13,
+      "visualCount": 2,
+      "htmlComponents": true,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/10-prefix-cache.md",
+      "contentHash": "8f7d35716ce60b5ae7f4d45fc5add05571100797d921f1900231f688afb05523",
+      "reviewHash": "4c04f4873e9f556e48db84f6ea69b2827361b487b1ae9064864e37a8d940ac4c",
+      "dependencies": [
+        "public/ai/inference-series/radix-branches.svg",
+        "public/ai/llm-inference/block-hash-chain.svg",
+        "public/ai/llm-inference/prefix-sharing.svg"
+      ],
+      "bytes": 9605,
+      "lines": 111,
+      "proseChars": 3345,
+      "headings": 7,
+      "codeLines": 8,
+      "visualCount": 3,
+      "htmlComponents": true,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/11-chunked-prefill.md",
+      "contentHash": "f57a487c12063febd511a534b4508c9c3e310f62ab8a29c49e3d7d9de67ec233",
+      "reviewHash": "7964d4fd30b38966488d27630b06ff6c0c16aaddfb377a82e56bebdf9345fb53",
+      "dependencies": [
+        "public/ai/inference-series/chunked-prefill.svg"
+      ],
+      "bytes": 7166,
+      "lines": 77,
+      "proseChars": 2840,
+      "headings": 6,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/12-attention-kernels.md",
+      "contentHash": "9ee0301737d44eca70e920d3386046a400b731b0e7ff9432a9d85fb19bcec09b",
+      "reviewHash": "38737b189a669e551edf0b1268b3506be311a4a70a657bcdb3551ab32eea17d5",
+      "dependencies": [
+        "public/ai/llm-inference/cuda-graph.svg",
+        "public/ai/llm-inference/flash-attention.svg"
+      ],
+      "bytes": 9730,
+      "lines": 92,
+      "proseChars": 3677,
+      "headings": 8,
+      "codeLines": 6,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/13-nano-vllm.md",
+      "contentHash": "bdc1b2baebb981eb4dc1dddb145a0d9667d3bcb1efab6f6069dd937179151d14",
+      "reviewHash": "639629df5bfe925e8aafff1ed26afc1fa3becd182b4d2c5fc96e696f12f0783b",
+      "dependencies": [
+        "public/ai/llm-inference/nano-vllm-map.svg"
+      ],
+      "bytes": 14495,
+      "lines": 191,
+      "proseChars": 5366,
+      "headings": 12,
+      "codeLines": 34,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/14-quantization.md",
+      "contentHash": "a60be25bbfad870679e6a48481a8dbd598486b0851e00bc53d394bcee7e15dbe",
+      "reviewHash": "1a59883fcea986526e45dd25221155f9ab45315ff74b79023dfb5d635aa10b1a",
+      "dependencies": [
+        "public/ai/inference-series/precision-ruler.svg",
+        "public/ai/llm-inference/quant-targets.svg"
+      ],
+      "bytes": 11943,
+      "lines": 154,
+      "proseChars": 4592,
+      "headings": 10,
+      "codeLines": 6,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/15-speculative-decoding.md",
+      "contentHash": "f6741121095309f90759c2cb9cc3ee0279f7aacb93dbff2e58125287097af670",
+      "reviewHash": "02191a65cf4dc892755162e1b0c73fd773232ee2b084aa881eddef5bdaf53b2d",
+      "dependencies": [
+        "public/ai/llm-inference/speculative-round.svg"
+      ],
+      "bytes": 10518,
+      "lines": 125,
+      "proseChars": 3797,
+      "headings": 9,
+      "codeLines": 4,
+      "visualCount": 1,
+      "htmlComponents": true,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/16-distributed.md",
+      "contentHash": "023f6e4aaa33c5b404dc55497e1e7f8a685fba4ca97819857bf14a191443aca1",
+      "reviewHash": "95296c01bd2dda9c789f42ac2c7161641ac796d2012eeaa6fa98ac68875f5c2f",
+      "dependencies": [
+        "public/ai/inference-series/scaling-choices.svg",
+        "public/ai/llm-inference/tensor-parallel.svg"
+      ],
+      "bytes": 10013,
+      "lines": 111,
+      "proseChars": 3735,
+      "headings": 9,
+      "codeLines": 2,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/17-pd-disaggregation.md",
+      "contentHash": "464b6e90453a805a693a7cb2186af0d9a16c041a612a626331c781b914415799",
+      "reviewHash": "2ad4af73b1500f5d87514e4a27954ef31eac26501ffad61d2bff4204d8fecf9a",
+      "dependencies": [
+        "public/ai/inference-series/pd-deployment.svg"
+      ],
+      "bytes": 8193,
+      "lines": 109,
+      "proseChars": 3267,
+      "headings": 8,
+      "codeLines": 3,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/18-vllm-sglang.md",
+      "contentHash": "6e9385a4b23cdcbaff168c72a42fdb78afd130361f7041dbedf9e2232a6cd35c",
+      "reviewHash": "8fc9eb95636905fc927f2a2fdb53c8224ecbae984cd54131eac5412f94a4fa25",
+      "dependencies": [
+        "public/ai/inference-series/engine-loop.svg",
+        "public/ai/inference-series/selection-gates.svg"
+      ],
+      "bytes": 9692,
+      "lines": 127,
+      "proseChars": 3523,
+      "headings": 8,
+      "codeLines": 9,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/19-speech-multimodal.md",
+      "contentHash": "0418b60fa71993f1aef0192d16047884110326dbed8f2c6b4ef0dae1e7883401",
+      "reviewHash": "bcb0b333228451db96f719c70676c12fc63cbbbbd946f4d5718660150440c6f1",
+      "dependencies": [
+        "public/ai/inference-series/speech-pipeline.svg"
+      ],
+      "bytes": 14894,
+      "lines": 151,
+      "proseChars": 5126,
+      "headings": 11,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": true,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/20-benchmark.md",
+      "contentHash": "6a2a7a6ec0d0415b70a47c40373084771513763a49d3e1bf6e97cd53794f96da",
+      "reviewHash": "54b837fc2ceb7e6edef6b2984274854ac1081d210140e139155d973cb8f85e8b",
+      "dependencies": [
+        "public/ai/inference-series/measurement-path.svg",
+        "public/ai/llm-inference/concurrency-sweep.svg"
+      ],
+      "bytes": 10073,
+      "lines": 148,
+      "proseChars": 3086,
+      "headings": 9,
+      "codeLines": 25,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/21-production.md",
+      "contentHash": "cefb0e96c8470171439fa565a3fa39c4fb8027d427d18676d286426970f2cef7",
+      "reviewHash": "2c96d067e59e47bd58be25aa62dc3785724aa3f2951861af4fced9a846b60cbc",
+      "dependencies": [
+        "public/ai/llm-inference/production-architecture.svg"
+      ],
+      "bytes": 8783,
+      "lines": 103,
+      "proseChars": 3087,
+      "headings": 9,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/22-edge.md",
+      "contentHash": "2b0cb1220914c0e5d7c1a27500581b2aee19b25f25b2d49c5dfed7e863d377d8",
+      "reviewHash": "79b5172c265697f2882ae36d6cbdd39c421c6d8ff8f7d68cbde80ad5dd9cd718",
+      "dependencies": [
+        "public/ai/llm-inference/edge-pipeline.svg"
+      ],
+      "bytes": 9235,
+      "lines": 109,
+      "proseChars": 3492,
+      "headings": 10,
+      "codeLines": 2,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/index.md",
+      "contentHash": "425e67b27c2d313b1b19d862af542f2f7e44fbccfb95d833470ebce3d32a74a6",
+      "reviewHash": "c6a1786ecca884a9f4f6a11fd5e89213810a92e9c79d1335e798f58a0f0d809c",
+      "dependencies": [
+        "public/ai/llm-inference/series-map.svg"
+      ],
+      "bytes": 6639,
+      "lines": 75,
+      "proseChars": 2163,
+      "headings": 4,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 25,
       "findings": []
     },
     {
@@ -3434,14 +3706,14 @@
     },
     {
       "file": "docs/ai/llm/inference.md",
-      "contentHash": "d99d98fd1141b74819a1e319836a15cb49d730893d72fefd830c183288adaf52",
-      "reviewHash": "dd6a523a6cd9c0f50fe631c83f87c1e447ad46551da20badeb1fa2df206262dd",
+      "contentHash": "fb9b4301eb0141ceceb985af84075a087c57dc98570b80c626607e586ec8209e",
+      "reviewHash": "c6dfb74acab37c15fcfafb9e37df70fc7aad9ce0c63f16b56f85a6dbe848e968",
       "dependencies": [
         "public/ai/kv-cache-memory-contract.svg"
       ],
-      "bytes": 5640,
+      "bytes": 5717,
       "lines": 104,
-      "proseChars": 1928,
+      "proseChars": 1990,
       "headings": 11,
       "codeLines": 0,
       "visualCount": 1,
@@ -3702,17 +3974,17 @@
     },
     {
       "file": "docs/ai/precision/06-choosing-precision.md",
-      "contentHash": "f458576bf2097c5e847a9723054cc1d17c4cde375c5dd51ad424672ec854841c",
-      "reviewHash": "af32ff3d4d1564afdddafbd5ae40bb30c158ddbc86ebb04946aca2fdd3d801ba",
+      "contentHash": "7200a065fd2dea98b69941898fb9155ecf2f053f1fe0c72c9aa62433a9130bcd",
+      "reviewHash": "a89830e42ac344434b601e2bb704db3e94e67e78b064ad1fa85617c4cc57ac92",
       "dependencies": [],
-      "bytes": 15878,
+      "bytes": 15925,
       "lines": 171,
-      "proseChars": 5588,
+      "proseChars": 5590,
       "headings": 12,
       "codeLines": 7,
       "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 4,
+      "localReferences": 5,
       "findings": [
         {
           "kind": "visual-review",
@@ -3723,12 +3995,12 @@
     },
     {
       "file": "docs/ai/precision/index.md",
-      "contentHash": "0a26e1a273d145dd87ba90fcdc7483abd9da4ad7ffbf67afff49613bda3c43ba",
-      "reviewHash": "fd2c29519abea1b936fc03c884e9702d2299e2830d880d3dc012db7b1d1b2760",
+      "contentHash": "7bfd477ddb858d91b9a7d39c7d8b262dc01af6fa37a2ed5868697f44020a48b5",
+      "reviewHash": "8a18ee6774ba5b2bb9a79ae5f1bd329daaef1075787816cbb81a5fc90e86de46",
       "dependencies": [],
       "bytes": 3409,
       "lines": 50,
-      "proseChars": 1172,
+      "proseChars": 1173,
       "headings": 6,
       "codeLines": 0,
       "visualCount": 0,
@@ -4055,14 +4327,14 @@
     },
     {
       "file": "docs/ai/speech-engineering/performance-and-capacity.md",
-      "contentHash": "50eac257a57349bd0fea23b743589e901f87d1f45b550d4ecbaa461da6576c21",
-      "reviewHash": "29c210ecf5de29e3ee2d413aebda8a72d05ff1d3c56e67a6f04516b8c1c4d395",
+      "contentHash": "03ae961824e11e0f8098c53b56bb914c45b72cdce7084a1b4dd7634a625461d2",
+      "reviewHash": "effeed8e75aacb3b2c63f36bb3f6b0bf045ae17a6fd9c45c82440e41483853b7",
       "dependencies": [
         "public/ai/speech-engineering/voice-decoder-queue.svg"
       ],
-      "bytes": 7642,
+      "bytes": 7656,
       "lines": 88,
-      "proseChars": 2589,
+      "proseChars": 2592,
       "headings": 9,
       "codeLines": 6,
       "visualCount": 1,

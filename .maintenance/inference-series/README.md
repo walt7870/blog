@@ -1,5 +1,7 @@
 # 模型推理系列维护记录
 
+> 2026-10-26：本系列已整合进 `docs/ai/llm-inference/`（大模型推理优化），原地址保留为跳转页。新系列的维护记录见 `.maintenance/llm-inference/README.md`。下文是原系列的历史记录，交互组件与 `public/ai/inference-series/` 资源仍被新系列使用。
+
 日期：2026-10-20，Asia/Shanghai。
 
 ## 位置与职责

@@ -1,0 +1,590 @@
+{
+ "pages": [
+  {
+   "file": "docs/ai/llm-inference/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "系列总览：问题背景、贯穿例子与统一配置、五部分路线与每篇要回答的问题、两种读法。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "c6a1786ecca884a9f4f6a11fd5e89213810a92e9c79d1335e798f58a0f0d809c"
+  },
+  {
+   "file": "docs/ai/llm-inference/01-inference-system.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "模型、应用、引擎、GPU 的分工，推理优化的延迟/吞吐/成本目标与系列统一配置。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "3bd4792ff7df80b5e5df2278c79398f228e629bde9613466c76f3151ac3e211f"
+  },
+  {
+   "file": "docs/ai/llm-inference/02-prefill-decode.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "token 与自回归接龙，Prefill/Decode 两阶段对比与两段等待，复用生成实验。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "e175e670df7afc06172efaa63791b3a20d6a115db913cf46b77f932cf23219f8"
+  },
+  {
+   "file": "docs/ai/llm-inference/03-kv-cache.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "注意力 Q/K/V、不缓存的重算量（119,900 vs 699）、只存 K/V 的原因、KV 生命周期与未省掉的部分。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "ae8a112f2d88d3c46e723e6f2a61984380d1c91c8f7c5b26739c31f42f05cd2e"
+  },
+  {
+   "file": "docs/ai/llm-inference/04-memory-budget.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "三笔显存账、单 token KV 公式、80 GB 卡的 KV 容量、GQA/MQA/MLA 与碎片浪费。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "7329ca66534b720e651e089b3cd0617c088a00f1a4e21dfaaf75751b93fbec4f"
+  },
+  {
+   "file": "docs/ai/llm-inference/05-metrics.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "TTFT、TPOT/ITL 两种口径、E2E 公式与场景判断、吞吐、尾延迟、Goodput 两种定义与测量误区。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "331846b910a951e9a6f6f736bf03e5cab4d83051ef4acd3db8bc7849ae4bc266"
+  },
+  {
+   "file": "docs/ai/llm-inference/06-gpu-roofline.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "GPU 结构、算术强度、平衡点 295、Prefill/Decode 下界、批处理摊薄权重而不摊薄 KV。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "0f375a227cd0520b2b8859c1773c82a913ede3fcbfae51f161dc222925a1f403"
+  },
+  {
+   "file": "docs/ai/llm-inference/07-request-path.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "请求全链路：模板、分词、调度、采样参数、停止与取消，以及各环节对应章节。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "6d52502812d4baca205f457b4057933a8058b4475776e6a36d72e7b3ace0d617"
+  },
+  {
+   "file": "docs/ai/llm-inference/08-paged-attention.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "预留浪费与碎片、分页与块表、槽位写入、块大小权衡、共享与 V1 简化。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "090d2ab069d1a703839867d21657f49eda67507e53518e788bad3bfa6046f223"
+  },
+  {
+   "file": "docs/ai/llm-inference/09-continuous-batching.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "静态与连续批处理、三项调度约束、Prefill 优先与混合调度、重算抢占、回压与公平。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "3eb6c728438f653cce7f1cd1e0dd6d13e743bf87dc27008acb466eba297d3de8"
+  },
+  {
+   "file": "docs/ai/llm-inference/10-prefix-cache.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "前缀命中条件、vLLM 块哈希链与 SGLang 基数树、代价、隔离与分层缓存的取舍计算。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "4c04f4873e9f556e48db84f6ea69b2827361b487b1ae9064864e37a8d940ac4c"
+  },
+  {
+   "file": "docs/ai/llm-inference/11-chunked-prefill.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "长 Prefill 卡顿的计算、分块原理、统一 token 预算与默认值、块大小取舍。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "7964d4fd30b38966488d27630b06ff6c0c16aaddfb377a82e56bebdf9345fb53"
+  },
+  {
+   "file": "docs/ai/llm-inference/12-attention-kernels.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "内核与 HBM 往返、FlashAttention 在线 softmax、Decode 注意力切分、算子融合、CUDA Graph 与 eager 排查。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "38737b189a669e551edf0b1268b3506be311a4a70a657bcdb3551ab32eea17d5"
+  },
+  {
+   "file": "docs/ai/llm-inference/13-nano-vllm.md",
+   "status": "verified",
+   "pageType": "实操",
+   "decision": "固定提交 bb823b3 的源码导读：主循环、调度、块管理、KV 容量、CUDA Graph、注意力层、边界与练习。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "639629df5bfe925e8aafff1ed26afc1fa3becd182b4d2c5fc96e696f12f0783b"
+  },
+  {
+   "file": "docs/ai/llm-inference/14-quantization.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "scale 与粒度、三类对象、W4A16/GPTQ/AWQ、W8A8/SmoothQuant/FP8、KV 量化、MXFP4/NVFP4、选型与验收。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "1a59883fcea986526e45dd25221155f9ab45315ff74b79023dfb5d635aa10b1a"
+  },
+  {
+   "file": "docs/ai/llm-inference/15-speculative-decoding.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "起草-验证-接受、分布不变的接受规则、期望前进数与加速比、草稿来源、树形验证与高并发边界。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "02191a65cf4dc892755162e1b0c73fd773232ee2b084aa881eddef5bdaf53b2d"
+  },
+  {
+   "file": "docs/ai/llm-inference/16-distributed.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "70B 显存账、TP 列/行切分与 all-reduce、PP、DP、EP、CP 与选型顺序。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "95296c01bd2dda9c789f42ac2c7161641ac796d2012eeaa6fa98ac68875f5c2f"
+  },
+  {
+   "file": "docs/ai/llm-inference/17-pd-disaggregation.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "两阶段资源差异、P/D 架构、DistServe/Splitwise/Mooncake、KV 传输计算、失败处理与适用条件。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "2ad4af73b1500f5d87514e4a27954ef31eac26501ffad61d2bff4204d8fecf9a"
+  },
+  {
+   "file": "docs/ai/llm-inference/18-vllm-sglang.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "两引擎模块与特色、最小启动、结构化输出、对比、其他方案定位、选型三道关与 2026-10-26 版本快照。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "8fc9eb95636905fc927f2a2fdb53c8224ecbae984cd54131eac5412f94a4fa25"
+  },
+  {
+   "file": "docs/ai/llm-inference/19-speech-multimodal.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "由原第 11 篇迁入：听答说链路、sherpa-onnx、可迁移优化边界、语音时延与指标；版本说明收入折叠区。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "bcb0b333228451db96f719c70676c12fc63cbbbbd946f4d5718660150440c6f1"
+  },
+  {
+   "file": "docs/ai/llm-inference/20-benchmark.md",
+   "status": "verified",
+   "pageType": "实操",
+   "decision": "可复现记录、vllm bench serve 指标、五组实验、并发扫描拐点、开环闭环、瓶颈定位与回归检查。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "54b837fc2ceb7e6edef6b2984274854ac1081d210140e139155d973cb8f85e8b"
+  },
+  {
+   "file": "docs/ai/llm-inference/21-production.md",
+   "status": "verified",
+   "pageType": "实操",
+   "decision": "生产架构、启动与健康检查、三层监控、扩缩容与路由、容量规划算例、安全、可靠性与升级。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "2c96d067e59e47bd58be25aa62dc3785724aa3f2951861af4fced9a846b60cbc"
+  },
+  {
+   "file": "docs/ai/llm-inference/22-edge.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "端侧动机、带宽决定的 Decode 上限、内存约束、部署三层次、运行时对比、硬件与优化、端侧测试与系列回顾。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+   ],
+   "reviewedHash": "79b5172c265697f2882ae36d6cbdd39c421c6d8ff8f7d68cbde80ad5dd9cd718"
+  },
+  {
+   "file": "docs/ai/inference-series/index.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "5f6cc2b2e032ccfb14db345c50b78a4c13cf96fea94ac786c2e5b0df7dc355bb"
+  },
+  {
+   "file": "docs/ai/inference-series/01-landscape.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "d53ce12444aae1e167e843a5e58eb9a7e602a428f4c4e659e5100dfb8dbfbf71"
+  },
+  {
+   "file": "docs/ai/inference-series/02-lifecycle.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "047f759b885f71b060cfb59f4d77d176a5fd5c3d243ac50a312d01fcc6d1647b"
+  },
+  {
+   "file": "docs/ai/inference-series/03-memory.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "bcc6783190332980b33ac689e652b0c3f9565387852a4e2022e1d7858ce37685"
+  },
+  {
+   "file": "docs/ai/inference-series/04-cache-attention.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "97771cd241ceb8362b160d4d7333c5dc0b5846dd889ecde136188e4b2f09c9a0"
+  },
+  {
+   "file": "docs/ai/inference-series/05-scheduling.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "83bd178197956c7b48ae9a8448849d694a4b124cb5f78a938eb90a1a699cd8ba"
+  },
+  {
+   "file": "docs/ai/inference-series/06-quantization.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "08d50ac677abf7d5b571982f5c60962c4312815b117d817d30964968d7e67b6c"
+  },
+  {
+   "file": "docs/ai/inference-series/07-speculative.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "d61bfe1d7f89d72d7b6c4a5524d4367d31e3dbfa09cc15f8045edcd3b2ab93f8"
+  },
+  {
+   "file": "docs/ai/inference-series/08-vllm.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "ace6cfb129a2b52294ea56c8df4915a95a7dcbe5739961fcc25c3eb16fe506ca"
+  },
+  {
+   "file": "docs/ai/inference-series/09-sglang.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "860ee0e973378ee807e269c3b966b149a38139d1325e55373f2994634db59a9e"
+  },
+  {
+   "file": "docs/ai/inference-series/10-distributed.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "fe7bb2196643811ff2c87301ca1ec1942fe9e38530f16e5cd86ef1a1341f5431"
+  },
+  {
+   "file": "docs/ai/inference-series/11-speech.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "59ad8e971c02d9cafeb02d5c88c349fd7234ff4839702d1a9f8dfed6a8e01214"
+  },
+  {
+   "file": "docs/ai/inference-series/12-selection-versions.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "50c53145a99ad603dd8622fb23eca7406ceb5bfc15e7671ec43a5e5a1511e829"
+  },
+  {
+   "file": "docs/ai/inference-series/13-practice.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "原系列已整合进 docs/ai/llm-inference/，保留旧地址为跳转页，列出对应新文章；不配图，短正文属于迁移页。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "33e8b0e75d2437d168f40881ecc2be521aabd5a996ceef66d0e761201269e672"
+  },
+  {
+   "file": "docs/ai/inference-series/16-quantization-now.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "精度迁移页仅把显存链接改到新系列第 4 篇。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "改为 search:false 的跳转页，逐条核对指向的新文章与链接在构建中可解析；本地 preview 打开 inference-series/ 与 04 跳转页，1440/390 浅深色无溢出与报错。"
+   ],
+   "reviewedHash": "fdf86302a26b70310d3ec7c475427986263c47a1b5431746e787a64fa717578d"
+  },
+  {
+   "file": "docs/ai/foundations/index.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "推理机制的延伸阅读改指新系列。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "b91291ec8df370cec87ad87e28e011370ef73d117d6762593759db003f0967e2"
+  },
+  {
+   "file": "docs/ai/index.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "AI 总览卡片改为“大模型推理优化”。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "fcfb7fa9fe6af103d3381ad875006d9b90d21e254824c8468aebb0e4da2674d1"
+  },
+  {
+   "file": "docs/ai/llm/inference.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "深入阅读入口改为新系列并更新覆盖范围。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "c6dfb74acab37c15fcfafb9e37df70fc7aad9ce0c63f16b56f85a6dbe848e968"
+  },
+  {
+   "file": "docs/ai/precision/06-choosing-precision.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "部署延伸阅读改指新系列第 4、14、20 篇。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "a89830e42ac344434b601e2bb704db3e94e67e78b064ad1fa85617c4cc57ac92"
+  },
+  {
+   "file": "docs/ai/precision/index.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "推理入口改指新系列。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "8a18ee6774ba5b2bb9a79ae5f1bd329daaef1075787816cbb81a5fc90e86de46"
+  },
+  {
+   "file": "docs/ai/speech-engineering/performance-and-capacity.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "基础机制与语音推理链接改指新系列。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "effeed8e75aacb3b2c63f36bb3f6b0bf045ae17a6fd9c45c82440e41483853b7"
+  },
+  {
+   "file": "AGENTS.md",
+   "status": "verified",
+   "pageType": "维护说明",
+   "decision": "补充推理内容统一在 llm-inference 系列维护的约定。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+   ],
+   "reviewedHash": "1e3e24ef0f8bb7dc5e9443561047398db70a8ad2118b37ed9adb40804387e780"
+  }
+ ]
+}

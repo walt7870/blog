@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440" role="img" aria-labelledby="kv-lifecycle-title kv-lifecycle-desc" id="kv-lifecycle-root">
+<title id="kv-lifecycle-title">KV Cache 的生命周期</title>
+<desc id="kv-lifecycle-desc">请求进来时分配显存；Prefill 一次写入整段输入的 K、V，Decode 每步追加 1 个；每一步 Decode 读取全部历史；遇到结束符、达到长度上限或取消后释放。</desc>
+<defs><style>
+#kv-lifecycle-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#kv-lifecycle-root .h { font-size: 26px; font-weight: 700; }
+#kv-lifecycle-root .t { font-size: 19px; font-weight: 600; }
+#kv-lifecycle-root .s { font-size: 15px; fill: #475569; }
+#kv-lifecycle-root .xs { font-size: 13px; fill: #64748b; }
+#kv-lifecycle-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#kv-lifecycle-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#kv-lifecycle-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#kv-lifecycle-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#kv-lifecycle-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#kv-lifecycle-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#kv-lifecycle-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#kv-lifecycle-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#kv-lifecycle-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#kv-lifecycle-root .fblue { fill: #93c5fd; } #kv-lifecycle-root .fgreen { fill: #6ee7b7; } #kv-lifecycle-root .fred { fill: #fda4af; }
+#kv-lifecycle-root .famber { fill: #fcd34d; } #kv-lifecycle-root .fviolet { fill: #c4b5fd; } #kv-lifecycle-root .fgray { fill: #e2e8f0; }
+#kv-lifecycle-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#kv-lifecycle-arrow); }
+#kv-lifecycle-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#kv-lifecycle-arrow); }
+#kv-lifecycle-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#kv-lifecycle-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="kv-lifecycle-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="440" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一个请求的 KV Cache：分配、填充、使用、释放</text>
+<text x="32" y="78" class="s">难点在第一步：分配时还不知道这个请求最终会生成多长。</text>
+<g data-node="alloc"><rect x="32" y="120" width="200" height="200" rx="8" class="amber"/><text x="50" y="146" class="k">1</text><text x="50" y="172" class="t">分配</text><text x="50" y="200" class="s">请求进来</text><text x="50" y="223" class="s">引擎预留显存</text><text x="50" y="246" class="s">最终长度未知</text></g>
+<g data-node="fill"><rect x="272" y="120" width="200" height="200" rx="8" class="blue"/><text x="290" y="146" class="k">2</text><text x="290" y="172" class="t">填充</text><text x="290" y="200" class="s">Prefill：一次写入</text><text x="290" y="223" class="s">整段输入的 K、V</text><text x="290" y="246" class="s">Decode：每步追加 1 个</text></g>
+<g data-node="use"><rect x="512" y="120" width="200" height="200" rx="8" class="green"/><text x="530" y="146" class="k">3</text><text x="530" y="172" class="t">使用</text><text x="530" y="200" class="s">每一步 Decode</text><text x="530" y="223" class="s">读取全部历史 K、V</text><text x="530" y="246" class="s">上下文越长读得越多</text></g>
+<g data-node="free"><rect x="752" y="120" width="176" height="200" rx="8" class="gray"/><text x="770" y="146" class="k">4</text><text x="770" y="172" class="t">释放</text><text x="770" y="200" class="s">遇到结束符</text><text x="770" y="223" class="s">达到长度上限</text><text x="770" y="246" class="s">用户取消</text></g>
+<path d="M232 220H272" class="edge"/>
+<path d="M472 220H512" class="edge"/>
+<path d="M712 220H752" class="edge"/>
+<path d="M612 320Q612 372 452 372Q372 372 372 324" class="dash"/>
+<rect x="382" y="374" width="270" height="26" rx="4" fill="#f8fafc"/><text x="388" y="392" class="s">Decode 循环：追加 1 个，再读全部</text>
+</svg>

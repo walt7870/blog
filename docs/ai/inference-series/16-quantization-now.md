@@ -13,4 +13,4 @@ search: false
 <span id="一个可回退的部署对照"></span>
 <span id="验收清单"></span>
 
-实际选型与实验方法见[06. 怎样选择与验证精度](../precision/06-choosing-precision.md)。从零学习可从[专题导读](../precision/)开始；显存、缓存与并发的关系见[GPU 与显存预算](./03-memory.md)。
+实际选型与实验方法见[06. 怎样选择与验证精度](../precision/06-choosing-precision.md)。从零学习可从[专题导读](../precision/)开始；显存、缓存与并发的关系见[显存账本](../llm-inference/04-memory-budget.md)。

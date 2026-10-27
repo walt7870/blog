@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" role="img" aria-labelledby="flash-attention-title flash-attention-desc" id="flash-attention-root">
+<title id="flash-attention-title">标准注意力与 FlashAttention</title>
+<desc id="flash-attention-desc">标准注意力用三个内核计算，把 N×N 的分数矩阵 S 和权重矩阵 P 写回显存再读出；FlashAttention 把 Q、K、V 分块搬到片上 SRAM，用在线 softmax 维护每行的最大值和总和，只把最终输出写回显存。</desc>
+<defs><style>
+#flash-attention-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#flash-attention-root .h { font-size: 26px; font-weight: 700; }
+#flash-attention-root .t { font-size: 19px; font-weight: 600; }
+#flash-attention-root .s { font-size: 15px; fill: #475569; }
+#flash-attention-root .xs { font-size: 13px; fill: #64748b; }
+#flash-attention-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#flash-attention-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#flash-attention-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#flash-attention-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#flash-attention-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#flash-attention-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#flash-attention-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#flash-attention-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#flash-attention-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#flash-attention-root .fblue { fill: #93c5fd; } #flash-attention-root .fgreen { fill: #6ee7b7; } #flash-attention-root .fred { fill: #fda4af; }
+#flash-attention-root .famber { fill: #fcd34d; } #flash-attention-root .fviolet { fill: #c4b5fd; } #flash-attention-root .fgray { fill: #e2e8f0; }
+#flash-attention-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#flash-attention-arrow); }
+#flash-attention-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#flash-attention-arrow); }
+#flash-attention-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#flash-attention-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="flash-attention-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="620" fill="#f8fafc"/>
+<text x="32" y="46" class="h">标准注意力在显存里来回搬 N×N 矩阵，FlashAttention 不写出它</text>
+<text x="32" y="78" class="s">两边计算量相同，结果完全相同；差别在 HBM 读写了多少。</text>
+<text x="32" y="118" class="t">标准注意力：3 个内核</text>
+<g data-node="k1"><rect x="32" y="132" width="432" height="72" rx="8" class="node"/><text x="50" y="168" class="t">内核 1：S = Q·Kᵀ</text><text x="50" y="196" class="s">从 HBM 读 Q、K</text></g>
+<g data-node="s"><rect x="32" y="224" width="432" height="72" rx="8" class="red"/><text x="50" y="260" class="t">S（N×N）写回 HBM，再读出</text><text x="50" y="288" class="s">N=8192 时一个头约 134 MB</text></g>
+<g data-node="k2"><rect x="32" y="316" width="432" height="72" rx="8" class="node"/><text x="50" y="352" class="t">内核 2：P = softmax(S)</text><text x="50" y="380" class="s">按行归一化成权重</text></g>
+<g data-node="p"><rect x="32" y="408" width="432" height="72" rx="8" class="red"/><text x="50" y="444" class="t">P（N×N）写回 HBM，再读出</text><text x="50" y="472" class="s">又一个同样大小的矩阵</text></g>
+<g data-node="k3"><rect x="32" y="500" width="432" height="72" rx="8" class="node"/><text x="50" y="536" class="t">内核 3：O = P·V</text><text x="50" y="564" class="s">读 V，输出写回 HBM</text></g>
+<path d="M248 204V224" class="edge"/>
+<path d="M248 296V316" class="edge"/>
+<path d="M248 388V408" class="edge"/>
+<path d="M248 480V500" class="edge"/>
+<text x="496" y="118" class="t">FlashAttention：1 个内核，分块计算</text>
+<g data-node="hbm"><rect x="496" y="132" width="432" height="72" rx="8" class="blue"/><text x="514" y="168" class="t">HBM：Q、K、V</text><text x="514" y="196" class="s">每次只搬一小块进片上</text></g>
+<g data-node="sram"><rect x="496" y="224" width="432" height="256" rx="8" class="green"/><text x="514" y="260" class="t">片上 SRAM 内循环</text><text x="514" y="288" class="s">1. 取一块 Q 和一块 K、V</text><text x="514" y="311" class="s">2. 算这一小块的分数</text><text x="514" y="334" class="s">3. 更新每行的 max 与 sum</text><text x="514" y="357" class="s">   （在线 softmax）</text><text x="514" y="380" class="s">4. 修正并累加已有输出</text><text x="514" y="403" class="s">5. 换下一块 K、V，重复</text><text x="514" y="426" class="s"></text><text x="514" y="449" class="s">N×N 矩阵从不出现在 HBM</text></g>
+<g data-node="out"><rect x="496" y="500" width="432" height="72" rx="8" class="blue"/><text x="514" y="536" class="t">只把最终 O 写回 HBM</text><text x="514" y="564" class="s">显存占用随 N 线性增长</text></g>
+<path d="M712 204V224" class="edge"/>
+<path d="M712 480V500" class="edge"/>
+<text x="32" y="600" class="s">计算量仍随长度平方增长；FlashAttention 减少的是 HBM 读写和中间矩阵的显存，结果精确而非近似。</text>
+</svg>

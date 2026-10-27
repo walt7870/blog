@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-labelledby="production-architecture-title production-architecture-desc" id="production-architecture-root">
+<title id="production-architecture-title">生产推理服务的组成</title>
+<desc id="production-architecture-desc">客户端请求经 API 网关做鉴权、限流和 TLS，路由层按前缀和负载选择推理引擎副本，副本运行在 GPU 上，启动时从模型存储加载权重；各层的指标和日志汇入 Prometheus 与 Grafana。</desc>
+<defs><style>
+#production-architecture-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#production-architecture-root .h { font-size: 26px; font-weight: 700; }
+#production-architecture-root .t { font-size: 19px; font-weight: 600; }
+#production-architecture-root .s { font-size: 15px; fill: #475569; }
+#production-architecture-root .xs { font-size: 13px; fill: #64748b; }
+#production-architecture-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#production-architecture-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#production-architecture-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#production-architecture-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#production-architecture-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#production-architecture-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#production-architecture-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#production-architecture-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#production-architecture-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#production-architecture-root .fblue { fill: #93c5fd; } #production-architecture-root .fgreen { fill: #6ee7b7; } #production-architecture-root .fred { fill: #fda4af; }
+#production-architecture-root .famber { fill: #fcd34d; } #production-architecture-root .fviolet { fill: #c4b5fd; } #production-architecture-root .fgray { fill: #e2e8f0; }
+#production-architecture-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#production-architecture-arrow); }
+#production-architecture-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#production-architecture-arrow); }
+#production-architecture-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#production-architecture-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="production-architecture-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">生产推理服务：引擎之外还需要四样东西</text>
+<text x="32" y="78" class="s">鉴权、路由、权重存储和监控都不在推理引擎里，要自己补齐。</text>
+<g data-node="client"><rect x="32" y="150" width="150" height="120" rx="8" class="gray"/><text x="50" y="186" class="t">客户端</text><text x="50" y="214" class="s">应用、用户</text><text x="50" y="237" class="s">SDK 调用</text></g>
+<g data-node="gw"><rect x="214" y="130" width="210" height="160" rx="8" class="amber"/><text x="232" y="166" class="t">API 网关</text><text x="232" y="194" class="s">鉴权、TLS</text><text x="232" y="217" class="s">限流、配额</text><text x="232" y="240" class="s">输入长度上限</text><text x="232" y="263" class="s">请求日志</text></g>
+<g data-node="router"><rect x="456" y="130" width="210" height="160" rx="8" class="violet"/><text x="474" y="166" class="t">路由层</text><text x="474" y="194" class="s">前缀感知</text><text x="474" y="217" class="s">会话亲和</text><text x="474" y="240" class="s">负载感知</text></g>
+<g data-node="r1"><rect x="698" y="112" width="230" height="76" rx="8" class="blue"/><text x="716" y="148" class="t">引擎副本 1</text><text x="716" y="176" class="s">vLLM / SGLang · GPU</text></g>
+<g data-node="r2"><rect x="698" y="200" width="230" height="76" rx="8" class="blue"/><text x="716" y="236" class="t">引擎副本 2</text><text x="716" y="264" class="s">vLLM / SGLang · GPU</text></g>
+<g data-node="r3"><rect x="698" y="288" width="230" height="76" rx="8" class="blue"/><text x="716" y="324" class="t">引擎副本 N</text><text x="716" y="352" class="s">按等待队列扩缩容</text></g>
+<g data-node="store"><rect x="698" y="410" width="230" height="110" rx="8" class="green"/><text x="716" y="446" class="t">模型存储</text><text x="716" y="474" class="s">本地盘或高速共享存储</text><text x="716" y="497" class="s">固定模型版本</text></g>
+<g data-node="mon"><rect x="214" y="410" width="452" height="110" rx="8" class="node"/><text x="232" y="446" class="t">监控与告警</text><text x="232" y="474" class="s">Prometheus 收集指标，Grafana 展示</text><text x="232" y="497" class="s">TTFT/TPOT 分位数、等待队列、KV 使用率、抢占</text></g>
+<path d="M182 210H214" class="edge"/>
+<path d="M424 210H456" class="edge"/>
+<path d="M666 180Q682 180 682 150H698" class="edge"/>
+<path d="M666 210Q682 210 682 238H698" class="edge"/>
+<path d="M666 240Q682 240 682 326H698" class="edge"/>
+<path d="M812 410V364" class="edge"/>
+<rect x="814" y="374" width="128" height="26" rx="4" fill="#f8fafc"/><text x="820" y="392" class="s">启动时加载权重</text>
+<path d="M698 350H682V465H666" class="dash"/>
+<path d="M440 290V410" class="dash"/>
+<rect x="442" y="342" width="96" height="26" rx="4" fill="#f8fafc"/><text x="448" y="360" class="s">指标、日志</text>
+<text x="32" y="560" class="s">副本启动要拉镜像、加载权重、预热和录制 CUDA Graph，往往要几分钟：健康检查要放宽，扩容要留余量。</text>
+</svg>

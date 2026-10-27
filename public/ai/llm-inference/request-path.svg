@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-labelledby="request-path-title request-path-desc" id="request-path-root">
+<title id="request-path-title">一个请求的全链路</title>
+<desc id="request-path-desc">请求在 CPU 上经过 API 入口、对话模板、分词和调度，在 GPU 上做 Prefill、Decode 和采样，再回到 CPU 做停止判断、反分词与流式推送；用户断开时取消信号要传进引擎释放 KV。</desc>
+<defs><style>
+#request-path-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#request-path-root .h { font-size: 26px; font-weight: 700; }
+#request-path-root .t { font-size: 19px; font-weight: 600; }
+#request-path-root .s { font-size: 15px; fill: #475569; }
+#request-path-root .xs { font-size: 13px; fill: #64748b; }
+#request-path-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#request-path-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#request-path-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#request-path-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#request-path-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#request-path-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#request-path-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#request-path-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#request-path-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#request-path-root .fblue { fill: #93c5fd; } #request-path-root .fgreen { fill: #6ee7b7; } #request-path-root .fred { fill: #fda4af; }
+#request-path-root .famber { fill: #fcd34d; } #request-path-root .fviolet { fill: #c4b5fd; } #request-path-root .fgray { fill: #e2e8f0; }
+#request-path-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#request-path-arrow); }
+#request-path-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#request-path-arrow); }
+#request-path-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#request-path-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="request-path-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一个请求的全链路：只有中间几步在 GPU 上</text>
+<text x="32" y="78" class="s">未结束就进入下一个 step；用户断开时，取消要一直传到引擎，释放 KV 块。</text>
+<rect x="32" y="104" width="896" height="152" rx="8" fill="#f1f5f9"/><text x="50" y="186" class="k">CPU</text>
+<rect x="32" y="272" width="896" height="152" rx="8" fill="#f1f5f9"/><text x="50" y="354" class="k">GPU</text>
+<rect x="32" y="440" width="896" height="152" rx="8" fill="#f1f5f9"/><text x="50" y="522" class="k">CPU</text>
+<g data-node="api"><rect x="110" y="124" width="180" height="112" rx="8" class="node"/><text x="128" y="160" class="t">API 入口</text><text x="128" y="188" class="s">接收 HTTP 请求</text><text x="128" y="211" class="s">校验参数与权限</text></g>
+<g data-node="template"><rect x="320" y="124" width="180" height="112" rx="8" class="node"/><text x="338" y="160" class="t">对话模板</text><text x="338" y="188" class="s">多轮消息拼成</text><text x="338" y="211" class="s">模型认识的格式</text></g>
+<g data-node="tokenize"><rect x="530" y="124" width="180" height="112" rx="8" class="node"/><text x="548" y="160" class="t">分词</text><text x="548" y="188" class="s">文本切成</text><text x="548" y="211" class="s">token 编号</text></g>
+<g data-node="schedule"><rect x="740" y="124" width="180" height="112" rx="8" class="amber"/><text x="758" y="160" class="t">调度器</text><text x="758" y="188" class="s">选出本步的请求</text><text x="758" y="211" class="s">分配 KV 块</text></g>
+<path d="M290 180H320" class="edge"/>
+<path d="M500 180H530" class="edge"/>
+<path d="M710 180H740" class="edge"/>
+<g data-node="prefill"><rect x="740" y="292" width="180" height="112" rx="8" class="blue"/><text x="758" y="328" class="t">Prefill</text><text x="758" y="356" class="s">并行处理全部输入</text><text x="758" y="379" class="s">写入 KV Cache</text></g>
+<g data-node="decode"><rect x="530" y="292" width="180" height="112" rx="8" class="blue"/><text x="548" y="328" class="t">Decode 循环</text><text x="548" y="356" class="s">每步 1 个 token</text><text x="548" y="379" class="s">读全部历史 KV</text></g>
+<g data-node="sample"><rect x="320" y="292" width="180" height="112" rx="8" class="blue"/><text x="338" y="328" class="t">采样</text><text x="338" y="356" class="s">温度、top-p</text><text x="338" y="379" class="s">选出下一个 token</text></g>
+<path d="M830 236V292" class="edge"/>
+<path d="M740 348H710" class="edge"/>
+<path d="M530 348H500" class="edge"/>
+<g data-node="stop"><rect x="320" y="460" width="180" height="112" rx="8" class="node"/><text x="338" y="496" class="t">停止判断</text><text x="338" y="524" class="s">结束符、停止词</text><text x="338" y="547" class="s">max_tokens</text></g>
+<g data-node="stream"><rect x="530" y="460" width="180" height="112" rx="8" class="node"/><text x="548" y="496" class="t">反分词与推送</text><text x="548" y="524" class="s">token 拼回文字</text><text x="548" y="547" class="s">SSE 流式返回</text></g>
+<g data-node="cancel"><rect x="740" y="460" width="180" height="112" rx="8" class="red"/><text x="758" y="496" class="t">取消</text><text x="758" y="524" class="s">用户断开</text><text x="758" y="547" class="s">移出批，释放 KV</text></g>
+<path d="M410 404V460" class="edge"/>
+<path d="M500 516H530" class="edge"/>
+<path d="M710 516H740" class="dash"/>
+<path d="M470 460V432H640V404" class="dash"/>
+<rect x="554" y="434" width="112" height="26" rx="4" fill="#f8fafc"/><text x="560" y="452" class="s">未结束：下一步</text>
+</svg>

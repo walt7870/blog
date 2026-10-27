@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="580" viewBox="0 0 960 580" role="img" aria-labelledby="batching-timeline-title batching-timeline-desc" id="batching-timeline-root">
+<title id="batching-timeline-title">静态批处理与连续批处理的时间线</title>
+<desc id="batching-timeline-desc">A 只需 2 步，B 需要 6 步，C 在第 3 步到达。静态批处理中 A 结束后它的位置空等到第 6 步，C 第 7 步才开始；连续批处理中 C 在第 3 步就补进 A 空出的位置。</desc>
+<defs><style>
+#batching-timeline-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#batching-timeline-root .h { font-size: 26px; font-weight: 700; }
+#batching-timeline-root .t { font-size: 19px; font-weight: 600; }
+#batching-timeline-root .s { font-size: 15px; fill: #475569; }
+#batching-timeline-root .xs { font-size: 13px; fill: #64748b; }
+#batching-timeline-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#batching-timeline-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#batching-timeline-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#batching-timeline-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#batching-timeline-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#batching-timeline-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#batching-timeline-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#batching-timeline-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#batching-timeline-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#batching-timeline-root .fblue { fill: #93c5fd; } #batching-timeline-root .fgreen { fill: #6ee7b7; } #batching-timeline-root .fred { fill: #fda4af; }
+#batching-timeline-root .famber { fill: #fcd34d; } #batching-timeline-root .fviolet { fill: #c4b5fd; } #batching-timeline-root .fgray { fill: #e2e8f0; }
+#batching-timeline-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#batching-timeline-arrow); }
+#batching-timeline-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#batching-timeline-arrow); }
+#batching-timeline-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#batching-timeline-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="batching-timeline-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="580" fill="#f8fafc"/>
+<text x="32" y="46" class="h">同样两个工作位：短请求结束后，空位什么时候补上</text>
+<text x="32" y="78" class="s">A 需要 2 步，B 需要 6 步，C 在第 3 步到达、需要 4 步。每一格是一步 Decode。</text>
+<text x="32" y="126" class="t">静态批处理：整批进，整批出</text>
+<text x="32" y="150" class="xs">步</text>
+<text x="235" y="150" class="xs" text-anchor="middle">1</text><text x="305" y="150" class="xs" text-anchor="middle">2</text><text x="375" y="150" class="xs" text-anchor="middle">3</text><text x="445" y="150" class="xs" text-anchor="middle">4</text><text x="515" y="150" class="xs" text-anchor="middle">5</text><text x="585" y="150" class="xs" text-anchor="middle">6</text><text x="655" y="150" class="xs" text-anchor="middle">7</text><text x="725" y="150" class="xs" text-anchor="middle">8</text><text x="795" y="150" class="xs" text-anchor="middle">9</text><text x="865" y="150" class="xs" text-anchor="middle">10</text>
+<text x="32" y="189" class="s">工作位 1</text><rect x="202" y="162" width="66" height="40" rx="4" class="fblue"/><text x="235" y="187" text-anchor="middle" class="xs">A</text><rect x="272" y="162" width="66" height="40" rx="4" class="fblue"/><rect x="342" y="162" width="66" height="40" rx="4" class="fgray"/><text x="375" y="187" text-anchor="middle" class="xs">空等</text><rect x="412" y="162" width="66" height="40" rx="4" class="fgray"/><rect x="482" y="162" width="66" height="40" rx="4" class="fgray"/><rect x="552" y="162" width="66" height="40" rx="4" class="fgray"/><rect x="622" y="162" width="66" height="40" rx="4" class="fgreen"/><text x="655" y="187" text-anchor="middle" class="xs">C</text><rect x="692" y="162" width="66" height="40" rx="4" class="fgreen"/><rect x="762" y="162" width="66" height="40" rx="4" class="fgreen"/><rect x="832" y="162" width="66" height="40" rx="4" class="fgreen"/>
+<text x="32" y="237" class="s">工作位 2</text><rect x="202" y="210" width="66" height="40" rx="4" class="famber"/><text x="235" y="235" text-anchor="middle" class="xs">B</text><rect x="272" y="210" width="66" height="40" rx="4" class="famber"/><rect x="342" y="210" width="66" height="40" rx="4" class="famber"/><rect x="412" y="210" width="66" height="40" rx="4" class="famber"/><rect x="482" y="210" width="66" height="40" rx="4" class="famber"/><rect x="552" y="210" width="66" height="40" rx="4" class="famber"/>
+<text x="32" y="282" class="s">C 第 3 步就到了，要等 A、B 整批结束，第 7 步才开始，第 10 步完成</text>
+<text x="32" y="336" class="t">连续批处理：每一步重新组队</text>
+<text x="32" y="360" class="xs">步</text>
+<text x="235" y="360" class="xs" text-anchor="middle">1</text><text x="305" y="360" class="xs" text-anchor="middle">2</text><text x="375" y="360" class="xs" text-anchor="middle">3</text><text x="445" y="360" class="xs" text-anchor="middle">4</text><text x="515" y="360" class="xs" text-anchor="middle">5</text><text x="585" y="360" class="xs" text-anchor="middle">6</text><text x="655" y="360" class="xs" text-anchor="middle">7</text><text x="725" y="360" class="xs" text-anchor="middle">8</text><text x="795" y="360" class="xs" text-anchor="middle">9</text><text x="865" y="360" class="xs" text-anchor="middle">10</text>
+<text x="32" y="399" class="s">工作位 1</text><rect x="202" y="372" width="66" height="40" rx="4" class="fblue"/><text x="235" y="397" text-anchor="middle" class="xs">A</text><rect x="272" y="372" width="66" height="40" rx="4" class="fblue"/><rect x="342" y="372" width="66" height="40" rx="4" class="fgreen"/><text x="375" y="397" text-anchor="middle" class="xs">C</text><rect x="412" y="372" width="66" height="40" rx="4" class="fgreen"/><rect x="482" y="372" width="66" height="40" rx="4" class="fgreen"/><rect x="552" y="372" width="66" height="40" rx="4" class="fgreen"/>
+<text x="32" y="447" class="s">工作位 2</text><rect x="202" y="420" width="66" height="40" rx="4" class="famber"/><text x="235" y="445" text-anchor="middle" class="xs">B</text><rect x="272" y="420" width="66" height="40" rx="4" class="famber"/><rect x="342" y="420" width="66" height="40" rx="4" class="famber"/><rect x="412" y="420" width="66" height="40" rx="4" class="famber"/><rect x="482" y="420" width="66" height="40" rx="4" class="famber"/><rect x="552" y="420" width="66" height="40" rx="4" class="famber"/>
+<text x="32" y="492" class="s">A 在第 2 步结束，C 第 3 步立刻补进来，第 6 步就完成；第 7 步起两个位置都可接新请求</text>
+<text x="32" y="540" class="s">两种方式完成的工作量相同；连续批处理消除了灰色的空等，新请求不必等整批结束。</text>
+</svg>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="456" viewBox="0 0 960 456" role="img" aria-labelledby="latency-timeline-title latency-timeline-desc" id="latency-timeline-root">
+<title id="latency-timeline-title">一次流式请求的时间线</title>
+<desc id="latency-timeline-desc">请求经过网络、排队和 Prefill 后返回第一个 token，这段时间是 TTFT；之后每个 token 之间的间隔是 TPOT 或 ITL；从发出请求到最后一个 token 是端到端延迟。</desc>
+<defs><style>
+#latency-timeline-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#latency-timeline-root .h { font-size: 26px; font-weight: 700; }
+#latency-timeline-root .t { font-size: 19px; font-weight: 600; }
+#latency-timeline-root .s { font-size: 15px; fill: #475569; }
+#latency-timeline-root .xs { font-size: 13px; fill: #64748b; }
+#latency-timeline-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#latency-timeline-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#latency-timeline-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#latency-timeline-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#latency-timeline-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#latency-timeline-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#latency-timeline-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#latency-timeline-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#latency-timeline-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#latency-timeline-root .fblue { fill: #93c5fd; } #latency-timeline-root .fgreen { fill: #6ee7b7; } #latency-timeline-root .fred { fill: #fda4af; }
+#latency-timeline-root .famber { fill: #fcd34d; } #latency-timeline-root .fviolet { fill: #c4b5fd; } #latency-timeline-root .fgray { fill: #e2e8f0; }
+#latency-timeline-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#latency-timeline-arrow); }
+#latency-timeline-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#latency-timeline-arrow); }
+#latency-timeline-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#latency-timeline-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="latency-timeline-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="456" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一次流式请求的时间线：首字之前和首字之后</text>
+<text x="32" y="78" class="s">端到端延迟 ≈ TTFT + TPOT × (输出 token 数 − 1)</text>
+<g transform="translate(0,-76)">
+<path d="M40 300H920" class="axis"/>
+<text x="924" y="290" class="xs" text-anchor="end">时间</text>
+<rect x="48" y="268" width="40" height="32" rx="4" class="fgray"/>
+<text x="68" y="256" class="xs" text-anchor="middle">网络</text>
+<rect x="88" y="268" width="112" height="32" rx="4" class="famber"/><text x="144" y="289" text-anchor="middle" class="xs">排队</text>
+<rect x="200" y="268" width="130" height="32" rx="4" class="fblue"/><text x="265" y="289" text-anchor="middle" class="xs">Prefill</text>
+<rect x="330" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="380" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="430" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="480" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="530" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="580" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="630" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="680" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="730" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="780" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<rect x="830" y="268" width="18" height="32" rx="4" class="fgreen"/>
+<text x="339" y="336" class="xs" text-anchor="middle">首 token</text>
+<text x="839" y="336" class="xs" text-anchor="middle">最后一个 token</text>
+<path d="M48 236V222H348V236" class="line"/>
+<text x="198" y="212" class="s" text-anchor="middle">TTFT：网络 + 排队 + Prefill</text>
+<path d="M389 236V222H439V236" class="line"/>
+<text x="414" y="212" class="s" text-anchor="middle">TPOT / ITL</text>
+<text x="600" y="212" class="xs" text-anchor="middle">每个 token 之间的间隔</text>
+<path d="M48 360V374H848V360" class="line"/>
+<text x="448" y="398" class="s" text-anchor="middle">端到端延迟（E2E）：从发出请求到最后一个 token</text>
+</g>
+<g data-node="ttft-note"><rect x="32" y="354" width="440" height="80" rx="8" class="blue"/><text x="50" y="390" class="t">TTFT 决定“多久开始回应”</text><text x="50" y="418" class="s">输入越长、排队越久，TTFT 越大</text></g>
+<g data-node="tpot-note"><rect x="488" y="354" width="440" height="80" rx="8" class="green"/><text x="506" y="390" class="t">TPOT 决定“字出得多快”</text><text x="506" y="418" class="s">20 毫秒 ≈ 每秒 50 个 token</text></g>
+</svg>

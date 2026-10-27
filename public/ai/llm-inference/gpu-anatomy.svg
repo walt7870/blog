@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620" role="img" aria-labelledby="gpu-anatomy-title gpu-anatomy-desc" id="gpu-anatomy-root">
+<title id="gpu-anatomy-title">H100 SXM 的结构</title>
+<desc id="gpu-anatomy-desc">芯片上有 132 个 SM，每个 SM 里有 Tensor Core、寄存器和共享内存；全芯片共享约 50 MB 的 L2 缓存；芯片外是 80 GB 的 HBM 显存，带宽约 3.35 TB/s；BF16 稠密峰值算力约 989 TFLOPS。</desc>
+<defs><style>
+#gpu-anatomy-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#gpu-anatomy-root .h { font-size: 26px; font-weight: 700; }
+#gpu-anatomy-root .t { font-size: 19px; font-weight: 600; }
+#gpu-anatomy-root .s { font-size: 15px; fill: #475569; }
+#gpu-anatomy-root .xs { font-size: 13px; fill: #64748b; }
+#gpu-anatomy-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#gpu-anatomy-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#gpu-anatomy-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#gpu-anatomy-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#gpu-anatomy-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#gpu-anatomy-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#gpu-anatomy-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#gpu-anatomy-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#gpu-anatomy-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#gpu-anatomy-root .fblue { fill: #93c5fd; } #gpu-anatomy-root .fgreen { fill: #6ee7b7; } #gpu-anatomy-root .fred { fill: #fda4af; }
+#gpu-anatomy-root .famber { fill: #fcd34d; } #gpu-anatomy-root .fviolet { fill: #c4b5fd; } #gpu-anatomy-root .fgray { fill: #e2e8f0; }
+#gpu-anatomy-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#gpu-anatomy-arrow); }
+#gpu-anatomy-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#gpu-anatomy-arrow); }
+#gpu-anatomy-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#gpu-anatomy-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="gpu-anatomy-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="620" fill="#f8fafc"/>
+<text x="32" y="46" class="h">GPU 里有两种资源：算得多快，搬得多快</text>
+<text x="32" y="78" class="s">以 H100 SXM 为例。片上存储快但小，HBM 大但要经过带宽有限的通道。</text>
+<g data-node="chip"><rect x="32" y="108" width="608" height="408" rx="10" class="gray"/><text x="52" y="136" class="k">GPU 芯片（H100 SXM）</text></g>
+<rect x="56" y="150" width="70" height="44" rx="4" class="fgreen"/><text x="91" y="177" text-anchor="middle" class="s">SM</text><rect x="138" y="150" width="70" height="44" rx="4" class="fgreen"/><text x="173" y="177" text-anchor="middle" class="s">SM</text><rect x="220" y="150" width="70" height="44" rx="4" class="fgreen"/><text x="255" y="177" text-anchor="middle" class="s">SM</text><rect x="302" y="150" width="70" height="44" rx="4" class="fgreen"/><text x="337" y="177" text-anchor="middle" class="s">SM</text><rect x="384" y="150" width="70" height="44" rx="4" class="fgreen"/><text x="419" y="177" text-anchor="middle" class="s">SM</text><rect x="56" y="204" width="70" height="44" rx="4" class="fgreen"/><text x="91" y="231" text-anchor="middle" class="s">SM</text><rect x="138" y="204" width="70" height="44" rx="4" class="fgreen"/><text x="173" y="231" text-anchor="middle" class="s">SM</text><rect x="220" y="204" width="70" height="44" rx="4" class="fgreen"/><text x="255" y="231" text-anchor="middle" class="s">SM</text><rect x="302" y="204" width="70" height="44" rx="4" class="fgreen"/><text x="337" y="231" text-anchor="middle" class="s">SM</text><rect x="384" y="204" width="70" height="44" rx="4" class="fgreen"/><text x="419" y="231" text-anchor="middle" class="s">SM</text>
+<text x="478" y="204" class="s">…共 132 个 SM</text>
+<g data-node="sm"><rect x="56" y="276" width="268" height="116" rx="8" class="green"/><text x="74" y="312" class="t">每个 SM 内部</text><text x="74" y="340" class="s">Tensor Core：做矩阵乘法</text><text x="74" y="363" class="s">寄存器 + 共享内存（SRAM）</text></g>
+<g data-node="l2"><rect x="348" y="276" width="268" height="116" rx="8" class="violet"/><text x="366" y="312" class="t">L2 缓存</text><text x="366" y="340" class="s">约 50 MB，全芯片共享</text><text x="366" y="363" class="s">比 HBM 快，容量小得多</text></g>
+<g data-node="peak"><rect x="56" y="412" width="560" height="84" rx="8" class="blue"/><text x="74" y="448" class="t">峰值算力约 989 TFLOPS</text><text x="74" y="476" class="s">BF16 稠密矩阵运算；厂商标的约 1979 是稀疏值</text></g>
+<g data-node="hbm"><rect x="720" y="208" width="208" height="208" rx="8" class="amber"/><text x="738" y="244" class="t">HBM 显存</text><text x="738" y="272" class="s">容量 80 GB</text><text x="738" y="295" class="s">存放权重</text><text x="738" y="318" class="s">和 KV Cache</text></g>
+<path d="M642 296H716" class="edge"/>
+<path d="M716 328H642" class="edge"/>
+<text x="679" y="280" class="xs" text-anchor="middle">3.35 TB/s</text>
+<text x="32" y="556" class="s">类比：SM 是厨师，片上存储是手边的台面，HBM 是仓库，带宽是仓库到厨房的传送带。</text>
+<text x="32" y="584" class="s">一次计算的时间，至少是“运算量 ÷ 算力”和“搬运量 ÷ 带宽”中较大的那个。</text>
+</svg>

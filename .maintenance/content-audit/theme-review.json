@@ -1,10 +1,11 @@
 {
-  "reviewedSharedHash": "43388bd3a027cbf79ec8dae50178e3b4a2b93db4b5a7b3767c4fb9fea4fbaa3e",
-  "reviewedAt": "2026-10-26",
-  "decision": "本轮主题改动：PrecisionCanvas 在超出格式最大有限值时提示无法表示；LossLandscape 轴名移出刻度、补最低点、三维刻度去重放大；作品集组件随源头仓库同步（案例数据、首屏标签、纵向架构图在手机不再限高）；搜索索引对 page 布局页面标记 .VPPage，首页不入索引。",
-  "validation": [
-    "干净 worktree，Node 24.22.0，npm ci 与 npm run docs:build 通过，搜索索引 638 页。",
-    "check-pages：首页、精度 03、基础 07、项目列表、全双工、思为营销云、语音 SDK、营销云私有化、个人概览，1440/390 浅深色均无溢出、坏图与运行错误（仅本地静态服务下根路径 favicon 404）。",
-    "浏览器操作：FP8 E4M3 在 1024 附近显示超过 448 的说明；LossLandscape 二维与三维视图 1440/390 截图人工查看；搜索“思为营销云”“全双工语音”“飞书助手”“上下文切换”首条均为对应页面。"
-  ]
+ "reviewedSharedHash": "1a5422781db17c434a304af897705e59d16f5c31e80288f1fcf0159139e72c9c",
+ "reviewedAt": "2026-10-26",
+ "decision": "本轮主题改动：PrecisionCanvas 在超出格式最大有限值时提示无法表示；LossLandscape 轴名移出刻度、补最低点、三维刻度去重放大；作品集组件随源头仓库同步（案例数据、首屏标签、纵向架构图在手机不再限高）；搜索索引对 page 布局页面标记 .VPPage，首页不入索引。；侧边栏以“大模型推理优化”分组替换原“模型推理系列”分组（22 篇加导读）。",
+ "validation": [
+  "干净 worktree，Node 24.22.0，npm ci 与 npm run docs:build 通过，搜索索引 638 页。",
+  "check-pages：首页、精度 03、基础 07、项目列表、全双工、思为营销云、语音 SDK、营销云私有化、个人概览，1440/390 浅深色均无溢出、坏图与运行错误（仅本地静态服务下根路径 favicon 404）。",
+  "浏览器操作：FP8 E4M3 在 1024 附近显示超过 448 的说明；LossLandscape 二维与三维视图 1440/390 截图人工查看；搜索“思为营销云”“全双工语音”“飞书助手”“上下文切换”首条均为对应页面。",
+  "侧边栏改动：llm-inference worktree 中 npm run docs:build 通过（搜索索引 647 页），check-pages 对新系列 23 页与 AI 总览、两张跳转页 1440/390 浅深色无溢出、坏图与运行错误，侧边栏分组在页面中实际展开与跳转。"
+ ]
 }

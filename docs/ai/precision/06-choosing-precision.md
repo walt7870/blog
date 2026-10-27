@@ -167,4 +167,4 @@ FP32 sum -> FP16: 1026.0
 
 选择最终可以落在一套具体配置上：权重采用什么编码，激活与缓存用什么格式，累加和敏感位置保留什么精度，以及它在哪个设备、模型和负载下通过了质量与性能检查。满足实际目标时，就可以停下来；节省出来的空间和时间应当能对应到更低成本、更长输入或更多请求。
 
-如果还想复习，回到[存储图解](./storage-atlas.md)和[舍入实验](./03-rounding-errors.md)；准备部署多人服务，再进入[显存预算](../inference-series/03-memory.md)与[部署、压测和排错](../inference-series/13-practice.md)。
+如果还想复习，回到[存储图解](./storage-atlas.md)和[舍入实验](./03-rounding-errors.md)；准备部署多人服务，再进入[显存账本](../llm-inference/04-memory-budget.md)、[量化](../llm-inference/14-quantization.md)与[性能测试与分析](../llm-inference/20-benchmark.md)。
