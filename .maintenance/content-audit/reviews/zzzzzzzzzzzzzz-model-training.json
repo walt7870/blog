@@ -1,0 +1,340 @@
+{
+ "pages": [
+  {
+   "file": "docs/ai/model-training/01-training-map.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "761a45ef640448077e9c57926a46a28ec090b2101ea039d22a7373ad3bfe6706"
+  },
+  {
+   "file": "docs/ai/model-training/02-one-step.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "df269af5058a88635c462e54951f924932c6c7657b86ad8d82754f523ecc5b84"
+  },
+  {
+   "file": "docs/ai/model-training/03-memory.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "816c9bdf96625b7157da5c0d38b8d45bcbb8954dcf1ef01802077499ac58382b"
+  },
+  {
+   "file": "docs/ai/model-training/04-compute-scaling.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "ea0efde22d3b04ebdbf9e9b6e18fcb4fcdbabee4848a7ab8080a00b971922fd8"
+  },
+  {
+   "file": "docs/ai/model-training/05-training-curves.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "aa0f7275dc767eba6683ef8e748c99622edceeb80c19942c9e0c537544171f68"
+  },
+  {
+   "file": "docs/ai/model-training/06-llm-data.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "abd9236a62ae5d11931773a7f05d8df6e1992ab63c6fbef5f2b346d67d4292d6"
+  },
+  {
+   "file": "docs/ai/model-training/07-pretraining.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "6443039cafaadfffbffddbade3c837e7da8afd3564fec163464a52f45bce26c4"
+  },
+  {
+   "file": "docs/ai/model-training/08-distributed.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "c5f8a026d082402eec167491d86dee46bb0ce5c986dc71be5c0654cfaf01f48b"
+  },
+  {
+   "file": "docs/ai/model-training/09-sft.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "99ae7fd7dc8865ea39880c9c5698dd302569cc905d14b0c3fab587591648e478"
+  },
+  {
+   "file": "docs/ai/model-training/10-lora-qlora.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "d925de6d65e76062fcbac1c9cfbde7a72af08490ffa21c4338aa285abeb640c1"
+  },
+  {
+   "file": "docs/ai/model-training/11-preference.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "e69453779ed924e734bdf85bc6bd08b10345b5bdb36bab5d4bfd9bf9e189c212"
+  },
+  {
+   "file": "docs/ai/model-training/12-rl-reasoning.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "bc913d7ca62feb9e464aa28668d49711738ff6f1ef353f58be6694b41b2d3d69"
+  },
+  {
+   "file": "docs/ai/model-training/13-distill-merge.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "61c1a23ac0dea45d70cad33f15ffadecd226bffbf190fb5bcb228a1e6ad2b7bb"
+  },
+  {
+   "file": "docs/ai/model-training/14-asr-training.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "deadad176721bacc063d71bc1c2a473732119e16068dacb2b1bc8bb15f282f04"
+  },
+  {
+   "file": "docs/ai/model-training/15-asr-finetune.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "e63e5dd5f2abddf2d21b1d18aab6ee822579c9fef2d4c4e36385dd0cf0df4506"
+  },
+  {
+   "file": "docs/ai/model-training/16-tts-training.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "8e197952ed8c7f2314ef3a3a8d6003adcdfc5a752ae10af8713ebe75ca0f2005"
+  },
+  {
+   "file": "docs/ai/model-training/17-vision.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "f9f89e77a83f44e931adce8c082cd7d27b18109622a698c02cc49d540b539a2a"
+  },
+  {
+   "file": "docs/ai/model-training/18-multimodal.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "af6222931d21d8d01e7bc43e43fe6f0ed685f3d98babfe2d79d7aebc6be8ab4c"
+  },
+  {
+   "file": "docs/ai/model-training/19-diffusion.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "bf7a493c5a0e236b4ac13ad44797daaa0e3901216c33cb489c25e1c5523f5b84"
+  },
+  {
+   "file": "docs/ai/model-training/20-embedding.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "037214d57727676a4afa9bda3e74663720c0d9e9a4a2e1eed02199eb1bf04a16"
+  },
+  {
+   "file": "docs/ai/model-training/21-evaluation.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "385d46db191a7e6f3606b80420ab0ab0b8a167b1e40016f1b3187d432d794b62"
+  },
+  {
+   "file": "docs/ai/model-training/22-engineering.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "921c921c186e5750561d0d94b5a79da49d7132f7f4ecc92f8b14651c29b0204d"
+  },
+  {
+   "file": "docs/ai/model-training/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "7a69dcf611da9f6df400b8bb80e9f804fdfdcddaeacc70b283ee4a3dfb4f1315"
+  },
+  {
+   "file": "docs/ai/model-training/lora-practice.md",
+   "status": "verified",
+   "pageType": "实操",
+   "decision": "实践篇：Apple M4 上实测 Qwen2.5-0.5B LoRA 微调，基线与训练后对比评估、合并适配器，结果与 .maintenance/model-training/lora-practice/ 中的评估输出和训练日志一致。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。"
+   ],
+   "reviewedHash": "efa53be9cece7043d660fd6136c30f57ae3a83043fcdefe08d6ba9ec0d52f9c0"
+  }
+ ]
+}

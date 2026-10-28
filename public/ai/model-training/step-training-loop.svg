@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="step-training-loop-title step-training-loop-desc" id="step-training-loop-root">
+<title id="step-training-loop-title">一个训练 step 的循环</title>
+<desc id="step-training-loop-desc">每个 micro-batch 依次做 BF16 前向、计算交叉熵损失、反向传播并把梯度累加起来；累满 8 个 micro-batch 后裁剪梯度范数，AdamW 用 FP32 主权重和两份动量完成更新，再复制回 BF16 权重、清零梯度、按调度改学习率，进入下一个 step。</desc>
+<defs><style>
+#step-training-loop-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#step-training-loop-root .h { font-size: 26px; font-weight: 700; }
+#step-training-loop-root .t { font-size: 19px; font-weight: 600; }
+#step-training-loop-root .s { font-size: 15px; fill: #475569; }
+#step-training-loop-root .xs { font-size: 13px; fill: #64748b; }
+#step-training-loop-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#step-training-loop-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#step-training-loop-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#step-training-loop-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#step-training-loop-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#step-training-loop-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#step-training-loop-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#step-training-loop-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#step-training-loop-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#step-training-loop-root .fblue { fill: #93c5fd; } #step-training-loop-root .fgreen { fill: #6ee7b7; } #step-training-loop-root .fred { fill: #fda4af; }
+#step-training-loop-root .famber { fill: #fcd34d; } #step-training-loop-root .fviolet { fill: #c4b5fd; } #step-training-loop-root .fgray { fill: #e2e8f0; }
+#step-training-loop-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#step-training-loop-arrow); }
+#step-training-loop-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#step-training-loop-arrow); }
+#step-training-loop-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#step-training-loop-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="step-training-loop-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一个 step：8 次前向反向，1 次参数更新</text>
+<text x="32" y="78" class="s">资料助手 SFT 的设置：每个 micro-batch 4 条样本，累积 8 次，1 个 step 等于 32 条样本。</text>
+<g data-node="mb"><rect x="32" y="150" width="220" height="170" rx="8" class="gray"/><text x="50" y="186" class="t">① 取 micro-batch</text><text x="50" y="214" class="s">4 条问答</text><text x="50" y="237" class="s">每条约 600 token</text><text x="50" y="260" class="s">拼成张量</text></g>
+<g data-node="fwd"><rect x="292" y="150" width="220" height="170" rx="8" class="blue"/><text x="310" y="186" class="t">② 前向</text><text x="310" y="214" class="s">BF16 权重与激活</text><text x="310" y="237" class="s">保存激活</text><text x="310" y="260" class="s">给反向用</text></g>
+<g data-node="loss"><rect x="552" y="150" width="220" height="170" rx="8" class="blue"/><text x="570" y="186" class="t">③ 损失</text><text x="570" y="214" class="s">每个位置预测下一个</text><text x="570" y="237" class="s">token 的交叉熵</text><text x="570" y="260" class="s">按 token 平均</text></g>
+<g data-node="bwd"><rect x="812" y="150" width="220" height="170" rx="8" class="violet"/><text x="830" y="186" class="t">④ 反向</text><text x="830" y="214" class="s">从损失往回算</text><text x="830" y="237" class="s">每个参数的梯度</text><text x="830" y="260" class="s">读取保存的激活</text></g>
+<g data-node="acc"><rect x="1072" y="150" width="220" height="170" rx="8" class="violet"/><text x="1090" y="186" class="t">⑤ 累加梯度</text><text x="1090" y="214" class="s">梯度加到缓冲区</text><text x="1090" y="237" class="s">这是第几个？</text><text x="1090" y="260" class="s">不足 8 个就回到 ①</text></g>
+<g data-node="lr"><rect x="32" y="420" width="300" height="180" rx="8" class="green"/><text x="50" y="456" class="t">⑧ 收尾</text><text x="50" y="484" class="s">FP32 → BF16 权重副本</text><text x="50" y="507" class="s">梯度清零</text><text x="50" y="530" class="s">学习率调度器前进一步</text><text x="50" y="553" class="s">step 计数 +1</text></g>
+<g data-node="opt"><rect x="392" y="420" width="460" height="180" rx="8" class="green"/><text x="410" y="456" class="t">⑦ AdamW 更新（FP32）</text><text x="410" y="484" class="s">先做权重衰减：θ ← θ × (1 − lr × λ)</text><text x="410" y="507" class="s">更新一阶动量 m 和二阶动量 v</text><text x="410" y="530" class="s">θ ← θ − lr × m̂ ⁄ (√v̂ + ε)</text><text x="410" y="553" class="s">在 FP32 主权重上加这点小改动</text></g>
+<g data-node="clip"><rect x="912" y="420" width="380" height="180" rx="8" class="amber"/><text x="930" y="456" class="t">⑥ 梯度裁剪</text><text x="930" y="484" class="s">算全部梯度的总范数</text><text x="930" y="507" class="s">超过 1.0 就整体等比缩小</text><text x="930" y="530" class="s">方向不变，只限步长</text><text x="930" y="553" class="s">记录下来，画训练曲线</text></g>
+<path d="M252 235H292" class="edge"/>
+<path d="M512 235H552" class="edge"/>
+<path d="M772 235H812" class="edge"/>
+<path d="M1032 235H1072" class="edge"/>
+<path d="M1182 150V112H142V150" class="dash"/>
+<rect x="554" y="100" width="260" height="26" rx="4" fill="#f8fafc"/><text x="560" y="118" class="s">不足 8 个：取下一个 micro-batch</text>
+<path d="M1182 320V420" class="edge"/>
+<rect x="1188" y="362" width="70" height="26" rx="4" fill="#f8fafc"/><text x="1194" y="380" class="s">满 8 个</text>
+<path d="M912 510H852" class="edge"/>
+<path d="M392 510H332" class="edge"/>
+<path d="M182 420V320" class="dash"/>
+<rect x="34" y="362" width="100" height="26" rx="4" fill="#f8fafc"/><text x="40" y="380" class="s">下一个 step</text>
+</svg>

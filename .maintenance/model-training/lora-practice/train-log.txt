@@ -1,0 +1,14 @@
+# 2026-10-27 Apple M4 实测训练日志（train.py，logging_steps=5）
+{'loss': '0.3978', 'grad_norm': '14.06', 'learning_rate': '0.0001998', 'mean_token_accuracy': '0.9242', 'epoch': '0.2941'}
+{'loss': '0.05052', 'grad_norm': '0.4238', 'learning_rate': '0.0001924', 'mean_token_accuracy': '0.9881', 'epoch': '0.5882'}
+{'loss': '0.004001', 'grad_norm': '0.03505', 'learning_rate': '0.0001752', 'mean_token_accuracy': '0.999', 'epoch': '0.8824'}
+{'loss': '0.01981', 'grad_norm': '0.4922', 'learning_rate': '0.00015', 'mean_token_accuracy': '0.9946', 'epoch': '1.176'}
+{'loss': '0.001008', 'grad_norm': '0.4151', 'learning_rate': '0.0001195', 'mean_token_accuracy': '1', 'epoch': '1.471'}
+{'loss': '0.005243', 'grad_norm': '0.359', 'learning_rate': '8.695e-05', 'mean_token_accuracy': '0.9971', 'epoch': '1.765'}
+{'loss': '0.001886', 'grad_norm': '0.0127', 'learning_rate': '5.577e-05', 'mean_token_accuracy': '0.9987', 'epoch': '2.059'}
+{'loss': '0.000302', 'grad_norm': '0.004863', 'learning_rate': '2.929e-05', 'mean_token_accuracy': '1', 'epoch': '2.353'}
+{'loss': '0.0001876', 'grad_norm': '0.02781', 'learning_rate': '1.031e-05', 'mean_token_accuracy': '1', 'epoch': '2.647'}
+{'loss': '0.0003506', 'grad_norm': '0.003339', 'learning_rate': '8.555e-07', 'mean_token_accuracy': '1', 'epoch': '2.941'}
+{'train_runtime': '429.5', 'train_loss': '0.04717', 'epoch': '3'}
+trainable params: 8,798,208 || all params: 502,830,976 || trainable%: 1.7497
+/usr/bin/time -l: 477.17 real；peak memory footprint 7210076152 bytes

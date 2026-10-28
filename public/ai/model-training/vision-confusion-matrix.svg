@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="560" viewBox="0 0 1260 560" role="img" aria-labelledby="vision-confusion-matrix-title vision-confusion-matrix-desc" id="vision-confusion-matrix-root">
+<title id="vision-confusion-matrix-title">报销单分类器的混淆矩阵示例</title>
+<desc id="vision-confusion-matrix-desc">测试集 500 张：发票 200、打车票 120、餐饮小票 150、其他 30。总体准确率 88.4%，但“其他”的召回只有 40%，被大量判成餐饮小票和发票；发票和餐饮小票之间也有互相混淆。</desc>
+<defs><style>
+#vision-confusion-matrix-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#vision-confusion-matrix-root .h { font-size: 26px; font-weight: 700; }
+#vision-confusion-matrix-root .t { font-size: 19px; font-weight: 600; }
+#vision-confusion-matrix-root .s { font-size: 15px; fill: #475569; }
+#vision-confusion-matrix-root .xs { font-size: 13px; fill: #64748b; }
+#vision-confusion-matrix-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#vision-confusion-matrix-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#vision-confusion-matrix-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#vision-confusion-matrix-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#vision-confusion-matrix-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#vision-confusion-matrix-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#vision-confusion-matrix-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#vision-confusion-matrix-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#vision-confusion-matrix-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#vision-confusion-matrix-root .fblue { fill: #93c5fd; } #vision-confusion-matrix-root .fgreen { fill: #6ee7b7; } #vision-confusion-matrix-root .fred { fill: #fda4af; }
+#vision-confusion-matrix-root .famber { fill: #fcd34d; } #vision-confusion-matrix-root .fviolet { fill: #c4b5fd; } #vision-confusion-matrix-root .fgray { fill: #e2e8f0; }
+#vision-confusion-matrix-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#vision-confusion-matrix-arrow); }
+#vision-confusion-matrix-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#vision-confusion-matrix-arrow); }
+#vision-confusion-matrix-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#vision-confusion-matrix-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="vision-confusion-matrix-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1260" height="560" fill="#f8fafc"/>
+<text x="32" y="46" class="h">总体 88.4% 准确，“其他”类只认出 40%</text>
+<text x="32" y="78" class="s">教学示例数据：行是真实类别，列是预测；对角线为判对，琥珀色是值得复盘的混淆。</text>
+<text x="436" y="128" class="k" text-anchor="middle">模型预测</text><text x="48" y="308" class="k">真实类别</text><text x="259" y="158" class="s" text-anchor="middle">发票</text><text x="377" y="158" class="s" text-anchor="middle">打车票</text><text x="495" y="158" class="s" text-anchor="middle">餐饮小票</text><text x="613" y="158" class="s" text-anchor="middle">其他</text><text x="186" y="214" class="s" text-anchor="end">发票</text><rect x="203" y="179" width="112" height="60" rx="4" class="fgreen"/><text x="259" y="214" text-anchor="middle" class="t">188</text><rect x="321" y="179" width="112" height="60" rx="4" class="fgray"/><text x="377" y="214" text-anchor="middle" class="t">3</text><rect x="439" y="179" width="112" height="60" rx="4" class="famber"/><text x="495" y="214" text-anchor="middle" class="t">7</text><rect x="557" y="179" width="112" height="60" rx="4" class="fgray"/><text x="613" y="214" text-anchor="middle" class="t">2</text><text x="690" y="214" class="s">召回 94.0%（188/200）</text><text x="186" y="280" class="s" text-anchor="end">打车票</text><rect x="203" y="245" width="112" height="60" rx="4" class="fgray"/><text x="259" y="280" text-anchor="middle" class="t">4</text><rect x="321" y="245" width="112" height="60" rx="4" class="fgreen"/><text x="377" y="280" text-anchor="middle" class="t">108</text><rect x="439" y="245" width="112" height="60" rx="4" class="famber"/><text x="495" y="280" text-anchor="middle" class="t">6</text><rect x="557" y="245" width="112" height="60" rx="4" class="fgray"/><text x="613" y="280" text-anchor="middle" class="t">2</text><text x="690" y="280" class="s">召回 90.0%（108/120）</text><text x="186" y="346" class="s" text-anchor="end">餐饮小票</text><rect x="203" y="311" width="112" height="60" rx="4" class="famber"/><text x="259" y="346" text-anchor="middle" class="t">9</text><rect x="321" y="311" width="112" height="60" rx="4" class="fgray"/><text x="377" y="346" text-anchor="middle" class="t">5</text><rect x="439" y="311" width="112" height="60" rx="4" class="fgreen"/><text x="495" y="346" text-anchor="middle" class="t">134</text><rect x="557" y="311" width="112" height="60" rx="4" class="fgray"/><text x="613" y="346" text-anchor="middle" class="t">2</text><text x="690" y="346" class="s">召回 89.3%（134/150）</text><text x="186" y="412" class="s" text-anchor="end">其他</text><rect x="203" y="377" width="112" height="60" rx="4" class="famber"/><text x="259" y="412" text-anchor="middle" class="t">6</text><rect x="321" y="377" width="112" height="60" rx="4" class="fgray"/><text x="377" y="412" text-anchor="middle" class="t">3</text><rect x="439" y="377" width="112" height="60" rx="4" class="famber"/><text x="495" y="412" text-anchor="middle" class="t">9</text><rect x="557" y="377" width="112" height="60" rx="4" class="fred"/><text x="613" y="412" text-anchor="middle" class="t">12</text><text x="690" y="412" class="s">召回 40.0%（12/30）</text><text x="259" y="468" class="xs" text-anchor="middle">精确 90.8%</text><text x="377" y="468" class="xs" text-anchor="middle">精确 90.8%</text><text x="495" y="468" class="xs" text-anchor="middle">精确 85.9%</text><text x="613" y="468" class="xs" text-anchor="middle">精确 66.7%</text>
+<g data-node="overall"><rect x="900" y="120" width="328" height="128" rx="8" class="node"/><text x="918" y="156" class="t">总体准确率 88.4%</text><text x="918" y="184" class="s">442 / 500 判对</text><text x="918" y="207" class="s">“其他”只占 6%，</text><text x="918" y="230" class="s">全错也只拉低 6 个点</text></g>
+<g data-node="worst"><rect x="900" y="268" width="328" height="128" rx="8" class="red"/><text x="918" y="304" class="t">“其他”召回 40%</text><text x="918" y="332" class="s">会议纪要、合同截图</text><text x="918" y="355" class="s">被硬塞进三类之一</text><text x="918" y="378" class="s">需要拒识或补样本</text></g>
+<g data-node="pair"><rect x="900" y="416" width="328" height="112" rx="8" class="amber"/><text x="918" y="452" class="t">发票 ↔ 餐饮小票</text><text x="918" y="480" class="s">16 张互相混淆</text><text x="918" y="503" class="s">看样本：多是带抬头的小票</text></g>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="620" viewBox="0 0 1240 620" role="img" aria-labelledby="mm-llava-stages-title mm-llava-stages-desc" id="mm-llava-stages-root">
+<title id="mm-llava-stages-title">LLaVA 式视觉语言模型的结构与两阶段训练</title>
+<desc id="mm-llava-stages-desc">图片经 CLIP 视觉编码器变成 576 个 patch 特征，投影层把它们映射到大语言模型的词向量空间，与问题文字一起送进 LLM。第一阶段只训练投影层，让图像特征对上语言空间；第二阶段视觉编码器仍冻结，投影层和 LLM 一起做指令微调。资料助手微调时通常冻结视觉编码器，在 LLM 上加 LoRA。</desc>
+<defs><style>
+#mm-llava-stages-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#mm-llava-stages-root .h { font-size: 26px; font-weight: 700; }
+#mm-llava-stages-root .t { font-size: 19px; font-weight: 600; }
+#mm-llava-stages-root .s { font-size: 15px; fill: #475569; }
+#mm-llava-stages-root .xs { font-size: 13px; fill: #64748b; }
+#mm-llava-stages-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#mm-llava-stages-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#mm-llava-stages-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#mm-llava-stages-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#mm-llava-stages-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#mm-llava-stages-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#mm-llava-stages-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#mm-llava-stages-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#mm-llava-stages-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#mm-llava-stages-root .fblue { fill: #93c5fd; } #mm-llava-stages-root .fgreen { fill: #6ee7b7; } #mm-llava-stages-root .fred { fill: #fda4af; }
+#mm-llava-stages-root .famber { fill: #fcd34d; } #mm-llava-stages-root .fviolet { fill: #c4b5fd; } #mm-llava-stages-root .fgray { fill: #e2e8f0; }
+#mm-llava-stages-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#mm-llava-stages-arrow); }
+#mm-llava-stages-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#mm-llava-stages-arrow); }
+#mm-llava-stages-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#mm-llava-stages-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="mm-llava-stages-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1240" height="620" fill="#f8fafc"/>
+<text x="32" y="46" class="h">视觉编码器、投影层、大语言模型：每个阶段只动一部分</text>
+<text x="32" y="78" class="s">LLaVA-1.5 的配置；灰色冻结，绿色全参训练，紫色只训练 LoRA，琥珀色视数据量而定。</text>
+<g data-node="img"><rect x="32" y="112" width="230" height="116" rx="8" class="node"/><text x="50" y="148" class="t">图片 + 问题</text><text x="50" y="176" class="s">报销单截图</text><text x="50" y="199" class="s">“金额和日期是多少？”</text></g><g data-node="enc"><rect x="300" y="112" width="260" height="116" rx="8" class="violet"/><text x="318" y="148" class="t">CLIP ViT-L/14</text><text x="318" y="176" class="s">336×336 → 576 个</text><text x="318" y="199" class="s">patch 特征</text></g><g data-node="proj"><rect x="620" y="112" width="260" height="116" rx="8" class="amber"/><text x="638" y="148" class="t">投影层</text><text x="638" y="176" class="s">两层 MLP</text><text x="638" y="199" class="s">1024 → LLM 维度</text></g><g data-node="llm"><rect x="940" y="112" width="260" height="116" rx="8" class="blue"/><text x="958" y="148" class="t">大语言模型</text><text x="958" y="176" class="s">Vicuna 7B/13B</text><text x="958" y="199" class="s">读图像 token + 文字</text></g><path d="M262 170H300" class="edge"/><path d="M560 170H620" class="edge"/><path d="M880 170H940" class="edge"/><text x="1070" y="256" class="xs" text-anchor="middle">→ 逐字生成回答</text><g data-node="stage-0"><rect x="32" y="296" width="250" height="88" rx="8" class="node"/><text x="50" y="332" class="t">阶段 1：特征对齐</text><text x="50" y="360" class="s">558K 图片 + 简短描述</text></g><rect x="300" y="306" width="260" height="68" rx="4" class="fgray"/><text x="430" y="345" text-anchor="middle" class="t">冻结</text><rect x="620" y="306" width="260" height="68" rx="4" class="fgreen"/><text x="750" y="345" text-anchor="middle" class="t">训练</text><rect x="940" y="306" width="260" height="68" rx="4" class="fgray"/><text x="1070" y="345" text-anchor="middle" class="t">冻结</text><g data-node="stage-1"><rect x="32" y="400" width="250" height="88" rx="8" class="node"/><text x="50" y="436" class="t">阶段 2：视觉指令微调</text><text x="50" y="464" class="s">665K 多轮问答混合</text></g><rect x="300" y="410" width="260" height="68" rx="4" class="fgray"/><text x="430" y="449" text-anchor="middle" class="t">冻结</text><rect x="620" y="410" width="260" height="68" rx="4" class="fgreen"/><text x="750" y="449" text-anchor="middle" class="t">训练</text><rect x="940" y="410" width="260" height="68" rx="4" class="fgreen"/><text x="1070" y="449" text-anchor="middle" class="t">训练</text><g data-node="stage-2"><rect x="32" y="504" width="250" height="88" rx="8" class="node"/><text x="50" y="540" class="t">资料助手：表单微调</text><text x="50" y="568" class="s">几千条截图问答（示意）</text></g><rect x="300" y="514" width="260" height="68" rx="4" class="fgray"/><text x="430" y="553" text-anchor="middle" class="t">冻结</text><rect x="620" y="514" width="260" height="68" rx="4" class="famber"/><text x="750" y="553" text-anchor="middle" class="t">冻结或训练</text><rect x="940" y="514" width="260" height="68" rx="4" class="fviolet"/><text x="1070" y="553" text-anchor="middle" class="t">LoRA</text>
+</svg>

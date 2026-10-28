@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="380" viewBox="0 0 1360 380" role="img" aria-labelledby="training-series-map-title training-series-map-desc" id="training-series-map-root">
+<title id="training-series-map-title">模型训练与调优系列的五个部分</title>
+<desc id="training-series-map-desc">第一部分讲所有模型共用的训练机制与资源账；第二部分讲大语言模型从预训练到后训练；第三部分讲语音识别与合成；第四部分讲视觉、图文、扩散与向量模型；第五部分讲评估与训练工程。</desc>
+<defs><style>
+#training-series-map-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#training-series-map-root .h { font-size: 26px; font-weight: 700; }
+#training-series-map-root .t { font-size: 19px; font-weight: 600; }
+#training-series-map-root .s { font-size: 15px; fill: #475569; }
+#training-series-map-root .xs { font-size: 13px; fill: #64748b; }
+#training-series-map-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#training-series-map-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#training-series-map-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#training-series-map-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#training-series-map-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#training-series-map-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#training-series-map-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#training-series-map-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#training-series-map-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#training-series-map-root .fblue { fill: #93c5fd; } #training-series-map-root .fgreen { fill: #6ee7b7; } #training-series-map-root .fred { fill: #fda4af; }
+#training-series-map-root .famber { fill: #fcd34d; } #training-series-map-root .fviolet { fill: #c4b5fd; } #training-series-map-root .fgray { fill: #e2e8f0; }
+#training-series-map-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#training-series-map-arrow); }
+#training-series-map-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#training-series-map-arrow); }
+#training-series-map-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#training-series-map-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="training-series-map-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1360" height="380" fill="#f8fafc"/>
+<text x="32" y="46" class="h">模型训练与调优：五个部分</text>
+<text x="32" y="78" class="s">先算清一步训练的资源，再按模型类型展开，最后用评估和工程把结果交付出去</text>
+<g data-node="part-1"><rect x="32" y="108" width="246" height="240" rx="8" class="blue"/><text x="50" y="134" class="k">第一部分 01—05</text><text x="50" y="160" class="t">训练的共同底座</text><text x="50" y="188" class="s">一步训练做了什么</text><text x="50" y="211" class="s">显存账：8B 能否单卡</text><text x="50" y="234" class="s">算力账与规模定律</text><text x="50" y="257" class="s">读懂训练曲线</text><text x="50" y="280" class="s"></text><text x="50" y="303" class="s">所有模型都适用</text></g><path d="M280 168H294" class="edge"/><g data-node="part-2"><rect x="298" y="108" width="246" height="240" rx="8" class="violet"/><text x="316" y="134" class="k">第二部分 06—13</text><text x="316" y="160" class="t">大语言模型</text><text x="316" y="188" class="s">数据与分词、预训练</text><text x="316" y="211" class="s">分布式训练</text><text x="316" y="234" class="s">SFT、LoRA 与实践篇</text><text x="316" y="257" class="s">偏好对齐、强化学习</text><text x="316" y="280" class="s">蒸馏与模型合并</text><text x="316" y="303" class="s">资料助手的主线</text></g><path d="M546 168H560" class="edge"/><g data-node="part-3"><rect x="564" y="108" width="246" height="240" rx="8" class="green"/><text x="582" y="134" class="k">第三部分 14—16</text><text x="582" y="160" class="t">语音模型</text><text x="582" y="188" class="s">语音识别怎样对齐</text><text x="582" y="211" class="s">口音与术语微调</text><text x="582" y="234" class="s">语音合成与</text><text x="582" y="257" class="s">语音 token</text><text x="582" y="280" class="s"></text><text x="582" y="303" class="s">语音提问与播报</text></g><path d="M812 168H826" class="edge"/><g data-node="part-4"><rect x="830" y="108" width="246" height="240" rx="8" class="amber"/><text x="848" y="134" class="k">第四部分 17—20</text><text x="848" y="160" class="t">视觉、多模态与向量</text><text x="848" y="188" class="s">迁移学习与 ViT</text><text x="848" y="211" class="s">CLIP 与读懂截图</text><text x="848" y="234" class="s">扩散模型</text><text x="848" y="257" class="s">向量与重排模型</text><text x="848" y="280" class="s"></text><text x="848" y="303" class="s">识图与检索</text></g><path d="M1078 168H1092" class="edge"/><g data-node="part-5"><rect x="1096" y="108" width="246" height="240" rx="8" class="gray"/><text x="1114" y="134" class="k">第五部分 21—22</text><text x="1114" y="160" class="t">评估与工程</text><text x="1114" y="188" class="s">业务评测集</text><text x="1114" y="211" class="s">评委偏差与样本量</text><text x="1114" y="234" class="s">框架选型与版本</text><text x="1114" y="257" class="s">检查点与成本</text><text x="1114" y="280" class="s"></text><text x="1114" y="303" class="s">证明更好、能交付</text></g>
+</svg>

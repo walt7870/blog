@@ -324,3 +324,9 @@ Qwen2.5-7B-Instruct config：28 层、28 头、4 KV 头、hidden 3584（head_dim
 离线 `LLM.chat/generate` 只有 `sampling_params is None` 时才用 generation_config（`vllm/entrypoints/llm.py:411-416, 470-471`）；在线服务会合并。空闲显存检查在 `init_device` 里，早于 `load_model`（`gpu_worker.py:535 vs 587`）。
 
 正文命令未在 GPU 上运行；显存数字按第 04 篇公式手算，“激活峰值等约 3 GiB”是假设值。
+
+### 2026-10-27 补正（写推理引擎系列 vLLM 篇时复核 0.32.0 源码）
+
+- 预编译包 CUDA 版本：`vllm/envs.py:92` `VLLM_MAIN_CUDA_VERSION` 默认 "13.0"，`docker/Dockerfile:25` `CUDA_VERSION=13.0.3`；CUDA 12.9 为单独的 `-cu129` 变体（安装文档 `gpu.cuda.inc.md` 仍写 cu129 为默认，已过时）。实践篇原写“CUDA 12.9”，已改。
+- 监听地址：`vllm/entrypoints/launchers/launcher.py:397` 绑定 `(args.host or "", port)`，不指定 `--host` 时监听所有网卡。实践篇原写“默认 localhost、远程访问加 0.0.0.0”，已改为默认全网卡、仅本机用 `--host 127.0.0.1`。
+- GGUF、bitsandbytes 已移到树外插件 `vllm-gguf-plugin`、`vllm-bnb-plugin`（`docs/features/quantization/gguf.md`），实践篇量化一行已补充。

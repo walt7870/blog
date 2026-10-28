@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="600" viewBox="0 0 1320 600" role="img" aria-labelledby="memory-checkpointing-title memory-checkpointing-desc" id="memory-checkpointing-root">
+<title id="memory-checkpointing-title">激活重计算用一次额外前向换显存</title>
+<desc id="memory-checkpointing-desc">不重计算时每一层在前向时把全部中间结果留到反向；开启重计算后每层只保留输入，反向走到某一层时先把这一层的前向重算一遍，再求梯度，显存从“所有层的激活”降到“各层输入加一层激活”，计算量多出约一次前向，约三分之一。</desc>
+<defs><style>
+#memory-checkpointing-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#memory-checkpointing-root .h { font-size: 26px; font-weight: 700; }
+#memory-checkpointing-root .t { font-size: 19px; font-weight: 600; }
+#memory-checkpointing-root .s { font-size: 15px; fill: #475569; }
+#memory-checkpointing-root .xs { font-size: 13px; fill: #64748b; }
+#memory-checkpointing-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#memory-checkpointing-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#memory-checkpointing-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#memory-checkpointing-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#memory-checkpointing-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#memory-checkpointing-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#memory-checkpointing-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#memory-checkpointing-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#memory-checkpointing-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#memory-checkpointing-root .fblue { fill: #93c5fd; } #memory-checkpointing-root .fgreen { fill: #6ee7b7; } #memory-checkpointing-root .fred { fill: #fda4af; }
+#memory-checkpointing-root .famber { fill: #fcd34d; } #memory-checkpointing-root .fviolet { fill: #c4b5fd; } #memory-checkpointing-root .fgray { fill: #e2e8f0; }
+#memory-checkpointing-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#memory-checkpointing-arrow); }
+#memory-checkpointing-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#memory-checkpointing-arrow); }
+#memory-checkpointing-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#memory-checkpointing-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="memory-checkpointing-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">激活重计算：少存中间结果，反向时再算一遍</text>
+<text x="32" y="78" class="s">8 层示意。红色高度表示该层留给反向的激活；8B 模型 32 层、序列 2048 时两种情况约 9.1 GB 与 0.8 GB（估算）。</text>
+<g data-node="plain"><rect x="32" y="112" width="600" height="330" rx="8" class="node"/><text x="50" y="138" class="k">不重计算：每层存全部中间结果</text></g>
+<rect x="56" y="160" width="52" height="40" rx="4" class="gray"/><text x="82" y="185" text-anchor="middle" class="xs">L1</text><rect x="60" y="212" width="44" height="110" rx="4" class="fred"/><rect x="120" y="160" width="52" height="40" rx="4" class="gray"/><text x="146" y="185" text-anchor="middle" class="xs">L2</text><rect x="124" y="212" width="44" height="110" rx="4" class="fred"/><rect x="184" y="160" width="52" height="40" rx="4" class="gray"/><text x="210" y="185" text-anchor="middle" class="xs">L3</text><rect x="188" y="212" width="44" height="110" rx="4" class="fred"/><rect x="248" y="160" width="52" height="40" rx="4" class="gray"/><text x="274" y="185" text-anchor="middle" class="xs">L4</text><rect x="252" y="212" width="44" height="110" rx="4" class="fred"/><rect x="312" y="160" width="52" height="40" rx="4" class="gray"/><text x="338" y="185" text-anchor="middle" class="xs">L5</text><rect x="316" y="212" width="44" height="110" rx="4" class="fred"/><rect x="376" y="160" width="52" height="40" rx="4" class="gray"/><text x="402" y="185" text-anchor="middle" class="xs">L6</text><rect x="380" y="212" width="44" height="110" rx="4" class="fred"/><rect x="440" y="160" width="52" height="40" rx="4" class="gray"/><text x="466" y="185" text-anchor="middle" class="xs">L7</text><rect x="444" y="212" width="44" height="110" rx="4" class="fred"/><rect x="504" y="160" width="52" height="40" rx="4" class="gray"/><text x="530" y="185" text-anchor="middle" class="xs">L8</text><rect x="508" y="212" width="44" height="110" rx="4" class="fred"/>
+<text x="56" y="380" class="s">显存 ∝ 层数 × 每层激活（34 × s × b × h 字节量级）</text>
+<text x="56" y="410" class="s">8B、s=2048、b=1：约 9.1 GB</text>
+<g data-node="ckpt"><rect x="688" y="112" width="600" height="330" rx="8" class="node"/><text x="706" y="138" class="k">重计算：每层只存输入，反向时逐层重算</text></g>
+<rect x="712" y="160" width="52" height="40" rx="4" class="gray"/><text x="738" y="185" text-anchor="middle" class="xs">L1</text><rect x="730" y="212" width="16" height="14" rx="4" class="fred"/><rect x="776" y="160" width="52" height="40" rx="4" class="gray"/><text x="802" y="185" text-anchor="middle" class="xs">L2</text><rect x="794" y="212" width="16" height="14" rx="4" class="fred"/><rect x="840" y="160" width="52" height="40" rx="4" class="gray"/><text x="866" y="185" text-anchor="middle" class="xs">L3</text><rect x="858" y="212" width="16" height="14" rx="4" class="fred"/><rect x="904" y="160" width="52" height="40" rx="4" class="gray"/><text x="930" y="185" text-anchor="middle" class="xs">L4</text><rect x="922" y="212" width="16" height="14" rx="4" class="fred"/><rect x="968" y="160" width="52" height="40" rx="4" class="gray"/><text x="994" y="185" text-anchor="middle" class="xs">L5</text><rect x="986" y="212" width="16" height="14" rx="4" class="fred"/><rect x="1032" y="160" width="52" height="40" rx="4" class="gray"/><text x="1058" y="185" text-anchor="middle" class="xs">L6</text><rect x="1050" y="212" width="16" height="14" rx="4" class="fred"/><rect x="1096" y="160" width="52" height="40" rx="4" class="gray"/><text x="1122" y="185" text-anchor="middle" class="xs">L7</text><rect x="1114" y="212" width="16" height="14" rx="4" class="fred"/><rect x="1160" y="160" width="52" height="40" rx="4" class="gray"/><text x="1186" y="185" text-anchor="middle" class="xs">L8</text><rect x="1178" y="212" width="16" height="14" rx="4" class="fred"/><rect x="1164" y="234" width="44" height="110" rx="4" class="fred"/><text x="1186" y="362" class="xs" text-anchor="middle">重算这一层</text>
+<text x="712" y="400" class="s">显存 ≈ 各层输入（2 × s × b × h）+ 一层激活</text>
+<text x="712" y="428" class="s">8B：0.54 GB + 0.29 GB ≈ 0.8 GB</text>
+<text x="32" y="468" class="k">计算时间</text>
+<rect x="160" y="472" width="160" height="30" rx="4" class="fblue"/><text x="240" y="492" text-anchor="middle" class="xs">前向 1</text>
+<rect x="320" y="472" width="320" height="30" rx="4" class="fviolet"/><text x="480" y="492" text-anchor="middle" class="xs">反向 ≈ 2</text>
+<text x="660" y="492" class="s">≈ 3 份</text>
+<rect x="160" y="520" width="160" height="30" rx="4" class="fblue"/><text x="240" y="540" text-anchor="middle" class="xs">前向 1</text>
+<rect x="320" y="520" width="160" height="30" rx="4" class="famber"/><text x="400" y="540" text-anchor="middle" class="xs">重算前向 1</text>
+<rect x="480" y="520" width="320" height="30" rx="4" class="fviolet"/><text x="640" y="540" text-anchor="middle" class="xs">反向 ≈ 2</text>
+<text x="820" y="542" class="s">≈ 4 份，多约 33%</text>
+<text x="32" y="491" class="s">不重计算</text>
+<text x="32" y="541" class="s">重计算</text>
+</svg>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="data-funnel-title data-funnel-desc" id="data-funnel-root">
+<title id="data-funnel-title">网页语料处理流水线：每一步都只留下更少的文本</title>
+<desc id="data-funnel-desc">原始网页依次经过 URL 过滤、正文抽取、语言识别、规则过滤、去重、隐私与安全处理、模型打分，剩余量逐级减少。条形长度是示意；真实例子：FineWeb 约 15T token，用教育价值分类器筛到 3 分以上后剩 1.3T，删掉 92%。</desc>
+<defs><style>
+#data-funnel-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#data-funnel-root .h { font-size: 26px; font-weight: 700; }
+#data-funnel-root .t { font-size: 19px; font-weight: 600; }
+#data-funnel-root .s { font-size: 15px; fill: #475569; }
+#data-funnel-root .xs { font-size: 13px; fill: #64748b; }
+#data-funnel-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#data-funnel-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#data-funnel-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#data-funnel-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#data-funnel-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#data-funnel-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#data-funnel-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#data-funnel-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#data-funnel-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#data-funnel-root .fblue { fill: #93c5fd; } #data-funnel-root .fgreen { fill: #6ee7b7; } #data-funnel-root .fred { fill: #fda4af; }
+#data-funnel-root .famber { fill: #fcd34d; } #data-funnel-root .fviolet { fill: #c4b5fd; } #data-funnel-root .fgray { fill: #e2e8f0; }
+#data-funnel-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#data-funnel-arrow); }
+#data-funnel-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#data-funnel-arrow); }
+#data-funnel-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#data-funnel-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="data-funnel-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一份网页语料怎样被一层层筛小</text>
+<text x="32" y="78" class="s">条形长度只示意剩余量的趋势，不是某份报告的真实比例；真实数字见底部。</text>
+<rect x="32" y="112" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="138" class="t">1  原始抓取</text><rect x="310" y="112" width="420" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="138" class="s">网页 HTML：导航、广告、模板、重复页都在</text><path d="M130 152V166" class="line"/><rect x="32" y="166" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="192" class="t">2  URL 过滤</text><rect x="335" y="166" width="370" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="192" class="s">黑名单去掉恶意、成人站点</text><path d="M130 206V220" class="line"/><rect x="32" y="220" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="246" class="t">3  抽取正文</text><rect x="390" y="220" width="260" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="246" class="s">trafilatura 等工具只留正文</text><path d="M130 260V274" class="line"/><rect x="32" y="274" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="300" class="t">4  语言识别</text><rect x="411" y="274" width="218" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="300" class="s">fastText 判语种，按语言分桶</text><path d="M130 314V328" class="line"/><rect x="32" y="328" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="354" class="t">5  规则过滤</text><rect x="444.5" y="328" width="151" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="354" class="s">重复行、过短、符号比例异常、脏词</text><path d="M130 368V382" class="line"/><rect x="32" y="382" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="408" class="t">6  去重</text><rect x="474" y="382" width="92" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="408" class="s">URL、精确哈希、MinHash 近似去重</text><path d="M130 422V436" class="line"/><rect x="32" y="436" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="462" class="t">7  隐私与安全</text><rect x="478" y="436" width="84" height="40" rx="6" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="764" y="462" class="s">替换邮箱和 IP，剔除 PII 密集站点</text><path d="M130 476V490" class="line"/><rect x="32" y="490" width="196" height="40" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/><text x="48" y="516" class="t">8  模型打分</text><rect x="501" y="490" width="38" height="40" rx="6" fill="#6ee7b7" stroke="none" stroke-width="2"/><text x="764" y="516" class="s">分类器给质量或“教育价值”打分</text>
+<text x="520" y="104" class="xs" text-anchor="middle">剩余文本量（示意）</text>
+<g data-node="fw"><rect x="32" y="556" width="1136" height="64" rx="8" class="green"/></g>
+<text x="52" y="584" class="s">真实例子（FineWeb，2024）：96 个 Common Crawl 快照处理后约 15T token；</text>
+<text x="52" y="607" class="s">再用教育价值分类器只留 3 分以上，剩 1.3T token，相当于又删掉 92%。</text>
+</svg>

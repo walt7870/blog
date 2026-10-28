@@ -1,21 +1,21 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 672,
-    "bytes": 4570706,
-    "batches": 78,
-    "scanned": 672,
-    "reviewed": 672,
-    "pending": 0,
+    "pages": 703,
+    "bytes": 5206456,
+    "batches": 85,
+    "scanned": 703,
+    "reviewed": 696,
+    "pending": 7,
     "changesRequired": 0,
     "stale": [],
     "missing": [],
-    "brokenLocalReferences": 0,
+    "brokenLocalReferences": 4,
     "openFindings": 3,
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "786f89cf2b10ca30113ab066d35bb7ca559973efcee5ee4c0534a49e508ef854",
+  "sharedHash": "4d1a736c0a531987d0f1278934bee13e6851ad48a5c73485b205decf5e091bd7",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "35c9d85a1987dc42754e2297e24de1a5e428aa33a549250ba11fd27ad200f707"
+      "6252b552296e681c60c4c66b24753024ece213bcfcf73952935b2445b1ba8d11"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -512,7 +512,7 @@
         "docs/ai/foundations/math-intuition.md",
         "docs/ai/foundations/training-optimization.md"
       ],
-      "bytes": 71769
+      "bytes": 71821
     },
     {
       "id": "B019",
@@ -521,6 +521,34 @@
         "docs/ai/glossary.md",
         "docs/ai/history.md",
         "docs/ai/index.md",
+        "docs/ai/inference-engines/01-vllm.md"
+      ],
+      "bytes": 77161
+    },
+    {
+      "id": "B020",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/inference-engines/02-sglang.md",
+        "docs/ai/inference-engines/03-tensorrt-llm.md"
+      ],
+      "bytes": 95982
+    },
+    {
+      "id": "B021",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/inference-engines/04-llama-cpp.md",
+        "docs/ai/inference-engines/06-lmdeploy.md",
+        "docs/ai/inference-engines/07-local-and-edge.md"
+      ],
+      "bytes": 88042
+    },
+    {
+      "id": "B022",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/inference-engines/08-orchestration.md",
         "docs/ai/inference-series/01-landscape.md",
         "docs/ai/inference-series/02-lifecycle.md",
         "docs/ai/inference-series/03-memory.md",
@@ -529,16 +557,16 @@
         "docs/ai/inference-series/06-quantization.md",
         "docs/ai/inference-series/07-speculative.md",
         "docs/ai/inference-series/08-vllm.md",
-        "docs/ai/inference-series/09-sglang.md"
+        "docs/ai/inference-series/09-sglang.md",
+        "docs/ai/inference-series/10-distributed.md",
+        "docs/ai/inference-series/11-speech.md"
       ],
-      "bytes": 24601
+      "bytes": 35604
     },
     {
-      "id": "B020",
+      "id": "B023",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/inference-series/10-distributed.md",
-        "docs/ai/inference-series/11-speech.md",
         "docs/ai/inference-series/12-selection-versions.md",
         "docs/ai/inference-series/13-practice.md",
         "docs/ai/inference-series/14-precision-formats.md",
@@ -548,16 +576,16 @@
         "docs/ai/learning-path.md",
         "docs/ai/llm-inference/01-inference-system.md",
         "docs/ai/llm-inference/02-prefill-decode.md",
-        "docs/ai/llm-inference/03-kv-cache.md"
+        "docs/ai/llm-inference/03-kv-cache.md",
+        "docs/ai/llm-inference/04-memory-budget.md",
+        "docs/ai/llm-inference/05-metrics.md"
       ],
-      "bytes": 35805
+      "bytes": 51679
     },
     {
-      "id": "B021",
+      "id": "B024",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/llm-inference/04-memory-budget.md",
-        "docs/ai/llm-inference/05-metrics.md",
         "docs/ai/llm-inference/06-gpu-roofline.md",
         "docs/ai/llm-inference/07-request-path.md",
         "docs/ai/llm-inference/08-paged-attention.md",
@@ -565,31 +593,31 @@
         "docs/ai/llm-inference/10-prefix-cache.md",
         "docs/ai/llm-inference/11-chunked-prefill.md",
         "docs/ai/llm-inference/12-attention-kernels.md",
-        "docs/ai/llm-inference/13-nano-vllm.md"
+        "docs/ai/llm-inference/13-nano-vllm.md",
+        "docs/ai/llm-inference/14-quantization.md",
+        "docs/ai/llm-inference/15-speculative-decoding.md"
       ],
-      "bytes": 92465
+      "bytes": 98551
     },
     {
-      "id": "B022",
+      "id": "B025",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/llm-inference/14-quantization.md",
-        "docs/ai/llm-inference/15-speculative-decoding.md",
         "docs/ai/llm-inference/16-distributed.md",
         "docs/ai/llm-inference/17-pd-disaggregation.md",
         "docs/ai/llm-inference/18-vllm-sglang.md",
         "docs/ai/llm-inference/19-speech-multimodal.md",
         "docs/ai/llm-inference/20-benchmark.md",
         "docs/ai/llm-inference/21-production.md",
-        "docs/ai/llm-inference/22-edge.md"
+        "docs/ai/llm-inference/22-edge.md",
+        "docs/ai/llm-inference/index.md"
       ],
-      "bytes": 93500
+      "bytes": 78707
     },
     {
-      "id": "B023",
+      "id": "B026",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/llm-inference/index.md",
         "docs/ai/llm-inference/vllm-quickstart.md",
         "docs/ai/llm/concepts.md",
         "docs/ai/llm/index.md",
@@ -597,16 +625,68 @@
         "docs/ai/llm/rag-tools.md",
         "docs/ai/llm/sft.md",
         "docs/ai/llm/training.md",
-        "docs/ai/mcp.md"
+        "docs/ai/mcp.md",
+        "docs/ai/ml.md"
       ],
-      "bytes": 93930
+      "bytes": 96042
     },
     {
-      "id": "B024",
+      "id": "B027",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/ml.md",
-        "docs/ai/practice/agent-project.md",
+        "docs/ai/model-training/01-training-map.md",
+        "docs/ai/model-training/02-one-step.md",
+        "docs/ai/model-training/03-memory.md",
+        "docs/ai/model-training/04-compute-scaling.md",
+        "docs/ai/model-training/05-training-curves.md",
+        "docs/ai/model-training/06-llm-data.md"
+      ],
+      "bytes": 86608
+    },
+    {
+      "id": "B028",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/model-training/07-pretraining.md",
+        "docs/ai/model-training/08-distributed.md",
+        "docs/ai/model-training/09-sft.md",
+        "docs/ai/model-training/10-lora-qlora.md",
+        "docs/ai/model-training/11-preference.md",
+        "docs/ai/model-training/12-rl-reasoning.md"
+      ],
+      "bytes": 93746
+    },
+    {
+      "id": "B029",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/model-training/13-distill-merge.md",
+        "docs/ai/model-training/14-asr-training.md",
+        "docs/ai/model-training/15-asr-finetune.md",
+        "docs/ai/model-training/16-tts-training.md",
+        "docs/ai/model-training/17-vision.md",
+        "docs/ai/model-training/18-multimodal.md"
+      ],
+      "bytes": 86903
+    },
+    {
+      "id": "B030",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/model-training/19-diffusion.md",
+        "docs/ai/model-training/20-embedding.md",
+        "docs/ai/model-training/21-evaluation.md",
+        "docs/ai/model-training/22-engineering.md",
+        "docs/ai/model-training/index.md",
+        "docs/ai/model-training/lora-practice.md",
+        "docs/ai/practice/agent-project.md"
+      ],
+      "bytes": 99750
+    },
+    {
+      "id": "B031",
+      "topic": "docs/ai",
+      "pages": [
         "docs/ai/practice/index.md",
         "docs/ai/practice/long-running-agent.md",
         "docs/ai/practice/machine-learning-project.md",
@@ -616,16 +696,16 @@
         "docs/ai/precision/03-rounding-errors.md",
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
-        "docs/ai/precision/06-choosing-precision.md"
+        "docs/ai/precision/06-choosing-precision.md",
+        "docs/ai/precision/index.md",
+        "docs/ai/precision/storage-atlas.md"
       ],
-      "bytes": 84688
+      "bytes": 91426
     },
     {
-      "id": "B025",
+      "id": "B032",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/precision/index.md",
-        "docs/ai/precision/storage-atlas.md",
         "docs/ai/rsi/01-recursive-self-improvement.md",
         "docs/ai/rsi/index.md",
         "docs/ai/skill/claude-code-best-practices.md",
@@ -635,16 +715,16 @@
         "docs/ai/speech-engineering/delivery-and-handoff.md",
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
-        "docs/ai/speech-engineering/incident-playbook.md"
+        "docs/ai/speech-engineering/incident-playbook.md",
+        "docs/ai/speech-engineering/index.md",
+        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md"
       ],
-      "bytes": 83218
+      "bytes": 73396
     },
     {
-      "id": "B026",
+      "id": "B033",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/speech-engineering/index.md",
-        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
         "docs/ai/speech-engineering/latency-and-finalization.md",
         "docs/ai/speech-engineering/performance-and-capacity.md",
         "docs/ai/speech-engineering/pipeline-boundaries.md",
@@ -654,22 +734,22 @@
         "docs/ai/vibe-coding/index.md",
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
-        "docs/ai/vibe-coding/prompt-engineering.md"
+        "docs/ai/vibe-coding/prompt-engineering.md",
+        "docs/ai/vibe-coding/spec-driven.md",
+        "docs/ai/vibe-coding/tool-agent-engineering.md"
       ],
-      "bytes": 78240
+      "bytes": 82152
     },
     {
-      "id": "B027",
+      "id": "B034",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/vibe-coding/spec-driven.md",
-        "docs/ai/vibe-coding/tool-agent-engineering.md",
         "docs/ai/vibe-coding/vibe-coding.md"
       ],
-      "bytes": 19028
+      "bytes": 5424
     },
     {
-      "id": "B028",
+      "id": "B035",
       "topic": "docs/algorithm",
       "pages": [
         "docs/algorithm/backtracking.md",
@@ -687,7 +767,7 @@
       "bytes": 95287
     },
     {
-      "id": "B029",
+      "id": "B036",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/capture-playback.md",
@@ -706,7 +786,7 @@
       "bytes": 92811
     },
     {
-      "id": "B030",
+      "id": "B037",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/vad/index.md",
@@ -717,7 +797,7 @@
       "bytes": 32347
     },
     {
-      "id": "B031",
+      "id": "B038",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/application-realtime.md",
@@ -736,7 +816,7 @@
       "bytes": 96763
     },
     {
-      "id": "B032",
+      "id": "B039",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/network-foundations.md",
@@ -746,7 +826,7 @@
       "bytes": 28481
     },
     {
-      "id": "B033",
+      "id": "B040",
       "topic": "docs/container",
       "pages": [
         "docs/container/basic/concepts.md",
@@ -765,7 +845,7 @@
       "bytes": 65086
     },
     {
-      "id": "B034",
+      "id": "B041",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/advanced/ecosystem.md",
@@ -784,7 +864,7 @@
       "bytes": 91597
     },
     {
-      "id": "B035",
+      "id": "B042",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/configmap.md",
@@ -803,7 +883,7 @@
       "bytes": 59759
     },
     {
-      "id": "B036",
+      "id": "B043",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/pod.md",
@@ -822,7 +902,7 @@
       "bytes": 75747
     },
     {
-      "id": "B037",
+      "id": "B044",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/video-series.md",
@@ -833,7 +913,7 @@
       "bytes": 25018
     },
     {
-      "id": "B038",
+      "id": "B045",
       "topic": "docs/database",
       "pages": [
         "docs/database/bigdata/apache-flink.md",
@@ -849,7 +929,7 @@
       "bytes": 99744
     },
     {
-      "id": "B039",
+      "id": "B046",
       "topic": "docs/database",
       "pages": [
         "docs/database/elasticsearch.md",
@@ -862,7 +942,7 @@
       "bytes": 83081
     },
     {
-      "id": "B040",
+      "id": "B047",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/basic-syntax.md",
@@ -876,7 +956,7 @@
       "bytes": 89719
     },
     {
-      "id": "B041",
+      "id": "B048",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/query-optimization.md",
@@ -890,7 +970,7 @@
       "bytes": 94414
     },
     {
-      "id": "B042",
+      "id": "B049",
       "topic": "docs/devlanguage",
       "pages": [
         "docs/devlanguage/index.md"
@@ -898,7 +978,7 @@
       "bytes": 2701
     },
     {
-      "id": "B043",
+      "id": "B050",
       "topic": "docs/devlanguage/flutter",
       "pages": [
         "docs/devlanguage/flutter/architecture.md",
@@ -912,7 +992,7 @@
       "bytes": 35227
     },
     {
-      "id": "B044",
+      "id": "B051",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/deployment/index.md",
@@ -931,7 +1011,7 @@
       "bytes": 46465
     },
     {
-      "id": "B045",
+      "id": "B052",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/framework/angular.md",
@@ -950,7 +1030,7 @@
       "bytes": 65552
     },
     {
-      "id": "B046",
+      "id": "B053",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
@@ -969,7 +1049,7 @@
       "bytes": 49318
     },
     {
-      "id": "B047",
+      "id": "B054",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
@@ -988,7 +1068,7 @@
       "bytes": 57590
     },
     {
-      "id": "B048",
+      "id": "B055",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
@@ -1007,7 +1087,7 @@
       "bytes": 66015
     },
     {
-      "id": "B049",
+      "id": "B056",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/package-managers/corepack.md",
@@ -1024,7 +1104,7 @@
       "bytes": 44995
     },
     {
-      "id": "B050",
+      "id": "B057",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/basic/base-class.md",
@@ -1039,7 +1119,7 @@
       "bytes": 86693
     },
     {
-      "id": "B051",
+      "id": "B058",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/annotations.md",
@@ -1052,7 +1132,7 @@
       "bytes": 97489
     },
     {
-      "id": "B052",
+      "id": "B059",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
@@ -1065,7 +1145,7 @@
       "bytes": 96643
     },
     {
-      "id": "B053",
+      "id": "B060",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/springboot.md",
@@ -1084,7 +1164,7 @@
       "bytes": 86011
     },
     {
-      "id": "B054",
+      "id": "B061",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/gc/parnew.md",
@@ -1103,7 +1183,7 @@
       "bytes": 59129
     },
     {
-      "id": "B055",
+      "id": "B062",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/runtime-area/method-area.md",
@@ -1118,7 +1198,7 @@
       "bytes": 67607
     },
     {
-      "id": "B056",
+      "id": "B063",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
@@ -1137,7 +1217,7 @@
       "bytes": 36472
     },
     {
-      "id": "B057",
+      "id": "B064",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/12-json-api-shape.md",
@@ -1156,7 +1236,7 @@
       "bytes": 32741
     },
     {
-      "id": "B058",
+      "id": "B065",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/24-delivery-package.md",
@@ -1175,7 +1255,7 @@
       "bytes": 58591
     },
     {
-      "id": "B059",
+      "id": "B066",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
@@ -1194,7 +1274,7 @@
       "bytes": 51376
     },
     {
-      "id": "B060",
+      "id": "B067",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/index.md"
@@ -1202,7 +1282,7 @@
       "bytes": 3797
     },
     {
-      "id": "B061",
+      "id": "B068",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/advantages.md",
@@ -1221,7 +1301,7 @@
       "bytes": 47582
     },
     {
-      "id": "B062",
+      "id": "B069",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/type-system.md",
@@ -1230,7 +1310,7 @@
       "bytes": 8757
     },
     {
-      "id": "B063",
+      "id": "B070",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/c-programming.md",
@@ -1249,7 +1329,7 @@
       "bytes": 59880
     },
     {
-      "id": "B064",
+      "id": "B071",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/toolchain.md"
@@ -1257,7 +1337,7 @@
       "bytes": 4760
     },
     {
-      "id": "B065",
+      "id": "B072",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/archive-compress.md",
@@ -1276,7 +1356,7 @@
       "bytes": 70764
     },
     {
-      "id": "B066",
+      "id": "B073",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/permissions.md",
@@ -1295,7 +1375,7 @@
       "bytes": 88829
     },
     {
-      "id": "B067",
+      "id": "B074",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/concurrency/05-pool-size-and-queueing.md",
@@ -1314,7 +1394,7 @@
       "bytes": 79857
     },
     {
-      "id": "B068",
+      "id": "B075",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/certificate.md",
@@ -1333,7 +1413,7 @@
       "bytes": 86099
     },
     {
-      "id": "B069",
+      "id": "B076",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/user-management.md"
@@ -1341,7 +1421,7 @@
       "bytes": 5716
     },
     {
-      "id": "B070",
+      "id": "B077",
       "topic": "docs/reading",
       "pages": [
         "docs/reading/2022-07-31/高效能人士的7个习惯.md",
@@ -1350,7 +1430,7 @@
       "bytes": 5001
     },
     {
-      "id": "B071",
+      "id": "B078",
       "topic": "docs/superpowers",
       "pages": [
         "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
@@ -1359,7 +1439,7 @@
       "bytes": 17324
     },
     {
-      "id": "B072",
+      "id": "B079",
       "topic": "docs/tools/editor",
       "pages": [
         "docs/tools/editor/andorid-studio/index.md"
@@ -1367,7 +1447,7 @@
       "bytes": 6275
     },
     {
-      "id": "B073",
+      "id": "B080",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/advanced.md",
@@ -1384,7 +1464,7 @@
       "bytes": 98889
     },
     {
-      "id": "B074",
+      "id": "B081",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/repository-strategies.md",
@@ -1395,7 +1475,7 @@
       "bytes": 26010
     },
     {
-      "id": "B075",
+      "id": "B082",
       "topic": "docs/tools/mq",
       "pages": [
         "docs/tools/mq/index.md",
@@ -1407,7 +1487,7 @@
       "bytes": 57859
     },
     {
-      "id": "B076",
+      "id": "B083",
       "topic": "docs/tools/sdkman",
       "pages": [
         "docs/tools/sdkman/index.md"
@@ -1415,7 +1495,7 @@
       "bytes": 4856
     },
     {
-      "id": "B077",
+      "id": "B084",
       "topic": "docs/tools/vfox",
       "pages": [
         "docs/tools/vfox/index.md"
@@ -1423,7 +1503,7 @@
       "bytes": 5211
     },
     {
-      "id": "B078",
+      "id": "B085",
       "topic": "docs/tools/vim",
       "pages": [
         "docs/tools/vim/index.md",
@@ -2719,17 +2799,17 @@
     },
     {
       "file": "docs/ai/foundations/index.md",
-      "contentHash": "5a9785ef8de4bcee07efd46342b2ea038884d52e30efaf4142def7fd20d2621b",
-      "reviewHash": "b91291ec8df370cec87ad87e28e011370ef73d117d6762593759db003f0967e2",
+      "contentHash": "6e0e0f4cf2bd9fb7964d0775e5dbcd463e983e8e974d679c42a53468b2afe0e8",
+      "reviewHash": "e5ba235514c402c078f8c4a775576dbdd3a2557eb9cdf045ac7ff3b8d79320d5",
       "dependencies": [],
-      "bytes": 8021,
+      "bytes": 8073,
       "lines": 71,
-      "proseChars": 2355,
+      "proseChars": 2365,
       "headings": 6,
       "codeLines": 0,
       "visualCount": 0,
       "htmlComponents": true,
-      "localReferences": 23,
+      "localReferences": 24,
       "findings": []
     },
     {
@@ -2802,14 +2882,14 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "bfa7666da3b6a71c0785409b1193e430f8384ba61716f1c6ce41575010e27543",
-      "reviewHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946",
+      "contentHash": "63202a0cb205b26ac5cdbe9123e3495f99bae5b71460b48d15d04ba09eacfc47",
+      "reviewHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 8271,
-      "lines": 96,
+      "bytes": 8521,
+      "lines": 97,
       "proseChars": 1802,
       "headings": 8,
       "codeLines": 0,
@@ -2817,6 +2897,159 @@
       "htmlComponents": true,
       "localReferences": 14,
       "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/01-vllm.md",
+      "contentHash": "106ae3e398fe20ba8a52153c324a7002304996b32c63ce53fe8f139a811508ea",
+      "reviewHash": "75c1e7917d12f559b6d35b30f3c18909563f7398dbd8348fe7651e1034924231",
+      "dependencies": [
+        "public/ai/inference-engines/vllm-architecture.svg",
+        "public/ai/inference-engines/vllm-request-lifecycle.svg"
+      ],
+      "bytes": 55516,
+      "lines": 459,
+      "proseChars": 24282,
+      "headings": 24,
+      "codeLines": 33,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 24,
+      "findings": [
+        {
+          "kind": "broken-local-reference",
+          "line": 435,
+          "detail": "本地目标不存在：./05-ollama.md"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/inference-engines/02-sglang.md",
+      "contentHash": "595052f40adbe75a3cefda6d5ad0469d4f99111d81b943421ab5b408a8d57145",
+      "reviewHash": "051b43587e86863d4dcd755c754538f224375d3d63d1afe08f53637b071b6a7a",
+      "dependencies": [
+        "public/ai/inference-engines/sglang-architecture.svg",
+        "public/ai/inference-engines/sglang-overlap.svg"
+      ],
+      "bytes": 49783,
+      "lines": 489,
+      "proseChars": 22044,
+      "headings": 27,
+      "codeLines": 58,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 21,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/03-tensorrt-llm.md",
+      "contentHash": "c7ab20c9059b71b38fd578a489e79286666c142101a7d10ffa62f23f3bc7badc",
+      "reviewHash": "207d1fb7d0d179792a2aab0122565653b37aa0ca55a8354cd703c3b5b856aa41",
+      "dependencies": [
+        "public/ai/inference-engines/trtllm-architecture.svg",
+        "public/ai/inference-engines/trtllm-disagg.svg",
+        "public/ai/inference-engines/trtllm-workflow.svg"
+      ],
+      "bytes": 46199,
+      "lines": 487,
+      "proseChars": 19884,
+      "headings": 25,
+      "codeLines": 105,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 18,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/04-llama-cpp.md",
+      "contentHash": "f843a97a4ac12b710e019495e237494631fcbe27138852dd2c4cf83197a34aba",
+      "reviewHash": "e03fd1274a175afda05911e89b007e041311c33dbb283889d7adf697876f6142",
+      "dependencies": [
+        "public/ai/inference-engines/llamacpp-gguf.svg",
+        "public/ai/inference-engines/llamacpp-slots.svg",
+        "public/ai/inference-engines/llamacpp-stack.svg"
+      ],
+      "bytes": 35170,
+      "lines": 380,
+      "proseChars": 14117,
+      "headings": 17,
+      "codeLines": 60,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": [
+        {
+          "kind": "broken-local-reference",
+          "line": 379,
+          "detail": "本地目标不存在：./05-ollama.md"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/inference-engines/06-lmdeploy.md",
+      "contentHash": "1a30a66918276414a6303891481ee7f2fed4493f44af92a2bfd1f20c88d53fd0",
+      "reviewHash": "62dac87244d6dc59b0bf4dcd42ff312623620a19eedcebab18f9b4215d215785",
+      "dependencies": [
+        "public/ai/inference-engines/lmdeploy-architecture.svg",
+        "public/ai/inference-engines/lmdeploy-backend-choice.svg",
+        "public/ai/inference-engines/lmdeploy-proxy.svg"
+      ],
+      "bytes": 30357,
+      "lines": 279,
+      "proseChars": 13414,
+      "headings": 13,
+      "codeLines": 30,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 18,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/07-local-and-edge.md",
+      "contentHash": "24bab2d0d0e3c481e19e7589a5fca5d21a5c8a507a87b03b5cf693594585f5d5",
+      "reviewHash": "1cc632051aa75c97956a53e311fed042c5d43b98779c6fc47574d4a48dcc9936",
+      "dependencies": [
+        "public/ai/inference-engines/mlx-memory.svg",
+        "public/ai/inference-engines/mlx-workflow.svg"
+      ],
+      "bytes": 22515,
+      "lines": 224,
+      "proseChars": 9221,
+      "headings": 11,
+      "codeLines": 25,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": [
+        {
+          "kind": "broken-local-reference",
+          "line": 5,
+          "detail": "本地目标不存在：./05-ollama.md"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/inference-engines/08-orchestration.md",
+      "contentHash": "e1ad197e3d9a41b61f0f3d1bd526e0a3472db33623a2df1c240944107adb8801",
+      "reviewHash": "b136db2180f71ccef3c4c421573acb8325dcd9504d032e0ff23e3cd8dba634d1",
+      "dependencies": [
+        "public/ai/inference-engines/orch-kv-routing.svg",
+        "public/ai/inference-engines/orch-layers.svg"
+      ],
+      "bytes": 31750,
+      "lines": 235,
+      "proseChars": 14311,
+      "headings": 12,
+      "codeLines": 32,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 14,
+      "findings": [
+        {
+          "kind": "broken-local-reference",
+          "line": 234,
+          "detail": "本地目标不存在：./09-comparison.md"
+        }
+      ]
     },
     {
       "file": "docs/ai/inference-series/01-landscape.md",
@@ -3262,19 +3495,19 @@
     },
     {
       "file": "docs/ai/learning-path.md",
-      "contentHash": "606312edb9575c90c25b656269338921ce2f41fe4a8fb90c391b48c4a63e5eb8",
-      "reviewHash": "1efb7712805f81daadfd98a69f3dc1113948ac05f6a082d81352d23e7ae79711",
+      "contentHash": "302c1315af2bb0ef421602630feecdf38ba3fe8a08eac2452e0ef5e73afad7e6",
+      "reviewHash": "2fa007bbceaaff1567391445a4bcbac3cd2e3b877aded5c9f908f88a482870d1",
       "dependencies": [
         "public/ai/ai-learning-roadmap.svg"
       ],
-      "bytes": 8027,
-      "lines": 172,
-      "proseChars": 2296,
+      "bytes": 8174,
+      "lines": 173,
+      "proseChars": 2337,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 38,
+      "localReferences": 39,
       "findings": []
     },
     {
@@ -3576,17 +3809,17 @@
     },
     {
       "file": "docs/ai/llm-inference/18-vllm-sglang.md",
-      "contentHash": "75232620b5ac3dde9c3585c14096133904fbe43818cbf5d0147f2d94045f7b66",
-      "reviewHash": "0474a9670cd74b270fef27522b3be962a3e4cad62094f97268a7132e36ddf351",
+      "contentHash": "c35a052f52441fb3e1ffe28376c23af6ab633e22be75b2ae40881d485cb23a90",
+      "reviewHash": "e6400e88fff695f2272f05bdcf143f3522a27ccf21ea8aad5dab52bc64aead87",
       "dependencies": [
         "public/ai/inference-series/engine-loop.svg",
         "public/ai/inference-series/selection-gates.svg"
       ],
-      "bytes": 9848,
-      "lines": 127,
-      "proseChars": 3571,
+      "bytes": 10387,
+      "lines": 130,
+      "proseChars": 3831,
       "headings": 8,
-      "codeLines": 9,
+      "codeLines": 10,
       "visualCount": 2,
       "htmlComponents": false,
       "localReferences": 4,
@@ -3680,14 +3913,14 @@
     },
     {
       "file": "docs/ai/llm-inference/vllm-quickstart.md",
-      "contentHash": "fa29d6d4c83648d0b8f0b84a1bbb92a42c918d5f950a77baa7ae414ccb29893f",
-      "reviewHash": "eaa5edc1161f2e03c64384268fea067d233028eb87c7c562b54c67a8a8c5e55d",
+      "contentHash": "c6cc86d924d534e1232d0f121550a4a54ea529b3de13b898d041a26fe456e477",
+      "reviewHash": "20e1478cc7366e29b4e40a36433fb6bd9d21b37634c150aa98a4bddd12a8396e",
       "dependencies": [
         "public/ai/llm-inference/vllm-startup.svg"
       ],
-      "bytes": 30574,
+      "bytes": 30952,
       "lines": 440,
-      "proseChars": 11708,
+      "proseChars": 11892,
       "headings": 28,
       "codeLines": 85,
       "visualCount": 1,
@@ -3714,19 +3947,19 @@
     },
     {
       "file": "docs/ai/llm/index.md",
-      "contentHash": "fd6eb705508ad88cdea658a4569c3e55f06989de916c81453a863ff6abc9a8fc",
-      "reviewHash": "2207921847444902bfae50811238a3464ae50e70e3ea1e8a942cc4a66dbfa5a5",
+      "contentHash": "5332fe02251f0fb327f70137591525c4c0ef5eccf77823c9ed69fb6ce74874a9",
+      "reviewHash": "a334c15495fe4528c9c34e884ce0ea0bfdc4128d94a4a20f0233999d6021b836",
       "dependencies": [
         "public/ai/llm-token-flow.svg"
       ],
-      "bytes": 7253,
+      "bytes": 7370,
       "lines": 142,
-      "proseChars": 2388,
+      "proseChars": 2421,
       "headings": 14,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 10,
+      "localReferences": 11,
       "findings": []
     },
     {
@@ -3765,36 +3998,36 @@
     },
     {
       "file": "docs/ai/llm/sft.md",
-      "contentHash": "b16d93c1e1572cc09090dcab8220e6ec95ad8cb1701dd7de6bf40b775523fefe",
-      "reviewHash": "c5708180bef5a8975a8d08db4dc3625e3ff2c7b1e91958df9340adb7a4d9abb7",
+      "contentHash": "ddd7c28a6d3a6b02bc2c5d3f629c19f2f933851ea63c4b6807166bba1b07ff98",
+      "reviewHash": "6d8f5bdd270cde4a662658f279ff8cee3696d4c7a9c3dd4c749d46bedbabbe81",
       "dependencies": [
         "public/ai/sft-training-position.svg"
       ],
-      "bytes": 7671,
-      "lines": 162,
-      "proseChars": 2380,
+      "bytes": 7926,
+      "lines": 163,
+      "proseChars": 2449,
       "headings": 16,
       "codeLines": 3,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 4,
+      "localReferences": 6,
       "findings": []
     },
     {
       "file": "docs/ai/llm/training.md",
-      "contentHash": "8d70c4260cbbb3926ca9ec8901c88f8bc5a04eace7a6074103efac29a6d43dcf",
-      "reviewHash": "acc5b1c7adc4ca181316d2a0bc11d0cc62ef3936f7fd74258d5ad759d94055ef",
+      "contentHash": "e5b0a590bad3868493bd4ab8e6d6f0a77febf5dd2fa056a968deab5d1101c104",
+      "reviewHash": "e5e7c54b5b2f57533ccf553c720924b0b5090244a32ba9cb8d3ad4d8ea20ee94",
       "dependencies": [
         "public/ai/lora-parameter-path.svg"
       ],
-      "bytes": 5001,
-      "lines": 96,
-      "proseChars": 1699,
+      "bytes": 5379,
+      "lines": 98,
+      "proseChars": 1811,
       "headings": 10,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 2,
+      "localReferences": 4,
       "findings": []
     },
     {
@@ -3831,6 +4064,440 @@
       "htmlComponents": false,
       "localReferences": 3,
       "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/01-training-map.md",
+      "contentHash": "101d3bf94622eda05ee8bd1b5703d554bf437fbe78f28e4004d8edccf9a0b055",
+      "reviewHash": "761a45ef640448077e9c57926a46a28ec090b2101ea039d22a7373ad3bfe6706",
+      "dependencies": [
+        "public/ai/model-training/map-decision-path.svg",
+        "public/ai/model-training/map-training-pipeline.svg"
+      ],
+      "bytes": 12274,
+      "lines": 115,
+      "proseChars": 3914,
+      "headings": 8,
+      "codeLines": 6,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/02-one-step.md",
+      "contentHash": "4d6bd479212b3beed9c9918117bb21994f9975520a28ab0788a8279580bb4531",
+      "reviewHash": "df269af5058a88635c462e54951f924932c6c7657b86ad8d82754f523ecc5b84",
+      "dependencies": [
+        "public/ai/model-training/step-lr-schedule.svg",
+        "public/ai/model-training/step-training-loop.svg"
+      ],
+      "bytes": 15154,
+      "lines": 176,
+      "proseChars": 5183,
+      "headings": 11,
+      "codeLines": 27,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/03-memory.md",
+      "contentHash": "c1a0b18f42d831aabc3f7bb5774f811430b265e5d9713c651c95a16c18928540",
+      "reviewHash": "816c9bdf96625b7157da5c0d38b8d45bcbb8954dcf1ef01802077499ac58382b",
+      "dependencies": [
+        "public/ai/model-training/memory-checkpointing.svg",
+        "public/ai/model-training/memory-ledger.svg"
+      ],
+      "bytes": 13757,
+      "lines": 168,
+      "proseChars": 4838,
+      "headings": 10,
+      "codeLines": 24,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/04-compute-scaling.md",
+      "contentHash": "b0d338dcf1ccd7de29dd9ac0552eaff48363982529a529da064c1672b7e34814",
+      "reviewHash": "ea0efde22d3b04ebdbf9e9b6e18fcb4fcdbabee4848a7ab8080a00b971922fd8",
+      "dependencies": [
+        "public/ai/model-training/compute-ledger.svg",
+        "public/ai/model-training/compute-tokens-per-param.svg"
+      ],
+      "bytes": 14001,
+      "lines": 139,
+      "proseChars": 5144,
+      "headings": 8,
+      "codeLines": 21,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/05-training-curves.md",
+      "contentHash": "e8bc94911ed391dad8bd3dcbb0b93dfada44aae27de39a0c1257e95a8f2ae980",
+      "reviewHash": "aa0f7275dc767eba6683ef8e748c99622edceeb80c19942c9e0c537544171f68",
+      "dependencies": [
+        "public/ai/model-training/curves-failure-patterns.svg",
+        "public/ai/model-training/curves-sft-normal.svg"
+      ],
+      "bytes": 15580,
+      "lines": 125,
+      "proseChars": 5351,
+      "headings": 11,
+      "codeLines": 5,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 12,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/06-llm-data.md",
+      "contentHash": "854e01f3a35f7645bd40b251098949f0a2cff862dbc28ceab380582fc2dacd6a",
+      "reviewHash": "abd9236a62ae5d11931773a7f05d8df6e1992ab63c6fbef5f2b346d67d4292d6",
+      "dependencies": [
+        "public/ai/model-training/data-bpe-merges.svg",
+        "public/ai/model-training/data-pipeline-funnel.svg",
+        "public/ai/model-training/data-sources-mix.svg"
+      ],
+      "bytes": 15842,
+      "lines": 146,
+      "proseChars": 5754,
+      "headings": 14,
+      "codeLines": 8,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/07-pretraining.md",
+      "contentHash": "37fb890fa15e48f783cc4f1316662badd6ca4dc42d2f6660dad2cbf7cc326f14",
+      "reviewHash": "6443039cafaadfffbffddbade3c837e7da8afd3564fec163464a52f45bce26c4",
+      "dependencies": [
+        "public/ai/model-training/pretrain-next-token.svg",
+        "public/ai/model-training/pretrain-stages-schedule.svg"
+      ],
+      "bytes": 15023,
+      "lines": 142,
+      "proseChars": 4913,
+      "headings": 10,
+      "codeLines": 23,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 13,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/08-distributed.md",
+      "contentHash": "21fb352107d751f49ce7a64d8a6601eeeefb573c22dc6d82721176ea2bc10425",
+      "reviewHash": "c5f8a026d082402eec167491d86dee46bb0ce5c986dc71be5c0654cfaf01f48b",
+      "dependencies": [
+        "public/ai/model-training/parallel-llama3-layout.svg",
+        "public/ai/model-training/parallel-pipeline-schedule.svg",
+        "public/ai/model-training/parallel-what-splits.svg",
+        "public/ai/model-training/parallel-zero-memory.svg"
+      ],
+      "bytes": 16958,
+      "lines": 150,
+      "proseChars": 5739,
+      "headings": 10,
+      "codeLines": 21,
+      "visualCount": 4,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/09-sft.md",
+      "contentHash": "3f9955939c916b4fefffabbf32f2a6ad18ae3e2c7076b24226c148e116c7d51d",
+      "reviewHash": "99ae7fd7dc8865ea39880c9c5698dd302569cc905d14b0c3fab587591648e478",
+      "dependencies": [
+        "public/ai/model-training/sft-loss-mask.svg",
+        "public/ai/model-training/sft-packing.svg"
+      ],
+      "bytes": 16231,
+      "lines": 152,
+      "proseChars": 5183,
+      "headings": 11,
+      "codeLines": 29,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/10-lora-qlora.md",
+      "contentHash": "19aea2bf0921cef24e400917c8a055228c4b829fa6aaea28aacab66119226d11",
+      "reviewHash": "d925de6d65e76062fcbac1c9cfbde7a72af08490ffa21c4338aa285abeb640c1",
+      "dependencies": [
+        "public/ai/model-training/lora-merge-serve.svg",
+        "public/ai/model-training/lora-update-path.svg"
+      ],
+      "bytes": 14131,
+      "lines": 129,
+      "proseChars": 5302,
+      "headings": 9,
+      "codeLines": 14,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/11-preference.md",
+      "contentHash": "57dca4a69a02dba95d25e322fa649b210c4e081e4fd1071b558a5cebaec9c990",
+      "reviewHash": "e69453779ed924e734bdf85bc6bd08b10345b5bdb36bab5d4bfd9bf9e189c212",
+      "dependencies": [
+        "public/ai/model-training/pref-overoptimization.svg",
+        "public/ai/model-training/pref-rlhf-vs-dpo.svg"
+      ],
+      "bytes": 15725,
+      "lines": 158,
+      "proseChars": 4882,
+      "headings": 11,
+      "codeLines": 25,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/12-rl-reasoning.md",
+      "contentHash": "270f6c6bdc03bb6d37e4d2d05b2e11f5853c85c3edb19fb78520a3f9951a7442",
+      "reviewHash": "bc913d7ca62feb9e464aa28668d49711738ff6f1ef353f58be6694b41b2d3d69",
+      "dependencies": [
+        "public/ai/model-training/rl-grpo-loop.svg"
+      ],
+      "bytes": 15678,
+      "lines": 139,
+      "proseChars": 5301,
+      "headings": 8,
+      "codeLines": 23,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/13-distill-merge.md",
+      "contentHash": "f21c95087a5fa123d585df3548361cbded02dee0bf0fffd10fad74ef81dceae2",
+      "reviewHash": "61c1a23ac0dea45d70cad33f15ffadecd226bffbf190fb5bcb228a1e6ad2b7bb",
+      "dependencies": [
+        "public/ai/model-training/distill-merge-task-vectors.svg",
+        "public/ai/model-training/distill-pipeline.svg"
+      ],
+      "bytes": 15249,
+      "lines": 134,
+      "proseChars": 5280,
+      "headings": 14,
+      "codeLines": 14,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/14-asr-training.md",
+      "contentHash": "5ffaaa09e809e2a322888f0addede48cd88f897fbfc423d101673714dca679dc",
+      "reviewHash": "deadad176721bacc063d71bc1c2a473732119e16068dacb2b1bc8bb15f282f04",
+      "dependencies": [
+        "public/ai/model-training/asr-alignment-three.svg",
+        "public/ai/model-training/asr-feature-pipeline.svg"
+      ],
+      "bytes": 13823,
+      "lines": 120,
+      "proseChars": 4724,
+      "headings": 10,
+      "codeLines": 12,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 7,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/15-asr-finetune.md",
+      "contentHash": "61e0fe536d767d499175ab72775b3c2fd9410fb99e361d162ffd0263e0d1dd88",
+      "reviewHash": "e63e5dd5f2abddf2d21b1d18aab6ee822579c9fef2d4c4e36385dd0cf0df4506",
+      "dependencies": [
+        "public/ai/model-training/asrft-decision-loop.svg"
+      ],
+      "bytes": 14483,
+      "lines": 139,
+      "proseChars": 4734,
+      "headings": 9,
+      "codeLines": 11,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/16-tts-training.md",
+      "contentHash": "c30ab5caabc883a27a456a76337d84786b6e2ddb9a3011fa03de379160df19b3",
+      "reviewHash": "8e197952ed8c7f2314ef3a3a8d6003adcdfc5a752ae10af8713ebe75ca0f2005",
+      "dependencies": [
+        "public/ai/model-training/tts-codec-rvq.svg",
+        "public/ai/model-training/tts-two-pipelines.svg"
+      ],
+      "bytes": 14137,
+      "lines": 103,
+      "proseChars": 4906,
+      "headings": 11,
+      "codeLines": 5,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/17-vision.md",
+      "contentHash": "ab062b4c0acd52e9a016407af858693bc8da0b1ca005f1ce44208cb23d2ac73b",
+      "reviewHash": "f9f89e77a83f44e931adce8c082cd7d27b18109622a698c02cc49d540b539a2a",
+      "dependencies": [
+        "public/ai/model-training/vision-confusion-matrix.svg",
+        "public/ai/model-training/vision-transfer-ladder.svg"
+      ],
+      "bytes": 16051,
+      "lines": 113,
+      "proseChars": 5410,
+      "headings": 10,
+      "codeLines": 13,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 9,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/18-multimodal.md",
+      "contentHash": "f03b68dfc213897c83e29cd8441fc508a35fb0c948ea12258bf7de4df86e2a71",
+      "reviewHash": "af6222931d21d8d01e7bc43e43fe6f0ed685f3d98babfe2d79d7aebc6be8ab4c",
+      "dependencies": [
+        "public/ai/model-training/mm-clip-matrix.svg",
+        "public/ai/model-training/mm-llava-stages.svg"
+      ],
+      "bytes": 13160,
+      "lines": 112,
+      "proseChars": 4224,
+      "headings": 7,
+      "codeLines": 16,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/19-diffusion.md",
+      "contentHash": "d53ed76fca85ed47d22b0e59aadba855ac5b6f187a275a67895c32fb3cbdba75",
+      "reviewHash": "bf7a493c5a0e236b4ac13ad44797daaa0e3901216c33cb489c25e1c5523f5b84",
+      "dependencies": [
+        "public/ai/model-training/diffusion-train-sample.svg"
+      ],
+      "bytes": 13287,
+      "lines": 118,
+      "proseChars": 4429,
+      "headings": 10,
+      "codeLines": 21,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 3,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/20-embedding.md",
+      "contentHash": "c13541958717b297d29dec08d391031ea0c993ce9f51165af4b327a98b56d74c",
+      "reviewHash": "037214d57727676a4afa9bda3e74663720c0d9e9a4a2e1eed02199eb1bf04a16",
+      "dependencies": [
+        "public/ai/model-training/embed-inbatch-negatives.svg",
+        "public/ai/model-training/embed-two-stage.svg"
+      ],
+      "bytes": 15759,
+      "lines": 145,
+      "proseChars": 4872,
+      "headings": 9,
+      "codeLines": 31,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 6,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/21-evaluation.md",
+      "contentHash": "c0dc9f9f00b7c04c12d0f01e32fa344f9114bcd01550f8bbe24d3d2d2ed757b2",
+      "reviewHash": "385d46db191a7e6f3606b80420ab0ab0b8a167b1e40016f1b3187d432d794b62",
+      "dependencies": [
+        "public/ai/model-training/eval-release-gate.svg",
+        "public/ai/model-training/eval-sample-size.svg"
+      ],
+      "bytes": 19834,
+      "lines": 183,
+      "proseChars": 6301,
+      "headings": 10,
+      "codeLines": 17,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 17,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/22-engineering.md",
+      "contentHash": "74565e4ff20dcb0be8bbf3cd713a59278fe9677caa0937672438588651550d36",
+      "reviewHash": "921c921c186e5750561d0d94b5a79da49d7132f7f4ecc92f8b14651c29b0204d",
+      "dependencies": [
+        "public/ai/model-training/eng-framework-layers.svg",
+        "public/ai/model-training/eng-pipeline.svg"
+      ],
+      "bytes": 21712,
+      "lines": 196,
+      "proseChars": 7889,
+      "headings": 14,
+      "codeLines": 17,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 25,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/index.md",
+      "contentHash": "d59e496adc27de0f46f1d5293d5e62daddcb387f2f486dc0b632f9b7f5ace55f",
+      "reviewHash": "7a69dcf611da9f6df400b8bb80e9f804fdfdcddaeacc70b283ee4a3dfb4f1315",
+      "dependencies": [
+        "public/ai/model-training/training-series-map.svg"
+      ],
+      "bytes": 9000,
+      "lines": 76,
+      "proseChars": 2884,
+      "headings": 4,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 30,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/model-training/lora-practice.md",
+      "contentHash": "bf6cb2ac5a184ec79a3e1e59fae5e6590f2a850508255bfd7d44c308275a7dba",
+      "reviewHash": "efa53be9cece7043d660fd6136c30f57ae3a83043fcdefe08d6ba9ec0d52f9c0",
+      "dependencies": [],
+      "bytes": 15495,
+      "lines": 188,
+      "proseChars": 4902,
+      "headings": 9,
+      "codeLines": 37,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        }
+      ]
     },
     {
       "file": "docs/ai/practice/agent-project.md",

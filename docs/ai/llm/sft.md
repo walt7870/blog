@@ -23,6 +23,7 @@ SFT 解决的是“模型会不会按样例办事”。如果问题是“模型�
 
 - LoRA、QLoRA、RLHF、DPO 的分类关系见 [大模型核心概念分类](./concepts.md)。
 - 微调方法之间的取舍见 [训练与微调](./training.md)。
+- 对话模板、损失掩码、超参数和遗忘的详细机制见 [模型训练与调优：指令微调 SFT](../model-training/09-sft.md)，完整的训练与评估实验见 [实践：用 LoRA 微调资料助手](../model-training/lora-practice.md)。
 - RAG 和工具调用的边界见 [RAG 与工具调用](./rag-tools.md)。
 
 ## 适合 SFT 的场景

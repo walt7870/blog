@@ -18,7 +18,7 @@
 | 连续批处理 | 每一步都可以把新请求加进正在运行的批，结束的请求立即让出位置 | 第 9 篇 |
 | 前缀缓存、分块预填充 | 相同的开头只算一次；长输入分段处理，不卡住别人 | 第 10、11 篇 |
 | OpenAI 兼容接口 | 原来调 OpenAI 的代码改一下地址就能用 | 本篇 |
-| 量化 | 支持 FP8、AWQ、GPTQ、GGUF 等多种格式 | 第 14 篇 |
+| 量化 | 支持 FP8、AWQ、GPTQ 等多种格式；GGUF 和 bitsandbytes 已拆到单独的插件（`vllm-gguf-plugin`、`vllm-bnb-plugin`），要另外安装 | 第 14 篇 |
 | 硬件覆盖 | NVIDIA、AMD、Intel GPU，以及通过单独的包或插件支持的 TPU、昇腾等 | 本篇 |
 
 这一篇只讲怎么用。想知道 PagedAttention 怎么工作，看[第 8 篇](./08-paged-attention.md)。
@@ -32,7 +32,7 @@
 | 操作系统 | Linux |
 | Python | 3.11 到 3.14 |
 | NVIDIA GPU | 计算能力（compute capability，NVIDIA 给每代 GPU 架构的版本号）7.5 及以上，比如 T4、RTX 20 系列及更新的消费卡、A100、L4、L40S、H100、B200 |
-| CUDA | 官方预编译包使用 CUDA 12.9，需要驱动支持这个版本 |
+| CUDA | PyPI 上的预编译包和默认 Docker 镜像基于 CUDA 13.0，需要 R580 及以上的驱动；驱动较旧时改用单独发布的 CUDA 12.9 版本（镜像标签带 `-cu129`） |
 
 网上不少教程写的是“Python 3.10、计算能力 7.0（V100）”，那是旧版本的要求。0.32.0 已经不支持 Python 3.10，V100 也不在预编译包的支持范围里。Mac 上没有 CUDA，想用 Apple 芯片的 GPU 要改用基于 MLX 的 vLLM-Metal 项目；手头没有 GPU，可以先看[第 22 篇](./22-edge.md)里的本地推理方案。
 
@@ -167,7 +167,7 @@ llm = LLM(model="meta-llama/Llama-3.1-8B-Instruct", generation_config="vllm")
 vllm serve meta-llama/Llama-3.1-8B-Instruct --max-model-len 8192
 ```
 
-默认监听 `http://localhost:8000`。要让别的机器访问，加 `--host 0.0.0.0`；改端口用 `--port`。和离线推理一样，`--generation-config vllm` 可以关掉模型自带的采样默认值。
+服务默认在 8000 端口监听，**不指定 `--host` 时绑定的是本机所有网卡**，同一网络里的其他机器都能直接访问。只想本机使用，加 `--host 127.0.0.1`；改端口用 `--port`。下面的例子都在本机用 `localhost:8000` 访问。和离线推理一样，`--generation-config vllm` 可以关掉模型自带的采样默认值。
 
 ![vllm serve 启动的五个步骤：读取配置、加载权重、试跑测峰值、分配 KV、录制 CUDA Graph，以及第 1、2、4 步可能出现的启动失败](/ai/llm-inference/vllm-startup.svg)
 

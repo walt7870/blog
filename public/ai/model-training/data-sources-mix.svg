@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="data-mix-title data-mix-desc" id="data-mix-root">
+<title id="data-mix-title">多种来源的数据经过分类和配比实验，组成预训练数据配比</title>
+<desc id="data-mix-desc">网页、代码、书籍与论文、数学与推理、多语言文本先分类，再用小模型配比实验决定比例。Llama 3 公布的主训练配比约为通用知识 50%、数学与推理 25%、代码 17%、多语言 8%。训练末尾的退火阶段再上采样高质量数据，且不放常用基准的训练集。</desc>
+<defs><style>
+#data-mix-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#data-mix-root .h { font-size: 26px; font-weight: 700; }
+#data-mix-root .t { font-size: 19px; font-weight: 600; }
+#data-mix-root .s { font-size: 15px; fill: #475569; }
+#data-mix-root .xs { font-size: 13px; fill: #64748b; }
+#data-mix-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#data-mix-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#data-mix-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#data-mix-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#data-mix-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#data-mix-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#data-mix-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#data-mix-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#data-mix-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#data-mix-root .fblue { fill: #93c5fd; } #data-mix-root .fgreen { fill: #6ee7b7; } #data-mix-root .fred { fill: #fda4af; }
+#data-mix-root .famber { fill: #fcd34d; } #data-mix-root .fviolet { fill: #c4b5fd; } #data-mix-root .fgray { fill: #e2e8f0; }
+#data-mix-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#data-mix-arrow); }
+#data-mix-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#data-mix-arrow); }
+#data-mix-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#data-mix-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="data-mix-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="560" fill="#f8fafc"/>
+<text x="32" y="46" class="h">来源各不相同的文本，按比例混成一锅</text>
+<text x="32" y="78" class="s">Llama 3 论文公布的主训练配比；比例按 token 计，类别来自内容分类，不是来源。</text>
+<g data-node="src0"><rect x="32" y="112" width="290" height="64" rx="8" class="node"/></g><text x="50" y="140" class="t">网页</text><text x="50" y="164" class="xs">Common Crawl 等公开抓取</text><path d="M322 144C370 144 370 177 410 177" class="edge"/><g data-node="src1"><rect x="32" y="188" width="290" height="64" rx="8" class="node"/></g><text x="50" y="216" class="t">代码</text><text x="50" y="240" class="xs">公开仓库，按许可证筛</text><path d="M322 220C370 220 370 177 410 177" class="edge"/><g data-node="src2"><rect x="32" y="264" width="290" height="64" rx="8" class="node"/></g><text x="50" y="292" class="t">书籍与论文</text><text x="50" y="316" class="xs">长文本、结构严谨</text><path d="M322 296C370 296 370 177 410 177" class="edge"/><g data-node="src3"><rect x="32" y="340" width="290" height="64" rx="8" class="node"/></g><text x="50" y="368" class="t">数学与推理</text><text x="50" y="392" class="xs">题解、证明、教材</text><path d="M322 372C370 372 370 177 410 177" class="edge"/><g data-node="src4"><rect x="32" y="416" width="290" height="64" rx="8" class="node"/></g><text x="50" y="444" class="t">多语言文本</text><text x="50" y="468" class="xs">按语种识别后分别去重</text><path d="M322 448C370 448 370 177 410 177" class="edge"/>
+<g data-node="mixer"><rect x="410" y="112" width="760" height="130" rx="8" class="blue"/><text x="428" y="138" class="k">决定比例</text><text x="428" y="164" class="t">分类 + 配比实验</text><text x="428" y="192" class="s">先给每篇文档分主题类别，网上过多的类别（如艺术与娱乐）下采样；</text><text x="428" y="215" class="s">再用小模型试不同配比，拟合规模定律，预测大模型在哪个配比下最好。</text></g>
+<path d="M790 242V312" class="edge"/>
+<text x="440" y="320" class="k">Llama 3 主训练配比</text>
+<rect x="440" y="330" width="360" height="56" rx="0" fill="#93c5fd" stroke="none" stroke-width="2"/><text x="620" y="364" class="t" text-anchor="middle">50%</text><text x="440" y="416" class="s">通用知识</text><rect x="800" y="330" width="180" height="56" rx="0" fill="#6ee7b7" stroke="none" stroke-width="2"/><text x="890" y="364" class="t" text-anchor="middle">25%</text><text x="800" y="416" class="s">数学与推理</text><rect x="980" y="330" width="122" height="56" rx="0" fill="#c4b5fd" stroke="none" stroke-width="2"/><text x="1041" y="364" class="t" text-anchor="middle">17%</text><text x="980" y="416" class="s">代码</text><rect x="1102" y="330" width="58" height="56" rx="0" fill="#fcd34d" stroke="none" stroke-width="2"/><text x="1131" y="364" class="t" text-anchor="middle">8%</text><text x="1160" y="416" class="s" text-anchor="end">多语言</text>
+<g data-node="anneal"><rect x="410" y="470" width="760" height="72" rx="8" class="amber"/></g>
+<text x="428" y="498" class="s">退火数据：训练最后一小段上采样极高质量的来源；</text>
+<text x="428" y="522" class="s">常用基准的训练集不放进去，避免分数被“喂”出来。</text>
+</svg>

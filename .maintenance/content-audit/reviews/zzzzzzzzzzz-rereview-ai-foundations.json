@@ -1,160 +1,161 @@
 {
-  "pages": [
+ "pages": [
+  {
+   "file": "docs/ai/foundations/index.md",
+   "status": "verified",
+   "pageType": "系列导读",
+   "decision": "导读结构、阅读路径与职责分工完整；末尾突兀追加的 FP32/FP16/BF16 一句改写为说明这些缩写是什么、为何影响内存与误差，再引向精度专题。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。40 步参数与 6.0062 预测由脚本复算一致；末尾缩写此前未解释，已修。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。",
+    "2026-10-27 补充指向模型训练与调优系列的链接。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "e5ba235514c402c078f8c4a775576dbdd3a2557eb9cdf045ac7ff3b8d79320d5"
+  },
+  {
+   "file": "docs/ai/foundations/01-what-models-learn.md",
+   "status": "verified",
+   "pageType": "概念入门",
+   "decision": "参数、模型、损失、训练、推理、前向计算、梯度、优化器、标签逐个以运费例子引入，图文一致；保留原文。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。prediction-residuals 与 training-cycle 两图桌面/手机版按实际字体测量无文字越出画布，与正文描述（竖向虚线、反向求梯度、验证分支）一致。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "d0de343b638753a56553328355c80a10bcf47d0de5bd90d567eb5f3eadfced7a"
+  },
+  {
+   "file": "docs/ai/foundations/02-python-and-environment.md",
+   "status": "verified",
+   "pageType": "实操入门",
+   "decision": "环境、解释器、虚拟环境与命令行参数讲解完整；补充交互解释器中 for/函数需多按一次回车、循环和函数的预期输出，以及首次运行脚本的完整输出行与各字段含义。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。正文 Python 片段实际执行：prediction 输出 6.0，循环输出 1.0 3.0 3.0 / 2.0 5.0 5.0 / 3.0 7.0 7.0，predict 输出 6.0。Windows PowerShell 命令未在 Windows 实测，正文已注明实测范围为 macOS。",
+    "下载脚本 train_regression.py 在 Python 3.12.14（本机制作 venv）按正文命令实际运行：1 步 13.833333→2.744259；40 步终损失 0.00027649、w=2.027312、b=0.937914；重载预测 2.5 千克得 6.006193；单样本学习率 0.1/1 终损失 0.72/18；三样本学习率 1 第 8 步 parameter_limit；--weight -1 与 nan 均报“重量必须是有限正数”；Python 3.14.7 复跑结果相同。.maintenance/foundations-series/check-math.mjs 与 check-lab.mjs（41 个 JS/Python 状态）通过。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "afe0c078493a2ec5f4355f5d0f7012da3e30440518bb309c835030e0285a41ed"
+  },
+  {
+   "file": "docs/ai/foundations/03-data-task-and-split.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "样本、特征、目标、监督学习、回归/分类、输入合同、泛化、三类集合、泄漏与增强顺序讲清，data-split 图与正文一致；保留原文。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。data-split 桌面/手机版目视与文字边界测量通过。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "4a83f4eede603b8464242be265a7348a9e834382d9c3a89bd7fdd70a6d32ab51"
+  },
+  {
+   "file": "docs/ai/foundations/04-linear-prediction.md",
+   "status": "verified",
+   "pageType": "机制与交互",
+   "decision": "符号表交代 x、w、b、ŷ、y，斜率、偏置、超参数、权重单位与线性模型表达限制完整；交互图例颜色与正文一致；保留原文。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。w=1,b=1 在 2 千克预测 3、w=1,b=3 在 1 千克预测 4 复算一致；PredictionLab 图例（琥珀点、蓝线、红色虚线）与组件实现一致。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "fcf56d8f96b6c4b62760eeb893be7b5030ae825e46eb1fbf1edb5c1e209b4bb4"
+  },
+  {
+   "file": "docs/ai/foundations/05-vectors-and-tensors.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "标量到张量、形状、轴、批次、索引、通道、矩阵乘法与 reshape/转置讲清；tensor-layout 图中“展平”原以 8 条纯色条表示且高亮条与原图行不对应，改生成脚本为逐行保留像素明暗并标注行号，批次第一行同步显示前 10 个数。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。索引示例 images[1][0][1] 实际运行输出 5；矩阵乘法 1×2+2×3=8 复算。tensor-layout 由 generate-assets.mjs 重新生成，桌面/手机版按实际字体测量无越框，目视检查行号与原图一致。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "7e95533d7fb0646bae17c3baff7d66b0b01806b605576dfc45ee4ec9da9f59b3"
+  },
+  {
+   "file": "docs/ai/foundations/06-loss-and-objective.md",
+   "status": "verified",
+   "pageType": "机制与交互",
+   "decision": "残差、损失、平方与 0.5 的理由、Σ 与 1/N、平均半平方损失与 MSE 的两倍关系、异常点影响和业务效果边界完整；保留原文。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。w=1,b=1 平均半平方损失 7/3、MSE 14/3 复算；浏览器中拖动 PredictionLab 至 w=1,b=1 读数 2.3333，w=2,b=1 为 0，b=1.5 为 0.125，与正文描述一致。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "8e144e101cbdbf5a9901f1c4ea3b0b1ca67082f48296bdbc135f36b90e7f9c25"
+  },
+  {
+   "file": "docs/ai/foundations/07-gradient-and-learning-rate.md",
+   "status": "verified",
+   "pageType": "机制与交互",
+   "decision": "导数、梯度、学习率、梯度下降、偏导数、等高线、损失曲面、链式法则（展开区）、优化器与反向传播逐步引入，数值全部复算一致；保留原文。交互组件的 2D 坐标轴标签与刻度重叠属共享组件问题，记为 open。",
+   "findings": [
     {
-      "file": "docs/ai/foundations/index.md",
-      "status": "verified",
-      "pageType": "系列导读",
-      "decision": "导读结构、阅读路径与职责分工完整；末尾突兀追加的 FP32/FP16/BF16 一句改写为说明这些缩写是什么、为何影响内存与误差，再引向精度专题。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。40 步参数与 6.0062 预测由脚本复算一致；末尾缩写此前未解释，已修。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "88e849b5f585848a3e2062e88818405ce0a106779eaa65f186628fd747cf7eb7"
-    },
-    {
-      "file": "docs/ai/foundations/01-what-models-learn.md",
-      "status": "verified",
-      "pageType": "概念入门",
-      "decision": "参数、模型、损失、训练、推理、前向计算、梯度、优化器、标签逐个以运费例子引入，图文一致；保留原文。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。prediction-residuals 与 training-cycle 两图桌面/手机版按实际字体测量无文字越出画布，与正文描述（竖向虚线、反向求梯度、验证分支）一致。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "d0de343b638753a56553328355c80a10bcf47d0de5bd90d567eb5f3eadfced7a"
-    },
-    {
-      "file": "docs/ai/foundations/02-python-and-environment.md",
-      "status": "verified",
-      "pageType": "实操入门",
-      "decision": "环境、解释器、虚拟环境与命令行参数讲解完整；补充交互解释器中 for/函数需多按一次回车、循环和函数的预期输出，以及首次运行脚本的完整输出行与各字段含义。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。正文 Python 片段实际执行：prediction 输出 6.0，循环输出 1.0 3.0 3.0 / 2.0 5.0 5.0 / 3.0 7.0 7.0，predict 输出 6.0。Windows PowerShell 命令未在 Windows 实测，正文已注明实测范围为 macOS。",
-        "下载脚本 train_regression.py 在 Python 3.12.14（本机制作 venv）按正文命令实际运行：1 步 13.833333→2.744259；40 步终损失 0.00027649、w=2.027312、b=0.937914；重载预测 2.5 千克得 6.006193；单样本学习率 0.1/1 终损失 0.72/18；三样本学习率 1 第 8 步 parameter_limit；--weight -1 与 nan 均报“重量必须是有限正数”；Python 3.14.7 复跑结果相同。.maintenance/foundations-series/check-math.mjs 与 check-lab.mjs（41 个 JS/Python 状态）通过。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "afe0c078493a2ec5f4355f5d0f7012da3e30440518bb309c835030e0285a41ed"
-    },
-    {
-      "file": "docs/ai/foundations/03-data-task-and-split.md",
-      "status": "verified",
-      "pageType": "机制入门",
-      "decision": "样本、特征、目标、监督学习、回归/分类、输入合同、泛化、三类集合、泄漏与增强顺序讲清，data-split 图与正文一致；保留原文。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。data-split 桌面/手机版目视与文字边界测量通过。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "4a83f4eede603b8464242be265a7348a9e834382d9c3a89bd7fdd70a6d32ab51"
-    },
-    {
-      "file": "docs/ai/foundations/04-linear-prediction.md",
-      "status": "verified",
-      "pageType": "机制与交互",
-      "decision": "符号表交代 x、w、b、ŷ、y，斜率、偏置、超参数、权重单位与线性模型表达限制完整；交互图例颜色与正文一致；保留原文。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。w=1,b=1 在 2 千克预测 3、w=1,b=3 在 1 千克预测 4 复算一致；PredictionLab 图例（琥珀点、蓝线、红色虚线）与组件实现一致。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "fcf56d8f96b6c4b62760eeb893be7b5030ae825e46eb1fbf1edb5c1e209b4bb4"
-    },
-    {
-      "file": "docs/ai/foundations/05-vectors-and-tensors.md",
-      "status": "verified",
-      "pageType": "机制入门",
-      "decision": "标量到张量、形状、轴、批次、索引、通道、矩阵乘法与 reshape/转置讲清；tensor-layout 图中“展平”原以 8 条纯色条表示且高亮条与原图行不对应，改生成脚本为逐行保留像素明暗并标注行号，批次第一行同步显示前 10 个数。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。索引示例 images[1][0][1] 实际运行输出 5；矩阵乘法 1×2+2×3=8 复算。tensor-layout 由 generate-assets.mjs 重新生成，桌面/手机版按实际字体测量无越框，目视检查行号与原图一致。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "7e95533d7fb0646bae17c3baff7d66b0b01806b605576dfc45ee4ec9da9f59b3"
-    },
-    {
-      "file": "docs/ai/foundations/06-loss-and-objective.md",
-      "status": "verified",
-      "pageType": "机制与交互",
-      "decision": "残差、损失、平方与 0.5 的理由、Σ 与 1/N、平均半平方损失与 MSE 的两倍关系、异常点影响和业务效果边界完整；保留原文。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。w=1,b=1 平均半平方损失 7/3、MSE 14/3 复算；浏览器中拖动 PredictionLab 至 w=1,b=1 读数 2.3333，w=2,b=1 为 0，b=1.5 为 0.125，与正文描述一致。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "8e144e101cbdbf5a9901f1c4ea3b0b1ca67082f48296bdbc135f36b90e7f9c25"
-    },
-    {
-      "file": "docs/ai/foundations/07-gradient-and-learning-rate.md",
-      "status": "verified",
-      "pageType": "机制与交互",
-      "decision": "导数、梯度、学习率、梯度下降、偏导数、等高线、损失曲面、链式法则（展开区）、优化器与反向传播逐步引入，数值全部复算一致；保留原文。交互组件的 2D 坐标轴标签与刻度重叠属共享组件问题，记为 open。",
-      "findings": [
-        {
-          "status": "open",
-          "detail": "LossLandscape.vue 等高线视图中坐标轴标签“b”压在纵轴刻度“4”上、“w”紧贴横轴刻度“4”，最低点只有文字没有标记点；三维曲面上的刻度数字很小且相互重叠。组件在 .vitepress/ 下，超出本批修改范围。"
-        }
-      ],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。手算 2.0402/1.9602/-3.98、学习率 0.1/1 得 0.72/18、两参数第一步 L=83/6、梯度 -34/3 与 -5、更新后 2.7443 均复算。浏览器中 LossLandscape 单步后 w=1.1333、b=0.5、L=2.7443；学习率 1 显示 w=11.3333、b=5 超出范围并停止；三维曲面可渲染。视频播放未验证：网页预览 MP4 为 Git 忽略文件，worktree 构建中 404，线上同路径返回 200。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "9820ade68ee5fc97867b99afd74b455850f93968a8b52f33031404ee0f0b3f22"
-    },
-    {
-      "file": "docs/ai/foundations/08-first-training-loop.md",
-      "status": "verified",
-      "pageType": "实操与实验",
-      "decision": "训练循环代码、运行命令和预期输出与脚本一致；修正“在当前位置做有限差分”为脚本实际在训练前于 w=0.7,b=-0.3 检查并说明容差与失败行为；补充发散保护阈值、实际停止步数及发散/非法输入的可运行命令；轨迹描述改为与图一致，并在 loss-contours 生成脚本中加入每步位置点。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。下载脚本 train_regression.py 在 Python 3.12.14（本机制作 venv）按正文命令实际运行：1 步 13.833333→2.744259；40 步终损失 0.00027649、w=2.027312、b=0.937914；重载预测 2.5 千克得 6.006193；单样本学习率 0.1/1 终损失 0.72/18；三样本学习率 1 第 8 步 parameter_limit；--weight -1 与 nan 均报“重量必须是有限正数”；Python 3.14.7 复跑结果相同。.maintenance/foundations-series/check-math.mjs 与 check-lab.mjs（41 个 JS/Python 状态）通过。200 步复跑得 w≈2.0039、b≈0.9910，与新增描述一致。loss-contours 由 generate-assets.mjs 重新生成，桌面/手机版无文字越框，目视检查步长点逐步变密。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "8ecfc1ba122ac178de331636a6d6aa873b0fae70a2710a0df62cfeb64505257c"
-    },
-    {
-      "file": "docs/ai/foundations/gradient-video-transcript.md",
-      "status": "verified",
-      "pageType": "视频逐字稿",
-      "decision": "逐字稿数值与 07、08 正文及脚本一致，12 个章节时间与 gradient-chapters.vtt 完全对应；无制作旁白；保留原文。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。章节时间戳与 public/ai/foundations/video/gradient-chapters.vtt 逐条核对；旁白中 2.0402、-3.98、0.72、18、13.83、0.00028、6.0062 与脚本输出一致。未逐句审听视频音轨。",
-        "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
-        "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
-        "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
-      ],
-      "reviewedHash": "d45f28d6c46d1ddf042ac3bf374494c280d0d11e9c6e4b8297de18ebccd662c7"
+     "status": "open",
+     "detail": "LossLandscape.vue 等高线视图中坐标轴标签“b”压在纵轴刻度“4”上、“w”紧贴横轴刻度“4”，最低点只有文字没有标记点；三维曲面上的刻度数字很小且相互重叠。组件在 .vitepress/ 下，超出本批修改范围。"
     }
-  ]
+   ],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。手算 2.0402/1.9602/-3.98、学习率 0.1/1 得 0.72/18、两参数第一步 L=83/6、梯度 -34/3 与 -5、更新后 2.7443 均复算。浏览器中 LossLandscape 单步后 w=1.1333、b=0.5、L=2.7443；学习率 1 显示 w=11.3333、b=5 超出范围并停止；三维曲面可渲染。视频播放未验证：网页预览 MP4 为 Git 忽略文件，worktree 构建中 404，线上同路径返回 200。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "9820ade68ee5fc97867b99afd74b455850f93968a8b52f33031404ee0f0b3f22"
+  },
+  {
+   "file": "docs/ai/foundations/08-first-training-loop.md",
+   "status": "verified",
+   "pageType": "实操与实验",
+   "decision": "训练循环代码、运行命令和预期输出与脚本一致；修正“在当前位置做有限差分”为脚本实际在训练前于 w=0.7,b=-0.3 检查并说明容差与失败行为；补充发散保护阈值、实际停止步数及发散/非法输入的可运行命令；轨迹描述改为与图一致，并在 loss-contours 生成脚本中加入每步位置点。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。下载脚本 train_regression.py 在 Python 3.12.14（本机制作 venv）按正文命令实际运行：1 步 13.833333→2.744259；40 步终损失 0.00027649、w=2.027312、b=0.937914；重载预测 2.5 千克得 6.006193；单样本学习率 0.1/1 终损失 0.72/18；三样本学习率 1 第 8 步 parameter_limit；--weight -1 与 nan 均报“重量必须是有限正数”；Python 3.14.7 复跑结果相同。.maintenance/foundations-series/check-math.mjs 与 check-lab.mjs（41 个 JS/Python 状态）通过。200 步复跑得 w≈2.0039、b≈0.9910，与新增描述一致。loss-contours 由 generate-assets.mjs 重新生成，桌面/手机版无文字越框，目视检查步长点逐步变密。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "8ecfc1ba122ac178de331636a6d6aa873b0fae70a2710a0df62cfeb64505257c"
+  },
+  {
+   "file": "docs/ai/foundations/gradient-video-transcript.md",
+   "status": "verified",
+   "pageType": "视频逐字稿",
+   "decision": "逐字稿数值与 07、08 正文及脚本一致，12 个章节时间与 gradient-chapters.vtt 完全对应；无制作旁白；保留原文。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "按 AGENTS.md 新手向系列条款通读：术语首次出现有具体对象解释，公式符号在附近交代。章节时间戳与 public/ai/foundations/video/gradient-chapters.vtt 逐条核对；旁白中 2.0402、-3.98、0.72、18、13.83、0.00028、6.0062 与脚本输出一致。未逐句审听视频音轨。",
+    "页内全部站内链接与锚点在浏览器中逐个打开，HTTP 200 且目标 id 存在。",
+    "本地 vitepress preview（端口 4181，修改后重新构建并重启预览）：script/check-pages.mjs 在 1440/390、浅色/深色四模式检查，无整页横向溢出、无失效图片、无页面脚本错误（仅已知 /favicon.png 404）；另按视口逐屏截取 1440 浅色与 390 深色全文并目视检查。",
+    "worktree 内 npm ci 后 npx vitepress build 通过（本机 Node v26.9.0，非项目指定的 Node 24；未跑 pagefind）。"
+   ],
+   "reviewedHash": "d45f28d6c46d1ddf042ac3bf374494c280d0d11e9c6e4b8297de18ebccd662c7"
+  }
+ ]
 }

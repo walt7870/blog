@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="660" viewBox="0 0 1340 660" role="img" aria-labelledby="diffusion-train-sample-title diffusion-train-sample-desc" id="diffusion-train-sample-root">
+<title id="diffusion-train-sample-title">潜空间扩散模型的训练与采样</title>
+<desc id="diffusion-train-sample-desc">训练时，图片先经 VAE 编码器压成 64×64×4 的潜变量，随机选一个时间步 t 加入已知噪声 ε，去噪网络读带噪潜变量、t 和文本向量，预测加进去的噪声，与真实噪声算均方误差。采样时从纯噪声出发，去噪网络反复预测并减去噪声，几十步后得到干净潜变量，再由 VAE 解码器还原成 512×512 图片。无分类器引导在每一步各算一次有文本和无文本的预测，再按引导系数外推。</desc>
+<defs><style>
+#diffusion-train-sample-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#diffusion-train-sample-root .h { font-size: 26px; font-weight: 700; }
+#diffusion-train-sample-root .t { font-size: 19px; font-weight: 600; }
+#diffusion-train-sample-root .s { font-size: 15px; fill: #475569; }
+#diffusion-train-sample-root .xs { font-size: 13px; fill: #64748b; }
+#diffusion-train-sample-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#diffusion-train-sample-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#diffusion-train-sample-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#diffusion-train-sample-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#diffusion-train-sample-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#diffusion-train-sample-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#diffusion-train-sample-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#diffusion-train-sample-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#diffusion-train-sample-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#diffusion-train-sample-root .fblue { fill: #93c5fd; } #diffusion-train-sample-root .fgreen { fill: #6ee7b7; } #diffusion-train-sample-root .fred { fill: #fda4af; }
+#diffusion-train-sample-root .famber { fill: #fcd34d; } #diffusion-train-sample-root .fviolet { fill: #c4b5fd; } #diffusion-train-sample-root .fgray { fill: #e2e8f0; }
+#diffusion-train-sample-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#diffusion-train-sample-arrow); }
+#diffusion-train-sample-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#diffusion-train-sample-arrow); }
+#diffusion-train-sample-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#diffusion-train-sample-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="diffusion-train-sample-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="660" fill="#f8fafc"/>
+<text x="32" y="46" class="h">训练学“加了什么噪声”，生成时反复把噪声减掉</text>
+<text x="32" y="78" class="s">Stable Diffusion 1.x 的尺寸；训练每步只取一个随机 t，采样要走完整条去噪链。</text>
+<text x="32" y="120" class="k">训练（每张图每步只做一次）</text>
+<g data-node="x0"><rect x="32" y="136" width="170" height="112" rx="8" class="node"/><text x="50" y="172" class="t">原图</text><text x="50" y="200" class="s">512×512×3</text><text x="50" y="223" class="s">海报配图</text></g>
+<g data-node="vae-e"><rect x="236" y="136" width="170" height="112" rx="8" class="violet"/><text x="254" y="172" class="t">VAE 编码器</text><text x="254" y="200" class="s">冻结</text><text x="254" y="223" class="s">空间缩小 8 倍</text></g>
+<g data-node="z0"><rect x="440" y="136" width="170" height="112" rx="8" class="node"/><text x="458" y="172" class="t">潜变量 z₀</text><text x="458" y="200" class="s">64×64×4</text><text x="458" y="223" class="s">约 1/48 数据量</text></g>
+<g data-node="noise"><rect x="644" y="136" width="200" height="112" rx="8" class="amber"/><text x="662" y="172" class="t">加噪到第 t 步</text><text x="662" y="200" class="s">t 随机取 1…1000</text><text x="662" y="223" class="s">记住噪声 ε</text></g>
+<g data-node="unet"><rect x="878" y="136" width="200" height="112" rx="8" class="green"/><text x="896" y="172" class="t">去噪网络</text><text x="896" y="200" class="s">UNet 或 DiT</text><text x="896" y="223" class="s">输入 z_t、t、文本</text></g>
+<g data-node="loss"><rect x="1112" y="136" width="196" height="112" rx="8" class="red"/><text x="1130" y="172" class="t">损失</text><text x="1130" y="200" class="s">‖ε − 预测 ε‖²</text><text x="1130" y="223" class="s">只更新去噪网络</text></g>
+<path d="M202 192H236" class="edge"/>
+<path d="M406 192H440" class="edge"/>
+<path d="M610 192H644" class="edge"/>
+<path d="M844 192H878" class="edge"/>
+<path d="M1078 192H1112" class="edge"/>
+<g data-node="txt"><rect x="878" y="300" width="200" height="96" rx="8" class="blue"/><text x="896" y="336" class="t">文本编码器</text><text x="896" y="364" class="s">CLIP ViT-L/14，冻结</text><text x="896" y="387" class="s">10% 换成空文本</text></g>
+<path d="M978 300V248" class="edge"/>
+<rect x="984" y="262" width="90" height="26" rx="4" fill="#f8fafc"/><text x="990" y="280" class="s">交叉注意力</text>
+<path d="M32 424H1308" class="line"/>
+<text x="32" y="460" class="k">采样（生成一张图要走几十步）</text>
+<g data-node="zt"><rect x="32" y="476" width="200" height="112" rx="8" class="node"/><text x="50" y="512" class="t">纯噪声 z_T</text><text x="50" y="540" class="s">64×64×4</text><text x="50" y="563" class="s">随机种子决定</text></g>
+<g data-node="loop"><rect x="290" y="476" width="520" height="152" rx="8" class="green"/><text x="308" y="512" class="t">重复 20—50 步：预测噪声并减掉一部分</text><text x="308" y="540" class="s">同一个去噪网络，t 从大到小</text><text x="308" y="563" class="s">有文本预测 ε_c，空文本预测 ε_u</text><text x="308" y="586" class="s">引导：ε_u + w·(ε_c − ε_u)，SD 1.x 常用 w=7.5</text></g>
+<g data-node="zclean"><rect x="868" y="476" width="180" height="112" rx="8" class="node"/><text x="886" y="512" class="t">干净潜变量</text><text x="886" y="540" class="s">64×64×4</text></g>
+<g data-node="vae-d"><rect x="1100" y="476" width="208" height="112" rx="8" class="violet"/><text x="1118" y="512" class="t">VAE 解码器</text><text x="1118" y="540" class="s">还原 512×512×3</text></g>
+<path d="M232 532H290" class="edge"/>
+<path d="M810 532H868" class="edge"/>
+<path d="M1048 532H1100" class="edge"/>
+</svg>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="580" viewBox="0 0 1240 580" role="img" aria-labelledby="lora-merge-serve-title lora-merge-serve-desc" id="lora-merge-serve-root">
+<title id="lora-merge-serve-title">LoRA 适配器的两种上线方式</title>
+<desc id="lora-merge-serve-desc">左侧把适配器乘以 α/r 后加回底座，得到一个大小不变、推理无额外计算的新模型；右侧显存里只放一份底座，挂人事、报销、IT 三个各约 84 MB 的适配器，按请求选择。</desc>
+<defs><style>
+#lora-merge-serve-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#lora-merge-serve-root .h { font-size: 26px; font-weight: 700; }
+#lora-merge-serve-root .t { font-size: 19px; font-weight: 600; }
+#lora-merge-serve-root .s { font-size: 15px; fill: #475569; }
+#lora-merge-serve-root .xs { font-size: 13px; fill: #64748b; }
+#lora-merge-serve-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#lora-merge-serve-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#lora-merge-serve-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#lora-merge-serve-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#lora-merge-serve-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#lora-merge-serve-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#lora-merge-serve-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#lora-merge-serve-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#lora-merge-serve-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#lora-merge-serve-root .fblue { fill: #93c5fd; } #lora-merge-serve-root .fgreen { fill: #6ee7b7; } #lora-merge-serve-root .fred { fill: #fda4af; }
+#lora-merge-serve-root .famber { fill: #fcd34d; } #lora-merge-serve-root .fviolet { fill: #c4b5fd; } #lora-merge-serve-root .fgray { fill: #e2e8f0; }
+#lora-merge-serve-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#lora-merge-serve-arrow); }
+#lora-merge-serve-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#lora-merge-serve-arrow); }
+#lora-merge-serve-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#lora-merge-serve-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="lora-merge-serve-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1240" height="580" fill="#f8fafc"/>
+<text x="32" y="46" class="h">训练完的适配器：合并进底座，或保持独立按请求切换</text>
+<text x="32" y="78" class="s">按 Llama-3.1-8B、r = 16、七种线性层估算；适配器大小 = 41,943,040 个参数 × 2 字节。</text>
+<g data-node="mL"><rect x="32" y="112" width="560" height="330" rx="8" class="node"/><text x="50" y="138" class="k">方式一：合并成一个新模型</text></g>
+<g data-node="base1"><rect x="60" y="160" width="200" height="96" rx="8" class="blue"/><text x="78" y="196" class="t">底座 W₀</text><text x="78" y="224" class="s">BF16 约 16.1 GB</text></g>
+<g data-node="ad1"><rect x="60" y="280" width="200" height="96" rx="8" class="green"/><text x="78" y="316" class="t">适配器 BA</text><text x="78" y="344" class="s">BF16 约 84 MB</text></g>
+<g data-node="merged"><rect x="340" y="210" width="220" height="110" rx="8" class="violet"/><text x="358" y="246" class="t">W' = W₀ + (α/r)BA</text><text x="358" y="274" class="s">仍约 16.1 GB</text><text x="358" y="297" class="s">推理无额外计算</text></g>
+<path d="M260 208Q300 208 300 250H340" class="edge"/>
+<path d="M260 328Q300 328 300 290H340" class="edge"/>
+<text x="60" y="412" class="s">适合只有一个业务版本；换版本要换整份权重</text>
+<g data-node="mR"><rect x="648" y="112" width="560" height="330" rx="8" class="node"/><text x="666" y="138" class="k">方式二：一个底座挂多个适配器</text></g>
+<g data-node="base2"><rect x="676" y="160" width="220" height="260" rx="8" class="blue"/><text x="694" y="196" class="t">共享底座 W₀</text><text x="694" y="224" class="s">显存里只放一份</text><text x="694" y="247" class="s">约 16.1 GB</text></g>
+<g data-node="ad-hr"><rect x="956" y="160" width="228" height="72" rx="8" class="green"/><text x="974" y="196" class="t">人事制度适配器</text><text x="974" y="224" class="s">约 84 MB</text></g>
+<path d="M956 196H896" class="dash"/>
+<g data-node="ad-fin"><rect x="956" y="248" width="228" height="72" rx="8" class="green"/><text x="974" y="284" class="t">报销问答适配器</text><text x="974" y="312" class="s">约 84 MB</text></g>
+<path d="M956 284H896" class="dash"/>
+<g data-node="ad-it"><rect x="956" y="336" width="228" height="72" rx="8" class="green"/><text x="974" y="372" class="t">IT 支持适配器</text><text x="974" y="400" class="s">约 84 MB</text></g>
+<path d="M956 372H896" class="dash"/>
+<g data-node="req"><rect x="648" y="462" width="560" height="86" rx="8" class="amber"/><text x="666" y="498" class="t">请求里写 model="人事制度适配器"</text><text x="666" y="526" class="s">引擎按请求选择分支，同一批里可混用不同适配器</text></g>
+<g data-node="note"><rect x="32" y="462" width="560" height="86" rx="8" class="gray"/><text x="50" y="498" class="t">量化底座上训练的适配器</text><text x="50" y="526" class="s">合并前先反量化；合并后要重新评估，不能直接沿用分数</text></g>
+</svg>

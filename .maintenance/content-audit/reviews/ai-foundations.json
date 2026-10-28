@@ -1,164 +1,167 @@
 {
-  "pages": [
-    {
-      "file": "docs/ai/index.md",
-      "status": "verified",
-      "pageType": "技术全景导读",
-      "decision": "压缩重复定义和列表；客服链路图解释规则、分类器、RAG与受控退款，训练图分清学习与推理；撤下RAG/Agent属于模型子类及所有AI都反传的断言。",
-      "findings": [],
-      "validation": [
-        "全文审查；双视口浅深色全文截图、资源加载、分页通过；两图双视口键盘放大与原尺寸通过。",
-        "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
-      ],
-      "reviewedHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946"
-    },
-    {
-      "file": "docs/ai/history.md",
-      "status": "verified",
-      "pageType": "技术发展机制",
-      "decision": "保留方法演进正文，以同一客服系统说明新旧技术共存；避免Transformer统一一切和模型授权的误解，增加实际职责图。",
-      "findings": [],
-      "validation": [
-        "全文审查；双视口浅深色全文截图与分页通过；客服图已逐标签检查并完成放大验收。"
-      ],
-      "reviewedHash": "1d5ffaf8b3ce004eb0deb7f06b5cc4433ea87ef23cc7d4d143c2fb782755963a"
-    },
-    {
-      "file": "docs/ai/glossary.md",
-      "status": "verified",
-      "pageType": "概念速查",
-      "decision": "校正超参数、梯度、仿射变换、概念漂移；拆开RLHF和DPO，增加客服对象对应实例与图。词典保留表格以利定位。",
-      "findings": [],
-      "validation": [
-        "全部词条与四组边界全文审查；双视口浅深色截图、资源和分页通过，手机表格未发生整页横溢出。"
-      ],
-      "reviewedHash": "3db11e2188329736a2b540abafdb520217fb99792d181fbf8f9e0abeb6cb49ba"
-    },
-    {
-      "file": "docs/ai/learning-path.md",
-      "status": "verified",
-      "pageType": "按目标分支学习路线",
-      "decision": "应用、数据建模和模型训练分支替代八阶段强制串行；12周标为综合练习；写操作按既有授权与业务政策控制。",
-      "findings": [],
-      "validation": [
-        "全文及课程入口审查；新版分支SVG独立测量、双视口原尺寸通过；四种页面显示与分页通过。",
-        "2026-10-27 第六阶段阅读补充大模型推理优化系列入口。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
-      ],
-      "reviewedHash": "1efb7712805f81daadfd98a69f3dc1113948ac05f6a082d81352d23e7ae79711"
-    },
-    {
-      "file": "docs/ai/ml.md",
-      "status": "verified",
-      "pageType": "机器学习全局机制",
-      "decision": "限定质检员类比适用监督学习，补自监督边界及TF-IDF分类器与退款规则的具体比较；重绘闭环图，反馈不污染当前测试。",
-      "findings": [],
-      "validation": [
-        "全文和原图标签审查；四种页面显示、图片与分页通过；重绘流程图桌面截图、手机画布、双视口原尺寸通过。"
-      ],
-      "reviewedHash": "607c25442bc7e42964f1515717907eeff8ca194e9466e1b457d855c131eb4b9c"
-    },
-    {
-      "file": "docs/ai/foundations/index.md",
-      "status": "verified",
-      "pageType": "基础任务导读",
-      "decision": "纠正模型不会记忆样本的绝对断言；客服新表达解释泛化，移除重复Mermaid，以训练/验证/推理SVG组织机制。",
-      "findings": [],
-      "validation": [
-        "全文和全部阅读入口审查；双视口浅深色全文截图、资源与分页通过；训练SVG双视口原尺寸通过。"
-      ],
-      "reviewedHash": "d065abbfde5db9312305d14cacf17104f578e2f55f3841afbe0e633e788dcd41"
-    },
-    {
-      "file": "docs/ai/foundations/data-and-tasks.md",
-      "status": "verified",
-      "pageType": "样本与时间合同",
-      "decision": "用按时长比例SVG取代ASCII；区分事件时间与数据可用时间、未成熟标签；切分按新用户或既有用户未来泛化目标决定，删除原数据不等于权重遗忘。",
-      "findings": [],
-      "validation": [
-        "全文与所有场景审查；图中文字边界和时长比例核验；双视口浅深色、分页、图示原尺寸通过。"
-      ],
-      "reviewedHash": "6208575ea0e5eff82e7293f876654131ce772047ff751caa0ff08b2ef666a9b9"
-    },
-    {
-      "file": "docs/ai/foundations/math-intuition.md",
-      "status": "verified",
-      "pageType": "数学对象与局部优化",
-      "decision": "张量包括零至二维；梯度仅为局部变化率，不能作重要性排名；增加x=2/y=4/w=1的可手算更新及大步反例。",
-      "findings": [],
-      "validation": [
-        "全文与公式核算：学习率0.1损失2→0.72，学习率1损失18；四种页面显示及分页通过；原尺寸手机横向滚动实测scrollLeft29.5。"
-      ],
-      "reviewedHash": "ccc75647b29f2383b601a90091ae8b609960cdb6484ac02b2aa26ab3cf9c4879"
-    },
-    {
-      "file": "docs/ai/foundations/training-optimization.md",
-      "status": "verified",
-      "pageType": "训练循环与更新口径",
-      "decision": "校正AdamW解耦、Dropout激活、增强标签同步、梯度累积下Step口径与随机种子复现边界；改用独立SVG说明训练和评估。",
-      "findings": [],
-      "validation": [
-        "全文及术语逐项审查；双视口浅深色全文截图、资源与分页通过；训练图已完成独立检查和原尺寸操作。"
-      ],
-      "reviewedHash": "3beded4c9fb1bdeeb0a9fdb8872613e462a7377f33d764f99cfd487330cbab43"
-    },
-    {
-      "file": "docs/ai/foundations/generalization-evaluation.md",
-      "status": "verified",
-      "pageType": "评估与错误成本",
-      "decision": "分开泄漏与过拟合、label shift与标签定义变化；阈值用验证集选择；1000笔交易混淆矩阵解释98.6%与99%基线及小样本不确定性。",
-      "findings": [],
-      "validation": [
-        "全文和指标计算核验：TP8/FP12/FN2/TN978、精确率40%/召回80%；SVG无越框，四种页面显示、分页与双视口原尺寸通过。"
-      ],
-      "reviewedHash": "382ab9184f520c34afee34d4f1133682d7439db557a28605270ee648622eca36"
-    },
-    {
-      "file": "docs/ai/deep-learning/index.md",
-      "status": "verified",
-      "pageType": "深度学习导读",
-      "decision": "固定层次仅作直觉，训练损失和优化器不属于生产前向计算；Diffusion归生成方法；补RGB/BGR等迁移输入合同实例。",
-      "findings": [],
-      "validation": [
-        "全文、架构表和阅读入口审查；四种页面显示、资源与分页通过；训练SVG独立审查和原尺寸通过。"
-      ],
-      "reviewedHash": "a09fb3de9e2b8d6b35daefef1856a67e968beed0bfdf27225bef71f883dc56e2"
-    },
-    {
-      "file": "docs/ai/deep-learning/neural-networks.md",
-      "status": "verified",
-      "pageType": "张量形状与反向传播",
-      "decision": "权重不直接表示业务重要性；二分类明确[B,20]→[B,1] logits与BCEWithLogitsLoss，不重复Sigmoid；解释梯度与优化器分工和归一化统计量。",
-      "findings": [],
-      "validation": [
-        "全文及形状、梯度、损失合同核查；四种页面显示、资源与分页通过；数值梯度图双视口原尺寸通过。"
-      ],
-      "reviewedHash": "1a6536256066303e2a28c2e48239a76da348cfe0cf815caeb29d59d26b4437b6"
-    },
-    {
-      "file": "docs/ai/deep-learning/architectures.md",
-      "status": "verified",
-      "pageType": "结构与生成方法选型",
-      "decision": "图示分清CNN/Transformer与Diffusion可组合；校正因果遮罩、移位目标、训练并行与自回归生成逐步执行边界。",
-      "findings": [],
-      "validation": [
-        "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。"
-      ],
-      "reviewedHash": "5440686c9663fdc2a8279c3184a7c2de79ffed76142ee107edd0fab24355941a"
-    },
-    {
-      "file": "docs/ai/deep-learning/framework-practice.md",
-      "status": "verified",
-      "pageType": "可运行训练与部署合同",
-      "decision": "删除未定义加载函数与TaskHead占位；提供CPU脚本，包含输入校验、训练、保存、重载及失败检查；93.75%仅合成验证，不外推业务效果。",
-      "findings": [],
-      "dependencyFiles": [
-        "public/ai/examples/tiny-torch-classifier.py"
-      ],
-      "validation": [
-        "Python3.12.14/PyTorch2.14.1/NumPy2.5.4 CPU实际运行，损失0.788171→0.097969，16验证点15正确；重载输出完全一致、空输入/错列/NaN三类拒绝。",
-        "双视口浅深色全文截图、分页和原尺寸通过；实际下载脚本与源码SHA256一致：742f199d5ff41edd1ea7f73adff6fc692f959ea330536df0e3f74f2f50cf3675。"
-      ],
-      "reviewedHash": "5b9252489436780ad22d417b199334db09d61a17ec149cd822c646c98384400f"
-    }
-  ]
+ "pages": [
+  {
+   "file": "docs/ai/index.md",
+   "status": "verified",
+   "pageType": "技术全景导读",
+   "decision": "压缩重复定义和列表；客服链路图解释规则、分类器、RAG与受控退款，训练图分清学习与推理；撤下RAG/Agent属于模型子类及所有AI都反传的断言。",
+   "findings": [],
+   "validation": [
+    "全文审查；双视口浅深色全文截图、资源加载、分页通过；两图双视口键盘放大与原尺寸通过。",
+    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c"
+  },
+  {
+   "file": "docs/ai/history.md",
+   "status": "verified",
+   "pageType": "技术发展机制",
+   "decision": "保留方法演进正文，以同一客服系统说明新旧技术共存；避免Transformer统一一切和模型授权的误解，增加实际职责图。",
+   "findings": [],
+   "validation": [
+    "全文审查；双视口浅深色全文截图与分页通过；客服图已逐标签检查并完成放大验收。"
+   ],
+   "reviewedHash": "1d5ffaf8b3ce004eb0deb7f06b5cc4433ea87ef23cc7d4d143c2fb782755963a"
+  },
+  {
+   "file": "docs/ai/glossary.md",
+   "status": "verified",
+   "pageType": "概念速查",
+   "decision": "校正超参数、梯度、仿射变换、概念漂移；拆开RLHF和DPO，增加客服对象对应实例与图。词典保留表格以利定位。",
+   "findings": [],
+   "validation": [
+    "全部词条与四组边界全文审查；双视口浅深色截图、资源和分页通过，手机表格未发生整页横溢出。"
+   ],
+   "reviewedHash": "3db11e2188329736a2b540abafdb520217fb99792d181fbf8f9e0abeb6cb49ba"
+  },
+  {
+   "file": "docs/ai/learning-path.md",
+   "status": "verified",
+   "pageType": "按目标分支学习路线",
+   "decision": "应用、数据建模和模型训练分支替代八阶段强制串行；12周标为综合练习；写操作按既有授权与业务政策控制。",
+   "findings": [],
+   "validation": [
+    "全文及课程入口审查；新版分支SVG独立测量、双视口原尺寸通过；四种页面显示与分页通过。",
+    "2026-10-27 第六阶段阅读补充大模型推理优化系列入口。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 第六阶段新增模型训练与调优系列入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "2fa007bbceaaff1567391445a4bcbac3cd2e3b877aded5c9f908f88a482870d1"
+  },
+  {
+   "file": "docs/ai/ml.md",
+   "status": "verified",
+   "pageType": "机器学习全局机制",
+   "decision": "限定质检员类比适用监督学习，补自监督边界及TF-IDF分类器与退款规则的具体比较；重绘闭环图，反馈不污染当前测试。",
+   "findings": [],
+   "validation": [
+    "全文和原图标签审查；四种页面显示、图片与分页通过；重绘流程图桌面截图、手机画布、双视口原尺寸通过。"
+   ],
+   "reviewedHash": "607c25442bc7e42964f1515717907eeff8ca194e9466e1b457d855c131eb4b9c"
+  },
+  {
+   "file": "docs/ai/foundations/index.md",
+   "status": "verified",
+   "pageType": "基础任务导读",
+   "decision": "纠正模型不会记忆样本的绝对断言；客服新表达解释泛化，移除重复Mermaid，以训练/验证/推理SVG组织机制。",
+   "findings": [],
+   "validation": [
+    "全文和全部阅读入口审查；双视口浅深色全文截图、资源与分页通过；训练SVG双视口原尺寸通过。",
+    "2026-10-27 补充指向模型训练与调优系列的链接。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "e5ba235514c402c078f8c4a775576dbdd3a2557eb9cdf045ac7ff3b8d79320d5"
+  },
+  {
+   "file": "docs/ai/foundations/data-and-tasks.md",
+   "status": "verified",
+   "pageType": "样本与时间合同",
+   "decision": "用按时长比例SVG取代ASCII；区分事件时间与数据可用时间、未成熟标签；切分按新用户或既有用户未来泛化目标决定，删除原数据不等于权重遗忘。",
+   "findings": [],
+   "validation": [
+    "全文与所有场景审查；图中文字边界和时长比例核验；双视口浅深色、分页、图示原尺寸通过。"
+   ],
+   "reviewedHash": "6208575ea0e5eff82e7293f876654131ce772047ff751caa0ff08b2ef666a9b9"
+  },
+  {
+   "file": "docs/ai/foundations/math-intuition.md",
+   "status": "verified",
+   "pageType": "数学对象与局部优化",
+   "decision": "张量包括零至二维；梯度仅为局部变化率，不能作重要性排名；增加x=2/y=4/w=1的可手算更新及大步反例。",
+   "findings": [],
+   "validation": [
+    "全文与公式核算：学习率0.1损失2→0.72，学习率1损失18；四种页面显示及分页通过；原尺寸手机横向滚动实测scrollLeft29.5。"
+   ],
+   "reviewedHash": "ccc75647b29f2383b601a90091ae8b609960cdb6484ac02b2aa26ab3cf9c4879"
+  },
+  {
+   "file": "docs/ai/foundations/training-optimization.md",
+   "status": "verified",
+   "pageType": "训练循环与更新口径",
+   "decision": "校正AdamW解耦、Dropout激活、增强标签同步、梯度累积下Step口径与随机种子复现边界；改用独立SVG说明训练和评估。",
+   "findings": [],
+   "validation": [
+    "全文及术语逐项审查；双视口浅深色全文截图、资源与分页通过；训练图已完成独立检查和原尺寸操作。"
+   ],
+   "reviewedHash": "3beded4c9fb1bdeeb0a9fdb8872613e462a7377f33d764f99cfd487330cbab43"
+  },
+  {
+   "file": "docs/ai/foundations/generalization-evaluation.md",
+   "status": "verified",
+   "pageType": "评估与错误成本",
+   "decision": "分开泄漏与过拟合、label shift与标签定义变化；阈值用验证集选择；1000笔交易混淆矩阵解释98.6%与99%基线及小样本不确定性。",
+   "findings": [],
+   "validation": [
+    "全文和指标计算核验：TP8/FP12/FN2/TN978、精确率40%/召回80%；SVG无越框，四种页面显示、分页与双视口原尺寸通过。"
+   ],
+   "reviewedHash": "382ab9184f520c34afee34d4f1133682d7439db557a28605270ee648622eca36"
+  },
+  {
+   "file": "docs/ai/deep-learning/index.md",
+   "status": "verified",
+   "pageType": "深度学习导读",
+   "decision": "固定层次仅作直觉，训练损失和优化器不属于生产前向计算；Diffusion归生成方法；补RGB/BGR等迁移输入合同实例。",
+   "findings": [],
+   "validation": [
+    "全文、架构表和阅读入口审查；四种页面显示、资源与分页通过；训练SVG独立审查和原尺寸通过。"
+   ],
+   "reviewedHash": "a09fb3de9e2b8d6b35daefef1856a67e968beed0bfdf27225bef71f883dc56e2"
+  },
+  {
+   "file": "docs/ai/deep-learning/neural-networks.md",
+   "status": "verified",
+   "pageType": "张量形状与反向传播",
+   "decision": "权重不直接表示业务重要性；二分类明确[B,20]→[B,1] logits与BCEWithLogitsLoss，不重复Sigmoid；解释梯度与优化器分工和归一化统计量。",
+   "findings": [],
+   "validation": [
+    "全文及形状、梯度、损失合同核查；四种页面显示、资源与分页通过；数值梯度图双视口原尺寸通过。"
+   ],
+   "reviewedHash": "1a6536256066303e2a28c2e48239a76da348cfe0cf815caeb29d59d26b4437b6"
+  },
+  {
+   "file": "docs/ai/deep-learning/architectures.md",
+   "status": "verified",
+   "pageType": "结构与生成方法选型",
+   "decision": "图示分清CNN/Transformer与Diffusion可组合；校正因果遮罩、移位目标、训练并行与自回归生成逐步执行边界。",
+   "findings": [],
+   "validation": [
+    "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。"
+   ],
+   "reviewedHash": "5440686c9663fdc2a8279c3184a7c2de79ffed76142ee107edd0fab24355941a"
+  },
+  {
+   "file": "docs/ai/deep-learning/framework-practice.md",
+   "status": "verified",
+   "pageType": "可运行训练与部署合同",
+   "decision": "删除未定义加载函数与TaskHead占位；提供CPU脚本，包含输入校验、训练、保存、重载及失败检查；93.75%仅合成验证，不外推业务效果。",
+   "findings": [],
+   "dependencyFiles": [
+    "public/ai/examples/tiny-torch-classifier.py"
+   ],
+   "validation": [
+    "Python3.12.14/PyTorch2.14.1/NumPy2.5.4 CPU实际运行，损失0.788171→0.097969，16验证点15正确；重载输出完全一致、空输入/错列/NaN三类拒绝。",
+    "双视口浅深色全文截图、分页和原尺寸通过；实际下载脚本与源码SHA256一致：742f199d5ff41edd1ea7f73adff6fc692f959ea330536df0e3f74f2f50cf3675。"
+   ],
+   "reviewedHash": "5b9252489436780ad22d417b199334db09d61a17ec149cd822c646c98384400f"
+  }
+ ]
 }

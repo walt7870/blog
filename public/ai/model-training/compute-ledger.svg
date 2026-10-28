@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="600" viewBox="0 0 1340 600" role="img" aria-labelledby="compute-ledger-title compute-ledger-desc" id="compute-ledger-root">
+<title id="compute-ledger-title">从 6ND 到 GPU 小时的手算账本</title>
+<desc id="compute-ledger-desc">每个参数每个 token 前向 2 次运算、反向约 4 次，合计 6ND；Llama 3.1 8B 约 7.2×10²³ FLOPs，按 H100 BF16 稠密 989 TFLOPS、MFU 40% 折算约 50.7 万 GPU 小时，只有模型卡 146 万的约 35%；405B 的手算约为模型卡的 84%。</desc>
+<defs><style>
+#compute-ledger-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#compute-ledger-root .h { font-size: 26px; font-weight: 700; }
+#compute-ledger-root .t { font-size: 19px; font-weight: 600; }
+#compute-ledger-root .s { font-size: 15px; fill: #475569; }
+#compute-ledger-root .xs { font-size: 13px; fill: #64748b; }
+#compute-ledger-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#compute-ledger-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#compute-ledger-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#compute-ledger-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#compute-ledger-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#compute-ledger-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#compute-ledger-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#compute-ledger-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#compute-ledger-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#compute-ledger-root .fblue { fill: #93c5fd; } #compute-ledger-root .fgreen { fill: #6ee7b7; } #compute-ledger-root .fred { fill: #fda4af; }
+#compute-ledger-root .famber { fill: #fcd34d; } #compute-ledger-root .fviolet { fill: #c4b5fd; } #compute-ledger-root .fgray { fill: #e2e8f0; }
+#compute-ledger-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#compute-ledger-arrow); }
+#compute-ledger-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#compute-ledger-arrow); }
+#compute-ledger-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#compute-ledger-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="compute-ledger-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">训练算力账：从每个参数 6 次运算到 GPU 小时</text>
+<text x="32" y="78" class="s">以 Llama 3.1 8B 预训练为例，五步把模型大小和数据量换算成卡时</text>
+<g data-node="s0"><rect x="24" y="112" width="244" height="176" rx="8" class="blue"/><text x="42" y="138" class="k">1 前向</text><text x="42" y="164" class="t">2 FLOPs</text><text x="42" y="192" class="s">每个参数对每个 token：</text><text x="42" y="215" class="s">权重 × 激活 1 次乘法，</text><text x="42" y="238" class="s">再累加 1 次加法</text></g><path d="M270 200H282" class="edge"/><g data-node="s1"><rect x="286" y="112" width="244" height="176" rx="8" class="violet"/><text x="304" y="138" class="k">2 反向</text><text x="304" y="164" class="t">约 4 FLOPs</text><text x="304" y="192" class="s">对激活求梯度约 2 次，</text><text x="304" y="215" class="s">对权重求梯度约 2 次，</text><text x="304" y="238" class="s">合计约为前向的 2 倍</text></g><path d="M532 200H544" class="edge"/><g data-node="s2"><rect x="548" y="112" width="244" height="176" rx="8" class="green"/><text x="566" y="138" class="k">3 乘以规模</text><text x="566" y="164" class="t">6 × N × D</text><text x="566" y="192" class="s">N = 80.3 亿参数</text><text x="566" y="215" class="s">D = 15 万亿 token</text><text x="566" y="238" class="s">≈ 7.2×10²³ FLOPs</text></g><path d="M794 200H806" class="edge"/><g data-node="s3"><rect x="810" y="112" width="244" height="176" rx="8" class="amber"/><text x="828" y="138" class="k">4 每卡有效算力</text><text x="828" y="164" class="t">约 396 TFLOPS</text><text x="828" y="192" class="s">H100 BF16 稠密峰值</text><text x="828" y="215" class="s">989 TFLOPS × MFU 40%</text><text x="828" y="238" class="s">≈ 3.96×10¹⁴ 次/秒</text></g><path d="M1056 200H1068" class="edge"/><g data-node="s4"><rect x="1072" y="112" width="244" height="176" rx="8" class="node"/><text x="1090" y="138" class="k">5 卡时</text><text x="1090" y="164" class="t">约 50.7 万 GPU 小时</text><text x="1090" y="192" class="s">7.2×10²³ ÷ 3.96×10¹⁴</text><text x="1090" y="215" class="s">≈ 1.83×10⁹ 卡·秒</text><text x="1090" y="238" class="s">这是理想情况的下限</text></g><text x="32" y="336" class="s">手算与模型卡对照：每行以该模型的模型卡 GPU 小时为满格，蓝色是 6ND 手算结果</text><text x="32" y="386" class="t">Llama 3.1 8B</text><rect x="250" y="360" width="820" height="38" rx="3" fill="#e2e8f0" stroke="none"/><rect x="250" y="360" width="284.75342465753425" height="38" rx="3" fill="#93c5fd" stroke="none"/><text x="1084" y="385" class="xs">模型卡 = 100%</text><text x="250" y="426" class="xs">手算 50.7 万（MFU 40%） / 模型卡 146 万：约 35%，倒推等效 MFU 约 14%</text><text x="32" y="490" class="t">Llama 3.1 405B</text><rect x="250" y="464" width="820" height="38" rx="3" fill="#e2e8f0" stroke="none"/><rect x="250" y="464" width="691.3099870298314" height="38" rx="3" fill="#93c5fd" stroke="none"/><text x="1084" y="489" class="xs">模型卡 = 100%</text><text x="250" y="530" class="xs">手算 2600 万（MFU 41%） / 模型卡 3084 万：约 84%，倒推等效 MFU 约 35%</text><text x="32" y="576" class="xs">差距的具体构成模型卡没有拆分；能确定的只是：6ND 只数了理想矩阵乘，真实卡时只会比它多。</text>
+</svg>

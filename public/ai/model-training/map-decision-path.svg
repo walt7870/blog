@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="720" viewBox="0 0 1320 720" role="img" aria-labelledby="map-decision-path-title map-decision-path-desc" id="map-decision-path-root">
+<title id="map-decision-path-title">资料助手团队选择改进手段的阶梯</title>
+<desc id="map-decision-path-desc">从改提示词开始，依次是接检索与工具、SFT 或 LoRA、偏好对齐，最后才是从零预训练；每升一级成本上升一个量级，只有上一级解决不了且问题属于行为而非知识时才往上走。用微调灌入经常变化的制度文本是常见误用，应当走检索。</desc>
+<defs><style>
+#map-decision-path-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#map-decision-path-root .h { font-size: 26px; font-weight: 700; }
+#map-decision-path-root .t { font-size: 19px; font-weight: 600; }
+#map-decision-path-root .s { font-size: 15px; fill: #475569; }
+#map-decision-path-root .xs { font-size: 13px; fill: #64748b; }
+#map-decision-path-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#map-decision-path-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#map-decision-path-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#map-decision-path-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#map-decision-path-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#map-decision-path-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#map-decision-path-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#map-decision-path-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#map-decision-path-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#map-decision-path-root .fblue { fill: #93c5fd; } #map-decision-path-root .fgreen { fill: #6ee7b7; } #map-decision-path-root .fred { fill: #fda4af; }
+#map-decision-path-root .famber { fill: #fcd34d; } #map-decision-path-root .fviolet { fill: #c4b5fd; } #map-decision-path-root .fgray { fill: #e2e8f0; }
+#map-decision-path-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#map-decision-path-arrow); }
+#map-decision-path-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#map-decision-path-arrow); }
+#map-decision-path-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#map-decision-path-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="map-decision-path-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="720" fill="#f8fafc"/>
+<text x="32" y="46" class="h">资料助手要变好用：从最便宜的一级开始</text>
+<text x="32" y="78" class="s">每往右上一级，成本大约升一个量级；只有上一级解决不了、而且问题出在模型“行为”时才往上走。</text>
+<g data-node="prompt"><rect x="32" y="380" width="236" height="196" rx="8" class="node"/><text x="50" y="406" class="k">第 1 级</text><text x="50" y="432" class="t">改提示词</text><text x="50" y="460" class="s">写清口径和拒答规则</text><text x="50" y="483" class="s">给几个示例</text><text x="50" y="506" class="s">成本：小时级</text><text x="50" y="529" class="s">无 GPU</text></g><path d="M268 440H288" class="edge"/><g data-node="rag"><rect x="288" y="324" width="236" height="196" rx="8" class="blue"/><text x="306" y="350" class="k">第 2 级</text><text x="306" y="376" class="t">接检索与工具</text><text x="306" y="404" class="s">制度原文检索后引用</text><text x="306" y="427" class="s">实时数据走接口</text><text x="306" y="450" class="s">成本：天到周</text><text x="306" y="473" class="s">工程为主</text></g><path d="M524 384H544" class="edge"/><g data-node="sft"><rect x="544" y="268" width="236" height="196" rx="8" class="violet"/><text x="562" y="294" class="k">第 3 级</text><text x="562" y="320" class="t">SFT / LoRA</text><text x="562" y="348" class="s">几千条高质量问答</text><text x="562" y="371" class="s">固定格式、口径、拒答</text><text x="562" y="394" class="s">成本：1 张卡、数小时</text><text x="562" y="417" class="s">要建评测集</text></g><path d="M780 328H800" class="edge"/><g data-node="pref"><rect x="800" y="212" width="236" height="196" rx="8" class="amber"/><text x="818" y="238" class="k">第 4 级</text><text x="818" y="264" class="t">偏好对齐</text><text x="818" y="292" class="s">成对比较数据</text><text x="818" y="315" class="s">不乱承诺、更有分寸</text><text x="818" y="338" class="s">成本：标注 + 多次训练</text><text x="818" y="361" class="s">要防钻空子</text></g><path d="M1036 272H1056" class="edge"/><g data-node="pretrain"><rect x="1056" y="156" width="236" height="196" rx="8" class="red"/><text x="1074" y="182" class="k">第 5 级</text><text x="1074" y="208" class="t">从零预训练</text><text x="1074" y="236" class="s">万亿级 token</text><text x="1074" y="259" class="s">数千张卡、数月</text><text x="1074" y="282" class="s">成本：几乎不可能</text><text x="1074" y="305" class="s">交给底座厂商</text></g>
+<g data-node="wrong"><rect x="32" y="600" width="760" height="96" rx="8" class="red"/><text x="50" y="636" class="t">误用：把经常改的制度原文灌进 LoRA</text><text x="50" y="664" class="s">3 月改了年假天数，模型仍按旧数回答，还说不出出处；每次改制度都要重训。</text></g>
+<g data-node="right"><rect x="812" y="600" width="480" height="96" rx="8" class="green"/><text x="830" y="636" class="t">改法：知识放检索，行为交给训练</text><text x="830" y="664" class="s">训练只教“引用条款编号、查不到就说不知道”。</text></g>
+</svg>

@@ -1,131 +1,132 @@
 {
-  "pages": [
-    {
-      "file": "docs/ai/ai-coding-practice/index.md",
-      "status": "verified",
-      "pageType": "总览",
-      "decision": "新增实战手记系列总览：真实项目背景、六篇路线图、案例边界，概念讲解链接到深度系列。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "a0db036b0b33da9b58213fe1311b5ddf8a7cd196fa2278252bda42cab7985ca8"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/01-what-is-agent.md",
-      "status": "verified",
-      "pageType": "机制入门",
-      "decision": "以博客案例更新为贯穿场景解释补全、对话与 Agent 的差别和工作循环，用两次真实的过度宣称引出验证问题。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "231fe9f24d4bb2669d95651ef989f31a190435181daaf97fa350a12b18557662"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/02-multi-session-workflow.md",
-      "status": "verified",
-      "pageType": "经验",
-      "decision": "多会话分工：四层记忆、交接三要素、两个会话同改仓库的真实事件与 GPU 时段规则。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "2e88cda85d04e583d5046f9047bac0a58f119c96bc107ff8ee8a773c00ae773e"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/03-rules-and-grants.md",
-      "status": "verified",
-      "pageType": "经验",
-      "decision": "四层规则，按防住的问题列出各项目真实 AGENTS.md 条目，技能软链共享与单次授权范围。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "48d1365c2a1b28f8d0682321c8b2179f09524f3f03ea63dc0035e7fc4689bbae"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/04-evidence.md",
-      "status": "verified",
-      "pageType": "经验",
-      "decision": "证据五级台阶与项目内实际测试规模，三个易误读点均来自真实记录。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "2ecc74381b3347a0231cfe715abea0ccbeb4c6befd0f727c4e5c43e94f8ece4f"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/05-postmortems.md",
-      "status": "verified",
-      "pageType": "经验",
-      "decision": "四次复盘：约 13 分钟中断、无证据的完成声明、AI 审查门禁移除（原因未记录，只写设计与代价）、公开页面的客户信息。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "ddd7f9c8dd588f32934fc8ffd00356c15bf92017835f770f287845ddb7ef419d"
-    },
-    {
-      "file": "docs/ai/ai-coding-practice/06-what-to-delegate.md",
-      "status": "verified",
-      "pageType": "经验",
-      "decision": "用可验证 × 可撤回划分任务，每格配项目实例，结尾回到深度系列。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "15463f116dbc9f3cbad70f7d909863675e97b1c78d2fc9d5bcd8cabd4e584320"
-    },
-    {
-      "file": "docs/ai/index.md",
-      "status": "verified",
-      "pageType": "总览",
-      "decision": "只在专题卡片中加入实战手记入口，其余未改。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。",
-        "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
-      ],
-      "reviewedHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946"
-    },
-    {
-      "file": "docs/ai/coding-agent-series/index.md",
-      "status": "verified",
-      "pageType": "总览",
-      "decision": "只在阅读路线中加入实战手记链接，其余未改。",
-      "findings": [],
-      "dependencyFiles": [],
-      "validation": [
-        "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
-        "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
-      ],
-      "reviewedHash": "612cc2bbbb8cf5ca4e6444db445d292da59eda5b66600715dfc2b5c5938ad4e8"
-    }
-  ]
+ "pages": [
+  {
+   "file": "docs/ai/ai-coding-practice/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "新增实战手记系列总览：真实项目背景、六篇路线图、案例边界，概念讲解链接到深度系列。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "a0db036b0b33da9b58213fe1311b5ddf8a7cd196fa2278252bda42cab7985ca8"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/01-what-is-agent.md",
+   "status": "verified",
+   "pageType": "机制入门",
+   "decision": "以博客案例更新为贯穿场景解释补全、对话与 Agent 的差别和工作循环，用两次真实的过度宣称引出验证问题。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "231fe9f24d4bb2669d95651ef989f31a190435181daaf97fa350a12b18557662"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/02-multi-session-workflow.md",
+   "status": "verified",
+   "pageType": "经验",
+   "decision": "多会话分工：四层记忆、交接三要素、两个会话同改仓库的真实事件与 GPU 时段规则。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "2e88cda85d04e583d5046f9047bac0a58f119c96bc107ff8ee8a773c00ae773e"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/03-rules-and-grants.md",
+   "status": "verified",
+   "pageType": "经验",
+   "decision": "四层规则，按防住的问题列出各项目真实 AGENTS.md 条目，技能软链共享与单次授权范围。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "48d1365c2a1b28f8d0682321c8b2179f09524f3f03ea63dc0035e7fc4689bbae"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/04-evidence.md",
+   "status": "verified",
+   "pageType": "经验",
+   "decision": "证据五级台阶与项目内实际测试规模，三个易误读点均来自真实记录。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "2ecc74381b3347a0231cfe715abea0ccbeb4c6befd0f727c4e5c43e94f8ece4f"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/05-postmortems.md",
+   "status": "verified",
+   "pageType": "经验",
+   "decision": "四次复盘：约 13 分钟中断、无证据的完成声明、AI 审查门禁移除（原因未记录，只写设计与代价）、公开页面的客户信息。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "ddd7f9c8dd588f32934fc8ffd00356c15bf92017835f770f287845ddb7ef419d"
+  },
+  {
+   "file": "docs/ai/ai-coding-practice/06-what-to-delegate.md",
+   "status": "verified",
+   "pageType": "经验",
+   "decision": "用可验证 × 可撤回划分任务，每格配项目实例，结尾回到深度系列。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "15463f116dbc9f3cbad70f7d909863675e97b1c78d2fc9d5bcd8cabd4e584320"
+  },
+  {
+   "file": "docs/ai/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "只在专题卡片中加入实战手记入口，其余未改。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。",
+    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c"
+  },
+  {
+   "file": "docs/ai/coding-agent-series/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "只在阅读路线中加入实战手记链接，其余未改。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
+    "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
+    "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+   ],
+   "reviewedHash": "612cc2bbbb8cf5ca4e6444db445d292da59eda5b66600715dfc2b5c5938ad4e8"
+  }
+ ]
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="630" viewBox="0 0 1320 630" role="img" aria-labelledby="memory-ledger-title memory-ledger-desc" id="memory-ledger-root">
+<title id="memory-ledger-title">Llama-3.1-8B 全参数微调、LoRA 与 QLoRA 的训练显存按比例对比</title>
+<desc id="memory-ledger-desc">全参数微调需要 BF16 权重和梯度各约 15 GiB、FP32 主权重和两份 AdamW 动量各约 29.9 GiB，再加激活约 9.5 GiB，共约 131 GiB，超过 H100 的 79.6 GiB；LoRA 冻结 BF16 底座约 15 GiB，加 LoRA 训练状态 0.63 GiB 和重计算后的激活，约 19 GiB；QLoRA 把底座压到约 5.3 GiB，共约 9 GiB，24 GB 消费级卡也放得下。</desc>
+<defs><style>
+#memory-ledger-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#memory-ledger-root .h { font-size: 26px; font-weight: 700; }
+#memory-ledger-root .t { font-size: 19px; font-weight: 600; }
+#memory-ledger-root .s { font-size: 15px; fill: #475569; }
+#memory-ledger-root .xs { font-size: 13px; fill: #64748b; }
+#memory-ledger-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#memory-ledger-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#memory-ledger-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#memory-ledger-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#memory-ledger-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#memory-ledger-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#memory-ledger-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#memory-ledger-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#memory-ledger-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#memory-ledger-root .fblue { fill: #93c5fd; } #memory-ledger-root .fgreen { fill: #6ee7b7; } #memory-ledger-root .fred { fill: #fda4af; }
+#memory-ledger-root .famber { fill: #fcd34d; } #memory-ledger-root .fviolet { fill: #c4b5fd; } #memory-ledger-root .fgray { fill: #e2e8f0; }
+#memory-ledger-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#memory-ledger-arrow); }
+#memory-ledger-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#memory-ledger-arrow); }
+#memory-ledger-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#memory-ledger-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="memory-ledger-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="630" fill="#f8fafc"/>
+<text x="32" y="46" class="h">8B 模型训练一次要多少显存</text>
+<text x="32" y="78" class="s">条形按 GiB 等比例绘制；虚线是 24 GB 消费级卡和 H100（可用约 79.6 GiB）的容量。激活与开销是估算，实际以显存监控为准。</text>
+<path d="M450.8571428571429 116V560" fill="none" stroke="#e88191" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="456.8571428571429" y="130" class="xs">24 GB 卡</text>
+<path d="M800.3428571428572 116V560" fill="none" stroke="#e88191" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="806.3428571428572" y="130" class="xs">H100 79.6 GiB</text>
+<text x="32" y="174" class="t">全参数微调 · AdamW</text><text x="32" y="200" class="xs">不开重计算，序列 2048，batch 1</text><rect x="300.0" y="150" width="94.3" height="56" class="fblue" stroke="#fff" stroke-width="1.5"/><text x="347.1428571428571" y="176" class="xs" text-anchor="middle">权重</text><text x="347.1428571428571" y="196" class="xs" text-anchor="middle">15.0</text><rect x="394.3" y="150" width="94.3" height="56" class="fviolet" stroke="#fff" stroke-width="1.5"/><text x="441.42857142857144" y="176" class="xs" text-anchor="middle">梯度</text><text x="441.42857142857144" y="196" class="xs" text-anchor="middle">15.0</text><rect x="488.6" y="150" width="187.9" height="56" class="famber" stroke="#fff" stroke-width="1.5"/><text x="582.5428571428571" y="176" class="xs" text-anchor="middle">FP32 主权重</text><text x="582.5428571428571" y="196" class="xs" text-anchor="middle">29.9</text><rect x="676.5" y="150" width="187.9" height="56" class="famber" stroke="#fff" stroke-width="1.5"/><text x="770.4857142857143" y="176" class="xs" text-anchor="middle">一阶动量 m</text><text x="770.4857142857143" y="196" class="xs" text-anchor="middle">29.9</text><rect x="864.5" y="150" width="187.9" height="56" class="famber" stroke="#fff" stroke-width="1.5"/><text x="958.4285714285713" y="176" class="xs" text-anchor="middle">二阶动量 v</text><text x="958.4285714285713" y="196" class="xs" text-anchor="middle">29.9</text><rect x="1052.4" y="150" width="59.7" height="56" class="fred" stroke="#fff" stroke-width="1.5"/><rect x="1112.1" y="150" width="9.4" height="56" class="fgray" stroke="#fff" stroke-width="1.5"/><text x="1133.542857142857" y="184" class="t">≈ 131 GiB</text><text x="32" y="324" class="t">LoRA r=16 · BF16 底座</text><text x="32" y="350" class="xs">开重计算，序列 2048，batch 1</text><rect x="300.0" y="300" width="94.3" height="56" class="fblue" stroke="#fff" stroke-width="1.5"/><rect x="394.3" y="300" width="4.0" height="56" class="fgreen" stroke="#fff" stroke-width="1.5"/><rect x="398.2" y="300" width="11.0" height="56" class="fred" stroke="#fff" stroke-width="1.5"/><rect x="409.2" y="300" width="9.4" height="56" class="fgray" stroke="#fff" stroke-width="1.5"/><text x="430.6742857142857" y="334" class="t">≈ 19 GiB</text><rect x="294" y="364" width="470" height="26" rx="4" fill="#f8fafc"/><text x="300" y="382" class="s">冻结底座 15.0 + LoRA 状态 0.63 + 激活 1.8 + 开销 1.5</text><text x="32" y="474" class="t">QLoRA r=16 · NF4 底座</text><text x="32" y="500" class="xs">开重计算，序列 2048，batch 1</text><rect x="300.0" y="450" width="33.3" height="56" class="fblue" stroke="#fff" stroke-width="1.5"/><rect x="333.3" y="450" width="4.0" height="56" class="fgreen" stroke="#fff" stroke-width="1.5"/><rect x="337.3" y="450" width="11.0" height="56" class="fred" stroke="#fff" stroke-width="1.5"/><rect x="348.3" y="450" width="9.4" height="56" class="fgray" stroke="#fff" stroke-width="1.5"/><text x="369.7028571428571" y="484" class="t">≈ 9 GiB</text><rect x="294" y="514" width="470" height="26" rx="4" fill="#f8fafc"/><text x="300" y="532" class="s">NF4 底座 5.3 + LoRA 状态 0.63 + 激活 1.8 + 开销 1.5</text><rect x="294" y="214" width="600" height="26" rx="4" fill="#f8fafc"/><text x="300" y="232" class="s">前五项 = 16 字节 × 80.3 亿参数 ≈ 119.7 GiB（128.5 GB）；激活 9.5、开销 1.5 为估算</text>
+<rect x="300" y="584" width="18" height="18" rx="4" class="fblue"/><text x="326" y="599" class="xs">权重 / 底座</text><rect x="450" y="584" width="18" height="18" rx="4" class="fviolet"/><text x="476" y="599" class="xs">梯度</text><rect x="600" y="584" width="18" height="18" rx="4" class="famber"/><text x="626" y="599" class="xs">FP32 主权重与动量</text><rect x="750" y="584" width="18" height="18" rx="4" class="fgreen"/><text x="776" y="599" class="xs">LoRA 参数、梯度与动量</text><rect x="960" y="584" width="18" height="18" rx="4" class="fred"/><text x="986" y="599" class="xs">激活</text><rect x="1110" y="584" width="18" height="18" rx="4" class="fgray"/><text x="1136" y="599" class="xs">框架开销</text>
+</svg>

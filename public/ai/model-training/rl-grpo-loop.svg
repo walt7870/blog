@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="660" viewBox="0 0 1240 660" role="img" aria-labelledby="rl-grpo-loop-title rl-grpo-loop-desc" id="rl-grpo-loop-root">
+<title id="rl-grpo-loop-title">GRPO 训练一步的循环</title>
+<desc id="rl-grpo-loop-desc">同一道加班费题让当前策略采样 8 个回答，检查器抽取最终数字与标准答案 1600 比对，答对得 1、答错或没有答案得 0。8 个奖励的均值 0.5、标准差 0.5，归一化后答对的优势 +1.0、答错的 −1.0，再按优势更新策略并用 KL 拉住参考模型，然后进入下一题。</desc>
+<defs><style>
+#rl-grpo-loop-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#rl-grpo-loop-root .h { font-size: 26px; font-weight: 700; }
+#rl-grpo-loop-root .t { font-size: 19px; font-weight: 600; }
+#rl-grpo-loop-root .s { font-size: 15px; fill: #475569; }
+#rl-grpo-loop-root .xs { font-size: 13px; fill: #64748b; }
+#rl-grpo-loop-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#rl-grpo-loop-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#rl-grpo-loop-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#rl-grpo-loop-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#rl-grpo-loop-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#rl-grpo-loop-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#rl-grpo-loop-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#rl-grpo-loop-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#rl-grpo-loop-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#rl-grpo-loop-root .fblue { fill: #93c5fd; } #rl-grpo-loop-root .fgreen { fill: #6ee7b7; } #rl-grpo-loop-root .fred { fill: #fda4af; }
+#rl-grpo-loop-root .famber { fill: #fcd34d; } #rl-grpo-loop-root .fviolet { fill: #c4b5fd; } #rl-grpo-loop-root .fgray { fill: #e2e8f0; }
+#rl-grpo-loop-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#rl-grpo-loop-arrow); }
+#rl-grpo-loop-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#rl-grpo-loop-arrow); }
+#rl-grpo-loop-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#rl-grpo-loop-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="rl-grpo-loop-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1240" height="660" fill="#f8fafc"/>
+<text x="32" y="46" class="h">GRPO 一步：同题采样一组回答，按组内相对好坏更新</text>
+<text x="32" y="78" class="s">题目：月工资 8,700 元，按 21.75 天折算日工资，休息日加班 2 天且未补休，加班费多少？（教学用示例制度：休息日 200%）</text>
+<g data-node="q"><rect x="32" y="120" width="260" height="120" rx="8" class="gray"/><text x="50" y="146" class="k">训练数据</text><text x="50" y="172" class="t">题目 + 标准答案</text><text x="50" y="200" class="s">400 元/天 × 2 天 × 200%</text><text x="50" y="223" class="s">= 1600 元</text></g>
+<g data-node="pol"><rect x="330" y="120" width="340" height="120" rx="8" class="blue"/><text x="348" y="146" class="k">① 生成（rollout）</text><text x="348" y="172" class="t">当前策略采样 G = 8 次</text><text x="348" y="200" class="s">温度 &gt; 0，每次推理过程不同</text><text x="348" y="223" class="s">生成占一步大部分时间</text></g>
+<g data-node="ref"><rect x="880" y="120" width="328" height="120" rx="8" class="violet"/><text x="898" y="146" class="k">可选</text><text x="898" y="172" class="t">参考模型</text><text x="898" y="200" class="s">计算 KL：别离起点太远</text><text x="898" y="223" class="s">（TRL 当前默认不加）</text></g>
+<path d="M292 180H330" class="edge"/>
+<path d="M500 240V300" class="edge"/>
+<rect x="330" y="300" width="78" height="40" rx="4" class="fblue"/><text x="369" y="325" text-anchor="middle" class="s">1600</text><rect x="330" y="380" width="78" height="36" rx="4" class="fgreen"/><text x="369" y="403" text-anchor="middle" class="s">1</text><rect x="330" y="460" width="78" height="36" rx="4" class="fgreen"/><text x="369" y="483" text-anchor="middle" class="s">+1.0</text><rect x="416" y="300" width="78" height="40" rx="4" class="fblue"/><text x="455" y="325" text-anchor="middle" class="s">1200</text><rect x="416" y="380" width="78" height="36" rx="4" class="fred"/><text x="455" y="403" text-anchor="middle" class="s">0</text><rect x="416" y="460" width="78" height="36" rx="4" class="fred"/><text x="455" y="483" text-anchor="middle" class="s">−1.0</text><rect x="502" y="300" width="78" height="40" rx="4" class="fblue"/><text x="541" y="325" text-anchor="middle" class="s">1600</text><rect x="502" y="380" width="78" height="36" rx="4" class="fgreen"/><text x="541" y="403" text-anchor="middle" class="s">1</text><rect x="502" y="460" width="78" height="36" rx="4" class="fgreen"/><text x="541" y="483" text-anchor="middle" class="s">+1.0</text><rect x="588" y="300" width="78" height="40" rx="4" class="fblue"/><text x="627" y="325" text-anchor="middle" class="s">2400</text><rect x="588" y="380" width="78" height="36" rx="4" class="fred"/><text x="627" y="403" text-anchor="middle" class="s">0</text><rect x="588" y="460" width="78" height="36" rx="4" class="fred"/><text x="627" y="483" text-anchor="middle" class="s">−1.0</text><rect x="674" y="300" width="78" height="40" rx="4" class="fblue"/><text x="713" y="325" text-anchor="middle" class="s">1600</text><rect x="674" y="380" width="78" height="36" rx="4" class="fgreen"/><text x="713" y="403" text-anchor="middle" class="s">1</text><rect x="674" y="460" width="78" height="36" rx="4" class="fgreen"/><text x="713" y="483" text-anchor="middle" class="s">+1.0</text><rect x="760" y="300" width="78" height="40" rx="4" class="fblue"/><text x="799" y="325" text-anchor="middle" class="s">800</text><rect x="760" y="380" width="78" height="36" rx="4" class="fred"/><text x="799" y="403" text-anchor="middle" class="s">0</text><rect x="760" y="460" width="78" height="36" rx="4" class="fred"/><text x="799" y="483" text-anchor="middle" class="s">−1.0</text><rect x="846" y="300" width="78" height="40" rx="4" class="fblue"/><text x="885" y="325" text-anchor="middle" class="s">无答案</text><rect x="846" y="380" width="78" height="36" rx="4" class="fred"/><text x="885" y="403" text-anchor="middle" class="s">0</text><rect x="846" y="460" width="78" height="36" rx="4" class="fred"/><text x="885" y="483" text-anchor="middle" class="s">−1.0</text><rect x="932" y="300" width="78" height="40" rx="4" class="fblue"/><text x="971" y="325" text-anchor="middle" class="s">1600</text><rect x="932" y="380" width="78" height="36" rx="4" class="fgreen"/><text x="971" y="403" text-anchor="middle" class="s">1</text><rect x="932" y="460" width="78" height="36" rx="4" class="fgreen"/><text x="971" y="483" text-anchor="middle" class="s">+1.0</text><text x="320" y="326" class="k" text-anchor="end">8 个回答</text><text x="320" y="404" class="k" text-anchor="end">奖励</text><text x="320" y="484" class="k" text-anchor="end">优势</text><path d="M670 340V380" class="edge"/><path d="M670 416V460" class="edge"/><rect x="684" y="350" width="310" height="26" rx="4" fill="#f8fafc"/><text x="690" y="368" class="s">② 检查器：抽取最终数字，与 1600 比对</text><rect x="684" y="428" width="300" height="26" rx="4" fill="#f8fafc"/><text x="690" y="446" class="s">(奖励 − 组均值 0.5) ÷ 组标准差 0.5</text>
+<g data-node="upd"><rect x="330" y="540" width="878" height="92" rx="8" class="green"/><text x="348" y="576" class="t">③ 更新：提高 +1.0 回答里每个 token 的概率，降低 −1.0 的</text><text x="348" y="604" class="s">不需要价值模型；组里全对或全错时优势都是 0，这道题本步不提供学习信号</text></g>
+<path d="M670 496V540" class="edge"/>
+<path d="M1120 240V540" class="dash"/>
+<rect x="1126" y="382" width="60" height="26" rx="4" fill="#f8fafc"/><text x="1132" y="400" class="s">KL 项</text>
+<path d="M330 586H162V240" class="dash"/>
+<rect x="170" y="402" width="100" height="26" rx="4" fill="#f8fafc"/><text x="176" y="420" class="s">下一批题目</text>
+</svg>

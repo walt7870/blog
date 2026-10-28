@@ -70,6 +70,7 @@ RAG 和 Agent 是应用机制：RAG 把检索结果带入模型上下文；Agent
   { title: '主要应用方向', href: '/docs/ai/domains/', icon: 'layers', description: '识别图片缺陷、转写会议语音、预测销量：先确定输入、输出与错误代价。' },
   { title: '大语言模型', href: '/docs/ai/llm/', icon: 'book', description: '理解上下文、生成与推理的边界，再选择提示词、检索和工具调用。' },
   { title: '模型数值精度', href: '/docs/ai/precision/', icon: 'gauge', description: '跟着一个数字理解 FP32、FP16、BF16：怎样保存、误差从哪里来，混合精度与量化怎样工作。' },
+  { title: '模型训练与调优', href: '/docs/ai/model-training/', icon: 'layers', description: '大模型、语音、视觉、多模态与向量模型怎样训练和微调：显存与算力账、SFT、LoRA、偏好对齐、评估与工程。' },
   { title: '大模型推理优化', href: '/docs/ai/llm-inference/', icon: 'gauge', description: '从 Prefill、Decode 与 KV Cache 讲到 Roofline、调度、量化、投机解码、分布式部署与压测运维。' },
   { title: '流式语音技术实践', href: '/docs/ai/speech-engineering/', icon: 'network', description: '沿音频分段、角色识别、动态调度与热词处理理解实时语音链路。' },
   { title: 'LangChain 工程实践', href: '/docs/ai/applications/langchain/', icon: 'workflow', description: '把企业制度检索、回答生成和工具接口接成可调试的业务链路。' },

@@ -31,7 +31,7 @@ python -m pip install 'vllm==0.32.0'
 vllm serve Qwen/Qwen3-8B --max-model-len 8192
 ```
 
-启动日志里值得看的几行：使用的数据类型和量化方法、选中的注意力后端、KV Cache 的容量（多少个 token）、CUDA Graph 录制了哪些批大小。从安装、离线推理、调用接口到按报错排查显存问题的完整步骤，见[实践篇：用 vLLM 跑起资料助手](./vllm-quickstart.md)。服务默认监听 8000 端口，提供 `/v1/chat/completions` 等兼容接口。注意 vLLM 的兼容服务**默认不做认证**，对外提供服务时要在网关层加上鉴权（第 21 篇）。
+启动日志里值得看的几行：使用的数据类型和量化方法、选中的注意力后端、KV Cache 的容量（多少个 token）、CUDA Graph 录制了哪些批大小。从安装、离线推理、调用接口到按报错排查显存问题的完整步骤，见[实践篇：用 vLLM 跑起资料助手](./vllm-quickstart.md)。服务默认监听所有网卡的 8000 端口，提供 `/v1/chat/completions` 等兼容接口。注意 vLLM 的兼容服务**默认不做认证**，对外提供服务时要在网关层加上鉴权（第 21 篇）。
 
 ## SGLang：从前缀共享起家
 
@@ -42,14 +42,17 @@ SGLang 最初的论文提出了 RadixAttention（第 10 篇）和一套描述复
 - **分层 KV 缓存（HiCache）。** 显存放不下的前缀缓存下沉到 CPU 内存和远端存储。
 - **结构化输出。** 生成 JSON 或符合正则、语法的文本时，每一步把不合法的 token 屏蔽掉，这是它长期投入的方向。
 
-最小启动方式（以 0.5.22 版本为例）：
+最小启动方式（以 0.5.22 版本为例，需要 CUDA 13 的驱动）：
 
 ```bash
 python3.11 -m venv .venv-sglang && source .venv-sglang/bin/activate
-python -m pip install 'sglang[all]==0.5.22'
+python -m pip install uv
+uv pip install --prerelease=allow 'sglang==0.5.22'
 
-python -m sglang.launch_server --model-path Qwen/Qwen3-8B --context-length 8192 --port 8000
+sglang serve Qwen/Qwen3-8B --context-length 8192 --port 8000
 ```
+
+官方安装方式要加 `--prerelease=allow`，因为部分依赖只发布了预发布版本。SGLang 默认只监听 `127.0.0.1:30000`，这里改成 8000 端口是为了和 vLLM 的例子对照；在容器里运行或要从别的机器访问，需要加 `--host 0.0.0.0`，同时在网关层做鉴权。
 
 ## 结构化输出：每一步都在限制选择
 
@@ -71,7 +74,7 @@ python -m sglang.launch_server --model-path Qwen/Qwen3-8B --context-length 8192 
 | 前缀缓存 | 完整块的哈希链 | 基数树，粒度更细 |
 | 默认调度 | 先来先服务，可设优先级 | 先来先服务，可选前缀匹配优先等策略 |
 | 模型与硬件覆盖 | 非常广 | 广，对热门模型跟进很快 |
-| 投机解码 | 多种方法，0.32.0 按单链起草 | 多种方法，支持树形草稿 |
+| 投机解码 | 多种方法，0.32.0 按单链起草 | 多种方法，支持树形草稿（0.5.22 默认的重叠调度只允许单链，树形草稿要关闭重叠调度） |
 | P/D 分离 | 多种 KV 连接器 | 内置，默认 Mooncake 传输 |
 
 两者的能力高度重叠，而且都在快速迭代。“vLLM 没有基数树所以不能复用前缀”“SGLang 有树所以一定更快”这类推论都不成立。哪个更快，要用你的模型、你的硬件、你的请求分布实测。
@@ -82,7 +85,7 @@ python -m sglang.launch_server --model-path Qwen/Qwen3-8B --context-length 8192 
 
 | 方案 | 适合优先评估的场景 | 需要注意的边界 |
 | --- | --- | --- |
-| TensorRT-LLM | NVIDIA GPU 上固定模型与硬件的深度优化 | 适配成本较高；注意区分正式版和预发布版 |
+| TensorRT-LLM | NVIDIA GPU 上追求极致性能，尤其是新硬件和 FP8、NVFP4 等低精度格式 | 只支持 NVIDIA GPU 和 Linux，模型覆盖比 vLLM 窄，默认值与 vLLM 不同；注意区分正式版和预发布版 |
 | llama.cpp | 本地运行、CPU 与 GPU 混合、量化种类多（GGUF） | 多用户高并发不是主要目标 |
 | MLX-LM | Apple Silicon 上的本地推理与实验 | 统一内存有容量和带宽上限 |
 | Ollama | 本地模型管理和简单的 API 封装 | 先确认实际使用的后端和模型格式 |

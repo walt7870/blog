@@ -1,72 +1,75 @@
 {
-  "pages": [
-    {
-      "file": "docs/ai/llm/index.md",
-      "status": "verified",
-      "pageType": "大模型阅读导读",
-      "decision": "明确自回归文本模型范围，区分训练目标和参数适配，按退款助手串联训练、检索、工具与推理。",
-      "findings": [],
-      "validation": [
-        "全文、子页入口和概念图审查；四模式全文截图、真实分页、双视口键盘放大与原尺寸通过。",
-        "2026-10-27 推理与部署入口说明更新，补系列链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
-      ],
-      "reviewedHash": "2207921847444902bfae50811238a3464ae50e70e3ea1e8a942cc4a66dbfa5a5"
-    },
-    {
-      "file": "docs/ai/llm/concepts.md",
-      "status": "verified",
-      "pageType": "大模型概念关系",
-      "decision": "区分内部Token表示和检索句向量；MoE不保证业务类别专家；LoRA按单层参数演算，QLoRA区分存储和计算精度。",
-      "findings": [],
-      "validation": [
-        "16777216与65536参数实际计算，比例1/256；全文及图示语义检查，四模式截图、分页与双视口原尺寸通过。"
-      ],
-      "reviewedHash": "acce9aa5530465ba62d0a9d11d9c21b5f96b08eb9a429d53d5771f1636dbcc11"
-    },
-    {
-      "file": "docs/ai/llm/inference.md",
-      "status": "verified",
-      "pageType": "自回归推理与缓存合同",
-      "decision": "大模型专题内的推理导读：为应用开发者说明推理对延迟、上下文成本、缓存、随机性、流式和量化的影响，原理与自部署指向大模型推理优化系列。",
-      "findings": [],
-      "validation": [
-        "32层8KV头128维4096位置2字节实际计算512MiB；四模式截图、分页、双视口图示放大与原尺寸通过。",
-        "2026-10-27 重写为面向应用开发者的推理导读：先分清调用接口与自部署，再讲 TTFT/TPOT、KV Cache 账、前缀缓存命中条件、采样与确定性、流式输出规则、量化误区、批处理与 MoE，每节指向推理优化系列对应章节；保留原页的流式 JSON、前缀复用兼容性、场景表等应用层内容，删去与系列重复的粗略段落。KV 数字复算；无历史上下文的模拟审查无错误，7 处表述按建议修正（模拟审查不代替真实读者）。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
-      ],
-      "reviewedHash": "5d3aae31ef6ca6f4a8bec00e0d8537dfb82186c30f8a87cfe1ee7023b2921835"
-    },
-    {
-      "file": "docs/ai/llm/rag-tools.md",
-      "status": "verified",
-      "pageType": "文档证据与工具职责",
-      "decision": "退款政策、订单实时状态和写入权限分开；工作日需日历与时区，approved不证明到账，超时不证明未执行；MCP不自动授予权限。",
-      "findings": [],
-      "validation": [
-        "全文和图中证据方向审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。"
-      ],
-      "reviewedHash": "341985e8dd4a0eab5cdbec1ede0cafc367d42884fe01dc22e6d56b76e259ca3b"
-    },
-    {
-      "file": "docs/ai/llm/sft.md",
-      "status": "verified",
-      "pageType": "监督微调任务合同",
-      "decision": "补三类工单JSONL、label mask配置、同工单改写分组与冲突标签政策；偏好对齐为可选，SFT可能记忆样例，实时事实另核。",
-      "findings": [],
-      "validation": [
-        "JSONL及消息内JSON实际解析通过；修订图示ID后重测与视觉检查通过；四模式截图、分页及双视口原尺寸通过。"
-      ],
-      "reviewedHash": "cabb63cb7e395f539fc1f7c2ce79426a29e88d9aa0c9237529f9a17ab4599e39"
-    },
-    {
-      "file": "docs/ai/llm/training.md",
-      "status": "verified",
-      "pageType": "训练目标与参数更新",
-      "decision": "移除预训练只学规律不记忆断言；明确SFT可采用LoRA；区分典型RLHF与不依赖在线强化学习的DPO。",
-      "findings": [],
-      "validation": [
-        "全文、数学关系和图示审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。"
-      ],
-      "reviewedHash": "fee9c346bfc425480fc9ee04bdb5eb7f1a87992638e14662cfaa9ecdfa4987aa"
-    }
-  ]
+ "pages": [
+  {
+   "file": "docs/ai/llm/index.md",
+   "status": "verified",
+   "pageType": "大模型阅读导读",
+   "decision": "明确自回归文本模型范围，区分训练目标和参数适配，按退款助手串联训练、检索、工具与推理。",
+   "findings": [],
+   "validation": [
+    "全文、子页入口和概念图审查；四模式全文截图、真实分页、双视口键盘放大与原尺寸通过。",
+    "2026-10-27 推理与部署入口说明更新，补系列链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 关系说明补充训练系列链接。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "a334c15495fe4528c9c34e884ce0ea0bfdc4128d94a4a20f0233999d6021b836"
+  },
+  {
+   "file": "docs/ai/llm/concepts.md",
+   "status": "verified",
+   "pageType": "大模型概念关系",
+   "decision": "区分内部Token表示和检索句向量；MoE不保证业务类别专家；LoRA按单层参数演算，QLoRA区分存储和计算精度。",
+   "findings": [],
+   "validation": [
+    "16777216与65536参数实际计算，比例1/256；全文及图示语义检查，四模式截图、分页与双视口原尺寸通过。"
+   ],
+   "reviewedHash": "acce9aa5530465ba62d0a9d11d9c21b5f96b08eb9a429d53d5771f1636dbcc11"
+  },
+  {
+   "file": "docs/ai/llm/inference.md",
+   "status": "verified",
+   "pageType": "自回归推理与缓存合同",
+   "decision": "大模型专题内的推理导读：为应用开发者说明推理对延迟、上下文成本、缓存、随机性、流式和量化的影响，原理与自部署指向大模型推理优化系列。",
+   "findings": [],
+   "validation": [
+    "32层8KV头128维4096位置2字节实际计算512MiB；四模式截图、分页、双视口图示放大与原尺寸通过。",
+    "2026-10-27 重写为面向应用开发者的推理导读：先分清调用接口与自部署，再讲 TTFT/TPOT、KV Cache 账、前缀缓存命中条件、采样与确定性、流式输出规则、量化误区、批处理与 MoE，每节指向推理优化系列对应章节；保留原页的流式 JSON、前缀复用兼容性、场景表等应用层内容，删去与系列重复的粗略段落。KV 数字复算；无历史上下文的模拟审查无错误，7 处表述按建议修正（模拟审查不代替真实读者）。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
+   ],
+   "reviewedHash": "5d3aae31ef6ca6f4a8bec00e0d8537dfb82186c30f8a87cfe1ee7023b2921835"
+  },
+  {
+   "file": "docs/ai/llm/rag-tools.md",
+   "status": "verified",
+   "pageType": "文档证据与工具职责",
+   "decision": "退款政策、订单实时状态和写入权限分开；工作日需日历与时区，approved不证明到账，超时不证明未执行；MCP不自动授予权限。",
+   "findings": [],
+   "validation": [
+    "全文和图中证据方向审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。"
+   ],
+   "reviewedHash": "341985e8dd4a0eab5cdbec1ede0cafc367d42884fe01dc22e6d56b76e259ca3b"
+  },
+  {
+   "file": "docs/ai/llm/sft.md",
+   "status": "verified",
+   "pageType": "监督微调任务合同",
+   "decision": "补三类工单JSONL、label mask配置、同工单改写分组与冲突标签政策；偏好对齐为可选，SFT可能记忆样例，实时事实另核。",
+   "findings": [],
+   "validation": [
+    "JSONL及消息内JSON实际解析通过；修订图示ID后重测与视觉检查通过；四模式截图、分页及双视口原尺寸通过。",
+    "2026-10-27 相关概念补充 SFT 详细篇与实践篇链接。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "6d8f5bdd270cde4a662658f279ff8cee3696d4c7a9c3dd4c749d46bedbabbe81"
+  },
+  {
+   "file": "docs/ai/llm/training.md",
+   "status": "verified",
+   "pageType": "训练目标与参数更新",
+   "decision": "移除预训练只学规律不记忆断言；明确SFT可采用LoRA；区分典型RLHF与不依赖在线强化学习的DPO。",
+   "findings": [],
+   "validation": [
+    "全文、数学关系和图示审查；四模式截图、真实分页、双视口键盘放大与原尺寸通过。",
+    "2026-10-27 结尾补充训练系列与实践篇入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+   ],
+   "reviewedHash": "e5e7c54b5b2f57533ccf553c720924b0b5090244a32ba9cb8d3ad4d8ea20ee94"
+  }
+ ]
 }

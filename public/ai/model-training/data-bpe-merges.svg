@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="data-bpe-title data-bpe-desc" id="data-bpe-root">
+<title id="data-bpe-title">BPE 合并过程与三种分词器切分同一句中文的结果</title>
+<desc id="data-bpe-desc">左：在 low×5、lower×2、newest×6、widest×3 的小语料上，BPE 依次把出现最多的相邻对合并成新 token：es、est、lo、low，没见过的 lowest 被切成 low + est。右：“年假怎么申请？”在 GPT-2 分词器下是 16 个字节片段，Llama 2 分词器 14 个（假、怎、申各退回 3 个字节），Llama 3 分词器 5 个。</desc>
+<defs><style>
+#data-bpe-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#data-bpe-root .h { font-size: 26px; font-weight: 700; }
+#data-bpe-root .t { font-size: 19px; font-weight: 600; }
+#data-bpe-root .s { font-size: 15px; fill: #475569; }
+#data-bpe-root .xs { font-size: 13px; fill: #64748b; }
+#data-bpe-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#data-bpe-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#data-bpe-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#data-bpe-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#data-bpe-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#data-bpe-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#data-bpe-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#data-bpe-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#data-bpe-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#data-bpe-root .fblue { fill: #93c5fd; } #data-bpe-root .fgreen { fill: #6ee7b7; } #data-bpe-root .fred { fill: #fda4af; }
+#data-bpe-root .famber { fill: #fcd34d; } #data-bpe-root .fviolet { fill: #c4b5fd; } #data-bpe-root .fgray { fill: #e2e8f0; }
+#data-bpe-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#data-bpe-arrow); }
+#data-bpe-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#data-bpe-arrow); }
+#data-bpe-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#data-bpe-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="data-bpe-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">BPE：从字符出发，反复合并最常见的相邻对</text>
+<text x="32" y="78" class="s">左边是手算的小例子；右边是本机用三个公开分词器实测的切分结果。</text>
+<g data-node="bpe"><rect x="32" y="104" width="500" height="470" rx="8" class="node"/><text x="50" y="130" class="k">训练分词器</text></g>
+<text x="56" y="162" class="s">语料词频：low ×5，lower ×2，newest ×6，widest ×3</text>
+<text x="56" y="194" class="xs">起点：每个词拆成单个字母，统计相邻对出现次数</text>
+<text x="56" y="236" class="s">第 1 次</text><text x="140" y="236" class="m">e + s → es</text><text x="500" y="236" class="s" text-anchor="end">9 次</text><text x="56" y="282" class="s">第 2 次</text><text x="140" y="282" class="m">es + t → est</text><text x="500" y="282" class="s" text-anchor="end">9 次</text><text x="56" y="328" class="s">第 3 次</text><text x="140" y="328" class="m">l + o → lo</text><text x="500" y="328" class="s" text-anchor="end">7 次</text><text x="56" y="374" class="s">第 4 次</text><text x="140" y="374" class="m">lo + w → low</text><text x="500" y="374" class="s" text-anchor="end">7 次</text>
+<path d="M56 412H508" class="line"/>
+<text x="56" y="444" class="xs">学到的合并规则按顺序存进词表。切新词时照顺序套用：</text>
+<text x="56" y="478" class="m">newest → n e w est</text>
+<text x="56" y="510" class="m">lowest（训练时没见过）→ low est</text>
+<text x="56" y="548" class="xs">常见片段变成整块，生僻词也能拆成已知片段</text>
+<g data-node="cut"><rect x="560" y="104" width="608" height="470" rx="8" class="node"/><text x="578" y="130" class="k">同一句“年假怎么申请？”</text></g>
+<text x="584" y="162" class="s">GPT-2 分词器（词表 50,257）：16 个 token</text>
+<rect x="584" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="614" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="644" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="674" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="704" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="734" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="764" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="794" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="824" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="854" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="884" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="914" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="944" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="974" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="1004" y="176" width="26" height="36" rx="4" class="fgray"/><rect x="1034" y="176" width="26" height="36" rx="4" class="fgray"/>
+<text x="584" y="252" class="s">Llama 2 分词器（32,000）：14 个，红色是退回的字节</text>
+<rect x="584" y="266" width="30" height="36" rx="4" class="fblue"/><text x="599" y="289" text-anchor="middle" class="xs">▁</text><rect x="618" y="266" width="34" height="36" rx="4" class="fblue"/><text x="635" y="289" text-anchor="middle" class="xs">年</text><rect x="656" y="266" width="32" height="36" rx="4" class="fred"/><text x="672" y="289" text-anchor="middle" class="xs">E5</text><rect x="692" y="266" width="32" height="36" rx="4" class="fred"/><text x="708" y="289" text-anchor="middle" class="xs">81</text><rect x="728" y="266" width="32" height="36" rx="4" class="fred"/><text x="744" y="289" text-anchor="middle" class="xs">87</text><rect x="764" y="266" width="32" height="36" rx="4" class="fred"/><text x="780" y="289" text-anchor="middle" class="xs">E6</text><rect x="800" y="266" width="32" height="36" rx="4" class="fred"/><text x="816" y="289" text-anchor="middle" class="xs">80</text><rect x="836" y="266" width="32" height="36" rx="4" class="fred"/><text x="852" y="289" text-anchor="middle" class="xs">8E</text><rect x="872" y="266" width="34" height="36" rx="4" class="fblue"/><text x="889" y="289" text-anchor="middle" class="xs">么</text><rect x="910" y="266" width="32" height="36" rx="4" class="fred"/><text x="926" y="289" text-anchor="middle" class="xs">E7</text><rect x="946" y="266" width="32" height="36" rx="4" class="fred"/><text x="962" y="289" text-anchor="middle" class="xs">94</text><rect x="982" y="266" width="32" height="36" rx="4" class="fred"/><text x="998" y="289" text-anchor="middle" class="xs">B3</text><rect x="1018" y="266" width="34" height="36" rx="4" class="fblue"/><text x="1035" y="289" text-anchor="middle" class="xs">请</text><rect x="1056" y="266" width="34" height="36" rx="4" class="fblue"/><text x="1073" y="289" text-anchor="middle" class="xs">？</text>
+<text x="584" y="342" class="s">Llama 3 分词器（128,256）：5 个</text>
+<rect x="584" y="356" width="50" height="36" rx="4" class="fgreen"/><text x="609" y="379" text-anchor="middle" class="s">年</text><rect x="638" y="356" width="50" height="36" rx="4" class="fgreen"/><text x="663" y="379" text-anchor="middle" class="s">假</text><rect x="692" y="356" width="76" height="36" rx="4" class="fgreen"/><text x="730" y="379" text-anchor="middle" class="s">怎么</text><rect x="772" y="356" width="76" height="36" rx="4" class="fgreen"/><text x="810" y="379" text-anchor="middle" class="s">申请</text><rect x="852" y="356" width="50" height="36" rx="4" class="fgreen"/><text x="877" y="379" text-anchor="middle" class="s">？</text>
+<path d="M584 420H1144" class="line"/>
+<text x="584" y="452" class="xs">同样 115 字的年假制度段落（单段样例实测）：</text>
+<text x="584" y="482" class="s">GPT-2 246 个 · Llama 2 158 个 · Llama 3 93 个 · Qwen2.5 82 个</text>
+<text x="584" y="516" class="xs">词表里中文片段越多，同一段话的 token 越少，</text>
+<text x="584" y="540" class="xs">训练和推理按 token 计费、按 token 占上下文。</text>
+</svg>

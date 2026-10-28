@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="500" viewBox="0 0 1240 500" role="img" aria-labelledby="pref-overoptimization-title pref-overoptimization-desc" id="pref-overoptimization-root">
+<title id="pref-overoptimization-title">奖励过度优化的示意曲线</title>
+<desc id="pref-overoptimization-desc">横轴是策略离初始模型的距离（KL 的平方根），紫色代理奖励随训练一直上涨，绿色真实质量先升后降，峰值之后继续优化代理奖励反而让真实质量变差。曲线形式取自 Gao 等 2022 的 RL 拟合式，系数为示意。</desc>
+<defs><style>
+#pref-overoptimization-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#pref-overoptimization-root .h { font-size: 26px; font-weight: 700; }
+#pref-overoptimization-root .t { font-size: 19px; font-weight: 600; }
+#pref-overoptimization-root .s { font-size: 15px; fill: #475569; }
+#pref-overoptimization-root .xs { font-size: 13px; fill: #64748b; }
+#pref-overoptimization-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#pref-overoptimization-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#pref-overoptimization-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#pref-overoptimization-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#pref-overoptimization-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#pref-overoptimization-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#pref-overoptimization-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#pref-overoptimization-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#pref-overoptimization-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#pref-overoptimization-root .fblue { fill: #93c5fd; } #pref-overoptimization-root .fgreen { fill: #6ee7b7; } #pref-overoptimization-root .fred { fill: #fda4af; }
+#pref-overoptimization-root .famber { fill: #fcd34d; } #pref-overoptimization-root .fviolet { fill: #c4b5fd; } #pref-overoptimization-root .fgray { fill: #e2e8f0; }
+#pref-overoptimization-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#pref-overoptimization-arrow); }
+#pref-overoptimization-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#pref-overoptimization-arrow); }
+#pref-overoptimization-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#pref-overoptimization-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="pref-overoptimization-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1240" height="500" fill="#f8fafc"/>
+<text x="32" y="46" class="h">奖励模型的分数一直涨，真实质量却先升后降</text>
+<text x="32" y="78" class="s">曲线形式 R(d) = d(α − β·ln d) 取自 Gao 等 2022 的强化学习拟合式；系数为示意，不对应具体模型。</text>
+<path d="M120 140V440H840" class="axis"/>
+<path d="M120 397.14285714285717H840" class="line"/>
+<path d="M120.0 397.1L127.2 394.6L134.4 392.0L141.6 389.4L148.8 386.9L156.0 384.3L163.2 381.7L170.4 379.1L177.6 376.6L184.8 374.0L192.0 371.4L199.2 368.9L206.4 366.3L213.6 363.7L220.8 361.1L228.0 358.6L235.2 356.0L242.4 353.4L249.6 350.9L256.8 348.3L264.0 345.7L271.2 343.1L278.4 340.6L285.6 338.0L292.8 335.4L300.0 332.9L307.2 330.3L314.4 327.7L321.6 325.1L328.8 322.6L336.0 320.0L343.2 317.4L350.4 314.9L357.6 312.3L364.8 309.7L372.0 307.1L379.2 304.6L386.4 302.0L393.6 299.4L400.8 296.9L408.0 294.3L415.2 291.7L422.4 289.1L429.6 286.6L436.8 284.0L444.0 281.4L451.2 278.9L458.4 276.3L465.6 273.7L472.8 271.1L480.0 268.6L487.2 266.0L494.4 263.4L501.6 260.9L508.8 258.3L516.0 255.7L523.2 253.1L530.4 250.6L537.6 248.0L544.8 245.4L552.0 242.9L559.2 240.3L566.4 237.7L573.6 235.1L580.8 232.6L588.0 230.0L595.2 227.4L602.4 224.9L609.6 222.3L616.8 219.7L624.0 217.1L631.2 214.6L638.4 212.0L645.6 209.4L652.8 206.9L660.0 204.3L667.2 201.7L674.4 199.1L681.6 196.6L688.8 194.0L696.0 191.4L703.2 188.9L710.4 186.3L717.6 183.7L724.8 181.1L732.0 178.6L739.2 176.0L746.4 173.4L753.6 170.9L760.8 168.3L768.0 165.7L775.2 163.1L782.4 160.6L789.6 158.0L796.8 155.4L804.0 152.9L811.2 150.3L818.4 147.7L825.6 145.1L832.8 142.6L840.0 140.0" fill="none" stroke="#9b87f5" stroke-width="3"/>
+<path d="M120.0 397.1L127.2 388.4L134.4 382.4L141.6 377.3L148.8 372.9L156.0 369.0L163.2 365.5L170.4 362.3L177.6 359.4L184.8 356.7L192.0 354.3L199.2 352.0L206.4 349.9L213.6 348.0L220.8 346.2L228.0 344.6L235.2 343.1L242.4 341.7L249.6 340.4L256.8 339.2L264.0 338.2L271.2 337.2L278.4 336.3L285.6 335.5L292.8 334.8L300.0 334.2L307.2 333.6L314.4 333.1L321.6 332.7L328.8 332.4L336.0 332.1L343.2 331.9L350.4 331.8L357.6 331.7L364.8 331.7L372.0 331.7L379.2 331.8L386.4 331.9L393.6 332.1L400.8 332.4L408.0 332.7L415.2 333.0L422.4 333.4L429.6 333.8L436.8 334.3L444.0 334.8L451.2 335.4L458.4 336.0L465.6 336.6L472.8 337.3L480.0 338.1L487.2 338.8L494.4 339.6L501.6 340.5L508.8 341.3L516.0 342.3L523.2 343.2L530.4 344.2L537.6 345.2L544.8 346.2L552.0 347.3L559.2 348.4L566.4 349.6L573.6 350.8L580.8 352.0L588.0 353.2L595.2 354.5L602.4 355.8L609.6 357.1L616.8 358.5L624.0 359.8L631.2 361.3L638.4 362.7L645.6 364.2L652.8 365.6L660.0 367.2L667.2 368.7L674.4 370.3L681.6 371.9L688.8 373.5L696.0 375.1L703.2 376.8L710.4 378.5L717.6 380.2L724.8 381.9L732.0 383.7L739.2 385.5L746.4 387.3L753.6 389.1L760.8 390.9L768.0 392.8L775.2 394.7L782.4 396.6L789.6 398.5L796.8 400.5L804.0 402.5L811.2 404.5L818.4 406.5L825.6 408.5L832.8 410.6L840.0 412.6" fill="none" stroke="#20a28c" stroke-width="3"/>
+<path d="M364.4 140V440" class="dash" style="marker-end:none"/>
+<circle cx="364.4" cy="331.7" r="6" fill="#20a28c"/>
+<text x="376.42006947112105" y="317.6731956773783" class="s">真实质量最高点</text>
+<text x="630" y="146" class="s">紫线 代理奖励：一直上涨</text>
+<path d="M140 422.14285714285717h24" stroke="#20a28c" stroke-width="3"/>
+<text x="172" y="427.14285714285717" class="s">绿线 真实质量：先升后降</text>
+<path d="M598 141h24" stroke="#9b87f5" stroke-width="3"/>
+<text x="480" y="476" class="s" text-anchor="middle">离初始模型的距离 d = √KL →</text>
+<text x="104" y="124" class="s">奖励（示意）</text>
+<text x="108" y="402.14285714285717" class="xs" text-anchor="end">0</text>
+<g data-node="ovn"><rect x="880" y="140" width="328" height="300" rx="8" class="amber"/><text x="898" y="166" class="k">奖励过度优化</text><text x="898" y="192" class="t">读图</text><text x="898" y="220" class="s">训练只看得见紫线（奖励模型）</text><text x="898" y="243" class="s">真正想要的是绿线（人的判断）</text><text x="898" y="266" class="s">越过峰值后分数还在涨，</text><text x="898" y="289" class="s">回答却在变差：变长、讨好、</text><text x="898" y="312" class="s">套话、过度承诺</text><text x="898" y="335" class="s">KL 惩罚和提前停止，都是为了</text><text x="898" y="358" class="s">停在峰值附近</text></g>
+</svg>

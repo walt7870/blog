@@ -261,6 +261,66 @@ export const sidebar: DefaultTheme.Sidebar = {
           ]
         },
         {
+          text: '模型训练与调优',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/model-training/' },
+            {
+              text: '一、训练的共同底座',
+              collapsed: true,
+              items: [
+                { text: '01. 训练全景', link: '/docs/ai/model-training/01-training-map' },
+                { text: '02. 一步训练发生了什么', link: '/docs/ai/model-training/02-one-step' },
+                { text: '03. 训练显存账本', link: '/docs/ai/model-training/03-memory' },
+                { text: '04. 算力账与规模定律', link: '/docs/ai/model-training/04-compute-scaling' },
+                { text: '05. 读懂训练曲线', link: '/docs/ai/model-training/05-training-curves' },
+              ],
+            },
+            {
+              text: '二、大语言模型',
+              collapsed: true,
+              items: [
+                { text: '06. 预训练数据与分词', link: '/docs/ai/model-training/06-llm-data' },
+                { text: '07. 预训练', link: '/docs/ai/model-training/07-pretraining' },
+                { text: '08. 分布式训练', link: '/docs/ai/model-training/08-distributed' },
+                { text: '09. 指令微调 SFT', link: '/docs/ai/model-training/09-sft' },
+                { text: '10. LoRA 与 QLoRA', link: '/docs/ai/model-training/10-lora-qlora' },
+                { text: '实践：用 LoRA 微调资料助手', link: '/docs/ai/model-training/lora-practice' },
+                { text: '11. 偏好对齐', link: '/docs/ai/model-training/11-preference' },
+                { text: '12. 强化学习与推理模型', link: '/docs/ai/model-training/12-rl-reasoning' },
+                { text: '13. 蒸馏、继续预训练与模型合并', link: '/docs/ai/model-training/13-distill-merge' },
+              ],
+            },
+            {
+              text: '三、语音模型',
+              collapsed: true,
+              items: [
+                { text: '14. 语音识别怎样训练', link: '/docs/ai/model-training/14-asr-training' },
+                { text: '15. 语音识别微调', link: '/docs/ai/model-training/15-asr-finetune' },
+                { text: '16. 语音合成怎样训练', link: '/docs/ai/model-training/16-tts-training' },
+              ],
+            },
+            {
+              text: '四、视觉、多模态与向量',
+              collapsed: true,
+              items: [
+                { text: '17. 视觉模型', link: '/docs/ai/model-training/17-vision' },
+                { text: '18. 图文模型与多模态大模型', link: '/docs/ai/model-training/18-multimodal' },
+                { text: '19. 扩散模型', link: '/docs/ai/model-training/19-diffusion' },
+                { text: '20. 向量与重排模型', link: '/docs/ai/model-training/20-embedding' },
+              ],
+            },
+            {
+              text: '五、评估与工程',
+              collapsed: true,
+              items: [
+                { text: '21. 评估', link: '/docs/ai/model-training/21-evaluation' },
+                { text: '22. 训练工程与选型', link: '/docs/ai/model-training/22-engineering' },
+              ],
+            },
+          ],
+        },
+        {
           text: '大模型推理优化',
           collapsed: true,
           items: [

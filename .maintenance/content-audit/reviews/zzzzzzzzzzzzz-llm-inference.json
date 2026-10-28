@@ -266,9 +266,10 @@
     "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
     "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
-    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
+    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 按 SGLang 0.5.22 源码更正安装命令（uv --prerelease=allow、CUDA 13）、默认监听 127.0.0.1:30000、重叠调度下树形草稿限制；vLLM 默认监听所有网卡；TensorRT-LLM 定位改为 1.0 后的实际边界。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
    ],
-   "reviewedHash": "0474a9670cd74b270fef27522b3be962a3e4cad62094f97268a7132e36ddf351"
+   "reviewedHash": "e6400e88fff695f2272f05bdcf143f3522a27ccf21ea8aad5dab52bc64aead87"
   },
   {
    "file": "docs/ai/llm-inference/19-speech-multimodal.md",
@@ -514,9 +515,10 @@
    "findings": [],
    "dependencyFiles": [],
    "validation": [
-    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
+    "2026-10-27 补充指向模型训练与调优系列的链接。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
    ],
-   "reviewedHash": "b91291ec8df370cec87ad87e28e011370ef73d117d6762593759db003f0967e2"
+   "reviewedHash": "e5ba235514c402c078f8c4a775576dbdd3a2557eb9cdf045ac7ff3b8d79320d5"
   },
   {
    "file": "docs/ai/index.md",
@@ -527,9 +529,10 @@
    "dependencyFiles": [],
    "validation": [
     "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
-    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
+    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
    ],
-   "reviewedHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946"
+   "reviewedHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c"
   },
   {
    "file": "docs/ai/llm/inference.md",
@@ -603,9 +606,10 @@
     "全文阅读；对照 vLLM v0.32.0 源码与 docs 逐项核对默认值、参数、报错文本、认证中间件和启动顺序，记录在 .maintenance/llm-inference/research/facts.md §11；更正原文过时或错误说法十余处（Python/计算能力要求、0.92、max_num_seqs、top_k、OOM 调参方向、--quantization awq 误用、fp8 弃用写法、405B 卡数等）。",
     "无历史上下文的模拟读者审查：2 处错误（离线 generation_config 生效条件、与第 4 篇 KV 估算差额的归因）与 6 处应修已按源码复核后修正；模拟审查不代替真实读者试读。",
     "命令未在 GPU 上实际运行；显存数字按第 4 篇公式手算，运行开销 3 GiB 为正文标明的假设值。",
-    "npm run docs:build 通过；锚点在构建产物中核对存在；本地 preview 1440/390、浅深色检查：无横向溢出、无失效图片、无运行错误（仅根路径 favicon 404）。vllm-startup.svg 由 .maintenance/llm-inference/diagrams-d.mjs 生成，check-svg 通过并人工查看 PNG。"
+    "npm run docs:build 通过；锚点在构建产物中核对存在；本地 preview 1440/390、浅深色检查：无横向溢出、无失效图片、无运行错误（仅根路径 favicon 404）。vllm-startup.svg 由 .maintenance/llm-inference/diagrams-d.mjs 生成，check-svg 通过并人工查看 PNG。",
+    "2026-10-27 按 vLLM 0.32.0 源码更正：预编译包为 CUDA 13.0（12.9 为 -cu129 变体）、不指定 --host 时监听所有网卡、GGUF/bitsandbytes 需单独插件。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
    ],
-   "reviewedHash": "eaa5edc1161f2e03c64384268fea067d233028eb87c7c562b54c67a8a8c5e55d"
+   "reviewedHash": "20e1478cc7366e29b4e40a36433fb6bd9d21b37634c150aa98a4bddd12a8396e"
   }
  ]
 }

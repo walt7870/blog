@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="640" viewBox="0 0 1240 640" role="img" aria-labelledby="sft-loss-mask-title sft-loss-mask-desc" id="sft-loss-mask-root">
+<title id="sft-loss-mask-title">SFT 数据从消息到损失的路径</title>
+<desc id="sft-loss-mask-desc">一条资料助手训练样本先按 Qwen2.5 对话模板渲染成带特殊标记的文本，再切成 token。system、user 和检索片段位置的标签设为 -100 不计损失，只有 assistant 回答和结尾的 &lt;|im_end|&gt; 参与交叉熵平均。</desc>
+<defs><style>
+#sft-loss-mask-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#sft-loss-mask-root .h { font-size: 26px; font-weight: 700; }
+#sft-loss-mask-root .t { font-size: 19px; font-weight: 600; }
+#sft-loss-mask-root .s { font-size: 15px; fill: #475569; }
+#sft-loss-mask-root .xs { font-size: 13px; fill: #64748b; }
+#sft-loss-mask-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#sft-loss-mask-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#sft-loss-mask-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#sft-loss-mask-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#sft-loss-mask-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#sft-loss-mask-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#sft-loss-mask-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#sft-loss-mask-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#sft-loss-mask-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#sft-loss-mask-root .fblue { fill: #93c5fd; } #sft-loss-mask-root .fgreen { fill: #6ee7b7; } #sft-loss-mask-root .fred { fill: #fda4af; }
+#sft-loss-mask-root .famber { fill: #fcd34d; } #sft-loss-mask-root .fviolet { fill: #c4b5fd; } #sft-loss-mask-root .fgray { fill: #e2e8f0; }
+#sft-loss-mask-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#sft-loss-mask-arrow); }
+#sft-loss-mask-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#sft-loss-mask-arrow); }
+#sft-loss-mask-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#sft-loss-mask-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="sft-loss-mask-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1240" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一条 SFT 样本怎样变成损失：消息 → 模板 → token → 只对回答计分</text>
+<text x="32" y="78" class="s">灰色位置作为输入参与前向计算，但标签设为 -100；绿色位置是模型要学会写出的内容，包括结尾的停止标记。</text>
+<g data-node="msg"><rect x="32" y="112" width="330" height="200" rx="8" class="blue"/><text x="50" y="138" class="k">① 训练样本（messages）</text><text x="50" y="168" class="s">system：只依据检索片段回答，</text><text x="50" y="192" class="s">　　片段里没有就说不知道</text><text x="50" y="216" class="s">user：检索片段 + 年假怎么申请？</text><text x="50" y="240" class="s">assistant：按《员工手册》第 4.2 条，</text><text x="50" y="264" class="s">　　提前 3 个工作日在审批系统提交…</text></g>
+<g data-node="tpl"><rect x="402" y="112" width="470" height="200" rx="8" class="violet"/><text x="420" y="138" class="k">② 套用 Qwen2.5 对话模板</text><text x="420" y="168" class="m">&lt;|im_start|&gt;system</text><text x="420" y="192" class="m">只依据检索片段回答…&lt;|im_end|&gt;</text><text x="420" y="216" class="m">&lt;|im_start|&gt;user</text><text x="420" y="240" class="m">[片段]…年假怎么申请？&lt;|im_end|&gt;</text><text x="420" y="264" class="m">&lt;|im_start|&gt;assistant</text><text x="420" y="288" class="m">按《员工手册》第4.2条…&lt;|im_end|&gt;</text></g>
+<g data-node="why"><rect x="912" y="112" width="296" height="200" rx="8" class="amber"/><text x="930" y="138" class="k">常见坑</text><text x="930" y="164" class="t">模板必须与底座一致</text><text x="930" y="192" class="s">标记写错不会报错</text><text x="930" y="215" class="s">模型只会把它当普通文字</text><text x="930" y="238" class="s">推理时停不下来、角色混乱</text><text x="930" y="261" class="s">训练和推理用同一份模板</text></g>
+<path d="M362 212H402" class="edge"/>
+<path d="M872 212H912" class="dash"/>
+<text x="32" y="354" class="k">③ 切成 token，并给每个位置一个“标签”（下一个 token 的答案）</text>
+<rect x="32" y="372" width="89" height="36" rx="4" class="fgray"/><text x="76.5" y="395" text-anchor="middle" class="xs">&lt;|im_start|&gt;</text><text x="76.5" y="434" class="xs" text-anchor="middle">-100</text><rect x="123" y="372" width="50" height="36" rx="4" class="fgray"/><text x="148" y="395" text-anchor="middle" class="xs">system</text><text x="148" y="434" class="xs" text-anchor="middle">-100</text><rect x="175" y="372" width="82" height="36" rx="4" class="fgray"/><text x="216" y="395" text-anchor="middle" class="xs">只依据片段…</text><text x="216" y="434" class="xs" text-anchor="middle">-100</text><rect x="259" y="372" width="76" height="36" rx="4" class="fgray"/><text x="297" y="395" text-anchor="middle" class="xs">&lt;|im_end|&gt;</text><text x="297" y="434" class="xs" text-anchor="middle">-100</text><rect x="337" y="372" width="89" height="36" rx="4" class="fgray"/><text x="381.5" y="395" text-anchor="middle" class="xs">&lt;|im_start|&gt;</text><text x="381.5" y="434" class="xs" text-anchor="middle">-100</text><rect x="428" y="372" width="36" height="36" rx="4" class="fgray"/><text x="446" y="395" text-anchor="middle" class="xs">user</text><text x="446" y="434" class="xs" text-anchor="middle">-100</text><rect x="466" y="372" width="56" height="36" rx="4" class="fgray"/><text x="494" y="395" text-anchor="middle" class="xs">[片段]…</text><text x="494" y="434" class="xs" text-anchor="middle">-100</text><rect x="524" y="372" width="101" height="36" rx="4" class="fgray"/><text x="574.5" y="395" text-anchor="middle" class="xs">年假怎么申请？</text><text x="574.5" y="434" class="xs" text-anchor="middle">-100</text><rect x="627" y="372" width="76" height="36" rx="4" class="fgray"/><text x="665" y="395" text-anchor="middle" class="xs">&lt;|im_end|&gt;</text><text x="665" y="434" class="xs" text-anchor="middle">-100</text><rect x="705" y="372" width="89" height="36" rx="4" class="fgray"/><text x="749.5" y="395" text-anchor="middle" class="xs">&lt;|im_start|&gt;</text><text x="749.5" y="434" class="xs" text-anchor="middle">-100</text><rect x="796" y="372" width="69" height="36" rx="4" class="fgray"/><text x="830.5" y="395" text-anchor="middle" class="xs">assistant</text><text x="830.5" y="434" class="xs" text-anchor="middle">-100</text><rect x="867" y="372" width="75" height="36" rx="4" class="fgreen"/><text x="904.5" y="395" text-anchor="middle" class="xs">按员工手册</text><text x="904.5" y="434" class="xs" text-anchor="middle">计入</text><rect x="944" y="372" width="69" height="36" rx="4" class="fgreen"/><text x="978.5" y="395" text-anchor="middle" class="xs">第4.2条，</text><text x="978.5" y="434" class="xs" text-anchor="middle">计入</text><rect x="1015" y="372" width="101" height="36" rx="4" class="fgreen"/><text x="1065.5" y="395" text-anchor="middle" class="xs">提前3个工作日…</text><text x="1065.5" y="434" class="xs" text-anchor="middle">计入</text><rect x="1118" y="372" width="76" height="36" rx="4" class="fgreen"/><text x="1156" y="395" text-anchor="middle" class="xs">&lt;|im_end|&gt;</text><text x="1156" y="434" class="xs" text-anchor="middle">计入</text>
+<path d="M637 312V352" class="edge"/>
+<g data-node="loss"><rect x="32" y="500" width="620" height="112" rx="8" class="green"/><text x="50" y="526" class="k">④ 计算损失</text><text x="50" y="552" class="t">损失 = 绿色位置的交叉熵平均</text><text x="50" y="580" class="s">回答 token 越可能是标注答案，损失越小</text><text x="50" y="603" class="s">灰色位置不产生损失项，模型不必学会“写用户的问题”</text></g>
+<g data-node="stop"><rect x="692" y="500" width="516" height="112" rx="8" class="red"/><text x="710" y="526" class="k">失败情况</text><text x="710" y="552" class="t">漏掉结尾 &lt;|im_end|&gt; 的后果</text><text x="710" y="580" class="s">模型学不到“什么时候停”</text><text x="710" y="603" class="s">上线后回答说完还继续编下一轮对话</text></g>
+<path d="M613 444V500" class="edge"/>
+</svg>
