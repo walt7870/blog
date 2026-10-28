@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 671,
-    "bytes": 4532320,
-    "batches": 77,
-    "scanned": 671,
-    "reviewed": 671,
+    "pages": 672,
+    "bytes": 4563687,
+    "batches": 78,
+    "scanned": 672,
+    "reviewed": 672,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "1a5422781db17c434a304af897705e59d16f5c31e80288f1fcf0159139e72c9c",
+  "sharedHash": "9da9dc64864e9900ff0b322756a200598161b3de2d2bc6480e2db72ea7802e07",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "a0914b9292634ebe2d19a2ee640fbac88e36b263f8a5720d5edba5020da59b3a"
+      "6bde8dfbe64c24fcf2ee896732e9b9804ba96d987304a7c6ed0a289215561f8c"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -567,7 +567,7 @@
         "docs/ai/llm-inference/12-attention-kernels.md",
         "docs/ai/llm-inference/13-nano-vllm.md"
       ],
-      "bytes": 92318
+      "bytes": 92465
     },
     {
       "id": "B022",
@@ -581,15 +581,16 @@
         "docs/ai/llm-inference/19-speech-multimodal.md",
         "docs/ai/llm-inference/20-benchmark.md",
         "docs/ai/llm-inference/21-production.md",
-        "docs/ai/llm-inference/22-edge.md",
-        "docs/ai/llm-inference/index.md"
+        "docs/ai/llm-inference/22-edge.md"
       ],
-      "bytes": 99983
+      "bytes": 93500
     },
     {
       "id": "B023",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/index.md",
+        "docs/ai/llm-inference/vllm-quickstart.md",
         "docs/ai/llm/concepts.md",
         "docs/ai/llm/index.md",
         "docs/ai/llm/inference.md",
@@ -597,18 +598,18 @@
         "docs/ai/llm/sft.md",
         "docs/ai/llm/training.md",
         "docs/ai/mcp.md",
-        "docs/ai/ml.md",
-        "docs/ai/practice/agent-project.md",
-        "docs/ai/practice/index.md",
-        "docs/ai/practice/long-running-agent.md",
-        "docs/ai/practice/machine-learning-project.md"
+        "docs/ai/ml.md"
       ],
-      "bytes": 86598
+      "bytes": 95755
     },
     {
       "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/practice/agent-project.md",
+        "docs/ai/practice/index.md",
+        "docs/ai/practice/long-running-agent.md",
+        "docs/ai/practice/machine-learning-project.md",
         "docs/ai/practice/vision-project.md",
         "docs/ai/precision/01-number-storage.md",
         "docs/ai/precision/02-floating-formats.md",
@@ -616,18 +617,18 @@
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
         "docs/ai/precision/06-choosing-precision.md",
-        "docs/ai/precision/index.md",
-        "docs/ai/precision/storage-atlas.md",
-        "docs/ai/rsi/01-recursive-self-improvement.md",
-        "docs/ai/rsi/index.md",
-        "docs/ai/skill/claude-code-best-practices.md"
+        "docs/ai/precision/index.md"
       ],
-      "bytes": 90295
+      "bytes": 79984
     },
     {
       "id": "B025",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/precision/storage-atlas.md",
+        "docs/ai/rsi/01-recursive-self-improvement.md",
+        "docs/ai/rsi/index.md",
+        "docs/ai/skill/claude-code-best-practices.md",
         "docs/ai/skill/index.md",
         "docs/ai/skill/recommendations.md",
         "docs/ai/speech-engineering/architecture-and-workflow.md",
@@ -635,18 +636,18 @@
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
         "docs/ai/speech-engineering/incident-playbook.md",
-        "docs/ai/speech-engineering/index.md",
-        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
-        "docs/ai/speech-engineering/latency-and-finalization.md",
-        "docs/ai/speech-engineering/performance-and-capacity.md",
-        "docs/ai/speech-engineering/pipeline-boundaries.md"
+        "docs/ai/speech-engineering/index.md"
       ],
-      "bytes": 73449
+      "bytes": 83828
     },
     {
       "id": "B026",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
+        "docs/ai/speech-engineering/latency-and-finalization.md",
+        "docs/ai/speech-engineering/performance-and-capacity.md",
+        "docs/ai/speech-engineering/pipeline-boundaries.md",
         "docs/ai/speech-engineering/release-and-collaboration.md",
         "docs/ai/vibe-coding/context-engineering.md",
         "docs/ai/vibe-coding/harness-engineering.md",
@@ -654,14 +655,21 @@
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
         "docs/ai/vibe-coding/prompt-engineering.md",
-        "docs/ai/vibe-coding/spec-driven.md",
-        "docs/ai/vibe-coding/tool-agent-engineering.md",
-        "docs/ai/vibe-coding/vibe-coding.md"
+        "docs/ai/vibe-coding/spec-driven.md"
       ],
-      "bytes": 64771
+      "bytes": 81633
     },
     {
       "id": "B027",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/vibe-coding/tool-agent-engineering.md",
+        "docs/ai/vibe-coding/vibe-coding.md"
+      ],
+      "bytes": 11616
+    },
+    {
+      "id": "B028",
       "topic": "docs/algorithm",
       "pages": [
         "docs/algorithm/backtracking.md",
@@ -679,7 +687,7 @@
       "bytes": 95287
     },
     {
-      "id": "B028",
+      "id": "B029",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/capture-playback.md",
@@ -698,7 +706,7 @@
       "bytes": 92811
     },
     {
-      "id": "B029",
+      "id": "B030",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/vad/index.md",
@@ -709,7 +717,7 @@
       "bytes": 32347
     },
     {
-      "id": "B030",
+      "id": "B031",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/application-realtime.md",
@@ -728,7 +736,7 @@
       "bytes": 96763
     },
     {
-      "id": "B031",
+      "id": "B032",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/network-foundations.md",
@@ -738,7 +746,7 @@
       "bytes": 28481
     },
     {
-      "id": "B032",
+      "id": "B033",
       "topic": "docs/container",
       "pages": [
         "docs/container/basic/concepts.md",
@@ -757,7 +765,7 @@
       "bytes": 65086
     },
     {
-      "id": "B033",
+      "id": "B034",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/advanced/ecosystem.md",
@@ -776,7 +784,7 @@
       "bytes": 91597
     },
     {
-      "id": "B034",
+      "id": "B035",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/configmap.md",
@@ -795,7 +803,7 @@
       "bytes": 59759
     },
     {
-      "id": "B035",
+      "id": "B036",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/pod.md",
@@ -814,7 +822,7 @@
       "bytes": 75747
     },
     {
-      "id": "B036",
+      "id": "B037",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/video-series.md",
@@ -825,7 +833,7 @@
       "bytes": 25018
     },
     {
-      "id": "B037",
+      "id": "B038",
       "topic": "docs/database",
       "pages": [
         "docs/database/bigdata/apache-flink.md",
@@ -841,7 +849,7 @@
       "bytes": 99744
     },
     {
-      "id": "B038",
+      "id": "B039",
       "topic": "docs/database",
       "pages": [
         "docs/database/elasticsearch.md",
@@ -854,7 +862,7 @@
       "bytes": 83081
     },
     {
-      "id": "B039",
+      "id": "B040",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/basic-syntax.md",
@@ -868,7 +876,7 @@
       "bytes": 89719
     },
     {
-      "id": "B040",
+      "id": "B041",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/query-optimization.md",
@@ -882,7 +890,7 @@
       "bytes": 94414
     },
     {
-      "id": "B041",
+      "id": "B042",
       "topic": "docs/devlanguage",
       "pages": [
         "docs/devlanguage/index.md"
@@ -890,7 +898,7 @@
       "bytes": 2701
     },
     {
-      "id": "B042",
+      "id": "B043",
       "topic": "docs/devlanguage/flutter",
       "pages": [
         "docs/devlanguage/flutter/architecture.md",
@@ -904,7 +912,7 @@
       "bytes": 35227
     },
     {
-      "id": "B043",
+      "id": "B044",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/deployment/index.md",
@@ -923,7 +931,7 @@
       "bytes": 46465
     },
     {
-      "id": "B044",
+      "id": "B045",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/framework/angular.md",
@@ -942,7 +950,7 @@
       "bytes": 65552
     },
     {
-      "id": "B045",
+      "id": "B046",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
@@ -961,7 +969,7 @@
       "bytes": 49318
     },
     {
-      "id": "B046",
+      "id": "B047",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
@@ -980,7 +988,7 @@
       "bytes": 57590
     },
     {
-      "id": "B047",
+      "id": "B048",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
@@ -999,7 +1007,7 @@
       "bytes": 66015
     },
     {
-      "id": "B048",
+      "id": "B049",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/package-managers/corepack.md",
@@ -1016,7 +1024,7 @@
       "bytes": 44995
     },
     {
-      "id": "B049",
+      "id": "B050",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/basic/base-class.md",
@@ -1031,7 +1039,7 @@
       "bytes": 86693
     },
     {
-      "id": "B050",
+      "id": "B051",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/annotations.md",
@@ -1044,7 +1052,7 @@
       "bytes": 97489
     },
     {
-      "id": "B051",
+      "id": "B052",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
@@ -1057,7 +1065,7 @@
       "bytes": 96643
     },
     {
-      "id": "B052",
+      "id": "B053",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/springboot.md",
@@ -1076,7 +1084,7 @@
       "bytes": 86011
     },
     {
-      "id": "B053",
+      "id": "B054",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/gc/parnew.md",
@@ -1095,7 +1103,7 @@
       "bytes": 59129
     },
     {
-      "id": "B054",
+      "id": "B055",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/runtime-area/method-area.md",
@@ -1110,7 +1118,7 @@
       "bytes": 67607
     },
     {
-      "id": "B055",
+      "id": "B056",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
@@ -1129,7 +1137,7 @@
       "bytes": 36472
     },
     {
-      "id": "B056",
+      "id": "B057",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/12-json-api-shape.md",
@@ -1148,7 +1156,7 @@
       "bytes": 32741
     },
     {
-      "id": "B057",
+      "id": "B058",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/24-delivery-package.md",
@@ -1167,7 +1175,7 @@
       "bytes": 58591
     },
     {
-      "id": "B058",
+      "id": "B059",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
@@ -1186,7 +1194,7 @@
       "bytes": 51376
     },
     {
-      "id": "B059",
+      "id": "B060",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/index.md"
@@ -1194,7 +1202,7 @@
       "bytes": 3797
     },
     {
-      "id": "B060",
+      "id": "B061",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/advantages.md",
@@ -1213,7 +1221,7 @@
       "bytes": 47582
     },
     {
-      "id": "B061",
+      "id": "B062",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/type-system.md",
@@ -1222,7 +1230,7 @@
       "bytes": 8757
     },
     {
-      "id": "B062",
+      "id": "B063",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/c-programming.md",
@@ -1241,7 +1249,7 @@
       "bytes": 59880
     },
     {
-      "id": "B063",
+      "id": "B064",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/toolchain.md"
@@ -1249,7 +1257,7 @@
       "bytes": 4760
     },
     {
-      "id": "B064",
+      "id": "B065",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/archive-compress.md",
@@ -1268,7 +1276,7 @@
       "bytes": 70764
     },
     {
-      "id": "B065",
+      "id": "B066",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/permissions.md",
@@ -1287,7 +1295,7 @@
       "bytes": 88829
     },
     {
-      "id": "B066",
+      "id": "B067",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/concurrency/05-pool-size-and-queueing.md",
@@ -1306,7 +1314,7 @@
       "bytes": 79857
     },
     {
-      "id": "B067",
+      "id": "B068",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/certificate.md",
@@ -1325,7 +1333,7 @@
       "bytes": 86099
     },
     {
-      "id": "B068",
+      "id": "B069",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/user-management.md"
@@ -1333,7 +1341,7 @@
       "bytes": 5716
     },
     {
-      "id": "B069",
+      "id": "B070",
       "topic": "docs/reading",
       "pages": [
         "docs/reading/2022-07-31/高效能人士的7个习惯.md",
@@ -1342,7 +1350,7 @@
       "bytes": 5001
     },
     {
-      "id": "B070",
+      "id": "B071",
       "topic": "docs/superpowers",
       "pages": [
         "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
@@ -1351,7 +1359,7 @@
       "bytes": 17324
     },
     {
-      "id": "B071",
+      "id": "B072",
       "topic": "docs/tools/editor",
       "pages": [
         "docs/tools/editor/andorid-studio/index.md"
@@ -1359,7 +1367,7 @@
       "bytes": 6275
     },
     {
-      "id": "B072",
+      "id": "B073",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/advanced.md",
@@ -1376,7 +1384,7 @@
       "bytes": 98889
     },
     {
-      "id": "B073",
+      "id": "B074",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/repository-strategies.md",
@@ -1387,7 +1395,7 @@
       "bytes": 26010
     },
     {
-      "id": "B074",
+      "id": "B075",
       "topic": "docs/tools/mq",
       "pages": [
         "docs/tools/mq/index.md",
@@ -1399,7 +1407,7 @@
       "bytes": 57859
     },
     {
-      "id": "B075",
+      "id": "B076",
       "topic": "docs/tools/sdkman",
       "pages": [
         "docs/tools/sdkman/index.md"
@@ -1407,7 +1415,7 @@
       "bytes": 4856
     },
     {
-      "id": "B076",
+      "id": "B077",
       "topic": "docs/tools/vfox",
       "pages": [
         "docs/tools/vfox/index.md"
@@ -1415,7 +1423,7 @@
       "bytes": 5211
     },
     {
-      "id": "B077",
+      "id": "B078",
       "topic": "docs/tools/vim",
       "pages": [
         "docs/tools/vim/index.md",
@@ -3374,19 +3382,19 @@
     },
     {
       "file": "docs/ai/llm-inference/07-request-path.md",
-      "contentHash": "8a5fb60df1210bb68d990307a575ff757bf9cffc8e511b4ae4ca9db95be0669a",
-      "reviewHash": "6d52502812d4baca205f457b4057933a8058b4475776e6a36d72e7b3ace0d617",
+      "contentHash": "0aa03e54b661c5c6e7c316a998915fefaacef1274535001bc72145254a2e8728",
+      "reviewHash": "9499648111bdf4f1af8a6f340b594139d53959cf0f7d77de9196160ee4086734",
       "dependencies": [
         "public/ai/llm-inference/request-path.svg"
       ],
-      "bytes": 8433,
+      "bytes": 8580,
       "lines": 108,
-      "proseChars": 2952,
+      "proseChars": 2997,
       "headings": 8,
       "codeLines": 5,
       "visualCount": 1,
       "htmlComponents": true,
-      "localReferences": 2,
+      "localReferences": 3,
       "findings": []
     },
     {
@@ -3568,20 +3576,20 @@
     },
     {
       "file": "docs/ai/llm-inference/18-vllm-sglang.md",
-      "contentHash": "6e9385a4b23cdcbaff168c72a42fdb78afd130361f7041dbedf9e2232a6cd35c",
-      "reviewHash": "8fc9eb95636905fc927f2a2fdb53c8224ecbae984cd54131eac5412f94a4fa25",
+      "contentHash": "75232620b5ac3dde9c3585c14096133904fbe43818cbf5d0147f2d94045f7b66",
+      "reviewHash": "0474a9670cd74b270fef27522b3be962a3e4cad62094f97268a7132e36ddf351",
       "dependencies": [
         "public/ai/inference-series/engine-loop.svg",
         "public/ai/inference-series/selection-gates.svg"
       ],
-      "bytes": 9692,
+      "bytes": 9848,
       "lines": 127,
-      "proseChars": 3523,
+      "proseChars": 3571,
       "headings": 8,
       "codeLines": 9,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 3,
+      "localReferences": 4,
       "findings": []
     },
     {
@@ -3655,19 +3663,36 @@
     },
     {
       "file": "docs/ai/llm-inference/index.md",
-      "contentHash": "425e67b27c2d313b1b19d862af542f2f7e44fbccfb95d833470ebce3d32a74a6",
-      "reviewHash": "c6a1786ecca884a9f4f6a11fd5e89213810a92e9c79d1335e798f58a0f0d809c",
+      "contentHash": "61dfd4542f881687deda7d04d35642d293948717ff3833625cd514e33401d465",
+      "reviewHash": "8718db3801b3ce7e75f5c6701c7f5d90f93c5f0d4d962b5ad7c243157d9b3981",
       "dependencies": [
         "public/ai/llm-inference/series-map.svg"
       ],
-      "bytes": 6639,
-      "lines": 75,
-      "proseChars": 2163,
+      "bytes": 7129,
+      "lines": 76,
+      "proseChars": 2327,
       "headings": 4,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 25,
+      "localReferences": 28,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-inference/vllm-quickstart.md",
+      "contentHash": "fa29d6d4c83648d0b8f0b84a1bbb92a42c918d5f950a77baa7ae414ccb29893f",
+      "reviewHash": "eaa5edc1161f2e03c64384268fea067d233028eb87c7c562b54c67a8a8c5e55d",
+      "dependencies": [
+        "public/ai/llm-inference/vllm-startup.svg"
+      ],
+      "bytes": 30574,
+      "lines": 440,
+      "proseChars": 11708,
+      "headings": 28,
+      "codeLines": 85,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 13,
       "findings": []
     },
     {

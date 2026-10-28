@@ -10,9 +10,10 @@
    "validation": [
     "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
-    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
+    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
    ],
-   "reviewedHash": "c6a1786ecca884a9f4f6a11fd5e89213810a92e9c79d1335e798f58a0f0d809c"
+   "reviewedHash": "8718db3801b3ce7e75f5c6701c7f5d90f93c5f0d4d962b5ad7c243157d9b3981"
   },
   {
    "file": "docs/ai/llm-inference/01-inference-system.md",
@@ -109,9 +110,10 @@
    "validation": [
     "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
-    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
+    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
    ],
-   "reviewedHash": "6d52502812d4baca205f457b4057933a8058b4475776e6a36d72e7b3ace0d617"
+   "reviewedHash": "9499648111bdf4f1af8a6f340b594139d53959cf0f7d77de9196160ee4086734"
   },
   {
    "file": "docs/ai/llm-inference/08-paged-attention.md",
@@ -263,9 +265,10 @@
    "validation": [
     "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
-    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。"
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
+    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
    ],
-   "reviewedHash": "8fc9eb95636905fc927f2a2fdb53c8224ecbae984cd54131eac5412f94a4fa25"
+   "reviewedHash": "0474a9670cd74b270fef27522b3be962a3e4cad62094f97268a7132e36ddf351"
   },
   {
    "file": "docs/ai/llm-inference/19-speech-multimodal.md",
@@ -586,6 +589,21 @@
     "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。"
    ],
    "reviewedHash": "57f43dded42004874d9dfdcb68003681d85caf35e3c66243fe616966ea7820e1"
+  },
+  {
+   "file": "docs/ai/llm-inference/vllm-quickstart.md",
+   "status": "verified",
+   "pageType": "实操",
+   "decision": "新增不编号实践篇（侧边栏位于第 07 篇后，不改已发布章节编号）：覆盖原文“AIInfra推理优化(2)：vLLM 快速入门”全部小节——安装（uv/conda/ROCm/download-kernels/门控模型/ModelScope）、离线 LLM.chat 与 generate 的模板坑、max_tokens 默认 16、generation_config 离线/在线差异、vllm serve 与 curl/OpenAI 客户端/流式、接口与认证范围、采样与引擎参数、显存预算与启动日志、max_model_len 含义、OOM 调参方向、注意力后端、多卡与卡数估算、并行方式、排错表、量化与 trust-remote-code。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；对照 vLLM v0.32.0 源码与 docs 逐项核对默认值、参数、报错文本、认证中间件和启动顺序，记录在 .maintenance/llm-inference/research/facts.md §11；更正原文过时或错误说法十余处（Python/计算能力要求、0.92、max_num_seqs、top_k、OOM 调参方向、--quantization awq 误用、fp8 弃用写法、405B 卡数等）。",
+    "无历史上下文的模拟读者审查：2 处错误（离线 generation_config 生效条件、与第 4 篇 KV 估算差额的归因）与 6 处应修已按源码复核后修正；模拟审查不代替真实读者试读。",
+    "命令未在 GPU 上实际运行；显存数字按第 4 篇公式手算，运行开销 3 GiB 为正文标明的假设值。",
+    "npm run docs:build 通过；锚点在构建产物中核对存在；本地 preview 1440/390、浅深色检查：无横向溢出、无失效图片、无运行错误（仅根路径 favicon 404）。vllm-startup.svg 由 .maintenance/llm-inference/diagrams-d.mjs 生成，check-svg 通过并人工查看 PNG。"
+   ],
+   "reviewedHash": "eaa5edc1161f2e03c64384268fea067d233028eb87c7c562b54c67a8a8c5e55d"
   }
  ]
 }

@@ -285,3 +285,42 @@ KV bytes/token（BF16，2 字节）= 2（K 和 V）× num_hidden_layers × num_k
 - M4 Max 低配（32 核 GPU）的具体带宽。
 - MLC-LLM 当前“最新版本”。
 - Llama-3.1 官方 config.json 原文（gated）。
+
+---
+
+## 11. vLLM 上手实践篇（`vllm-quickstart.md`，2026-10-27 核对）
+
+对照 vLLM `v0.32.0` 源码与 `docs/`（本地 tag 浅克隆）。原文“AIInfra推理优化(2)：vLLM 快速入门”按 v0.19.0 写成，以下几处已过时或有误，正文按 0.32.0 更正。
+
+| 说法 | 0.32.0 实际 | 出处 |
+|---|---|---|
+| Python 3.10–3.13 | ❌ `requires-python = ">=3.11,<3.15"`；quickstart 写 3.11–3.14 | `pyproject.toml:34`，`docs/getting_started/quickstart.md` |
+| 计算能力 7.0+（Volta） | ❌ 7.5+（T4、RTX20xx、A100…）；预编译包 CUDA 12.9 | `docs/getting_started/installation/gpu.cuda.inc.md` |
+| 安装只需 `uv pip install vllm --torch-backend=auto` | ⚠️ 新增 `vllm download-kernels`（FlashInfer 预编译算子，否则启动时现编，Hopper/Blackwell 多几分钟） | 同上；`vllm/entrypoints/cli/download_kernels.py` |
+| ROCm：Python 3.12、ROCm 7.0、glibc ≥ 2.35，`--extra-index-url https://wheels.vllm.ai/rocm/` | ✅ | `docs/getting_started/quickstart.md` |
+| 默认用 90% 显存 | ❌ `gpu_memory_utilization` 默认 0.92，按实例计，包括权重、激活峰值和 KV | `vllm/config/cache.py:102` |
+| `max_num_seqs` 推荐/默认 256 | ⚠️ 显存 ≥70 GB 且非 A100：1024；≥160 GB：1024；其他 256。`max_num_batched_tokens` H100/H200：LLM 类 16384、API server 8192；≥160 GB 都是 16384；其他 8192 / 2048 | `vllm/engine/arg_utils.py:2920-2955` |
+| SamplingParams 默认 top_k = -1 | ⚠️ 现为 0（0 或 -1 都表示不限制）；temperature 1.0、top_p 1.0、min_p 0、repetition_penalty 1.0、max_tokens 16、n 1、seed None ✅ | `vllm/sampling_params.py:282-336` |
+| 对话接口 `max_tokens` | ⚠️ 已标弃用，推荐 `max_completion_tokens`；都不写时取 min(max_model_len − 输入, generation_config 的 max_new_tokens, 平台上限) | `vllm/entrypoints/openai/chat_completion/protocol.py:229-234`，`vllm/entrypoints/serve/utils/api_utils.py:169-205` |
+| 默认读取 generation_config.json 覆盖采样默认值，`generation_config="vllm"` 关闭 | ✅ 默认 `"auto"`；`override_generation_config` 可合并覆盖 | `vllm/config/model.py:354-365` |
+| Llama-3.1-8B-Instruct / Qwen2.5-7B-Instruct 的 generation_config | Llama：temperature 0.6、top_p 0.9；Qwen2.5：0.7 / 0.8 / top_k 20 / repetition_penalty 1.05 | HF `unsloth/Llama-3.1-8B-Instruct`、`Qwen/Qwen2.5-7B-Instruct` 的 generation_config.json |
+| `--api-key` / `VLLM_API_KEY` 开启认证 | ⚠️ 只保护路径前缀 `/v1`、`/v2`、`/inference`、`/cohere`；`/health`、`/metrics`、`/tokenize` 等不检查；OPTIONS 放行；可传多个 key | `vllm/entrypoints/serve/middleware/authenticate.py:11-60` |
+| 端点只有 models / completions / chat / health | ⚠️ 还有 `/v1/responses`、`/v1/messages`（Anthropic 格式）、`/tokenize`、`/detokenize`、`/metrics`、`/version` 等 | `vllm/entrypoints/**/api_router.py` |
+| `--attention-backend FLASH_ATTN / FLASHINFER` | ✅ CLI 参数存在；枚举另有 TRITON_ATTN、ROCM_ATTN、ROCM_AITER_FA、各 MLA 后端 | `vllm/engine/arg_utils.py:1086`，`vllm/v1/attention/backends/registry.py:44-72` |
+| 写时复制共享 Beam Search 前缀 | ❌ V1 不实现 CoW，已在第 08 篇说明 | 见 §5 |
+| OOM 就降低 `gpu_memory_utilization` | ❌ 只适用于“启动时空闲显存小于预算”（`vllm/v1/worker/utils.py:763-770`）。“KV 放不下最长请求 / No available memory for the cache blocks”要**调高**比例或调小 max_model_len（`vllm/v1/core/kv_cache_utils.py:1005-1035`） | 源码报错文本 |
+| KV 容量 = 预算 − 权重 − 激活峰值 | ✅ `available_kv_cache_memory_bytes = requested_memory − non_kv_cache_memory − cudagraph_estimate(需 VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS)`；日志 `Available KV cache memory` 与 `GPU KV cache size: N tokens, Maximum concurrency for L tokens per request: Xx` | `vllm/v1/worker/gpu_worker.py:690-765`，`kv_cache_utils.py:2329` |
+| `--max-model-len` 节省 KV 空间 | ⚠️ 不改变 KV 池大小，只限制单请求上限和启动检查；支持 `auto`/-1 取放得下的最大值，支持 `8k` 这类写法 | `vllm/config/model.py:245-256` |
+| OOM 时 `--quantization awq` | ❌ AWQ/GPTQ 需要预量化 checkpoint，自动从模型配置识别；对 BF16 模型强加会报不匹配。在线量化用 `--quantization fp8_per_tensor`/`fp8_per_block`；旧写法 `fp8` 打弃用警告（`weight_utils.py:347-354`） | `vllm/config/model.py:260-264, 1370-1460`，`vllm/model_executor/layers/quantization/__init__.py` |
+| 405B FP16 用 8× H100 80G | ❌ 810 GB > 640 GB。需 FP8 权重、16 卡跨机，或 8× H200/B200 | 计算 |
+| 五种并行（TP/PP/DP/EP/CP） | ✅ 上下文并行分为 `prefill_context_parallel_size` 与 `decode_context_parallel_size` | `vllm/config/parallel.py:143, 385` |
+| `--trust-remote-code` | ⚠️ 执行仓库代码；用 `--revision` 和 `--code-revision` 固定版本 | `vllm/config/model.py:234-240` |
+| ModelScope：`VLLM_USE_MODELSCOPE=True` | ✅；Llama-3.1-8B-Instruct 在 ModelScope 名为 `LLM-Research/Meta-Llama-3.1-8B-Instruct`（API 返回 200） | `vllm/envs.py:18`，modelscope.cn API |
+| `vllm chat` / `vllm complete` | ✅ 默认连接 `http://localhost:8000/v1` | `vllm/entrypoints/cli/openai.py:139-141` |
+| GitHub 星标“超过 76,000” | 2026-10-27 `gh api` 为 95,715；正文不写星标数 | `gh api repos/vllm-project/vllm` |
+
+Qwen2.5-7B-Instruct config：28 层、28 头、4 KV 头、hidden 3584（head_dim 128），KV = 2×28×4×128×2 = 57,344 B = 56 KiB/token。
+
+离线 `LLM.chat/generate` 只有 `sampling_params is None` 时才用 generation_config（`vllm/entrypoints/llm.py:411-416, 470-471`）；在线服务会合并。空闲显存检查在 `init_device` 里，早于 `load_model`（`gpu_worker.py:535 vs 587`）。
+
+正文命令未在 GPU 上运行；显存数字按第 04 篇公式手算，“激活峰值等约 3 GiB”是假设值。

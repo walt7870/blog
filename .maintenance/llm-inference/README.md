@@ -48,3 +48,4 @@ node .maintenance/llm-inference/check-svg.mjs public/ai/llm-inference <png 输�
 ## 后续整合
 
 - 2026-10-26：微信文章“AI基础-76：KV缓存”（https://mp.weixin.qq.com/s/3co5gF6fe-wkNyaLtT2sjQ）要点已被系列覆盖，只在第 03 篇补充复杂度口径、KV 属于请求而非会话、训练为何不用 KV Cache、缓解 KV 压力的五类做法。通用的整合流程见 `.maintenance/article-integration.md`。
+- 2026-10-27：微信文章“AIInfra推理优化(2)：vLLM 快速入门”（https://mp.weixin.qq.com/s/DndkGLaqjlWbKc1Zjou9kg，AIInfraGuide 推理优化第 2 章）是上手教程，系列原本没有实操篇。新增 `docs/ai/llm-inference/vllm-quickstart.md`（不编号，侧边栏放在第 07 篇之后，避免改动已发布的章节编号和地址），覆盖原文全部小节，并按 vLLM 0.32.0 更正 Python/计算能力要求、默认值、OOM 调参方向、`--quantization awq` 误用、405B 卡数等，核对记录见 `research/facts.md` §11。启动流程图由 `diagrams-d.mjs` 生成。

@@ -275,6 +275,7 @@ export const sidebar: DefaultTheme.Sidebar = {
             { text: '05. 衡量快慢：TTFT、TPOT 与 Goodput', link: '/docs/ai/llm-inference/05-metrics' },
             { text: '06. GPU 与 Roofline', link: '/docs/ai/llm-inference/06-gpu-roofline' },
             { text: '07. 一个请求的全链路', link: '/docs/ai/llm-inference/07-request-path' },
+            { text: '实践：用 vLLM 跑起资料助手', link: '/docs/ai/llm-inference/vllm-quickstart' },
             { text: '08. PagedAttention', link: '/docs/ai/llm-inference/08-paged-attention' },
             { text: '09. 连续批处理与调度', link: '/docs/ai/llm-inference/09-continuous-batching' },
             { text: '10. 前缀缓存与 RadixAttention', link: '/docs/ai/llm-inference/10-prefix-cache' },

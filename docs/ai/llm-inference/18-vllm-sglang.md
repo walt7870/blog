@@ -31,7 +31,7 @@ python -m pip install 'vllm==0.32.0'
 vllm serve Qwen/Qwen3-8B --max-model-len 8192
 ```
 
-启动日志里值得看的几行：使用的数据类型和量化方法、选中的注意力后端、KV Cache 的容量（多少个 token）、CUDA Graph 录制了哪些批大小。服务默认监听 8000 端口，提供 `/v1/chat/completions` 等兼容接口。注意 vLLM 的兼容服务**默认不做认证**，对外提供服务时要在网关层加上鉴权（第 21 篇）。
+启动日志里值得看的几行：使用的数据类型和量化方法、选中的注意力后端、KV Cache 的容量（多少个 token）、CUDA Graph 录制了哪些批大小。从安装、离线推理、调用接口到按报错排查显存问题的完整步骤，见[实践篇：用 vLLM 跑起资料助手](./vllm-quickstart.md)。服务默认监听 8000 端口，提供 `/v1/chat/completions` 等兼容接口。注意 vLLM 的兼容服务**默认不做认证**，对外提供服务时要在网关层加上鉴权（第 21 篇）。
 
 ## SGLang：从前缀共享起家
 

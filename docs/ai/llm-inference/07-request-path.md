@@ -104,4 +104,4 @@ GPU 优化到位以后，这些 CPU 环节反而可能成为新的瓶颈：GPU �
 
 一个请求要经过 API 入口、对话模板、分词、调度、Prefill、Decode 循环、采样、停止判断和反分词，其中只有中间几步在 GPU 上运行。对话模板决定模型看到什么，采样参数决定怎样从概率里选出 token，取消要一直传到引擎才能释放资源。
 
-第二部分到这里结束。我们已经知道瓶颈在哪里：Decode 访存受限，KV Cache 随人数和长度增长，CPU 环节也可能拖慢 GPU。第三部分开始逐个拆解推理引擎的核心技术，第一个是让 vLLM 成名的 [PagedAttention](./08-paged-attention.md)。
+到这里我们已经知道瓶颈在哪里：Decode 访存受限，KV Cache 随人数和长度增长，CPU 环节也可能拖慢 GPU。下一篇是实践篇，[用 vLLM 把资料助手跑起来](./vllm-quickstart.md)，亲手看到对话模板、采样参数和显存账本在真实引擎里的样子。之后第三部分逐个拆解推理引擎的核心技术，第一个是让 vLLM 成名的 [PagedAttention](./08-paged-attention.md)。

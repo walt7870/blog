@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="520" viewBox="0 0 1340 520" role="img" aria-labelledby="vllm-startup-title vllm-startup-desc" id="vllm-startup-root">
+<title id="vllm-startup-title">vllm serve 启动时的五个步骤</title>
+<desc id="vllm-startup-desc">读取配置、加载权重、试跑测出激活峰值、把剩余预算分给 KV Cache、录制 CUDA Graph 后开始服务；第 1、2、4 步分别可能因模型未授权、空闲显存不足、KV 放不下最长请求而启动失败。</desc>
+<defs><style>
+#vllm-startup-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#vllm-startup-root .h { font-size: 26px; font-weight: 700; }
+#vllm-startup-root .t { font-size: 19px; font-weight: 600; }
+#vllm-startup-root .s { font-size: 15px; fill: #475569; }
+#vllm-startup-root .xs { font-size: 13px; fill: #64748b; }
+#vllm-startup-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#vllm-startup-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#vllm-startup-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#vllm-startup-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#vllm-startup-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#vllm-startup-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#vllm-startup-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#vllm-startup-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#vllm-startup-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#vllm-startup-root .fblue { fill: #93c5fd; } #vllm-startup-root .fgreen { fill: #6ee7b7; } #vllm-startup-root .fred { fill: #fda4af; }
+#vllm-startup-root .famber { fill: #fcd34d; } #vllm-startup-root .fviolet { fill: #c4b5fd; } #vllm-startup-root .fgray { fill: #e2e8f0; }
+#vllm-startup-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#vllm-startup-arrow); }
+#vllm-startup-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#vllm-startup-arrow); }
+#vllm-startup-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#vllm-startup-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="vllm-startup-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="520" fill="#f8fafc"/>
+<text x="32" y="46" class="h">vllm serve 启动时做了什么</text>
+<text x="32" y="78" class="s">日志从上到下就是这五步；KV 容量要等前三步做完才能算出来</text>
+<g data-node="step-1"><rect x="32" y="112" width="236" height="164" rx="8" class="node"/><text x="50" y="138" class="k">1 读取配置</text><text x="50" y="164" class="t">模型与分词器</text><text x="50" y="192" class="s">下载或读取模型文件</text><text x="50" y="215" class="s">确定 dtype 和量化</text><text x="50" y="238" class="s">确定 max_model_len</text></g><path d="M270 194H288" class="edge"/><g data-node="step-2"><rect x="292" y="112" width="236" height="164" rx="8" class="blue"/><text x="310" y="138" class="k">2 加载权重</text><text x="310" y="164" class="t">权重进显存</text><text x="310" y="192" class="s">8B 模型 BF16</text><text x="310" y="215" class="s">约 15 GiB</text><text x="310" y="238" class="s">多卡时每卡一份切片</text></g><path d="M530 194H548" class="edge"/><g data-node="step-3"><rect x="552" y="112" width="236" height="164" rx="8" class="violet"/><text x="570" y="138" class="k">3 试跑测峰值</text><text x="570" y="164" class="t">用假数据跑一批</text><text x="570" y="192" class="s">按单步 token 上限</text><text x="570" y="215" class="s">测出激活的峰值</text></g><path d="M790 194H808" class="edge"/><g data-node="step-4"><rect x="812" y="112" width="236" height="164" rx="8" class="green"/><text x="830" y="138" class="k">4 分配 KV</text><text x="830" y="164" class="t">剩下的都给 KV</text><text x="830" y="192" class="s">79.6 GiB × 0.92</text><text x="830" y="215" class="s">− 权重 − 峰值</text><text x="830" y="238" class="s">≈ 55 GiB，约 45 万 token</text></g><path d="M1050 194H1068" class="edge"/><g data-node="step-5"><rect x="1072" y="112" width="236" height="164" rx="8" class="amber"/><text x="1090" y="138" class="k">5 录制 CUDA Graph</text><text x="1090" y="164" class="t">开始服务</text><text x="1090" y="192" class="s">按常见批大小录图</text><text x="1090" y="215" class="s">监听 8000 端口</text></g><path d="M150 278V332" class="dash"/><g data-node="err-1"><rect x="32" y="336" width="236" height="128" rx="8" class="red"/><text x="50" y="362" class="k">启动失败</text><text x="50" y="388" class="t">报 401 或 403</text><text x="50" y="416" class="s">门控模型没有授权：</text><text x="50" y="439" class="s">登录并在模型页同意协议</text></g><path d="M410 278V332" class="dash"/><g data-node="err-2"><rect x="292" y="336" width="236" height="128" rx="8" class="red"/><text x="310" y="362" class="k">启动失败</text><text x="310" y="388" class="t">空闲显存小于预算</text><text x="310" y="416" class="s">加载前检查，别的进程</text><text x="310" y="439" class="s">占着显存：腾出或调低比例</text></g><path d="M930 278V332" class="dash"/><g data-node="err-4"><rect x="812" y="336" width="236" height="128" rx="8" class="red"/><text x="830" y="362" class="k">启动失败</text><text x="830" y="388" class="t">KV 放不下最长请求</text><text x="830" y="416" class="s">调高利用率比例，</text><text x="830" y="439" class="s">或调小 max_model_len</text></g><text x="570" y="376" class="xs">虚线：这一步可能出现的</text><text x="570" y="398" class="xs">启动错误和处理方向。</text><text x="570" y="432" class="xs">第 4 步的数字是本篇</text><text x="570" y="454" class="xs">按 H100 手算的估计。</text>
+</svg>
