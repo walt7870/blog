@@ -108,9 +108,10 @@
       "validation": [
         "全文阅读；事实逐条对照 ~/.codex/knowledge 笔记、各仓库 AGENTS.md / HANDOFF.md / 验收文档与作品集 FACTS.md，删除无法核实的细节（命令写法、次数、恢复方式），去除客户、人员、地址、域名与编号。",
         "七页在 1440 / 390 宽度、浅深色实际检查：无整页横向溢出、无失效图片、无运行错误；七张 SVG 由 .maintenance/ai-coding-practice/diagrams.mjs 生成，浏览器实测文字未越出节点与画布。",
-        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。"
+        "站内链接（深度系列、AI 总览卡片、侧边栏“AI 编程实战手记”）在开发服务器实际跳转；禁用套话与敏感词扫描为零。",
+        "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
       ],
-      "reviewedHash": "1a3cd353fd3c67547595445344315748d7043bbf1d71473a2ecaca4a1887b33f"
+      "reviewedHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946"
     },
     {
       "file": "docs/ai/coding-agent-series/index.md",

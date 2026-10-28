@@ -177,20 +177,6 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
-          text: '模型数值精度',
-          collapsed: true,
-          items: [
-            { text: '模型数值精度', link: '/docs/ai/precision/' },
-            { text: '01. 数字怎样存进计算机', link: '/docs/ai/precision/01-number-storage' },
-            { text: '02. FP32、FP16 与 BF16', link: '/docs/ai/precision/02-floating-formats' },
-            { text: '03. 舍入、溢出与计算误差', link: '/docs/ai/precision/03-rounding-errors' },
-            { text: '04. 混合精度怎样计算', link: '/docs/ai/precision/04-mixed-precision' },
-            { text: '05. FP8、FP4 与整数量化', link: '/docs/ai/precision/05-quantization' },
-            { text: '06. 怎样选择与验证精度', link: '/docs/ai/precision/06-choosing-precision' },
-            { text: '常见数值格式存储图解', link: '/docs/ai/precision/storage-atlas' },
-          ],
-        },
-        {
           text: '模型训练入门',
           collapsed: true,
           items: [
@@ -235,6 +221,20 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
+          text: '模型数值精度',
+          collapsed: true,
+          items: [
+            { text: '模型数值精度', link: '/docs/ai/precision/' },
+            { text: '01. 数字怎样存进计算机', link: '/docs/ai/precision/01-number-storage' },
+            { text: '02. FP32、FP16 与 BF16', link: '/docs/ai/precision/02-floating-formats' },
+            { text: '03. 舍入、溢出与计算误差', link: '/docs/ai/precision/03-rounding-errors' },
+            { text: '04. 混合精度怎样计算', link: '/docs/ai/precision/04-mixed-precision' },
+            { text: '05. FP8、FP4 与整数量化', link: '/docs/ai/precision/05-quantization' },
+            { text: '06. 怎样选择与验证精度', link: '/docs/ai/precision/06-choosing-precision' },
+            { text: '常见数值格式存储图解', link: '/docs/ai/precision/storage-atlas' },
+          ],
+        },
+        {
           text: '主要应用方向',
           collapsed: true,
           items: [
@@ -249,19 +249,16 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
-          text: '流式语音技术实践',
+          text: '大模型',
           collapsed: true,
           items: [
-            { text: '专题概览', link: '/docs/ai/speech-engineering/' },
-            { text: '处理链路与运行架构', link: '/docs/ai/speech-engineering/architecture-and-workflow' },
-            { text: '角色证据与目标说话人识别', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
-            { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
-            { text: '动态批处理与推理调度', link: '/docs/ai/speech-engineering/performance-and-capacity' },
-            { text: '推理输入合同与资源生命周期', link: '/docs/ai/speech-engineering/inference-contracts-and-lifecycle' },
-            { text: '共享热词召回与请求隔离', link: '/docs/ai/speech-engineering/hotword-routing' },
-            { text: '音频回放与质量回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
-            { text: '离线推理容器与工件一致性', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
-          ],
+            { text: '概述', link: '/docs/ai/llm/' },
+            { text: '核心概念', link: '/docs/ai/llm/concepts' },
+            { text: '训练与微调', link: '/docs/ai/llm/training' },
+            { text: 'SFT', link: '/docs/ai/llm/sft' },
+            { text: '推理与部署', link: '/docs/ai/llm/inference' },
+            { text: 'RAG 与工具调用', link: '/docs/ai/llm/rag-tools' }
+          ]
         },
         {
           text: '大模型推理优化',
@@ -294,16 +291,19 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
-          text: '大模型',
+          text: '流式语音技术实践',
           collapsed: true,
           items: [
-            { text: '概述', link: '/docs/ai/llm/' },
-            { text: '核心概念', link: '/docs/ai/llm/concepts' },
-            { text: '训练与微调', link: '/docs/ai/llm/training' },
-            { text: 'SFT', link: '/docs/ai/llm/sft' },
-            { text: '推理与部署', link: '/docs/ai/llm/inference' },
-            { text: 'RAG 与工具调用', link: '/docs/ai/llm/rag-tools' }
-          ]
+            { text: '专题概览', link: '/docs/ai/speech-engineering/' },
+            { text: '处理链路与运行架构', link: '/docs/ai/speech-engineering/architecture-and-workflow' },
+            { text: '角色证据与目标说话人识别', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
+            { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
+            { text: '动态批处理与推理调度', link: '/docs/ai/speech-engineering/performance-and-capacity' },
+            { text: '推理输入合同与资源生命周期', link: '/docs/ai/speech-engineering/inference-contracts-and-lifecycle' },
+            { text: '共享热词召回与请求隔离', link: '/docs/ai/speech-engineering/hotword-routing' },
+            { text: '音频回放与质量回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
+            { text: '离线推理容器与工件一致性', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
+          ],
         },
         {
           text: 'AI 应用开发',

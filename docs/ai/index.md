@@ -66,16 +66,16 @@ RAG 和 Agent 是应用机制：RAG 把检索结果带入模型上下文；Agent
 初次接触可先读[发展脉络](./history.md)、[概念词典](./glossary.md)与[学习路线](./learning-path.md)。已有具体任务时，按下面的场景进入对应专题。
 
 <TopicDirectory :items="[
-  { title: '模型数值精度', href: '/docs/ai/precision/', icon: 'gauge', description: '跟着一个数字理解 FP32、FP16、BF16：怎样保存、误差从哪里来，混合精度与量化怎样工作。' },
   { title: '模型训练入门', href: '/docs/ai/foundations/', icon: 'brain', description: '模型怎样从样本中学习，为什么训练表现好却在新数据上出错。' },
   { title: '主要应用方向', href: '/docs/ai/domains/', icon: 'layers', description: '识别图片缺陷、转写会议语音、预测销量：先确定输入、输出与错误代价。' },
   { title: '大语言模型', href: '/docs/ai/llm/', icon: 'book', description: '理解上下文、生成与推理的边界，再选择提示词、检索和工具调用。' },
+  { title: '模型数值精度', href: '/docs/ai/precision/', icon: 'gauge', description: '跟着一个数字理解 FP32、FP16、BF16：怎样保存、误差从哪里来，混合精度与量化怎样工作。' },
   { title: '大模型推理优化', href: '/docs/ai/llm-inference/', icon: 'gauge', description: '从 Prefill、Decode 与 KV Cache 讲到 Roofline、调度、量化、投机解码、分布式部署与压测运维。' },
+  { title: '流式语音技术实践', href: '/docs/ai/speech-engineering/', icon: 'network', description: '沿音频分段、角色识别、动态调度与热词处理理解实时语音链路。' },
   { title: 'LangChain 工程实践', href: '/docs/ai/applications/langchain/', icon: 'workflow', description: '把企业制度检索、回答生成和工具接口接成可调试的业务链路。' },
   { title: 'AI 应用工程', href: '/docs/ai/engineering/', icon: 'shield', description: '演示进入生产前，补齐权限、评估、监控、成本控制与版本回归。' },
   { title: 'AI 编程', href: '/docs/ai/vibe-coding/', icon: 'code', description: '从原型探索到规格、测试和代码审查，给 AI 明确任务边界与验收依据。' },
   { title: 'AI 编程实战手记', href: '/docs/ai/ai-coding-practice/', icon: 'terminal', description: '十几个真实项目里，怎样和多个 Agent 会话分工、立规矩、验收证据与复盘出错。' },
-  { title: '流式语音技术实践', href: '/docs/ai/speech-engineering/', icon: 'network', description: '沿音频分段、角色识别、动态调度与热词处理理解实时语音链路。' },
   { title: '项目实践', href: '/docs/ai/practice/', icon: 'terminal', description: '把数据、模型和工程机制放进具体项目，检查结果能否被重复验证。' }
 ]" />
 

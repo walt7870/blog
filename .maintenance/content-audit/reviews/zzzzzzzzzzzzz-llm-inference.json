@@ -526,21 +526,23 @@
    "findings": [],
    "dependencyFiles": [],
    "validation": [
-    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
+    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
    ],
-   "reviewedHash": "fcfb7fa9fe6af103d3381ad875006d9b90d21e254824c8468aebb0e4da2674d1"
+   "reviewedHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946"
   },
   {
    "file": "docs/ai/llm/inference.md",
    "status": "verified",
    "pageType": "速查或迁移",
-   "decision": "深入阅读入口改为新系列并更新覆盖范围。",
+   "decision": "大模型专题内的推理导读：为应用开发者说明推理对延迟、上下文成本、缓存、随机性、流式和量化的影响，原理与自部署指向大模型推理优化系列。",
    "findings": [],
    "dependencyFiles": [],
    "validation": [
-    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。"
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
+    "2026-10-27 重写为面向应用开发者的推理导读：先分清调用接口与自部署，再讲 TTFT/TPOT、KV Cache 账、前缀缓存命中条件、采样与确定性、流式输出规则、量化误区、批处理与 MoE，每节指向推理优化系列对应章节；保留原页的流式 JSON、前缀复用兼容性、场景表等应用层内容，删去与系列重复的粗略段落。KV 数字复算；无历史上下文的模拟审查无错误，7 处表述按建议修正（模拟审查不代替真实读者）。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
    ],
-   "reviewedHash": "c6dfb74acab37c15fcfafb9e37df70fc7aad9ce0c63f16b56f85a6dbe848e968"
+   "reviewedHash": "5d3aae31ef6ca6f4a8bec00e0d8537dfb82186c30f8a87cfe1ee7023b2921835"
   },
   {
    "file": "docs/ai/precision/06-choosing-precision.md",

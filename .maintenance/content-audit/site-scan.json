@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "summary": {
     "pages": 672,
-    "bytes": 4563687,
+    "bytes": 4570706,
     "batches": 78,
     "scanned": 672,
     "reviewed": 672,
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "9da9dc64864e9900ff0b322756a200598161b3de2d2bc6480e2db72ea7802e07",
+  "sharedHash": "786f89cf2b10ca30113ab066d35bb7ca559973efcee5ee4c0534a49e508ef854",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "6bde8dfbe64c24fcf2ee896732e9b9804ba96d987304a7c6ed0a289215561f8c"
+      "35c9d85a1987dc42754e2297e24de1a5e428aa33a549250ba11fd27ad200f707"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -493,7 +493,7 @@
         "docs/ai/foundations/01-what-models-learn.md",
         "docs/ai/foundations/02-python-and-environment.md"
       ],
-      "bytes": 56864
+      "bytes": 57488
     },
     {
       "id": "B018",
@@ -550,7 +550,7 @@
         "docs/ai/llm-inference/02-prefill-decode.md",
         "docs/ai/llm-inference/03-kv-cache.md"
       ],
-      "bytes": 35698
+      "bytes": 35805
     },
     {
       "id": "B021",
@@ -597,15 +597,15 @@
         "docs/ai/llm/rag-tools.md",
         "docs/ai/llm/sft.md",
         "docs/ai/llm/training.md",
-        "docs/ai/mcp.md",
-        "docs/ai/ml.md"
+        "docs/ai/mcp.md"
       ],
-      "bytes": 95755
+      "bytes": 93930
     },
     {
       "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/ml.md",
         "docs/ai/practice/agent-project.md",
         "docs/ai/practice/index.md",
         "docs/ai/practice/long-running-agent.md",
@@ -616,15 +616,15 @@
         "docs/ai/precision/03-rounding-errors.md",
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
-        "docs/ai/precision/06-choosing-precision.md",
-        "docs/ai/precision/index.md"
+        "docs/ai/precision/06-choosing-precision.md"
       ],
-      "bytes": 79984
+      "bytes": 84688
     },
     {
       "id": "B025",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/precision/index.md",
         "docs/ai/precision/storage-atlas.md",
         "docs/ai/rsi/01-recursive-self-improvement.md",
         "docs/ai/rsi/index.md",
@@ -635,15 +635,15 @@
         "docs/ai/speech-engineering/delivery-and-handoff.md",
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
-        "docs/ai/speech-engineering/incident-playbook.md",
-        "docs/ai/speech-engineering/index.md"
+        "docs/ai/speech-engineering/incident-playbook.md"
       ],
-      "bytes": 83828
+      "bytes": 83218
     },
     {
       "id": "B026",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/speech-engineering/index.md",
         "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
         "docs/ai/speech-engineering/latency-and-finalization.md",
         "docs/ai/speech-engineering/performance-and-capacity.md",
@@ -654,19 +654,19 @@
         "docs/ai/vibe-coding/index.md",
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
-        "docs/ai/vibe-coding/prompt-engineering.md",
-        "docs/ai/vibe-coding/spec-driven.md"
+        "docs/ai/vibe-coding/prompt-engineering.md"
       ],
-      "bytes": 81633
+      "bytes": 78240
     },
     {
       "id": "B027",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/vibe-coding/spec-driven.md",
         "docs/ai/vibe-coding/tool-agent-engineering.md",
         "docs/ai/vibe-coding/vibe-coding.md"
       ],
-      "bytes": 11616
+      "bytes": 19028
     },
     {
       "id": "B028",
@@ -2419,19 +2419,19 @@
     },
     {
       "file": "docs/ai/engineering/cost-capacity.md",
-      "contentHash": "f4f7563446f14748cc31c880e9462ea34b077ed2d234a969b1f086cfbdab401d",
-      "reviewHash": "c571fcb8f72779c879c0caffd0ddb660bfbca14ddb0a58b5df38a2db2b9bc472",
+      "contentHash": "64fa07cab2a8dd6cbcce240f1e9d8b4569e398d45fcea3fd0b8b0f66054801a3",
+      "reviewHash": "cb18c03718983459b8c2edc9526887f48251f69aa3bbb38abb8954627ee10c05",
       "dependencies": [
         "public/ai/capacity-cost-accounting.svg"
       ],
-      "bytes": 4338,
+      "bytes": 4574,
       "lines": 82,
-      "proseChars": 1449,
+      "proseChars": 1509,
       "headings": 8,
       "codeLines": 2,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 3,
       "findings": []
     },
     {
@@ -2487,19 +2487,19 @@
     },
     {
       "file": "docs/ai/engineering/serving-deployment.md",
-      "contentHash": "9b08a1e991555abc5a3fc0c68a75c62d8386665a517cfe35dfce1b494f7bece3",
-      "reviewHash": "c1df5f10c010e2973c8dfae0cdeacdd8b7a142c620614bc6779aa30bb8525398",
+      "contentHash": "eb59809cf216199a77865bb6bd2cf205af35c4d67510b9031a980f7dae1d1b03",
+      "reviewHash": "34a39431cc7be1677cfb4343d02c99a2f82e11f8e52089590f498938dbbca273",
       "dependencies": [
         "public/ai/inference-request-budget.svg"
       ],
-      "bytes": 4229,
+      "bytes": 4617,
       "lines": 85,
-      "proseChars": 1393,
+      "proseChars": 1502,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 4,
       "findings": []
     },
     {
@@ -2802,8 +2802,8 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "a032598284903f20e4ddb86a0224024f6935b420b7502b6094b6812e438b8047",
-      "reviewHash": "fcfb7fa9fe6af103d3381ad875006d9b90d21e254824c8468aebb0e4da2674d1",
+      "contentHash": "bfa7666da3b6a71c0785409b1193e430f8384ba61716f1c6ce41575010e27543",
+      "reviewHash": "474893984d65d3a0809654001465d4df04f1c19acb2bdae5e5b05164874e9946",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
@@ -3262,19 +3262,19 @@
     },
     {
       "file": "docs/ai/learning-path.md",
-      "contentHash": "77f29dc362f4183884192796f5548d712800f75ed0394003bd34b0b2f6b34d7a",
-      "reviewHash": "dfc1e9f0b9dbcf45d2883660aca9d30a6bbc83abd99a232b0defd1d2b2fae62c",
+      "contentHash": "606312edb9575c90c25b656269338921ce2f41fe4a8fb90c391b48c4a63e5eb8",
+      "reviewHash": "1efb7712805f81daadfd98a69f3dc1113948ac05f6a082d81352d23e7ae79711",
       "dependencies": [
         "public/ai/ai-learning-roadmap.svg"
       ],
-      "bytes": 7920,
-      "lines": 171,
-      "proseChars": 2268,
+      "bytes": 8027,
+      "lines": 172,
+      "proseChars": 2296,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 37,
+      "localReferences": 38,
       "findings": []
     },
     {
@@ -3714,36 +3714,36 @@
     },
     {
       "file": "docs/ai/llm/index.md",
-      "contentHash": "1ee8e13634394a2e46c455d6996e809e1163a6f5d30d62702c53cd030c7603c8",
-      "reviewHash": "e0ebf7d352882ca5d7f112e00105c12f4428af3f00a4597cb7c4e0dce581fea3",
+      "contentHash": "fd6eb705508ad88cdea658a4569c3e55f06989de916c81453a863ff6abc9a8fc",
+      "reviewHash": "2207921847444902bfae50811238a3464ae50e70e3ea1e8a942cc4a66dbfa5a5",
       "dependencies": [
         "public/ai/llm-token-flow.svg"
       ],
-      "bytes": 7141,
+      "bytes": 7253,
       "lines": 142,
-      "proseChars": 2359,
+      "proseChars": 2388,
       "headings": 14,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 9,
+      "localReferences": 10,
       "findings": []
     },
     {
       "file": "docs/ai/llm/inference.md",
-      "contentHash": "fb9b4301eb0141ceceb985af84075a087c57dc98570b80c626607e586ec8209e",
-      "reviewHash": "c6dfb74acab37c15fcfafb9e37df70fc7aad9ce0c63f16b56f85a6dbe848e968",
+      "contentHash": "68e93f563852bac7579597484e1ea433691b201281473970c766b9290dd8a849",
+      "reviewHash": "5d3aae31ef6ca6f4a8bec00e0d8537dfb82186c30f8a87cfe1ee7023b2921835",
       "dependencies": [
         "public/ai/kv-cache-memory-contract.svg"
       ],
-      "bytes": 5717,
-      "lines": 104,
-      "proseChars": 1990,
-      "headings": 11,
-      "codeLines": 0,
+      "bytes": 11893,
+      "lines": 125,
+      "proseChars": 3986,
+      "headings": 12,
+      "codeLines": 1,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 2,
+      "localReferences": 16,
       "findings": []
     },
     {

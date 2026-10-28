@@ -18,9 +18,10 @@
       "decision": "补1400ms分段Trace与剩余deadline；区分连续批处理与固定批处理；影子不执行副作用、超时查状态、回滚不撤销交易。",
       "findings": [],
       "validation": [
-        "80+300+900+120=1400与剩余100ms核算；四模式截图、资源、分页与双视口原尺寸通过。"
+        "80+300+900+120=1400与剩余100ms核算；四模式截图、资源、分页与双视口原尺寸通过。",
+        "2026-10-27 性能指标与发布回滚处补推理优化系列第 05、20、21 篇链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
       ],
-      "reviewedHash": "a0346cf653b9df626242d9657f4971374cb611f342be4ff4cd20d65071c95abe"
+      "reviewedHash": "34a39431cc7be1677cfb4343d02c99a2f82e11f8e52089590f498938dbbca273"
     },
     {
       "file": "docs/ai/engineering/cost-capacity.md",
@@ -29,9 +30,10 @@
       "decision": "10任务每秒与3次模型调用解释30调用每秒、平均60在途；补教学费用0.018元和缓存授权边界，不当作厂商报价或实测容量。",
       "findings": [],
       "validation": [
-        "脚本核算30调用每秒、平均60在途、单任务0.018元及万次180元；四模式截图、分页与图示放大通过。"
+        "脚本核算30调用每秒、平均60在途、单任务0.018元及万次180元；四模式截图、分页与图示放大通过。",
+        "2026-10-27 并发与吞吐处补显存账本与压测章节链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
       ],
-      "reviewedHash": "bf8da2c479a7c2f8f3a85f480736aab8753c411de730e11b748eeb286d50682c"
+      "reviewedHash": "cb18c03718983459b8c2edc9526887f48251f69aa3bbb38abb8954627ee10c05"
     },
     {
       "file": "docs/ai/engineering/mlops-llmops.md",

@@ -7,9 +7,10 @@
       "decision": "明确自回归文本模型范围，区分训练目标和参数适配，按退款助手串联训练、检索、工具与推理。",
       "findings": [],
       "validation": [
-        "全文、子页入口和概念图审查；四模式全文截图、真实分页、双视口键盘放大与原尺寸通过。"
+        "全文、子页入口和概念图审查；四模式全文截图、真实分页、双视口键盘放大与原尺寸通过。",
+        "2026-10-27 推理与部署入口说明更新，补系列链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
       ],
-      "reviewedHash": "e79b31fd80862a458d6bd841f7c0d5804424f87e2d82d10a2be58ed60f9dcbcc"
+      "reviewedHash": "2207921847444902bfae50811238a3464ae50e70e3ea1e8a942cc4a66dbfa5a5"
     },
     {
       "file": "docs/ai/llm/concepts.md",
@@ -26,12 +27,13 @@
       "file": "docs/ai/llm/inference.md",
       "status": "verified",
       "pageType": "自回归推理与缓存合同",
-      "decision": "生成区分贪心和采样；KV缓存历史K/V且当前Q仍读取；补512MiB核算、流式未完成JSON不可执行及取消重试边界。",
+      "decision": "大模型专题内的推理导读：为应用开发者说明推理对延迟、上下文成本、缓存、随机性、流式和量化的影响，原理与自部署指向大模型推理优化系列。",
       "findings": [],
       "validation": [
-        "32层8KV头128维4096位置2字节实际计算512MiB；四模式截图、分页、双视口图示放大与原尺寸通过。"
+        "32层8KV头128维4096位置2字节实际计算512MiB；四模式截图、分页、双视口图示放大与原尺寸通过。",
+        "2026-10-27 重写为面向应用开发者的推理导读：先分清调用接口与自部署，再讲 TTFT/TPOT、KV Cache 账、前缀缓存命中条件、采样与确定性、流式输出规则、量化误区、批处理与 MoE，每节指向推理优化系列对应章节；保留原页的流式 JSON、前缀复用兼容性、场景表等应用层内容，删去与系列重复的粗略段落。KV 数字复算；无历史上下文的模拟审查无错误，7 处表述按建议修正（模拟审查不代替真实读者）。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
       ],
-      "reviewedHash": "620dacdb3d4ea6d46a8cce7b921b13169d887c395b18d6c1bcff8ebec765e76f"
+      "reviewedHash": "5d3aae31ef6ca6f4a8bec00e0d8537dfb82186c30f8a87cfe1ee7023b2921835"
     },
     {
       "file": "docs/ai/llm/rag-tools.md",
