@@ -381,6 +381,40 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
+          text: '推理引擎与框架',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/inference-engines/' },
+            {
+              text: '数据中心推理引擎',
+              collapsed: true,
+              items: [
+                { text: '01. vLLM', link: '/docs/ai/inference-engines/01-vllm' },
+                { text: '02. SGLang', link: '/docs/ai/inference-engines/02-sglang' },
+                { text: '03. TensorRT-LLM', link: '/docs/ai/inference-engines/03-tensorrt-llm' },
+                { text: '04. LMDeploy', link: '/docs/ai/inference-engines/04-lmdeploy' },
+              ],
+            },
+            {
+              text: '本地与端侧框架',
+              collapsed: true,
+              items: [
+                { text: '05. llama.cpp', link: '/docs/ai/inference-engines/05-llama-cpp' },
+                { text: '06. Ollama', link: '/docs/ai/inference-engines/06-ollama' },
+                { text: '07. MLX-LM 与端侧框架', link: '/docs/ai/inference-engines/07-local-and-edge' },
+              ],
+            },
+            {
+              text: '引擎之上与整体对比',
+              collapsed: true,
+              items: [
+                { text: '08. 分布式编排与 KV 缓存组件', link: '/docs/ai/inference-engines/08-orchestration' },
+                { text: '09. 整体对比与选型', link: '/docs/ai/inference-engines/09-comparison' },
+              ],
+            },
+          ],
+        },
+        {
           text: '流式语音技术实践',
           collapsed: true,
           items: [

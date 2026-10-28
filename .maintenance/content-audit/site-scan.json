@@ -1,21 +1,26 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 703,
-    "bytes": 5206456,
+    "pages": 706,
+    "bytes": 5255116,
     "batches": 85,
-    "scanned": 703,
-    "reviewed": 696,
-    "pending": 7,
+    "scanned": 706,
+    "reviewed": 705,
+    "pending": 0,
     "changesRequired": 0,
-    "stale": [],
-    "missing": [],
-    "brokenLocalReferences": 4,
+    "stale": [
+      "AGENTS.md"
+    ],
+    "missing": [
+      "docs/ai/inference-engines/04-llama-cpp.md",
+      "docs/ai/inference-engines/06-lmdeploy.md"
+    ],
+    "brokenLocalReferences": 0,
     "openFindings": 3,
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "4d1a736c0a531987d0f1278934bee13e6851ad48a5c73485b205decf5e091bd7",
+  "sharedHash": "30ec868073c06049fe6fd4394416101088d6b2bb932f84142806406a2f37188b",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +36,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "6252b552296e681c60c4c66b24753024ece213bcfcf73952935b2445b1ba8d11"
+      "6f2941d5035559a6d318a97dfe5886c4f060d25adaef4ce81115173286bd1411"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -232,7 +237,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 35842
+      "bytes": 36455
     },
     {
       "id": "B002",
@@ -523,7 +528,7 @@
         "docs/ai/index.md",
         "docs/ai/inference-engines/01-vllm.md"
       ],
-      "bytes": 77161
+      "bytes": 77467
     },
     {
       "id": "B020",
@@ -532,23 +537,26 @@
         "docs/ai/inference-engines/02-sglang.md",
         "docs/ai/inference-engines/03-tensorrt-llm.md"
       ],
-      "bytes": 95982
+      "bytes": 96236
     },
     {
       "id": "B021",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/inference-engines/04-llama-cpp.md",
-        "docs/ai/inference-engines/06-lmdeploy.md",
-        "docs/ai/inference-engines/07-local-and-edge.md"
+        "docs/ai/inference-engines/04-lmdeploy.md",
+        "docs/ai/inference-engines/05-llama-cpp.md",
+        "docs/ai/inference-engines/06-ollama.md"
       ],
-      "bytes": 88042
+      "bytes": 88851
     },
     {
       "id": "B022",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/inference-engines/07-local-and-edge.md",
         "docs/ai/inference-engines/08-orchestration.md",
+        "docs/ai/inference-engines/09-comparison.md",
+        "docs/ai/inference-engines/index.md",
         "docs/ai/inference-series/01-landscape.md",
         "docs/ai/inference-series/02-lifecycle.md",
         "docs/ai/inference-series/03-memory.md",
@@ -556,17 +564,17 @@
         "docs/ai/inference-series/05-scheduling.md",
         "docs/ai/inference-series/06-quantization.md",
         "docs/ai/inference-series/07-speculative.md",
-        "docs/ai/inference-series/08-vllm.md",
-        "docs/ai/inference-series/09-sglang.md",
-        "docs/ai/inference-series/10-distributed.md",
-        "docs/ai/inference-series/11-speech.md"
+        "docs/ai/inference-series/08-vllm.md"
       ],
-      "bytes": 35604
+      "bytes": 80501
     },
     {
       "id": "B023",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/inference-series/09-sglang.md",
+        "docs/ai/inference-series/10-distributed.md",
+        "docs/ai/inference-series/11-speech.md",
         "docs/ai/inference-series/12-selection-versions.md",
         "docs/ai/inference-series/13-practice.md",
         "docs/ai/inference-series/14-precision-formats.md",
@@ -575,118 +583,118 @@
         "docs/ai/inference-series/index.md",
         "docs/ai/learning-path.md",
         "docs/ai/llm-inference/01-inference-system.md",
-        "docs/ai/llm-inference/02-prefill-decode.md",
-        "docs/ai/llm-inference/03-kv-cache.md",
-        "docs/ai/llm-inference/04-memory-budget.md",
-        "docs/ai/llm-inference/05-metrics.md"
+        "docs/ai/llm-inference/02-prefill-decode.md"
       ],
-      "bytes": 51679
+      "bytes": 26355
     },
     {
       "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/03-kv-cache.md",
+        "docs/ai/llm-inference/04-memory-budget.md",
+        "docs/ai/llm-inference/05-metrics.md",
         "docs/ai/llm-inference/06-gpu-roofline.md",
         "docs/ai/llm-inference/07-request-path.md",
         "docs/ai/llm-inference/08-paged-attention.md",
         "docs/ai/llm-inference/09-continuous-batching.md",
         "docs/ai/llm-inference/10-prefix-cache.md",
         "docs/ai/llm-inference/11-chunked-prefill.md",
-        "docs/ai/llm-inference/12-attention-kernels.md",
-        "docs/ai/llm-inference/13-nano-vllm.md",
-        "docs/ai/llm-inference/14-quantization.md",
-        "docs/ai/llm-inference/15-speculative-decoding.md"
+        "docs/ai/llm-inference/12-attention-kernels.md"
       ],
-      "bytes": 98551
+      "bytes": 88048
     },
     {
       "id": "B025",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/13-nano-vllm.md",
+        "docs/ai/llm-inference/14-quantization.md",
+        "docs/ai/llm-inference/15-speculative-decoding.md",
         "docs/ai/llm-inference/16-distributed.md",
         "docs/ai/llm-inference/17-pd-disaggregation.md",
         "docs/ai/llm-inference/18-vllm-sglang.md",
         "docs/ai/llm-inference/19-speech-multimodal.md",
         "docs/ai/llm-inference/20-benchmark.md",
-        "docs/ai/llm-inference/21-production.md",
-        "docs/ai/llm-inference/22-edge.md",
-        "docs/ai/llm-inference/index.md"
+        "docs/ai/llm-inference/21-production.md"
       ],
-      "bytes": 78707
+      "bytes": 99719
     },
     {
       "id": "B026",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/22-edge.md",
+        "docs/ai/llm-inference/index.md",
         "docs/ai/llm-inference/vllm-quickstart.md",
         "docs/ai/llm/concepts.md",
         "docs/ai/llm/index.md",
         "docs/ai/llm/inference.md",
         "docs/ai/llm/rag-tools.md",
         "docs/ai/llm/sft.md",
-        "docs/ai/llm/training.md",
-        "docs/ai/mcp.md",
-        "docs/ai/ml.md"
+        "docs/ai/llm/training.md"
       ],
-      "bytes": 96042
+      "bytes": 94596
     },
     {
       "id": "B027",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/mcp.md",
+        "docs/ai/ml.md",
         "docs/ai/model-training/01-training-map.md",
         "docs/ai/model-training/02-one-step.md",
         "docs/ai/model-training/03-memory.md",
         "docs/ai/model-training/04-compute-scaling.md",
-        "docs/ai/model-training/05-training-curves.md",
-        "docs/ai/model-training/06-llm-data.md"
+        "docs/ai/model-training/05-training-curves.md"
       ],
-      "bytes": 86608
+      "bytes": 88808
     },
     {
       "id": "B028",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/model-training/06-llm-data.md",
         "docs/ai/model-training/07-pretraining.md",
         "docs/ai/model-training/08-distributed.md",
         "docs/ai/model-training/09-sft.md",
         "docs/ai/model-training/10-lora-qlora.md",
-        "docs/ai/model-training/11-preference.md",
-        "docs/ai/model-training/12-rl-reasoning.md"
+        "docs/ai/model-training/11-preference.md"
       ],
-      "bytes": 93746
+      "bytes": 93910
     },
     {
       "id": "B029",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/model-training/12-rl-reasoning.md",
         "docs/ai/model-training/13-distill-merge.md",
         "docs/ai/model-training/14-asr-training.md",
         "docs/ai/model-training/15-asr-finetune.md",
         "docs/ai/model-training/16-tts-training.md",
-        "docs/ai/model-training/17-vision.md",
-        "docs/ai/model-training/18-multimodal.md"
+        "docs/ai/model-training/17-vision.md"
       ],
-      "bytes": 86903
+      "bytes": 89421
     },
     {
       "id": "B030",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/model-training/18-multimodal.md",
         "docs/ai/model-training/19-diffusion.md",
         "docs/ai/model-training/20-embedding.md",
         "docs/ai/model-training/21-evaluation.md",
         "docs/ai/model-training/22-engineering.md",
-        "docs/ai/model-training/index.md",
-        "docs/ai/model-training/lora-practice.md",
-        "docs/ai/practice/agent-project.md"
+        "docs/ai/model-training/index.md"
       ],
-      "bytes": 99750
+      "bytes": 92752
     },
     {
       "id": "B031",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/model-training/lora-practice.md",
+        "docs/ai/practice/agent-project.md",
         "docs/ai/practice/index.md",
         "docs/ai/practice/long-running-agent.md",
         "docs/ai/practice/machine-learning-project.md",
@@ -696,16 +704,16 @@
         "docs/ai/precision/03-rounding-errors.md",
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
-        "docs/ai/precision/06-choosing-precision.md",
-        "docs/ai/precision/index.md",
-        "docs/ai/precision/storage-atlas.md"
+        "docs/ai/precision/06-choosing-precision.md"
       ],
-      "bytes": 91426
+      "bytes": 92070
     },
     {
       "id": "B032",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/precision/index.md",
+        "docs/ai/precision/storage-atlas.md",
         "docs/ai/rsi/01-recursive-self-improvement.md",
         "docs/ai/rsi/index.md",
         "docs/ai/skill/claude-code-best-practices.md",
@@ -715,16 +723,16 @@
         "docs/ai/speech-engineering/delivery-and-handoff.md",
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
-        "docs/ai/speech-engineering/incident-playbook.md",
-        "docs/ai/speech-engineering/index.md",
-        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md"
+        "docs/ai/speech-engineering/incident-playbook.md"
       ],
-      "bytes": 73396
+      "bytes": 83218
     },
     {
       "id": "B033",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/speech-engineering/index.md",
+        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
         "docs/ai/speech-engineering/latency-and-finalization.md",
         "docs/ai/speech-engineering/performance-and-capacity.md",
         "docs/ai/speech-engineering/pipeline-boundaries.md",
@@ -734,19 +742,19 @@
         "docs/ai/vibe-coding/index.md",
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
-        "docs/ai/vibe-coding/prompt-engineering.md",
-        "docs/ai/vibe-coding/spec-driven.md",
-        "docs/ai/vibe-coding/tool-agent-engineering.md"
+        "docs/ai/vibe-coding/prompt-engineering.md"
       ],
-      "bytes": 82152
+      "bytes": 78240
     },
     {
       "id": "B034",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/vibe-coding/spec-driven.md",
+        "docs/ai/vibe-coding/tool-agent-engineering.md",
         "docs/ai/vibe-coding/vibe-coding.md"
       ],
-      "bytes": 5424
+      "bytes": 19028
     },
     {
       "id": "B035",
@@ -1517,12 +1525,12 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "a1ed8bd4ccdc18e40e31067a5aa498aaaaa4a68048e29afd0ad99bfd51cbee03",
-      "reviewHash": "57f43dded42004874d9dfdcb68003681d85caf35e3c66243fe616966ea7820e1",
+      "contentHash": "e5bf37598fd0327c3d987b9b2bd9f207351ceb2d6c6ea4e359cb0323a01b9a7a",
+      "reviewHash": "51abfbdf206c1252207c3d134f9361368823f2a66fdc97fc9606c48259f985c0",
       "dependencies": [],
-      "bytes": 23506,
-      "lines": 123,
-      "proseChars": 8966,
+      "bytes": 24119,
+      "lines": 125,
+      "proseChars": 9303,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 0,
@@ -2882,14 +2890,14 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "63202a0cb205b26ac5cdbe9123e3495f99bae5b71460b48d15d04ba09eacfc47",
-      "reviewHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c",
+      "contentHash": "9ab9f7b0f3bb738a01fc1602aeed9aadb2fea0a4199eff443897df8f89c4a5b8",
+      "reviewHash": "56469665e99402e66523e03e2f2573bc47f2d9da56f7c622394ca99fe54ea039",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 8521,
-      "lines": 97,
+      "bytes": 8786,
+      "lines": 98,
       "proseChars": 1802,
       "headings": 8,
       "codeLines": 0,
@@ -2900,39 +2908,33 @@
     },
     {
       "file": "docs/ai/inference-engines/01-vllm.md",
-      "contentHash": "106ae3e398fe20ba8a52153c324a7002304996b32c63ce53fe8f139a811508ea",
-      "reviewHash": "75c1e7917d12f559b6d35b30f3c18909563f7398dbd8348fe7651e1034924231",
+      "contentHash": "b9c07dc474e89fef55a3d37cb7555a7b6d270701fab9fc4d612bf109f6101d15",
+      "reviewHash": "0ff764f00f6739ca4c4ed5cabf08fa445968da1447083d137886f7aafd7cd719",
       "dependencies": [
         "public/ai/inference-engines/vllm-architecture.svg",
         "public/ai/inference-engines/vllm-request-lifecycle.svg"
       ],
-      "bytes": 55516,
+      "bytes": 55557,
       "lines": 459,
-      "proseChars": 24282,
+      "proseChars": 24280,
       "headings": 24,
       "codeLines": 33,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 24,
-      "findings": [
-        {
-          "kind": "broken-local-reference",
-          "line": 435,
-          "detail": "本地目标不存在：./05-ollama.md"
-        }
-      ]
+      "localReferences": 25,
+      "findings": []
     },
     {
       "file": "docs/ai/inference-engines/02-sglang.md",
-      "contentHash": "595052f40adbe75a3cefda6d5ad0469d4f99111d81b943421ab5b408a8d57145",
-      "reviewHash": "051b43587e86863d4dcd755c754538f224375d3d63d1afe08f53637b071b6a7a",
+      "contentHash": "217acdd0202453e40a4436f365593c3f96929001163f91d344cfc6eb77eeaae0",
+      "reviewHash": "fa35bf71d497fcb03c04408ed86f5d9b0b38fc21d81f78de218373c8c8faff13",
       "dependencies": [
         "public/ai/inference-engines/sglang-architecture.svg",
         "public/ai/inference-engines/sglang-overlap.svg"
       ],
-      "bytes": 49783,
+      "bytes": 49741,
       "lines": 489,
-      "proseChars": 22044,
+      "proseChars": 22016,
       "headings": 27,
       "codeLines": 58,
       "visualCount": 2,
@@ -2942,16 +2944,16 @@
     },
     {
       "file": "docs/ai/inference-engines/03-tensorrt-llm.md",
-      "contentHash": "c7ab20c9059b71b38fd578a489e79286666c142101a7d10ffa62f23f3bc7badc",
-      "reviewHash": "207d1fb7d0d179792a2aab0122565653b37aa0ca55a8354cd703c3b5b856aa41",
+      "contentHash": "53f2587df5fd28e10f691f2db1f7372e7db2c6ae488ba34f1328010ca863181b",
+      "reviewHash": "639bda44d1fb95c7d94caece84afd4b1d35fdd5dd86d6eab74f1058628801533",
       "dependencies": [
         "public/ai/inference-engines/trtllm-architecture.svg",
         "public/ai/inference-engines/trtllm-disagg.svg",
         "public/ai/inference-engines/trtllm-workflow.svg"
       ],
-      "bytes": 46199,
+      "bytes": 46495,
       "lines": 487,
-      "proseChars": 19884,
+      "proseChars": 20031,
       "headings": 25,
       "codeLines": 105,
       "visualCount": 3,
@@ -2960,96 +2962,130 @@
       "findings": []
     },
     {
-      "file": "docs/ai/inference-engines/04-llama-cpp.md",
-      "contentHash": "f843a97a4ac12b710e019495e237494631fcbe27138852dd2c4cf83197a34aba",
-      "reviewHash": "e03fd1274a175afda05911e89b007e041311c33dbb283889d7adf697876f6142",
-      "dependencies": [
-        "public/ai/inference-engines/llamacpp-gguf.svg",
-        "public/ai/inference-engines/llamacpp-slots.svg",
-        "public/ai/inference-engines/llamacpp-stack.svg"
-      ],
-      "bytes": 35170,
-      "lines": 380,
-      "proseChars": 14117,
-      "headings": 17,
-      "codeLines": 60,
-      "visualCount": 3,
-      "htmlComponents": false,
-      "localReferences": 4,
-      "findings": [
-        {
-          "kind": "broken-local-reference",
-          "line": 379,
-          "detail": "本地目标不存在：./05-ollama.md"
-        }
-      ]
-    },
-    {
-      "file": "docs/ai/inference-engines/06-lmdeploy.md",
-      "contentHash": "1a30a66918276414a6303891481ee7f2fed4493f44af92a2bfd1f20c88d53fd0",
-      "reviewHash": "62dac87244d6dc59b0bf4dcd42ff312623620a19eedcebab18f9b4215d215785",
+      "file": "docs/ai/inference-engines/04-lmdeploy.md",
+      "contentHash": "ff0b32a138914ec0883adb569e7f30f670b239d22938d03e2d5582f9ca615ce6",
+      "reviewHash": "57df5edcee9f8a19ce095488c0b945c91b8d100b2a9e81109e5bfb491bfe23f1",
       "dependencies": [
         "public/ai/inference-engines/lmdeploy-architecture.svg",
         "public/ai/inference-engines/lmdeploy-backend-choice.svg",
         "public/ai/inference-engines/lmdeploy-proxy.svg"
       ],
-      "bytes": 30357,
+      "bytes": 30425,
       "lines": 279,
-      "proseChars": 13414,
+      "proseChars": 13456,
       "headings": 13,
       "codeLines": 30,
       "visualCount": 3,
       "htmlComponents": false,
-      "localReferences": 18,
+      "localReferences": 20,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/05-llama-cpp.md",
+      "contentHash": "e2da2ffaf4745e7be426db0886ad62ae910c336672169f470d290b1bd6dd657e",
+      "reviewHash": "7a879b6d6f5aefa295a82dd28ef33fcb48d36386d185754975b4680e58d7820f",
+      "dependencies": [
+        "public/ai/inference-engines/llamacpp-gguf.svg",
+        "public/ai/inference-engines/llamacpp-slots.svg",
+        "public/ai/inference-engines/llamacpp-stack.svg"
+      ],
+      "bytes": 35780,
+      "lines": 380,
+      "proseChars": 14203,
+      "headings": 17,
+      "codeLines": 60,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 14,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/06-ollama.md",
+      "contentHash": "4ed17288ccbae3d7104c40dff562fabb0f50594e2de17dd4d04a08d92fbb2293",
+      "reviewHash": "67fc79253a1b016cb87a3bb4ff8d1a2551cac7c45e1de88862df0b306754b885",
+      "dependencies": [
+        "public/ai/inference-engines/ollama-architecture.svg"
+      ],
+      "bytes": 22646,
+      "lines": 252,
+      "proseChars": 9395,
+      "headings": 11,
+      "codeLines": 36,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 6,
       "findings": []
     },
     {
       "file": "docs/ai/inference-engines/07-local-and-edge.md",
-      "contentHash": "24bab2d0d0e3c481e19e7589a5fca5d21a5c8a507a87b03b5cf693594585f5d5",
-      "reviewHash": "1cc632051aa75c97956a53e311fed042c5d43b98779c6fc47574d4a48dcc9936",
+      "contentHash": "babfd8391b735b1183a1306549342ed94e9eb17812848c51833dd492ec9cc7b1",
+      "reviewHash": "87fe18d1aadcd89a23512f83cd8e72b86fc39221629db6e6bedcc85bb2fed3f9",
       "dependencies": [
         "public/ai/inference-engines/mlx-memory.svg",
         "public/ai/inference-engines/mlx-workflow.svg"
       ],
-      "bytes": 22515,
-      "lines": 224,
-      "proseChars": 9221,
+      "bytes": 26156,
+      "lines": 269,
+      "proseChars": 10298,
       "headings": 11,
-      "codeLines": 25,
+      "codeLines": 46,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 8,
-      "findings": [
-        {
-          "kind": "broken-local-reference",
-          "line": 5,
-          "detail": "本地目标不存在：./05-ollama.md"
-        }
-      ]
+      "localReferences": 9,
+      "findings": []
     },
     {
       "file": "docs/ai/inference-engines/08-orchestration.md",
-      "contentHash": "e1ad197e3d9a41b61f0f3d1bd526e0a3472db33623a2df1c240944107adb8801",
-      "reviewHash": "b136db2180f71ccef3c4c421573acb8325dcd9504d032e0ff23e3cd8dba634d1",
+      "contentHash": "a25679a9276abc80331f7f911bc4282c93ddc005de96d5221fdac0474f64c2dd",
+      "reviewHash": "c9c37ce038f4503091b28fbe1845d5bb65eb6fe52e0d1cd88b41f35de5d7a348",
       "dependencies": [
         "public/ai/inference-engines/orch-kv-routing.svg",
         "public/ai/inference-engines/orch-layers.svg"
       ],
-      "bytes": 31750,
+      "bytes": 31875,
       "lines": 235,
-      "proseChars": 14311,
+      "proseChars": 14384,
       "headings": 12,
       "codeLines": 32,
       "visualCount": 2,
       "htmlComponents": false,
       "localReferences": 14,
-      "findings": [
-        {
-          "kind": "broken-local-reference",
-          "line": 234,
-          "detail": "本地目标不存在：./09-comparison.md"
-        }
-      ]
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/09-comparison.md",
+      "contentHash": "dfa3605c150f81ce1b9fa01057646d589ff7cd78df1f40c7e0e27d580ae866cf",
+      "reviewHash": "433960c67230a88c6941a03c635ddacaa917d1984caccf15e08870f73540ee1f",
+      "dependencies": [
+        "public/ai/inference-engines/engines-landscape.svg",
+        "public/ai/inference-engines/engines-selection.svg"
+      ],
+      "bytes": 14664,
+      "lines": 118,
+      "proseChars": 6187,
+      "headings": 9,
+      "codeLines": 0,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/inference-engines/index.md",
+      "contentHash": "bae17b64aec538fd1b31573200318b1b2f5e0b4be7d5c6426ee27633ce9d7df5",
+      "reviewHash": "6db90b86d59040348b90ba0669ad53d833e3ef286fb2ac902e187407cdf8fc9c",
+      "dependencies": [
+        "public/ai/inference-engines/engines-landscape.svg"
+      ],
+      "bytes": 4955,
+      "lines": 48,
+      "proseChars": 1795,
+      "headings": 4,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 15,
+      "findings": []
     },
     {
       "file": "docs/ai/inference-series/01-landscape.md",
@@ -3495,19 +3531,19 @@
     },
     {
       "file": "docs/ai/learning-path.md",
-      "contentHash": "302c1315af2bb0ef421602630feecdf38ba3fe8a08eac2452e0ef5e73afad7e6",
-      "reviewHash": "2fa007bbceaaff1567391445a4bcbac3cd2e3b877aded5c9f908f88a482870d1",
+      "contentHash": "77c80cd11c0f199572526e71fc0e361bcf841cf33d92e910fa4d73d41ca41178",
+      "reviewHash": "b1365f2a8a91760b5f56c83d6f78ba4c53531f7b951450dbb29450e0acd6c84d",
       "dependencies": [
         "public/ai/ai-learning-roadmap.svg"
       ],
-      "bytes": 8174,
-      "lines": 173,
-      "proseChars": 2337,
+      "bytes": 8300,
+      "lines": 174,
+      "proseChars": 2382,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 39,
+      "localReferences": 40,
       "findings": []
     },
     {
@@ -3809,20 +3845,20 @@
     },
     {
       "file": "docs/ai/llm-inference/18-vllm-sglang.md",
-      "contentHash": "c35a052f52441fb3e1ffe28376c23af6ab633e22be75b2ae40881d485cb23a90",
-      "reviewHash": "e6400e88fff695f2272f05bdcf143f3522a27ccf21ea8aad5dab52bc64aead87",
+      "contentHash": "d5f0239b2e93bcaf27ede52dfa52e0f224126540910fcbef25f0a09e7c6944bf",
+      "reviewHash": "cf630247ef7dece8170ad5bf307ae94893403141f24f0a756ac6729ab8d3874c",
       "dependencies": [
         "public/ai/inference-series/engine-loop.svg",
         "public/ai/inference-series/selection-gates.svg"
       ],
-      "bytes": 10387,
+      "bytes": 10807,
       "lines": 130,
-      "proseChars": 3831,
+      "proseChars": 3959,
       "headings": 8,
       "codeLines": 10,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 4,
+      "localReferences": 8,
       "findings": []
     },
     {
@@ -3896,36 +3932,36 @@
     },
     {
       "file": "docs/ai/llm-inference/index.md",
-      "contentHash": "61dfd4542f881687deda7d04d35642d293948717ff3833625cd514e33401d465",
-      "reviewHash": "8718db3801b3ce7e75f5c6701c7f5d90f93c5f0d4d962b5ad7c243157d9b3981",
+      "contentHash": "34fafd110dde9c867e8e19291026a3208c6ac8d91ecd462758c55ccb04912f9c",
+      "reviewHash": "50b67b9d831b5c5ea27af5f7b6204beaa2dd442c1776625e60329bd0d9ddfefe",
       "dependencies": [
         "public/ai/llm-inference/series-map.svg"
       ],
-      "bytes": 7129,
+      "bytes": 7214,
       "lines": 76,
-      "proseChars": 2327,
+      "proseChars": 2347,
       "headings": 4,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 28,
+      "localReferences": 29,
       "findings": []
     },
     {
       "file": "docs/ai/llm-inference/vllm-quickstart.md",
-      "contentHash": "c6cc86d924d534e1232d0f121550a4a54ea529b3de13b898d041a26fe456e477",
-      "reviewHash": "20e1478cc7366e29b4e40a36433fb6bd9d21b37634c150aa98a4bddd12a8396e",
+      "contentHash": "384f0456d6091d88454742397d7cd67f55e76b6287ac0bcacf4670d9254dbbaa",
+      "reviewHash": "0b89875ce872ecf7953565b7c60b6c5238c9a7b290df1d85f0ee355d76c25fc0",
       "dependencies": [
         "public/ai/llm-inference/vllm-startup.svg"
       ],
-      "bytes": 30952,
+      "bytes": 31099,
       "lines": 440,
-      "proseChars": 11892,
+      "proseChars": 11936,
       "headings": 28,
       "codeLines": 85,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 13,
+      "localReferences": 14,
       "findings": []
     },
     {

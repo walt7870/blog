@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="700" viewBox="0 0 1340 700" role="img" aria-labelledby="sglang-architecture-title sglang-architecture-desc" id="sglang-architecture-root">
+<title id="sglang-architecture-title">SGLang 服务的进程结构与一个请求的流向</title>
+<desc id="sglang-architecture-desc">客户端通过 HTTP 把请求发给主进程，主进程里的 TokenizerManager 套模板并分词，经 ZMQ 发给 rank 0 的 Scheduler 进程；每张 GPU 一个 Scheduler 进程，内部包含调度策略、RadixCache 和 ModelRunner；生成的 token ID 经 ZMQ 发给 DetokenizerManager 子进程变成增量文本，再经 ZMQ 回到主进程，以 SSE 推给客户端。按需出现的进程包括 DataParallelController、多机时只跑 Scheduler 的从节点和多个分词进程。</desc>
+<defs><style>
+#sglang-architecture-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#sglang-architecture-root .h { font-size: 26px; font-weight: 700; }
+#sglang-architecture-root .t { font-size: 19px; font-weight: 600; }
+#sglang-architecture-root .s { font-size: 15px; fill: #475569; }
+#sglang-architecture-root .xs { font-size: 13px; fill: #64748b; }
+#sglang-architecture-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#sglang-architecture-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#sglang-architecture-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#sglang-architecture-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#sglang-architecture-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#sglang-architecture-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#sglang-architecture-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#sglang-architecture-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#sglang-architecture-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#sglang-architecture-root .fblue { fill: #93c5fd; } #sglang-architecture-root .fgreen { fill: #6ee7b7; } #sglang-architecture-root .fred { fill: #fda4af; }
+#sglang-architecture-root .famber { fill: #fcd34d; } #sglang-architecture-root .fviolet { fill: #c4b5fd; } #sglang-architecture-root .fgray { fill: #e2e8f0; }
+#sglang-architecture-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#sglang-architecture-arrow); }
+#sglang-architecture-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#sglang-architecture-arrow); }
+#sglang-architecture-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#sglang-architecture-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="sglang-architecture-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="700" fill="#f8fafc"/>
+<text x="32" y="46" class="h">sglang serve 启动后的进程与请求流向</text>
+<text x="32" y="78" class="s">一台机器、TP=N 的情况：一个主进程、N 个 Scheduler 子进程、一个 Detokenizer 子进程</text>
+<g data-node="client"><rect x="32" y="150" width="228" height="170" rx="8" class="gray"/><text x="50" y="176" class="k">请求来源</text><text x="50" y="202" class="t">客户端</text><text x="50" y="230" class="s">OpenAI SDK、curl</text><text x="50" y="253" class="s">或 SMG 路由器</text></g><g data-node="main"><rect x="330" y="112" width="400" height="240" rx="8" class="blue"/><text x="348" y="138" class="k">主进程</text><text x="348" y="164" class="t">HTTP 服务 + TokenizerManager</text><text x="348" y="192" class="s">FastAPI：OpenAI、Anthropic、</text><text x="348" y="215" class="s">原生 /generate 等接口</text><text x="348" y="238" class="s">套对话模板、分词、</text><text x="348" y="261" class="s">多模态预处理</text><text x="348" y="284" class="s">按请求 ID 等结果，</text><text x="348" y="307" class="s">增量文本以 SSE 推回</text></g><rect x="826" y="128" width="490" height="240" rx="8" class="gray"/><rect x="816" y="120" width="490" height="240" rx="8" class="gray"/><g data-node="sched"><rect x="806" y="112" width="490" height="240" rx="8" class="green"/><text x="824" y="138" class="k">子进程 × TP 卡数</text><text x="824" y="164" class="t">Scheduler：调度 + 模型执行</text><text x="824" y="192" class="s">等待队列 → 调度策略（默认 fcfs）</text><text x="824" y="215" class="s">RadixCache 匹配前缀、分配 KV 页</text><text x="824" y="238" class="s">组批：有可做的 prefill 先做，否则 decode</text><text x="824" y="261" class="s">TpModelWorker → ModelRunner</text><text x="824" y="284" class="s">注意力后端 + CUDA Graph → 本卡 GPU</text><text x="824" y="307" class="s">每张卡一个进程；rank 0 收请求后广播</text></g><g data-node="detok"><rect x="806" y="440" width="490" height="130" rx="8" class="violet"/><text x="824" y="466" class="k">子进程</text><text x="824" y="492" class="t">DetokenizerManager</text><text x="824" y="520" class="s">token ID → 增量文本</text><text x="824" y="543" class="s">处理停止串与特殊 token</text></g><g data-node="opt"><rect x="32" y="440" width="520" height="150" rx="8" class="node"/><text x="50" y="466" class="k">可选</text><text x="50" y="492" class="t">按需出现的进程</text><text x="50" y="520" class="s">--dp-size &gt; 1：多一个 DataParallelController</text><text x="50" y="543" class="s">--nnodes &gt; 1：从节点只跑 Scheduler</text><text x="50" y="566" class="s">--tokenizer-worker-num &gt; 1：多个分词进程</text></g><path d="M262 200H326" class="edge"/><rect x="262" y="172" width="52" height="26" rx="4" fill="#f8fafc"/><text x="268" y="190" class="s">HTTP</text><path d="M326 290H262" class="edge"/><rect x="264" y="300" width="44" height="26" rx="4" fill="#f8fafc"/><text x="270" y="318" class="s">SSE</text><path d="M732 200H802" class="edge"/><rect x="738" y="172" width="48" height="26" rx="4" fill="#f8fafc"/><text x="744" y="190" class="s">ZMQ</text><path d="M1050 370V436" class="edge"/><rect x="1056" y="392" width="128" height="26" rx="4" fill="#f8fafc"/><text x="1062" y="410" class="s">ZMQ：token ID</text><path d="M804 505H640V356" class="edge"/><rect x="646" y="478" width="92" height="26" rx="4" fill="#f8fafc"/><text x="652" y="496" class="s">ZMQ：文本</text><text x="32" y="630" class="xs">箭头上的 ZMQ 是同一台机器上的进程间消息（ipc:// 套接字）；同一模型的各 TP rank 之间用 NCCL 做 all-reduce，不经过这些套接字。</text><text x="32" y="656" class="xs">分词、反分词和 HTTP 处理放在 GPU 进程之外，CPU 上的这些工作就不会占用调度循环的时间。</text>
+</svg>

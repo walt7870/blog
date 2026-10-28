@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="540" viewBox="0 0 1340 540" role="img" aria-labelledby="mlx-workflow-title mlx-workflow-desc" id="mlx-workflow-root">
+<title id="mlx-workflow-title">MLX-LM 的几条命令怎样串起来</title>
+<desc id="mlx-workflow-desc">Hugging Face 模型经 mlx_lm.convert 量化成 MLX 模型目录，再由 generate、chat 或 server 使用；训练数据经 mlx_lm.lora 得到适配器，可以直接加载，也可以用 mlx_lm.fuse 合并成新模型。</desc>
+<defs><style>
+#mlx-workflow-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#mlx-workflow-root .h { font-size: 26px; font-weight: 700; }
+#mlx-workflow-root .t { font-size: 19px; font-weight: 600; }
+#mlx-workflow-root .s { font-size: 15px; fill: #475569; }
+#mlx-workflow-root .xs { font-size: 13px; fill: #64748b; }
+#mlx-workflow-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#mlx-workflow-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#mlx-workflow-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#mlx-workflow-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#mlx-workflow-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#mlx-workflow-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#mlx-workflow-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#mlx-workflow-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#mlx-workflow-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#mlx-workflow-root .fblue { fill: #93c5fd; } #mlx-workflow-root .fgreen { fill: #6ee7b7; } #mlx-workflow-root .fred { fill: #fda4af; }
+#mlx-workflow-root .famber { fill: #fcd34d; } #mlx-workflow-root .fviolet { fill: #c4b5fd; } #mlx-workflow-root .fgray { fill: #e2e8f0; }
+#mlx-workflow-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#mlx-workflow-arrow); }
+#mlx-workflow-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#mlx-workflow-arrow); }
+#mlx-workflow-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#mlx-workflow-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="mlx-workflow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="540" fill="#f8fafc"/>
+<text x="32" y="46" class="h">MLX-LM：转换、运行、服务、微调</text>
+<text x="32" y="78" class="s">同一个模型目录被所有命令共用；现成的 mlx-community 模型可以跳过转换</text>
+<g data-node="hf"><rect x="32" y="130" width="230" height="132" rx="8" class="gray"/><text x="50" y="156" class="k">输入</text><text x="50" y="182" class="t">Hugging Face 模型</text><text x="50" y="210" class="s">safetensors + config</text><text x="50" y="233" class="s">如 Qwen/Qwen3-8B</text></g><g data-node="convert"><rect x="302" y="130" width="250" height="132" rx="8" class="blue"/><text x="320" y="156" class="k">量化转换</text><text x="320" y="182" class="t">mlx_lm.convert -q</text><text x="320" y="210" class="s">默认 affine 4 位</text><text x="320" y="233" class="s">每 64 个权重一组</text></g><g data-node="mlxdir"><rect x="592" y="130" width="250" height="132" rx="8" class="amber"/><text x="610" y="156" class="k">产物</text><text x="610" y="182" class="t">MLX 模型目录</text><text x="610" y="210" class="s">mlx_model/ 或</text><text x="610" y="233" class="s">mlx-community 现成版本</text></g><g data-node="gen"><rect x="882" y="112" width="426" height="100" rx="8" class="green"/><text x="900" y="148" class="t">mlx_lm.generate / chat</text><text x="900" y="176" class="s">命令行单次生成与终端对话</text></g><g data-node="server"><rect x="882" y="228" width="426" height="100" rx="8" class="green"/><text x="900" y="264" class="t">mlx_lm.server</text><text x="900" y="292" class="s">127.0.0.1:8080，OpenAI 风格接口</text></g><g data-node="data"><rect x="302" y="356" width="250" height="132" rx="8" class="gray"/><text x="320" y="382" class="k">输入</text><text x="320" y="408" class="t">训练数据</text><text x="320" y="436" class="s">train.jsonl</text><text x="320" y="459" class="s">valid.jsonl（可选）</text></g><g data-node="lora"><rect x="592" y="356" width="250" height="132" rx="8" class="violet"/><text x="610" y="382" class="k">微调</text><text x="610" y="408" class="t">mlx_lm.lora --train</text><text x="610" y="436" class="s">量化模型即 QLoRA</text><text x="610" y="459" class="s">默认 rank 8、16 层</text></g><g data-node="adapters"><rect x="882" y="356" width="196" height="132" rx="8" class="violet"/><text x="900" y="382" class="k">产物</text><text x="900" y="408" class="t">adapters/</text><text x="900" y="436" class="s">--adapter-path</text><text x="900" y="459" class="s">加载使用</text></g><g data-node="fuse"><rect x="1112" y="356" width="196" height="132" rx="8" class="violet"/><text x="1130" y="382" class="k">可选</text><text x="1130" y="408" class="t">mlx_lm.fuse</text><text x="1130" y="436" class="s">合并成新的</text><text x="1130" y="459" class="s">模型目录</text></g><path d="M262 196H298" class="edge"/><path d="M552 196H588" class="edge"/><path d="M842 172H878" class="edge"/><path d="M842 230H860V278H878" class="edge"/><path d="M552 422H588" class="edge"/><path d="M717 262V352" class="edge"/><path d="M842 422H878" class="edge"/><path d="M1078 422H1108" class="edge"/><path d="M980 356V332" class="dash"/><text x="32" y="330" class="xs">虚线：适配器也可以不合并，</text><text x="32" y="352" class="xs">生成和服务时直接挂上。</text>
+</svg>

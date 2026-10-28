@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="850" viewBox="0 0 960 850" role="img" aria-labelledby="vllm-architecture-title vllm-architecture-desc" id="vllm-architecture-root">
+<title id="vllm-architecture-title">vLLM V1 的进程结构</title>
+<desc id="vllm-architecture-desc">以两卡张量并行为例：客户端经 HTTP 访问 API 服务进程；API 服务进程负责对话模板、分词、反分词和流式返回，经 ZMQ 与 EngineCore 进程交换请求和输出；EngineCore 运行调度器、KV 缓存管理器和执行器，把每一步的调度结果经共享内存队列广播给两个 Worker 进程；每个 Worker 管一张 GPU，运行 GPUModelRunner，两张卡之间用 NCCL 通信。数据并行时另有 DP 协调进程，P/D 分离或 KV 卸载时 Worker 通过 KV 连接器与外部交换 KV。</desc>
+<defs><style>
+#vllm-architecture-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#vllm-architecture-root .h { font-size: 26px; font-weight: 700; }
+#vllm-architecture-root .t { font-size: 19px; font-weight: 600; }
+#vllm-architecture-root .s { font-size: 15px; fill: #475569; }
+#vllm-architecture-root .xs { font-size: 13px; fill: #64748b; }
+#vllm-architecture-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#vllm-architecture-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#vllm-architecture-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#vllm-architecture-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#vllm-architecture-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#vllm-architecture-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#vllm-architecture-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#vllm-architecture-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#vllm-architecture-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#vllm-architecture-root .fblue { fill: #93c5fd; } #vllm-architecture-root .fgreen { fill: #6ee7b7; } #vllm-architecture-root .fred { fill: #fda4af; }
+#vllm-architecture-root .famber { fill: #fcd34d; } #vllm-architecture-root .fviolet { fill: #c4b5fd; } #vllm-architecture-root .fgray { fill: #e2e8f0; }
+#vllm-architecture-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#vllm-architecture-arrow); }
+#vllm-architecture-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#vllm-architecture-arrow); }
+#vllm-architecture-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#vllm-architecture-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="vllm-architecture-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="960" height="850" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一个 vllm serve 背后的进程</text>
+<text x="32" y="78" class="s">以 vllm serve Qwen/Qwen3-8B -tp 2 为例：1 个 API 服务进程 + 1 个 EngineCore + 2 个 Worker，共 4 个进程。</text>
+<g data-node="client"><rect x="32" y="112" width="200" height="160" rx="8" class="node"/><text x="50" y="148" class="t">客户端</text><text x="50" y="176" class="s">OpenAI SDK</text><text x="50" y="199" class="s">curl、网关</text></g>
+<g data-node="api"><rect x="272" y="112" width="656" height="160" rx="8" class="blue"/><text x="290" y="138" class="k">API 服务进程 · 默认 1 个，数据并行时等于 DP 数</text><text x="290" y="164" class="t">FastAPI + AsyncLLM</text><text x="290" y="192" class="s">请求侧：对话模板、分词、多模态预处理、参数校验</text><text x="290" y="215" class="s">输出侧：增量反分词、停止字符串、SSE 流式推送</text></g>
+<path d="M232 192H272" class="edge"/>
+<text x="236" y="182" class="xs">HTTP</text>
+<g data-node="core"><rect x="272" y="320" width="656" height="220" rx="8" class="green"/><text x="290" y="346" class="k">EngineCore 进程 · 每个 DP rank 一个</text><text x="290" y="372" class="t">忙循环：schedule → execute → update</text></g>
+<g data-node="sched"><rect x="292" y="392" width="196" height="128" rx="8" class="node"/><text x="310" y="428" class="t">Scheduler</text><text x="310" y="456" class="s">统一 token 预算</text><text x="310" y="479" class="s">先排运行中请求</text><text x="310" y="502" class="s">抢占后重算</text></g>
+<g data-node="kvm"><rect x="504" y="392" width="196" height="128" rx="8" class="node"/><text x="522" y="428" class="t">KVCacheManager</text><text x="522" y="456" class="s">16 token 一块</text><text x="522" y="479" class="s">哈希链前缀缓存</text><text x="522" y="502" class="s">LRU 回收</text></g>
+<g data-node="exec"><rect x="716" y="392" width="192" height="128" rx="8" class="node"/><text x="734" y="428" class="t">Executor</text><text x="734" y="456" class="s">mp：共享内存广播</text><text x="734" y="479" class="s">ray：多机可选</text></g>
+<path d="M520 272V320" class="edge"/>
+<path d="M760 320V272" class="edge"/>
+<rect x="524" y="284" width="150" height="26" rx="4" fill="#f8fafc"/><text x="530" y="302" class="s">EngineCoreRequest</text>
+<rect x="764" y="284" width="150" height="26" rx="4" fill="#f8fafc"/><text x="770" y="302" class="s">EngineCoreOutputs</text>
+<g data-node="dp"><rect x="32" y="320" width="200" height="220" rx="8" class="gray"/><text x="50" y="346" class="k">可选</text><text x="50" y="372" class="t">DP 协调进程</text><text x="50" y="400" class="s">仅 DP&gt;1 时存在</text><text x="50" y="423" class="s">汇总各 rank 负载</text><text x="50" y="446" class="s">MoE 时对齐前向</text></g>
+<path d="M232 430H272" class="dash"/>
+<path d="M812 540V575H428V630" class="edge"/>
+<path d="M772 575V630" class="edge"/>
+<rect x="446" y="594" width="160" height="26" rx="4" fill="#f8fafc"/><text x="452" y="612" class="s">共享内存广播调度结果</text>
+<g data-node="w0"><rect x="272" y="630" width="312" height="170" rx="8" class="amber"/><text x="290" y="656" class="k">Worker 进程 · GPU 0</text><text x="290" y="682" class="t">GPUModelRunner</text><text x="290" y="710" class="s">MRV2：准备输入、采样</text><text x="290" y="733" class="s">torch.compile + CUDA Graph</text><text x="290" y="756" class="s">注意力后端读写 KV 块</text></g>
+<g data-node="w1"><rect x="616" y="630" width="312" height="170" rx="8" class="amber"/><text x="634" y="656" class="k">Worker 进程 · GPU 1</text><text x="634" y="682" class="t">GPUModelRunner</text><text x="634" y="710" class="s">持有另一半权重分片</text><text x="634" y="733" class="s">同样的步骤同步执行</text><text x="634" y="756" class="s">结果由 rank 0 汇报</text></g>
+<path d="M584 715H616" class="dash"/>
+<text x="272" y="830" class="xs">GPU 0 与 GPU 1 属于同一个 TP 组，每层经 NCCL all-reduce 同步；ZMQ 消息用 msgpack 序列化。</text>
+<g data-node="kvc"><rect x="32" y="630" width="200" height="170" rx="8" class="violet"/><text x="50" y="666" class="t">KV 连接器</text><text x="50" y="694" class="s">NIXL、Mooncake</text><text x="50" y="717" class="s">LMCache、CPU 卸载</text><text x="50" y="740" class="s">P/D 时与其他实例</text><text x="50" y="763" class="s">交换 KV 块</text></g>
+<path d="M272 715H232" class="dash"/>
+</svg>

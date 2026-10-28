@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1400 800" role="img" aria-labelledby="trtllm-disagg-title trtllm-disagg-desc" id="trtllm-disagg-root">
+<title id="trtllm-disagg-title">TensorRT-LLM 用 trtllm-serve 做 P/D 分离时的请求流</title>
+<desc id="trtllm-disagg-desc">客户端请求先到 trtllm-serve disaggregated 编排服务；编排服务把请求标记为 context-only 发给某个 context 服务，后者完成 Prefill 后返回首个 token 与 ctx_params；编排服务再把请求标记为 generation-only 发给 generation 服务，generation 服务凭 ctx_params 通过 NIXL 或 UCX 直接从 context 服务的显存拉取 KV 块，然后逐 token 生成并经编排服务流式返回。右上角说明也可以用 Dynamo 的前端、KV 感知路由和 dynamo.trtllm 工作进程替代编排服务。</desc>
+<defs><style>
+#trtllm-disagg-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#trtllm-disagg-root .h { font-size: 26px; font-weight: 700; }
+#trtllm-disagg-root .t { font-size: 19px; font-weight: 600; }
+#trtllm-disagg-root .s { font-size: 15px; fill: #475569; }
+#trtllm-disagg-root .xs { font-size: 13px; fill: #64748b; }
+#trtllm-disagg-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#trtllm-disagg-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#trtllm-disagg-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#trtllm-disagg-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#trtllm-disagg-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#trtllm-disagg-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#trtllm-disagg-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#trtllm-disagg-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#trtllm-disagg-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#trtllm-disagg-root .fblue { fill: #93c5fd; } #trtllm-disagg-root .fgreen { fill: #6ee7b7; } #trtllm-disagg-root .fred { fill: #fda4af; }
+#trtllm-disagg-root .famber { fill: #fcd34d; } #trtllm-disagg-root .fviolet { fill: #c4b5fd; } #trtllm-disagg-root .fgray { fill: #e2e8f0; }
+#trtllm-disagg-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#trtllm-disagg-arrow); }
+#trtllm-disagg-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#trtllm-disagg-arrow); }
+#trtllm-disagg-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#trtllm-disagg-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="trtllm-disagg-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="800" fill="#f8fafc"/>
+<text x="32" y="46" class="h">P/D 分离：trtllm-serve 怎样把一个请求拆给两类实例</text>
+<text x="32" y="78" class="s">本例 2 个 context 实例、1 个 generation 实例，与官方文档示例一致。</text>
+<g data-node="client"><rect x="32" y="236" width="200" height="130" rx="8" class="node"/><text x="50" y="262" class="k">①</text><text x="50" y="288" class="t">客户端</text><text x="50" y="316" class="s">OpenAI 兼容请求</text><text x="50" y="339" class="s">发到 :8000</text></g><path d="M234 300H288" class="edge"/><g data-node="orch"><rect x="290" y="150" width="330" height="272" rx="8" class="blue"/><text x="308" y="176" class="k">编排服务 :8000</text><text x="308" y="202" class="t">trtllm-serve disaggregated</text><text x="308" y="230" class="s">读 disagg_config.yaml</text><text x="308" y="253" class="s">不加载模型，只做编排</text><text x="308" y="276" class="s">先发 context-only 请求</text><text x="308" y="299" class="s">拿到 ctx_params 后</text><text x="308" y="322" class="s">再发 generation-only 请求</text></g><g data-node="ctx0"><rect x="760" y="112" width="300" height="150" rx="8" class="amber"/><text x="778" y="138" class="k">② ③</text><text x="778" y="164" class="t">context 服务 :8001</text><text x="778" y="192" class="s">GPU 0，只做 Prefill</text><text x="778" y="215" class="s">返回首 token 与 ctx_params</text></g><g data-node="ctx1"><rect x="760" y="284" width="300" height="110" rx="8" class="amber"/><text x="778" y="320" class="t">context 服务 :8002</text><text x="778" y="348" class="s">GPU 1，同上，可多实例</text></g><g data-node="gen"><rect x="760" y="440" width="300" height="170" rx="8" class="green"/><text x="778" y="466" class="k">④ ⑤ ⑥</text><text x="778" y="492" class="t">generation 服务 :8003</text><text x="778" y="520" class="s">GPU 2，只做 Decode</text><text x="778" y="543" class="s">凭 ctx_params 找到</text><text x="778" y="566" class="s">对应 context 实例取 KV</text></g><path d="M622 200H756" class="edge"/><text x="634" y="190" class="xs">② context-only</text><path d="M758 245H626" class="dash"/><text x="634" y="270" class="xs">③ ctx_params</text><path d="M560 424V525H756" class="edge"/><text x="574" y="514" class="xs">④ generation-only</text><g data-node="kv"><rect x="1100" y="290" width="270" height="150" rx="8" class="violet"/><text x="1118" y="316" class="k">RDMA / NVLink</text><text x="1118" y="342" class="t">⑤ KV 块传输</text><text x="1118" y="370" class="s">cache_transceiver_config</text><text x="1118" y="393" class="s">NIXL（默认）或 UCX</text><text x="1118" y="416" class="s">GPU 显存直接读写</text></g><path d="M1062 160H1235V286" class="edge"/><path d="M1235 442V525H1064" class="edge"/><path d="M758 590H420V426" class="dash"/><path d="M288 350H236" class="dash"/><text x="432" y="580" class="xs">⑥ 生成的 token 经编排服务流式返回</text><g data-node="dynamo"><rect x="1100" y="570" width="270" height="170" rx="8" class="gray"/><text x="1118" y="596" class="k">另一种编排</text><text x="1118" y="622" class="t">换成 Dynamo 时</text><text x="1118" y="650" class="s">dynamo.frontend 接请求</text><text x="1118" y="673" class="s">KV 感知路由</text><text x="1118" y="696" class="s">dynamo.trtllm 当工作进程</text></g><text x="32" y="770" class="s">两类服务用同一个模型，各自的 YAML 可以设不同的并行方式和批大小；官方示例给 context 服务设 disable_overlap_scheduler: true。</text>
+</svg>

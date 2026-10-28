@@ -11,9 +11,10 @@
     "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
     "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
-    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。"
+    "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-28 第 18 篇一行补充框架系列链接。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ],
-   "reviewedHash": "8718db3801b3ce7e75f5c6701c7f5d90f93c5f0d4d962b5ad7c243157d9b3981"
+   "reviewedHash": "50b67b9d831b5c5ea27af5f7b6204beaa2dd442c1776625e60329bd0d9ddfefe"
   },
   {
    "file": "docs/ai/llm-inference/01-inference-system.md",
@@ -267,9 +268,10 @@
     "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
     "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
     "2026-10-27 整合“vLLM 快速入门”：新增实践篇 vllm-quickstart 的入口与导读链接。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
-    "2026-10-27 按 SGLang 0.5.22 源码更正安装命令（uv --prerelease=allow、CUDA 13）、默认监听 127.0.0.1:30000、重叠调度下树形草稿限制；vLLM 默认监听所有网卡；TensorRT-LLM 定位改为 1.0 后的实际边界。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+    "2026-10-27 按 SGLang 0.5.22 源码更正安装命令（uv --prerelease=allow、CUDA 13）、默认监听 127.0.0.1:30000、重叠调度下树形草稿限制；vLLM 默认监听所有网卡；TensorRT-LLM 定位改为 1.0 后的实际边界。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 开头与结尾链接框架系列；版本表更正 llama.cpp 语义化版本起点（2026 年 8 月）与 Ollama 0.40.12。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ],
-   "reviewedHash": "e6400e88fff695f2272f05bdcf143f3522a27ccf21ea8aad5dab52bc64aead87"
+   "reviewedHash": "cf630247ef7dece8170ad5bf307ae94893403141f24f0a756ac6729ab8d3874c"
   },
   {
    "file": "docs/ai/llm-inference/19-speech-multimodal.md",
@@ -530,9 +532,10 @@
    "validation": [
     "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
     "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
-    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ],
-   "reviewedHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c"
+   "reviewedHash": "56469665e99402e66523e03e2f2573bc47f2d9da56f7c622394ca99fe54ea039"
   },
   {
    "file": "docs/ai/llm/inference.md",
@@ -607,9 +610,10 @@
     "无历史上下文的模拟读者审查：2 处错误（离线 generation_config 生效条件、与第 4 篇 KV 估算差额的归因）与 6 处应修已按源码复核后修正；模拟审查不代替真实读者试读。",
     "命令未在 GPU 上实际运行；显存数字按第 4 篇公式手算，运行开销 3 GiB 为正文标明的假设值。",
     "npm run docs:build 通过；锚点在构建产物中核对存在；本地 preview 1440/390、浅深色检查：无横向溢出、无失效图片、无运行错误（仅根路径 favicon 404）。vllm-startup.svg 由 .maintenance/llm-inference/diagrams-d.mjs 生成，check-svg 通过并人工查看 PNG。",
-    "2026-10-27 按 vLLM 0.32.0 源码更正：预编译包为 CUDA 13.0（12.9 为 -cu129 变体）、不指定 --host 时监听所有网卡、GGUF/bitsandbytes 需单独插件。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+    "2026-10-27 按 vLLM 0.32.0 源码更正：预编译包为 CUDA 13.0（12.9 为 -cu129 变体）、不指定 --host 时监听所有网卡、GGUF/bitsandbytes 需单独插件。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 小结补充 vLLM 详解篇链接。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ],
-   "reviewedHash": "20e1478cc7366e29b4e40a36433fb6bd9d21b37634c150aa98a4bddd12a8396e"
+   "reviewedHash": "0b89875ce872ecf7953565b7c60b6c5238c9a7b290df1d85f0ee355d76c25fc0"
   }
  ]
 }

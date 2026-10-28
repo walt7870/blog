@@ -872,7 +872,7 @@
    "file": "docs/ai/index.md",
    "batch": "B017",
    "status": "verified",
-   "reviewedHash": "1eacfe7b60c606008aa6f140f7058526969a99d8f73cef432b5d4518c1e50e7c",
+   "reviewedHash": "56469665e99402e66523e03e2f2573bc47f2d9da56f7c622394ca99fe54ea039",
    "pageType": "技术全景导读",
    "findings": [],
    "decision": "压缩重复定义和列表；客服链路图解释规则、分类器、RAG与受控退款，训练图分清学习与推理；撤下RAG/Agent属于模型子类及所有AI都反传的断言。",
@@ -880,7 +880,8 @@
     "全文审查；双视口浅深色全文截图、资源加载、分页通过；两图双视口键盘放大与原尺寸通过。",
     "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
     "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
-    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ]
   },
   {
@@ -1531,7 +1532,7 @@
    "file": "docs/ai/learning-path.md",
    "batch": "B019",
    "status": "verified",
-   "reviewedHash": "2fa007bbceaaff1567391445a4bcbac3cd2e3b877aded5c9f908f88a482870d1",
+   "reviewedHash": "b1365f2a8a91760b5f56c83d6f78ba4c53531f7b951450dbb29450e0acd6c84d",
    "pageType": "按目标分支学习路线",
    "findings": [],
    "decision": "应用、数据建模和模型训练分支替代八阶段强制串行；12周标为综合练习；写操作按既有授权与业务政策控制。",
@@ -1539,7 +1540,8 @@
     "全文及课程入口审查；新版分支SVG独立测量、双视口原尺寸通过；四种页面显示与分页通过。",
     "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
     "2026-10-27 第六阶段阅读补充大模型推理优化系列入口。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
-    "2026-10-27 第六阶段新增模型训练与调优系列入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。"
+    "2026-10-27 第六阶段新增模型训练与调优系列入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 第六阶段新增推理引擎与框架系列入口。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
    ]
   },
   {

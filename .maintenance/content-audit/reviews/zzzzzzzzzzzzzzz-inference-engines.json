@@ -1,0 +1,144 @@
+{
+ "pages": [
+  {
+   "file": "docs/ai/inference-engines/01-vllm.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "0ff764f00f6739ca4c4ed5cabf08fa445968da1447083d137886f7aafd7cd719"
+  },
+  {
+   "file": "docs/ai/inference-engines/02-sglang.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "fa35bf71d497fcb03c04408ed86f5d9b0b38fc21d81f78de218373c8c8faff13"
+  },
+  {
+   "file": "docs/ai/inference-engines/03-tensorrt-llm.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "639bda44d1fb95c7d94caece84afd4b1d35fdd5dd86d6eab74f1058628801533"
+  },
+  {
+   "file": "docs/ai/inference-engines/04-lmdeploy.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "57df5edcee9f8a19ce095488c0b945c91b8d100b2a9e81109e5bfb491bfe23f1"
+  },
+  {
+   "file": "docs/ai/inference-engines/05-llama-cpp.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "7a879b6d6f5aefa295a82dd28ef33fcb48d36386d185754975b4680e58d7820f"
+  },
+  {
+   "file": "docs/ai/inference-engines/06-ollama.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "67fc79253a1b016cb87a3bb4ff8d1a2551cac7c45e1de88862df0b306754b885"
+  },
+  {
+   "file": "docs/ai/inference-engines/07-local-and-edge.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "87fe18d1aadcd89a23512f83cd8e72b86fc39221629db6e6bedcc85bb2fed3f9"
+  },
+  {
+   "file": "docs/ai/inference-engines/08-orchestration.md",
+   "status": "verified",
+   "pageType": "框架详解",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "c9c37ce038f4503091b28fbe1845d5bb65eb6fe52e0d1cd88b41f35de5d7a348"
+  },
+  {
+   "file": "docs/ai/inference-engines/09-comparison.md",
+   "status": "verified",
+   "pageType": "选型",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "433960c67230a88c6941a03c635ddacaa917d1984caccf15e08870f73540ee1f"
+  },
+  {
+   "file": "docs/ai/inference-engines/index.md",
+   "status": "verified",
+   "pageType": "总览",
+   "decision": "推理引擎与框架系列（2026-10-28 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按固定版本源码（vLLM 0.32.0、SGLang 0.5.22、TensorRT-LLM 1.2.1、LMDeploy 0.18.0、llama.cpp 0.7.0、Ollama 0.40.12、mlx-lm 0.32.2、Dynamo 1.6.1、llm-d 1.0.0 等）与 GitHub 发布页核对，记录见 .maintenance/inference-engines/research/facts-*.md；两位无历史上下文的审查代理逐篇抽查默认值、参数、端口与鉴权、手算 KV 容量并复核第 09 篇对比表，修正十余处（重编号后的链接、Q4_K_M 提升的是输出层、MLX 硬件范围、LMDeploy 鉴权豁免路径等）；模拟审查不代替真实读者试读。",
+    "llama.cpp、Ollama、MLX-LM 在 Apple M4 上用 Qwen3-0.6B 实测，负载较高，吞吐只作定性参考；数据中心框架未在 GPU 上运行，正文已注明。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 10 页 1440/390、浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；24 张 SVG 由 .maintenance/inference-engines/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "6db90b86d59040348b90ba0669ad53d833e3ef286fb2ac902e187407cdf8fc9c"
+  }
+ ]
+}

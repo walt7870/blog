@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="620" viewBox="0 0 1340 620" role="img" aria-labelledby="lmdeploy-architecture-title lmdeploy-architecture-desc" id="lmdeploy-architecture-root">
+<title id="lmdeploy-architecture-title">LMDeploy 中一个请求的路径</title>
+<desc id="lmdeploy-architecture-desc">客户端请求进入 api_server 进程，经过路由、对话模板与分词，多模态模型还要经过 ImageEncoder，然后由 AsyncEngine 交给同一进程内的 TurboMind，或经 ZMQ 交给独立进程中的 PyTorch 引擎。</desc>
+<defs><style>
+#lmdeploy-architecture-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#lmdeploy-architecture-root .h { font-size: 26px; font-weight: 700; }
+#lmdeploy-architecture-root .t { font-size: 19px; font-weight: 600; }
+#lmdeploy-architecture-root .s { font-size: 15px; fill: #475569; }
+#lmdeploy-architecture-root .xs { font-size: 13px; fill: #64748b; }
+#lmdeploy-architecture-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#lmdeploy-architecture-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#lmdeploy-architecture-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#lmdeploy-architecture-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#lmdeploy-architecture-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#lmdeploy-architecture-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#lmdeploy-architecture-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#lmdeploy-architecture-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#lmdeploy-architecture-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#lmdeploy-architecture-root .fblue { fill: #93c5fd; } #lmdeploy-architecture-root .fgreen { fill: #6ee7b7; } #lmdeploy-architecture-root .fred { fill: #fda4af; }
+#lmdeploy-architecture-root .famber { fill: #fcd34d; } #lmdeploy-architecture-root .fviolet { fill: #c4b5fd; } #lmdeploy-architecture-root .fgray { fill: #e2e8f0; }
+#lmdeploy-architecture-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#lmdeploy-architecture-arrow); }
+#lmdeploy-architecture-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#lmdeploy-architecture-arrow); }
+#lmdeploy-architecture-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#lmdeploy-architecture-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="lmdeploy-architecture-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="620" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一个请求在 LMDeploy 里怎样流过</text>
+<text x="32" y="78" class="s">服务层只有一套；引擎有两台，TurboMind 在进程内，PyTorch 引擎在单独进程里</text>
+<g data-node="client"><rect x="32" y="236" width="180" height="132" rx="8" class="node"/><text x="50" y="262" class="k">请求</text><text x="50" y="288" class="t">客户端</text><text x="50" y="316" class="s">OpenAI SDK</text><text x="50" y="339" class="s">curl、网关</text></g><g data-node="server"><rect x="250" y="112" width="524" height="476" rx="8" class="node"/><text x="268" y="138" class="k">api_server 进程 · FastAPI · 默认端口 23333</text></g><g data-node="routes"><rect x="272" y="160" width="480" height="92" rx="8" class="blue"/><text x="290" y="196" class="t">路由与协议</text><text x="290" y="224" class="s">/v1/chat/completions、/v1/messages 等</text></g><g data-node="template"><rect x="272" y="274" width="232" height="120" rx="8" class="blue"/><text x="290" y="310" class="t">对话模板与分词</text><text x="290" y="338" class="s">套模板、编码 token</text><text x="290" y="361" class="s">反分词、流式返回</text></g><g data-node="vision"><rect x="520" y="274" width="232" height="120" rx="8" class="gray"/><text x="538" y="310" class="t">ImageEncoder</text><text x="538" y="338" class="s">仅多模态模型</text><text x="538" y="361" class="s">单线程，默认每批 1 张</text></g><g data-node="async"><rect x="272" y="416" width="480" height="148" rx="8" class="green"/><text x="290" y="452" class="t">AsyncEngine</text><text x="290" y="480" class="s">按 --backend 和模型架构选定引擎</text><text x="290" y="503" class="s">每个请求一个会话，收发 token</text><text x="290" y="526" class="s">多模态模型换用 VLAsyncEngine</text></g><g data-node="tm"><rect x="830" y="112" width="478" height="206" rx="8" class="amber"/><text x="848" y="138" class="k">与 API 同一进程 · C++/CUDA</text><text x="848" y="164" class="t">TurboMind</text><text x="848" y="192" class="s">persistent batch：N 个常驻槽位</text><text x="848" y="215" class="s">分块 KV：预算 = 空闲显存 × 0.8</text><text x="848" y="238" class="s">自研 GEMM 与注意力算子</text><text x="848" y="261" class="s">张量并行：每卡一个线程 + NCCL</text></g><g data-node="pt"><rect x="830" y="358" width="478" height="206" rx="8" class="violet"/><text x="848" y="384" class="k">独立进程 · 经 ZMQ 远程调用</text><text x="848" y="410" class="t">PyTorch 引擎</text><text x="848" y="438" class="s">RequestManager → Scheduler → ModelAgent</text><text x="848" y="461" class="s">分页 KV、CUDA Graph、投机解码、多 LoRA</text><text x="848" y="484" class="s">后端：CUDA，或经 dlinfer 用昇腾等</text><text x="848" y="507" class="s">P/D 分离、KV 连接器只在这里</text></g><path d="M212 302H268" class="edge"/><path d="M388 252V270" class="edge"/><path d="M636 252V270" class="edge"/><path d="M388 394V412" class="edge"/><path d="M636 394V412" class="edge"/><path d="M752 456H792V215H826" class="edge"/><path d="M752 520H806V461H826" class="edge"/><text x="32" y="410" class="xs">实线：一个请求的去向。</text><text x="32" y="432" class="xs">两台引擎二选一，</text><text x="32" y="454" class="xs">对调用方接口相同。</text>
+</svg>

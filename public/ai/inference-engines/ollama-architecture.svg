@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="640" viewBox="0 0 1340 640" role="img" aria-labelledby="ollama-architecture-title ollama-architecture-desc" id="ollama-architecture-root">
+<title id="ollama-architecture-title">Ollama 的进程结构与请求路径</title>
+<desc id="ollama-architecture-desc">ollama CLI、桌面 App 和用户程序都通过 HTTP 调用常驻的 ollama serve；它提供原生、OpenAI 兼容和 Anthropic 兼容接口，交给调度器决定加载、排队和卸载。GGUF 模型由随包附带的 llama-server 子进程运行，safetensors 模型由 MLX runner 子进程运行，模型文件按清单和 sha256 分层存放在模型目录。</desc>
+<defs><style>
+#ollama-architecture-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#ollama-architecture-root .h { font-size: 26px; font-weight: 700; }
+#ollama-architecture-root .t { font-size: 19px; font-weight: 600; }
+#ollama-architecture-root .s { font-size: 15px; fill: #475569; }
+#ollama-architecture-root .xs { font-size: 13px; fill: #64748b; }
+#ollama-architecture-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#ollama-architecture-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#ollama-architecture-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#ollama-architecture-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#ollama-architecture-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#ollama-architecture-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#ollama-architecture-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#ollama-architecture-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#ollama-architecture-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#ollama-architecture-root .fblue { fill: #93c5fd; } #ollama-architecture-root .fgreen { fill: #6ee7b7; } #ollama-architecture-root .fred { fill: #fda4af; }
+#ollama-architecture-root .famber { fill: #fcd34d; } #ollama-architecture-root .fviolet { fill: #c4b5fd; } #ollama-architecture-root .fgray { fill: #e2e8f0; }
+#ollama-architecture-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#ollama-architecture-arrow); }
+#ollama-architecture-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#ollama-architecture-arrow); }
+#ollama-architecture-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#ollama-architecture-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="ollama-architecture-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">Ollama：一个管理进程，加上每个模型一个推理子进程</text>
+<text x="32" y="78" class="s">ollama serve 管接口、模板和调度；真正算 token 的是它拉起的 llama-server 或 MLX runner</text>
+<g data-node="cli"><rect x="32" y="112" width="250" height="96" rx="8" class="node"/><text x="50" y="148" class="t">ollama CLI / 桌面 App</text><text x="50" y="176" class="s">run、pull、create、ps</text></g><g data-node="apps"><rect x="32" y="224" width="250" height="96" rx="8" class="node"/><text x="50" y="260" class="t">你的程序</text><text x="50" y="288" class="s">OpenAI / Anthropic SDK</text><text x="50" y="311" class="s">或 /api/chat</text></g><g data-node="serve"><rect x="330" y="112" width="400" height="208" rx="8" class="blue"/><text x="348" y="138" class="k">常驻进程</text><text x="348" y="164" class="t">ollama serve（Go）</text><text x="348" y="192" class="s">监听 127.0.0.1:11434，无鉴权</text><text x="348" y="215" class="s">/api/*：原生接口</text><text x="348" y="238" class="s">/v1/*：OpenAI 兼容</text><text x="348" y="261" class="s">/v1/messages：Anthropic 兼容</text><text x="348" y="284" class="s">渲染对话模板、解析思考与工具调用</text></g><path d="M284 160H326" class="edge"/><path d="M284 272H326" class="edge"/><g data-node="sched"><rect x="778" y="112" width="530" height="208" rx="8" class="amber"/><text x="796" y="138" class="k">决定加载什么、放哪</text><text x="796" y="164" class="t">调度器</text><text x="796" y="192" class="s">队列上限 OLLAMA_MAX_QUEUE = 512，满了返回 503</text><text x="796" y="215" class="s">同时加载上限 3 × GPU 数，超过就卸载旧模型</text><text x="796" y="238" class="s">上下文 = 请求/Modelfile/环境变量/按显存自动</text><text x="796" y="261" class="s">并行 OLLAMA_NUM_PARALLEL = 1</text><text x="796" y="284" class="s">空闲 OLLAMA_KEEP_ALIVE = 5m 后卸载</text></g><path d="M732 216H774" class="edge"/><g data-node="llamaserver"><rect x="330" y="400" width="470" height="150" rx="8" class="green"/><text x="348" y="426" class="k">一模型一进程</text><text x="348" y="452" class="t">llama-server 子进程（GGUF 模型）</text><text x="348" y="480" class="s">上游 llama.cpp，随 Ollama 打包</text><text x="348" y="503" class="s">-c 上下文×并行  -np 并行</text><text x="348" y="526" class="s">只监听 127.0.0.1 的随机端口</text></g><g data-node="mlx"><rect x="838" y="400" width="470" height="150" rx="8" class="violet"/><text x="856" y="426" class="k">一模型一进程</text><text x="856" y="452" class="t">MLX runner 子进程（safetensors 模型）</text><text x="856" y="480" class="s">ollama runner --model … --port …</text><text x="856" y="503" class="s">Apple Silicon 上默认可用</text><text x="856" y="526" class="s">导入 safetensors 时可量化</text></g><path d="M960 322V360H565V396" class="edge"/><path d="M1073 322V396" class="edge"/><rect x="594" y="366" width="60" height="26" rx="4" fill="#f8fafc"/><text x="600" y="384" class="s">GGUF</text><rect x="1080" y="352" width="120" height="26" rx="4" fill="#f8fafc"/><text x="1086" y="370" class="s">safetensors</text><g data-node="store"><rect x="32" y="400" width="250" height="150" rx="8" class="gray"/><text x="50" y="426" class="k">OLLAMA_MODELS</text><text x="50" y="452" class="t">模型目录</text><text x="50" y="480" class="s">~/.ollama/models</text><text x="50" y="503" class="s">manifests/…/qwen3/0.6b</text><text x="50" y="526" class="s">blobs/sha256-…</text></g><path d="M284 475H326" class="dash"/><text x="32" y="600" class="s">ollama pull 从 ollama.com 仓库下载清单和分层，按 sha256 去重存进 blobs/。</text>
+</svg>

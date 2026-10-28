@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="500" viewBox="0 0 1340 500" role="img" aria-labelledby="lmdeploy-backend-choice-title lmdeploy-backend-choice-desc" id="lmdeploy-backend-choice-root">
+<title id="lmdeploy-backend-choice-title">LMDeploy 自动选择引擎的判断顺序</title>
+<desc id="lmdeploy-backend-choice-desc">依次判断：是否显式指定 PyTorch、TurboMind 是否编译、模型是否为 SmoothQuant 量化、架构是否在 TurboMind 支持表中；全部通过才使用 TurboMind，否则使用 PyTorch 引擎。</desc>
+<defs><style>
+#lmdeploy-backend-choice-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#lmdeploy-backend-choice-root .h { font-size: 26px; font-weight: 700; }
+#lmdeploy-backend-choice-root .t { font-size: 19px; font-weight: 600; }
+#lmdeploy-backend-choice-root .s { font-size: 15px; fill: #475569; }
+#lmdeploy-backend-choice-root .xs { font-size: 13px; fill: #64748b; }
+#lmdeploy-backend-choice-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#lmdeploy-backend-choice-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#lmdeploy-backend-choice-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#lmdeploy-backend-choice-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#lmdeploy-backend-choice-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#lmdeploy-backend-choice-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#lmdeploy-backend-choice-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#lmdeploy-backend-choice-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#lmdeploy-backend-choice-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#lmdeploy-backend-choice-root .fblue { fill: #93c5fd; } #lmdeploy-backend-choice-root .fgreen { fill: #6ee7b7; } #lmdeploy-backend-choice-root .fred { fill: #fda4af; }
+#lmdeploy-backend-choice-root .famber { fill: #fcd34d; } #lmdeploy-backend-choice-root .fviolet { fill: #c4b5fd; } #lmdeploy-backend-choice-root .fgray { fill: #e2e8f0; }
+#lmdeploy-backend-choice-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#lmdeploy-backend-choice-arrow); }
+#lmdeploy-backend-choice-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#lmdeploy-backend-choice-arrow); }
+#lmdeploy-backend-choice-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#lmdeploy-backend-choice-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="lmdeploy-backend-choice-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1340" height="500" fill="#f8fafc"/>
+<text x="32" y="46" class="h">不写 --backend 时，LMDeploy 怎样选引擎</text>
+<text x="32" y="78" class="s">四道判断依次进行，任何一道落到下方就用 PyTorch 引擎</text>
+<g data-node="q1"><rect x="32" y="120" width="228" height="156" rx="8" class="blue"/><text x="50" y="146" class="k">判断 1</text><text x="50" y="172" class="t">显式指定 PyTorch？</text><text x="50" y="200" class="s">--backend pytorch，</text><text x="50" y="223" class="s">或 Python 里传入</text><text x="50" y="246" class="s">PytorchEngineConfig</text></g><g data-node="q2"><rect x="294" y="120" width="228" height="156" rx="8" class="blue"/><text x="312" y="146" class="k">判断 2</text><text x="312" y="172" class="t">TurboMind 编译了吗？</text><text x="312" y="200" class="s">昇腾等环境、</text><text x="312" y="223" class="s">DISABLE_TURBOMIND=1</text><text x="312" y="246" class="s">安装时没有它</text></g><g data-node="q3"><rect x="556" y="120" width="228" height="156" rx="8" class="blue"/><text x="574" y="146" class="k">判断 3</text><text x="574" y="172" class="t">SmoothQuant 模型？</text><text x="574" y="200" class="s">配置里 quant_method</text><text x="574" y="223" class="s">为 smooth_quant</text><text x="574" y="246" class="s">（W8A8）</text></g><g data-node="q4"><rect x="818" y="120" width="228" height="156" rx="8" class="blue"/><text x="836" y="146" class="k">判断 4</text><text x="836" y="172" class="t">架构在支持表里？</text><text x="836" y="200" class="s">读 config.json 的</text><text x="836" y="223" class="s">architectures，0.18.0</text><text x="836" y="246" class="s">共 19 个架构名</text></g><g data-node="tm"><rect x="1080" y="120" width="228" height="156" rx="8" class="amber"/><text x="1098" y="146" class="k">结果</text><text x="1098" y="172" class="t">使用 TurboMind</text><text x="1098" y="200" class="s">日志不出现</text><text x="1098" y="223" class="s">Fallback 字样</text></g><path d="M262 198H290" class="edge"/><rect x="264" y="166" width="20" height="26" rx="4" fill="#f8fafc"/><text x="270" y="184" class="s">否</text><path d="M524 198H552" class="edge"/><rect x="526" y="166" width="20" height="26" rx="4" fill="#f8fafc"/><text x="532" y="184" class="s">是</text><path d="M786 198H814" class="edge"/><rect x="788" y="166" width="20" height="26" rx="4" fill="#f8fafc"/><text x="794" y="184" class="s">否</text><path d="M1048 198H1076" class="edge"/><rect x="1050" y="166" width="20" height="26" rx="4" fill="#f8fafc"/><text x="1056" y="184" class="s">是</text><g data-node="pt"><rect x="32" y="360" width="1014" height="104" rx="8" class="violet"/><text x="50" y="386" class="k">结果</text><text x="50" y="412" class="t">使用 PyTorch 引擎</text><text x="50" y="440" class="s">判断 2、4 触发回退时，日志打印 Fallback to pytorch engine because ...，据此确认实际引擎</text></g><path d="M146 278V356" class="edge"/><rect x="150" y="304" width="20" height="26" rx="4" fill="#f8fafc"/><text x="156" y="322" class="s">是</text><path d="M408 278V356" class="edge"/><rect x="412" y="304" width="20" height="26" rx="4" fill="#f8fafc"/><text x="418" y="322" class="s">否</text><path d="M670 278V356" class="edge"/><rect x="674" y="304" width="20" height="26" rx="4" fill="#f8fafc"/><text x="680" y="322" class="s">是</text><path d="M932 278V356" class="edge"/><rect x="936" y="304" width="20" height="26" rx="4" fill="#f8fafc"/><text x="942" y="322" class="s">否</text><text x="1098" y="394" class="xs">--backend 默认写的是</text><text x="1098" y="416" class="xs">turbomind，但只要不是</text><text x="1098" y="438" class="xs">pytorch 就走这套判断。</text>
+</svg>

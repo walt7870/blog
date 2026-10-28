@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="560" viewBox="0 0 1360 560" role="img" aria-labelledby="engines-landscape-title engines-landscape-desc" id="engines-landscape-root">
+<title id="engines-landscape-title">推理框架的分层位置</title>
+<desc id="engines-landscape-desc">上层是编排与 KV 缓存组件，管理多个引擎实例；左下是面向 GPU 服务器的数据中心引擎 vLLM、SGLang、TensorRT-LLM、LMDeploy；右下是面向个人设备的 llama.cpp、Ollama、MLX-LM 与端侧运行时。</desc>
+<defs><style>
+#engines-landscape-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#engines-landscape-root .h { font-size: 26px; font-weight: 700; }
+#engines-landscape-root .t { font-size: 19px; font-weight: 600; }
+#engines-landscape-root .s { font-size: 15px; fill: #475569; }
+#engines-landscape-root .xs { font-size: 13px; fill: #64748b; }
+#engines-landscape-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#engines-landscape-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#engines-landscape-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#engines-landscape-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#engines-landscape-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#engines-landscape-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#engines-landscape-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#engines-landscape-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#engines-landscape-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#engines-landscape-root .fblue { fill: #93c5fd; } #engines-landscape-root .fgreen { fill: #6ee7b7; } #engines-landscape-root .fred { fill: #fda4af; }
+#engines-landscape-root .famber { fill: #fcd34d; } #engines-landscape-root .fviolet { fill: #c4b5fd; } #engines-landscape-root .fgray { fill: #e2e8f0; }
+#engines-landscape-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#engines-landscape-arrow); }
+#engines-landscape-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#engines-landscape-arrow); }
+#engines-landscape-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#engines-landscape-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="engines-landscape-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1360" height="560" fill="#f8fafc"/>
+<text x="32" y="46" class="h">推理框架在哪一层</text>
+<text x="32" y="78" class="s">括号里是本系列对应的篇号；编排层组合使用下面的引擎，不和它们放在一起比较跑分</text>
+<g data-node="orch"><rect x="32" y="108" width="1296" height="118" rx="8" class="violet"/><text x="50" y="134" class="k">几十张卡以上才需要</text><text x="50" y="160" class="t">编排与 KV 缓存层（第 08 篇）</text><text x="50" y="188" class="s">Dynamo · llm-d · vLLM production-stack · AIBrix：路由、P/D 编排、按 SLO 扩缩</text><text x="50" y="211" class="s">Mooncake · LMCache · NIXL：KV 传输与多级缓存</text></g><text x="32" y="258" class="k">数据中心推理引擎：多人并发、GPU 服务器</text><g data-node="dc-vllm"><rect x="32" y="270" width="300" height="110" rx="8" class="blue"/><text x="50" y="306" class="t">vLLM（01）</text><text x="50" y="334" class="s">覆盖最广的通用引擎</text><text x="50" y="357" class="s">模型与硬件插件最多</text></g><g data-node="dc-sglang"><rect x="348" y="270" width="300" height="110" rx="8" class="blue"/><text x="366" y="306" class="t">SGLang（02）</text><text x="366" y="334" class="s">基数树前缀缓存</text><text x="366" y="357" class="s">大规模 MoE 与 P/D</text></g><g data-node="dc-trt"><rect x="32" y="396" width="300" height="110" rx="8" class="blue"/><text x="50" y="432" class="t">TensorRT-LLM（03）</text><text x="50" y="460" class="s">NVIDIA 官方</text><text x="50" y="483" class="s">新硬件与低精度领先</text></g><g data-node="dc-lmd"><rect x="348" y="396" width="300" height="110" rx="8" class="blue"/><text x="366" y="432" class="t">LMDeploy（04）</text><text x="366" y="460" class="s">TurboMind + PyTorch</text><text x="366" y="483" class="s">国产卡与 W4A16</text></g><text x="700" y="258" class="k">本地与端侧：单人或少量用户、个人设备</text><g data-node="lc-llama"><rect x="700" y="270" width="306" height="110" rx="8" class="green"/><text x="718" y="306" class="t">llama.cpp（05）</text><text x="718" y="334" class="s">GGUF 量化、CPU/GPU 混合</text><text x="718" y="357" class="s">硬件覆盖最广</text></g><g data-node="lc-ollama"><rect x="1022" y="270" width="306" height="110" rx="8" class="green"/><text x="1040" y="306" class="t">Ollama（06）</text><text x="1040" y="334" class="s">模型管理 + 常驻 API</text><text x="1040" y="357" class="s">底层调用 llama.cpp/MLX</text></g><g data-node="lc-mlx"><rect x="700" y="396" width="306" height="110" rx="8" class="green"/><text x="718" y="432" class="t">MLX-LM（07）</text><text x="718" y="460" class="s">Apple 芯片统一内存</text><text x="718" y="483" class="s">本地量化与 LoRA</text></g><g data-node="lc-edge"><rect x="1022" y="396" width="306" height="110" rx="8" class="green"/><text x="1040" y="432" class="t">ExecuTorch · MLC-LLM（07）</text><text x="1040" y="460" class="s">打包进 App</text><text x="1040" y="483" class="s">手机与浏览器</text></g><path d="M332 228V262" class="dash"/>
+</svg>

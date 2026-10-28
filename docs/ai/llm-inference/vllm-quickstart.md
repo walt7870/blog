@@ -425,7 +425,7 @@ vllm serve meta-llama/Llama-3.1-70B-Instruct --tensor-parallel-size 4 --max-mode
 
 vLLM 的使用分两种形态：`LLM` 类做离线批量推理，`vllm serve` 起一个兼容 OpenAI 的在线服务。对话模型要通过 `chat` 或对话接口调用，才会套上对话模板；离线时 `max_tokens` 默认只有 16；模型自带的 `generation_config.json` 会覆盖默认采样参数。
 
-显存方面，`gpu_memory_utilization` 定的是整个实例的预算，权重和运行开销扣完后剩下的都是 KV Cache，日志里的 token 数就是第 4 篇那笔账的结果。`max_model_len` 不改变 KV 总量，只限制单个请求能占多少。启动报显存问题时，先分清是别的进程占了显存（调低比例），还是预算不够放 KV（调高比例或缩短上限）。一张卡放不下时用张量并行，卡数要能整除注意力头数；放得下时用数据并行扩容。
+显存方面，`gpu_memory_utilization` 定的是整个实例的预算，权重和运行开销扣完后剩下的都是 KV Cache，日志里的 token 数就是第 4 篇那笔账的结果。`max_model_len` 不改变 KV 总量，只限制单个请求能占多少。启动报显存问题时，先分清是别的进程占了显存（调低比例），还是预算不够放 KV（调高比例或缩短上限）。一张卡放不下时用张量并行，卡数要能整除注意力头数；放得下时用数据并行扩容。想深入 vLLM 的进程结构、全部特性、监控指标和生产部署，见[推理引擎与框架：vLLM](../inference-engines/01-vllm.md)。
 
 动手之后，可以对照这几条检查自己：
 
