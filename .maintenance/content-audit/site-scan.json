@@ -5,12 +5,10 @@
     "bytes": 5255116,
     "batches": 85,
     "scanned": 706,
-    "reviewed": 705,
+    "reviewed": 706,
     "pending": 0,
     "changesRequired": 0,
-    "stale": [
-      "AGENTS.md"
-    ],
+    "stale": [],
     "missing": [
       "docs/ai/inference-engines/04-llama-cpp.md",
       "docs/ai/inference-engines/06-lmdeploy.md"

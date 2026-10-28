@@ -6,12 +6,13 @@
       "file": "AGENTS.md",
       "batch": "B001",
       "status": "verified",
-      "reviewedHash": "57f43dded42004874d9dfdcb68003681d85caf35e3c66243fe616966ea7820e1",
+      "reviewedHash": "51abfbdf206c1252207c3d134f9361368823f2a66fdc97fc9606c48259f985c0",
       "pageType": "维护说明",
       "findings": [],
       "decision": "补充推理内容统一在 llm-inference 系列维护的约定；新增外部文章整合流程的入口，指向 .maintenance/article-integration.md。",
       "validation": [
-        "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。"
+        "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。",
+        "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。"
       ],
       "dependencyFiles": []
     },
