@@ -120,6 +120,7 @@
 - 具体推理框架（vLLM、SGLang、TensorRT-LLM、LMDeploy、llama.cpp、Ollama、MLX-LM、编排层）的深入拆解与对比在 `docs/ai/inference-engines/`，机制原理链接推理系列不重讲；版本基线与实测范围见 `.maintenance/inference-engines/README.md`。
 - 大模型内部结构（分词、注意力、FFN、归一化、位置编码、输出层、MoE、高效注意力、线性混合架构、多模态结构）与主流模型架构拆解在 `docs/ai/llm-architecture/` 系列维护；`llm/concepts.md`、`deep-learning/architectures.md` 保留为短介绍。数字口径、实践篇实测环境和图示生成方式见 `.maintenance/llm-architecture/README.md`。
 - 模型训练与调优（大模型、语音、视觉、多模态、向量模型的训练和微调、评估、训练工程）在 `docs/ai/model-training/` 系列维护；`llm/training.md`、`llm/sft.md` 保留为短导读。数字口径、实践篇实测环境和图示生成方式见 `.maintenance/model-training/README.md`。
+- 语音相关内容：通用知识（声学、前处理、VAD、唤醒、识别与合成原理和主流模型、说话人技术、sherpa-onnx、交互与评估）在 `docs/basic/acoustics/`（声学与语音 01—17）维护；`docs/ai/speech-engineering/` 是项目实践，只讲取舍并链接回基础篇；`ai/domains/speech.md` 保留为短导读。篇号、分工和事实基线见 `.maintenance/speech/README.md`。
 - 网络代理专题（`docs/network-proxy/`）的 VPN/Hysteria2 经验页只用占位域名和保留地址，不写真实域名、IP、账号、人员；后续经验补充到现有两篇实践页。
 - 最终回复简洁说明改了哪些内容、关键文件路径、验证命令和结果。
 - 发布链接必须包含 VitePress 配置中的 `base` 前缀；线上验证需在浏览器中等待客户端启动并检查站内跳转，不能仅凭 HTTP 200 或静态 HTML 正文判定页面正常。

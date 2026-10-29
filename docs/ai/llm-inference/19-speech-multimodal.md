@@ -60,7 +60,7 @@ FunASR 也有推理与部署能力；它与 sherpa-onnx 在部分语音场景存
 
 假设公司联系人叫“周望君”，模型却把相似发音写成“周望军”。热词增强会在搜索候选文字时，给指定词对应的路径增加分数；**模型参数可以保持不变**。训练或微调则会更新参数，两者处理问题的位置不同。
 
-截至 **2026-10-26**，sherpa-onnx 的热词文档限定这套能力使用 **Transducer 模型与 `modified_beam_search` 解码**，流式和非流式均有支持。下面只演示配置条件，不计算真实声学概率。
+截至 **2026-10-26**，sherpa-onnx 的热词文档限定这套能力使用 **Transducer 模型与 `modified_beam_search` 解码**，流式和非流式均有支持。文档之外，v2.0.1 源码里 Qwen3-ASR 已有 `hotwords` 配置、Fun-ASR-Nano 可设提示词，它们是把词写进大模型提示，机制和路径加分不同，见[声学与语音第 13 篇](../../basic/acoustics/sherpa-onnx/recognition-modes.md)。下面只演示配置条件，不计算真实声学概率。
 
 <SpeechRuntimeLab mode="hotwords" />
 

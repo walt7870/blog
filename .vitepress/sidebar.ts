@@ -61,56 +61,58 @@ export const sidebar: DefaultTheme.Sidebar = {
     }
   ],
 
-  // 基础知识 - 声学
+  // 基础知识 - 声学与语音
   '/docs/basic/acoustics/': [
     {
-      text: '声学',
+      text: '声学与语音',
       collapsed: false,
       items: [
-        { text: '声学概览', link: '/docs/basic/acoustics/' },
+        { text: '导读', link: '/docs/basic/acoustics/' },
         {
-          text: '基础链路',
-          collapsed: true,
+          text: '一、声音与设备',
+          collapsed: false,
           items: [
-            { text: '声学结构', link: '/docs/basic/acoustics/structure' },
-            { text: '声音与信号基础', link: '/docs/basic/acoustics/sound-fundamentals' },
-            { text: '采集与播放链路', link: '/docs/basic/acoustics/capture-playback' },
+            { text: '01. 声音与信号基础', link: '/docs/basic/acoustics/sound-fundamentals' },
+            { text: '02. 声学结构', link: '/docs/basic/acoustics/structure' },
+            { text: '03. 采集与播放链路', link: '/docs/basic/acoustics/capture-playback' },
           ],
         },
         {
-          text: '语音模块',
-          collapsed: true,
+          text: '二、前端处理',
+          collapsed: false,
           items: [
-            { text: '降噪与前处理', link: '/docs/basic/acoustics/noise-reduction' },
-            {
-              text: 'VAD',
-              collapsed: true,
-              items: [
-                { text: 'VAD 总览', link: '/docs/basic/acoustics/vad/' },
-                { text: 'Silero VAD', link: '/docs/basic/acoustics/vad/silero-vad' },
-              ],
-            },
-            { text: '语音唤醒', link: '/docs/basic/acoustics/wake-word' },
-            { text: '语音识别', link: '/docs/basic/acoustics/speech-recognition' },
-            {
-              text: 'sherpa-onnx',
-              collapsed: true,
-              items: [
-                { text: '框架总览', link: '/docs/basic/acoustics/sherpa-onnx/' },
-                { text: '识别运行模式', link: '/docs/basic/acoustics/sherpa-onnx/recognition-modes' },
-                { text: '模型与部署选型', link: '/docs/basic/acoustics/sherpa-onnx/model-selection-deployment' },
-              ],
-            },
-            { text: '语音合成', link: '/docs/basic/acoustics/speech-synthesis' },
-            { text: '语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
+            { text: '04. 降噪与前处理', link: '/docs/basic/acoustics/noise-reduction' },
+            { text: '05. VAD 语音活动检测', link: '/docs/basic/acoustics/vad/' },
+            { text: '06. Silero VAD 工程实践', link: '/docs/basic/acoustics/vad/silero-vad' },
+            { text: '07. 语音唤醒', link: '/docs/basic/acoustics/wake-word' },
           ],
         },
         {
-          text: '工程实践',
-          collapsed: true,
+          text: '三、识别、说话人与合成',
+          collapsed: false,
           items: [
-            { text: '质量评估与排错', link: '/docs/basic/acoustics/quality-evaluation' },
-            { text: '工程选型', link: '/docs/basic/acoustics/engineering' },
+            { text: '08. 语音识别原理', link: '/docs/basic/acoustics/speech-recognition' },
+            { text: '09. 主流识别模型', link: '/docs/basic/acoustics/asr-models' },
+            { text: '10. 说话人识别与分离', link: '/docs/basic/acoustics/speaker' },
+            { text: '11. 语音合成', link: '/docs/basic/acoustics/speech-synthesis' },
+          ],
+        },
+        {
+          text: '四、端侧部署：sherpa-onnx',
+          collapsed: false,
+          items: [
+            { text: '12. 框架总览', link: '/docs/basic/acoustics/sherpa-onnx/' },
+            { text: '13. 识别运行模式', link: '/docs/basic/acoustics/sherpa-onnx/recognition-modes' },
+            { text: '14. 模型与部署选型', link: '/docs/basic/acoustics/sherpa-onnx/model-selection-deployment' },
+          ],
+        },
+        {
+          text: '五、系统与工程',
+          collapsed: false,
+          items: [
+            { text: '15. 语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
+            { text: '16. 质量评估与排错', link: '/docs/basic/acoustics/quality-evaluation' },
+            { text: '17. 工程选型', link: '/docs/basic/acoustics/engineering' },
           ],
         },
       ]
@@ -477,14 +479,14 @@ export const sidebar: DefaultTheme.Sidebar = {
           collapsed: true,
           items: [
             { text: '专题概览', link: '/docs/ai/speech-engineering/' },
-            { text: '处理链路与运行架构', link: '/docs/ai/speech-engineering/architecture-and-workflow' },
-            { text: '角色证据与目标说话人识别', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
-            { text: '断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
-            { text: '动态批处理与推理调度', link: '/docs/ai/speech-engineering/performance-and-capacity' },
-            { text: '推理输入合同与资源生命周期', link: '/docs/ai/speech-engineering/inference-contracts-and-lifecycle' },
-            { text: '共享热词召回与请求隔离', link: '/docs/ai/speech-engineering/hotword-routing' },
-            { text: '音频回放与质量回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
-            { text: '离线推理容器与工件一致性', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
+            { text: '1. 处理链路与运行架构', link: '/docs/ai/speech-engineering/architecture-and-workflow' },
+            { text: '2. 断句、收尾与逐句时延', link: '/docs/ai/speech-engineering/latency-and-finalization' },
+            { text: '3. 角色证据与目标说话人识别', link: '/docs/ai/speech-engineering/pipeline-boundaries' },
+            { text: '4. 共享热词召回与请求隔离', link: '/docs/ai/speech-engineering/hotword-routing' },
+            { text: '5. 动态批处理与推理调度', link: '/docs/ai/speech-engineering/performance-and-capacity' },
+            { text: '6. 推理输入合同与资源生命周期', link: '/docs/ai/speech-engineering/inference-contracts-and-lifecycle' },
+            { text: '7. 音频回放与质量回归', link: '/docs/ai/speech-engineering/evidence-driven-validation' },
+            { text: '8. 离线推理容器与工件一致性', link: '/docs/ai/speech-engineering/delivery-and-handoff' },
           ],
         },
         {

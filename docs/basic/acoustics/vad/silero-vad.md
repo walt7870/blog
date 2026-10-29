@@ -1,14 +1,14 @@
 ---
-title: Silero VAD 工程实践
+title: 06. Silero VAD 工程实践
 author: Walt
-date: 2026-09-01
+date: 2026-10-28
 ---
 
-# Silero VAD 工程实践
+# 06. Silero VAD 工程实践
 
 Silero VAD 是一个开源神经网络语音活动检测器，支持流式推理，可通过 PyTorch JIT 或 ONNX Runtime 部署。它为音频帧输出语音概率，时间戳切分仍由阈值、静音时长、语音时长和前后 padding 共同决定。
 
-截至 2026 年 9 月，Silero 官方版本记录已经进入 v6 系列，当前模型约 26 万参数，支持 8 kHz 和 16 kHz 输入。模型文件大小会随 JIT、ONNX、量化和是否同时打包多个采样率而变化，因此不应把“2 MB”当成所有版本和格式的固定结论。版本与格式以 [Silero 官方版本记录](https://github.com/snakers4/silero-vad/wiki/Version-history-and-Available-Models) 为准。
+截至 2026 年 10 月，最新版本是 v6.2.3（2026-09-23）；v6.0（2025-08-26）重新训练了模型，噪声场景更稳。模型支持 8 kHz 和 16 kHz 输入，官方没有公布参数量。JIT 文件约 2 MB，同时打包了 8 kHz 和 16 kHz 两个模型；ONNX、量化版本大小不同，不要把某个文件大小当作固定结论。版本与格式以 [Silero 官方版本记录](https://github.com/snakers4/silero-vad/wiki/Version-history-and-Available-Models) 为准。
 
 ![Silero VAD 流式推理](/acoustics/silero-vad-streaming.svg)
 
@@ -200,7 +200,7 @@ runtime: onnxruntime-x.y.z
 
 sherpa-onnx 提供了 Silero VAD 的 C/C++、Python、Android、WebAssembly 等封装和已导出的模型包。它适合已经采用 sherpa-onnx 做 ASR 的项目，但要注意两套版本概念：
 
-- Silero 上游目前已经进入 v6 系列。
+- Silero 上游目前是 v6.2.x。
 - sherpa-onnx 的 [Silero VAD 文档](https://k2-fsa.github.io/sherpa/onnx/vad/silero-vad.html) 当前主要列出 v4、v5 模型包和量化变体。
 
 因此不能从上游下载任意新版 ONNX 后直接替换 sherpa 模型。应选择文档明确支持的包，核对采样率和配置字段，再用同一测试集比较概率、边界和性能。ASR 的模式选择与端点关系见 [sherpa-onnx 识别运行模式](../sherpa-onnx/recognition-modes.md)。
@@ -244,3 +244,5 @@ Silero 官方在其测试环境中给出的处理速度低于每帧 1 ms，但�
 ## 总结
 
 Silero VAD 的接入难点不在单次模型调用，而在固定输入契约、按序维护状态、把概率转换成稳定事件，并在目标设备上完成参数和性能验证。先用官方 Python 封装建立可复现基线，再迁移到 ONNX 或 sherpa-onnx，可以减少模型效果与工程实现相互干扰。
+
+下一篇：[07. 语音唤醒](../wake-word.md)。

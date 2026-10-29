@@ -1,10 +1,10 @@
 ---
-title: sherpa-onnx 识别运行模式
+title: 13. sherpa-onnx 识别运行模式
 author: Walt
 date: 2026-09-01
 ---
 
-# sherpa-onnx 识别运行模式
+# 13. sherpa-onnx 识别运行模式
 
 sherpa-onnx 的识别 API 使用 `OnlineRecognizer` 和 `OfflineRecognizer` 区分流式与非流式处理。这里的 Online/Offline 描述音频处理方式，不描述网络连接：两种识别器都可以只在本地运行。
 
@@ -212,13 +212,16 @@ if segment_has_audio:
 
 ## 热词和解码方式
 
-本文讨论截至 2026 年 10 月官方文档中的 Transducer 热词偏置机制，要求 `modified_beam_search`。默认的 `greedy_search` 以及其他模型结构不能直接套用这套配置；某些模型的提示词或其他上下文接口应独立核对，不能据此推导为同一热词机制。
+sherpa-onnx 里有两种不同的热词机制，不能混用配置：
 
 ```text
-Transducer + modified_beam_search -> 支持 sherpa-onnx 热词
-Transducer + greedy_search        -> 不支持这套热词
-其他模型结构                       -> 不能假设支持
+Transducer + modified_beam_search -> 词图加分（context graph），最成熟
+Transducer + greedy_search        -> 不生效
+Qwen3-ASR、Fun-ASR-Nano 等大模型路线 -> 写进提示词（hotwords / prompt 配置）
+Paraformer、SenseVoice、Whisper 等  -> 没有热词配置
 ```
+
+截至 2026 年 10 月（v2.0.1），官方热词文档仍写着“只有 Transducer 支持热词”，但源码里 Qwen3-ASR 已有 `hotwords` 配置，Fun-ASR-Nano 可以设置系统和用户提示词，流式 NeMo Transducer 也支持了 `modified_beam_search` 加热词。提示词方式是请大模型“参考”这些词，和词图加分的行为不同：没有分数可调，误改的表现也不同，要分别评估。两种机制的原理见 [09. 主流识别模型](../asr-models.md)。
 
 热词分数不是越高越好。分数过低没有提升，过高会把普通发音拉向业务词。评估时要同时统计热词命中率和误命中率，并使用联系人、设备名、商品型号等真实动态词表测试。
 
@@ -233,7 +236,7 @@ Transducer + greedy_search        -> 不支持这套热词
 | 一句话被切碎 | VAD/端点阈值太激进 | 回放固定长句调整阈值 |
 | 延迟越来越大 | 音频缓冲积压、RTF 大于 1 | 记录输入时长和解码耗时 |
 | 首次识别卡顿 | 每句重新创建 Recognizer | 记录模型加载与单句耗时 |
-| 自定义词无提升 | 模型结构或解码方式不支持热词 | 检查 Transducer 与 `modified_beam_search` |
+| 自定义词无提升 | 模型结构或解码方式不支持热词 | Transducer 查 `modified_beam_search`，大模型路线查提示词配置 |
 
 ## 验收清单
 
@@ -248,3 +251,5 @@ Transducer + greedy_search        -> 不支持这套热词
 ## 总结
 
 运行模式决定系统何时得到结果、需要维护多少状态以及可使用哪些模型。文件转写优先非流式，实时字幕优先流式，短句交互和长录音切段可以先验证 VAD 加非流式。无论选择哪种模式，Recognizer 复用、Stream 隔离和音频输入契约都是稳定性的基础。
+
+下一篇：[14. 模型与部署选型](./model-selection-deployment.md)。

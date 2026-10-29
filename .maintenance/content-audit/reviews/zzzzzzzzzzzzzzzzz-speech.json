@@ -1,0 +1,365 @@
+{
+ "pages": [
+  {
+   "file": "docs/basic/acoustics/asr-models.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "声学与语音系列 2026-10-28 新增篇目，补齐识别模型结构与主流模型、说话人技术两块缺口；事实按 .maintenance/speech/research/facts-asr-speaker.md 一手来源核对。",
+   "findings": [],
+   "validation": [
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。",
+    "新图由 .maintenance/speech/diagrams-speech.mjs 生成，check-svg ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "f6e70d1fee223d2e5e37aeb1d0d34d388a3d27b5d7c1b65ec19de2e8c93b4f6f"
+  },
+  {
+   "file": "docs/basic/acoustics/speaker.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "声学与语音系列 2026-10-28 新增篇目，补齐识别模型结构与主流模型、说话人技术两块缺口；事实按 .maintenance/speech/research/facts-asr-speaker.md 一手来源核对。",
+   "findings": [],
+   "validation": [
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。",
+    "新图由 .maintenance/speech/diagrams-speech.mjs 生成，check-svg ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "a7f087cab0d20eda6e9ee5da0a9d34d3e6b6b24e1385ff630105bf454776fc9b"
+  },
+  {
+   "file": "AGENTS.md",
+   "status": "verified",
+   "pageType": "维护说明",
+   "decision": "补充推理内容统一在 llm-inference 系列维护的约定；新增外部文章整合流程的入口，指向 .maintenance/article-integration.md。",
+   "findings": [],
+   "validation": [
+    "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。",
+    "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "6ed80825cc338903ab6f2b9c3d616f84a9ca5b9115ecdd6d3fb49bf8c7fcc9fe"
+  },
+  {
+   "file": "docs/ai/domains/speech.md",
+   "status": "verified",
+   "pageType": "语音运行时概览",
+   "decision": "区分VAD静音、输入结束和final；A10修订A102不提前执行，补热词解码、可选时间戳及打断清理迟到音频。",
+   "findings": [],
+   "validation": [
+    "全文及模块顺序与取消方向审查；四种显示、分页与图示双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "e3847e58ea24b0a9afe0998d519656c7828d0276b3ea6a587048d6005d0af89b"
+  },
+  {
+   "file": "docs/ai/index.md",
+   "status": "verified",
+   "pageType": "速查或迁移",
+   "decision": "AI 总览卡片改为“大模型推理优化”。",
+   "findings": [],
+   "validation": [
+    "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
+    "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "e30fd86b3d19949173ef7384ed0efd84c5a9ef78a5b11b6561ac42f67ef5cdfa"
+  },
+  {
+   "file": "docs/ai/learning-path.md",
+   "status": "verified",
+   "pageType": "按目标分支学习路线",
+   "decision": "应用、数据建模和模型训练分支替代八阶段强制串行；12周标为综合练习；写操作按既有授权与业务政策控制。",
+   "findings": [],
+   "validation": [
+    "全文及课程入口审查；新版分支SVG独立测量、双视口原尺寸通过；四种页面显示与分页通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-27 第六阶段阅读补充大模型推理优化系列入口。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
+    "2026-10-27 第六阶段新增模型训练与调优系列入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
+    "2026-10-28 第六阶段新增推理引擎与框架系列入口。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "1d8bc94e7d04512ed39c7e1a8ddbf5d8f1b3a9f52a1465e5a07c7ba42e95da2d"
+  },
+  {
+   "file": "docs/ai/llm-inference/19-speech-multimodal.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "由原第 11 篇迁入：听答说链路、sherpa-onnx、可迁移优化边界、语音时延与指标；版本说明收入折叠区。",
+   "findings": [],
+   "validation": [
+    "全文阅读；数字逐项复算（KV 字节、显存账本、Roofline 下界、延迟公式、投机解码期望、传输时间），事实对照 .maintenance/llm-inference/research/facts.md、nano-vllm.md、aiinfraguide-digest.md 与 vLLM 0.32.0 / SGLang 0.5.22 发布说明；无历史上下文的模拟读者审查后修正 2 处错误与 20 余处表述（模拟审查不代替真实读者试读）。",
+    "npm run docs:build 通过；本地 preview 在 1440 / 390、浅深色检查 23 页：无整页横向溢出、无失效图片、无运行错误（仅根路径 favicon 404 为本地静态服务现象）。",
+    "23 张新 SVG 由 .maintenance/llm-inference/diagrams-{a,b,c}.mjs 生成，check-svg.mjs 实测节点文字不越框，PNG 逐张人工查看；复用的 inference-series 图示与交互组件在页面中实际渲染。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "ea63afac4daf1816308b4fedebdbf41a9ed9d0ebc2ad92562dff0d7aba2cafb0"
+  },
+  {
+   "file": "docs/ai/model-training/16-tts-training.md",
+   "status": "verified",
+   "pageType": "机制",
+   "decision": "模型训练与调优系列（2026-10-27 新建），按 brief.md 的章节职责撰写。",
+   "findings": [],
+   "validation": [
+    "全文阅读；三位无历史上下文的审查代理按章复算全部算例（显存与 6ND 账、ZeRO、LoRA 参数、损失与优势算例、样本量、检索指标等）并抽查论文、模型卡与 GitHub 发布，修正 2788/2791、Accelerate 调度器检查点、注意力 FLOPs 口径、模板缺行等十余处；模拟审查不代替真实读者试读。核对记录见 .maintenance/model-training/research/facts-*.md。",
+    "npm run docs:build（隔离 worktree）通过；check-pages 对系列 24 页 1440/390、浅深色检查：无整页横向溢出、无失效图片、无运行错误（仅本地根路径 favicon 404）。",
+    "45 张 SVG 由 .maintenance/model-training/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 逐张人工查看。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "bd659a6f3dec946c87f3b39098db2d630815326bdce2fd2ee5dd219e4419b386"
+  },
+  {
+   "file": "docs/ai/speech-engineering/incident-playbook.md",
+   "status": "verified",
+   "pageType": "旧入口迁移",
+   "decision": "保留旧路径与四个技术机制去向，不为迁移页添加装饰SVG；专题正式导航已指向细节页。",
+   "findings": [],
+   "validation": [
+    "全文及四个本地引用检查；四模式截图、正文首个去向使用Enter真实跳转并核对目标标题通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "1fbd2f615ae64ea6e77c2a85114d93a398281de75abee8c2e13db4fb66148dc5"
+  },
+  {
+   "file": "docs/ai/speech-engineering/index.md",
+   "status": "verified",
+   "pageType": "语音工程专题导读",
+   "decision": "保留有真实会议场景、三类模式、技术地图与不变量的导读，核对两条模型路径与模式差别；现有图补独立可访问性ID。",
+   "findings": [],
+   "validation": [
+    "全文及全部导航入口审查；四模式全文截图、分页、架构图双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "8a51d70c4fa37b573dfdf64b999f699de820d03d9195e135dcffb81b7fb48f6a"
+  },
+  {
+   "file": "docs/ai/speech-engineering/release-and-collaboration.md",
+   "status": "verified",
+   "pageType": "旧入口迁移",
+   "decision": "保留离线运行、架构和调度三个去向，不重复展开已合并内容，不新增无信息量图示。",
+   "findings": [],
+   "validation": [
+    "全文与本地引用检查；四模式截图、正文去向Enter跳转通过。跨行链接矩形中心落在空白处的工具点击不算站点故障或通过证据。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "b7eed0f9938ebca1bead94cbe65586d737f257050c6407b539738326505d67cc"
+  },
+  {
+   "file": "docs/basic/acoustics/capture-playback.md",
+   "status": "verified",
+   "pageType": "采集播放链路",
+   "decision": "补播放参考与录音时钟图、显式ALSA格式示例；修正固定电平阈值及数字放大改善SNR的误解。",
+   "findings": [],
+   "validation": [
+    "全文与命令语法核对，四模式、分页、图示原尺寸通过；未访问麦克风或播放音频。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "bbb5a8c9468a264ab5b1bbc40b895ab0395f8acc1035c86e980552ac9f55202c"
+  },
+  {
+   "file": "docs/basic/acoustics/engineering.md",
+   "status": "verified",
+   "pageType": "设备选型与排查",
+   "decision": "补部署选择SVG，修正端侧与长文本、麦克风数量的过度概括，区分RTF和首字延迟。",
+   "findings": [],
+   "validation": [
+    "全文与60分钟/12分钟RTF0.2计算通过；四模式、分页、图示原尺寸通过，未进行设备推理。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "38ed2a7c10acac7cb54c6ee13b1ef40a9221bbec466b6b2c941d1630460b658d"
+  },
+  {
+   "file": "docs/basic/acoustics/index.md",
+   "status": "verified",
+   "pageType": "声学专题导读",
+   "decision": "保留声学到语音工程的阅读路径，重绘三观察层地图，去掉把并列对象画成串行流程的关系。",
+   "findings": [],
+   "validation": [
+    "全文与图示关系审查，四模式全文截图、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "fb8e3dc21b517bc5ea9073fcce1bc57a6c7acdda35612d8bb963040be7010793"
+  },
+  {
+   "file": "docs/basic/acoustics/noise-reduction.md",
+   "status": "verified",
+   "pageType": "3A与双讲机制",
+   "decision": "说明3A顺序只是常见基线，残差含近端语音，双讲时控制或冻结适应，修正AEC图。",
+   "findings": [],
+   "validation": [
+    "全文与各图标签逐项核对，四模式、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "5a6268e713c2c86b7f58ac53c7b7226d47c13e55c1eddd7cce6b60167bdf3ca7"
+  },
+  {
+   "file": "docs/basic/acoustics/quality-evaluation.md",
+   "status": "verified",
+   "pageType": "声学与识别质量评估",
+   "decision": "限制ERLE到适用声学条件，补CER/WER插入、空参考和宏微平均差别。",
+   "findings": [],
+   "validation": [
+    "1/2及0/100宏25%、微1/102约0.98%算术通过；全文、四模式、分页、图示原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "8bac091108e6d85833726a37c0327c22d4d395713edecf140262c79ee0c3fefa"
+  },
+  {
+   "file": "docs/basic/acoustics/sherpa-onnx/index.md",
+   "status": "verified",
+   "pageType": "sherpa运行边界",
+   "decision": "修正CUDA与ORT Execution Provider关系，核对运行架构和模型输入边界。",
+   "findings": [],
+   "validation": [
+    "全文及图示标签核对，四模式、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "d2866d0d9ef27f06571b432a7e2dc75db7ab1cc9c92d8fea78a1ee5f56f236b2"
+  },
+  {
+   "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+   "status": "verified",
+   "pageType": "模型选择与部署",
+   "decision": "全文已有模型边界、设备评估、运行配置、许可及回归闭环，保留正文与选择图。",
+   "findings": [],
+   "validation": [
+    "全文与选择图逐项核对，四模式、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "f3d17813007417ea926eedb9d852536b83a5d951f55ecdb1c9811fe242b4db6c"
+  },
+  {
+   "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
+   "status": "verified",
+   "pageType": "识别模式与EOF处理",
+   "decision": "流式例子单建OnlineRecognizer，启用端点并处理一次padding、input_finished和尾段去重，限定热词解码条件。",
+   "findings": [],
+   "validation": [
+    "核对官方文件与流式示例；模拟Recognizer运行验证尾字提交一次、端点后不重复及排空，AST通过；四模式、分页、图示原尺寸通过，未进行模型推理。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "f87d555c53b91e73b875e901d21858b0439b3b1fde2fb528b414d0a262ec102c"
+  },
+  {
+   "file": "docs/basic/acoustics/sound-fundamentals.md",
+   "status": "verified",
+   "pageType": "采样与波形基础",
+   "decision": "修正整数满幅、浮点超1与true peak区别；区分重采样和文件头、采样帧和算法帧；调整波形图文字分区。",
+   "findings": [],
+   "validation": [
+    "20ms/16k/s16单声道640字节、双声道1280字节计算通过；全文、四模式、分页、图示原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "244001c61cd3cbc6c9074fa394b8954be9294c8b213552c7e698ddfdc126abec"
+  },
+  {
+   "file": "docs/basic/acoustics/speech-recognition.md",
+   "status": "verified",
+   "pageType": "识别与解码边界",
+   "decision": "明确置信度和时间戳可选，说话人通常独立；Final不代表正确或授权；修正后处理箭头。",
+   "findings": [],
+   "validation": [
+    "全文及支付幂等例子审查，四模式、分页、图示原尺寸与实际字体边界通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "dd61bc853f6b745698ae1bd9482a2a1f2b822e222a5169cbbaecb378c1e91918"
+  },
+  {
+   "file": "docs/basic/acoustics/speech-synthesis.md",
+   "status": "verified",
+   "pageType": "语音生成机制",
+   "decision": "修正银行/行走多音字例子，区分声学模型加声码器与codec路线，重绘播放适配和音色条件方向。",
+   "findings": [],
+   "validation": [
+    "全文与新图核对，四模式、分页、双视口原尺寸及字体边界通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "ee0bf6dd30a6e3d0c5a7ee69c3d50d3e432b6012179f865aeef70ecfc3ba48f5"
+  },
+  {
+   "file": "docs/basic/acoustics/structure.md",
+   "status": "verified",
+   "pageType": "声学结构与声场",
+   "decision": "区分自由/扩散声场与近远场，补均匀线阵孔距条件及结构声路SVG。",
+   "findings": [],
+   "validation": [
+    "全文及图示核对；4kHz约4.3cm、8kHz约2.1cm算术通过，四模式、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "f3e32dac28fa7c7a67585d2253378f2c11d8786e85850b6b8c0b74f79ef305b6"
+  },
+  {
+   "file": "docs/basic/acoustics/vad/index.md",
+   "status": "verified",
+   "pageType": "VAD状态机制",
+   "decision": "区分前处理与降噪、通用分段器与SileroIterator，重绘结束候选恢复及EOF说明。",
+   "findings": [],
+   "validation": [
+    "全文、四状态和回退方向核对，四模式、分页、双视口原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "c76b0c1391c760bd9f6a2a0375555fd746cd693806ab824072f1de9e32020652"
+  },
+  {
+   "file": "docs/basic/acoustics/vad/silero-vad.md",
+   "status": "verified",
+   "pageType": "Silero配置与流式收尾",
+   "decision": "补soundfile依赖与读写，区分文件函数和Iterator参数、neg_threshold版本边界；补缓存、EOF补零、裁剪和应用封口。",
+   "findings": [],
+   "validation": [
+    "核对官方源码与版本说明；Python块AST通过，1000样本补24零计算通过；四模式、分页、双视口原尺寸通过，未下载模型。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "28876a201604ad7158681d4812bd44d7db4637ef2d81e1b9d0e2ed9a5e97fa69"
+  },
+  {
+   "file": "docs/basic/acoustics/voice-interaction.md",
+   "status": "verified",
+   "pageType": "语音交互状态与取消",
+   "decision": "补generation取消旧TTS及迟到音频丢弃，区分停播和业务回滚，修正端侧长文本限制断言。",
+   "findings": [],
+   "validation": [
+    "全文、状态关系及支付幂等场景审查，四模式、分页、双视口图示原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "9c2086247a304a677169fe405706337d4614c3e93e5f572543d0e3bfc95b1f1f"
+  },
+  {
+   "file": "docs/basic/acoustics/wake-word.md",
+   "status": "verified",
+   "pageType": "唤醒检测与评估",
+   "decision": "区分可选VAD门控与持续KWS，补FAR分母和漏唤醒的业务算例。",
+   "findings": [],
+   "validation": [
+    "200小时10次误触发=0.05次/小时、500次漏20=4%计算通过；四模式、分页、图示原尺寸通过。",
+    "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
+    "2026-10-28 语音内容重排：声学专题改为“声学与语音”五部分 01—17（文件名不变），去重、补衔接，按 2026-10 一手来源更新模型与版本事实（.maintenance/speech/research/facts-*.md），独立审查代理核对后修正 17 处；npm run docs:build 通过（704 页），check-pages 对系列 18 页与入口 4 页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）。"
+   ],
+   "reviewedHash": "46ef142bd4f4d38913ae1c6933e040b695e8feaecfe6b1abfddd8cedcf0d2c5e"
+  }
+ ]
+}

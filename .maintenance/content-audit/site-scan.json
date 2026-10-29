@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 748,
-    "bytes": 5652359,
+    "pages": 750,
+    "bytes": 5691517,
     "batches": 90,
-    "scanned": 748,
-    "reviewed": 748,
+    "scanned": 750,
+    "reviewed": 750,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "6a82120752ea20fbf06e0cddb3318f791aa1b290b49b9554a36dab4c123adff7",
+  "sharedHash": "049b1984b61de48a3f7b1510c7b4dbced3f5d77ec04371cbd296a28ee84b81dd",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "5e7757c01a4dde9feea42f39b31c865bdaa013b7163cf9772edb3192e67ab129"
+      "7b286060416894f466905d1bfde1a59e34dfe7060b7fd2f20c35d583e3445976"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -211,7 +211,7 @@
     ],
     [
       ".vitepress/topics.ts",
-      "b0c77d646be7348bced6ccdfacf4714f64f28957d4671affbcc9dfd8714c59a4"
+      "face67465e8d93963e0f631f89c4ab9c79ba1d5965d143f81b93d7fea99c0a8e"
     ]
   ],
   "batches": [
@@ -232,7 +232,7 @@
         "projects/gitlab-platform.md",
         "projects/index.md"
       ],
-      "bytes": 36864
+      "bytes": 37289
     },
     {
       "id": "B002",
@@ -493,7 +493,7 @@
         "docs/ai/foundations/01-what-models-learn.md",
         "docs/ai/foundations/02-python-and-environment.md"
       ],
-      "bytes": 57488
+      "bytes": 57988
     },
     {
       "id": "B018",
@@ -523,7 +523,7 @@
         "docs/ai/index.md",
         "docs/ai/inference-engines/01-vllm.md"
       ],
-      "bytes": 77777
+      "bytes": 78034
     },
     {
       "id": "B020",
@@ -580,7 +580,7 @@
         "docs/ai/llm-architecture/00-transformer.md",
         "docs/ai/llm-architecture/01-overview.md"
       ],
-      "bytes": 14015
+      "bytes": 14077
     },
     {
       "id": "B024",
@@ -692,7 +692,7 @@
         "docs/ai/llm-inference/22-edge.md",
         "docs/ai/llm-inference/index.md"
       ],
-      "bytes": 69199
+      "bytes": 69457
     },
     {
       "id": "B031",
@@ -747,7 +747,7 @@
         "docs/ai/model-training/17-vision.md",
         "docs/ai/model-training/18-multimodal.md"
       ],
-      "bytes": 86903
+      "bytes": 87206
     },
     {
       "id": "B035",
@@ -799,7 +799,7 @@
         "docs/ai/speech-engineering/index.md",
         "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md"
       ],
-      "bytes": 73396
+      "bytes": 74277
     },
     {
       "id": "B038",
@@ -818,7 +818,7 @@
         "docs/ai/vibe-coding/spec-driven.md",
         "docs/ai/vibe-coding/tool-agent-engineering.md"
       ],
-      "bytes": 82152
+      "bytes": 82175
     },
     {
       "id": "B039",
@@ -850,6 +850,7 @@
       "id": "B041",
       "topic": "docs/basic/acoustics",
       "pages": [
+        "docs/basic/acoustics/asr-models.md",
         "docs/basic/acoustics/capture-playback.md",
         "docs/basic/acoustics/engineering.md",
         "docs/basic/acoustics/index.md",
@@ -859,22 +860,23 @@
         "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
         "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
         "docs/basic/acoustics/sound-fundamentals.md",
-        "docs/basic/acoustics/speech-recognition.md",
-        "docs/basic/acoustics/speech-synthesis.md",
-        "docs/basic/acoustics/structure.md"
+        "docs/basic/acoustics/speaker.md"
       ],
-      "bytes": 92811
+      "bytes": 97499
     },
     {
       "id": "B042",
       "topic": "docs/basic/acoustics",
       "pages": [
+        "docs/basic/acoustics/speech-recognition.md",
+        "docs/basic/acoustics/speech-synthesis.md",
+        "docs/basic/acoustics/structure.md",
         "docs/basic/acoustics/vad/index.md",
         "docs/basic/acoustics/vad/silero-vad.md",
         "docs/basic/acoustics/voice-interaction.md",
         "docs/basic/acoustics/wake-word.md"
       ],
-      "bytes": 32347
+      "bytes": 64108
     },
     {
       "id": "B043",
@@ -1597,12 +1599,12 @@
   "pages": [
     {
       "file": "AGENTS.md",
-      "contentHash": "1ea1eb0f663414c9f30c2d2f68778efb0ec51f26874e1c4be6a89fb16a208395",
-      "reviewHash": "9372bd0d868197c07a00f0ad2ca6fd7572d96cb16336a2b42aade5fbb341f2a7",
+      "contentHash": "ea380953acdab0cb494032e7f5a60d1377ccf717b718a216c1a0617d0dd3334f",
+      "reviewHash": "6ed80825cc338903ab6f2b9c3d616f84a9ca5b9115ecdd6d3fb49bf8c7fcc9fe",
       "dependencies": [],
-      "bytes": 24528,
-      "lines": 126,
-      "proseChars": 9515,
+      "bytes": 24953,
+      "lines": 127,
+      "proseChars": 9733,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 0,
@@ -2545,19 +2547,19 @@
     },
     {
       "file": "docs/ai/domains/speech.md",
-      "contentHash": "c6f69f4849db197f29ab0819165e6acc23ee3a6de03f600e3bb0bae8a0c33144",
-      "reviewHash": "ac9fa88505f071b42fd8031544a3b52bc37034011dc73d6a500d8bc855065e18",
+      "contentHash": "4691b79f44ebb5f6a2921de8a5641eb320ae79a4e13f28e95020b1188bb8254d",
+      "reviewHash": "e3847e58ea24b0a9afe0998d519656c7828d0276b3ea6a587048d6005d0af89b",
       "dependencies": [
         "public/ai/speech-runtime-contract.svg"
       ],
-      "bytes": 3735,
-      "lines": 67,
-      "proseChars": 1183,
-      "headings": 7,
+      "bytes": 4235,
+      "lines": 74,
+      "proseChars": 1321,
+      "headings": 8,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 3,
+      "localReferences": 5,
       "findings": []
     },
     {
@@ -2962,14 +2964,14 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "b422ac7ec26b1224f70aa7ca6d5460b7634028f3e3c8824d48c7a82dd0452edb",
-      "reviewHash": "268d41529e23af66687d8b806078f4afc1c6fd13ee2a21486540f9297d37df45",
+      "contentHash": "aacab9aa950b5b2729d170516deb48359f88764b9ec2bc08a89c43a34308fef5",
+      "reviewHash": "e30fd86b3d19949173ef7384ed0efd84c5a9ef78a5b11b6561ac42f67ef5cdfa",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 9096,
-      "lines": 99,
+      "bytes": 9353,
+      "lines": 100,
       "proseChars": 1802,
       "headings": 8,
       "codeLines": 0,
@@ -3603,19 +3605,19 @@
     },
     {
       "file": "docs/ai/learning-path.md",
-      "contentHash": "51619efcd5a929faed3a9f36a118f427f7c539589e9d66898470c6c4514e328a",
-      "reviewHash": "3ea21e0aa392d8e5a7ad86cba23bfe5dcb8979b366c8dbff561bc09bb37839e7",
+      "contentHash": "4bd4a8da9d53abce33dca828d605603cfd99114af647f824edd9d7390dbf5053",
+      "reviewHash": "1d8bc94e7d04512ed39c7e1a8ddbf5d8f1b3a9f52a1465e5a07c7ba42e95da2d",
       "dependencies": [
         "public/ai/ai-learning-roadmap.svg"
       ],
-      "bytes": 8484,
+      "bytes": 8546,
       "lines": 175,
-      "proseChars": 2446,
+      "proseChars": 2459,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 41,
+      "localReferences": 42,
       "findings": []
     },
     {
@@ -4873,19 +4875,19 @@
     },
     {
       "file": "docs/ai/llm-inference/19-speech-multimodal.md",
-      "contentHash": "0418b60fa71993f1aef0192d16047884110326dbed8f2c6b4ef0dae1e7883401",
-      "reviewHash": "bcb0b333228451db96f719c70676c12fc63cbbbbd946f4d5718660150440c6f1",
+      "contentHash": "89cbd8173fd7d7a3a684f12eedc718e55de2e0ae6fa87b3a80fa8e63e3355956",
+      "reviewHash": "ea63afac4daf1816308b4fedebdbf41a9ed9d0ebc2ad92562dff0d7aba2cafb0",
       "dependencies": [
         "public/ai/inference-series/speech-pipeline.svg"
       ],
-      "bytes": 14894,
+      "bytes": 15152,
       "lines": 151,
-      "proseChars": 5126,
+      "proseChars": 5222,
       "headings": 11,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": true,
-      "localReferences": 6,
+      "localReferences": 7,
       "findings": []
     },
     {
@@ -5384,20 +5386,20 @@
     },
     {
       "file": "docs/ai/model-training/16-tts-training.md",
-      "contentHash": "c30ab5caabc883a27a456a76337d84786b6e2ddb9a3011fa03de379160df19b3",
-      "reviewHash": "8e197952ed8c7f2314ef3a3a8d6003adcdfc5a752ae10af8713ebe75ca0f2005",
+      "contentHash": "b46615cc8545fb37383c025c4600245fe0e04e622e56bfe4efcd4b369c9ea0f3",
+      "reviewHash": "bd659a6f3dec946c87f3b39098db2d630815326bdce2fd2ee5dd219e4419b386",
       "dependencies": [
         "public/ai/model-training/tts-codec-rvq.svg",
         "public/ai/model-training/tts-two-pipelines.svg"
       ],
-      "bytes": 14137,
-      "lines": 103,
-      "proseChars": 4906,
+      "bytes": 14440,
+      "lines": 105,
+      "proseChars": 5024,
       "headings": 11,
       "codeLines": 5,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 6,
+      "localReferences": 7,
       "findings": []
     },
     {
@@ -5988,11 +5990,11 @@
     },
     {
       "file": "docs/ai/speech-engineering/incident-playbook.md",
-      "contentHash": "bd5cb11a90e0ab82ab49f765ba2d322bcc4d8592ab36143852dec699c1b241fd",
-      "reviewHash": "277ab24f60f10e1670b2f7572875dabfe2b039855995377f3a5181e5bc11ca9d",
+      "contentHash": "181be08f52d7c47ec36b62fbaeb97829d47a94ee061a4ce5eef4fb477c00a3b0",
+      "reviewHash": "1fbd2f615ae64ea6e77c2a85114d93a398281de75abee8c2e13db4fb66148dc5",
       "dependencies": [],
-      "bytes": 522,
-      "lines": 9,
+      "bytes": 545,
+      "lines": 13,
       "proseChars": 135,
       "headings": 1,
       "codeLines": 0,
@@ -6014,19 +6016,19 @@
     },
     {
       "file": "docs/ai/speech-engineering/index.md",
-      "contentHash": "52c77554b95c61cafa426b65002cd8ccb91e59c4db2c67c102dd6e42482eca1d",
-      "reviewHash": "3a77c65706ea8c440cc495e4e70969475dc41a981b3e108ca34fa52cd3830d2d",
+      "contentHash": "e52a805ddf0f41af766c44b9fc755cec9c38927913f891eaaf4b4b489c9a5962",
+      "reviewHash": "8a51d70c4fa37b573dfdf64b999f699de820d03d9195e135dcffb81b7fb48f6a",
       "dependencies": [
         "public/ai/speech-engineering/voice-end-to-end-architecture.svg"
       ],
-      "bytes": 4019,
-      "lines": 42,
-      "proseChars": 1222,
-      "headings": 4,
+      "bytes": 4877,
+      "lines": 53,
+      "proseChars": 1547,
+      "headings": 5,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 12,
+      "localReferences": 13,
       "findings": []
     },
     {
@@ -6100,11 +6102,11 @@
     },
     {
       "file": "docs/ai/speech-engineering/release-and-collaboration.md",
-      "contentHash": "371d21b1e835c745ed6a198891dd24c651a3c51acac454756c0eb15a3e870440",
-      "reviewHash": "0569970d48d7797979cbb8eaf765f6f956679875fa169c9659ab3da83fcd2f95",
+      "contentHash": "d911e85a2822cc4eadf4e28570419f60787b0e9c94f8c89663a8ce501dfdd462",
+      "reviewHash": "b7eed0f9938ebca1bead94cbe65586d737f257050c6407b539738326505d67cc",
       "dependencies": [],
-      "bytes": 343,
-      "lines": 6,
+      "bytes": 366,
+      "lines": 10,
       "proseChars": 83,
       "headings": 1,
       "codeLines": 0,
@@ -6466,68 +6468,85 @@
       "findings": []
     },
     {
+      "file": "docs/basic/acoustics/asr-models.md",
+      "contentHash": "e5eac836a81d7baa5a3d522382fbba035f902fcad3bd75fb2c6e5d2e191885d1",
+      "reviewHash": "f6e70d1fee223d2e5e37aeb1d0d34d388a3d27b5d7c1b65ec19de2e8c93b4f6f",
+      "dependencies": [
+        "public/acoustics/asr-families.svg"
+      ],
+      "bytes": 13038,
+      "lines": 148,
+      "proseChars": 5244,
+      "headings": 14,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
       "file": "docs/basic/acoustics/capture-playback.md",
-      "contentHash": "3adaaa8902fc72804256540adf06289fe38d1b6e4190406938a137717d0db3bf",
-      "reviewHash": "f78efc35b6f062f21bef95cad5db8fd98eff7e9ca6f7b0986e3cd1b5e50d0140",
+      "contentHash": "77747df0e19898a3c2ef61cc5cdfe43692596702c217bdd3412e4f6e685b1bc9",
+      "reviewHash": "bbb5a8c9468a264ab5b1bbc40b895ab0395f8acc1035c86e980552ac9f55202c",
       "dependencies": [
         "public/acoustics/capture-playback-reference.svg"
       ],
-      "bytes": 6423,
-      "lines": 141,
-      "proseChars": 2045,
+      "bytes": 6574,
+      "lines": 143,
+      "proseChars": 2094,
       "headings": 11,
       "codeLines": 5,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 2,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/engineering.md",
-      "contentHash": "352f6ca723d416e91920d4c54084fafb4fdfd3e3fc907517a46a935e9c16059b",
-      "reviewHash": "dc0e749621afce9fd1054f02d032f108257d9be6b720fa9a428b071508c9d1c9",
+      "contentHash": "28c2029fce363bbadf745a8c00f52789f2683f64fe848b257b5eb89e8358219b",
+      "reviewHash": "38ed2a7c10acac7cb54c6ee13b1ef40a9221bbec466b6b2c941d1630460b658d",
       "dependencies": [
         "public/acoustics/engineering-deployment-choice.svg"
       ],
-      "bytes": 5160,
-      "lines": 145,
-      "proseChars": 1579,
+      "bytes": 5549,
+      "lines": 147,
+      "proseChars": 1680,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 4,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/index.md",
-      "contentHash": "3b7d7e534895a5b83a9628b6d54dcd4715a45534206026c5f7c8db702ab6835b",
-      "reviewHash": "cd79ea8f0d0b4454034e49f84449e9e49d8ea01059442b05791c98da08bbdda7",
+      "contentHash": "9ad4de6b8448cca9820ecf89fc234657c5c4857ee64587ed304a3e45c27abf68",
+      "reviewHash": "fb8e3dc21b517bc5ea9073fcce1bc57a6c7acdda35612d8bb963040be7010793",
       "dependencies": [
         "public/acoustics/acoustic-system-map.svg",
         "public/acoustics/speech-pipeline.svg"
       ],
-      "bytes": 6172,
-      "lines": 83,
-      "proseChars": 1890,
+      "bytes": 7776,
+      "lines": 116,
+      "proseChars": 2360,
       "headings": 10,
       "codeLines": 0,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 14,
+      "localReferences": 24,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/noise-reduction.md",
-      "contentHash": "e5c01f800b138ea89ec8eb2bfd4264519d364a25feb96b56144a8da4187ab0f1",
-      "reviewHash": "7d7b070b8058eb3644183f3df7ed803e57fb5dfa43d5aaefc74636f8ef236794",
+      "contentHash": "564e2912ad9bf6edd7ef924cbdcddf7025bfdb35813a401b86f76bad20be1d64",
+      "reviewHash": "5a6268e713c2c86b7f58ac53c7b7226d47c13e55c1eddd7cce6b60167bdf3ca7",
       "dependencies": [
         "public/acoustics/aec-adaptive-filter.svg",
         "public/acoustics/three-a-chain.svg"
       ],
-      "bytes": 12231,
-      "lines": 218,
-      "proseChars": 4036,
+      "bytes": 12234,
+      "lines": 213,
+      "proseChars": 4049,
       "headings": 23,
       "codeLines": 0,
       "visualCount": 2,
@@ -6537,31 +6556,48 @@
     },
     {
       "file": "docs/basic/acoustics/quality-evaluation.md",
-      "contentHash": "e3fb47572b2f0b66777bf3e3b084c40ce2e7d65bc622fa302735da334129e9b5",
-      "reviewHash": "b672d4457cb3ed3a7f8d03423e936b02aab54cae92c2fca49623824ea95d27b8",
+      "contentHash": "91583f579a8eb29b8e5151a75d80e0f31452df935020f06d9e4d87fcd8068c90",
+      "reviewHash": "8bac091108e6d85833726a37c0327c22d4d395713edecf140262c79ee0c3fefa",
       "dependencies": [
         "public/acoustics/troubleshooting-flow.svg"
       ],
-      "bytes": 5692,
-      "lines": 142,
-      "proseChars": 1892,
+      "bytes": 5753,
+      "lines": 144,
+      "proseChars": 1909,
       "headings": 18,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 2,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/sherpa-onnx/index.md",
-      "contentHash": "d1866b810b161e0300210f7825a54257e71ca072b9c5c9efaa0f0652c8de713f",
-      "reviewHash": "36394bbee218667fb7f019f2d8b2cc6b33bc5b0e9383abf2bc147c155c426764",
+      "contentHash": "083b92edbb542e2984ca45b7cbe880ce61ad694fc2a8e2d032ce9514eab7c727",
+      "reviewHash": "d2866d0d9ef27f06571b432a7e2dc75db7ab1cc9c92d8fea78a1ee5f56f236b2",
       "dependencies": [
         "public/acoustics/sherpa-onnx-architecture.svg"
       ],
-      "bytes": 8379,
-      "lines": 164,
-      "proseChars": 2788,
+      "bytes": 8624,
+      "lines": 166,
+      "proseChars": 2921,
+      "headings": 16,
+      "codeLines": 20,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+      "contentHash": "445435cd715687a6444999cec35aefcd3459bbbaa4b6101be7fc0368a8a60169",
+      "reviewHash": "f3d17813007417ea926eedb9d852536b83a5d951f55ecdb1c9811fe242b4db6c",
+      "dependencies": [
+        "public/acoustics/sherpa-onnx-selection-flow.svg"
+      ],
+      "bytes": 10003,
+      "lines": 211,
+      "proseChars": 3447,
       "headings": 16,
       "codeLines": 20,
       "visualCount": 1,
@@ -6570,67 +6606,84 @@
       "findings": []
     },
     {
-      "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
-      "contentHash": "07a880b1dab9cf91b7c579c3ee1db509e8284aeb09304caec43f7150903677b2",
-      "reviewHash": "fc1a5642a3f77454d2e3fe4e9bfede77811fae5220f3144d6a7f1f31a0e0a8e5",
-      "dependencies": [
-        "public/acoustics/sherpa-onnx-selection-flow.svg"
-      ],
-      "bytes": 9967,
-      "lines": 219,
-      "proseChars": 3403,
-      "headings": 21,
-      "codeLines": 22,
-      "visualCount": 1,
-      "htmlComponents": false,
-      "localReferences": 1,
-      "findings": []
-    },
-    {
       "file": "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
-      "contentHash": "3baaa14f63f7620e4c61468bdff6177a45dd045858e5e3ea21373aa228e9791b",
-      "reviewHash": "5af349a76d85bc4f5c22b9829eaf482b1f7d643bffc926fab88771c5891717e8",
+      "contentHash": "852ec9bcdfe56f4462839fc5d04b5469b5e4dbe5921a9b3858462838b32171ee",
+      "reviewHash": "f87d555c53b91e73b875e901d21858b0439b3b1fde2fb528b414d0a262ec102c",
       "dependencies": [
         "public/acoustics/sherpa-onnx-recognition-modes.svg"
       ],
-      "bytes": 10822,
-      "lines": 251,
-      "proseChars": 2918,
+      "bytes": 11295,
+      "lines": 256,
+      "proseChars": 3067,
       "headings": 18,
-      "codeLines": 82,
+      "codeLines": 83,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 3,
+      "localReferences": 5,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/sound-fundamentals.md",
-      "contentHash": "1b3c4aea1a434e37ef7b6e5bf1b34b387c786fab319ecb72e491142c600da27a",
-      "reviewHash": "e0883afd0c927a13c938cfa35db8a8ac4130047ec2c10c5ad0f05fecbb9ddf58",
+      "contentHash": "a43281c43a913f3dfaa57b62c643187dca15f50f8ce7746331e2f1e8f7167a2f",
+      "reviewHash": "244001c61cd3cbc6c9074fa394b8954be9294c8b213552c7e698ddfdc126abec",
       "dependencies": [
         "public/acoustics/wave-sampling.svg"
       ],
-      "bytes": 6680,
-      "lines": 121,
-      "proseChars": 2199,
+      "bytes": 6808,
+      "lines": 123,
+      "proseChars": 2239,
       "headings": 10,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 2,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/speaker.md",
+      "contentHash": "bcdda70d2aa31c57bc1a9d8333a3b2310362e4a83e30090bfea0e828a8fc3454",
+      "reviewHash": "a7f087cab0d20eda6e9ee5da0a9d34d3e6b6b24e1385ff630105bf454776fc9b",
+      "dependencies": [
+        "public/acoustics/speaker-tasks.svg"
+      ],
+      "bytes": 9845,
+      "lines": 129,
+      "proseChars": 3494,
+      "headings": 12,
+      "codeLines": 1,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/speech-recognition.md",
-      "contentHash": "a6a2f1e6db5775e292e9e9bffa11bc0ad196fdd5b177d0da8ae6060e3816f755",
-      "reviewHash": "8d835480559169655e3ee6825c8f6d6b24d80ad219f0eabbfe38e013cef5955c",
+      "contentHash": "7401963b9b66827a027749f150214fe4badf1fa5e5d7e72d6d5dbe3d317a72bd",
+      "reviewHash": "dd61bc853f6b745698ae1bd9482a2a1f2b822e222a5169cbbaecb378c1e91918",
       "dependencies": [
         "public/acoustics/asr-decoding.svg"
       ],
-      "bytes": 7976,
-      "lines": 158,
-      "proseChars": 2466,
-      "headings": 14,
+      "bytes": 7749,
+      "lines": 147,
+      "proseChars": 2397,
+      "headings": 13,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 7,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/speech-synthesis.md",
+      "contentHash": "2f54e07442252ee021d03f0a3da36e11dc8d9e5ba96492fd5eee5ffe12f1fee5",
+      "reviewHash": "ee0bf6dd30a6e3d0c5a7ee69c3d50d3e432b6012179f865aeef70ecfc3ba48f5",
+      "dependencies": [
+        "public/acoustics/tts-acoustic-vocoder.svg"
+      ],
+      "bytes": 10627,
+      "lines": 187,
+      "proseChars": 3748,
+      "headings": 13,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
@@ -6638,106 +6691,89 @@
       "findings": []
     },
     {
-      "file": "docs/basic/acoustics/speech-synthesis.md",
-      "contentHash": "7dfcbb3c447c81e252bfc48201da8d5708e8f29b5f2e244a4b647333ed234f88",
-      "reviewHash": "112af668850597337b90a56439011a727253546a386ab38caeb73ed32b1e5d74",
-      "dependencies": [
-        "public/acoustics/tts-acoustic-vocoder.svg"
-      ],
-      "bytes": 6682,
-      "lines": 151,
-      "proseChars": 2050,
-      "headings": 12,
-      "codeLines": 0,
-      "visualCount": 1,
-      "htmlComponents": false,
-      "localReferences": 1,
-      "findings": []
-    },
-    {
       "file": "docs/basic/acoustics/structure.md",
-      "contentHash": "8b9c306c0354d00ea793631e44b7522230692264950928c25f56ebc216429816",
-      "reviewHash": "238d9f8eeb535e356d00694c0efa9fa44ae6b7a53eb276d9b6b9d7ff0d407248",
+      "contentHash": "156c7b96ab2d56fa9d0dd878b162d1fb59c5d58e1fe1bfa999ff7b47363bbdb3",
+      "reviewHash": "f3e32dac28fa7c7a67585d2253378f2c11d8786e85850b6b8c0b74f79ef305b6",
       "dependencies": [
         "public/acoustics/structure-sound-paths.svg"
       ],
-      "bytes": 6627,
-      "lines": 125,
-      "proseChars": 2054,
+      "bytes": 6784,
+      "lines": 127,
+      "proseChars": 2104,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 2,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/vad/index.md",
-      "contentHash": "2b4c9d80d40bf98e4aca7343b9eaf8902180a125ded496fe57184e5c459448b0",
-      "reviewHash": "be6cb3ad672d3152a529aaac039e4ab741306b80623c704adaa1f61187db47d7",
+      "contentHash": "f99da3df4a4f14ec9cce288c7d87ed099372a1c8607ae2bd15008ac801118c0b",
+      "reviewHash": "c76b0c1391c760bd9f6a2a0375555fd746cd693806ab824072f1de9e32020652",
       "dependencies": [
         "public/acoustics/vad-state-flow.svg"
       ],
-      "bytes": 8995,
-      "lines": 141,
-      "proseChars": 2809,
+      "bytes": 10660,
+      "lines": 157,
+      "proseChars": 3477,
       "headings": 13,
       "codeLines": 11,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/vad/silero-vad.md",
+      "contentHash": "5aa30edee465ef59fd7fd2e359b4a39d69329880189f6f31516cacaee94e0492",
+      "reviewHash": "28876a201604ad7158681d4812bd44d7db4637ef2d81e1b9d0e2ed9a5e97fa69",
+      "dependencies": [
+        "public/acoustics/silero-vad-streaming.svg"
+      ],
+      "bytes": 12023,
+      "lines": 249,
+      "proseChars": 3584,
+      "headings": 11,
+      "codeLines": 90,
       "visualCount": 1,
       "htmlComponents": false,
       "localReferences": 3,
       "findings": []
     },
     {
-      "file": "docs/basic/acoustics/vad/silero-vad.md",
-      "contentHash": "e45ef4d032ac095657be7b37b76587a4027a166de4139d4ec744e438e004839b",
-      "reviewHash": "ecbe599ced3dff40e8fbc88b6a50f7c198ade3e8f52c5bb167dd38b677f9e84b",
-      "dependencies": [
-        "public/acoustics/silero-vad-streaming.svg"
-      ],
-      "bytes": 11924,
-      "lines": 247,
-      "proseChars": 3530,
-      "headings": 11,
-      "codeLines": 90,
-      "visualCount": 1,
-      "htmlComponents": false,
-      "localReferences": 2,
-      "findings": []
-    },
-    {
       "file": "docs/basic/acoustics/voice-interaction.md",
-      "contentHash": "1a2d84587c91e0b2ff23f4f6c7afb760aa7ce4d3e3a936a575b6024f41736d63",
-      "reviewHash": "65638b46995c430a7ecc8c90df7a47c7678af5712c12bff3412aded02f28bfd3",
+      "contentHash": "55d76d110982b37e4f15152966f3a3f1bd6362e7b6e2e4ea125170bf97a65c26",
+      "reviewHash": "9c2086247a304a677169fe405706337d4614c3e93e5f572543d0e3bfc95b1f1f",
       "dependencies": [
         "public/acoustics/speech-pipeline.svg"
       ],
-      "bytes": 5328,
-      "lines": 122,
-      "proseChars": 1689,
-      "headings": 10,
+      "bytes": 10037,
+      "lines": 174,
+      "proseChars": 3459,
+      "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 1,
+      "localReferences": 3,
       "findings": []
     },
     {
       "file": "docs/basic/acoustics/wake-word.md",
-      "contentHash": "0606014ae7f52f098d807b493bf8a7ce385fa5760990f0bacf3d94740abeb646",
-      "reviewHash": "c264179eb3e570e66b9e4fb524276846d4905fc9a142fed4f215bafeac2dfcdc",
+      "contentHash": "7081817311ba517ff571818bdf2d365d1c6f9eabae44cae8b2f7627c04a66df5",
+      "reviewHash": "46ef142bd4f4d38913ae1c6933e040b695e8feaecfe6b1abfddd8cedcf0d2c5e",
       "dependencies": [
         "public/acoustics/kws-threshold.svg",
         "public/acoustics/speech-ai-modules.svg"
       ],
-      "bytes": 6100,
-      "lines": 109,
-      "proseChars": 1877,
+      "bytes": 6228,
+      "lines": 111,
+      "proseChars": 1914,
       "headings": 10,
       "codeLines": 0,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 2,
+      "localReferences": 3,
       "findings": []
     },
     {

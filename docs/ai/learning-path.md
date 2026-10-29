@@ -80,7 +80,7 @@
 | --- | --- |
 | 文本理解、抽取、问答 | [自然语言处理](./domains/nlp.md) |
 | 图片识别、检测、生成 | [计算机视觉](./domains/computer-vision.md) |
-| 音频转写和合成 | [语音技术](./domains/speech.md) |
+| 音频转写和合成 | [语音技术](./domains/speech.md)，系统学习见[声学与语音](../basic/acoustics/)系列 |
 | 用户与内容匹配 | [推荐系统](./domains/recommendation.md) |
 | 未来趋势和异常 | [时间序列](./domains/time-series.md) |
 | 连续决策和控制 | [强化学习](./domains/reinforcement-learning.md) |
