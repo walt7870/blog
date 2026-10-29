@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="ffn-key-value-title ffn-key-value-desc" id="ffn-key-value-root">
+<title id="ffn-key-value-title">FFN 的键值记忆读法</title>
+<desc id="ffn-key-value-desc">输入向量与每个键做点积得到系数，系数大的键对应的值向量按系数加权求和，作为 FFN 的输出加回残差流。图中数值为示意。</desc>
+<defs><style>
+#ffn-key-value-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#ffn-key-value-root .h { font-size: 26px; font-weight: 700; }
+#ffn-key-value-root .t { font-size: 19px; font-weight: 600; }
+#ffn-key-value-root .s { font-size: 15px; fill: #475569; }
+#ffn-key-value-root .xs { font-size: 13px; fill: #64748b; }
+#ffn-key-value-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#ffn-key-value-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#ffn-key-value-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#ffn-key-value-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#ffn-key-value-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#ffn-key-value-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#ffn-key-value-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#ffn-key-value-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#ffn-key-value-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#ffn-key-value-root .fblue { fill: #93c5fd; } #ffn-key-value-root .fgreen { fill: #6ee7b7; } #ffn-key-value-root .fred { fill: #fda4af; }
+#ffn-key-value-root .famber { fill: #fcd34d; } #ffn-key-value-root .fviolet { fill: #c4b5fd; } #ffn-key-value-root .fgray { fill: #e2e8f0; }
+#ffn-key-value-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#ffn-key-value-arrow); }
+#ffn-key-value-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#ffn-key-value-arrow); }
+#ffn-key-value-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#ffn-key-value-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="ffn-key-value-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="570" fill="#f8fafc"/>
+<text x="32" y="46" class="h">把 FFN 读成一张“键—值”表</text>
+<text x="32" y="78" class="s">x 与每个键比相似度（再过激活），相似度当权重，把对应的值向量加起来。</text>
+<g data-node="x"><rect x="32" y="210" width="180" height="130" rx="8" class="node"/><text x="50" y="246" class="t">输入 x</text><text x="50" y="274" class="s">当前 token 的</text><text x="50" y="297" class="s">4096 维向量</text></g><text x="300" y="128" class="s">键：W_g、W_u 的第 i 列</text><text x="590" y="128" class="s">系数 m_i</text><text x="820" y="128" class="s">值：W_d 的第 i 行</text><rect x="300" y="146" width="200" height="40" rx="4" class="fgray"/><text x="400" y="171" text-anchor="middle" class="s">键 k1</text><rect x="590" y="154" width="6" height="24" rx="4" class="fgray"/><text x="606" y="172" class="xs">0.10</text><rect x="820" y="146" width="200" height="40" rx="4" class="fgray"/><text x="920" y="171" text-anchor="middle" class="s">值 v1</text><path d="M500 166H582" class="line"/><path d="M800 166H812" class="line"/><rect x="300" y="202" width="200" height="40" rx="4" class="fblue"/><text x="400" y="227" text-anchor="middle" class="s">键 k2</text><rect x="590" y="210" width="156" height="24" rx="4" class="famber"/><text x="756" y="228" class="xs">2.60</text><rect x="820" y="202" width="200" height="40" rx="4" class="fgreen"/><text x="920" y="227" text-anchor="middle" class="s">值 v2</text><path d="M500 222H582" class="line"/><path d="M800 222H812" class="line"/><rect x="300" y="258" width="200" height="40" rx="4" class="fgray"/><text x="400" y="283" text-anchor="middle" class="s">键 k3</text><rect x="590" y="266" width="3" height="24" rx="4" class="fgray"/><text x="603" y="284" class="xs">0.00</text><rect x="820" y="258" width="200" height="40" rx="4" class="fgray"/><text x="920" y="283" text-anchor="middle" class="s">值 v3</text><path d="M500 278H582" class="line"/><path d="M800 278H812" class="line"/><rect x="300" y="314" width="200" height="40" rx="4" class="fgray"/><text x="400" y="339" text-anchor="middle" class="s">键 k4</text><rect x="590" y="322" width="18" height="24" rx="4" class="fgray"/><text x="618" y="340" class="xs">0.30</text><rect x="820" y="314" width="200" height="40" rx="4" class="fgray"/><text x="920" y="339" text-anchor="middle" class="s">值 v4</text><path d="M500 334H582" class="line"/><path d="M800 334H812" class="line"/><rect x="300" y="370" width="200" height="40" rx="4" class="fblue"/><text x="400" y="395" text-anchor="middle" class="s">键 k5</text><rect x="590" y="378" width="114" height="24" rx="4" class="famber"/><text x="714" y="396" class="xs">1.90</text><rect x="820" y="370" width="200" height="40" rx="4" class="fgreen"/><text x="920" y="395" text-anchor="middle" class="s">值 v5</text><path d="M500 390H582" class="line"/><path d="M800 390H812" class="line"/><rect x="300" y="426" width="200" height="40" rx="4" class="fgray"/><text x="400" y="451" text-anchor="middle" class="s">键 k6</text><rect x="590" y="434" width="3" height="24" rx="4" class="fgray"/><text x="603" y="452" class="xs">0.05</text><rect x="820" y="426" width="200" height="40" rx="4" class="fgray"/><text x="920" y="451" text-anchor="middle" class="s">值 v6</text><path d="M500 446H582" class="line"/><path d="M800 446H812" class="line"/><path d="M212 275H292" class="edge"/><g data-node="sum"><rect x="1060" y="200" width="108" height="150" rx="8" class="green"/><text x="1078" y="236" class="t">输出</text><text x="1078" y="264" class="s">Σ m_i·v_i</text><text x="1078" y="287" class="s">加回</text><text x="1078" y="310" class="s">残差流</text></g><path d="M1020 275H1056" class="edge"/><text x="32" y="520" class="s">示意：6 个中间单元，数值为虚构。Llama-3.1-8B 每层有 14336 对键和值；多数系数很小，少数较大的那几对决定这一层加进残差流的内容。</text><text x="32" y="548" class="xs">这是一种读法，不是模型的设计规格：真实中间单元常同时响应多种无关的模式，一个事实也往往分散在多层多个单元里。</text>
+</svg>

@@ -10,9 +10,10 @@
     "全文审查；双视口浅深色全文截图、资源加载、分页通过；两图双视口键盘放大与原尺寸通过。",
     "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
     "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
-    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
+    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "56469665e99402e66523e03e2f2573bc47f2d9da56f7c622394ca99fe54ea039"
+   "reviewedHash": "399bbd60a91a59303fa30fc5cb61c6a01c8aec4ef15cad3e559927133ffc07f9"
   },
   {
    "file": "docs/ai/history.md",
@@ -46,9 +47,10 @@
     "全文及课程入口审查；新版分支SVG独立测量、双视口原尺寸通过；四种页面显示与分页通过。",
     "2026-10-27 第六阶段阅读补充大模型推理优化系列入口。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
     "2026-10-27 第六阶段新增模型训练与调优系列入口。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
-    "2026-10-28 第六阶段新增推理引擎与框架系列入口。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
+    "2026-10-28 第六阶段新增推理引擎与框架系列入口。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "b1365f2a8a91760b5f56c83d6f78ba4c53531f7b951450dbb29450e0acd6c84d"
+   "reviewedHash": "018c4b620fddd5581e96eac92f4aabc01cc7d602221aa689408d83e1e4357364"
   },
   {
    "file": "docs/ai/ml.md",
@@ -146,9 +148,10 @@
    "decision": "图示分清CNN/Transformer与Diffusion可组合；校正因果遮罩、移位目标、训练并行与自回归生成逐步执行边界。",
    "findings": [],
    "validation": [
-    "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。"
+    "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "5440686c9663fdc2a8279c3184a7c2de79ffed76142ee107edd0fab24355941a"
+   "reviewedHash": "f5b7bdfc4bd42e43d26a78281dd2193cd9b02e4bba8121e5cbc22fc1dee944c6"
   },
   {
    "file": "docs/ai/deep-learning/framework-practice.md",

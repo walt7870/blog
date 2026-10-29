@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="620" viewBox="0 0 1320 620" role="img" aria-labelledby="long-cost-title long-cost-desc" id="long-cost-root">
+<title id="long-cost-title">Llama-3.1-8B 在 8K 与 128K 上下文下的成本</title>
+<desc id="long-cost-desc">生成每个 token 时，权重部分约 16.06 GFLOPs，与上下文长度无关；注意力部分在 8K 上下文是 4.29 GFLOPs，在 128K 是 68.72 GFLOPs，超过权重部分的 4 倍。BF16 KV Cache 在 8K 是 1 GiB，在 128K 是 16 GiB。128K 的整段 Prefill 里，注意力约占 68% 的计算。</desc>
+<defs><style>
+#long-cost-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#long-cost-root .h { font-size: 26px; font-weight: 700; }
+#long-cost-root .t { font-size: 19px; font-weight: 600; }
+#long-cost-root .s { font-size: 15px; fill: #475569; }
+#long-cost-root .xs { font-size: 13px; fill: #64748b; }
+#long-cost-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#long-cost-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#long-cost-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#long-cost-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#long-cost-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#long-cost-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#long-cost-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#long-cost-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#long-cost-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#long-cost-root .fblue { fill: #93c5fd; } #long-cost-root .fgreen { fill: #6ee7b7; } #long-cost-root .fred { fill: #fda4af; }
+#long-cost-root .famber { fill: #fcd34d; } #long-cost-root .fviolet { fill: #c4b5fd; } #long-cost-root .fgray { fill: #e2e8f0; }
+#long-cost-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#long-cost-arrow); }
+#long-cost-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#long-cost-arrow); }
+#long-cost-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#long-cost-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="long-cost-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="620" fill="#f8fafc"/>
+<text x="32" y="46" class="h">上下文从 8K 拉到 128K：权重那份不变，注意力那份涨 16 倍</text>
+<text x="32" y="78" class="s">Llama-3.1-8B，单个请求；FLOPs 为估算口径（矩阵乘法 2 次运算/乘加），KV 按 BF16。</text>
+<text x="32" y="140" class="t">生成 1 个新 token 的计算（GFLOPs）</text><text x="32" y="190" class="s">权重部分（8K/128K 相同）</text><rect x="222" y="170" width="112" height="32" rx="4" class="fblue"/><text x="344" y="192" class="s">16.06 G</text><text x="32" y="246" class="s">注意力，上下文 8K</text><rect x="222" y="226" width="30" height="32" rx="4" class="famber"/><text x="262" y="248" class="s">4.29 G</text><text x="32" y="302" class="s">注意力，上下文 128K</text><rect x="222" y="282" width="481" height="32" rx="4" class="fred"/><text x="713" y="304" class="s">68.72 G</text>
+<text x="32" y="380" class="t">这个请求的 KV Cache（GiB）</text><text x="32" y="430" class="s">上下文 8K</text><rect x="222" y="410" width="28" height="32" rx="4" class="famber"/><text x="260" y="432" class="s">1 GiB</text><text x="32" y="486" class="s">上下文 128K</text><rect x="222" y="466" width="448" height="32" rx="4" class="fred"/><text x="680" y="488" class="s">16 GiB</text>
+<g data-node="note"><rect x="820" y="380" width="468" height="150" rx="8" class="node"/><text x="838" y="416" class="t">整段 Prefill 128K</text><text x="838" y="444" class="s">权重部分：16.06 G × 131072 ≈ 2.1 PFLOPs</text><text x="838" y="467" class="s">注意力（因果，只算下三角）≈ 4.5 PFLOPs</text><text x="838" y="490" class="s">注意力占约 68%；8K 时只占约 12%</text><text x="838" y="513" class="s">长度翻倍，这一项涨 4 倍</text></g>
+</svg>

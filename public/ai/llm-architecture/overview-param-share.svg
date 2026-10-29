@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="600" viewBox="0 0 1400 600" role="img" aria-labelledby="overview-param-share-title overview-param-share-desc" id="overview-param-share-root">
+<title id="overview-param-share-title">Llama-3.1-8B 的参数分布</title>
+<desc id="overview-param-share-desc">8,030,261,248 个参数中，32 层 FFN 共 5.64B 占 70.2%，32 层注意力共 1.34B 占 16.7%，词嵌入和输出层各 0.53B 合计 13.1%，RMSNorm 可以忽略。单层 218,112,000 个参数里，q、k、v、o 四个注意力矩阵占 19.2%，gate、up、down 三个 FFN 矩阵占 80.8%。</desc>
+<defs><style>
+#overview-param-share-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#overview-param-share-root .h { font-size: 26px; font-weight: 700; }
+#overview-param-share-root .t { font-size: 19px; font-weight: 600; }
+#overview-param-share-root .s { font-size: 15px; fill: #475569; }
+#overview-param-share-root .xs { font-size: 13px; fill: #64748b; }
+#overview-param-share-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#overview-param-share-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#overview-param-share-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#overview-param-share-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#overview-param-share-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#overview-param-share-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#overview-param-share-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#overview-param-share-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#overview-param-share-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#overview-param-share-root .fblue { fill: #93c5fd; } #overview-param-share-root .fgreen { fill: #6ee7b7; } #overview-param-share-root .fred { fill: #fda4af; }
+#overview-param-share-root .famber { fill: #fcd34d; } #overview-param-share-root .fviolet { fill: #c4b5fd; } #overview-param-share-root .fgray { fill: #e2e8f0; }
+#overview-param-share-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#overview-param-share-arrow); }
+#overview-param-share-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#overview-param-share-arrow); }
+#overview-param-share-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#overview-param-share-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="overview-param-share-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">8B 参数花在哪：七成在 FFN</text>
+<text x="32" y="78" class="s">按 config.json 逐个矩阵相乘得到，宽度与参数量成正比。</text>
+<rect x="60.0" y="150" width="83.7" height="64" class="fblue" stroke="#fff" stroke-width="2"/><text x="101.86855175150586" y="178" class="s" text-anchor="middle">词嵌入</text><text x="101.86855175150586" y="202" class="xs" text-anchor="middle">0.53B · 6.5%</text><rect x="143.7" y="150" width="213.9" height="64" class="fviolet" stroke="#fff" stroke-width="2"/><text x="250.70665688011252" y="178" class="s" text-anchor="middle">注意力 ×32</text><text x="250.70665688011252" y="202" class="xs" text-anchor="middle">1.34B · 16.7%</text><rect x="357.7" y="150" width="898.5" height="64" class="fgreen" stroke="#fff" stroke-width="2"/><text x="806.9483344410366" y="178" class="s" text-anchor="middle">FFN ×32</text><text x="806.9483344410366" y="202" class="xs" text-anchor="middle">5.64B · 70.2%</text><rect x="1256.2" y="150" width="83.7" height="64" class="famber" stroke="#fff" stroke-width="2"/><text x="1298.0890103763659" y="178" class="s" text-anchor="middle">输出层</text><text x="1298.0890103763659" y="202" class="xs" text-anchor="middle">0.53B · 6.5%</text><text x="60" y="140" class="s">整个模型 8,030,261,248 个参数（RMSNorm 共 266,240 个，占 0.003%，图上看不见）</text>
+<rect x="60.0" y="300" width="98.5" height="56" class="fviolet" stroke="#fff" stroke-width="2"/><text x="109.22892018779342" y="324" class="m" text-anchor="middle">q</text><text x="109.22892018779342" y="345" class="xs" text-anchor="middle">16.8M</text><rect x="158.5" y="300" width="24.6" height="56" class="fviolet" stroke="#fff" stroke-width="2"/><text x="170.7650704225352" y="334" class="m" text-anchor="middle">k</text><rect x="183.1" y="300" width="24.6" height="56" class="fviolet" stroke="#fff" stroke-width="2"/><text x="195.3795305164319" y="334" class="m" text-anchor="middle">v</text><rect x="207.7" y="300" width="98.5" height="56" class="fviolet" stroke="#fff" stroke-width="2"/><text x="256.91568075117374" y="324" class="m" text-anchor="middle">o</text><text x="256.91568075117374" y="345" class="xs" text-anchor="middle">16.8M</text><rect x="306.1" y="300" width="344.6" height="56" class="fgreen" stroke="#fff" stroke-width="2"/><text x="478.4458215962441" y="324" class="m" text-anchor="middle">gate</text><text x="478.4458215962441" y="345" class="xs" text-anchor="middle">58.7M</text><rect x="650.7" y="300" width="344.6" height="56" class="fgreen" stroke="#fff" stroke-width="2"/><text x="823.0482629107981" y="324" class="m" text-anchor="middle">up</text><text x="823.0482629107981" y="345" class="xs" text-anchor="middle">58.7M</text><rect x="995.3" y="300" width="344.6" height="56" class="fgreen" stroke="#fff" stroke-width="2"/><text x="1167.650704225352" y="324" class="m" text-anchor="middle">down</text><text x="1167.650704225352" y="345" class="xs" text-anchor="middle">58.7M</text><text x="244.576" y="378" class="xs" text-anchor="middle">k、v 各 4.2M</text><text x="60" y="290" class="s">其中一层 218,112,000 个参数：注意力 4 个矩阵占 19.2%，FFN 3 个矩阵占 80.8%</text>
+<g data-node="pn1"><rect x="60" y="410" width="400" height="150" rx="8" class="green"/><text x="78" y="446" class="t">FFN 为什么最大</text><text x="78" y="474" class="s">3 个矩阵，每个 4096 × 14336</text><text x="78" y="497" class="s">中间维度是隐藏维度的 3.5 倍</text><text x="78" y="520" class="s">每层 1.76 亿，32 层 56.4 亿</text></g>
+<g data-node="pn2"><rect x="500" y="410" width="400" height="150" rx="8" class="violet"/><text x="518" y="446" class="t">注意力为什么较小</text><text x="518" y="474" class="s">q、o 各 4096 × 4096</text><text x="518" y="497" class="s">k、v 只有 8 个头：4096 × 1024</text><text x="518" y="520" class="s">每层 4194 万，32 层 13.4 亿</text></g>
+<g data-node="pn3"><rect x="940" y="410" width="400" height="150" rx="8" class="amber"/><text x="958" y="446" class="t">词表两头各一份</text><text x="958" y="474" class="s">128256 × 4096 = 5.25 亿</text><text x="958" y="497" class="s">输入查表一份，输出打分一份</text><text x="958" y="520" class="s">不共享（tie = false）</text></g>
+</svg>

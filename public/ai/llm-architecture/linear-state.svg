@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="640" viewBox="0 0 1320 640" role="img" aria-labelledby="linear-state-title linear-state-desc" id="linear-state-root">
+<title id="linear-state-title">KV Cache 与固定大小状态的对比</title>
+<desc id="linear-state-desc">左边 softmax 注意力把每个 token 的 K、V 都存下来，三个 token 存 12 个数，长度越长存得越多。右边线性注意力把每对 K、V 的外积累加进一个 2×2 的状态矩阵，始终只存 4 个数；前两个 key 正交时能准确读回，第三个 key 与前两个重叠后，读回的值都被污染。</desc>
+<defs><style>
+#linear-state-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#linear-state-root .h { font-size: 26px; font-weight: 700; }
+#linear-state-root .t { font-size: 19px; font-weight: 600; }
+#linear-state-root .s { font-size: 15px; fill: #475569; }
+#linear-state-root .xs { font-size: 13px; fill: #64748b; }
+#linear-state-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#linear-state-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#linear-state-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#linear-state-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#linear-state-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#linear-state-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#linear-state-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#linear-state-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#linear-state-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#linear-state-root .fblue { fill: #93c5fd; } #linear-state-root .fgreen { fill: #6ee7b7; } #linear-state-root .fred { fill: #fda4af; }
+#linear-state-root .famber { fill: #fcd34d; } #linear-state-root .fviolet { fill: #c4b5fd; } #linear-state-root .fgray { fill: #e2e8f0; }
+#linear-state-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#linear-state-arrow); }
+#linear-state-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#linear-state-arrow); }
+#linear-state-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#linear-state-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="linear-state-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="640" fill="#f8fafc"/>
+<text x="32" y="46" class="h">KV Cache 逐个 token 往下记，线性注意力把所有内容压进一个固定大小的矩阵</text>
+<text x="32" y="78" class="s">玩具例子：key 和 value 都是 2 维；三个 token 依次写入，再用各自的 key 读回。</text>
+<g data-node="kv"><rect x="32" y="112" width="448" height="496" rx="8" class="node"/><text x="50" y="138" class="k">softmax 注意力：KV Cache</text></g>
+<text x="52" y="172" class="k">token</text><text x="172" y="172" class="k">K</text><text x="332" y="172" class="k">V</text><rect x="52" y="186" width="100" height="40" rx="4" class="fgray"/><text x="102" y="211" text-anchor="middle" class="s">年假</text><rect x="172" y="186" width="140" height="40" rx="4" class="fblue"/><text x="242" y="211" text-anchor="middle" class="m">[1, 0]</text><rect x="332" y="186" width="120" height="40" rx="4" class="fgreen"/><text x="392" y="211" text-anchor="middle" class="m">[5, 1]</text><rect x="52" y="234" width="100" height="40" rx="4" class="fgray"/><text x="102" y="259" text-anchor="middle" class="s">申请</text><rect x="172" y="234" width="140" height="40" rx="4" class="fblue"/><text x="242" y="259" text-anchor="middle" class="m">[0, 1]</text><rect x="332" y="234" width="120" height="40" rx="4" class="fgreen"/><text x="392" y="259" text-anchor="middle" class="m">[2, 4]</text><rect x="52" y="282" width="100" height="40" rx="4" class="fgray"/><text x="102" y="307" text-anchor="middle" class="s">报销</text><rect x="172" y="282" width="140" height="40" rx="4" class="fblue"/><text x="242" y="307" text-anchor="middle" class="m">[0.6, 0.8]</text><rect x="332" y="282" width="120" height="40" rx="4" class="fgreen"/><text x="392" y="307" text-anchor="middle" class="m">[0, 6]</text>
+<text x="52" y="362" class="s">3 个 token 存 12 个数；10 万个 token 就存 40 万个</text>
+<text x="52" y="390" class="s">查“年假”时，用 q 和每个 K 打分再 softmax，</text>
+<text x="52" y="414" class="s">原始 V 都在，只要分数够尖就能取回 [5, 1]</text>
+<g data-node="kvcost"><rect x="52" y="448" width="408" height="136" rx="8" class="blue"/><text x="70" y="484" class="t">代价</text><text x="70" y="512" class="s">存储和每步读取量随长度线性增长</text><text x="70" y="535" class="s">所有 token 的 K、V 一直留着</text></g>
+<g data-node="lin"><rect x="512" y="112" width="776" height="496" rx="8" class="node"/><text x="530" y="138" class="k">线性注意力：S ← S + v·kᵀ，读出 o = S·q</text></g>
+<text x="532" y="172" class="k">写入前两个 token 后</text>
+<rect x="532" y="186" width="58" height="38" rx="4" class="fviolet"/><text x="561" y="210" text-anchor="middle" class="m">5</text><rect x="596" y="186" width="58" height="38" rx="4" class="fviolet"/><text x="625" y="210" text-anchor="middle" class="m">2</text><rect x="532" y="230" width="58" height="38" rx="4" class="fviolet"/><text x="561" y="254" text-anchor="middle" class="m">1</text><rect x="596" y="230" width="58" height="38" rx="4" class="fviolet"/><text x="625" y="254" text-anchor="middle" class="m">4</text>
+<text x="532" y="300" class="m">S·[1,0] = [5, 1] ✓</text>
+<text x="532" y="326" class="m">S·[0,1] = [2, 4] ✓</text>
+<path d="M676 230H736" class="edge"/>
+<text x="756" y="172" class="k">再写入“报销”后</text>
+<rect x="756" y="186" width="58" height="38" rx="4" class="fred"/><text x="785" y="210" text-anchor="middle" class="m">5</text><rect x="820" y="186" width="58" height="38" rx="4" class="fred"/><text x="849" y="210" text-anchor="middle" class="m">2</text><rect x="756" y="230" width="58" height="38" rx="4" class="fred"/><text x="785" y="254" text-anchor="middle" class="m">4.6</text><rect x="820" y="230" width="58" height="38" rx="4" class="fred"/><text x="849" y="254" text-anchor="middle" class="m">8.8</text>
+<text x="756" y="300" class="m">S·[1,0] = [5, 4.6]，应为 [5, 1]</text>
+<text x="756" y="326" class="m">S·[0,1] = [2, 8.8]，应为 [2, 4]</text>
+<text x="756" y="352" class="m">S·k₃ = [4.6, 9.8]，应为 [0, 6]</text>
+<g data-node="lincost"><rect x="532" y="400" width="736" height="184" rx="8" class="violet"/><text x="550" y="436" class="t">固定 4 个数，换来两件事</text><text x="550" y="464" class="s">好处：不管写入多少 token，状态都是 d_k × d_v 个数，每步计算也固定</text><text x="550" y="487" class="s">问题：2 维的 key 最多容纳 2 个互不干扰的键值对，第 3 个一来就互相串扰</text><text x="550" y="510" class="s">真实模型每头 128 × 128，容量大得多，但仍是定数；长文里的旧细节会被挤掉</text><text x="550" y="533" class="s">门控（遗忘）和 delta 规则（先减去旧值再写）是在管理这份有限的容量</text></g>
+</svg>

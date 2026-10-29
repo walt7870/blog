@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="mha-mla-flow-title mha-mla-flow-desc" id="mha-mla-flow-root">
+<title id="mha-mla-flow-title">DeepSeek-V3 的多头潜在注意力 MLA</title>
+<desc id="mha-mla-flow-desc">KV 路径：输入 7168 维经 kv_a_proj 压到 512 维的 c_kv 和 64 维的 k_rope，两者进入缓存；kv_b_proj 再把 c_kv 还原成 128 个头的 k_nope 与 v。Q 路径：7168 经 q_a_proj 压到 1536，再经 q_b_proj 得到每头 192 维，分为 q_nope 128 维与 q_rope 64 维。分数为 q_nope·k_nope 加 q_rope·k_rope。推理时可把上投影矩阵吸收进 Q 与输出，直接在压缩向量上计算。</desc>
+<defs><style>
+#mha-mla-flow-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#mha-mla-flow-root .h { font-size: 26px; font-weight: 700; }
+#mha-mla-flow-root .t { font-size: 19px; font-weight: 600; }
+#mha-mla-flow-root .s { font-size: 15px; fill: #475569; }
+#mha-mla-flow-root .xs { font-size: 13px; fill: #64748b; }
+#mha-mla-flow-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#mha-mla-flow-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#mha-mla-flow-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#mha-mla-flow-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#mha-mla-flow-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#mha-mla-flow-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#mha-mla-flow-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#mha-mla-flow-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#mha-mla-flow-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#mha-mla-flow-root .fblue { fill: #93c5fd; } #mha-mla-flow-root .fgreen { fill: #6ee7b7; } #mha-mla-flow-root .fred { fill: #fda4af; }
+#mha-mla-flow-root .famber { fill: #fcd34d; } #mha-mla-flow-root .fviolet { fill: #c4b5fd; } #mha-mla-flow-root .fgray { fill: #e2e8f0; }
+#mha-mla-flow-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#mha-mla-flow-arrow); }
+#mha-mla-flow-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#mha-mla-flow-arrow); }
+#mha-mla-flow-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#mha-mla-flow-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="mha-mla-flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="650" fill="#f8fafc"/>
+<text x="32" y="46" class="h">MLA：只缓存压缩后的 576 个数</text>
+<text x="32" y="78" class="s">DeepSeek-V3 每层：128 个头，kv_lora_rank 512，qk_rope_head_dim 64，q_lora_rank 1536。虚线框内是写进 KV Cache 的部分。</text>
+<g data-node="h"><rect x="32" y="250" width="150" height="120" rx="8" class="node"/><text x="50" y="286" class="t">输入 h</text><text x="50" y="314" class="s">[n, 7168]</text></g><g data-node="kva"><rect x="232" y="112" width="250" height="120" rx="8" class="blue"/><text x="250" y="138" class="k">KV 路径</text><text x="250" y="164" class="t">kv_a_proj</text><text x="250" y="192" class="s">7168 → 512 + 64</text><text x="250" y="215" class="s">下投影（压缩）</text></g><g data-node="ckv"><rect x="532" y="112" width="200" height="120" rx="8" class="green"/><text x="550" y="148" class="t">c_kv：512 维</text><text x="550" y="176" class="s">RMSNorm 后缓存</text><text x="550" y="199" class="s">不含位置信息</text></g><g data-node="kr"><rect x="532" y="250" width="200" height="106" rx="8" class="green"/><text x="550" y="286" class="t">k_rope：64 维</text><text x="550" y="314" class="s">加 RoPE 后缓存</text><text x="550" y="337" class="s">所有头共用</text></g><g data-node="kvb"><rect x="782" y="112" width="386" height="120" rx="8" class="violet"/><text x="800" y="148" class="t">kv_b_proj（上投影）</text><text x="800" y="176" class="s">512 → 128 头 × (128 + 128)</text><text x="800" y="199" class="s">还原每个头的 k_nope 和 v</text></g><g data-node="qa"><rect x="232" y="404" width="250" height="120" rx="8" class="blue"/><text x="250" y="430" class="k">Q 路径</text><text x="250" y="456" class="t">q_a_proj + RMSNorm</text><text x="250" y="484" class="s">7168 → 1536</text><text x="250" y="507" class="s">Q 也先压缩</text></g><g data-node="qb"><rect x="532" y="404" width="200" height="120" rx="8" class="node"/><text x="550" y="440" class="t">q_b_proj</text><text x="550" y="468" class="s">1536 → 128 头 × 192</text></g><g data-node="qs"><rect x="782" y="404" width="386" height="120" rx="8" class="node"/><text x="800" y="440" class="t">每个头的 Q 分两段</text><text x="800" y="468" class="s">q_nope 128 维：与 k_nope 点积</text><text x="800" y="491" class="s">q_rope 64 维：加 RoPE，与 k_rope 点积</text></g><g data-node="score"><rect x="782" y="250" width="386" height="120" rx="8" class="amber"/><text x="800" y="286" class="t">每个头的注意力分数</text><text x="800" y="314" class="s">q_nope·k_nope + q_rope·k_rope</text><text x="800" y="337" class="s">再 softmax、乘 v、经 o_proj</text></g><path d="M182 290Q205 290 205 200Q205 172 228 172" class="edge"/><path d="M182 330Q205 330 205 430Q205 464 228 464" class="edge"/><path d="M482 160H528" class="edge"/><path d="M482 200Q505 200 505 290Q505 303 528 303" class="edge"/><path d="M732 172H778" class="edge"/><path d="M482 464H528" class="edge"/><path d="M732 464H778" class="edge"/><path d="M732 303H778" class="edge"/><path d="M975 232V246" class="edge"/><path d="M975 404V374" class="edge"/><rect x="516" y="96" width="232" height="276" rx="10" fill="none" stroke="#20a28c" stroke-width="2" stroke-dasharray="7 6"/><rect x="534" y="374" width="214" height="26" rx="4" fill="#f8fafc"/><text x="540" y="392" class="s">缓存：每层每 token 576 个数</text><g data-node="absorb"><rect x="32" y="552" width="1136" height="76" rx="8" class="amber"/><text x="50" y="588" class="t">矩阵吸收（推理优化）：把 kv_b_proj 里 K 的部分并进 q_nope，Q 直接与 512 维 c_kv 点积</text><text x="50" y="616" class="s">V 的部分放到加权求和之后再乘。这样 Decode 时不必为 128 个头展开 K、V，所有头读同一份 576 维缓存。</text></g>
+</svg>

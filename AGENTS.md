@@ -118,6 +118,7 @@
 - 用户发来外部文章（公众号等）要求整合或新开系列时，按 `.maintenance/article-integration.md` 处理：先查站内覆盖再决定补进现有页、新开页面，或与已有系列合并（大量重叠时先问用户）；追溯原系列并以一手来源核实；第三方全文不提交进仓库；合并旧系列时保留旧地址为跳转页。
 - 大模型推理（Prefill/Decode、KV、调度、量化、投机解码、分布式、引擎、压测、端侧）统一在 `docs/ai/llm-inference/` 系列维护；`docs/ai/inference-series/` 只保留跳转页，不再新增正文。数字口径、版本基线和图示生成方式见 `.maintenance/llm-inference/README.md`。
 - 具体推理框架（vLLM、SGLang、TensorRT-LLM、LMDeploy、llama.cpp、Ollama、MLX-LM、编排层）的深入拆解与对比在 `docs/ai/inference-engines/`，机制原理链接推理系列不重讲；版本基线与实测范围见 `.maintenance/inference-engines/README.md`。
+- 大模型内部结构（分词、注意力、FFN、归一化、位置编码、输出层、MoE、高效注意力、线性混合架构、多模态结构）与主流模型架构拆解在 `docs/ai/llm-architecture/` 系列维护；`llm/concepts.md`、`deep-learning/architectures.md` 保留为短介绍。数字口径、实践篇实测环境和图示生成方式见 `.maintenance/llm-architecture/README.md`。
 - 模型训练与调优（大模型、语音、视觉、多模态、向量模型的训练和微调、评估、训练工程）在 `docs/ai/model-training/` 系列维护；`llm/training.md`、`llm/sft.md` 保留为短导读。数字口径、实践篇实测环境和图示生成方式见 `.maintenance/model-training/README.md`。
 - 网络代理专题（`docs/network-proxy/`）的 VPN/Hysteria2 经验页只用占位域名和保留地址，不写真实域名、IP、账号、人员；后续经验补充到现有两篇实践页。
 - 最终回复简洁说明改了哪些内容、关键文件路径、验证命令和结果。

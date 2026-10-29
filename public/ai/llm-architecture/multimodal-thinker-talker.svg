@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="630" viewBox="0 0 1400 630" role="img" aria-labelledby="multimodal-thinker-talker-title multimodal-thinker-talker-desc" id="multimodal-thinker-talker-root">
+<title id="multimodal-thinker-talker-title">Qwen3-Omni 的 Thinker-Talker 结构</title>
+<desc id="multimodal-thinker-talker-desc">语音以 16 kHz 输入，转成每秒 100 帧的 128 维梅尔频谱，经 32 层音频编码器下采样 8 倍，约每秒 13 个 token 进入 48 层 MoE 的 Thinker，输出文字回复。Talker 接收 Thinker 第 24 层在图像、音频位置的隐藏状态和文字的词嵌入，每帧生成第 1 层码本 token，再由 5 层的码本补全模块补出其余 15 层，Code2Wav 把每帧放大 1920 倍，得到每秒 12.5 帧的 24 kHz 波形。</desc>
+<defs><style>
+#multimodal-thinker-talker-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#multimodal-thinker-talker-root .h { font-size: 26px; font-weight: 700; }
+#multimodal-thinker-talker-root .t { font-size: 19px; font-weight: 600; }
+#multimodal-thinker-talker-root .s { font-size: 15px; fill: #475569; }
+#multimodal-thinker-talker-root .xs { font-size: 13px; fill: #64748b; }
+#multimodal-thinker-talker-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#multimodal-thinker-talker-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#multimodal-thinker-talker-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#multimodal-thinker-talker-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#multimodal-thinker-talker-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#multimodal-thinker-talker-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#multimodal-thinker-talker-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#multimodal-thinker-talker-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#multimodal-thinker-talker-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#multimodal-thinker-talker-root .fblue { fill: #93c5fd; } #multimodal-thinker-talker-root .fgreen { fill: #6ee7b7; } #multimodal-thinker-talker-root .fred { fill: #fda4af; }
+#multimodal-thinker-talker-root .famber { fill: #fcd34d; } #multimodal-thinker-talker-root .fviolet { fill: #c4b5fd; } #multimodal-thinker-talker-root .fgray { fill: #e2e8f0; }
+#multimodal-thinker-talker-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#multimodal-thinker-talker-arrow); }
+#multimodal-thinker-talker-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#multimodal-thinker-talker-arrow); }
+#multimodal-thinker-talker-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#multimodal-thinker-talker-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="multimodal-thinker-talker-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="630" fill="#f8fafc"/>
+<text x="32" y="46" class="h">语音进、语音出：Qwen3-Omni 的 Thinker 与 Talker</text>
+<text x="32" y="78" class="s">数字来自 Qwen3-Omni-30B-A3B-Instruct 的 config.json 与 Transformers 源码</text>
+<g data-node="a0"><rect x="40" y="126" width="236" height="118" rx="8" class="gray"/><text x="58" y="152" class="k">输入</text><text x="58" y="178" class="t">小林的语音</text><text x="58" y="206" class="s">16 kHz 采样</text><text x="58" y="229" class="s">“年假怎么申请？”</text></g>
+<path d="M276 185H310" class="edge"/>
+<g data-node="a1"><rect x="310" y="126" width="236" height="118" rx="8" class="node"/><text x="328" y="152" class="k">特征</text><text x="328" y="178" class="t">梅尔频谱</text><text x="328" y="206" class="s">128 维，每 10 ms 一帧</text><text x="328" y="229" class="s">每秒 100 帧</text></g>
+<path d="M546 185H580" class="edge"/>
+<g data-node="a2"><rect x="580" y="126" width="236" height="118" rx="8" class="blue"/><text x="598" y="152" class="k">AuT</text><text x="598" y="178" class="t">音频编码器</text><text x="598" y="206" class="s">32 层，宽 1280</text><text x="598" y="229" class="s">卷积下采样 8 倍</text></g>
+<path d="M816 185H850" class="edge"/>
+<g data-node="a3"><rect x="850" y="126" width="236" height="118" rx="8" class="violet"/><text x="868" y="152" class="k">理解与推理</text><text x="868" y="178" class="t">Thinker</text><text x="868" y="206" class="s">MoE 48 层，128 选 8</text><text x="868" y="229" class="s">每秒语音约 13 个 token</text></g>
+<path d="M1086 185H1120" class="edge"/>
+<g data-node="a4"><rect x="1120" y="126" width="236" height="118" rx="8" class="green"/><text x="1138" y="152" class="k">文本</text><text x="1138" y="178" class="t">文字回复</text><text x="1138" y="206" class="s">“根据员工手册……”</text><text x="1138" y="229" class="s">可以单独输出</text></g>
+<g data-node="t1"><rect x="310" y="420" width="236" height="118" rx="8" class="amber"/><text x="328" y="446" class="k">说话</text><text x="328" y="472" class="t">Talker</text><text x="328" y="500" class="s">MoE 20 层，128 选 6</text><text x="328" y="523" class="s">每帧出第 1 层码本</text></g>
+<path d="M546 479H580" class="edge"/>
+<g data-node="t2"><rect x="580" y="420" width="236" height="118" rx="8" class="amber"/><text x="598" y="446" class="k">MTP</text><text x="598" y="472" class="t">码本补全</text><text x="598" y="500" class="s">5 层小 Transformer</text><text x="598" y="523" class="s">补出其余 15 层码本</text></g>
+<path d="M816 479H850" class="edge"/>
+<g data-node="t3"><rect x="850" y="420" width="236" height="118" rx="8" class="node"/><text x="868" y="446" class="k">声码器</text><text x="868" y="472" class="t">Code2Wav</text><text x="868" y="500" class="s">因果卷积解码</text><text x="868" y="523" class="s">每帧放大 1920 倍</text></g>
+<path d="M1086 479H1120" class="edge"/>
+<g data-node="t4"><rect x="1120" y="420" width="236" height="118" rx="8" class="green"/><text x="1138" y="446" class="k">输出</text><text x="1138" y="472" class="t">24 kHz 波形</text><text x="1138" y="500" class="s">每秒 12.5 帧</text><text x="1138" y="523" class="s">边生成边播放</text></g>
+<path d="M968 244V330H428V420" class="edge"/>
+<rect x="442" y="304" width="520" height="26" rx="4" fill="#f8fafc"/><text x="448" y="322" class="s">多模态位置：Thinker 第 24 层隐藏状态；文字位置：只用词嵌入</text>
+<text x="40" y="600" class="s">两个模型各自自回归：Thinker 出文字 token，Talker 跟着出语音码本 token；Talker 不读 Thinker 对回复文字的高层表示，只读回复文字本身。</text>
+</svg>

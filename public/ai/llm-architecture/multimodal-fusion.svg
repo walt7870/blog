@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="730" viewBox="0 0 1400 730" role="img" aria-labelledby="multimodal-fusion-title multimodal-fusion-desc" id="multimodal-fusion-root">
+<title id="multimodal-fusion-title">LLaVA、Qwen3-VL、Gemma 4 12B Unified 三种接入图像的结构</title>
+<desc id="multimodal-fusion-desc">LLaVA-1.5 用单独预训练的 CLIP ViT 编码 576 个 patch，经两层 MLP 投影后放在语言模型输入最前面；Qwen3-VL 的 ViT 除最终输出外，还把第 8、16、24 层的特征经各自的合并器加到语言模型第 1 到 3 层的图像位置上（DeepStack）；Gemma 4 12B Unified 没有视觉编码器，48×48 像素块直接经线性层投影到 3840 维，和文字共用全部解码器层。</desc>
+<defs><style>
+#multimodal-fusion-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#multimodal-fusion-root .h { font-size: 26px; font-weight: 700; }
+#multimodal-fusion-root .t { font-size: 19px; font-weight: 600; }
+#multimodal-fusion-root .s { font-size: 15px; fill: #475569; }
+#multimodal-fusion-root .xs { font-size: 13px; fill: #64748b; }
+#multimodal-fusion-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#multimodal-fusion-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#multimodal-fusion-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#multimodal-fusion-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#multimodal-fusion-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#multimodal-fusion-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#multimodal-fusion-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#multimodal-fusion-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#multimodal-fusion-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#multimodal-fusion-root .fblue { fill: #93c5fd; } #multimodal-fusion-root .fgreen { fill: #6ee7b7; } #multimodal-fusion-root .fred { fill: #fda4af; }
+#multimodal-fusion-root .famber { fill: #fcd34d; } #multimodal-fusion-root .fviolet { fill: #c4b5fd; } #multimodal-fusion-root .fgray { fill: #e2e8f0; }
+#multimodal-fusion-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#multimodal-fusion-arrow); }
+#multimodal-fusion-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#multimodal-fusion-arrow); }
+#multimodal-fusion-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#multimodal-fusion-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="multimodal-fusion-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="730" fill="#f8fafc"/>
+<text x="32" y="46" class="h">图像怎样接进语言模型：三种结构</text>
+<text x="32" y="78" class="s">从上到下是数据流；虚线是 Qwen3-VL 把中间层视觉特征加到语言模型前几层（DeepStack）</text>
+<text x="40" y="118" class="t">LLaVA-1.5：外挂编码器</text>
+<g data-node="l1"><rect x="40" y="136" width="420" height="104" rx="8" class="gray"/><text x="58" y="172" class="t">图像 336×336</text><text x="58" y="200" class="s">24×24 = 576 个 patch</text></g>
+<path d="M250 240V274" class="edge"/>
+<g data-node="l2"><rect x="40" y="274" width="420" height="104" rx="8" class="blue"/><text x="58" y="310" class="t">CLIP ViT-L/14</text><text x="58" y="338" class="s">单独预训练好，常冻结</text><text x="58" y="361" class="s">取倒数第 2 层输出</text></g>
+<path d="M250 378V412" class="edge"/>
+<g data-node="l3"><rect x="40" y="412" width="420" height="104" rx="8" class="violet"/><text x="58" y="448" class="t">两层 MLP 投影</text><text x="58" y="476" class="s">1024 → 4096</text></g>
+<path d="M250 516V550" class="edge"/>
+<g data-node="l4"><rect x="40" y="550" width="420" height="104" rx="8" class="green"/><text x="58" y="586" class="t">Vicuna 语言模型</text><text x="58" y="614" class="s">576 个图像 token 在最前面</text><text x="58" y="637" class="s">只在输入层接收图像</text></g>
+<text x="490" y="118" class="t">Qwen3-VL：编码器 + 多层注入</text>
+<g data-node="q1"><rect x="490" y="136" width="420" height="104" rx="8" class="gray"/><text x="508" y="172" class="t">任意分辨率图像</text><text x="508" y="200" class="s">按 32 像素对齐，保留长宽比</text></g>
+<path d="M700 240V274" class="edge"/>
+<g data-node="q2"><rect x="490" y="274" width="420" height="104" rx="8" class="blue"/><text x="508" y="310" class="t">ViT（27 层，宽 1152）</text><text x="508" y="338" class="s">第 8、16、24 层另出特征</text></g>
+<path d="M700 378V412" class="edge"/>
+<g data-node="q3"><rect x="490" y="412" width="420" height="104" rx="8" class="violet"/><text x="508" y="448" class="t">合并器 ×4</text><text x="508" y="476" class="s">2×2 合并后投影到 4096</text></g>
+<path d="M700 516V550" class="edge"/>
+<g data-node="q4"><rect x="490" y="550" width="420" height="104" rx="8" class="green"/><text x="508" y="586" class="t">Qwen3 语言模型 36 层</text><text x="508" y="614" class="s">最终特征进输入层</text><text x="508" y="637" class="s">3 组中间特征加到第 1—3 层</text></g>
+<text x="940" y="118" class="t">Gemma 4 12B Unified：无编码器</text>
+<g data-node="g1"><rect x="940" y="136" width="420" height="104" rx="8" class="gray"/><text x="958" y="172" class="t">图像</text><text x="958" y="200" class="s">按 48×48 像素切块</text></g>
+<path d="M1150 240V274" class="edge"/>
+<g data-node="g2"><rect x="940" y="274" width="420" height="104" rx="8" class="amber"/><text x="958" y="310" class="t">没有视觉编码器</text><text x="958" y="338" class="s">48×48×3 = 6912 个像素值</text></g>
+<path d="M1150 378V412" class="edge"/>
+<g data-node="g3"><rect x="940" y="412" width="420" height="104" rx="8" class="violet"/><text x="958" y="448" class="t">线性层 + 位置嵌入</text><text x="958" y="476" class="s">6912 → 3840</text></g>
+<path d="M1150 516V550" class="edge"/>
+<g data-node="g4"><rect x="940" y="550" width="420" height="104" rx="8" class="green"/><text x="958" y="586" class="t">解码器 48 层</text><text x="958" y="614" class="s">图像、音频、文字</text><text x="958" y="637" class="s">从第 1 层起共用同一套层</text></g>
+<path d="M910 344H924V610H910" class="dash"/>
+<text x="40" y="700" class="s">“原生多模态”多指训练方式（从预训练起混入图像）；结构上大多仍是编码器 + 投影。Gemma 4 12B Unified 是少数真正去掉编码器的设计。</text>
+</svg>

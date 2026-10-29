@@ -1,0 +1,298 @@
+{
+ "pages": [
+  {
+   "file": "docs/ai/llm-architecture/01-overview.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "4d388e8c5f4745ff666480802774ae5a605b24b64f4017980b76465709d9146f"
+  },
+  {
+   "file": "docs/ai/llm-architecture/02-tokenizer-embedding.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "ae1d53f2ad7dd3f5df9f8448f80a16ff434538ec74c20113208106583cbc5170"
+  },
+  {
+   "file": "docs/ai/llm-architecture/03-attention.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "279e13814451ba6dce582339ee92cd3f72dfae85385f1fe7f66a7a8485a0677b"
+  },
+  {
+   "file": "docs/ai/llm-architecture/04-multi-head.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "a30a3101d2821b15e06c803fed402585a0e1d1320ba220a2fd2e602603bd42ff"
+  },
+  {
+   "file": "docs/ai/llm-architecture/05-ffn.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "08399af61d3b394cdfae952c98a38393f9932159d4a6f43be1433ef0a326f1cc"
+  },
+  {
+   "file": "docs/ai/llm-architecture/06-residual-norm.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "31a22064eaac5cd3c951bce51d2f3072e0a931733ccfcd583689ff007ace694d"
+  },
+  {
+   "file": "docs/ai/llm-architecture/07-position.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "0e85ca6e3ffd07df47f374382349a740b2d8b35ef8e0b723790a74ac44648211"
+  },
+  {
+   "file": "docs/ai/llm-architecture/08-output-decoding.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "438327f1e0edfd0391c7acec2714a00c400f93837a29dd813873c1eaff6ce653"
+  },
+  {
+   "file": "docs/ai/llm-architecture/09-transformer-family.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "6ecb6ea41d02261601699b60bf8627ea6a1f0ebf06361349744f99206e0d20ff"
+  },
+  {
+   "file": "docs/ai/llm-architecture/10-moe.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "cc0d49be36fc4d8168cb7004ce6933a1ec6ce62bb657ed5eaa8b5b9d7b396a0b"
+  },
+  {
+   "file": "docs/ai/llm-architecture/11-efficient-attention.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "94602e0d22edca924a6d5a7d6e67256363e8454e982721f1560f0a0e86feb0be"
+  },
+  {
+   "file": "docs/ai/llm-architecture/12-linear-hybrid.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "75f0dff048457937886a616c0d84e5ad54b5f508cf53e31ae4e9ed13184a548a"
+  },
+  {
+   "file": "docs/ai/llm-architecture/13-llama.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "a1614dea1e68eb6722cb2057751128ca0c00a4c447992e52503e8e85c7451a6f"
+  },
+  {
+   "file": "docs/ai/llm-architecture/14-qwen.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "0e1617c0d23c11309231e3337b44fc8ca91ca80eebd8135dfb9e242b74283422"
+  },
+  {
+   "file": "docs/ai/llm-architecture/15-deepseek.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "86cff98bf1114d8a90056d8f10d86f3eaec588fb654b3c44693f9fb56ae07e9d"
+  },
+  {
+   "file": "docs/ai/llm-architecture/16-open-models.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "6d6f3739197a5d66aee6f291c4e8d03062b0c528609c9f718c8ec2ccb7da921c"
+  },
+  {
+   "file": "docs/ai/llm-architecture/17-multimodal.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "cd108971efc3f0e628798040b9fa21ae7e70fd6bd266cad17e23b2a5d0f6bdce"
+  },
+  {
+   "file": "docs/ai/llm-architecture/18-reading-models.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "ee56c75f09724e2cd4b9a40df91fd4be6e8ccb39f29ac19a3287c942123e88df"
+  },
+  {
+   "file": "docs/ai/llm-architecture/19-comparison.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "8179035e4122a1a1729efabc7d875b683b7d39fb5928c11d8c6bd7804fc1b8dc"
+  },
+  {
+   "file": "docs/ai/llm-architecture/index.md",
+   "status": "verified",
+   "pageType": "系列导读",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "d57d35d3f70cfa5de7c748b84e885695d3e53756a2d78346478431c3650279a6"
+  },
+  {
+   "file": "docs/ai/llm-architecture/layer-practice.md",
+   "status": "verified",
+   "pageType": "实践",
+   "decision": "大模型架构系列（2026-10-28 新建），按 .maintenance/llm-architecture/brief.md 的章节职责撰写。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
+    "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "832717d5b47bb6ad000b3778e1f7be93167211cbae804d70a551386fbaa870be"
+  }
+ ]
+}

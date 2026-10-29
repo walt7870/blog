@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="750" viewBox="0 0 1400 750" role="img" aria-labelledby="llama-decoder-layer-title llama-decoder-layer-desc" id="llama-decoder-layer-root">
+<title id="llama-decoder-layer-title">LlamaDecoderLayer 前向数据流与模块名</title>
+<desc id="llama-decoder-layer-desc">Llama-3.1-8B 的一层：输入 [L,4096] 先经 input_layernorm，再分别经 q_proj、k_proj、v_proj 得到 32 个 Q 头和 8 个 KV 头，Q 和 K 经 RoPE 旋转，repeat_kv 把 8 组 K、V 复制给 32 个 Q 头做因果注意力，o_proj 投回 4096 维后加回残差流；然后经 post_attention_layernorm，gate_proj 经 SiLU 后与 up_proj 逐元素相乘，down_proj 从 14336 维投回 4096 维，再加回残差流。</desc>
+<defs><style>
+#llama-decoder-layer-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#llama-decoder-layer-root .h { font-size: 26px; font-weight: 700; }
+#llama-decoder-layer-root .t { font-size: 19px; font-weight: 600; }
+#llama-decoder-layer-root .s { font-size: 15px; fill: #475569; }
+#llama-decoder-layer-root .xs { font-size: 13px; fill: #64748b; }
+#llama-decoder-layer-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#llama-decoder-layer-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#llama-decoder-layer-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#llama-decoder-layer-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#llama-decoder-layer-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#llama-decoder-layer-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#llama-decoder-layer-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#llama-decoder-layer-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#llama-decoder-layer-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#llama-decoder-layer-root .fblue { fill: #93c5fd; } #llama-decoder-layer-root .fgreen { fill: #6ee7b7; } #llama-decoder-layer-root .fred { fill: #fda4af; }
+#llama-decoder-layer-root .famber { fill: #fcd34d; } #llama-decoder-layer-root .fviolet { fill: #c4b5fd; } #llama-decoder-layer-root .fgray { fill: #e2e8f0; }
+#llama-decoder-layer-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#llama-decoder-layer-arrow); }
+#llama-decoder-layer-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#llama-decoder-layer-arrow); }
+#llama-decoder-layer-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#llama-decoder-layer-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="llama-decoder-layer-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="750" fill="#f8fafc"/>
+<text x="32" y="46" class="h">一层 LlamaDecoderLayer：模块名与张量形状</text>
+<text x="32" y="78" class="s">以 Llama-3.1-8B 为例，L 是序列长度；方框里的名字就是 modeling_llama.py 和权重文件里的参数名。</text>
+<path d="M40 214H1360" stroke="#60a5fa" stroke-width="10" opacity=".3" fill="none"/>
+<path d="M40 520H1360" stroke="#60a5fa" stroke-width="10" opacity=".3" fill="none"/>
+<text x="40" y="196" class="m">hidden_states [L, 4096]</text>
+<text x="40" y="502" class="s">加过注意力输出的残差流 [L, 4096]</text>
+<path d="M120 214V262" class="edge"/>
+<g data-node="d-n1"><rect x="40" y="262" width="196" height="74" rx="8" class="node"/><text x="58" y="298" class="t">input_layernorm</text><text x="58" y="326" class="s">RMSNorm</text></g>
+<path d="M236 299H262" class="edge"/>
+<g data-node="d-q"><rect x="262" y="238" width="250" height="56" rx="8" class="blue"/><text x="280" y="274" class="t">q_proj → [L, 32, 128]</text></g>
+<g data-node="d-k"><rect x="262" y="302" width="250" height="56" rx="8" class="violet"/><text x="280" y="338" class="t">k_proj → [L, 8, 128]</text></g>
+<g data-node="d-v"><rect x="262" y="366" width="250" height="56" rx="8" class="violet"/><text x="280" y="402" class="t">v_proj → [L, 8, 128]</text></g>
+<path d="M512 266H540V290" class="edge"/>
+<path d="M512 330H540" class="edge"/>
+<g data-node="d-rope"><rect x="540" y="268" width="150" height="80" rx="8" class="amber"/><text x="558" y="304" class="t">RoPE</text><text x="558" y="332" class="s">只转 Q、K</text></g>
+<path d="M512 394H730V356" class="edge"/>
+<path d="M690 308H720" class="edge"/>
+<g data-node="d-att"><rect x="720" y="262" width="290" height="92" rx="8" class="blue"/><text x="738" y="298" class="t">因果注意力</text><text x="738" y="326" class="s">repeat_kv：8 组 KV 给 32 个 Q 头</text></g>
+<path d="M1010 308H1036" class="edge"/>
+<g data-node="d-o"><rect x="1036" y="262" width="200" height="92" rx="8" class="blue"/><text x="1054" y="298" class="t">o_proj</text><text x="1054" y="326" class="s">[L, 4096] → [L, 4096]</text></g>
+<path d="M1236 308H1270V228" class="edge"/>
+<circle cx="1270" cy="214" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/>
+<text x="1270" y="220" class="t" text-anchor="middle">+</text>
+<path d="M1284 214H1340V480H40V520" class="dash"/>
+<path d="M120 520V566" class="edge"/>
+<g data-node="d-n2"><rect x="40" y="566" width="270" height="74" rx="8" class="node"/><text x="58" y="602" class="t">post_attention_layernorm</text><text x="58" y="630" class="s">RMSNorm</text></g>
+<path d="M310 603H340" class="edge"/>
+<g data-node="d-g"><rect x="340" y="548" width="320" height="56" rx="8" class="green"/><text x="358" y="584" class="t">gate_proj → SiLU → [L, 14336]</text></g>
+<g data-node="d-u"><rect x="340" y="612" width="320" height="56" rx="8" class="green"/><text x="358" y="648" class="t">up_proj → [L, 14336]</text></g>
+<path d="M660 576H700V594" class="edge"/>
+<path d="M660 640H700V622" class="edge"/>
+<circle cx="700" cy="608" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/>
+<text x="700" y="614" class="t" text-anchor="middle">×</text>
+<path d="M714 608H740" class="edge"/>
+<g data-node="d-d"><rect x="740" y="566" width="260" height="84" rx="8" class="green"/><text x="758" y="602" class="t">down_proj</text><text x="758" y="630" class="s">[L, 14336] → [L, 4096]</text></g>
+<path d="M1000 608H1270V534" class="edge"/>
+<circle cx="1270" cy="520" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/>
+<text x="1270" y="526" class="t" text-anchor="middle">+</text>
+<path d="M1284 520H1356" class="edge"/>
+<text x="1000" y="470" class="xs">第 1 个残差加法后进入下半层</text>
+<text x="40" y="700" class="s">输出 [L, 4096] 交给下一个 LlamaDecoderLayer，32 层结构相同、参数各不相同</text>
+<text x="40" y="726" class="xs">每层参数：注意力 41,943,040 + MLP 176,160,768 + 两个 RMSNorm 8,192 = 218,112,000</text>
+</svg>

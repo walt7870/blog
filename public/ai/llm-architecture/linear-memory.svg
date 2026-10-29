@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="600" viewBox="0 0 1320 600" role="img" aria-labelledby="linear-memory-title linear-memory-desc" id="linear-memory-root">
+<title id="linear-memory-title">128K 上下文时单个请求的缓存占用</title>
+<desc id="linear-memory-desc">单个 128K 请求：Llama-3.1-8B 的 KV Cache 16 GiB；Qwen3.5-35B-A3B 约 2.56 GiB，Qwen3-Next-80B-A3B 约 3.07 GiB，Jamba v0.1 约 2.02 GiB，Nemotron-Nano-9B-v2 约 2.13 GiB，Kimi Linear 48B 约 1.03 GiB。混合模型的固定状态只有几十到一百多 MiB，主要占用来自保留的少数注意力层。</desc>
+<defs><style>
+#linear-memory-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#linear-memory-root .h { font-size: 26px; font-weight: 700; }
+#linear-memory-root .t { font-size: 19px; font-weight: 600; }
+#linear-memory-root .s { font-size: 15px; fill: #475569; }
+#linear-memory-root .xs { font-size: 13px; fill: #64748b; }
+#linear-memory-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#linear-memory-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#linear-memory-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#linear-memory-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#linear-memory-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#linear-memory-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#linear-memory-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#linear-memory-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#linear-memory-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#linear-memory-root .fblue { fill: #93c5fd; } #linear-memory-root .fgreen { fill: #6ee7b7; } #linear-memory-root .fred { fill: #fda4af; }
+#linear-memory-root .famber { fill: #fcd34d; } #linear-memory-root .fviolet { fill: #c4b5fd; } #linear-memory-root .fgray { fill: #e2e8f0; }
+#linear-memory-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#linear-memory-arrow); }
+#linear-memory-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#linear-memory-arrow); }
+#linear-memory-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#linear-memory-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="linear-memory-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1320" height="600" fill="#f8fafc"/>
+<text x="32" y="46" class="h">128K 上下文、一个请求：缓存从 16 GiB 降到 1—3 GiB</text>
+<text x="32" y="78" class="s">红色 = 注意力层的 KV（随长度增长，BF16），蓝色 = 线性层的固定状态（与长度无关，按 FP32 估算）。</text>
+<text x="32" y="166" class="s">Llama-3.1-8B（全注意力）</text><text x="32" y="188" class="xs">32 层全注意力</text><rect x="330" y="148" width="832" height="36" rx="4" class="fred"/><text x="1174" y="172" class="s">16.00 GiB</text><text x="32" y="232" class="s">Qwen3.5-35B-A3B</text><text x="32" y="254" class="xs">30 层 GDN + 10 层注意力</text><rect x="330" y="214" width="130" height="36" rx="4" class="fred"/><rect x="460" y="214" width="3" height="36" rx="4" class="fblue"/><text x="475" y="238" class="s">2.56 GiB</text><text x="32" y="298" class="s">Qwen3-Next-80B-A3B</text><text x="32" y="320" class="xs">36 层 GDN + 12 层注意力</text><rect x="330" y="280" width="156" height="36" rx="4" class="fred"/><rect x="486" y="280" width="4" height="36" rx="4" class="fblue"/><text x="502" y="304" class="s">3.07 GiB</text><text x="32" y="364" class="s">Jamba v0.1</text><text x="32" y="386" class="xs">28 层 Mamba + 4 层注意力</text><rect x="330" y="346" width="104" height="36" rx="4" class="fred"/><rect x="434" y="346" width="3" height="36" rx="4" class="fblue"/><text x="449" y="370" class="s">2.02 GiB</text><text x="32" y="430" class="s">Nemotron-Nano-9B-v2</text><text x="32" y="452" class="xs">27 层 Mamba2 + 4 层注意力</text><rect x="330" y="412" width="104" height="36" rx="4" class="fred"/><rect x="434" y="412" width="7" height="36" rx="4" class="fblue"/><text x="453" y="436" class="s">2.13 GiB</text><text x="32" y="496" class="s">Kimi Linear 48B-A3B</text><text x="32" y="518" class="xs">20 层 KDA + 7 层 MLA</text><rect x="330" y="478" width="51" height="36" rx="4" class="fred"/><rect x="381" y="478" width="3" height="36" rx="4" class="fblue"/><text x="396" y="502" class="s">1.03 GiB</text>
+<text x="32" y="556" class="xs">估算口径：KV = 2 × 注意力层数 × KV 头数 × 头维度 × 2 字节 × 131072；MLA 按 512+64 维潜向量；状态含卷积缓存。</text>
+<text x="32" y="580" class="xs">只算缓存，不含权重和运行时工作区。Qwen3.5 权重仍有 35B，显存账要和权重一起看。</text>
+</svg>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="646" viewBox="0 0 1400 646" role="img" aria-labelledby="qwen-attention-evolution-title qwen-attention-evolution-desc" id="qwen-attention-evolution-root">
+<title id="qwen-attention-evolution-title">Qwen 各代注意力模块的变化</title>
+<desc id="qwen-attention-evolution-desc">四列分别是 Qwen2/2.5、Qwen3、Qwen3-Next/Qwen3.5、Qwen3.8-Flash-Next 的注意力子层：Qwen2 的 q、k、v 投影带偏置，接全维 RoPE 和 GQA；Qwen3 去掉偏置，在 RoPE 前对每个头的 Q、K 做 RMSNorm；Qwen3-Next 的 q_proj 同时输出 Q 和门，head_dim 256 中只有 64 维做 RoPE，注意力输出乘以 sigmoid 门后再进 o_proj，而且每 4 层只有 1 层是这种注意力；Qwen3.8-Flash-Next 再加一个索引器，把每 4 个 token 合成一块打分，只让注意力看选中的 512 块共 2048 个 token。</desc>
+<defs><style>
+#qwen-attention-evolution-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#qwen-attention-evolution-root .h { font-size: 26px; font-weight: 700; }
+#qwen-attention-evolution-root .t { font-size: 19px; font-weight: 600; }
+#qwen-attention-evolution-root .s { font-size: 15px; fill: #475569; }
+#qwen-attention-evolution-root .xs { font-size: 13px; fill: #64748b; }
+#qwen-attention-evolution-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#qwen-attention-evolution-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#qwen-attention-evolution-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#qwen-attention-evolution-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#qwen-attention-evolution-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#qwen-attention-evolution-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#qwen-attention-evolution-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#qwen-attention-evolution-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#qwen-attention-evolution-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#qwen-attention-evolution-root .fblue { fill: #93c5fd; } #qwen-attention-evolution-root .fgreen { fill: #6ee7b7; } #qwen-attention-evolution-root .fred { fill: #fda4af; }
+#qwen-attention-evolution-root .famber { fill: #fcd34d; } #qwen-attention-evolution-root .fviolet { fill: #c4b5fd; } #qwen-attention-evolution-root .fgray { fill: #e2e8f0; }
+#qwen-attention-evolution-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#qwen-attention-evolution-arrow); }
+#qwen-attention-evolution-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#qwen-attention-evolution-arrow); }
+#qwen-attention-evolution-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#qwen-attention-evolution-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="qwen-attention-evolution-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="646" fill="#f8fafc"/>
+<text x="32" y="46" class="h">Qwen 的注意力子层：从 QKV 偏置到门控、混合与稀疏</text>
+<text x="32" y="78" class="s">从左到右按时间排列；每列自上而下是一次前向经过的步骤。来源为各代 modeling_*.py 与 config.json。</text>
+<g data-node="qa-h0"><rect x="28" y="104" width="318" height="56" rx="8" class="blue"/><text x="46" y="140" class="t">Qwen2 / 2.5</text></g>
+<g data-node="qa-0-0"><rect x="42" y="184" width="290" height="80" rx="8" class="node"/><text x="60" y="220" class="t">q/k/v_proj</text><text x="60" y="248" class="s">带 bias，o_proj 无</text></g>
+<path d="M187 264V288" class="edge"/>
+<g data-node="qa-0-1"><rect x="42" y="288" width="290" height="80" rx="8" class="node"/><text x="60" y="324" class="t">RoPE</text><text x="60" y="352" class="s">全部 128 维</text></g>
+<path d="M187 368V392" class="edge"/>
+<g data-node="qa-0-2"><rect x="42" y="392" width="290" height="80" rx="8" class="node"/><text x="60" y="428" class="t">GQA 注意力</text><text x="60" y="456" class="s">7B：28 个 Q 头 / 4 个 KV 头</text></g>
+<path d="M187 472V496" class="edge"/>
+<g data-node="qa-0-3"><rect x="42" y="496" width="290" height="80" rx="8" class="node"/><text x="60" y="532" class="t">o_proj</text><text x="60" y="560" class="s">投回隐藏维</text></g>
+<path d="M187 160V184" class="edge"/>
+<text x="42" y="618" class="xs">每层都是这种注意力</text>
+<g data-node="qa-h1"><rect x="370" y="104" width="318" height="56" rx="8" class="violet"/><text x="388" y="140" class="t">Qwen3</text></g>
+<g data-node="qa-1-0"><rect x="384" y="184" width="290" height="80" rx="8" class="node"/><text x="402" y="220" class="t">q/k/v_proj</text><text x="402" y="248" class="s">去掉 bias</text></g>
+<path d="M529 264V288" class="edge"/>
+<g data-node="qa-1-1"><rect x="384" y="288" width="290" height="80" rx="8" class="node"/><text x="402" y="324" class="t">q_norm / k_norm</text><text x="402" y="352" class="s">每个头 128 维各做 RMSNorm</text></g>
+<path d="M529 368V392" class="edge"/>
+<g data-node="qa-1-2"><rect x="384" y="392" width="290" height="80" rx="8" class="node"/><text x="402" y="428" class="t">RoPE + GQA</text><text x="402" y="456" class="s">8B：32 个 Q 头 / 8 个 KV 头</text></g>
+<path d="M529 472V496" class="edge"/>
+<g data-node="qa-1-3"><rect x="384" y="496" width="290" height="80" rx="8" class="node"/><text x="402" y="532" class="t">o_proj</text><text x="402" y="560" class="s">投回隐藏维</text></g>
+<path d="M529 160V184" class="edge"/>
+<text x="384" y="618" class="xs">每层都是这种注意力</text>
+<g data-node="qa-h2"><rect x="712" y="104" width="318" height="56" rx="8" class="amber"/><text x="730" y="140" class="t">Qwen3-Next / 3.5</text></g>
+<g data-node="qa-2-0"><rect x="726" y="184" width="290" height="80" rx="8" class="node"/><text x="744" y="220" class="t">q_proj 输出翻倍</text><text x="744" y="248" class="s">一半是 Q，一半是门 gate</text></g>
+<path d="M871 264V288" class="edge"/>
+<g data-node="qa-2-1"><rect x="726" y="288" width="290" height="80" rx="8" class="node"/><text x="744" y="324" class="t">q_norm / k_norm</text><text x="744" y="352" class="s">head_dim 256</text></g>
+<path d="M871 368V392" class="edge"/>
+<g data-node="qa-2-2"><rect x="726" y="392" width="290" height="80" rx="8" class="node"/><text x="744" y="428" class="t">部分 RoPE</text><text x="744" y="456" class="s">只转 256 维中的 64 维</text></g>
+<path d="M871 472V496" class="edge"/>
+<g data-node="qa-2-3"><rect x="726" y="496" width="290" height="80" rx="8" class="node"/><text x="744" y="532" class="t">× sigmoid(gate)</text><text x="744" y="560" class="s">再进 o_proj</text></g>
+<path d="M871 160V184" class="edge"/>
+<text x="726" y="618" class="xs">每 4 层 1 层；其余 3 层是 Gated DeltaNet</text>
+<g data-node="qa-h3"><rect x="1054" y="104" width="318" height="56" rx="8" class="red"/><text x="1072" y="140" class="t">Qwen3.8-Flash-Next</text></g>
+<g data-node="qa-3-0"><rect x="1068" y="184" width="290" height="80" rx="8" class="node"/><text x="1086" y="220" class="t">索引器 indexer</text><text x="1086" y="248" class="s">4 个查询头 + 1 个共享键头</text></g>
+<path d="M1213 264V288" class="edge"/>
+<g data-node="qa-3-1"><rect x="1068" y="288" width="290" height="80" rx="8" class="node"/><text x="1086" y="324" class="t">每 4 个 token 并成一块</text><text x="1086" y="352" class="s">给块打分，选前 512 块</text></g>
+<path d="M1213 368V392" class="edge"/>
+<g data-node="qa-3-2"><rect x="1068" y="392" width="290" height="80" rx="8" class="node"/><text x="1086" y="428" class="t">门控注意力</text><text x="1086" y="456" class="s">只看选中的 2,048 个 token</text></g>
+<path d="M1213 472V496" class="edge"/>
+<g data-node="qa-3-3"><rect x="1068" y="496" width="290" height="80" rx="8" class="node"/><text x="1086" y="532" class="t">× gate → o_proj</text><text x="1086" y="560" class="s">结构同左</text></g>
+<path d="M1213 160V184" class="edge"/>
+<text x="1068" y="618" class="xs">每 4 层 1 层；其余 3 层仍是 Gated DeltaNet</text>
+</svg>

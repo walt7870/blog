@@ -1,0 +1,1017 @@
+{
+ "config": {
+  "hidden_size": 896,
+  "num_hidden_layers": 24,
+  "num_attention_heads": 14,
+  "num_key_value_heads": 2,
+  "intermediate_size": 4864,
+  "vocab_size": 151936,
+  "tie_word_embeddings": true,
+  "rope": {
+   "rope_theta": 1000000.0,
+   "rope_type": "default"
+  }
+ },
+ "params": {
+  "hand": {
+   "embed": 136134656,
+   "attn_per_layer": 1836160,
+   "ffn_per_layer": 13074432,
+   "norm_per_layer": 1792,
+   "total": 494032768
+  },
+  "actual_groups": {
+   "embed": 136134656,
+   "attn": 44067840,
+   "ffn": 313786368,
+   "norm": 43904,
+   "other": 0
+  },
+  "actual_total": 494032768,
+  "lm_head_shares_embedding": true
+ },
+ "input": {
+  "num_tokens": 25,
+  "tokens": [
+   "<|im_start|>",
+   "system",
+   "\n",
+   "你是",
+   "公司",
+   "内部",
+   "的",
+   "资料",
+   "助手",
+   "。",
+   "<|im_end|>",
+   "\n",
+   "<|im_start|>",
+   "user",
+   "\n",
+   "年",
+   "假",
+   "怎么",
+   "申请",
+   "？",
+   "<|im_end|>",
+   "\n",
+   "<|im_start|>",
+   "assistant",
+   "\n"
+  ]
+ },
+ "forward_seconds": 0.4,
+ "layer0_shapes": [
+  {
+   "module": "embed_tokens",
+   "in": [
+    1,
+    25
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "layers.0.input_layernorm",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "layers.0.self_attn.q_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "layers.0.self_attn.k_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    128
+   ]
+  },
+  {
+   "module": "layers.0.self_attn.v_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    128
+   ]
+  },
+  {
+   "module": "layers.0.self_attn.o_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "layers.0.post_attention_layernorm",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "layers.0.mlp.gate_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    4864
+   ]
+  },
+  {
+   "module": "layers.0.mlp.up_proj",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    4864
+   ]
+  },
+  {
+   "module": "layers.0.mlp.down_proj",
+   "in": [
+    1,
+    25,
+    4864
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "norm",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    896
+   ]
+  },
+  {
+   "module": "lm_head",
+   "in": [
+    1,
+    25,
+    896
+   ],
+   "out": [
+    1,
+    25,
+    151936
+   ]
+  }
+ ],
+ "next_token_top5": [
+  {
+   "token": "年",
+   "prob": 0.2694
+  },
+  {
+   "token": "申请",
+   "prob": 0.1408
+  },
+  {
+   "token": "您可以",
+   "prob": 0.0673
+  },
+  {
+   "token": "根据",
+   "prob": 0.0401
+  },
+  {
+   "token": "请",
+   "prob": 0.0332
+  }
+ ],
+ "residual": [
+  {
+   "layer": 0,
+   "resid_norm": 3.39,
+   "attn_out_norm": 0.61,
+   "ffn_out_norm": 3.46
+  },
+  {
+   "layer": 1,
+   "resid_norm": 6.43,
+   "attn_out_norm": 2.58,
+   "ffn_out_norm": 2.5
+  },
+  {
+   "layer": 2,
+   "resid_norm": 6.49,
+   "attn_out_norm": 1.28,
+   "ffn_out_norm": 2.26
+  },
+  {
+   "layer": 3,
+   "resid_norm": 8.24,
+   "attn_out_norm": 2.8,
+   "ffn_out_norm": 3.38
+  },
+  {
+   "layer": 4,
+   "resid_norm": 8.69,
+   "attn_out_norm": 2.29,
+   "ffn_out_norm": 4.05
+  },
+  {
+   "layer": 5,
+   "resid_norm": 9.72,
+   "attn_out_norm": 2.64,
+   "ffn_out_norm": 4.87
+  },
+  {
+   "layer": 6,
+   "resid_norm": 11.02,
+   "attn_out_norm": 2.92,
+   "ffn_out_norm": 4.83
+  },
+  {
+   "layer": 7,
+   "resid_norm": 12.56,
+   "attn_out_norm": 2.99,
+   "ffn_out_norm": 5.93
+  },
+  {
+   "layer": 8,
+   "resid_norm": 11.65,
+   "attn_out_norm": 3.36,
+   "ffn_out_norm": 4.61
+  },
+  {
+   "layer": 9,
+   "resid_norm": 13.63,
+   "attn_out_norm": 3.22,
+   "ffn_out_norm": 5.46
+  },
+  {
+   "layer": 10,
+   "resid_norm": 13.84,
+   "attn_out_norm": 3.62,
+   "ffn_out_norm": 4.49
+  },
+  {
+   "layer": 11,
+   "resid_norm": 14.24,
+   "attn_out_norm": 2.31,
+   "ffn_out_norm": 4.98
+  },
+  {
+   "layer": 12,
+   "resid_norm": 14.26,
+   "attn_out_norm": 3.04,
+   "ffn_out_norm": 4.56
+  },
+  {
+   "layer": 13,
+   "resid_norm": 15.84,
+   "attn_out_norm": 2.88,
+   "ffn_out_norm": 6.88
+  },
+  {
+   "layer": 14,
+   "resid_norm": 19.11,
+   "attn_out_norm": 4.04,
+   "ffn_out_norm": 7.53
+  },
+  {
+   "layer": 15,
+   "resid_norm": 19.83,
+   "attn_out_norm": 3.34,
+   "ffn_out_norm": 7.5
+  },
+  {
+   "layer": 16,
+   "resid_norm": 22.88,
+   "attn_out_norm": 1.47,
+   "ffn_out_norm": 8.64
+  },
+  {
+   "layer": 17,
+   "resid_norm": 29.06,
+   "attn_out_norm": 4.95,
+   "ffn_out_norm": 9.5
+  },
+  {
+   "layer": 18,
+   "resid_norm": 32.82,
+   "attn_out_norm": 2.77,
+   "ffn_out_norm": 7.56
+  },
+  {
+   "layer": 19,
+   "resid_norm": 37.06,
+   "attn_out_norm": 3.77,
+   "ffn_out_norm": 10.8
+  },
+  {
+   "layer": 20,
+   "resid_norm": 49.53,
+   "attn_out_norm": 10.77,
+   "ffn_out_norm": 14.5
+  },
+  {
+   "layer": 21,
+   "resid_norm": 66.03,
+   "attn_out_norm": 16.0,
+   "ffn_out_norm": 12.3
+  },
+  {
+   "layer": 22,
+   "resid_norm": 68.94,
+   "attn_out_norm": 4.75,
+   "ffn_out_norm": 15.0
+  },
+  {
+   "layer": 23,
+   "resid_norm": 52.65,
+   "attn_out_norm": 12.86,
+   "ffn_out_norm": 73.02
+  }
+ ],
+ "embed_norm_last": 0.58,
+ "logit_lens": [
+  {
+   "after_layer": 0,
+   "top3": [
+    "\n",
+    "\n\n",
+    ","
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 1,
+   "top3": [
+    "\")));",
+    ">manual",
+    "*sp"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 2,
+   "top3": [
+    "/*****************************************************************************\n",
+    "//================================================================================",
+    "/////////////////////////////////////////////////////////////////////////////\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 3,
+   "top3": [
+    "/*****************************************************************************\n",
+    "(^)(",
+    "/////////////////////////////////////////////////////////////////////////////\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 4,
+   "top3": [
+    " (^)(",
+    "\")));",
+    "//==="
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 5,
+   "top3": [
+    "\")));",
+    ":');\n",
+    ".\"]"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 6,
+   "top3": [
+    "/*****************************************************************************\n",
+    "//----------------------------------------------------------------------------\n",
+    ":');\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 7,
+   "top3": [
+    "//================================================================================",
+    "/*****************************************************************************\n",
+    "//----------------------------------------------------------------------------\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 8,
+   "top3": [
+    "//----------------------------------------------------------------------------\n",
+    "/*****************************************************************************\n",
+    "').\""
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 9,
+   "top3": [
+    "/*****************************************************************************\n",
+    "').\"",
+    "//----------------------------------------------------------------------------\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 10,
+   "top3": [
+    "/*****************************************************************************\n",
+    "').\"",
+    "//----------------------------------------------------------------------------\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 11,
+   "top3": [
+    "').\"",
+    "/*****************************************************************************\n",
+    "//----------------------------------------------------------------------------\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 12,
+   "top3": [
+    "//----------------------------------------------------------------------------\n",
+    "').\"",
+    "/*****************************************************************************\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 13,
+   "top3": [
+    "闭",
+    "//===",
+    "﻿/*\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 14,
+   "top3": [
+    "/******************************************************************************\n",
+    "hou",
+    "(\n\n"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 15,
+   "top3": [
+    "一般来说",
+    "��",
+    "抱歉"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 16,
+   "top3": [
+    "//----------------------------------------------------------------------------\n",
+    "/*****************************************************************************\n",
+    "//==="
+   ],
+   "p_final_top1": 0.0001
+  },
+  {
+   "after_layer": 17,
+   "top3": [
+    "具体",
+    "你可以",
+    "以下是"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 18,
+   "top3": [
+    "*\",",
+    "ResponseStatus",
+    "IKE"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 19,
+   "top3": [
+    "��",
+    "ROUND",
+    "*\","
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 20,
+   "top3": [
+    " Natürlich",
+    "回答",
+    "klä"
+   ],
+   "p_final_top1": 0.0
+  },
+  {
+   "after_layer": 21,
+   "top3": [
+    " Natürlich",
+    "你可以",
+    "您可以"
+   ],
+   "p_final_top1": 0.0001
+  },
+  {
+   "after_layer": 22,
+   "top3": [
+    "年",
+    "每年",
+    "你可以"
+   ],
+   "p_final_top1": 0.1253
+  },
+  {
+   "after_layer": 23,
+   "top3": [
+    "年",
+    "每年",
+    "你可以"
+   ],
+   "p_final_top1": 0.5947
+  },
+  {
+   "after_layer": 24,
+   "top3": [
+    "年",
+    "申请",
+    "您可以"
+   ],
+   "p_final_top1": 0.2694
+  }
+ ],
+ "attention_last_pos": [
+  {
+   "layer": 0,
+   "top": [
+    {
+     "pos": 24,
+     "token": "\n",
+     "w": 0.14
+    },
+    {
+     "pos": 23,
+     "token": "assistant",
+     "w": 0.135
+    },
+    {
+     "pos": 6,
+     "token": "的",
+     "w": 0.092
+    },
+    {
+     "pos": 21,
+     "token": "\n",
+     "w": 0.076
+    }
+   ],
+   "share_on_first_token": 0.008,
+   "share_on_question": 0.102
+  },
+  {
+   "layer": 5,
+   "top": [
+    {
+     "pos": 0,
+     "token": "<|im_start|>",
+     "w": 0.387
+    },
+    {
+     "pos": 24,
+     "token": "\n",
+     "w": 0.163
+    },
+    {
+     "pos": 9,
+     "token": "。",
+     "w": 0.058
+    },
+    {
+     "pos": 3,
+     "token": "你是",
+     "w": 0.051
+    }
+   ],
+   "share_on_first_token": 0.387,
+   "share_on_question": 0.078
+  },
+  {
+   "layer": 11,
+   "top": [
+    {
+     "pos": 0,
+     "token": "<|im_start|>",
+     "w": 0.701
+    },
+    {
+     "pos": 19,
+     "token": "？",
+     "w": 0.059
+    },
+    {
+     "pos": 17,
+     "token": "怎么",
+     "w": 0.042
+    },
+    {
+     "pos": 21,
+     "token": "\n",
+     "w": 0.031
+    }
+   ],
+   "share_on_first_token": 0.701,
+   "share_on_question": 0.138
+  },
+  {
+   "layer": 17,
+   "top": [
+    {
+     "pos": 0,
+     "token": "<|im_start|>",
+     "w": 0.717
+    },
+    {
+     "pos": 24,
+     "token": "\n",
+     "w": 0.045
+    },
+    {
+     "pos": 18,
+     "token": "申请",
+     "w": 0.042
+    },
+    {
+     "pos": 16,
+     "token": "假",
+     "w": 0.037
+    }
+   ],
+   "share_on_first_token": 0.717,
+   "share_on_question": 0.148
+  },
+  {
+   "layer": 23,
+   "top": [
+    {
+     "pos": 24,
+     "token": "\n",
+     "w": 0.303
+    },
+    {
+     "pos": 14,
+     "token": "\n",
+     "w": 0.136
+    },
+    {
+     "pos": 3,
+     "token": "你是",
+     "w": 0.088
+    },
+    {
+     "pos": 18,
+     "token": "申请",
+     "w": 0.086
+    }
+   ],
+   "share_on_first_token": 0.008,
+   "share_on_question": 0.224
+  }
+ ],
+ "ablation": {
+  "baseline": {
+   "loss": 2.148,
+   "next": "年"
+  },
+  "ffn": [
+   {
+    "layer": 0,
+    "loss": 13.97,
+    "next": " for"
+   },
+   {
+    "layer": 1,
+    "loss": 2.71,
+    "next": "年"
+   },
+   {
+    "layer": 2,
+    "loss": 5.593,
+    "next": "你是"
+   },
+   {
+    "layer": 3,
+    "loss": 2.498,
+    "next": "年"
+   },
+   {
+    "layer": 4,
+    "loss": 2.303,
+    "next": "你可以"
+   },
+   {
+    "layer": 5,
+    "loss": 2.401,
+    "next": "年"
+   },
+   {
+    "layer": 6,
+    "loss": 2.391,
+    "next": "年"
+   },
+   {
+    "layer": 7,
+    "loss": 2.421,
+    "next": "请"
+   },
+   {
+    "layer": 8,
+    "loss": 2.207,
+    "next": "年"
+   },
+   {
+    "layer": 9,
+    "loss": 2.129,
+    "next": "年"
+   },
+   {
+    "layer": 10,
+    "loss": 2.296,
+    "next": "年"
+   },
+   {
+    "layer": 11,
+    "loss": 2.282,
+    "next": "年"
+   },
+   {
+    "layer": 12,
+    "loss": 2.2,
+    "next": "年"
+   },
+   {
+    "layer": 13,
+    "loss": 2.236,
+    "next": "你可以"
+   },
+   {
+    "layer": 14,
+    "loss": 2.273,
+    "next": "年"
+   },
+   {
+    "layer": 15,
+    "loss": 2.529,
+    "next": "年"
+   },
+   {
+    "layer": 16,
+    "loss": 2.338,
+    "next": "年"
+   },
+   {
+    "layer": 17,
+    "loss": 2.335,
+    "next": "申请"
+   },
+   {
+    "layer": 18,
+    "loss": 2.178,
+    "next": "年"
+   },
+   {
+    "layer": 19,
+    "loss": 2.27,
+    "next": "年"
+   },
+   {
+    "layer": 20,
+    "loss": 2.946,
+    "next": "年"
+   },
+   {
+    "layer": 21,
+    "loss": 2.423,
+    "next": "年"
+   },
+   {
+    "layer": 22,
+    "loss": 2.838,
+    "next": "申请"
+   },
+   {
+    "layer": 23,
+    "loss": 2.879,
+    "next": "年"
+   }
+  ],
+  "attn": [
+   {
+    "layer": 0,
+    "loss": 8.95,
+    "next": " "
+   },
+   {
+    "layer": 1,
+    "loss": 6.178,
+    "next": "年"
+   },
+   {
+    "layer": 2,
+    "loss": 2.257,
+    "next": "年"
+   },
+   {
+    "layer": 3,
+    "loss": 2.285,
+    "next": "年"
+   },
+   {
+    "layer": 4,
+    "loss": 2.106,
+    "next": "年"
+   },
+   {
+    "layer": 5,
+    "loss": 2.312,
+    "next": "年"
+   },
+   {
+    "layer": 6,
+    "loss": 2.161,
+    "next": "年"
+   },
+   {
+    "layer": 7,
+    "loss": 2.135,
+    "next": "年"
+   },
+   {
+    "layer": 8,
+    "loss": 1.991,
+    "next": "年"
+   },
+   {
+    "layer": 9,
+    "loss": 2.216,
+    "next": "年"
+   },
+   {
+    "layer": 10,
+    "loss": 2.167,
+    "next": "年"
+   },
+   {
+    "layer": 11,
+    "loss": 2.014,
+    "next": "年"
+   },
+   {
+    "layer": 12,
+    "loss": 2.211,
+    "next": "年"
+   },
+   {
+    "layer": 13,
+    "loss": 2.2,
+    "next": "年"
+   },
+   {
+    "layer": 14,
+    "loss": 2.473,
+    "next": "年"
+   },
+   {
+    "layer": 15,
+    "loss": 2.138,
+    "next": "年"
+   },
+   {
+    "layer": 16,
+    "loss": 2.178,
+    "next": "年"
+   },
+   {
+    "layer": 17,
+    "loss": 2.475,
+    "next": "年"
+   },
+   {
+    "layer": 18,
+    "loss": 2.105,
+    "next": "年"
+   },
+   {
+    "layer": 19,
+    "loss": 2.072,
+    "next": "年"
+   },
+   {
+    "layer": 20,
+    "loss": 2.354,
+    "next": "您可以"
+   },
+   {
+    "layer": 21,
+    "loss": 2.643,
+    "next": "您可以"
+   },
+   {
+    "layer": 22,
+    "loss": 2.199,
+    "next": "年"
+   },
+   {
+    "layer": 23,
+    "loss": 2.638,
+    "next": "请"
+   }
+  ],
+  "mid_ffn": {
+   "layers": "4-19",
+   "loss": 9.362,
+   "next": "年",
+   "answer": " � �        �                    "
+  },
+  "mid_attn": {
+   "layers": "4-19",
+   "loss": 8.19,
+   "next": "基于",
+   "answer": "基于问题： 3，将1.000/one of the two given conditions, we can use the system is a company wants to"
+  }
+ },
+ "greedy_answer": "您可以按照以下步骤申请年假：\n\n1. 登录您的工作平台（如钉钉、微信等）。\n2. 在首页找到“我的”或“个人中心”，点击进入。\n"
+}

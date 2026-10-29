@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="590" viewBox="0 0 1280 590" role="img" aria-labelledby="deepseek-mtp-title deepseek-mtp-desc" id="deepseek-mtp-root">
+<title id="deepseek-mtp-title">DeepSeek-V3 的多 token 预测模块</title>
+<desc id="deepseek-mtp-desc">主模型读到“年假怎么申请？”，最后一层隐藏状态经输出头预测下一个 token“根据”。MTP 模块把这个隐藏状态和“根据”的词嵌入各自归一化后拼接，投影回 7168 维，经过一个与主模型同结构的 Transformer 块，再用共用的输出头预测再下一个 token“员工”。训练时它提供额外损失，推理时可丢弃或用作投机解码的草稿。</desc>
+<defs><style>
+#deepseek-mtp-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#deepseek-mtp-root .h { font-size: 26px; font-weight: 700; }
+#deepseek-mtp-root .t { font-size: 19px; font-weight: 600; }
+#deepseek-mtp-root .s { font-size: 15px; fill: #475569; }
+#deepseek-mtp-root .xs { font-size: 13px; fill: #64748b; }
+#deepseek-mtp-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#deepseek-mtp-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#deepseek-mtp-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#deepseek-mtp-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#deepseek-mtp-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#deepseek-mtp-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#deepseek-mtp-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#deepseek-mtp-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#deepseek-mtp-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#deepseek-mtp-root .fblue { fill: #93c5fd; } #deepseek-mtp-root .fgreen { fill: #6ee7b7; } #deepseek-mtp-root .fred { fill: #fda4af; }
+#deepseek-mtp-root .famber { fill: #fcd34d; } #deepseek-mtp-root .fviolet { fill: #c4b5fd; } #deepseek-mtp-root .fgray { fill: #e2e8f0; }
+#deepseek-mtp-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#deepseek-mtp-arrow); }
+#deepseek-mtp-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#deepseek-mtp-arrow); }
+#deepseek-mtp-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#deepseek-mtp-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="deepseek-mtp-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1280" height="590" fill="#f8fafc"/>
+<text x="32" y="46" class="h">MTP：主模型预测下一个，附加模块再往后猜一个</text>
+<text x="32" y="78" class="s">“根据”“员工”是示意 token。MTP 深度为 1，即只多预测一个。</text>
+<g data-node="m-main"><rect x="32" y="118" width="300" height="300" rx="8" class="blue"/><text x="50" y="144" class="k">主干</text><text x="50" y="170" class="t">主模型 61 层</text><text x="50" y="198" class="s">输入到“？”为止</text><text x="50" y="221" class="s">最后一层隐藏状态 h</text><text x="50" y="244" class="s">[1, 7168]</text><text x="50" y="267" class="s"></text><text x="50" y="290" class="s">输出头 → 下一个 token</text><text x="50" y="313" class="s">预测：根据</text></g><rect x="48" y="352" width="60" height="34" rx="4" class="fgray"/><text x="78" y="374" text-anchor="middle" class="s">年假</text><rect x="116" y="352" width="60" height="34" rx="4" class="fgray"/><text x="146" y="374" text-anchor="middle" class="s">怎么</text><rect x="184" y="352" width="60" height="34" rx="4" class="fgray"/><text x="214" y="374" text-anchor="middle" class="s">申请</text><rect x="252" y="352" width="60" height="34" rx="4" class="fgray"/><text x="282" y="374" text-anchor="middle" class="s">？</text><g data-node="m-norm-h"><rect x="400" y="118" width="220" height="90" rx="8" class="node"/><text x="418" y="144" class="k">hnorm</text><text x="418" y="170" class="t">RMSNorm(h)</text><text x="418" y="198" class="s">[1, 7168]</text></g><g data-node="m-norm-e"><rect x="400" y="236" width="220" height="90" rx="8" class="node"/><text x="418" y="262" class="k">enorm</text><text x="418" y="288" class="t">RMSNorm(嵌入)</text><text x="418" y="316" class="s">“根据”的词嵌入</text></g><g data-node="m-cat"><rect x="660" y="160" width="230" height="124" rx="8" class="amber"/><text x="678" y="186" class="k">eh_proj</text><text x="678" y="212" class="t">拼接 + 投影</text><text x="678" y="240" class="s">[1, 14336]</text><text x="678" y="263" class="s">eh_proj → [1, 7168]</text></g><g data-node="m-block"><rect x="930" y="108" width="318" height="124" rx="8" class="violet"/><text x="948" y="134" class="k">MTP 模块</text><text x="948" y="160" class="t">1 个 Transformer 块</text><text x="948" y="188" class="s">结构同主模型：MLA + MoE</text><text x="948" y="211" class="s">权重文件里叫 layers.61</text></g><g data-node="m-head"><rect x="930" y="256" width="318" height="124" rx="8" class="green"/><text x="948" y="282" class="k">shared_head</text><text x="948" y="308" class="t">共用主模型的输出头</text><text x="948" y="336" class="s">预测再下一个 token</text><text x="948" y="359" class="s">预测：员工</text></g><path d="M332 163H400" class="edge"/><path d="M332 281H400" class="edge"/><path d="M620 163L660 200" class="edge"/><path d="M620 281L660 248" class="edge"/><path d="M890 200L930 175" class="edge"/><path d="M1089 232V256" class="edge"/><g data-node="m-train"><rect x="32" y="456" width="590" height="110" rx="8" class="gray"/><text x="50" y="482" class="k">用法一</text><text x="50" y="508" class="t">训练时</text><text x="50" y="536" class="s">每个位置多一个目标：预测后面第 2 个 token</text><text x="50" y="559" class="s">总损失 = 主损失 + λ × MTP 损失（λ 先 0.3，后 0.1）</text></g><g data-node="m-infer"><rect x="658" y="456" width="590" height="110" rx="8" class="gray"/><text x="676" y="482" class="k">用法二</text><text x="676" y="508" class="t">推理时</text><text x="676" y="536" class="s">可以丢掉，只用主模型；也可以让它起草“员工”</text><text x="676" y="559" class="s">下一步主模型一次验证两个 token，接受率 85%—90%</text></g>
+</svg>

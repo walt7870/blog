@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="norm-residual-stream-title norm-residual-stream-desc" id="norm-residual-stream-root">
+<title id="norm-residual-stream-title">残差流：每个子层从主干读、往主干加</title>
+<desc id="norm-residual-stream-desc">橙色主干是残差流，形状始终为 [n,4096]。每个注意力和 FFN 子层先对主干做 RMSNorm 得到副本，计算后把结果加回主干。32 层后经最终 Norm 送入输出层。</desc>
+<defs><style>
+#norm-residual-stream-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#norm-residual-stream-root .h { font-size: 26px; font-weight: 700; }
+#norm-residual-stream-root .t { font-size: 19px; font-weight: 600; }
+#norm-residual-stream-root .s { font-size: 15px; fill: #475569; }
+#norm-residual-stream-root .xs { font-size: 13px; fill: #64748b; }
+#norm-residual-stream-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#norm-residual-stream-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#norm-residual-stream-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#norm-residual-stream-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#norm-residual-stream-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#norm-residual-stream-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#norm-residual-stream-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#norm-residual-stream-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#norm-residual-stream-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#norm-residual-stream-root .fblue { fill: #93c5fd; } #norm-residual-stream-root .fgreen { fill: #6ee7b7; } #norm-residual-stream-root .fred { fill: #fda4af; }
+#norm-residual-stream-root .famber { fill: #fcd34d; } #norm-residual-stream-root .fviolet { fill: #c4b5fd; } #norm-residual-stream-root .fgray { fill: #e2e8f0; }
+#norm-residual-stream-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#norm-residual-stream-arrow); }
+#norm-residual-stream-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#norm-residual-stream-arrow); }
+#norm-residual-stream-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#norm-residual-stream-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="norm-residual-stream-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="570" fill="#f8fafc"/>
+<text x="32" y="46" class="h">残差流：一条贯穿 32 层的主干</text>
+<text x="32" y="78" class="s">这是 Pre-Norm 结构（Llama、Qwen、DeepSeek 等）。主干本身从不被归一化，只有送进子层的副本被归一化。</text>
+<path d="M150 330H1080" stroke="#e0a63a" stroke-width="10" fill="none" stroke-linecap="round"/><g data-node="emb"><rect x="32" y="280" width="110" height="100" rx="8" class="node"/><text x="50" y="316" class="t">词嵌入</text><text x="50" y="344" class="s">[n, 4096]</text></g><g data-node="fn"><rect x="1090" y="280" width="78" height="100" rx="8" class="gray"/><text x="1108" y="316" class="t">最终</text><text x="1108" y="344" class="s">Norm</text></g><g data-node="attn"><rect x="190" y="108" width="180" height="76" rx="8" class="blue"/><text x="208" y="144" class="t">注意力</text><text x="208" y="172" class="s">第 1 层</text></g><g data-node="attnn"><rect x="190" y="214" width="96" height="50" rx="8" class="gray"/></g><text x="238" y="245" class="s" text-anchor="middle">RMSNorm</text><path d="M230 324V268" class="edge"/><path d="M230 214V188" class="edge"/><path d="M340 184V312" class="edge"/><circle cx="340" cy="330" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="340" y="336" class="t" text-anchor="middle">+</text><g data-node="ffn"><rect x="410" y="108" width="180" height="76" rx="8" class="green"/><text x="428" y="144" class="t">FFN</text><text x="428" y="172" class="s">第 1 层</text></g><g data-node="ffnn"><rect x="410" y="214" width="96" height="50" rx="8" class="gray"/></g><text x="458" y="245" class="s" text-anchor="middle">RMSNorm</text><path d="M450 324V268" class="edge"/><path d="M450 214V188" class="edge"/><path d="M560 184V312" class="edge"/><circle cx="560" cy="330" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="560" y="336" class="t" text-anchor="middle">+</text><g data-node="attn2"><rect x="630" y="108" width="180" height="76" rx="8" class="blue"/><text x="648" y="144" class="t">注意力</text><text x="648" y="172" class="s">第 2 层</text></g><g data-node="attn2n"><rect x="630" y="214" width="96" height="50" rx="8" class="gray"/></g><text x="678" y="245" class="s" text-anchor="middle">RMSNorm</text><path d="M670 324V268" class="edge"/><path d="M670 214V188" class="edge"/><path d="M780 184V312" class="edge"/><circle cx="780" cy="330" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="780" y="336" class="t" text-anchor="middle">+</text><g data-node="ffn2"><rect x="850" y="108" width="180" height="76" rx="8" class="green"/><text x="868" y="144" class="t">FFN</text><text x="868" y="172" class="s">第 2 层</text></g><g data-node="ffn2n"><rect x="850" y="214" width="96" height="50" rx="8" class="gray"/></g><text x="898" y="245" class="s" text-anchor="middle">RMSNorm</text><path d="M890 324V268" class="edge"/><path d="M890 214V188" class="edge"/><path d="M1000 184V312" class="edge"/><circle cx="1000" cy="330" r="14" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="1000" y="336" class="t" text-anchor="middle">+</text><text x="1010" y="378" class="s" text-anchor="middle">… 共 32 层</text><text x="150" y="378" class="s">残差流：始终是 [n, 4096]，子层只读归一化后的副本，再把结果加回来</text><g data-node="eq"><rect x="32" y="412" width="1136" height="136" rx="8" class="amber"/><text x="50" y="448" class="t">一层两次加法</text><text x="50" y="476" class="s">h ← h + Attention(RMSNorm(h))</text><text x="50" y="499" class="s">h ← h + FFN(RMSNorm(h))</text><text x="50" y="522" class="s">反向传播时，每个“+”都给梯度留了一条不经过子层的直通路径。</text></g>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="570" viewBox="0 0 1280 570" role="img" aria-labelledby="deepseek-params-title deepseek-params-desc" id="deepseek-params-root">
+<title id="deepseek-params-title">DeepSeek-V3 的总参数与激活参数</title>
+<desc id="deepseek-params-desc">DeepSeek-V3 主模型共 671.0B 参数，其中 653.9B 是 58 个 MoE 层里的路由专家。每个 token 只用到 37.6B：8 个路由专家 20.4B、注意力 11.4B、共享专家 2.6B、词嵌入和输出层 1.9B、前三层密集 FFN 1.2B。</desc>
+<defs><style>
+#deepseek-params-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#deepseek-params-root .h { font-size: 26px; font-weight: 700; }
+#deepseek-params-root .t { font-size: 19px; font-weight: 600; }
+#deepseek-params-root .s { font-size: 15px; fill: #475569; }
+#deepseek-params-root .xs { font-size: 13px; fill: #64748b; }
+#deepseek-params-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#deepseek-params-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#deepseek-params-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#deepseek-params-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#deepseek-params-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#deepseek-params-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#deepseek-params-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#deepseek-params-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#deepseek-params-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#deepseek-params-root .fblue { fill: #93c5fd; } #deepseek-params-root .fgreen { fill: #6ee7b7; } #deepseek-params-root .fred { fill: #fda4af; }
+#deepseek-params-root .famber { fill: #fcd34d; } #deepseek-params-root .fviolet { fill: #c4b5fd; } #deepseek-params-root .fgray { fill: #e2e8f0; }
+#deepseek-params-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#deepseek-params-arrow); }
+#deepseek-params-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#deepseek-params-arrow); }
+#deepseek-params-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#deepseek-params-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="deepseek-params-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1280" height="570" fill="#f8fafc"/>
+<text x="32" y="46" class="h">671B 里 97% 是专家，每个 token 只点亮其中一小部分</text>
+<text x="32" y="78" class="s">按 config.json 复算。上方条按总量等比例绘制，下方把绿色那一段放大。</text>
+<text x="50" y="130" class="t">全部参数 671.0B（不含 MTP 模块）</text><rect x="50" y="146" width="1149.8946395839232" height="48" rx="4" class="fviolet"/><rect x="1199.8946395839232" y="146" width="30.10536041607678" height="48" rx="4" class="fblue"/><text x="66" y="176" class="s">路由专家：58 层 × 256 个 × 44.0M = 653.9B，占 97.4%</text><rect x="50" y="208" width="66.03132497801886" height="20" rx="3" class="fgreen"/><text x="128.03132497801886" y="224" class="s">每个 token 实际用到 37.6B，约 5.6%</text><text x="50" y="290" class="t">放大：这 37.6B 由什么组成</text><rect x="50" y="306" width="467.9041278295606" height="48" rx="4" class="fviolet"/><rect x="517.9041278295606" y="306" width="261.3209054593875" height="48" rx="4" class="fblue"/><rect x="779.2250332889481" y="306" width="58.402130492676434" height="48" rx="4" class="famber"/><rect x="837.6271637816245" y="306" width="42.37017310252997" height="48" rx="4" class="fgray"/><rect x="879.9973368841545" y="306" width="27.254327563249007" height="48" rx="4" class="fred"/><path d="M50 232L50 300M116.03132497801886 232L910 300" class="line" stroke-dasharray="6 5"/><path d="M52 356V374" class="line"/><text x="56" y="392" class="s">8 个路由专家</text><text x="56" y="414" class="xs">58 层 × 8 × 44.0M = 20.4B</text><path d="M519.9041278295606 356V374" class="line"/><text x="523.9041278295606" y="392" class="s">注意力（MLA）</text><text x="523.9041278295606" y="414" class="xs">61 层 × 187.1M = 11.4B</text><rect x="948" y="300" width="22" height="22" rx="4" class="famber"/><text x="980" y="317" class="s">共享专家：58 × 44.0M = 2.6B</text><rect x="948" y="340" width="22" height="22" rx="4" class="fgray"/><text x="980" y="357" class="s">词嵌入 + 输出层：1.9B</text><rect x="948" y="380" width="22" height="22" rx="4" class="fred"/><text x="980" y="397" class="s">前 3 层密集 FFN：1.2B</text><g data-node="p-note"><rect x="50" y="446" width="1180" height="100" rx="8" class="gray"/><text x="68" y="472" class="k">口径</text><text x="68" y="500" class="s">路由器 58 × 256 × 7168 ≈ 0.1B、各层 RMSNorm 合计不到 100 万，图中并入相邻段。</text><text x="68" y="524" class="s">MTP 模块另有 11.6B，不计入 671B，推理时可以不加载。</text></g>
+</svg>

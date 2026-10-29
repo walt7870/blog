@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="norm-pre-post-title norm-pre-post-desc" id="norm-pre-post-root">
+<title id="norm-pre-post-title">Post-Norm、Pre-Norm 与 Gemma 的三明治归一化</title>
+<desc id="norm-pre-post-desc">Post-Norm 先做子层再与输入相加，然后对和做 LayerNorm；Pre-Norm 先对输入做 RMSNorm 再进子层，结果直接加回主干；Gemma 的三明治结构在子层前后各做一次 RMSNorm 再加回主干。虚线是残差旁路。</desc>
+<defs><style>
+#norm-pre-post-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#norm-pre-post-root .h { font-size: 26px; font-weight: 700; }
+#norm-pre-post-root .t { font-size: 19px; font-weight: 600; }
+#norm-pre-post-root .s { font-size: 15px; fill: #475569; }
+#norm-pre-post-root .xs { font-size: 13px; fill: #64748b; }
+#norm-pre-post-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#norm-pre-post-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#norm-pre-post-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#norm-pre-post-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#norm-pre-post-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#norm-pre-post-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#norm-pre-post-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#norm-pre-post-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#norm-pre-post-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#norm-pre-post-root .fblue { fill: #93c5fd; } #norm-pre-post-root .fgreen { fill: #6ee7b7; } #norm-pre-post-root .fred { fill: #fda4af; }
+#norm-pre-post-root .famber { fill: #fcd34d; } #norm-pre-post-root .fviolet { fill: #c4b5fd; } #norm-pre-post-root .fgray { fill: #e2e8f0; }
+#norm-pre-post-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#norm-pre-post-arrow); }
+#norm-pre-post-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#norm-pre-post-arrow); }
+#norm-pre-post-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#norm-pre-post-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="norm-pre-post-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1200" height="650" fill="#f8fafc"/>
+<text x="32" y="46" class="h">归一化放在哪里：三种常见位置</text>
+<text x="32" y="78" class="s">虚线是残差旁路（不经过子层的那条路）。一层里注意力和 FFN 各用一次这个结构。</text>
+<g data-node="Post-Norm"><rect x="32" y="104" width="360" height="520" rx="8" class="node"/><text x="50" y="130" class="k">Post-Norm</text><text x="50" y="156" class="t">原始 Transformer、BERT</text></g><text x="212" y="194" class="xs" text-anchor="middle">x（来自上一子层）</text><rect x="102" y="224" width="220" height="50" rx="4" class="gray"/><text x="212" y="254" text-anchor="middle" class="s">子层（注意力/FFN）</text><path d="M212 274V308" class="edge"/><rect x="102" y="396" width="220" height="50" rx="4" class="famber"/><text x="212" y="426" text-anchor="middle" class="s">LayerNorm</text><path d="M212 360V394" class="edge"/><path d="M212 200V222" class="edge"/><circle cx="212" cy="335" r="16" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="212" y="341" class="t" text-anchor="middle">+</text><path d="M212 210H72V335H194" class="dash"/><text x="52" y="520" class="s">加法之后再归一化：主干本身被反复</text><text x="52" y="544" class="s">归一化，梯度要穿过每一层的 Norm</text><text x="52" y="568" class="s">深了需要学习率预热，容易训崩</text><g data-node="Pre-Norm"><rect x="420" y="104" width="360" height="520" rx="8" class="node"/><text x="438" y="130" class="k">Pre-Norm</text><text x="438" y="156" class="t">GPT-2 以后的大多数模型</text></g><text x="600" y="194" class="xs" text-anchor="middle">x（来自上一子层）</text><rect x="490" y="224" width="220" height="50" rx="4" class="famber"/><text x="600" y="254" text-anchor="middle" class="s">LayerNorm 或 RMSNorm</text><rect x="490" y="310" width="220" height="50" rx="4" class="gray"/><text x="600" y="340" text-anchor="middle" class="s">子层（注意力/FFN）</text><path d="M600 274V308" class="edge"/><path d="M600 360V394" class="edge"/><path d="M600 200V222" class="edge"/><circle cx="600" cy="421" r="16" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="600" y="427" class="t" text-anchor="middle">+</text><path d="M600 210H460V421H582" class="dash"/><text x="440" y="520" class="s">只归一化送进子层的副本，主干是</text><text x="440" y="544" class="s">纯加法：训练稳定；代价是主干越加</text><text x="440" y="568" class="s">越大，深层的增量相对变小</text><g data-node="Sandwich"><rect x="808" y="104" width="360" height="520" rx="8" class="node"/><text x="826" y="130" class="k">Sandwich</text><text x="826" y="156" class="t">Gemma 2 / 3 / 4</text></g><text x="988" y="194" class="xs" text-anchor="middle">x（来自上一子层）</text><rect x="878" y="224" width="220" height="50" rx="4" class="famber"/><text x="988" y="254" text-anchor="middle" class="s">RMSNorm</text><rect x="878" y="310" width="220" height="50" rx="4" class="gray"/><text x="988" y="340" text-anchor="middle" class="s">子层（注意力/FFN）</text><path d="M988 274V308" class="edge"/><rect x="878" y="396" width="220" height="50" rx="4" class="famber"/><text x="988" y="426" text-anchor="middle" class="s">RMSNorm</text><path d="M988 360V394" class="edge"/><path d="M988 446V480" class="edge"/><path d="M988 200V222" class="edge"/><circle cx="988" cy="507" r="16" fill="#fff" stroke="#64748b" stroke-width="2"/><text x="988" y="513" class="t" text-anchor="middle">+</text><path d="M988 210H848V507H970" class="dash"/><text x="828" y="576" class="s">子层前后各一次 RMSNorm，再加回</text><text x="828" y="600" class="s">主干：限制每个子层增量的大小</text>
+</svg>

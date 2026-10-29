@@ -261,6 +261,57 @@ export const sidebar: DefaultTheme.Sidebar = {
           ]
         },
         {
+          text: '大模型架构',
+          collapsed: true,
+          items: [
+            { text: '系列导读', link: '/docs/ai/llm-architecture/' },
+            {
+              text: '一、一个 token 的旅程',
+              collapsed: true,
+              items: [
+                { text: '01. 全景：从一句话到下一个 token', link: '/docs/ai/llm-architecture/01-overview' },
+                { text: '02. 分词与词嵌入', link: '/docs/ai/llm-architecture/02-tokenizer-embedding' },
+                { text: '03. 注意力：每个 token 怎样看上下文', link: '/docs/ai/llm-architecture/03-attention' },
+                { text: '04. 多头注意力与 KV 头', link: '/docs/ai/llm-architecture/04-multi-head' },
+                { text: '05. FFN：前馈网络做了什么', link: '/docs/ai/llm-architecture/05-ffn' },
+                { text: '06. 残差连接与归一化', link: '/docs/ai/llm-architecture/06-residual-norm' },
+                { text: '07. 位置编码：RoPE 与长上下文', link: '/docs/ai/llm-architecture/07-position' },
+                { text: '08. 输出层与解码', link: '/docs/ai/llm-architecture/08-output-decoding' },
+                { text: '实践：逐层拆开一个小模型', link: '/docs/ai/llm-architecture/layer-practice' },
+              ],
+            },
+            {
+              text: '二、架构演进',
+              collapsed: true,
+              items: [
+                { text: '09. 从 Transformer 到 GPT', link: '/docs/ai/llm-architecture/09-transformer-family' },
+                { text: '10. 混合专家 MoE', link: '/docs/ai/llm-architecture/10-moe' },
+                { text: '11. 长上下文与高效注意力', link: '/docs/ai/llm-architecture/11-efficient-attention' },
+                { text: '12. 线性注意力与混合架构', link: '/docs/ai/llm-architecture/12-linear-hybrid' },
+              ],
+            },
+            {
+              text: '三、主流模型拆解',
+              collapsed: true,
+              items: [
+                { text: '13. Llama 家族', link: '/docs/ai/llm-architecture/13-llama' },
+                { text: '14. Qwen 家族', link: '/docs/ai/llm-architecture/14-qwen' },
+                { text: '15. DeepSeek：MLA、MoE 与 MTP', link: '/docs/ai/llm-architecture/15-deepseek' },
+                { text: '16. 其他主流开源模型', link: '/docs/ai/llm-architecture/16-open-models' },
+              ],
+            },
+            {
+              text: '四、多模态与读懂模型',
+              collapsed: true,
+              items: [
+                { text: '17. 多模态大模型的结构', link: '/docs/ai/llm-architecture/17-multimodal' },
+                { text: '18. 读懂 config 与源码', link: '/docs/ai/llm-architecture/18-reading-models' },
+                { text: '19. 主流架构对比与演进趋势', link: '/docs/ai/llm-architecture/19-comparison' },
+              ],
+            },
+          ],
+        },
+        {
           text: '模型训练与调优',
           collapsed: true,
           items: [

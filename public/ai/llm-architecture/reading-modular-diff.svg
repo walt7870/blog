@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="710" viewBox="0 0 1400 710" role="img" aria-labelledby="reading-modular-diff-title reading-modular-diff-desc" id="reading-modular-diff-root">
+<title id="reading-modular-diff-title">modular_mistral4.py 中各类的父类和改动</title>
+<desc id="reading-modular-diff-desc">Mistral4 的 RMSNorm、旋转位置编码继承自 Llama，MLP 继承自 Qwen2-MoE，专家与 MoE 块、解码器层、模型和 ForCausalLM 继承自 DeepSeek-V3，路由器继承自 DeepSeek-V2 并改写为 softmax 打分，注意力继承自 DeepSeek-V3 并在 forward 里加入按位置的 query 缩放。橙色是改写了方法的类，灰色是原样继承。</desc>
+<defs><style>
+#reading-modular-diff-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#reading-modular-diff-root .h { font-size: 26px; font-weight: 700; }
+#reading-modular-diff-root .t { font-size: 19px; font-weight: 600; }
+#reading-modular-diff-root .s { font-size: 15px; fill: #475569; }
+#reading-modular-diff-root .xs { font-size: 13px; fill: #64748b; }
+#reading-modular-diff-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#reading-modular-diff-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#reading-modular-diff-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#reading-modular-diff-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#reading-modular-diff-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#reading-modular-diff-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#reading-modular-diff-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#reading-modular-diff-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#reading-modular-diff-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#reading-modular-diff-root .fblue { fill: #93c5fd; } #reading-modular-diff-root .fgreen { fill: #6ee7b7; } #reading-modular-diff-root .fred { fill: #fda4af; }
+#reading-modular-diff-root .famber { fill: #fcd34d; } #reading-modular-diff-root .fviolet { fill: #c4b5fd; } #reading-modular-diff-root .fgray { fill: #e2e8f0; }
+#reading-modular-diff-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#reading-modular-diff-arrow); }
+#reading-modular-diff-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#reading-modular-diff-arrow); }
+#reading-modular-diff-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#reading-modular-diff-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="reading-modular-diff-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="710" fill="#f8fafc"/>
+<text x="32" y="46" class="h">先读 modular 文件：Mistral Small 4 改了 DeepSeek-V3 的哪里</text>
+<text x="32" y="78" class="s">橙色：改写了方法；灰色：只有 pass，原样继承父类</text>
+<text x="40" y="110" class="k">modular_mistral4.py 里的类</text>
+<text x="560" y="110" class="k">父类（来自哪个模型）</text>
+<text x="1000" y="110" class="k">改了什么</text>
+<g data-node="r0a"><rect x="40" y="120" width="420" height="56" rx="8" class="gray"/><text x="58" y="155" class="m">Mistral4RMSNorm</text></g>
+<path d="M460 148H560" class="edge"/>
+<g data-node="r0b"><rect x="560" y="120" width="400" height="56" rx="8" class="node"/><text x="578" y="155" class="m">LlamaRMSNorm</text></g>
+<text x="1000" y="155" class="xs">原样继承（pass）</text>
+<g data-node="r1a"><rect x="40" y="188" width="420" height="56" rx="8" class="gray"/><text x="58" y="223" class="m">Mistral4RotaryEmbedding</text></g>
+<path d="M460 216H560" class="edge"/>
+<g data-node="r1b"><rect x="560" y="188" width="400" height="56" rx="8" class="node"/><text x="578" y="223" class="m">LlamaRotaryEmbedding</text></g>
+<text x="1000" y="223" class="xs">原样继承（pass）</text>
+<g data-node="r2a"><rect x="40" y="256" width="420" height="56" rx="8" class="gray"/><text x="58" y="291" class="m">Mistral4MLP</text></g>
+<path d="M460 284H560" class="edge"/>
+<g data-node="r2b"><rect x="560" y="256" width="400" height="56" rx="8" class="node"/><text x="578" y="291" class="m">Qwen2MoeMLP</text></g>
+<text x="1000" y="291" class="xs">原样继承（pass）</text>
+<g data-node="r3a"><rect x="40" y="324" width="420" height="56" rx="8" class="amber"/><text x="58" y="359" class="m">Mistral4TopkRouter</text></g>
+<path d="M460 352H560" class="edge"/>
+<g data-node="r3b"><rect x="560" y="324" width="400" height="56" rx="8" class="node"/><text x="578" y="359" class="m">DeepseekV2TopkRouter</text></g>
+<text x="1000" y="359" class="s">改 forward：softmax 打分</text>
+<g data-node="r4a"><rect x="40" y="392" width="420" height="56" rx="8" class="gray"/><text x="58" y="427" class="m">Mistral4Experts / MoE</text></g>
+<path d="M460 420H560" class="edge"/>
+<g data-node="r4b"><rect x="560" y="392" width="400" height="56" rx="8" class="node"/><text x="578" y="427" class="m">DeepseekV3Experts / MoE</text></g>
+<text x="1000" y="427" class="xs">原样继承（pass）</text>
+<g data-node="r5a"><rect x="40" y="460" width="420" height="56" rx="8" class="amber"/><text x="58" y="495" class="m">Mistral4Attention</text></g>
+<path d="M460 488H560" class="edge"/>
+<g data-node="r5b"><rect x="560" y="460" width="400" height="56" rx="8" class="node"/><text x="578" y="495" class="m">DeepseekV3Attention</text></g>
+<text x="1000" y="495" class="s">改 forward：按位置缩放 query</text>
+<g data-node="r6a"><rect x="40" y="528" width="420" height="56" rx="8" class="amber"/><text x="58" y="563" class="m">Mistral4DecoderLayer</text></g>
+<path d="M460 556H560" class="edge"/>
+<g data-node="r6b"><rect x="560" y="528" width="400" height="56" rx="8" class="node"/><text x="578" y="563" class="m">DeepseekV3DecoderLayer</text></g>
+<text x="1000" y="563" class="s">只换成本模型的子类</text>
+<g data-node="r7a"><rect x="40" y="596" width="420" height="56" rx="8" class="gray"/><text x="58" y="631" class="m">Mistral4Model / ForCausalLM</text></g>
+<path d="M460 624H560" class="edge"/>
+<g data-node="r7b"><rect x="560" y="596" width="400" height="56" rx="8" class="node"/><text x="578" y="631" class="m">DeepseekV3Model / ForCausalLM</text></g>
+<text x="1000" y="631" class="xs">原样继承（pass）</text>
+<text x="40" y="680" class="s">读这一页就知道：Mistral Small 4 的骨架是 DeepSeek-V3 的 MLA + MoE，真正新增的只有路由打分和 query 缩放两处，其余差别在 config.json 的数值里。</text>
+</svg>

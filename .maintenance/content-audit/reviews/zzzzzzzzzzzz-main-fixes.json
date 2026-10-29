@@ -216,9 +216,10 @@
    "validation": [
     "全文复读；新增描述与 package.json、config.mts、SiteSearch.vue、服务器 nginx 配置逐项一致。",
     "AGENTS.md 不在公开路由，不进入搜索与站点地图。",
-    "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。"
+    "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "51abfbdf206c1252207c3d134f9361368823f2a66fdc97fc9606c48259f985c0"
+   "reviewedHash": "9372bd0d868197c07a00f0ad2ca6fd7572d96cb16336a2b42aade5fbb341f2a7"
   },
   {
    "file": "docs/ai/applications/langchain/01-what-is-langchain.md",

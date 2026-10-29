@@ -533,9 +533,10 @@
     "只改入口链接与描述，指向 docs/ai/llm-inference/ 对应文章；构建通过，链接在本地 preview 实际可达。",
     "2026-10-27 专题卡片顺序调整：数值精度移到大语言模型之后、流式语音移到推理优化之后，与侧边栏一致。 npm run docs:build 通过；本地 preview 1440/390、浅深色检查通过（仅根路径 favicon 404 为本地静态服务现象）。",
     "2026-10-27 AI 总览新增“模型训练与调优”卡片。 全文复读改动处；隔离 worktree 构建通过，check-pages 1440/390 浅深色无溢出、坏图与运行错误。",
-    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。"
+    "2026-10-28 AI 总览新增“推理引擎与框架”卡片。 改动处复读；隔离 worktree 构建与 check-pages 1440/390 浅深色通过。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "56469665e99402e66523e03e2f2573bc47f2d9da56f7c622394ca99fe54ea039"
+   "reviewedHash": "399bbd60a91a59303fa30fc5cb61c6a01c8aec4ef15cad3e559927133ffc07f9"
   },
   {
    "file": "docs/ai/llm/inference.md",
@@ -595,9 +596,10 @@
    "dependencyFiles": [],
    "validation": [
     "逐条复读新增约定，引用的维护文件存在且内容与本次两次整合实践一致；构建通过。",
-    "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。"
+    "2026-10-28 协作方式补充训练与框架两个系列的维护位置，改动处复读，链接路径存在。",
+    "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "51abfbdf206c1252207c3d134f9361368823f2a66fdc97fc9606c48259f985c0"
+   "reviewedHash": "9372bd0d868197c07a00f0ad2ca6fd7572d96cb16336a2b42aade5fbb341f2a7"
   },
   {
    "file": "docs/ai/llm-inference/vllm-quickstart.md",
