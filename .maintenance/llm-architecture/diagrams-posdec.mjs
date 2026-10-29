@@ -1,11 +1,11 @@
-// Figures for docs/ai/llm-architecture/ 07 (position), 08 (output & decoding), 09 (transformer family).
+// Figures for docs/ai/llm-architecture/09-position.md, 10-output-decoding.md, 02-transformer-family.md (group "posdec").
 // Run: node .maintenance/llm-architecture/diagrams-posdec.mjs
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';
 
 const f2 = v => v.toFixed(2);
 const deg = r => r * Math.PI / 180;
 
-// ---- position-rope-rotate (07) ---------------------------------------------
+// ---- position-rope-rotate (09) ---------------------------------------------
 // q = (1,0) for “申请”, k = (0,1) for “年假”, θ = 0.5 rad per position.
 function rotPanel(id, x0, title, kicker, m, n, note) {
   const cx = x0 + 190, cy = 350, R = 130, th = 0.5;
@@ -46,7 +46,7 @@ const ropeRotate = svg('position-rope-rotate', 1240, 600, '二维 RoPE：旋转�
     text(858, 512, '点积都是 4.422094；(7,10) 为 −6.585。', 's'),
   ].join('\n'));
 
-// ---- position-rope-wavelength (07) -----------------------------------------
+// ---- position-rope-wavelength (09) -----------------------------------------
 const d = 128, base = 500000;
 const inv = Array.from({ length: d / 2 }, (_, i) => 1 / base ** (2 * i / d));
 const wl = inv.map(f => 2 * Math.PI / f);
@@ -93,7 +93,7 @@ const ropeWave = svg('position-rope-wavelength', 1240, 620, 'Llama-3.1-8B 的 64
   '64 个频率对：快的数“隔几个字”，慢的数“隔几千字”', 'Llama-3.1-8B，head_dim 128，rope_theta 500000。llama3 缩放只拉长慢的那部分频率，快的保持原样。',
   wave);
 
-// ---- position-llama4-layers (07) --------------------------------------------
+// ---- position-llama4-layers (09) --------------------------------------------
 let l4 = '';
 const L0 = 32, LW = 22, LG = 2;
 for (let i = 0; i < 48; i++) {
@@ -125,7 +125,7 @@ const llama4Layers = svg('position-llama4-layers', 1240, 560, 'Llama 4 的 iRoPE
   'Llama 4：3 层 RoPE 管“附近”，1 层 NoPE 管“全局”', 'Llama 4 Scout config.json：no_rope_layers 每第 4 项为 0，attention_chunk_size 8192；Maverick 的层模式相同。',
   l4);
 
-// ---- output-lm-head (08) ----------------------------------------------------
+// ---- output-lm-head (10) ----------------------------------------------------
 const lmHead = svg('output-lm-head', 1320, 600, '从最后一层隐藏向量到一个 token 的流程',
   '第 32 层输出的最后一个位置向量 [1, 4096] 经过最终 RMSNorm，乘以输出层矩阵 4096×128256 得到 128256 个分数，这一段由模型结构和权重决定。之后的重复惩罚、温度、top-k、top-p、min-p、softmax 和抽样由解码参数决定，选出 token 110747“根据”，追加到输入末尾进入下一步。',
   '最后一步：4096 维向量 → 128256 个分数 → 一个 token', '左边由架构和权重决定，同一输入每次结果相同；右边由解码参数决定，改参数不用改模型。',
@@ -149,7 +149,7 @@ const lmHead = svg('output-lm-head', 1320, 600, '从最后一层隐藏向量到�
     label(300, 566, '追加到输入末尾，下一步只为这 1 个新 token 跑一遍 32 层', 470),
   ].join('\n'));
 
-// ---- output-temperature (08) ------------------------------------------------
+// ---- output-temperature (10) ------------------------------------------------
 const toks = ['根据', '您', '申请', '首先', '请', '好'];
 const lg = [5.0, 4.0, 3.0, 2.5, 1.5, 0.0];
 const soft = (x, T) => { const e = x.map(v => Math.exp(v / T)); const s = e.reduce((a, b) => a + b); return e.map(v => v / s); };
@@ -176,7 +176,7 @@ const outTemp = svg('output-temperature', 1240, 540, '同一组 logits 在三种
   '温度只改差距，不改排序', '教学用的 6 个候选（假设词表只有这 6 个）；括号里是 logit。柱上数字是 softmax(logit ÷ T) 后的概率。',
   tb);
 
-// ---- output-filters (08) ----------------------------------------------------
+// ---- output-filters (10) ----------------------------------------------------
 function keepRow(y0, name, sub, probs, barW, gap, ks) {
   let s = text(32, y0 + 24, name, 't') + text(32, y0 + 50, sub, 'xs');
   const x0 = 300, H = 90, mx = Math.max(...probs);
@@ -206,7 +206,7 @@ const outFilters = svg('output-filters', 1300, 680, 'top-k、top-p、min-p 在�
     keepRow(504, '长尾分布', '1 个 0.5 + 50 个 0.01', pTail, 9, 4, K(3, 41, 1)),
   ].join('\n'));
 
-// ---- family-structures (09) -------------------------------------------------
+// ---- family-structures (04) -------------------------------------------------
 function grid(x0, y0, n, fn, cls, c = 22) {
   let s = '';
   for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) s += `<rect x="${x0 + j * c}" y="${y0 + i * c}" width="${c - 3}" height="${c - 3}" rx="3" class="${fn(i, j) ? cls : 'fgray'}"/>`;
@@ -244,7 +244,7 @@ const famStruct = svg('family-structures', 1320, 680, '编码器、编码器-解
     box('dec-use', 908, 480, 360, 156, 'green', '适合', ['对话、续写、代码', '用提示描述任意任务', '少样本示例直接放进上下文']),
   ].join('\n'));
 
-// ---- family-multiturn (09) --------------------------------------------------
+// ---- family-multiturn (04) --------------------------------------------------
 function seq(x0, y0, n, clsFn, c = 30) {
   let s = '';
   for (let i = 0; i < n; i++) s += `<rect x="${x0 + i * (c + 4)}" y="${y0}" width="${c}" height="${c}" rx="4" class="${clsFn(i)}"/>`;
@@ -264,58 +264,6 @@ const famTurn = svg('family-multiturn', 1240, 560, '多轮对话中解码器与�
     text(52, 514, '把“历史”和“新问题”拆开编码可以省算力，但新问题就看不到上下文，或要改模型结构。', 's'),
   ].join('\n'));
 
-// ---- family-recipe (09) -----------------------------------------------------
-function block(x0, title, kicker, rows) {
-  let s = box(kicker, x0, 104, 360, 600, 'node', title, [], kicker);
-  rows.forEach(([name, cls, sub], i) => {
-    const y = 190 + i * 86;
-    s += box(`${kicker}-${i}`, x0 + 20, y, 320, 72, cls, name, [sub]);
-    if (i && i < 5) s += edge(`M${x0 + 180} ${y - 14}V${y}`);
-  });
-  return s;
-}
-const gpt2Rows = [
-  ['词嵌入 + 学习式位置嵌入', 'gray', '位置表 1024 行，超出就没有'],
-  ['LayerNorm（有 bias）', 'violet', 'Pre-Norm：放在子层输入'],
-  ['多头注意力 12 头', 'blue', 'Q、K、V 各 12 头，带 bias'],
-  ['LayerNorm（有 bias）', 'violet', '残差加回后再进 FFN'],
-  ['FFN：GELU，4 倍宽', 'amber', '768 → 3072 → 768，带 bias'],
-  ['dropout 0.1', 'red', '注意力、残差、嵌入处都有'],
-];
-const llamaRows = [
-  ['词嵌入（无位置嵌入）', 'gray', '位置交给注意力里的 RoPE'],
-  ['RMSNorm（无 bias）', 'violet', 'Pre-Norm，只除均方根'],
-  ['GQA：32 Q 头 / 8 KV 头', 'blue', 'q、k 加 RoPE；投影无 bias'],
-  ['RMSNorm（无 bias）', 'violet', '残差加回后再进 FFN'],
-  ['FFN：SwiGLU，3.5 倍宽', 'amber', '4096 → 14336（门控）→ 4096'],
-  ['无 dropout', 'green', 'attention_dropout 0.0'],
-];
-const changes = [
-  ['位置', '学习式绝对位置 → RoPE', 'RoFormer 2021'],
-  ['归一化', 'LayerNorm → RMSNorm', '2019；T5 已用'],
-  ['FFN', 'GELU → SwiGLU', 'Shazeer 2020'],
-  ['bias', '全部去掉', 'PaLM 2022'],
-  ['KV 头', 'MHA → GQA', '2023；Llama 2 70B'],
-  ['dropout', '0.1 → 0', '常见解释：数据量大'],
-  ['嵌入', '共享 → 8B 起不共享', '小模型仍常共享'],
-];
-let chg = box('chg', 812, 104, 476, 600, 'blue', '从 GPT-2 到 Llama 改了什么', [], '对照');
-changes.forEach(([a, b, c], i) => {
-  const y = 186 + i * 70;
-  chg += text(832, y, a, 'k') + text(916, y, b, 's') + text(916, y + 24, c, 'xs');
-  if (i) chg += `<line x1="832" y1="${y - 30}" x2="1268" y2="${y - 30}" class="line"/>`;
-});
-chg += text(832, 684, '没改的：Pre-Norm（GPT-2 已采用）、因果掩码、残差流', 'xs');
-const famRecipe = svg('family-recipe', 1320, 730, 'GPT-2 与 Llama-3.1-8B 单层结构对照及现代配方的改动',
-  'GPT-2 的一层：学习式位置嵌入加在输入上，LayerNorm 带 bias，12 头多头注意力，GELU 四倍宽 FFN，dropout 0.1。Llama-3.1-8B 的一层：没有位置嵌入、在注意力里对 q 和 k 做 RoPE，RMSNorm 无 bias，32 个查询头共用 8 个 KV 头，SwiGLU FFN，没有 dropout。两者都是 Pre-Norm。',
-  '“现代配方”：同一个骨架，换了六七个零件', '左：GPT-2 small（2019）；中：Llama-3.1-8B（2024）；右：每一项改动与它最早的公开出处。',
-  [
-    block(32, 'GPT-2', 'GPT-2 small · 2019', gpt2Rows),
-    block(422, 'Llama-3.1-8B', 'Llama-3.1-8B · 2024', llamaRows),
-    edge('M392 404H422', 'dash'),
-    chg,
-  ].join('\n'));
-
 write({
   'position-rope-rotate': ropeRotate,
   'position-rope-wavelength': ropeWave,
@@ -325,5 +273,4 @@ write({
   'output-filters': outFilters,
   'family-structures': famStruct,
   'family-multiturn': famTurn,
-  'family-recipe': famRecipe,
 });

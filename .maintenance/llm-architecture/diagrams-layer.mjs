@@ -1,4 +1,4 @@
-// Figures for docs/ai/llm-architecture/04-multi-head.md, 05-ffn.md, 06-residual-norm.md.
+// Figures for docs/ai/llm-architecture/06-multi-head.md, 07-ffn.md, 08-residual-norm.md.
 // Run: node .maintenance/llm-architecture/diagrams-layer.mjs
 // Numbers come from .maintenance/llm-architecture/research/facts-layer.md (Llama-3.1-8B, DeepSeek-V3 config.json).
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';

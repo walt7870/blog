@@ -33,7 +33,7 @@ Transformer 是当前大语言模型的主流架构。它的核心能力是让�
 
 直观理解：模型在生成下一个 token 前，会回看上下文里哪些位置最相关，再综合这些信息做预测。
 
-每一层由注意力和前馈网络（FFN）两部分组成，FFN 占了大部分参数。Transformer 的完整结构见 [Transformer：大模型共同的骨架](../llm-architecture/00-transformer.md)，逐层的形状和参数账见 [大模型架构](../llm-architecture/) 系列，其中 [注意力](../llm-architecture/03-attention.md) 和 [FFN](../llm-architecture/05-ffn.md) 各有一篇。
+每一层由注意力和前馈网络（FFN）两部分组成，FFN 占了大部分参数。Transformer 的完整结构见 [Transformer：大模型共同的骨架](../llm-architecture/01-transformer.md)，逐层的形状和参数账见 [大模型架构](../llm-architecture/) 系列，其中 [注意力](../llm-architecture/05-attention.md) 和 [FFN](../llm-architecture/07-ffn.md) 各有一篇。
 
 ### Attention
 
@@ -45,7 +45,7 @@ Attention 是 Transformer 的关键计算机制。它不是人类注意力，而
 
 MoE（Mixture of Experts，混合专家）是一种把模型内部部分参数拆成多个“专家”的架构。每次处理 token 时，路由器只选择其中一部分专家参与计算。
 
-可以把 MoE 理解成按 Token 路由到部分计算分支。专家通常是可训练子网络，不是固定命名的“法律专家”“数学专家”；路由依据内部表示，不能直接当成可解释的业务分类器。路由、负载均衡和总参数与激活参数的计算见 [混合专家 MoE](../llm-architecture/10-moe.md)。
+可以把 MoE 理解成按 Token 路由到部分计算分支。专家通常是可训练子网络，不是固定命名的“法律专家”“数学专家”；路由依据内部表示，不能直接当成可解释的业务分类器。路由、负载均衡和总参数与激活参数的计算见 [混合专家 MoE](../llm-architecture/11-moe.md)。
 
 它的价值：
 

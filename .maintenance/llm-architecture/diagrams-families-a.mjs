@@ -1,4 +1,4 @@
-// Figures for docs/ai/llm-architecture/13-llama.md and 14-qwen.md (group "families-a").
+// Figures for docs/ai/llm-architecture/15-llama.md and 16-qwen.md (group "families-a").
 // Run: node .maintenance/llm-architecture/diagrams-families-a.mjs
 // Numbers come from research/facts-families-a.md (config.json reads, transformers 5.21.0 source).
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';
@@ -22,7 +22,7 @@ function timeline(id, title, desc, heading, sub, rows) {
   return svg(id, 1400, h, title, desc, heading, sub, b);
 }
 
-// ---- llama-timeline (13) ------------------------------------------------------
+// ---- llama-timeline (15) ------------------------------------------------------
 const llamaRows = [
   ['2023-02', 'Llama 1', 'gray', '现代配方成形：Pre-Norm + RMSNorm、SwiGLU、RoPE、全部线性层无偏置', '多头注意力（MHA），SentencePiece 词表 32,000，上下文 2,048', ['7B–65B', '1.0T/1.4T token · 非商用']],
   ['2023-07', 'Llama 2', 'blue', '结构几乎不变：上下文翻倍到 4,096，训练 token 增到 2T', '只有 34B/70B 改用 GQA（8 个 KV 头），7B/13B 仍是 MHA', ['7B / 13B / 70B', '社区许可，可商用']],
@@ -37,7 +37,7 @@ const llamaTimeline = timeline('llama-timeline', 'Llama 各代结构变化时间
   'Llama 1 → Llama 4：每一代动了哪里', '中间一栏是结构变化，右栏是尺寸和训练量；Llama 3.3 之前都是同一个 LlamaForCausalLM 类。',
   llamaRows);
 
-// ---- llama-decoder-layer (13) ---------------------------------------------------
+// ---- llama-decoder-layer (15) ---------------------------------------------------
 function chip(node, x, y, w, h, cls, t, s) {
   return box(node, x, y, w, h, cls, t, s ? [s] : []);
 }
@@ -86,7 +86,7 @@ const llamaLayer = svg('llama-decoder-layer', 1400, 750, 'LlamaDecoderLayer 前�
   '一层 LlamaDecoderLayer：模块名与张量形状', '以 Llama-3.1-8B 为例，L 是序列长度；方框里的名字就是 modeling_llama.py 和权重文件里的参数名。',
   dl.join('\n'));
 
-// ---- llama4-layout (13) --------------------------------------------------------
+// ---- llama4-layout (15) --------------------------------------------------------
 const l4 = [];
 const CX = 170, CW = 22, CG = 2.4, CH = 40;
 function layerRow(y, name, isMoe) {
@@ -134,7 +134,7 @@ const llama4Layout = svg('llama4-layout', 1400, 700, 'Llama 4 Scout 与 Maverick
   'Llama 4：哪些层是 MoE，哪些层不用 RoPE', '每格一层；颜色表示 FFN 类型，蓝框表示 NoPE 全局注意力层。数据读自两个模型的 config.json 与 modeling_llama4.py。',
   l4.join('\n'));
 
-// ---- qwen-timeline (14) --------------------------------------------------------
+// ---- qwen-timeline (16) --------------------------------------------------------
 const qwenRows = [
   ['2023', 'Qwen', 'gray', '与 Llama 同一套配方，但保留 Q/K/V 投影的偏置，词表约 152K', '输入输出词嵌入不共享；长文本靠 NTK 插值、LogN 缩放和窗口注意力', ['1.8B–72B', 'Tongyi Qianwen 许可']],
   ['2024-02', 'Qwen1.5', 'gray', '换成 Transformers 标准的 qwen2 实现，上下文 32K，rope_theta 1,000,000', '多数尺寸仍是 MHA；Qwen1.5-MoE-A2.7B：60 个专家选 4 + 共享专家', ['0.5B–110B', '首个 MoE']],
@@ -150,7 +150,7 @@ const qwenTimeline = timeline('qwen-timeline', 'Qwen 各代结构变化时间线
   'Qwen → Qwen3.8：每一代动了哪里', '中间一栏是结构变化，右栏是尺寸和许可；日期取官方仓库首次发布的月份。',
   qwenRows);
 
-// ---- qwen-attention-evolution (14) ---------------------------------------------
+// ---- qwen-attention-evolution (16) ---------------------------------------------
 const qa = [];
 const cols = [
   ['Qwen2 / 2.5', 'blue', [['q/k/v_proj', '带 bias，o_proj 无'], ['RoPE', '全部 128 维'], ['GQA 注意力', '7B：28 个 Q 头 / 4 个 KV 头'], ['o_proj', '投回隐藏维']], '每层都是这种注意力'],
@@ -175,7 +175,7 @@ const qwenAttn = svg('qwen-attention-evolution', 1400, 646, 'Qwen 各代注意�
   'Qwen 的注意力子层：从 QKV 偏置到门控、混合与稀疏', '从左到右按时间排列；每列自上而下是一次前向经过的步骤。来源为各代 modeling_*.py 与 config.json。',
   qa.join('\n'));
 
-// ---- qwen-tied-embedding (14) ----------------------------------------------------
+// ---- qwen-tied-embedding (16) ----------------------------------------------------
 const te = [];
 const models = [
   ['Qwen2.5-0.5B（共享）', 494032768, 136134656, true],

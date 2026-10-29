@@ -37,7 +37,7 @@
 <path d="M60 560H1330" stroke="#60a5fa" stroke-width="10" stroke-linecap="round" opacity=".35" fill="none"/>
 <path d="M60 560H1336" class="edge"/>
 <text x="60" y="600" class="s">残差流 [5, 4096]：每个子层只把结果加回来，不替换原来的向量</text>
-<text x="60" y="626" class="xs">第 06 篇讲残差与归一化；第 03、04 篇讲注意力；第 05 篇讲 FFN</text>
+<text x="60" y="626" class="xs">第 08 篇讲残差与归一化；第 05、06 篇讲注意力；第 07 篇讲 FFN</text>
 <path d="M130 560V478" class="edge"/>
 <g data-node="n1"><rect x="70" y="398" width="150" height="80" rx="8" class="node"/><text x="88" y="434" class="t">RMSNorm</text><text x="88" y="462" class="s">[5, 4096]</text></g>
 <path d="M220 438H252" class="edge"/>

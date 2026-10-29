@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 728,
-    "bytes": 5646619,
-    "batches": 89,
-    "scanned": 728,
-    "reviewed": 728,
+    "pages": 748,
+    "bytes": 5652359,
+    "batches": 90,
+    "scanned": 748,
+    "reviewed": 748,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "eb87e40a0bffd29435424a129af6c84860ea2bb1ff4c6103af42ed1d8dc9d1eb",
+  "sharedHash": "6a82120752ea20fbf06e0cddb3318f791aa1b290b49b9554a36dab4c123adff7",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "5b23867db6ab059ab4fffa2e6b3acaaa22bd9a579b6f2aac9c67dd07c7a1561e"
+      "5e7757c01a4dde9feea42f39b31c865bdaa013b7163cf9772edb3192e67ab129"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -580,166 +580,193 @@
         "docs/ai/llm-architecture/00-transformer.md",
         "docs/ai/llm-architecture/01-overview.md"
       ],
-      "bytes": 40102
+      "bytes": 14015
     },
     {
       "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/01-transformer.md",
         "docs/ai/llm-architecture/02-tokenizer-embedding.md",
+        "docs/ai/llm-architecture/02-transformer-family.md",
         "docs/ai/llm-architecture/03-attention.md",
+        "docs/ai/llm-architecture/03-overview.md",
         "docs/ai/llm-architecture/04-multi-head.md",
+        "docs/ai/llm-architecture/04-tokenizer-embedding.md",
+        "docs/ai/llm-architecture/05-attention.md",
         "docs/ai/llm-architecture/05-ffn.md",
-        "docs/ai/llm-architecture/06-residual-norm.md",
-        "docs/ai/llm-architecture/07-position.md"
+        "docs/ai/llm-architecture/06-multi-head.md",
+        "docs/ai/llm-architecture/06-residual-norm.md"
       ],
-      "bytes": 98517
+      "bytes": 82976
     },
     {
       "id": "B025",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/07-ffn.md",
+        "docs/ai/llm-architecture/07-position.md",
         "docs/ai/llm-architecture/08-output-decoding.md",
+        "docs/ai/llm-architecture/08-residual-norm.md",
+        "docs/ai/llm-architecture/09-position.md",
         "docs/ai/llm-architecture/09-transformer-family.md",
         "docs/ai/llm-architecture/10-moe.md",
+        "docs/ai/llm-architecture/10-output-decoding.md",
         "docs/ai/llm-architecture/11-efficient-attention.md",
-        "docs/ai/llm-architecture/12-linear-hybrid.md"
+        "docs/ai/llm-architecture/11-moe.md"
       ],
-      "bytes": 84684
+      "bytes": 93574
     },
     {
       "id": "B026",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/12-efficient-attention.md",
+        "docs/ai/llm-architecture/12-linear-hybrid.md",
+        "docs/ai/llm-architecture/13-linear-hybrid.md",
         "docs/ai/llm-architecture/13-llama.md",
+        "docs/ai/llm-architecture/14-multimodal.md",
         "docs/ai/llm-architecture/14-qwen.md",
         "docs/ai/llm-architecture/15-deepseek.md",
+        "docs/ai/llm-architecture/15-llama.md",
         "docs/ai/llm-architecture/16-open-models.md"
       ],
-      "bytes": 93904
+      "bytes": 77739
     },
     {
       "id": "B027",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/16-qwen.md",
+        "docs/ai/llm-architecture/17-deepseek.md",
         "docs/ai/llm-architecture/17-multimodal.md",
+        "docs/ai/llm-architecture/18-open-models.md",
         "docs/ai/llm-architecture/18-reading-models.md",
         "docs/ai/llm-architecture/19-comparison.md",
-        "docs/ai/llm-architecture/index.md",
-        "docs/ai/llm-architecture/layer-practice.md",
-        "docs/ai/llm-inference/01-inference-system.md",
-        "docs/ai/llm-inference/02-prefill-decode.md"
+        "docs/ai/llm-architecture/19-reading-models.md"
       ],
-      "bytes": 98967
+      "bytes": 97770
     },
     {
       "id": "B028",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/20-comparison.md",
+        "docs/ai/llm-architecture/index.md",
+        "docs/ai/llm-architecture/layer-practice.md",
+        "docs/ai/llm-inference/01-inference-system.md",
+        "docs/ai/llm-inference/02-prefill-decode.md",
         "docs/ai/llm-inference/03-kv-cache.md",
         "docs/ai/llm-inference/04-memory-budget.md",
         "docs/ai/llm-inference/05-metrics.md",
-        "docs/ai/llm-inference/06-gpu-roofline.md",
-        "docs/ai/llm-inference/07-request-path.md",
-        "docs/ai/llm-inference/08-paged-attention.md",
-        "docs/ai/llm-inference/09-continuous-batching.md",
-        "docs/ai/llm-inference/10-prefix-cache.md",
-        "docs/ai/llm-inference/11-chunked-prefill.md",
-        "docs/ai/llm-inference/12-attention-kernels.md"
+        "docs/ai/llm-inference/06-gpu-roofline.md"
       ],
-      "bytes": 88048
+      "bytes": 91711
     },
     {
       "id": "B029",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/07-request-path.md",
+        "docs/ai/llm-inference/08-paged-attention.md",
+        "docs/ai/llm-inference/09-continuous-batching.md",
+        "docs/ai/llm-inference/10-prefix-cache.md",
+        "docs/ai/llm-inference/11-chunked-prefill.md",
+        "docs/ai/llm-inference/12-attention-kernels.md",
         "docs/ai/llm-inference/13-nano-vllm.md",
         "docs/ai/llm-inference/14-quantization.md",
         "docs/ai/llm-inference/15-speculative-decoding.md",
-        "docs/ai/llm-inference/16-distributed.md",
-        "docs/ai/llm-inference/17-pd-disaggregation.md",
-        "docs/ai/llm-inference/18-vllm-sglang.md",
-        "docs/ai/llm-inference/19-speech-multimodal.md",
-        "docs/ai/llm-inference/20-benchmark.md",
-        "docs/ai/llm-inference/21-production.md"
+        "docs/ai/llm-inference/16-distributed.md"
       ],
-      "bytes": 99719
+      "bytes": 99146
     },
     {
       "id": "B030",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-inference/17-pd-disaggregation.md",
+        "docs/ai/llm-inference/18-vllm-sglang.md",
+        "docs/ai/llm-inference/19-speech-multimodal.md",
+        "docs/ai/llm-inference/20-benchmark.md",
+        "docs/ai/llm-inference/21-production.md",
         "docs/ai/llm-inference/22-edge.md",
-        "docs/ai/llm-inference/index.md",
+        "docs/ai/llm-inference/index.md"
+      ],
+      "bytes": 69199
+    },
+    {
+      "id": "B031",
+      "topic": "docs/ai",
+      "pages": [
         "docs/ai/llm-inference/vllm-quickstart.md",
         "docs/ai/llm/concepts.md",
         "docs/ai/llm/index.md",
         "docs/ai/llm/inference.md",
         "docs/ai/llm/rag-tools.md",
         "docs/ai/llm/sft.md",
-        "docs/ai/llm/training.md"
-      ],
-      "bytes": 95242
-    },
-    {
-      "id": "B031",
-      "topic": "docs/ai",
-      "pages": [
+        "docs/ai/llm/training.md",
         "docs/ai/mcp.md",
-        "docs/ai/ml.md",
-        "docs/ai/model-training/01-training-map.md",
-        "docs/ai/model-training/02-one-step.md",
-        "docs/ai/model-training/03-memory.md",
-        "docs/ai/model-training/04-compute-scaling.md",
-        "docs/ai/model-training/05-training-curves.md"
+        "docs/ai/ml.md"
       ],
-      "bytes": 88808
+      "bytes": 96835
     },
     {
       "id": "B032",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/model-training/06-llm-data.md",
-        "docs/ai/model-training/07-pretraining.md",
-        "docs/ai/model-training/08-distributed.md",
-        "docs/ai/model-training/09-sft.md",
-        "docs/ai/model-training/10-lora-qlora.md",
-        "docs/ai/model-training/11-preference.md"
+        "docs/ai/model-training/01-training-map.md",
+        "docs/ai/model-training/02-one-step.md",
+        "docs/ai/model-training/03-memory.md",
+        "docs/ai/model-training/04-compute-scaling.md",
+        "docs/ai/model-training/05-training-curves.md",
+        "docs/ai/model-training/06-llm-data.md"
       ],
-      "bytes": 93910
+      "bytes": 86608
     },
     {
       "id": "B033",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/model-training/12-rl-reasoning.md",
-        "docs/ai/model-training/13-distill-merge.md",
-        "docs/ai/model-training/14-asr-training.md",
-        "docs/ai/model-training/15-asr-finetune.md",
-        "docs/ai/model-training/16-tts-training.md",
-        "docs/ai/model-training/17-vision.md"
+        "docs/ai/model-training/07-pretraining.md",
+        "docs/ai/model-training/08-distributed.md",
+        "docs/ai/model-training/09-sft.md",
+        "docs/ai/model-training/10-lora-qlora.md",
+        "docs/ai/model-training/11-preference.md",
+        "docs/ai/model-training/12-rl-reasoning.md"
       ],
-      "bytes": 89421
+      "bytes": 93746
     },
     {
       "id": "B034",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/model-training/18-multimodal.md",
-        "docs/ai/model-training/19-diffusion.md",
-        "docs/ai/model-training/20-embedding.md",
-        "docs/ai/model-training/21-evaluation.md",
-        "docs/ai/model-training/22-engineering.md",
-        "docs/ai/model-training/index.md"
+        "docs/ai/model-training/13-distill-merge.md",
+        "docs/ai/model-training/14-asr-training.md",
+        "docs/ai/model-training/15-asr-finetune.md",
+        "docs/ai/model-training/16-tts-training.md",
+        "docs/ai/model-training/17-vision.md",
+        "docs/ai/model-training/18-multimodal.md"
       ],
-      "bytes": 92752
+      "bytes": 86903
     },
     {
       "id": "B035",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/model-training/19-diffusion.md",
+        "docs/ai/model-training/20-embedding.md",
+        "docs/ai/model-training/21-evaluation.md",
+        "docs/ai/model-training/22-engineering.md",
+        "docs/ai/model-training/index.md",
         "docs/ai/model-training/lora-practice.md",
-        "docs/ai/practice/agent-project.md",
+        "docs/ai/practice/agent-project.md"
+      ],
+      "bytes": 99750
+    },
+    {
+      "id": "B036",
+      "topic": "docs/ai",
+      "pages": [
         "docs/ai/practice/index.md",
         "docs/ai/practice/long-running-agent.md",
         "docs/ai/practice/machine-learning-project.md",
@@ -749,16 +776,16 @@
         "docs/ai/precision/03-rounding-errors.md",
         "docs/ai/precision/04-mixed-precision.md",
         "docs/ai/precision/05-quantization.md",
-        "docs/ai/precision/06-choosing-precision.md"
+        "docs/ai/precision/06-choosing-precision.md",
+        "docs/ai/precision/index.md",
+        "docs/ai/precision/storage-atlas.md"
       ],
-      "bytes": 92070
+      "bytes": 91426
     },
     {
-      "id": "B036",
+      "id": "B037",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/precision/index.md",
-        "docs/ai/precision/storage-atlas.md",
         "docs/ai/rsi/01-recursive-self-improvement.md",
         "docs/ai/rsi/index.md",
         "docs/ai/skill/claude-code-best-practices.md",
@@ -768,16 +795,16 @@
         "docs/ai/speech-engineering/delivery-and-handoff.md",
         "docs/ai/speech-engineering/evidence-driven-validation.md",
         "docs/ai/speech-engineering/hotword-routing.md",
-        "docs/ai/speech-engineering/incident-playbook.md"
+        "docs/ai/speech-engineering/incident-playbook.md",
+        "docs/ai/speech-engineering/index.md",
+        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md"
       ],
-      "bytes": 83218
+      "bytes": 73396
     },
     {
-      "id": "B037",
+      "id": "B038",
       "topic": "docs/ai",
       "pages": [
-        "docs/ai/speech-engineering/index.md",
-        "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md",
         "docs/ai/speech-engineering/latency-and-finalization.md",
         "docs/ai/speech-engineering/performance-and-capacity.md",
         "docs/ai/speech-engineering/pipeline-boundaries.md",
@@ -787,22 +814,22 @@
         "docs/ai/vibe-coding/index.md",
         "docs/ai/vibe-coding/organizational-engineering.md",
         "docs/ai/vibe-coding/project-practice.md",
-        "docs/ai/vibe-coding/prompt-engineering.md"
-      ],
-      "bytes": 78240
-    },
-    {
-      "id": "B038",
-      "topic": "docs/ai",
-      "pages": [
+        "docs/ai/vibe-coding/prompt-engineering.md",
         "docs/ai/vibe-coding/spec-driven.md",
-        "docs/ai/vibe-coding/tool-agent-engineering.md",
-        "docs/ai/vibe-coding/vibe-coding.md"
+        "docs/ai/vibe-coding/tool-agent-engineering.md"
       ],
-      "bytes": 19028
+      "bytes": 82152
     },
     {
       "id": "B039",
+      "topic": "docs/ai",
+      "pages": [
+        "docs/ai/vibe-coding/vibe-coding.md"
+      ],
+      "bytes": 5424
+    },
+    {
+      "id": "B040",
       "topic": "docs/algorithm",
       "pages": [
         "docs/algorithm/backtracking.md",
@@ -820,7 +847,7 @@
       "bytes": 95287
     },
     {
-      "id": "B040",
+      "id": "B041",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/capture-playback.md",
@@ -839,7 +866,7 @@
       "bytes": 92811
     },
     {
-      "id": "B041",
+      "id": "B042",
       "topic": "docs/basic/acoustics",
       "pages": [
         "docs/basic/acoustics/vad/index.md",
@@ -850,7 +877,7 @@
       "bytes": 32347
     },
     {
-      "id": "B042",
+      "id": "B043",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/application-realtime.md",
@@ -869,7 +896,7 @@
       "bytes": 96763
     },
     {
-      "id": "B043",
+      "id": "B044",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/network-foundations.md",
@@ -879,7 +906,7 @@
       "bytes": 28481
     },
     {
-      "id": "B044",
+      "id": "B045",
       "topic": "docs/container",
       "pages": [
         "docs/container/basic/concepts.md",
@@ -898,7 +925,7 @@
       "bytes": 65086
     },
     {
-      "id": "B045",
+      "id": "B046",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/advanced/ecosystem.md",
@@ -917,7 +944,7 @@
       "bytes": 91597
     },
     {
-      "id": "B046",
+      "id": "B047",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/configmap.md",
@@ -936,7 +963,7 @@
       "bytes": 59759
     },
     {
-      "id": "B047",
+      "id": "B048",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/pod.md",
@@ -955,7 +982,7 @@
       "bytes": 75747
     },
     {
-      "id": "B048",
+      "id": "B049",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/video-series.md",
@@ -966,7 +993,7 @@
       "bytes": 25018
     },
     {
-      "id": "B049",
+      "id": "B050",
       "topic": "docs/database",
       "pages": [
         "docs/database/bigdata/apache-flink.md",
@@ -982,7 +1009,7 @@
       "bytes": 99744
     },
     {
-      "id": "B050",
+      "id": "B051",
       "topic": "docs/database",
       "pages": [
         "docs/database/elasticsearch.md",
@@ -995,7 +1022,7 @@
       "bytes": 83081
     },
     {
-      "id": "B051",
+      "id": "B052",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/basic-syntax.md",
@@ -1009,7 +1036,7 @@
       "bytes": 89719
     },
     {
-      "id": "B052",
+      "id": "B053",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/query-optimization.md",
@@ -1023,7 +1050,7 @@
       "bytes": 94414
     },
     {
-      "id": "B053",
+      "id": "B054",
       "topic": "docs/devlanguage",
       "pages": [
         "docs/devlanguage/index.md"
@@ -1031,7 +1058,7 @@
       "bytes": 2701
     },
     {
-      "id": "B054",
+      "id": "B055",
       "topic": "docs/devlanguage/flutter",
       "pages": [
         "docs/devlanguage/flutter/architecture.md",
@@ -1045,7 +1072,7 @@
       "bytes": 35227
     },
     {
-      "id": "B055",
+      "id": "B056",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/deployment/index.md",
@@ -1064,7 +1091,7 @@
       "bytes": 46465
     },
     {
-      "id": "B056",
+      "id": "B057",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/framework/angular.md",
@@ -1083,7 +1110,7 @@
       "bytes": 65552
     },
     {
-      "id": "B057",
+      "id": "B058",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
@@ -1102,7 +1129,7 @@
       "bytes": 49318
     },
     {
-      "id": "B058",
+      "id": "B059",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
@@ -1121,7 +1148,7 @@
       "bytes": 57590
     },
     {
-      "id": "B059",
+      "id": "B060",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
@@ -1140,7 +1167,7 @@
       "bytes": 66015
     },
     {
-      "id": "B060",
+      "id": "B061",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/package-managers/corepack.md",
@@ -1157,7 +1184,7 @@
       "bytes": 44995
     },
     {
-      "id": "B061",
+      "id": "B062",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/basic/base-class.md",
@@ -1172,7 +1199,7 @@
       "bytes": 86693
     },
     {
-      "id": "B062",
+      "id": "B063",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/annotations.md",
@@ -1185,7 +1212,7 @@
       "bytes": 97489
     },
     {
-      "id": "B063",
+      "id": "B064",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
@@ -1198,7 +1225,7 @@
       "bytes": 96643
     },
     {
-      "id": "B064",
+      "id": "B065",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/springboot.md",
@@ -1217,7 +1244,7 @@
       "bytes": 86011
     },
     {
-      "id": "B065",
+      "id": "B066",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/gc/parnew.md",
@@ -1236,7 +1263,7 @@
       "bytes": 59129
     },
     {
-      "id": "B066",
+      "id": "B067",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/runtime-area/method-area.md",
@@ -1251,7 +1278,7 @@
       "bytes": 67607
     },
     {
-      "id": "B067",
+      "id": "B068",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
@@ -1270,7 +1297,7 @@
       "bytes": 36472
     },
     {
-      "id": "B068",
+      "id": "B069",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/12-json-api-shape.md",
@@ -1289,7 +1316,7 @@
       "bytes": 32741
     },
     {
-      "id": "B069",
+      "id": "B070",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/24-delivery-package.md",
@@ -1308,7 +1335,7 @@
       "bytes": 58591
     },
     {
-      "id": "B070",
+      "id": "B071",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
@@ -1327,7 +1354,7 @@
       "bytes": 51376
     },
     {
-      "id": "B071",
+      "id": "B072",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/index.md"
@@ -1335,7 +1362,7 @@
       "bytes": 3797
     },
     {
-      "id": "B072",
+      "id": "B073",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/advantages.md",
@@ -1354,7 +1381,7 @@
       "bytes": 47582
     },
     {
-      "id": "B073",
+      "id": "B074",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/type-system.md",
@@ -1363,7 +1390,7 @@
       "bytes": 8757
     },
     {
-      "id": "B074",
+      "id": "B075",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/c-programming.md",
@@ -1382,7 +1409,7 @@
       "bytes": 59880
     },
     {
-      "id": "B075",
+      "id": "B076",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/toolchain.md"
@@ -1390,7 +1417,7 @@
       "bytes": 4760
     },
     {
-      "id": "B076",
+      "id": "B077",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/archive-compress.md",
@@ -1409,7 +1436,7 @@
       "bytes": 70764
     },
     {
-      "id": "B077",
+      "id": "B078",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/permissions.md",
@@ -1428,7 +1455,7 @@
       "bytes": 88829
     },
     {
-      "id": "B078",
+      "id": "B079",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/concurrency/05-pool-size-and-queueing.md",
@@ -1447,7 +1474,7 @@
       "bytes": 79857
     },
     {
-      "id": "B079",
+      "id": "B080",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/certificate.md",
@@ -1466,7 +1493,7 @@
       "bytes": 86099
     },
     {
-      "id": "B080",
+      "id": "B081",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/user-management.md"
@@ -1474,7 +1501,7 @@
       "bytes": 5716
     },
     {
-      "id": "B081",
+      "id": "B082",
       "topic": "docs/reading",
       "pages": [
         "docs/reading/2022-07-31/高效能人士的7个习惯.md",
@@ -1483,7 +1510,7 @@
       "bytes": 5001
     },
     {
-      "id": "B082",
+      "id": "B083",
       "topic": "docs/superpowers",
       "pages": [
         "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
@@ -1492,7 +1519,7 @@
       "bytes": 17324
     },
     {
-      "id": "B083",
+      "id": "B084",
       "topic": "docs/tools/editor",
       "pages": [
         "docs/tools/editor/andorid-studio/index.md"
@@ -1500,7 +1527,7 @@
       "bytes": 6275
     },
     {
-      "id": "B084",
+      "id": "B085",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/advanced.md",
@@ -1517,7 +1544,7 @@
       "bytes": 98889
     },
     {
-      "id": "B085",
+      "id": "B086",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/repository-strategies.md",
@@ -1528,7 +1555,7 @@
       "bytes": 26010
     },
     {
-      "id": "B086",
+      "id": "B087",
       "topic": "docs/tools/mq",
       "pages": [
         "docs/tools/mq/index.md",
@@ -1540,7 +1567,7 @@
       "bytes": 57859
     },
     {
-      "id": "B087",
+      "id": "B088",
       "topic": "docs/tools/sdkman",
       "pages": [
         "docs/tools/sdkman/index.md"
@@ -1548,7 +1575,7 @@
       "bytes": 4856
     },
     {
-      "id": "B088",
+      "id": "B089",
       "topic": "docs/tools/vfox",
       "pages": [
         "docs/tools/vfox/index.md"
@@ -1556,7 +1583,7 @@
       "bytes": 5211
     },
     {
-      "id": "B089",
+      "id": "B090",
       "topic": "docs/tools/vim",
       "pages": [
         "docs/tools/vim/index.md",
@@ -2347,8 +2374,8 @@
     },
     {
       "file": "docs/ai/deep-learning/architectures.md",
-      "contentHash": "fd759cf09a0b420255ac8dc5c525f582add87b172781a52e5e5d19150c54954e",
-      "reviewHash": "e1ea2f1998d99c61ec1cb6b9bc85afe29ef9c023d20c3cac0d113cfff30380e9",
+      "contentHash": "7853ff15d084837eb0b3280e9f1d6881e69d35869abf871f23a513461aaddf7e",
+      "reviewHash": "7cc7b3935422a1e086b2076f27347d44788c973ddc26915b67fb0837e029e313",
       "dependencies": [
         "public/ai/network-architecture-relations.svg"
       ],
@@ -3593,16 +3620,68 @@
     },
     {
       "file": "docs/ai/llm-architecture/00-transformer.md",
-      "contentHash": "4a70b967f9e1c15806dda78779a3b100871afa03c71031bc4f6886126e8f1f85",
-      "reviewHash": "0a75e5106c5145548335e2e624d7505023aaebf2502ad49a78c56d2a743a0dd2",
+      "contentHash": "576ad77fe0bcc1cea087871d86c5f74bfb04a1f37725d11aca848c0e5466ab20",
+      "reviewHash": "f25ad47645b5bb0ccb0c5f25e05201b44ff1bfde25c42b87852e4fbb76668aff",
+      "dependencies": [],
+      "bytes": 509,
+      "lines": 16,
+      "proseChars": 104,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/01-overview.md",
+      "contentHash": "decead0edaeb0ead9f587f6dd39e4a1ea662a5f3b25cb7f64ea35785a0b8a6a8",
+      "reviewHash": "d8c94f9868ffdbb0c755813adb1d01606f9b8490352045bc16aeb48e1085cdf5",
+      "dependencies": [],
+      "bytes": 504,
+      "lines": 16,
+      "proseChars": 101,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/01-transformer.md",
+      "contentHash": "5e77acdca47bc6919e945d92c59bf4b83a0f3efb7b368d48c8b99bd9b01650ba",
+      "reviewHash": "65f7b3180d069e8d2c05506e63e2403201b5425c70b8b967981baeace52a578b",
       "dependencies": [
         "public/ai/llm-architecture/transformer-architecture.svg",
         "public/ai/llm-architecture/transformer-rnn-vs-attention.svg",
         "public/ai/llm-architecture/transformer-to-llm.svg"
       ],
-      "bytes": 14152,
+      "bytes": 14577,
       "lines": 122,
-      "proseChars": 4627,
+      "proseChars": 4778,
       "headings": 7,
       "codeLines": 18,
       "visualCount": 3,
@@ -3611,17 +3690,87 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/01-overview.md",
-      "contentHash": "ccbaa6e419cb12c886abbd70b126f6700547143db19110be4ca8c3596cce37b1",
-      "reviewHash": "dfb68da8b10607c22a32cfc2f048db78232f7b84c905b07a8dc5889d83b8acb2",
+      "file": "docs/ai/llm-architecture/02-tokenizer-embedding.md",
+      "contentHash": "333e1981486d9a2f23ca11822b1d27d46e7a1fe672fd0f319e878da98288e2a4",
+      "reviewHash": "d53be18c25abae5abe52c1cc4d5a92e3b9d8ef244208a5e7f83e5b807d9c86cb",
+      "dependencies": [],
+      "bytes": 532,
+      "lines": 16,
+      "proseChars": 99,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/02-transformer-family.md",
+      "contentHash": "9d8abe2cb319abcd9ff422ef5a724d2e9179317e386525e6446805a30c52b74f",
+      "reviewHash": "c0e56dc059a802d5709e12476cc1188131913c9ed6c9c7aecde37c41dd654f96",
+      "dependencies": [
+        "public/ai/llm-architecture/family-multiturn.svg",
+        "public/ai/llm-architecture/family-structures.svg"
+      ],
+      "bytes": 9871,
+      "lines": 49,
+      "proseChars": 3626,
+      "headings": 3,
+      "codeLines": 0,
+      "visualCount": 2,
+      "htmlComponents": false,
+      "localReferences": 8,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-architecture/03-attention.md",
+      "contentHash": "9780584ec8dd2e81d237d66cc2476ab5e6708dd598c21d98317d878f0711f889",
+      "reviewHash": "54e1b0d2596632fa4780868f2ae774845174f4df864f86be594292abe17a54d4",
+      "dependencies": [],
+      "bytes": 510,
+      "lines": 16,
+      "proseChars": 103,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/03-overview.md",
+      "contentHash": "2f2c00f65741f8526573136ba0424e0c84a78e42b7ccb402f9fd97e5370e231c",
+      "reviewHash": "5f07fbb113b2035eb9902977152ce1c63925ba83f0666f562d67018d5ce2a329",
       "dependencies": [
         "public/ai/llm-architecture/overview-autoregressive.svg",
         "public/ai/llm-architecture/overview-dataflow.svg",
         "public/ai/llm-architecture/overview-param-share.svg"
       ],
-      "bytes": 12948,
+      "bytes": 12970,
       "lines": 124,
-      "proseChars": 4830,
+      "proseChars": 4831,
       "headings": 8,
       "codeLines": 15,
       "visualCount": 3,
@@ -3630,9 +3779,35 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/02-tokenizer-embedding.md",
-      "contentHash": "a1387f9cb18e98f87a6b04d6daa7f5e11ecd6305a6e8931fe5eac5bbfb1b5253",
-      "reviewHash": "ae1d53f2ad7dd3f5df9f8448f80a16ff434538ec74c20113208106583cbc5170",
+      "file": "docs/ai/llm-architecture/04-multi-head.md",
+      "contentHash": "604dd7dee657720495bbda9dfd712d276a894d435ec268dfca52e5e9da080733",
+      "reviewHash": "b7698c784250638ec7cc548d76eb8d868fe62c55d358c689330bab46fa2ae826",
+      "dependencies": [],
+      "bytes": 518,
+      "lines": 16,
+      "proseChars": 111,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/04-tokenizer-embedding.md",
+      "contentHash": "53ffdb7b5c16409e46d297bf57e128b983c5cc2251beaa2bfd6b3fb47b84c04f",
+      "reviewHash": "77a5ec1896a580a9128b5cc54db4b78eefc6b1060b635d7c27d4202fa838ade0",
       "dependencies": [
         "public/ai/llm-architecture/tokenizer-embedding.svg",
         "public/ai/llm-architecture/tokenizer-split.svg"
@@ -3648,28 +3823,54 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/03-attention.md",
-      "contentHash": "e47f813a5f204e7d639b9cdfea5244e9eec63bfbabee6262e71d10f1a1456196",
-      "reviewHash": "279e13814451ba6dce582339ee92cd3f72dfae85385f1fe7f66a7a8485a0677b",
+      "file": "docs/ai/llm-architecture/05-attention.md",
+      "contentHash": "58faddb2d592ee61f7f4950750aaa29c5c730b98a0dbea8e7bb8600d872c3fa5",
+      "reviewHash": "ff6adc565463ebe3844afcfa5475a728447bc185f596dedbae6a2d472f2b501f",
       "dependencies": [
         "public/ai/llm-architecture/attention-mask-matrix.svg",
         "public/ai/llm-architecture/attention-qkv-example.svg",
         "public/ai/llm-architecture/attention-quadratic.svg"
       ],
-      "bytes": 15146,
+      "bytes": 15167,
       "lines": 151,
-      "proseChars": 4943,
+      "proseChars": 4946,
       "headings": 9,
       "codeLines": 30,
       "visualCount": 3,
       "htmlComponents": false,
-      "localReferences": 7,
+      "localReferences": 8,
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/04-multi-head.md",
-      "contentHash": "c6277c75e4fa4a62478bae650b321dedcaf6262be01ff0137b815bb2d6e3031b",
-      "reviewHash": "a30a3101d2821b15e06c803fed402585a0e1d1320ba220a2fd2e602603bd42ff",
+      "file": "docs/ai/llm-architecture/05-ffn.md",
+      "contentHash": "9a1819d2fd2f154146a1fee7653fbd8582b81fa0a64a3ccb797113eeed36cb69",
+      "reviewHash": "1da0971ebff7a9b9cb4064149eca2e62cfc9409febe4d5ec7dc57043f25db2d4",
+      "dependencies": [],
+      "bytes": 485,
+      "lines": 16,
+      "proseChars": 96,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/06-multi-head.md",
+      "contentHash": "8d32b9b61f0fca9dcae02cdb27ee80a70c41652d7a4c10431a03367983540c5b",
+      "reviewHash": "350e920ff7adca1bccdaf26bf65eb62de3895308a7cfdf20d38a098e06e0dac9",
       "dependencies": [
         "public/ai/llm-architecture/mha-kv-bytes.svg",
         "public/ai/llm-architecture/mha-mla-flow.svg",
@@ -3686,9 +3887,35 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/05-ffn.md",
-      "contentHash": "300824170d1c01c98824fc833046c7c8ad4672b551327702ebd871179f18d317",
-      "reviewHash": "08399af61d3b394cdfae952c98a38393f9932159d4a6f43be1433ef0a326f1cc",
+      "file": "docs/ai/llm-architecture/06-residual-norm.md",
+      "contentHash": "96504e96c4e3820942ddea4703d8b1a1d617d6006bf22e459d69f077540070bf",
+      "reviewHash": "5276cbb7893cd92226b56fb4962e5779cfc9a48a92782dabefbf75fe6f24c968",
+      "dependencies": [],
+      "bytes": 499,
+      "lines": 16,
+      "proseChars": 92,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/07-ffn.md",
+      "contentHash": "03c91643b1c53f817bdcceee62dd1b486127e4a88af31a2b6f0bda4f09b9a57c",
+      "reviewHash": "3fda8f38003d41c74679ac2ed564fc06606ad98153a65fb69bb96a9b1b6706da",
       "dependencies": [
         "public/ai/llm-architecture/ffn-activations.svg",
         "public/ai/llm-architecture/ffn-key-value.svg",
@@ -3706,9 +3933,61 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/06-residual-norm.md",
-      "contentHash": "8092f169e2feccdb0cffb5f0ed0c35a8eb0fb7019ab6102ce42345c5dbcf2b60",
-      "reviewHash": "31a22064eaac5cd3c951bce51d2f3072e0a931733ccfcd583689ff007ace694d",
+      "file": "docs/ai/llm-architecture/07-position.md",
+      "contentHash": "21c45233c59367ad23b7bb6989256f381d97379f4f023de7a75ce68a5080d8f3",
+      "reviewHash": "97942fc73a89318fb3a6a59617e353a4168eddcc317c7d8e2021bb50e18ab511",
+      "dependencies": [],
+      "bytes": 500,
+      "lines": 16,
+      "proseChars": 99,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/08-output-decoding.md",
+      "contentHash": "ca2a998a539606c2fd0cef3c21a32e8e18fc50af8de1b25c4e0af76befe2a1ff",
+      "reviewHash": "6acce5c4342f7f6c7f0f941b5b7fae6f6c509a7caaaa0e6bd60463df0e755467",
+      "dependencies": [],
+      "bytes": 520,
+      "lines": 16,
+      "proseChars": 103,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/08-residual-norm.md",
+      "contentHash": "186438aeacb4f158726ef79b58dead78bd811da3a2ca4453a66fa1e2db67d927",
+      "reviewHash": "2dc23d22efe8b21a32554f1b50e4059b22d1be97af71c430f3ced4ca59c70d2c",
       "dependencies": [
         "public/ai/llm-architecture/norm-pre-post.svg",
         "public/ai/llm-architecture/norm-residual-stream.svg",
@@ -3725,9 +4004,9 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/07-position.md",
-      "contentHash": "ca6495ada7c41172fe0007ef8bac066c1ad1afb96ace9f7f3e2547ce338f27e4",
-      "reviewHash": "0e85ca6e3ffd07df47f374382349a740b2d8b35ef8e0b723790a74ac44648211",
+      "file": "docs/ai/llm-architecture/09-position.md",
+      "contentHash": "76365e6931fd4bfa7abaaf8204c4f91824716ce3528eb71a1e224fafdd6ded82",
+      "reviewHash": "927131751737880a92ebd83c4700ea0784ad6b452b3e7e7d8912a0f9c5b49d99",
       "dependencies": [
         "public/ai/llm-architecture/position-llama4-layers.svg",
         "public/ai/llm-architecture/position-rope-rotate.svg",
@@ -3744,17 +4023,69 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/08-output-decoding.md",
-      "contentHash": "779c1258d683a0317d5ab296826f0d4f6415fd880b6dc41ac67eade5c6bf238e",
-      "reviewHash": "438327f1e0edfd0391c7acec2714a00c400f93837a29dd813873c1eaff6ce653",
+      "file": "docs/ai/llm-architecture/09-transformer-family.md",
+      "contentHash": "5b6e0428657c9c7c131c3cada5bf54133ebd688035d0841484bbbf667c837dd3",
+      "reviewHash": "c0143e173f3754ea736568a23d4c7616c42efb1a6f05624d2a65580e57483f4d",
+      "dependencies": [],
+      "bytes": 523,
+      "lines": 16,
+      "proseChars": 108,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/10-moe.md",
+      "contentHash": "ce7669c4b2886e47d67fdc76dd8ccffb5ecdeb05dbe9bb4e6b29fe5ff227f8cf",
+      "reviewHash": "4367646b8ea88e09206472396f76f6d70ecf8c012d1a3b8ea6c27612fcfe6ab3",
+      "dependencies": [],
+      "bytes": 498,
+      "lines": 16,
+      "proseChars": 101,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/10-output-decoding.md",
+      "contentHash": "73e4eed311a9bcbceeda2bf0a51bf01b4ec322c2a4950a23deec8e105e8e5ccc",
+      "reviewHash": "41ad7a323aa423fe8ef793c9790b618fa31289bf2a5d7c5966c869d5ac95b142",
       "dependencies": [
         "public/ai/llm-architecture/output-filters.svg",
         "public/ai/llm-architecture/output-lm-head.svg",
         "public/ai/llm-architecture/output-temperature.svg"
       ],
-      "bytes": 14470,
+      "bytes": 14475,
       "lines": 146,
-      "proseChars": 5230,
+      "proseChars": 5214,
       "headings": 9,
       "codeLines": 22,
       "visualCount": 3,
@@ -3763,36 +4094,43 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/09-transformer-family.md",
-      "contentHash": "7326eda854bfaf2fe329df2983aac0b40bf245a1063c8cc0f82c866cfb2ea77b",
-      "reviewHash": "3540dc59bed7cf63c4bb21c67298791f70d2b2b15f2a5b6b4ccb7040317fbb5f",
-      "dependencies": [
-        "public/ai/llm-architecture/family-multiturn.svg",
-        "public/ai/llm-architecture/family-recipe.svg",
-        "public/ai/llm-architecture/family-structures.svg"
-      ],
-      "bytes": 14923,
-      "lines": 87,
-      "proseChars": 5453,
-      "headings": 5,
-      "codeLines": 10,
-      "visualCount": 3,
+      "file": "docs/ai/llm-architecture/11-efficient-attention.md",
+      "contentHash": "5af2a3c3b202c1bdded69528c5fc09049efc05e19700d80e3654313b63204284",
+      "reviewHash": "24eaefe7ec15b3ed97a76240453d54d46f75b90e2d95d078568161a8b71a45bb",
+      "dependencies": [],
+      "bytes": 565,
+      "lines": 16,
+      "proseChars": 110,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
       "htmlComponents": false,
-      "localReferences": 16,
-      "findings": []
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
     },
     {
-      "file": "docs/ai/llm-architecture/10-moe.md",
-      "contentHash": "7af5e88e708572be0d6783e82b0696765db57f2dfac42434b5899c52e28f08eb",
-      "reviewHash": "cc0d49be36fc4d8168cb7004ce6933a1ec6ce62bb657ed5eaa8b5b9d7b396a0b",
+      "file": "docs/ai/llm-architecture/11-moe.md",
+      "contentHash": "c1fccca24a2ed90dd9dbcf3cf8bb58b4f849ef6ef161ee9025e7bdb753c978aa",
+      "reviewHash": "de9622e71c47655a30e0344032d33b8b39e0a69118bfc52ad338a069fdc99abd",
       "dependencies": [
         "public/ai/llm-architecture/moe-capacity.svg",
         "public/ai/llm-architecture/moe-layer.svg",
         "public/ai/llm-architecture/moe-params.svg"
       ],
-      "bytes": 20948,
+      "bytes": 20969,
       "lines": 195,
-      "proseChars": 7443,
+      "proseChars": 7450,
       "headings": 10,
       "codeLines": 50,
       "visualCount": 3,
@@ -3801,36 +4139,62 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/11-efficient-attention.md",
-      "contentHash": "3b60ffb8e9bf25343dcea4ed369935c2b243ae2c1f0fed4fed7f89afdea714d3",
-      "reviewHash": "94602e0d22edca924a6d5a7d6e67256363e8454e982721f1560f0a0e86feb0be",
+      "file": "docs/ai/llm-architecture/12-efficient-attention.md",
+      "contentHash": "dc6269ac8163775e3dfcb051d35b6645a487a11c64d3b95518cfa6c828e3c050",
+      "reviewHash": "ecc8f5bddefc2a370f1dfed46179830dc58bc2d2dd24ad96d488e555affd7fb4",
       "dependencies": [
         "public/ai/llm-architecture/long-cost.svg",
         "public/ai/llm-architecture/long-layer-mix.svg",
         "public/ai/llm-architecture/long-masks.svg"
       ],
-      "bytes": 16774,
+      "bytes": 16935,
       "lines": 130,
-      "proseChars": 6048,
+      "proseChars": 6118,
       "headings": 8,
       "codeLines": 25,
       "visualCount": 3,
       "htmlComponents": false,
-      "localReferences": 9,
+      "localReferences": 10,
       "findings": []
     },
     {
       "file": "docs/ai/llm-architecture/12-linear-hybrid.md",
-      "contentHash": "2369b4015082d67a8153993085e71310f57997678df080b7db6fe7691a59a3ad",
-      "reviewHash": "75f0dff048457937886a616c0d84e5ad54b5f508cf53e31ae4e9ed13184a548a",
+      "contentHash": "4f15c62e3df127b96acc23470973dc3efe768ad5c2e08709230b40dc61ace94d",
+      "reviewHash": "9a262caeb1e764f42a04ae5cd4758690b1657282de31a1148777f76da001e835",
+      "dependencies": [],
+      "bytes": 568,
+      "lines": 16,
+      "proseChars": 121,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/13-linear-hybrid.md",
+      "contentHash": "139e39e07fcd984ff3be4af676f4eaf964153bcff4f92425813a6c4e9781b257",
+      "reviewHash": "7391d0254affc040a1108b5f7ef042a2cd2ea588fd8cd7c59f5cfc201545e9a4",
       "dependencies": [
         "public/ai/llm-architecture/linear-hybrid-layers.svg",
         "public/ai/llm-architecture/linear-memory.svg",
         "public/ai/llm-architecture/linear-state.svg"
       ],
-      "bytes": 17569,
+      "bytes": 17557,
       "lines": 157,
-      "proseChars": 6749,
+      "proseChars": 6742,
       "headings": 8,
       "codeLines": 29,
       "visualCount": 3,
@@ -3840,27 +4204,151 @@
     },
     {
       "file": "docs/ai/llm-architecture/13-llama.md",
-      "contentHash": "20b62f0892fc6e5c7f15e106267cf5f3c0a6c9f77850b31e6f8dd6ea64881948",
-      "reviewHash": "a1614dea1e68eb6722cb2057751128ca0c00a4c447992e52503e8e85c7451a6f",
+      "contentHash": "8b4966ecf3f9a51d987ebe76c865b2b096d265d3e6929066d32f4918c7e83b8d",
+      "reviewHash": "20bdc43da2cc81268a21c89de9797a663a80a6a70f4b518b84249ab92aaf3c89",
+      "dependencies": [],
+      "bytes": 498,
+      "lines": 16,
+      "proseChars": 101,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/14-multimodal.md",
+      "contentHash": "52949fcbc4f555bc7c82a173de9f589af480227a9ce2d1be2c2b88c16704af15",
+      "reviewHash": "7d4d8942acbe5210fd41abe791e305f10ae99fc60f2c6004f2625affe8ab0f4e",
+      "dependencies": [
+        "public/ai/llm-architecture/multimodal-fusion.svg",
+        "public/ai/llm-architecture/multimodal-image-tokens.svg",
+        "public/ai/llm-architecture/multimodal-mrope.svg",
+        "public/ai/llm-architecture/multimodal-thinker-talker.svg"
+      ],
+      "bytes": 20177,
+      "lines": 159,
+      "proseChars": 7770,
+      "headings": 11,
+      "codeLines": 21,
+      "visualCount": 4,
+      "htmlComponents": false,
+      "localReferences": 11,
+      "findings": []
+    },
+    {
+      "file": "docs/ai/llm-architecture/14-qwen.md",
+      "contentHash": "66de9cfef6c8af405f0ec68f8a76290de394b3534b07c8342b9c70a8f7fa532c",
+      "reviewHash": "604186470e1989000af7e29d5b0e750616bff8b227c6ccea6a24833808236396",
+      "dependencies": [],
+      "bytes": 503,
+      "lines": 16,
+      "proseChars": 106,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/15-deepseek.md",
+      "contentHash": "5190d61ec13b311517d9e8ddc27fe645a1c7d95cec6a2ec91aaaa513fa2afd6e",
+      "reviewHash": "832950ab1d6bda2794fc2626502abd5f38d16745ab380d697df2cff241aa17e0",
+      "dependencies": [],
+      "bytes": 493,
+      "lines": 16,
+      "proseChars": 106,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/15-llama.md",
+      "contentHash": "3c40e294580b535225c57e9ed2dac534e42d72cf8fb0f1fcd3e1caeda4b09347",
+      "reviewHash": "5db9fa9c62ec9ca03121066c37c59e28924c5c6a7ca6153faece3927059bb869",
       "dependencies": [
         "public/ai/llm-architecture/llama-decoder-layer.svg",
         "public/ai/llm-architecture/llama-timeline.svg",
         "public/ai/llm-architecture/llama4-layout.svg"
       ],
-      "bytes": 21007,
-      "lines": 185,
-      "proseChars": 8474,
+      "bytes": 20460,
+      "lines": 177,
+      "proseChars": 8318,
       "headings": 9,
-      "codeLines": 30,
+      "codeLines": 27,
       "visualCount": 3,
       "htmlComponents": false,
       "localReferences": 20,
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/14-qwen.md",
-      "contentHash": "69c12c05c6283ae9b275a96b59281d668e67af078b40ce5f3ecc46aa4a2d70cb",
-      "reviewHash": "0e1617c0d23c11309231e3337b44fc8ca91ca80eebd8135dfb9e242b74283422",
+      "file": "docs/ai/llm-architecture/16-open-models.md",
+      "contentHash": "60d45f075d795589d601a8c9a8d43e0ffe3de8b2b415c4a2ea128bd6f1edb4db",
+      "reviewHash": "fd0584c8967276df2b700280ad27e7c0044bf9fad6bf3cb34b21bc7d2d9f6f79",
+      "dependencies": [],
+      "bytes": 548,
+      "lines": 16,
+      "proseChars": 133,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/16-qwen.md",
+      "contentHash": "6edb0384ec9d2f3e6963ec386aef563c662ab9386e8f44f202543cbb1fb774d4",
+      "reviewHash": "3d67a4da6f57a03483be6e04e1c170335ab1dfaf5922d40e3c52696a1d5c9583",
       "dependencies": [
         "public/ai/llm-architecture/qwen-attention-evolution.svg",
         "public/ai/llm-architecture/qwen-tied-embedding.svg",
@@ -3877,9 +4365,9 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/15-deepseek.md",
-      "contentHash": "35972b9992856d35f3587135f3306216eed75506361bda9ef1aa954ff9079f85",
-      "reviewHash": "86cff98bf1114d8a90056d8f10d86f3eaec588fb654b3c44693f9fb56ae07e9d",
+      "file": "docs/ai/llm-architecture/17-deepseek.md",
+      "contentHash": "460916d3ef701cff4232672f0d735dd641f32413c8bee597bc490cf1076ed180",
+      "reviewHash": "f219ce9e8191ee7652c7cb847b84c5fb24b5ac7237a654cd289077b13cb4ec85",
       "dependencies": [
         "public/ai/llm-architecture/deepseek-dsa.svg",
         "public/ai/llm-architecture/deepseek-moe-routing.svg",
@@ -3888,67 +4376,125 @@
         "public/ai/llm-architecture/deepseek-timeline.svg",
         "public/ai/llm-architecture/deepseek-v4-attention.svg"
       ],
-      "bytes": 25483,
+      "bytes": 25169,
       "lines": 218,
-      "proseChars": 10207,
+      "proseChars": 10081,
       "headings": 12,
       "codeLines": 30,
       "visualCount": 6,
       "htmlComponents": false,
-      "localReferences": 19,
+      "localReferences": 21,
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/16-open-models.md",
-      "contentHash": "b8426d936b4e4ecf8035116d407d6cf314a021f0884341acfcfabdbad7f86d8e",
-      "reviewHash": "6d6f3739197a5d66aee6f291c4e8d03062b0c528609c9f718c8ec2ccb7da921c",
+      "file": "docs/ai/llm-architecture/17-multimodal.md",
+      "contentHash": "a933645a633f2c806b30ae297a8672ec168f340d665098e61a03de30cfd9fc45",
+      "reviewHash": "9f5f9dc66ab5debf9138dc68aa4acb656eb9053f1238357a412aac25c1939c0a",
+      "dependencies": [],
+      "bytes": 532,
+      "lines": 16,
+      "proseChars": 109,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/18-open-models.md",
+      "contentHash": "5a0e9769ad7f58f2ffee44f4d3b9b4c33b8345cce53aedd48d683341d6267ba5",
+      "reviewHash": "5937976f44cfbf46192efae573f881553617fb55d0c3c0a6d4331bf3401d20e5",
       "dependencies": [
         "public/ai/llm-architecture/open-attention-sink.svg",
         "public/ai/llm-architecture/open-gemma4-layers.svg",
         "public/ai/llm-architecture/open-layer-patterns.svg"
       ],
-      "bytes": 22136,
+      "bytes": 22078,
       "lines": 134,
-      "proseChars": 10573,
+      "proseChars": 10516,
       "headings": 10,
       "codeLines": 4,
       "visualCount": 3,
-      "htmlComponents": false,
-      "localReferences": 11,
-      "findings": []
-    },
-    {
-      "file": "docs/ai/llm-architecture/17-multimodal.md",
-      "contentHash": "680c17644c566c4b99f07441663d8807c676a51f8a82bdabad6978f8cba2f3f3",
-      "reviewHash": "cd108971efc3f0e628798040b9fa21ae7e70fd6bd266cad17e23b2a5d0f6bdce",
-      "dependencies": [
-        "public/ai/llm-architecture/multimodal-fusion.svg",
-        "public/ai/llm-architecture/multimodal-image-tokens.svg",
-        "public/ai/llm-architecture/multimodal-mrope.svg",
-        "public/ai/llm-architecture/multimodal-thinker-talker.svg"
-      ],
-      "bytes": 20193,
-      "lines": 159,
-      "proseChars": 7774,
-      "headings": 11,
-      "codeLines": 21,
-      "visualCount": 4,
       "htmlComponents": false,
       "localReferences": 12,
       "findings": []
     },
     {
       "file": "docs/ai/llm-architecture/18-reading-models.md",
-      "contentHash": "ebef8924cc215e37d4726a3aa63e30795baeb021f7ab302f4195735a9aadd4f7",
-      "reviewHash": "ee56c75f09724e2cd4b9a40df91fd4be6e8ccb39f29ac19a3287c942123e88df",
+      "contentHash": "1b10bb62e006d50832808064498d1f6896dbbcfe307bfeb658c2d3098eea3bee",
+      "reviewHash": "cae8dc06c73cff760bf5b8224a0c1b437fce46f47e393157b4ffa8729a8a85a6",
+      "dependencies": [],
+      "bytes": 542,
+      "lines": 16,
+      "proseChars": 111,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/19-comparison.md",
+      "contentHash": "5ad6299f7118356c7f12be8ab12a3301dcf73c1f573db639e5f477db38ae36e4",
+      "reviewHash": "5e3bd58b286f1ba529886689c0dce46bf8bc62939ba5ac5c9ef3b6b909408103",
+      "dependencies": [],
+      "bytes": 502,
+      "lines": 16,
+      "proseChars": 95,
+      "headings": 1,
+      "codeLines": 0,
+      "visualCount": 0,
+      "htmlComponents": false,
+      "localReferences": 2,
+      "findings": [
+        {
+          "kind": "visual-review",
+          "line": 1,
+          "detail": "需逐页判断图示是否有助于理解，不自动判为缺陷"
+        },
+        {
+          "kind": "short-text-review",
+          "line": 1,
+          "detail": "需区分目录、迁移、速查与内容不足"
+        }
+      ]
+    },
+    {
+      "file": "docs/ai/llm-architecture/19-reading-models.md",
+      "contentHash": "c9fad4bc1448987fae5cef9479859e2f32498139e3296a82e701b60deec1c206",
+      "reviewHash": "ec9a5e1694ba4e718085e4d8bf2998655cd3185197cb4bd1bfdf252b1d3a3233",
       "dependencies": [
         "public/ai/llm-architecture/reading-class-tree.svg",
         "public/ai/llm-architecture/reading-config-map.svg",
         "public/ai/llm-architecture/reading-modular-diff.svg"
       ],
-      "bytes": 23728,
+      "bytes": 23669,
       "lines": 196,
-      "proseChars": 10526,
+      "proseChars": 10489,
       "headings": 8,
       "codeLines": 26,
       "visualCount": 3,
@@ -3957,17 +4503,17 @@
       "findings": []
     },
     {
-      "file": "docs/ai/llm-architecture/19-comparison.md",
-      "contentHash": "cd36f9a3df826da91de6a670ddcab960cd519c41a98da46b869470077c3e5440",
-      "reviewHash": "2198c1333ac262fdab4f837dc1ca598125c85ca3ddc41431d3e1927cb4220f3c",
+      "file": "docs/ai/llm-architecture/20-comparison.md",
+      "contentHash": "3ce57c1d4ffba136eb614f59695814dbcd1f5458ebd82ae1c2fc9fe635b19001",
+      "reviewHash": "5481363f7dd9757cb469ba7794bc4df5feadcba654cdc0f10abcfc4b79cd9044",
       "dependencies": [
         "public/ai/llm-architecture/comparison-kv-100k.svg",
         "public/ai/llm-architecture/comparison-matrix.svg",
         "public/ai/llm-architecture/comparison-moe-ratio.svg"
       ],
-      "bytes": 13690,
+      "bytes": 13762,
       "lines": 104,
-      "proseChars": 4829,
+      "proseChars": 4864,
       "headings": 7,
       "codeLines": 6,
       "visualCount": 3,
@@ -3977,14 +4523,14 @@
     },
     {
       "file": "docs/ai/llm-architecture/index.md",
-      "contentHash": "720919667df1b0e57d149964e8569f5a8dbfded20205711e0b09d91a2605a7c9",
-      "reviewHash": "30a35f74e59f7a5e030d584b692279c7315b6905df09f8b71c285b6d22febff8",
+      "contentHash": "4a8ab200e1f29bb7f90d234362736e6e71ce73726f70106b0c58ebe427df1fa9",
+      "reviewHash": "713686cfad368eaeab600130ac149aec60cb9836a3ba76a2e72996d0a2978ae0",
       "dependencies": [
         "public/ai/llm-architecture/arch-series-map.svg"
       ],
-      "bytes": 9139,
-      "lines": 69,
-      "proseChars": 3354,
+      "bytes": 9858,
+      "lines": 76,
+      "proseChars": 3598,
       "headings": 4,
       "codeLines": 0,
       "visualCount": 1,
@@ -3994,15 +4540,15 @@
     },
     {
       "file": "docs/ai/llm-architecture/layer-practice.md",
-      "contentHash": "f38893b63def74f9cd86161782458961bc8c0506b602882f902198fae7644154",
-      "reviewHash": "832717d5b47bb6ad000b3778e1f7be93167211cbae804d70a551386fbaa870be",
+      "contentHash": "876a17490e7a3dba4f28cdb699997806678eaa8c446504345c0ca38f41fa6450",
+      "reviewHash": "b3030907a49b3fb5047e0de97480557f8c7bf435b9d86df6f1a2cc797fb2ad9e",
       "dependencies": [
         "public/ai/llm-architecture/practice-ablation.svg",
         "public/ai/llm-architecture/practice-contrib.svg"
       ],
-      "bytes": 18680,
+      "bytes": 18683,
       "lines": 200,
-      "proseChars": 6832,
+      "proseChars": 6844,
       "headings": 11,
       "codeLines": 20,
       "visualCount": 2,
@@ -4430,8 +4976,8 @@
     },
     {
       "file": "docs/ai/llm/concepts.md",
-      "contentHash": "c2eef191f121b34c18899b2d519d1b4c066fd85435b64c101fe124238b77b947",
-      "reviewHash": "7782985dfd2a14db46f9eb14522a7f16841c0809038efeeb1c5b173eb87a44cd",
+      "contentHash": "c0218a3333b317dd014f80bb4351bbe3dcd2f98039ab4bf8dadd99556b88cec5",
+      "reviewHash": "65d25ec7a8a2b31ea6fb68fa1050c808609b04c54312586eba76ec324bc8bafc",
       "dependencies": [
         "public/ai/llm-concept-map.svg"
       ],

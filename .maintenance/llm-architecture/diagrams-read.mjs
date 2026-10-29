@@ -1,9 +1,9 @@
-// Figures for docs/ai/llm-architecture/ 17–18 (group "read").
+// Figures for docs/ai/llm-architecture/14-multimodal.md and 19-reading-models.md (group "read").
 // Run: node .maintenance/llm-architecture/diagrams-read.mjs
 // Numbers come from research/facts-read.md (Qwen2.5-VL / Qwen3-VL / Gemma 4 / Qwen3-Omni configs and source).
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';
 
-// ---- multimodal-image-tokens (17) ---------------------------------------------
+// ---- multimodal-image-tokens (14) ---------------------------------------------
 function imageTokens() {
   const b = [];
   // the picture: 8×8 drawn cells stand for the 32×32 patch grid
@@ -56,7 +56,7 @@ function imageTokens() {
     b.join('\n'));
 }
 
-// ---- multimodal-fusion (17) ---------------------------------------------------
+// ---- multimodal-fusion (14) ---------------------------------------------------
 function fusion() {
   const b = [];
   const cols = [
@@ -98,7 +98,7 @@ function fusion() {
     b.join('\n'));
 }
 
-// ---- multimodal-mrope (17) ----------------------------------------------------
+// ---- multimodal-mrope (14) ----------------------------------------------------
 function mrope() {
   const b = [];
   const toks = [
@@ -143,7 +143,7 @@ function mrope() {
     b.join('\n'));
 }
 
-// ---- multimodal-thinker-talker (17) -------------------------------------------
+// ---- multimodal-thinker-talker (14) -------------------------------------------
 function thinkerTalker() {
   const b = [];
   const Y1 = 126, H = 118, W = 236, G = 34;
@@ -183,7 +183,7 @@ function thinkerTalker() {
     b.join('\n'));
 }
 
-// ---- reading-config-map (18) --------------------------------------------------
+// ---- reading-config-map (19) --------------------------------------------------
 function configMap() {
   const b = [];
   const fields = [
@@ -229,7 +229,7 @@ function configMap() {
     b.join('\n'));
 }
 
-// ---- reading-class-tree (18) --------------------------------------------------
+// ---- reading-class-tree (19) --------------------------------------------------
 function classTree() {
   const b = [];
   const r = (id, x, y, w, h, cls, t, sub) => {
@@ -264,7 +264,7 @@ function classTree() {
     b.join('\n'));
 }
 
-// ---- reading-modular-diff (18) ------------------------------------------------
+// ---- reading-modular-diff (19) ------------------------------------------------
 function modularDiff() {
   const b = [];
   const rows = [

@@ -1,4 +1,4 @@
-// Figures for docs/ai/llm-architecture/00-transformer.md.
+// Figures for docs/ai/llm-architecture/01-transformer.md.
 // Run: node .maintenance/llm-architecture/diagrams-transformer.mjs
 import { svg, box, cell, edge, text, write } from './svg-kit.mjs';
 
@@ -67,14 +67,14 @@ function rnnVsAttention() {
 function toLlm() {
   const W = 1360, H = 640;
   const rows = [
-    ['整体结构', '编码器 + 解码器', '只保留解码器（去掉交叉注意力）', '09'],
-    ['词表与嵌入', '约 3.7 万，输入输出共享', '12.8 万—25 万；小模型共享、大模型多不共享', '02'],
-    ['注意力', '多头注意力 8 头', '多头 + GQA / MLA，KV 头更少', '03 · 04'],
-    ['FFN', 'ReLU，512 → 2048 → 512', 'SwiGLU 三个矩阵，或拆成 MoE 专家', '05 · 10'],
-    ['残差与归一化', '相加之后 LayerNorm（Post-Norm）', '子层之前 RMSNorm（Pre-Norm），常加 QK-Norm', '06'],
-    ['位置', '正弦位置编码加在输入上', '每层对 Q、K 做旋转（RoPE），配合缩放扩展长度', '07'],
-    ['输出', '线性层 + softmax，束搜索', '同样打分，采样或贪心逐个生成', '08'],
-    ['规模', '6+6 层，512 维，约 0.65 亿', 'Llama-3.1-8B：32 层，4096 维，80 亿', '01'],
+    ['整体结构', '编码器 + 解码器', '只保留解码器（去掉交叉注意力）', '02'],
+    ['词表与嵌入', '约 3.7 万，输入输出共享', '12.8 万—25 万；小模型共享、大模型多不共享', '04'],
+    ['注意力', '多头注意力 8 头', '多头 + GQA / MLA，KV 头更少', '05 · 06'],
+    ['FFN', 'ReLU，512 → 2048 → 512', 'SwiGLU 三个矩阵，或拆成 MoE 专家', '07 · 11'],
+    ['残差与归一化', '相加之后 LayerNorm（Post-Norm）', '子层之前 RMSNorm（Pre-Norm），常加 QK-Norm', '08'],
+    ['位置', '正弦位置编码加在输入上', '每层对 Q、K 做旋转（RoPE），配合缩放扩展长度', '09'],
+    ['输出', '线性层 + softmax，束搜索', '同样打分，采样或贪心逐个生成', '10'],
+    ['规模', '6+6 层，512 维，约 0.65 亿', 'Llama-3.1-8B：32 层，4096 维，80 亿', '03'],
   ];
   let b = '';
   const xs = [32, 232, 620, 1190], y0 = 116, rh = 56;

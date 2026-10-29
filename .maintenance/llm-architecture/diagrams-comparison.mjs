@@ -1,4 +1,4 @@
-// Figures for docs/ai/llm-architecture/19-comparison.md.
+// Figures for docs/ai/llm-architecture/20-comparison.md.
 // Run: node .maintenance/llm-architecture/diagrams-comparison.mjs
 import { svg, box, cell, text, write } from './svg-kit.mjs';
 

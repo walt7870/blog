@@ -1,10 +1,10 @@
-// Figures for docs/ai/llm-architecture/ 10–12 (group "evolve").
+// Figures for docs/ai/llm-architecture/11-moe.md, 12-efficient-attention.md, 13-linear-hybrid.md (group "evolve").
 // Run: node .maintenance/llm-architecture/diagrams-evolve.mjs
 // Numbers come from scratch scripts calc_moe.py / calc_long.py / calc_hybrid.py / calc_linear.py
 // (recorded in research/facts-evolve.md).
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';
 
-// ---- moe-layer (10) ----------------------------------------------------------
+// ---- moe-layer (11) ----------------------------------------------------------
 // Dense FFN vs MoE layer for the token "年假": router scores, top-2, weighted sum, shared expert.
 function expertsRow(x0, y, picks) {
   let s = '';
@@ -47,7 +47,7 @@ const moeLayer = svg('moe-layer', 1320, 700, '稠密 FFN 与 MoE 层的对比',
     box('shared', 1032, 388, 228, 188, 'green', '共享专家', ['DeepSeek-V3、Qwen3.5', '每个 token 都经过', '结果直接加到', '路由专家的输出上'], '可选'),
   ].join('\n'));
 
-// ---- moe-params (10) ---------------------------------------------------------
+// ---- moe-params (11) ---------------------------------------------------------
 const models = [
   ['Mixtral-8x7B', 46.703, 12.880, '8 选 2，无共享'],
   ['Qwen3-235B-A22B', 235.094, 22.191, '128 选 8，无共享'],
@@ -75,7 +75,7 @@ const moeParams = svg('moe-params', 1320, 600, '四个 MoE 模型的总参数与
     text(32, 576, '激活参数包含注意力、词嵌入和输出层；Qwen3.5 只计文本部分，不含视觉编码器和 MTP 模块；DeepSeek-V3 不含 MTP 模块。', 'xs'),
   ].join('\n'));
 
-// ---- moe-capacity (10) -------------------------------------------------------
+// ---- moe-capacity (11) -------------------------------------------------------
 function capRow(y, cap, title) {
   const choice = [0, 0, 0, 1, 0, 2, 0, 3];
   const load = [0, 0, 0, 0];
@@ -105,7 +105,7 @@ const moeCapacity = svg('moe-capacity', 1320, 560, '专家容量与被丢弃的 
     box('cost', 664, 380, 624, 148, 'red', '丢 token 的代价', ['这一层对该 token 等于什么都没做', '训练时影响学习，推理时同一句话的结果会随', '同批其他请求变化，难复现']),
   ].join('\n'));
 
-// ---- long-cost (11) ----------------------------------------------------------
+// ---- long-cost (12) ----------------------------------------------------------
 function pair(x0, y0, title, items, scale, unit) {
   let s = text(x0, y0, title, 't');
   items.forEach(([lab, v, cls], i) => {
@@ -132,7 +132,7 @@ const longCost = svg('long-cost', 1320, 620, 'Llama-3.1-8B 在 8K 与 128K 上�
     box('note', 820, 380, 468, 150, 'node', '整段 Prefill 128K', ['权重部分：16.06 G × 131072 ≈ 2.1 PFLOPs', '注意力（因果，只算下三角）≈ 4.5 PFLOPs', '注意力占约 68%；8K 时只占约 12%', '长度翻倍，这一项涨 4 倍']),
   ].join('\n'));
 
-// ---- long-masks (11) ---------------------------------------------------------
+// ---- long-masks (12) ---------------------------------------------------------
 function grid(x0, y0, n, fn, title, sub) {
   const c = 22; let s = text(x0, y0 - 40, title, 't') + text(x0, y0 - 14, sub, 'xs');
   for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
@@ -156,7 +156,7 @@ const longMasks = svg('long-masks', 1320, 560, '四种注意力掩码的对比',
     text(32, 504, '前三种按位置决定看哪里，和内容无关；第四种先用便宜的打分看一遍全部历史，再只对挑中的位置做完整注意力。', 's'),
   ].join('\n'));
 
-// ---- long-layer-mix (11) -----------------------------------------------------
+// ---- long-layer-mix (12) -----------------------------------------------------
 function strip(x0, y0, types, cw, title, sub) {
   let s = text(x0, y0 - 14, title, 't') + text(x0 + 420, y0 - 14, sub, 's');
   types.forEach((t, i) => { s += cell(x0 + i * cw, y0, cw - 3, 36, t === 'g' ? 'fred' : 'fblue'); });
@@ -180,7 +180,7 @@ const longMix = svg('long-layer-mix', 1320, 640, '局部与全局注意力交替
     ], 12, 'GiB'),
   ].join('\n'));
 
-// ---- linear-state (12) -------------------------------------------------------
+// ---- linear-state (13) -------------------------------------------------------
 function mat(x, y, m, cls, cw = 64) {
   let s = '';
   m.forEach((r, i) => r.forEach((v, j) => { s += cell(x + j * cw, y + i * 44, cw - 6, 38, cls, String(v), 'm'); }));
@@ -217,7 +217,7 @@ const linearState = svg('linear-state', 1320, 640, 'KV Cache 与固定大小状�
     box('lincost', 532, 400, 736, 184, 'violet', '固定 4 个数，换来两件事', ['好处：不管写入多少 token，状态都是 d_k × d_v 个数，每步计算也固定', '问题：2 维的 key 最多容纳 2 个互不干扰的键值对，第 3 个一来就互相串扰', '真实模型每头 128 × 128，容量大得多，但仍是定数；长文里的旧细节会被挤掉', '门控（遗忘）和 delta 规则（先减去旧值再写）是在管理这份有限的容量']),
   ].join('\n'));
 
-// ---- linear-hybrid-layers (12) ------------------------------------------------
+// ---- linear-hybrid-layers (13) ------------------------------------------------
 function layerStrip(x0, y0, pattern, cw, title, sub) {
   let s = text(x0, y0 - 14, title, 't') + text(x0 + 360, y0 - 14, sub, 's');
   [...pattern].forEach((ch, i) => {
@@ -242,7 +242,7 @@ const hybridLayers = svg('linear-hybrid-layers', 1320, 660, '四个混合架构�
     text(32, 600, '排布来自各自的 config.json：layer_types、linear_attn_config、attn_layer_period/offset、hybrid_override_pattern。', 'xs'),
   ].join('\n'));
 
-// ---- linear-memory (12) ------------------------------------------------------
+// ---- linear-memory (13) ------------------------------------------------------
 const mem = [
   ['Llama-3.1-8B（全注意力）', 16.0, 0, '32 层全注意力', '16.00'],
   ['Qwen3.5-35B-A3B', 2.50, 0.06, '30 层 GDN + 10 层注意力', '2.56'],

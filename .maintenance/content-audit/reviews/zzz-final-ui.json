@@ -529,7 +529,7 @@
    "file": "docs/ai/deep-learning/architectures.md",
    "batch": "B015",
    "status": "verified",
-   "reviewedHash": "e1ea2f1998d99c61ec1cb6b9bc85afe29ef9c023d20c3cac0d113cfff30380e9",
+   "reviewedHash": "7cc7b3935422a1e086b2076f27347d44788c973ddc26915b67fb0837e029e313",
    "pageType": "结构与生成方法选型",
    "findings": [],
    "decision": "图示分清CNN/Transformer与Diffusion可组合；校正因果遮罩、移位目标、训练并行与自回归生成逐步执行边界。",
@@ -537,7 +537,8 @@
     "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。",
     "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
     "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
-    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。",
+    "2026-10-28 大模型架构系列重排后更新链接到新文件名，目标存在，docs:build 通过。"
    ]
   },
   {
@@ -1556,7 +1557,7 @@
    "file": "docs/ai/llm/concepts.md",
    "batch": "B019",
    "status": "verified",
-   "reviewedHash": "7782985dfd2a14db46f9eb14522a7f16841c0809038efeeb1c5b173eb87a44cd",
+   "reviewedHash": "65d25ec7a8a2b31ea6fb68fa1050c808609b04c54312586eba76ec324bc8bafc",
    "pageType": "大模型概念关系",
    "findings": [],
    "decision": "区分内部Token表示和检索句向量；MoE不保证业务类别专家；LoRA按单层参数演算，QLoRA区分存储和计算精度。",
@@ -1564,7 +1565,8 @@
     "16777216与65536参数实际计算，比例1/256；全文及图示语义检查，四模式截图、分页与双视口原尺寸通过。",
     "最终共享UI复验：本页在1280桌面/390像素iframe、浅色/深色四模式分别访问，全文截图、图片加载及整页宽度通过；见evidence/final与final-ui-summary.json。",
     "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
-    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。",
+    "2026-10-28 大模型架构系列重排后更新链接到新文件名，目标存在，docs:build 通过。"
    ]
   },
   {

@@ -152,9 +152,10 @@
    "validation": [
     "全文与各结构假设审查；SVG独立文字边界与双视口原尺寸通过；四种页面显示、资源与分页通过。",
     "2026-10-28 增加“大模型架构”系列入口链接，链接目标存在，docs:build 通过。",
-    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。",
+    "2026-10-28 大模型架构系列重排后更新链接到新文件名，目标存在，docs:build 通过。"
    ],
-   "reviewedHash": "e1ea2f1998d99c61ec1cb6b9bc85afe29ef9c023d20c3cac0d113cfff30380e9"
+   "reviewedHash": "7cc7b3935422a1e086b2076f27347d44788c973ddc26915b67fb0837e029e313"
   },
   {
    "file": "docs/ai/deep-learning/framework-practice.md",

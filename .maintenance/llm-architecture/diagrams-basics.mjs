@@ -1,11 +1,11 @@
-// Figures for docs/ai/llm-architecture/ 01–03 (group "basics").
+// Figures for docs/ai/llm-architecture/03-overview.md, 04-tokenizer-embedding.md, 05-attention.md (group "basics").
 // Run: node .maintenance/llm-architecture/diagrams-basics.mjs
 // Numbers come from research/facts-basics.md (parameter split, tokenizer runs, attention example).
 import { svg, box, cell, edge, text, label, write, esc } from './svg-kit.mjs';
 
 const f2 = v => v.toFixed(2), f3 = v => v.toFixed(3);
 
-// ---- overview-dataflow (01) ---------------------------------------------------
+// ---- overview-dataflow (03) ---------------------------------------------------
 const top = [
   ['txt', '输入文本', ['年假怎么申请？', '7 个字符'], 'gray', '文本'],
   ['tok', '分词器', ['切成 5 个 token', '形状 [5]'], 'node', '整数编号'],
@@ -33,7 +33,7 @@ const zoom = [
   `<path d="M60 ${SY}H1330" stroke="#60a5fa" stroke-width="10" stroke-linecap="round" opacity=".35" fill="none"/>`,
   edge(`M60 ${SY}H1336`),
   text(60, SY + 40, '残差流 [5, 4096]：每个子层只把结果加回来，不替换原来的向量', 's'),
-  text(60, SY + 66, '第 06 篇讲残差与归一化；第 03、04 篇讲注意力；第 05 篇讲 FFN', 'xs'),
+  text(60, SY + 66, '第 08 篇讲残差与归一化；第 05、06 篇讲注意力；第 07 篇讲 FFN', 'xs'),
   // attention branch
   edge(`M130 ${SY}V478`), box('n1', 70, 398, 150, 80, 'node', 'RMSNorm', ['[5, 4096]']),
   edge('M220 438H252'), box('attn', 252, 382, 300, 112, 'blue', '自注意力', ['Q [5, 32, 128]，K/V [5, 8, 128]', '每个 token 看前面的 token']),
@@ -55,7 +55,7 @@ const overviewFlow = svg('overview-dataflow', 1400, 690, 'Llama-3.1-8B 从输入
   '一个 token 的旅程：Llama-3.1-8B 的整体结构', '上排是从文本到下一个 token 的七步，方括号里是张量形状；下方放大一个解码器层。',
   [row1, ...loop, ...zoom].join('\n'));
 
-// ---- overview-param-share (01) -----------------------------------------------
+// ---- overview-param-share (03) -----------------------------------------------
 const tot = 8030261248;
 const segs = [
   ['词嵌入', 525336576, 'fblue'], ['注意力 ×32', 1342177280, 'fviolet'], ['FFN ×32', 5637144576, 'fgreen'],
@@ -95,7 +95,7 @@ const paramShare = svg('overview-param-share', 1400, 600, 'Llama-3.1-8B 的参�
   '8B 参数花在哪：七成在 FFN', '按 config.json 逐个矩阵相乘得到，宽度与参数量成正比。',
   [pbar, lbar, ...notes].join('\n'));
 
-// ---- overview-autoregressive (01) --------------------------------------------
+// ---- overview-autoregressive (03) --------------------------------------------
 const steps = [
   ['第 1 步', ['年', '假', '怎么', '申请', '？'], [], '根据', '5 个位置一起算（Prefill），只用最后一行 logits'],
   ['第 2 步', ['年', '假', '怎么', '申请', '？'], ['根据'], '《', '只算新来的 1 个位置，前 5 个读 KV Cache'],
@@ -118,7 +118,7 @@ const autoreg = svg('overview-autoregressive', 1320, 510, '自回归生成：每
   '一次只出一个 token：生成就是不断接龙', '每一步模型只回答“下一个 token 是什么”，答案接到末尾，成为下一步的输入。',
   ar);
 
-// ---- tokenizer-split (02) ----------------------------------------------------
+// ---- tokenizer-split (04) ----------------------------------------------------
 const bytes = { 年: 'E5 B9 B4', 假: 'E5 81 87', 怎: 'E6 80 8E', 么: 'E4 B9 88', 申: 'E7 94 B3', 请: 'E8 AF B7', '？': 'EF BC 9F' };
 let ts = '';
 // step 1: pre-split
@@ -156,7 +156,7 @@ const tokSplit = svg('tokenizer-split', 1400, 680, '“年假怎么申请？”�
   '文字怎样变成编号：预切分、字节、合并', '字节级 BPE 分词器的三步；编号来自本机加载 tokenizer.json 实测（Llama 3.1 与 Qwen2.5-0.5B-Instruct）。',
   ts);
 
-// ---- tokenizer-embedding (02) ------------------------------------------------
+// ---- tokenizer-embedding (04) ------------------------------------------------
 let te = '';
 // ids
 const ids = [['年', '8107'], ['假', '107099'], ['怎么', '104237'], ['申请', '112838'], ['？', '11571']];
@@ -194,7 +194,7 @@ const tokEmb = svg('tokenizer-embedding', 1400, 700, '词嵌入查表与输出�
   '词嵌入是一张表：编号就是行号', '左边：查表过程；右边：输出层要不要复用这张表；下方：词表在不同规模模型里的参数占比。',
   te);
 
-// ---- attention-qkv-example (03) ----------------------------------------------
+// ---- attention-qkv-example (05) ----------------------------------------------
 const toks = ['年', '假', '怎么', '申请'];
 const X = [[1, 1, 0, 0], [2, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
 const WQ = [[0, 1], [1, 0], [1, 0], [2, 0]], WK = [[1, 0], [0, 0], [0, 1], [0, 0]], WV = [[1, 0], [0, 0], [0, 1], [0, 1]];
@@ -242,7 +242,7 @@ const qkvExample = svg('attention-qkv-example', 1400, 660, '4 个 token 的注�
   '注意力手算：“申请”回头看了谁', '教学用的小数字：4 个 token、4 维输入、每个头 2 维。真实模型是 4096 维输入、每头 128 维。',
   qa);
 
-// ---- attention-mask-matrix (03) ----------------------------------------------
+// ---- attention-mask-matrix (05) ----------------------------------------------
 const Sraw = Q.map(q => K.map(k => q[0] * k[0] + q[1] * k[1]));
 const Ss = Sraw.map(r => r.map(v => v / Math.SQRT2));
 const P = Ss.map((r, i) => { const e = r.map((v, j) => j <= i ? Math.exp(v) : 0); const s = e.reduce((a, b) => a + b); return e.map(v => v / s); });
@@ -279,7 +279,7 @@ const maskMatrix = svg('attention-mask-matrix', 1400, 670, '注意力分数矩�
   '注意力矩阵：每一行只能看自己和左边', '同一组手算数字。颜色越深，权重越大。',
   mk);
 
-// ---- attention-quadratic (03) ------------------------------------------------
+// ---- attention-quadratic (05) ------------------------------------------------
 const ctx = [[8192, '8K'], [32768, '32K'], [131072, '128K']];
 const CX = 140, CY = 520, CHH = 340, maxV = 80;
 const yv = v => CY - v * CHH / maxV;
@@ -298,7 +298,7 @@ ctx.forEach(([n, lab], i) => {
 qd += cell(CX, CY + 48, 26, 18, 'fgray') + text(CX + 36, CY + 63, '与权重相乘（固定）', 'xs');
 qd += cell(CX + 230, CY + 48, 26, 18, 'fred') + text(CX + 266, CY + 63, '注意力 QKᵀ 与加权 V（随长度增长）', 'xs');
 qd += box('mem', 920, 150, 450, 200, 'red', '如果把分数矩阵整张存下来', ['每层 32 个头，每个 n × n，BF16', '8K：4 GiB / 层', '32K：64 GiB / 层', '128K：1024 GiB / 层', '长度翻 4 倍，这张表涨 16 倍']);
-qd += box('fa', 920, 380, 450, 140, 'green', '实际推理怎样避开', ['FlashAttention 分块计算，不写出整张表', '计算量不变，显存不再随 n² 增长', '见第 11 篇和推理系列第 12 篇']);
+qd += box('fa', 920, 380, 450, 140, 'green', '实际推理怎样避开', ['FlashAttention 分块计算，不写出整张表', '计算量不变，显存不再随 n² 增长', '见第 12 篇和推理系列第 12 篇']);
 const quad = svg('attention-quadratic', 1400, 610, '注意力计算量与分数矩阵随上下文长度增长',
   'Llama-3.1-8B 处理第 n 个 token 时，和权重相乘的部分固定约 15 GFLOPs；注意力部分约 4×n×4096×32 FLOPs，8K 时 4.3、32K 时 17.2、128K 时 68.7 GFLOPs，超过固定部分。如果把每层 32 个头的 n×n 分数矩阵按 BF16 存下来，8K 要 4 GiB，32K 要 64 GiB，128K 要 1024 GiB。',
   '长度的代价：每个 token 的注意力计算随长度线性涨，整段随长度平方涨', 'Llama-3.1-8B，单个 token 在第 n 个位置时的前向计算量（估算）；右侧为分数矩阵的理论大小。',

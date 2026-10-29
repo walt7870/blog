@@ -1,4 +1,4 @@
-// Figures for docs/ai/llm-architecture/15-deepseek.md and 16-open-models.md.
+// Figures for docs/ai/llm-architecture/17-deepseek.md and 18-open-models.md.
 // Run: node .maintenance/llm-architecture/diagrams-families-b.mjs
 // Numbers come from .maintenance/llm-architecture/research/facts-families-b.md (config.json + Transformers 5.21.0 source).
 import { svg, box, cell, edge, text, label, write } from './svg-kit.mjs';
