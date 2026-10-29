@@ -266,9 +266,10 @@ export const sidebar: DefaultTheme.Sidebar = {
           items: [
             { text: '系列导读', link: '/docs/ai/llm-architecture/' },
             {
-              text: '一、一个 token 的旅程',
+              text: '一、Transformer 逐层拆解',
               collapsed: true,
               items: [
+                { text: '00. Transformer：大模型共同的骨架', link: '/docs/ai/llm-architecture/00-transformer' },
                 { text: '01. 全景：从一句话到下一个 token', link: '/docs/ai/llm-architecture/01-overview' },
                 { text: '02. 分词与词嵌入', link: '/docs/ai/llm-architecture/02-tokenizer-embedding' },
                 { text: '03. 注意力：每个 token 怎样看上下文', link: '/docs/ai/llm-architecture/03-attention' },

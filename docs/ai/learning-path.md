@@ -98,7 +98,7 @@
 - [大模型核心概念](./llm/concepts.md)
 - [训练与微调](./llm/training.md)
 - [推理与部署](./llm/inference.md)
-- [大模型架构](./llm-architecture/)：想弄清 Transformer 每一层里有什么、FFN 和注意力各做什么、主流模型结构有何不同时深入阅读
+- [大模型架构](./llm-architecture/)：想弄清 Transformer 的整体结构、每一层里有什么、FFN 和注意力各做什么、主流模型结构有何不同时深入阅读
 - [模型训练与调优](./model-training/)：需要自己微调模型，或想弄清大模型、语音、视觉模型怎样训练时深入阅读
 - [大模型推理优化](./llm-inference/)：需要理解推理原理或自己部署模型时深入阅读
 - [推理引擎与框架](./inference-engines/)：要为部署选择或调优 vLLM、SGLang、Ollama 等具体框架时阅读

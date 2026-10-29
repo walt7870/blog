@@ -4,7 +4,7 @@
 
 ## 位置与职责
 
-正式内容在 `docs/ai/llm-architecture/`：导读、19 篇正文和一篇不编号的实践篇（`layer-practice.md`，侧边栏放在第 08 篇之后）。分四部分：一个 token 的旅程（01—08）、架构演进（09—12）、主流模型拆解（13—16）、多模态与读懂模型（17—19）。侧边栏分组“大模型架构”在“大模型”之后、“模型训练与调优”之前，按四个部分嵌套为可折叠子分组。
+正式内容在 `docs/ai/llm-architecture/`：导读、第 00—19 篇正文和一篇不编号的实践篇（`layer-practice.md`，侧边栏放在第 08 篇之后）。分四部分：Transformer 逐层拆解（00—08，00 讲 2017 年原始结构全貌）、架构演进（09—12）、主流模型拆解（13—16）、多模态与读懂模型（17—19）。侧边栏分组“大模型架构”在“大模型”之后、“模型训练与调优”之前，按四个部分嵌套为可折叠子分组。
 
 入口：AI 总览卡片、`learning-path.md`、`llm/index.md`、`llm/concepts.md`（Transformer、MoE 两处）、`deep-learning/architectures.md`。训练方法链接 `docs/ai/model-training/`，推理机制链接 `docs/ai/llm-inference/`，引擎软件链接 `docs/ai/inference-engines/`，本系列不重讲。
 
@@ -30,7 +30,7 @@
 
 ## 图示
 
-生成脚本：`diagrams-basics.mjs`、`diagrams-layer.mjs`、`diagrams-posdec.mjs`、`diagrams-evolve.mjs`、`diagrams-families-a.mjs`、`diagrams-families-b.mjs`、`diagrams-read.mjs`、`diagrams-practice.mjs`、`diagrams-index.mjs`、`diagrams-comparison.mjs`，共用 `svg-kit.mjs`，输出到 `public/ai/llm-architecture/`。修改图示改脚本后重跑，不手改 SVG。
+生成脚本：`diagrams-transformer.mjs`（第 00 篇）、`diagrams-basics.mjs`、`diagrams-layer.mjs`、`diagrams-posdec.mjs`、`diagrams-evolve.mjs`、`diagrams-families-a.mjs`、`diagrams-families-b.mjs`、`diagrams-read.mjs`、`diagrams-practice.mjs`、`diagrams-index.mjs`、`diagrams-comparison.mjs`，共用 `svg-kit.mjs`，输出到 `public/ai/llm-architecture/`。修改图示改脚本后重跑，不手改 SVG。
 
 ```bash
 for f in .maintenance/llm-architecture/diagrams-*.mjs; do node "$f"; done

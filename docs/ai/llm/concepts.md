@@ -33,7 +33,7 @@ Transformer 是当前大语言模型的主流架构。它的核心能力是让�
 
 直观理解：模型在生成下一个 token 前，会回看上下文里哪些位置最相关，再综合这些信息做预测。
 
-每一层由注意力和前馈网络（FFN）两部分组成，FFN 占了大部分参数。逐层的结构、形状和参数账见 [大模型架构](../llm-architecture/) 系列，其中 [注意力](../llm-architecture/03-attention.md) 和 [FFN](../llm-architecture/05-ffn.md) 各有一篇。
+每一层由注意力和前馈网络（FFN）两部分组成，FFN 占了大部分参数。Transformer 的完整结构见 [Transformer：大模型共同的骨架](../llm-architecture/00-transformer.md)，逐层的形状和参数账见 [大模型架构](../llm-architecture/) 系列，其中 [注意力](../llm-architecture/03-attention.md) 和 [FFN](../llm-architecture/05-ffn.md) 各有一篇。
 
 ### Attention
 

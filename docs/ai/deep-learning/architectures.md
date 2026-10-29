@@ -47,7 +47,7 @@ Transformer 把序列位置表示为向量，通过 Attention 计算各位置之
 
 训练时已知整段目标序列，可用因果遮罩并行计算各位置的预测损失；自回归生成时，下一个 Token 依赖已经生成的内容，通常仍逐步执行。二者不能混为“Transformer 可以一次生成所有 Token”。标准全注意力的成对关系数量随序列长度平方增长；具体显存还取决于算子实现和缓存策略。
 
-大语言模型里每个模块的形状、参数和现代变体（RMSNorm、SwiGLU、RoPE、GQA、MoE），见 [大模型架构](../llm-architecture/) 系列。
+原始 Transformer 的编码器-解码器结构、参数和训练细节见 [Transformer：大模型共同的骨架](../llm-architecture/00-transformer.md)；大语言模型里每个模块的形状、参数和现代变体（RMSNorm、SwiGLU、RoPE、GQA、MoE），见 [大模型架构](../llm-architecture/) 系列。
 
 ## Encoder、Decoder 与 Encoder-Decoder
 

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 727,
-    "bytes": 5631826,
+    "pages": 728,
+    "bytes": 5646619,
     "batches": 89,
-    "scanned": 727,
-    "reviewed": 727,
+    "scanned": 728,
+    "reviewed": 728,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "482cfc5c87821e604ad53e71f4660b9b0336f4f4d77d3fe0d8301fa0352073ce",
+  "sharedHash": "eb87e40a0bffd29435424a129af6c84860ea2bb1ff4c6103af42ed1d8dc9d1eb",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "c54c2d4ef125bf82229c0f173e08e80cefa4f80fdbe6568584bb1e33deadcc5c"
+      "5b23867db6ab059ab4fffa2e6b3acaaa22bd9a579b6f2aac9c67dd07c7a1561e"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -474,7 +474,7 @@
         "docs/ai/domains/nlp.md",
         "docs/ai/domains/recommendation.md"
       ],
-      "bytes": 72553
+      "bytes": 72710
     },
     {
       "id": "B017",
@@ -523,7 +523,7 @@
         "docs/ai/index.md",
         "docs/ai/inference-engines/01-vllm.md"
       ],
-      "bytes": 77740
+      "bytes": 77777
     },
     {
       "id": "B020",
@@ -577,22 +577,23 @@
         "docs/ai/inference-series/16-quantization-now.md",
         "docs/ai/inference-series/index.md",
         "docs/ai/learning-path.md",
-        "docs/ai/llm-architecture/01-overview.md",
-        "docs/ai/llm-architecture/02-tokenizer-embedding.md"
+        "docs/ai/llm-architecture/00-transformer.md",
+        "docs/ai/llm-architecture/01-overview.md"
       ],
-      "bytes": 38382
+      "bytes": 40102
     },
     {
       "id": "B024",
       "topic": "docs/ai",
       "pages": [
+        "docs/ai/llm-architecture/02-tokenizer-embedding.md",
         "docs/ai/llm-architecture/03-attention.md",
         "docs/ai/llm-architecture/04-multi-head.md",
         "docs/ai/llm-architecture/05-ffn.md",
         "docs/ai/llm-architecture/06-residual-norm.md",
         "docs/ai/llm-architecture/07-position.md"
       ],
-      "bytes": 85909
+      "bytes": 98517
     },
     {
       "id": "B025",
@@ -604,7 +605,7 @@
         "docs/ai/llm-architecture/11-efficient-attention.md",
         "docs/ai/llm-architecture/12-linear-hybrid.md"
       ],
-      "bytes": 85121
+      "bytes": 84684
     },
     {
       "id": "B026",
@@ -629,7 +630,7 @@
         "docs/ai/llm-inference/01-inference-system.md",
         "docs/ai/llm-inference/02-prefill-decode.md"
       ],
-      "bytes": 98363
+      "bytes": 98967
     },
     {
       "id": "B028",
@@ -678,7 +679,7 @@
         "docs/ai/llm/sft.md",
         "docs/ai/llm/training.md"
       ],
-      "bytes": 95138
+      "bytes": 95242
     },
     {
       "id": "B031",
@@ -2346,19 +2347,19 @@
     },
     {
       "file": "docs/ai/deep-learning/architectures.md",
-      "contentHash": "83d617e83360ae6373945af0806497c6a3151c1ee9ff36569522ba5dc5d63dbf",
-      "reviewHash": "f5b7bdfc4bd42e43d26a78281dd2193cd9b02e4bba8121e5cbc22fc1dee944c6",
+      "contentHash": "fd759cf09a0b420255ac8dc5c525f582add87b172781a52e5e5d19150c54954e",
+      "reviewHash": "e1ea2f1998d99c61ec1cb6b9bc85afe29ef9c023d20c3cac0d113cfff30380e9",
       "dependencies": [
         "public/ai/network-architecture-relations.svg"
       ],
-      "bytes": 4440,
+      "bytes": 4597,
       "lines": 86,
-      "proseChars": 1621,
+      "proseChars": 1677,
       "headings": 9,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 2,
+      "localReferences": 3,
       "findings": []
     },
     {
@@ -2934,13 +2935,13 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "bae30d81e8b1978ca925560d08e11799eb131d0ba8f7388738d5452989f11798",
-      "reviewHash": "399bbd60a91a59303fa30fc5cb61c6a01c8aec4ef15cad3e559927133ffc07f9",
+      "contentHash": "b422ac7ec26b1224f70aa7ca6d5460b7634028f3e3c8824d48c7a82dd0452edb",
+      "reviewHash": "268d41529e23af66687d8b806078f4afc1c6fd13ee2a21486540f9297d37df45",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 9059,
+      "bytes": 9096,
       "lines": 99,
       "proseChars": 1802,
       "headings": 8,
@@ -3575,14 +3576,14 @@
     },
     {
       "file": "docs/ai/learning-path.md",
-      "contentHash": "0c0ca72b52d13f80d47bc253626e54a7c38ead0ae3e1824149b513330f9e9b0b",
-      "reviewHash": "018c4b620fddd5581e96eac92f4aabc01cc7d602221aa689408d83e1e4357364",
+      "contentHash": "51619efcd5a929faed3a9f36a118f427f7c539589e9d66898470c6c4514e328a",
+      "reviewHash": "3ea21e0aa392d8e5a7ad86cba23bfe5dcb8979b366c8dbff561bc09bb37839e7",
       "dependencies": [
         "public/ai/ai-learning-roadmap.svg"
       ],
-      "bytes": 8466,
+      "bytes": 8484,
       "lines": 175,
-      "proseChars": 2440,
+      "proseChars": 2446,
       "headings": 12,
       "codeLines": 0,
       "visualCount": 1,
@@ -3591,22 +3592,41 @@
       "findings": []
     },
     {
+      "file": "docs/ai/llm-architecture/00-transformer.md",
+      "contentHash": "4a70b967f9e1c15806dda78779a3b100871afa03c71031bc4f6886126e8f1f85",
+      "reviewHash": "0a75e5106c5145548335e2e624d7505023aaebf2502ad49a78c56d2a743a0dd2",
+      "dependencies": [
+        "public/ai/llm-architecture/transformer-architecture.svg",
+        "public/ai/llm-architecture/transformer-rnn-vs-attention.svg",
+        "public/ai/llm-architecture/transformer-to-llm.svg"
+      ],
+      "bytes": 14152,
+      "lines": 122,
+      "proseChars": 4627,
+      "headings": 7,
+      "codeLines": 18,
+      "visualCount": 3,
+      "htmlComponents": false,
+      "localReferences": 22,
+      "findings": []
+    },
+    {
       "file": "docs/ai/llm-architecture/01-overview.md",
-      "contentHash": "7c04dc3fd0b40874002dfd919ac4b3737593df653c381de1f12a19adca5f21f6",
-      "reviewHash": "4d388e8c5f4745ff666480802774ae5a605b24b64f4017980b76465709d9146f",
+      "contentHash": "ccbaa6e419cb12c886abbd70b126f6700547143db19110be4ca8c3596cce37b1",
+      "reviewHash": "dfb68da8b10607c22a32cfc2f048db78232f7b84c905b07a8dc5889d83b8acb2",
       "dependencies": [
         "public/ai/llm-architecture/overview-autoregressive.svg",
         "public/ai/llm-architecture/overview-dataflow.svg",
         "public/ai/llm-architecture/overview-param-share.svg"
       ],
-      "bytes": 12790,
+      "bytes": 12948,
       "lines": 124,
-      "proseChars": 4769,
+      "proseChars": 4830,
       "headings": 8,
       "codeLines": 15,
       "visualCount": 3,
       "htmlComponents": false,
-      "localReferences": 8,
+      "localReferences": 9,
       "findings": []
     },
     {
@@ -3744,21 +3764,21 @@
     },
     {
       "file": "docs/ai/llm-architecture/09-transformer-family.md",
-      "contentHash": "77c0e9d12b6e7bb44613c1538bf66a70177b2e7f44b798e2536fe49dcac0406d",
-      "reviewHash": "6ecb6ea41d02261601699b60bf8627ea6a1f0ebf06361349744f99206e0d20ff",
+      "contentHash": "7326eda854bfaf2fe329df2983aac0b40bf245a1063c8cc0f82c866cfb2ea77b",
+      "reviewHash": "3540dc59bed7cf63c4bb21c67298791f70d2b2b15f2a5b6b4ccb7040317fbb5f",
       "dependencies": [
         "public/ai/llm-architecture/family-multiturn.svg",
         "public/ai/llm-architecture/family-recipe.svg",
         "public/ai/llm-architecture/family-structures.svg"
       ],
-      "bytes": 15360,
-      "lines": 92,
-      "proseChars": 5672,
+      "bytes": 14923,
+      "lines": 87,
+      "proseChars": 5453,
       "headings": 5,
       "codeLines": 10,
       "visualCount": 3,
       "htmlComponents": false,
-      "localReferences": 15,
+      "localReferences": 16,
       "findings": []
     },
     {
@@ -3938,16 +3958,16 @@
     },
     {
       "file": "docs/ai/llm-architecture/19-comparison.md",
-      "contentHash": "01a0a3d142070db1515951e6843918187061b99f10a12a8f69199d54b48af780",
-      "reviewHash": "8179035e4122a1a1729efabc7d875b683b7d39fb5928c11d8c6bd7804fc1b8dc",
+      "contentHash": "cd36f9a3df826da91de6a670ddcab960cd519c41a98da46b869470077c3e5440",
+      "reviewHash": "2198c1333ac262fdab4f837dc1ca598125c85ca3ddc41431d3e1927cb4220f3c",
       "dependencies": [
         "public/ai/llm-architecture/comparison-kv-100k.svg",
         "public/ai/llm-architecture/comparison-matrix.svg",
         "public/ai/llm-architecture/comparison-moe-ratio.svg"
       ],
-      "bytes": 13656,
+      "bytes": 13690,
       "lines": 104,
-      "proseChars": 4809,
+      "proseChars": 4829,
       "headings": 7,
       "codeLines": 6,
       "visualCount": 3,
@@ -3957,19 +3977,19 @@
     },
     {
       "file": "docs/ai/llm-architecture/index.md",
-      "contentHash": "308548f3eafcb42447f7db153b3b7bfccf723fb58443b7f3666fc7d3d570e786",
-      "reviewHash": "d57d35d3f70cfa5de7c748b84e885695d3e53756a2d78346478431c3650279a6",
+      "contentHash": "720919667df1b0e57d149964e8569f5a8dbfded20205711e0b09d91a2605a7c9",
+      "reviewHash": "30a35f74e59f7a5e030d584b692279c7315b6905df09f8b71c285b6d22febff8",
       "dependencies": [
         "public/ai/llm-architecture/arch-series-map.svg"
       ],
-      "bytes": 8569,
-      "lines": 68,
-      "proseChars": 3100,
+      "bytes": 9139,
+      "lines": 69,
+      "proseChars": 3354,
       "headings": 4,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 29,
+      "localReferences": 30,
       "findings": []
     },
     {
@@ -4410,19 +4430,19 @@
     },
     {
       "file": "docs/ai/llm/concepts.md",
-      "contentHash": "db9082250874515a1f7bebef88df3fca858d1db5480fa050e0ef281cd6f664d7",
-      "reviewHash": "8db80826bc9f9091f0ac408be4f4444b9a548b464b64e7e52928bbf3c9e071f6",
+      "contentHash": "c2eef191f121b34c18899b2d519d1b4c066fd85435b64c101fe124238b77b947",
+      "reviewHash": "7782985dfd2a14db46f9eb14522a7f16841c0809038efeeb1c5b173eb87a44cd",
       "dependencies": [
         "public/ai/llm-concept-map.svg"
       ],
-      "bytes": 7959,
+      "bytes": 8063,
       "lines": 169,
-      "proseChars": 2789,
+      "proseChars": 2826,
       "headings": 31,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 7,
+      "localReferences": 8,
       "findings": []
     },
     {

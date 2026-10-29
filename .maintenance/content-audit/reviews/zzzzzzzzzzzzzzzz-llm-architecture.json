@@ -10,9 +10,10 @@
    "validation": [
     "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
     "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
-    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
    ],
-   "reviewedHash": "4d388e8c5f4745ff666480802774ae5a605b24b64f4017980b76465709d9146f"
+   "reviewedHash": "dfb68da8b10607c22a32cfc2f048db78232f7b84c905b07a8dc5889d83b8acb2"
   },
   {
    "file": "docs/ai/llm-architecture/02-tokenizer-embedding.md",
@@ -122,9 +123,10 @@
    "validation": [
     "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
     "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
-    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
    ],
-   "reviewedHash": "6ecb6ea41d02261601699b60bf8627ea6a1f0ebf06361349744f99206e0d20ff"
+   "reviewedHash": "3540dc59bed7cf63c4bb21c67298791f70d2b2b15f2a5b6b4ccb7040317fbb5f"
   },
   {
    "file": "docs/ai/llm-architecture/10-moe.md",
@@ -262,9 +264,10 @@
    "validation": [
     "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
     "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
-    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
    ],
-   "reviewedHash": "8179035e4122a1a1729efabc7d875b683b7d39fb5928c11d8c6bd7804fc1b8dc"
+   "reviewedHash": "2198c1333ac262fdab4f837dc1ca598125c85ca3ddc41431d3e1927cb4220f3c"
   },
   {
    "file": "docs/ai/llm-architecture/index.md",
@@ -276,9 +279,10 @@
    "validation": [
     "全文阅读；各篇按 Hugging Face 官方 config.json、模型卡、技术报告和 Transformers 5.21.0 源码核对（含 2026 年 6 月以后发布的 Qwen3.5—3.8、DeepSeek-V4、Gemma 4、GLM-5 等），记录见 .maintenance/llm-architecture/research/facts-*.md；三位无写作上下文的审查代理用脚本逐篇重算参数量、FLOPs、KV 字节数、注意力/SwiGLU/RMSNorm/RoPE/softmax 手算值、MoE 总参数与激活参数、图像 token 数，并抽查约 45 份 config，修正二十余处（层号口径、GQA 版本范围、14336 推导表述、Jamba 对照模型、Gemma 4 发布批次、多模态投影层结构等）；模拟审查不代替真实读者试读。",
     "实践篇在 Apple M4、torch 2.14.1、transformers 5.21.0 上用 Qwen2.5-0.5B-Instruct 实际运行，输出保存在 .maintenance/llm-architecture/layer-practice/result.json；第 18 篇 arch_calc.py 对 8 份真实 config 实际运行，与 HF 参数统计逐位一致。",
-    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
+    "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。",
+    "2026-10-28 补第 00 篇 Transformer 后更新链接与衔接文字，docs:build 与 check-pages 通过。"
    ],
-   "reviewedHash": "d57d35d3f70cfa5de7c748b84e885695d3e53756a2d78346478431c3650279a6"
+   "reviewedHash": "30a35f74e59f7a5e030d584b692279c7315b6905df09f8b71c285b6d22febff8"
   },
   {
    "file": "docs/ai/llm-architecture/layer-practice.md",
@@ -293,6 +297,19 @@
     "npm run docs:build 通过；check-pages 对系列 21 页与 AI 总览、核心概念、学习路线 1440/390 浅深色无整页横向溢出、失效图片与运行错误（仅本地根路径 favicon 404）；64 张 SVG 由 .maintenance/llm-architecture/diagrams-*.mjs 生成，check-svg 全部 ok，PNG 人工查看。"
    ],
    "reviewedHash": "832717d5b47bb6ad000b3778e1f7be93167211cbae804d70a551386fbaa870be"
+  },
+  {
+   "file": "docs/ai/llm-architecture/00-transformer.md",
+   "status": "verified",
+   "pageType": "原理讲解",
+   "decision": "2026-10-28 补写：用户指出系列缺少专门的 Transformer 讲解，新增第 00 篇讲 2017 年原始结构全貌，侧边栏第一部分改名“Transformer 逐层拆解”。",
+   "findings": [],
+   "dependencyFiles": [],
+   "validation": [
+    "全文阅读；base/big 参数按配置用脚本复算（6308 万、2.14 亿，对照论文 6500 万、2.13 亿并说明口径差），正弦位置编码数值、波长、复杂度表与《Attention Is All You Need》核对；训练数据、硬件、步数、BLEU 取自论文。",
+    "npm run docs:build 通过；check-pages 对第 00、01、09、19 篇、导读与入口页 1440/390 浅深色无溢出、坏图与运行错误（仅本地 favicon 404）；3 张新 SVG check-svg ok，PNG 人工查看。"
+   ],
+   "reviewedHash": "0a75e5106c5145548335e2e624d7505023aaebf2502ad49a78c56d2a743a0dd2"
   }
  ]
 }
