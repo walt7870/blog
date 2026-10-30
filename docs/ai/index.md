@@ -74,7 +74,7 @@ RAG 和 Agent 是应用机制：RAG 把检索结果带入模型上下文；Agent
   { title: '模型训练与调优', href: '/docs/ai/model-training/', icon: 'layers', description: '大模型、语音、视觉、多模态与向量模型怎样训练和微调：显存与算力账、SFT、LoRA、偏好对齐、评估与工程。' },
   { title: '大模型推理优化', href: '/docs/ai/llm-inference/', icon: 'gauge', description: '从 Prefill、Decode 与 KV Cache 讲到 Roofline、调度、量化、投机解码、分布式部署与压测运维。' },
   { title: '推理引擎与框架', href: '/docs/ai/inference-engines/', icon: 'boxes', description: 'vLLM、SGLang、TensorRT-LLM、LMDeploy、llama.cpp、Ollama、MLX-LM 与 Dynamo、llm-d 逐个拆解：架构、参数、部署、默认值差异与选型。' },
-  { title: '声学与语音', href: '/docs/basic/acoustics/', icon: 'book', description: '从麦克风、前处理、VAD、唤醒讲到识别与合成模型、说话人分离、sherpa-onnx 端侧部署和语音交互。' },
+  { title: '声学与语音', href: '/docs/basic/acoustics/', icon: 'book', description: '从麦克风、前处理、VAD、唤醒讲到识别与合成模型、说话人分离、sherpa-onnx 端侧部署、手机 NPU 加速实测和语音交互。' },
   { title: '流式语音技术实践', href: '/docs/ai/speech-engineering/', icon: 'network', description: '一条生产级会议转写服务：音频分段、角色识别、热词、动态调度、回放验证与离线交付。' },
   { title: 'LangChain 工程实践', href: '/docs/ai/applications/langchain/', icon: 'workflow', description: '把企业制度检索、回答生成和工具接口接成可调试的业务链路。' },
   { title: 'AI 应用工程', href: '/docs/ai/engineering/', icon: 'shield', description: '演示进入生产前，补齐权限、评估、监控、成本控制与版本回归。' },

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="827" viewBox="0 0 1400 827" role="img" aria-labelledby="npu-asr-measure-protocol-title npu-asr-measure-protocol-desc" id="npu-asr-measure-protocol-root">
+<title id="npu-asr-measure-protocol-title">时延与功耗的测量协议</title>
+<desc id="npu-asr-measure-protocol-desc">测量前的三项前提，三段顺序对照（空载基线、NPU、静置、CPU）与两段算法说明：减去空载地板得到推理净功耗，以及为什么必须用均值而不是中位数。</desc>
+<defs><style>
+#npu-asr-measure-protocol-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#npu-asr-measure-protocol-root .h { font-size: 26px; font-weight: 700; }
+#npu-asr-measure-protocol-root .t { font-size: 19px; font-weight: 600; }
+#npu-asr-measure-protocol-root .s { font-size: 15px; fill: #475569; }
+#npu-asr-measure-protocol-root .xs { font-size: 13px; fill: #64748b; }
+#npu-asr-measure-protocol-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#npu-asr-measure-protocol-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#npu-asr-measure-protocol-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-measure-protocol-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#npu-asr-measure-protocol-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#npu-asr-measure-protocol-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#npu-asr-measure-protocol-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#npu-asr-measure-protocol-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#npu-asr-measure-protocol-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-measure-protocol-root .fblue { fill: #93c5fd; } #npu-asr-measure-protocol-root .fgreen { fill: #6ee7b7; } #npu-asr-measure-protocol-root .fred { fill: #fda4af; }
+#npu-asr-measure-protocol-root .famber { fill: #fcd34d; } #npu-asr-measure-protocol-root .fviolet { fill: #c4b5fd; } #npu-asr-measure-protocol-root .fgray { fill: #e2e8f0; }
+#npu-asr-measure-protocol-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#npu-asr-measure-protocol-arrow); }
+#npu-asr-measure-protocol-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#npu-asr-measure-protocol-arrow); }
+#npu-asr-measure-protocol-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#npu-asr-measure-protocol-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="npu-asr-measure-protocol-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="827" fill="#f8fafc"/>
+<text x="32" y="46" class="h">这些数字是怎么测出来的</text>
+<text x="32" y="78" class="s">一条口径没立住，后面所有结论都会塌：先立供电、节拍和等量音频三条，再做三段顺序对照。</text>
+<g data-node="p32"><rect x="32" y="104" width="420" height="142" rx="8" class="red"/><text x="50" y="130" class="k">前提</text><text x="50" y="156" class="t">先过门禁，否则不采数</text><text x="50" y="184" class="s">供电必须断开数据线、走电池。插线时电池电流被充电回</text><text x="50" y="207" class="s">路钳住、与负载脱钩，两档读数会一模一样，这不是差异</text><text x="50" y="230" class="s">小，是信号没进来。</text></g><g data-node="p476"><rect x="476" y="104" width="440" height="142" rx="8" class="blue"/><text x="494" y="130" class="k">节拍</text><text x="494" y="156" class="t">按真实节拍打拍</text><text x="494" y="184" class="s">一拍是 64 帧、640 ms 音频，按绝对时间边界排下一拍的</text><text x="494" y="207" class="s">起点，避免误差累计，同时记录超时拍数。背靠背测的是峰</text><text x="494" y="230" class="s">值，定速测的才是占空比。</text></g><g data-node="p940"><rect x="940" y="104" width="428" height="142" rx="8" class="green"/><text x="958" y="130" class="k">口径</text><text x="958" y="156" class="t">两档必须处理等量音频</text><text x="958" y="184" class="s">同样 10 分钟、同样 937 拍，两档吃掉的音频完全一样。</text><text x="958" y="207" class="s">否则快的那一档在同样墙钟时间里多干了活，功耗对比没</text><text x="958" y="230" class="s">有意义。</text></g><g data-node="leg284"><rect x="32" y="284" width="1010" height="80" rx="8" class="gray"/><text x="50" y="320" class="t">第一段：空载基线</text><text x="50" y="348" class="s">同一个应用、同一块屏幕、同一个采样器，只把模型换成一个 100 节点的极小图，占空比 0.29%。</text></g><rect x="1062" y="284" width="306" height="80" rx="4" class="fgray"/><text x="1215" y="329" text-anchor="middle" class="s">整机功耗 1.21 W</text><g data-node="leg382"><rect x="32" y="382" width="1010" height="80" rx="8" class="violet"/><text x="50" y="418" class="t">第二段：NPU</text><text x="50" y="446" class="s">离线编译的 INT8 模型，每拍 147 ms，占空比 23%，937 拍里没有一次超时。</text></g><rect x="1062" y="382" width="306" height="80" rx="4" class="fgray"/><text x="1215" y="427" text-anchor="middle" class="s">整机功耗 1.31 W</text><g data-node="leg480"><rect x="32" y="480" width="1010" height="80" rx="8" class="node"/><text x="50" y="516" class="t">中间静置 5 分钟</text><text x="50" y="544" class="s">让机身降温，避免上一段的余热算进下一段。</text></g><rect x="1062" y="480" width="306" height="80" rx="4" class="fgray"/><text x="1215" y="525" text-anchor="middle" class="s">整机功耗 —</text><g data-node="leg578"><rect x="32" y="578" width="1010" height="80" rx="8" class="amber"/><text x="50" y="614" class="t">第三段：CPU</text><text x="50" y="642" class="s">同一张图的 INT8 版本走 4 线程 CPU，每拍 69 ms，占空比 11%。</text></g><rect x="1062" y="578" width="306" height="80" rx="4" class="fgray"/><text x="1215" y="623" text-anchor="middle" class="s">整机功耗 1.52 W</text><g data-node="calc"><rect x="32" y="692" width="660" height="103" rx="8" class="green"/><text x="50" y="728" class="t">减掉地板才是推理本身</text><text x="50" y="756" class="s">NPU 净增 +98±22 mW，CPU 净增 +311±42 mW；按每拍摊开是 63 mJ 对 199 mJ，NPU 省</text><text x="50" y="779" class="s">约 69%。整机只差 14%，因为屏幕把差异摊薄了。</text></g><g data-node="mean"><rect x="716" y="692" width="652" height="103" rx="8" class="red"/><text x="734" y="728" class="t">为什么只能用均值</text><text x="734" y="756" class="s">1 Hz 采样大多落在 CPU 两次突发之间的空闲期。按中位数算，CPU 净增只有 +80 mW，看</text><text x="734" y="779" class="s">起来比 NPU 还省，这是采样假象。峰值也要记：p90 为 1.43 W 对 2.10 W。</text></g>
+</svg>

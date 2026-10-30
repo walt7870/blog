@@ -107,12 +107,23 @@ export const sidebar: DefaultTheme.Sidebar = {
           ],
         },
         {
-          text: '五、系统与工程',
+          text: '五、端侧 NPU 加速',
           collapsed: false,
           items: [
-            { text: '15. 语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
-            { text: '16. 质量评估与排错', link: '/docs/basic/acoustics/quality-evaluation' },
-            { text: '17. 工程选型', link: '/docs/basic/acoustics/engineering' },
+            { text: '15. 端侧 NPU 加速导读', link: '/docs/basic/acoustics/npu-asr/' },
+            { text: '16. 模型压缩与体量门槛', link: '/docs/basic/acoustics/npu-asr/compression' },
+            { text: '17. 图转换与算子适配', link: '/docs/basic/acoustics/npu-asr/operators' },
+            { text: '18. 时延、功耗与内存怎么测', link: '/docs/basic/acoustics/npu-asr/measurement' },
+            { text: '19. 为什么没有变快', link: '/docs/basic/acoustics/npu-asr/verdict' },
+          ],
+        },
+        {
+          text: '六、系统与工程',
+          collapsed: false,
+          items: [
+            { text: '20. 语音交互链路', link: '/docs/basic/acoustics/voice-interaction' },
+            { text: '21. 质量评估与排错', link: '/docs/basic/acoustics/quality-evaluation' },
+            { text: '22. 工程选型', link: '/docs/basic/acoustics/engineering' },
           ],
         },
       ]

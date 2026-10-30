@@ -4,7 +4,7 @@
 
 | 位置 | 内容 | 写法 |
 | --- | --- | --- |
-| `docs/basic/acoustics/`（声学与语音，01—17） | 声音与设备、前端处理、识别/说话人/合成原理与主流模型、sherpa-onnx 端侧部署、交互链路、评估与选型 | 通用知识，按篇号顺序阅读 |
+| `docs/basic/acoustics/`（声学与语音，01—22） | 声音与设备、前端处理、识别/说话人/合成原理与主流模型、sherpa-onnx 端侧部署、端侧 NPU 加速实战、交互链路、评估与选型 | 通用知识，按篇号顺序阅读 |
 | `docs/ai/speech-engineering/`（流式语音技术实践，1—8） | 一条私有化会议转写服务的分段、角色、热词、调度、推理合同、回放验证、离线交付 | 项目实践；事实以项目记录为准，不在这里改写数字和结论 |
 | `docs/ai/model-training/` 第 14—16 篇 | ASR、TTS 的训练与微调 | 由模型训练系列维护 |
 | `docs/ai/llm-inference/19-speech-multimodal.md` | 语音模型推理与首音频时延 | 由推理系列维护 |
@@ -20,7 +20,10 @@
 - 二、前端处理：04 noise-reduction、05 vad/index、06 vad/silero-vad、07 wake-word
 - 三、识别、说话人与合成：08 speech-recognition、09 asr-models（新）、10 speaker（新）、11 speech-synthesis
 - 四、端侧部署：12 sherpa-onnx/index、13 recognition-modes、14 model-selection-deployment
-- 五、系统与工程：15 voice-interaction、16 quality-evaluation、17 engineering
+- 五、端侧 NPU 加速：15 npu-asr/index、16 compression、17 operators、18 measurement、19 verdict
+- 六、系统与工程：20 voice-interaction、21 quality-evaluation、22 engineering
+
+2026-10-30 新增第五部分（`npu-asr/`），原 15—17 顺延为 20—22（文件名不变）。该子系列的事实清单、脱敏口径和刻意未写入的内容见 `npu-asr/facts.md`，图示生成脚本是 `npu-asr/diagrams-npu-asr.mjs`。
 
 每篇结尾有“下一篇”链接，改顺序时同步改。`speech-engineering/release-and-collaboration.md`、`incident-playbook.md` 是合并后保留的指引页（`search: false`），不进侧边栏。
 
@@ -34,4 +37,5 @@
 
 - 原有声学图由 `.maintenance/content-audit/generate-acoustics-diagrams.mjs` 生成。
 - 09、10 篇的新图由 `diagrams-speech.mjs` 生成（复用 `../llm-architecture/svg-kit.mjs`），输出到 `public/acoustics/`。
+- 15—19 篇的图由 `npu-asr/diagrams-npu-asr.mjs` 生成，同样复用 svg-kit，另带按像素宽度的自动换行和跟随文本的自适应高度。
 - 检查：`node .maintenance/llm-architecture/check-svg.mjs public/acoustics <png 目录> <文件名过滤>`，再看 PNG。不要手改 SVG。

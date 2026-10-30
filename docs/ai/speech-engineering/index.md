@@ -43,6 +43,7 @@ Preview 是可修订假设，Final 是协议定稿。协议定稿保证不再修
 | VAD 的概率、滞回、前后缓存，TEN-VAD 与 Silero 的区别 | [声学与语音 05. VAD 语音活动检测](../../basic/acoustics/vad/) |
 | 识别模型的四类结构，音频编码器 + 大模型的 ASR | [声学与语音 09. 主流识别模型](../../basic/acoustics/asr-models.md) |
 | 声纹、说话人分离、DER、目标说话人 ASR | [声学与语音 10. 说话人识别与分离](../../basic/acoustics/speaker.md) |
+| 端侧加速器的体量门槛、算子适配、功耗与时延口径 | [声学与语音 15. 端侧 NPU 加速导读](../../basic/acoustics/npu-asr/) |
 | 连续批处理、KV Cache、prefill 与 decode | [大模型推理优化](../llm-inference/) |
 
 ## 方案的不变量

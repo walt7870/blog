@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="879" viewBox="0 0 1400 879" role="img" aria-labelledby="npu-asr-why-slower-title npu-asr-why-slower-desc" id="npu-asr-why-slower-root">
+<title id="npu-asr-why-slower-title">为什么没有变快</title>
+<desc id="npu-asr-why-slower-desc">用合成模型量出每节点地板价、张量绑定、权重带宽和形状敏感度四把尺子，否掉五个关于开销的假说，得出真因是张量形状填不满矩阵单元，并给出同一颗 NPU 上另一个模型获益 11 倍的对照。</desc>
+<defs><style>
+#npu-asr-why-slower-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#npu-asr-why-slower-root .h { font-size: 26px; font-weight: 700; }
+#npu-asr-why-slower-root .t { font-size: 19px; font-weight: 600; }
+#npu-asr-why-slower-root .s { font-size: 15px; fill: #475569; }
+#npu-asr-why-slower-root .xs { font-size: 13px; fill: #64748b; }
+#npu-asr-why-slower-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#npu-asr-why-slower-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#npu-asr-why-slower-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-why-slower-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#npu-asr-why-slower-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#npu-asr-why-slower-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#npu-asr-why-slower-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#npu-asr-why-slower-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#npu-asr-why-slower-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-why-slower-root .fblue { fill: #93c5fd; } #npu-asr-why-slower-root .fgreen { fill: #6ee7b7; } #npu-asr-why-slower-root .fred { fill: #fda4af; }
+#npu-asr-why-slower-root .famber { fill: #fcd34d; } #npu-asr-why-slower-root .fviolet { fill: #c4b5fd; } #npu-asr-why-slower-root .fgray { fill: #e2e8f0; }
+#npu-asr-why-slower-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#npu-asr-why-slower-arrow); }
+#npu-asr-why-slower-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#npu-asr-why-slower-arrow); }
+#npu-asr-why-slower-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#npu-asr-why-slower-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="npu-asr-why-slower-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="879" fill="#f8fafc"/>
+<text x="32" y="46" class="h">为什么模型上了 NPU 却没有变快</text>
+<text x="32" y="78" class="s">先用合成模型量出几把尺子，再用尺子去量那些听起来合理的解释：五个全部不成立，剩下的只有形状。</text>
+<g data-node="rulers"><rect x="32" y="104" width="636" height="211" rx="8" class="blue"/><text x="50" y="130" class="k">方法</text><text x="50" y="156" class="t">先用合成模型量出几把尺子</text><text x="50" y="184" class="s">每节点地板价 0.0024 ms，由 100、400、800、1600 节点的链量出，严格线性。</text><text x="50" y="207" class="s">换成真实形状后每节点 0.0035 ms。</text><text x="50" y="230" class="s">每路张量绑定 0.003 ms：117 路对 8 路、同体积只差 0.32 ms。</text><text x="50" y="253" class="s">权重读带宽 23.9 GB/s，由扫 8.39、33.6、81.9 MB 三点量出。</text><text x="50" y="276" class="s">形状比体积重要 5.6 倍：同为 64 KB 的二维与四维张量。</text><text x="50" y="299" class="s">填满批次：16 倍数据只花 2.44 倍时间。</text></g><g data-node="hyp"><rect x="700" y="104" width="668" height="188" rx="8" class="red"/><text x="718" y="130" class="k">反例</text><text x="718" y="156" class="t">五个假说被同一批尺子否掉</text><text x="718" y="184" class="s">「九成多的时间是每节点过路费」：实测小 15 倍。</text><text x="718" y="207" class="s">「砍到 1605 个节点就能打平 CPU」：折 600 个节点只值 1.4 ms。</text><text x="718" y="230" class="s">「把 99 处激活展开折回去是必要铺垫」：同样只值 1.4 ms。</text><text x="718" y="253" class="s">「234 路张量绑定要 58 ms」：实测 2.4 ms，松了 20 倍。</text><text x="718" y="276" class="s">「每秒只搬 63 MB，所以带宽不是瓶颈」：漏算了权重和激活，结论侥幸对、依据无效。</text></g><text x="32" y="359" class="t">每拍 144 ms 的去向：可归因的开销合计只有约 22 ms</text><rect x="32" y="373" width="122.46666666666665" height="56" rx="4" class="famber"/><text x="93.23333333333332" y="453" class="xs" text-anchor="middle">节点地板价 13.2</text><rect x="154.46666666666664" y="373" width="61.23333333333333" height="56" rx="4" class="fblue"/><text x="185.08333333333331" y="475" class="xs" text-anchor="middle">权重 6.6</text><rect x="215.69999999999996" y="373" width="22.266666666666666" height="56" rx="4" class="fviolet"/><text x="226.8333333333333" y="453" class="xs" text-anchor="middle">绑定 2.4</text><rect x="237.96666666666664" y="373" width="1130.0333333333333" height="56" rx="4" class="fgreen"/><text x="802.9833333333333" y="406" text-anchor="middle" class="xs">真实算术约 122 ms，约 83%</text><g data-node="cause"><rect x="32" y="501" width="636" height="165" rx="8" class="amber"/><text x="50" y="527" class="k">结论</text><text x="50" y="553" class="t">真因：张量填不满计算单元</text><text x="50" y="581" class="s">矩阵单元按 16×16×16 的立方块工作，而 encoder 八成节点的形状是时间 8、批次 1。</text><text x="50" y="604" class="s">8 乘 1 的瓦片只填满立方块的三十二分之一，算一次的代价和填满时相差不大，于是「</text><text x="50" y="627" class="s">算力更强」没有兑现。</text><text x="50" y="650" class="s">这不是算子选得不好：搬运合计只占 6%，没有开销可削。</text></g><g data-node="contrast"><rect x="700" y="501" width="668" height="188" rx="8" class="green"/><text x="718" y="527" class="k">对照</text><text x="718" y="553" class="t">同一颗 NPU 上另一个模型赚了 11 倍</text><text x="718" y="581" class="s">一个 90 节点的说话人编码器每次处理 10 秒窗口，在同一颗 NPU 上从 307.7 ms 降到</text><text x="718" y="604" class="s">27.7 ms。</text><text x="718" y="627" class="s">差别不在节点数，而在每个节点带的数据量：它的张量塞得满，流式识别的 640 ms 小块塞不</text><text x="718" y="650" class="s">满。</text><text x="718" y="673" class="s">所以「这颗 NPU 行不行」问得不对，要问「这张图的形状行不行」。</text></g><g data-node="next"><rect x="32" y="721" width="1336" height="126" rx="8" class="violet"/><text x="50" y="757" class="t">顺着真因往下试，又撞上一道算子墙</text><text x="50" y="785" class="s">既然填满批次是唯一测到有效的杠杆，就把同一张图按 16 路并行重转：宿主验证通过，设备却在构建阶段拒收，日志指名注意力里的批量矩阵乘不被支持。</text><text x="50" y="808" class="s">隔离实验把原因缩到一点：同一个算子、同一形状，浮点版本设备收、量化版本不收，这颗芯片没有量化版批量矩阵乘的实现。批次为 1 时这些节点降解成普通矩阵乘，所以反而能跑。补救方向</text><text x="50" y="831" class="s">是让这 19 个节点保持浮点，它们的权重合计只有 0.1 MB，但这一步在记录时点尚未跑完。</text></g>
+</svg>

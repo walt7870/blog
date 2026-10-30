@@ -16,7 +16,7 @@ export const topicGroups = [
     activeMatch: '^/docs/(ai(/|$)|basic/acoustics(/|$))',
     topics: [
       { text: '人工智能与语音工程', description: '大模型、Agent、RAG 与流式语音系统', link: '/docs/ai/' },
-      { text: '声学与语音', description: '声音与设备、前处理、识别与合成、说话人、端侧部署', link: '/docs/basic/acoustics/' },
+      { text: '声学与语音', description: '声音与设备、前处理、识别与合成、说话人、端侧部署与 NPU 加速', link: '/docs/basic/acoustics/' },
     ],
   },
   {

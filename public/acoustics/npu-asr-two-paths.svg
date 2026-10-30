@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="819" viewBox="0 0 1400 819" role="img" aria-labelledby="npu-asr-two-paths-title npu-asr-two-paths-desc" id="npu-asr-two-paths-root">
+<title id="npu-asr-two-paths-title">端侧 NPU 的两条通路</title>
+<desc id="npu-asr-two-paths-desc">同一份 ONNX 模型分别走在线转换加设备侧能力校验，和主机离线编译加兼容性确认两条通路，前者在体量上限处拒收 encoder，后者通过。</desc>
+<defs><style>
+#npu-asr-two-paths-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#npu-asr-two-paths-root .h { font-size: 26px; font-weight: 700; }
+#npu-asr-two-paths-root .t { font-size: 19px; font-weight: 600; }
+#npu-asr-two-paths-root .s { font-size: 15px; fill: #475569; }
+#npu-asr-two-paths-root .xs { font-size: 13px; fill: #64748b; }
+#npu-asr-two-paths-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#npu-asr-two-paths-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#npu-asr-two-paths-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-two-paths-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#npu-asr-two-paths-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#npu-asr-two-paths-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#npu-asr-two-paths-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#npu-asr-two-paths-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#npu-asr-two-paths-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-two-paths-root .fblue { fill: #93c5fd; } #npu-asr-two-paths-root .fgreen { fill: #6ee7b7; } #npu-asr-two-paths-root .fred { fill: #fda4af; }
+#npu-asr-two-paths-root .famber { fill: #fcd34d; } #npu-asr-two-paths-root .fviolet { fill: #c4b5fd; } #npu-asr-two-paths-root .fgray { fill: #e2e8f0; }
+#npu-asr-two-paths-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#npu-asr-two-paths-arrow); }
+#npu-asr-two-paths-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#npu-asr-two-paths-arrow); }
+#npu-asr-two-paths-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#npu-asr-two-paths-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="npu-asr-two-paths-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="819" fill="#f8fafc"/>
+<text x="32" y="46" class="h">同一份模型，两条通往 NPU 的路</text>
+<text x="32" y="78" class="s">区别不在模型，而在「谁来判断这张图能不能上 NPU」：一条在设备上临时判断，一条在主机编译时就定下来。</text>
+<g data-node="src"><rect x="450" y="104" width="500" height="103" rx="8" class="gray"/><text x="468" y="140" class="t">上游导出的 ONNX 模型</text><text x="468" y="168" class="s">encoder、decoder、joiner 三件；117 路输入 117 路输出，一拍</text><text x="468" y="191" class="s">是 640 ms 音频。</text></g><path d="M640 196V232" class="edge"/><path d="M760 196V232" class="edge"/><g data-node="a1"><rect x="96" y="234" width="560" height="119" rx="8" class="blue"/><text x="114" y="260" class="k">通路一</text><text x="114" y="286" class="t">在线通路：主机只做格式转换</text><text x="114" y="314" class="s">转换器把 ONNX 转成设备运行时的图格式，精度和量化策略在这一步由命令行</text><text x="114" y="337" class="s">开关表达。</text></g><path d="M376 353V385" class="edge"/><g data-node="a2"><rect x="96" y="387" width="560" height="103" rx="8" class="blue"/><text x="114" y="423" class="t">设备侧在线能力校验</text><text x="114" y="451" class="s">加载时由系统服务判断这张图能否交给 NPU，通过才真正编译；不通过只回一</text><text x="114" y="474" class="s">个错误码：Authentication failed。</text></g><path d="M376 490V522" class="edge"/><g data-node="b1"><rect x="744" y="234" width="560" height="119" rx="8" class="green"/><text x="762" y="260" class="k">通路二</text><text x="762" y="286" class="t">离线通路：主机编译成硬件指令</text><text x="762" y="314" class="s">离线编译器把图编译成设备可直接加载的模型文件，量化由配套的后量化工具</text><text x="762" y="337" class="s">单独完成。</text></g><path d="M1024 353V385" class="edge"/><g data-node="b2"><rect x="744" y="387" width="560" height="103" rx="8" class="green"/><text x="762" y="423" class="t">设备侧只做兼容性确认</text><text x="762" y="451" class="s">先问一次「这个文件这颗芯片收不收」，返回 0 为收，随后按离线模型构造</text><text x="762" y="474" class="s">执行器并绑定 117 路张量。这条路上没有在线校验。</text></g><path d="M1024 490V522" class="edge"/><g data-node="a3"><rect x="96" y="524" width="560" height="126" rx="8" class="red"/><text x="114" y="560" class="t">encoder 在这里被挡住</text><text x="114" y="588" class="s">体量上限落在 201—268 MB，按反量化后的字节数算。权重量化得到的 169</text><text x="114" y="611" class="s">MB 文件仍被拒，而且是 4272 ms 的慢拒；明显超限的 FP32 是 185 ms 的</text><text x="114" y="634" class="s">秒拒。</text></g><g data-node="b3"><rect x="744" y="524" width="560" height="103" rx="8" class="green"/><text x="762" y="560" class="t">encoder 在这里通过</text><text x="762" y="588" class="s">后量化得到的 150.3 MiB 模型兼容性返回 0，117 路输入输出全部对上，构</text><text x="762" y="611" class="s">建耗时 3.67 s。没有体量拒绝，但每拍比 CPU 慢 2.23 倍。</text></g><g data-node="note"><rect x="96" y="684" width="1208" height="103" rx="8" class="amber"/><text x="114" y="720" class="t">一个容易走错的岔口</text><text x="114" y="748" class="s">两条路的拒绝原因不通用：按在线通路量出来的体量上限，不能拿去解释离线通路的失败；反过来把在线通路的图格式喂给离线设备，会在构建阶段直接失败，而不会报那个在</text><text x="114" y="771" class="s">线校验的错误。</text></g>
+</svg>

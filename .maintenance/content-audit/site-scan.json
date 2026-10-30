@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
   "summary": {
-    "pages": 750,
-    "bytes": 5691517,
-    "batches": 90,
-    "scanned": 750,
-    "reviewed": 750,
+    "pages": 755,
+    "bytes": 5740079,
+    "batches": 91,
+    "scanned": 755,
+    "reviewed": 755,
     "pending": 0,
     "changesRequired": 0,
     "stale": [],
@@ -15,7 +15,7 @@
     "themeReviewed": true,
     "releaseReady": false
   },
-  "sharedHash": "049b1984b61de48a3f7b1510c7b4dbced3f5d77ec04371cbd296a28ee84b81dd",
+  "sharedHash": "70277eafe1993b77badfd333b7a6eb1e2aa32f1213b585def4f8976c79a93aab",
   "sharedInputs": [
     [
       ".vitepress/config.mts",
@@ -31,7 +31,7 @@
     ],
     [
       ".vitepress/sidebar.ts",
-      "7b286060416894f466905d1bfde1a59e34dfe7060b7fd2f20c35d583e3445976"
+      "7628498be8617252a018ffe4bd8d737da68755e72d49544f417d36b0a9cdf53d"
     ],
     [
       ".vitepress/theme/components/AccumulationLab.vue",
@@ -211,7 +211,7 @@
     ],
     [
       ".vitepress/topics.ts",
-      "face67465e8d93963e0f631f89c4ab9c79ba1d5965d143f81b93d7fea99c0a8e"
+      "ce30d900e0f05e1032d9d49a3efcf60dc82067a6ea4e24be6d745cd160393086"
     ]
   ],
   "batches": [
@@ -523,7 +523,7 @@
         "docs/ai/index.md",
         "docs/ai/inference-engines/01-vllm.md"
       ],
-      "bytes": 78034
+      "bytes": 78060
     },
     {
       "id": "B020",
@@ -799,7 +799,7 @@
         "docs/ai/speech-engineering/index.md",
         "docs/ai/speech-engineering/inference-contracts-and-lifecycle.md"
       ],
-      "bytes": 74277
+      "bytes": 74431
     },
     {
       "id": "B038",
@@ -855,31 +855,43 @@
         "docs/basic/acoustics/engineering.md",
         "docs/basic/acoustics/index.md",
         "docs/basic/acoustics/noise-reduction.md",
-        "docs/basic/acoustics/quality-evaluation.md",
-        "docs/basic/acoustics/sherpa-onnx/index.md",
-        "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
-        "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
-        "docs/basic/acoustics/sound-fundamentals.md",
-        "docs/basic/acoustics/speaker.md"
+        "docs/basic/acoustics/npu-asr/compression.md",
+        "docs/basic/acoustics/npu-asr/index.md",
+        "docs/basic/acoustics/npu-asr/measurement.md",
+        "docs/basic/acoustics/npu-asr/operators.md",
+        "docs/basic/acoustics/npu-asr/verdict.md",
+        "docs/basic/acoustics/quality-evaluation.md"
       ],
-      "bytes": 97499
+      "bytes": 99224
     },
     {
       "id": "B042",
       "topic": "docs/basic/acoustics",
       "pages": [
+        "docs/basic/acoustics/sherpa-onnx/index.md",
+        "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
+        "docs/basic/acoustics/sherpa-onnx/recognition-modes.md",
+        "docs/basic/acoustics/sound-fundamentals.md",
+        "docs/basic/acoustics/speaker.md",
         "docs/basic/acoustics/speech-recognition.md",
         "docs/basic/acoustics/speech-synthesis.md",
         "docs/basic/acoustics/structure.md",
         "docs/basic/acoustics/vad/index.md",
-        "docs/basic/acoustics/vad/silero-vad.md",
-        "docs/basic/acoustics/voice-interaction.md",
-        "docs/basic/acoustics/wake-word.md"
+        "docs/basic/acoustics/vad/silero-vad.md"
       ],
-      "bytes": 64108
+      "bytes": 94500
     },
     {
       "id": "B043",
+      "topic": "docs/basic/acoustics",
+      "pages": [
+        "docs/basic/acoustics/voice-interaction.md",
+        "docs/basic/acoustics/wake-word.md"
+      ],
+      "bytes": 16265
+    },
+    {
+      "id": "B044",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/application-realtime.md",
@@ -898,7 +910,7 @@
       "bytes": 96763
     },
     {
-      "id": "B044",
+      "id": "B045",
       "topic": "docs/basic/protocol",
       "pages": [
         "docs/basic/protocol/network-foundations.md",
@@ -908,7 +920,7 @@
       "bytes": 28481
     },
     {
-      "id": "B045",
+      "id": "B046",
       "topic": "docs/container",
       "pages": [
         "docs/container/basic/concepts.md",
@@ -927,7 +939,7 @@
       "bytes": 65086
     },
     {
-      "id": "B046",
+      "id": "B047",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/advanced/ecosystem.md",
@@ -946,7 +958,7 @@
       "bytes": 91597
     },
     {
-      "id": "B047",
+      "id": "B048",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/configmap.md",
@@ -965,7 +977,7 @@
       "bytes": 59759
     },
     {
-      "id": "B048",
+      "id": "B049",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/resources/pod.md",
@@ -984,7 +996,7 @@
       "bytes": 75747
     },
     {
-      "id": "B049",
+      "id": "B050",
       "topic": "docs/container",
       "pages": [
         "docs/container/kubernetes/video-series.md",
@@ -995,7 +1007,7 @@
       "bytes": 25018
     },
     {
-      "id": "B050",
+      "id": "B051",
       "topic": "docs/database",
       "pages": [
         "docs/database/bigdata/apache-flink.md",
@@ -1011,7 +1023,7 @@
       "bytes": 99744
     },
     {
-      "id": "B051",
+      "id": "B052",
       "topic": "docs/database",
       "pages": [
         "docs/database/elasticsearch.md",
@@ -1024,7 +1036,7 @@
       "bytes": 83081
     },
     {
-      "id": "B052",
+      "id": "B053",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/basic-syntax.md",
@@ -1038,7 +1050,7 @@
       "bytes": 89719
     },
     {
-      "id": "B053",
+      "id": "B054",
       "topic": "docs/database",
       "pages": [
         "docs/database/mysql/query-optimization.md",
@@ -1052,7 +1064,7 @@
       "bytes": 94414
     },
     {
-      "id": "B054",
+      "id": "B055",
       "topic": "docs/devlanguage",
       "pages": [
         "docs/devlanguage/index.md"
@@ -1060,7 +1072,7 @@
       "bytes": 2701
     },
     {
-      "id": "B055",
+      "id": "B056",
       "topic": "docs/devlanguage/flutter",
       "pages": [
         "docs/devlanguage/flutter/architecture.md",
@@ -1074,7 +1086,7 @@
       "bytes": 35227
     },
     {
-      "id": "B056",
+      "id": "B057",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/deployment/index.md",
@@ -1093,7 +1105,7 @@
       "bytes": 46465
     },
     {
-      "id": "B057",
+      "id": "B058",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/framework/angular.md",
@@ -1112,7 +1124,7 @@
       "bytes": 65552
     },
     {
-      "id": "B058",
+      "id": "B059",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/01-modern-frontend-overview.md",
@@ -1131,7 +1143,7 @@
       "bytes": 49318
     },
     {
-      "id": "B059",
+      "id": "B060",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/13-browser-event-system.md",
@@ -1150,7 +1162,7 @@
       "bytes": 57590
     },
     {
-      "id": "B060",
+      "id": "B061",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/frontend-foundations-series/25-frontend-application-architecture.md",
@@ -1169,7 +1181,7 @@
       "bytes": 66015
     },
     {
-      "id": "B061",
+      "id": "B062",
       "topic": "docs/devlanguage/front",
       "pages": [
         "docs/devlanguage/front/package-managers/corepack.md",
@@ -1186,7 +1198,7 @@
       "bytes": 44995
     },
     {
-      "id": "B062",
+      "id": "B063",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/basic/base-class.md",
@@ -1201,7 +1213,7 @@
       "bytes": 86693
     },
     {
-      "id": "B063",
+      "id": "B064",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/annotations.md",
@@ -1214,7 +1226,7 @@
       "bytes": 97489
     },
     {
-      "id": "B064",
+      "id": "B065",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/foundation/platform-boundaries.md",
@@ -1227,7 +1239,7 @@
       "bytes": 96643
     },
     {
-      "id": "B065",
+      "id": "B066",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/framework/spring/springboot.md",
@@ -1246,7 +1258,7 @@
       "bytes": 86011
     },
     {
-      "id": "B066",
+      "id": "B067",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/gc/parnew.md",
@@ -1265,7 +1277,7 @@
       "bytes": 59129
     },
     {
-      "id": "B067",
+      "id": "B068",
       "topic": "docs/devlanguage/java",
       "pages": [
         "docs/devlanguage/java/jvm/runtime-area/method-area.md",
@@ -1280,7 +1292,7 @@
       "bytes": 67607
     },
     {
-      "id": "B068",
+      "id": "B069",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/00-python-basics-course-map.md",
@@ -1299,7 +1311,7 @@
       "bytes": 36472
     },
     {
-      "id": "B069",
+      "id": "B070",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/12-json-api-shape.md",
@@ -1318,7 +1330,7 @@
       "bytes": 32741
     },
     {
-      "id": "B070",
+      "id": "B071",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/basics-series/24-delivery-package.md",
@@ -1337,7 +1349,7 @@
       "bytes": 58591
     },
     {
-      "id": "B071",
+      "id": "B072",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/concurrency-series/08-sync-blocking-in-async-system.md",
@@ -1356,7 +1368,7 @@
       "bytes": 51376
     },
     {
-      "id": "B072",
+      "id": "B073",
       "topic": "docs/devlanguage/python",
       "pages": [
         "docs/devlanguage/python/index.md"
@@ -1364,7 +1376,7 @@
       "bytes": 3797
     },
     {
-      "id": "B073",
+      "id": "B074",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/advantages.md",
@@ -1383,7 +1395,7 @@
       "bytes": 47582
     },
     {
-      "id": "B074",
+      "id": "B075",
       "topic": "docs/devlanguage/rust",
       "pages": [
         "docs/devlanguage/rust/type-system.md",
@@ -1392,7 +1404,7 @@
       "bytes": 8757
     },
     {
-      "id": "B075",
+      "id": "B076",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/c-programming.md",
@@ -1411,7 +1423,7 @@
       "bytes": 59880
     },
     {
-      "id": "B076",
+      "id": "B077",
       "topic": "docs/embedded",
       "pages": [
         "docs/embedded/toolchain.md"
@@ -1419,7 +1431,7 @@
       "bytes": 4760
     },
     {
-      "id": "B077",
+      "id": "B078",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/archive-compress.md",
@@ -1438,7 +1450,7 @@
       "bytes": 70764
     },
     {
-      "id": "B078",
+      "id": "B079",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/command/permissions.md",
@@ -1457,7 +1469,7 @@
       "bytes": 88829
     },
     {
-      "id": "B079",
+      "id": "B080",
       "topic": "docs/linux",
       "pages": [
         "docs/linux/concurrency/05-pool-size-and-queueing.md",
@@ -1476,7 +1488,7 @@
       "bytes": 79857
     },
     {
-      "id": "B080",
+      "id": "B081",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/certificate.md",
@@ -1495,7 +1507,7 @@
       "bytes": 86099
     },
     {
-      "id": "B081",
+      "id": "B082",
       "topic": "docs/network-proxy",
       "pages": [
         "docs/network-proxy/user-management.md"
@@ -1503,7 +1515,7 @@
       "bytes": 5716
     },
     {
-      "id": "B082",
+      "id": "B083",
       "topic": "docs/reading",
       "pages": [
         "docs/reading/2022-07-31/高效能人士的7个习惯.md",
@@ -1512,7 +1524,7 @@
       "bytes": 5001
     },
     {
-      "id": "B083",
+      "id": "B084",
       "topic": "docs/superpowers",
       "pages": [
         "docs/superpowers/plans/2026-07-26-togaf-marketing-flow-visuals.md",
@@ -1521,7 +1533,7 @@
       "bytes": 17324
     },
     {
-      "id": "B084",
+      "id": "B085",
       "topic": "docs/tools/editor",
       "pages": [
         "docs/tools/editor/andorid-studio/index.md"
@@ -1529,7 +1541,7 @@
       "bytes": 6275
     },
     {
-      "id": "B085",
+      "id": "B086",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/advanced.md",
@@ -1546,7 +1558,7 @@
       "bytes": 98889
     },
     {
-      "id": "B086",
+      "id": "B087",
       "topic": "docs/tools/git",
       "pages": [
         "docs/tools/git/repository-strategies.md",
@@ -1557,7 +1569,7 @@
       "bytes": 26010
     },
     {
-      "id": "B087",
+      "id": "B088",
       "topic": "docs/tools/mq",
       "pages": [
         "docs/tools/mq/index.md",
@@ -1569,7 +1581,7 @@
       "bytes": 57859
     },
     {
-      "id": "B088",
+      "id": "B089",
       "topic": "docs/tools/sdkman",
       "pages": [
         "docs/tools/sdkman/index.md"
@@ -1577,7 +1589,7 @@
       "bytes": 4856
     },
     {
-      "id": "B089",
+      "id": "B090",
       "topic": "docs/tools/vfox",
       "pages": [
         "docs/tools/vfox/index.md"
@@ -1585,7 +1597,7 @@
       "bytes": 5211
     },
     {
-      "id": "B090",
+      "id": "B091",
       "topic": "docs/tools/vim",
       "pages": [
         "docs/tools/vim/index.md",
@@ -2964,13 +2976,13 @@
     },
     {
       "file": "docs/ai/index.md",
-      "contentHash": "aacab9aa950b5b2729d170516deb48359f88764b9ec2bc08a89c43a34308fef5",
-      "reviewHash": "e30fd86b3d19949173ef7384ed0efd84c5a9ef78a5b11b6561ac42f67ef5cdfa",
+      "contentHash": "850f093143c55f53ea6b6c79fd68d151cfc3d2fac0ccbcb95bfc1d16076d05ac",
+      "reviewHash": "de7a71c55de0eace6a26253f2a086df713b8585e72550c8a32c7039906af0eda",
       "dependencies": [
         "public/ai/ai-training-loop.svg",
         "public/ai/customer-service-ai-map.svg"
       ],
-      "bytes": 9353,
+      "bytes": 9379,
       "lines": 100,
       "proseChars": 1802,
       "headings": 8,
@@ -6016,19 +6028,19 @@
     },
     {
       "file": "docs/ai/speech-engineering/index.md",
-      "contentHash": "e52a805ddf0f41af766c44b9fc755cec9c38927913f891eaaf4b4b489c9a5962",
-      "reviewHash": "8a51d70c4fa37b573dfdf64b999f699de820d03d9195e135dcffb81b7fb48f6a",
+      "contentHash": "3beb597a04b83ca5e7e39c74072231dfb860d466da620591364712a565d25720",
+      "reviewHash": "55ba11ad828c0376d1290a06bd2813a1759d77d081673bd744f44ec2d09af027",
       "dependencies": [
         "public/ai/speech-engineering/voice-end-to-end-architecture.svg"
       ],
-      "bytes": 4877,
-      "lines": 53,
-      "proseChars": 1547,
+      "bytes": 5031,
+      "lines": 54,
+      "proseChars": 1591,
       "headings": 5,
       "codeLines": 0,
       "visualCount": 1,
       "htmlComponents": false,
-      "localReferences": 13,
+      "localReferences": 14,
       "findings": []
     },
     {
@@ -6503,8 +6515,8 @@
     },
     {
       "file": "docs/basic/acoustics/engineering.md",
-      "contentHash": "28c2029fce363bbadf745a8c00f52789f2683f64fe848b257b5eb89e8358219b",
-      "reviewHash": "38ed2a7c10acac7cb54c6ee13b1ef40a9221bbec466b6b2c941d1630460b658d",
+      "contentHash": "92d8f6acd111993770228bc39392d1480bc3fdc503f8d23844a9e80b512d4550",
+      "reviewHash": "0122e748a67fcfa79ccf45d6c51b1148d5cfe8806cb7ad2f2d37c345ab1468b8",
       "dependencies": [
         "public/acoustics/engineering-deployment-choice.svg"
       ],
@@ -6520,20 +6532,20 @@
     },
     {
       "file": "docs/basic/acoustics/index.md",
-      "contentHash": "9ad4de6b8448cca9820ecf89fc234657c5c4857ee64587ed304a3e45c27abf68",
-      "reviewHash": "fb8e3dc21b517bc5ea9073fcce1bc57a6c7acdda35612d8bb963040be7010793",
+      "contentHash": "ac980e791000af5b8d33157fc34d5166ed3590b4dadce01588175f2383c5ea4a",
+      "reviewHash": "83c896469baa24a77d859dfedad5418e386ee2d23aa6b506fa6c85de126b7c10",
       "dependencies": [
         "public/acoustics/acoustic-system-map.svg",
         "public/acoustics/speech-pipeline.svg"
       ],
-      "bytes": 7776,
-      "lines": 116,
-      "proseChars": 2360,
+      "bytes": 8858,
+      "lines": 127,
+      "proseChars": 2693,
       "headings": 10,
       "codeLines": 0,
       "visualCount": 2,
       "htmlComponents": false,
-      "localReferences": 24,
+      "localReferences": 29,
       "findings": []
     },
     {
@@ -6555,9 +6567,94 @@
       "findings": []
     },
     {
+      "file": "docs/basic/acoustics/npu-asr/compression.md",
+      "contentHash": "7e9bf37fcc28dc334c7c38d9284fc2b8fdfae4988eb1c19930cbd9cb260ef622",
+      "reviewHash": "f1adda1684117255a5ba3bab814108f9a9ebed3655f7e3ab33974e26502c13dc",
+      "dependencies": [
+        "public/acoustics/npu-asr-size-gate.svg"
+      ],
+      "bytes": 8801,
+      "lines": 96,
+      "proseChars": 3200,
+      "headings": 8,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/npu-asr/index.md",
+      "contentHash": "613db7ef6c91de8a7427f504534dd46d9b8c3e18c64fbca546bf7e381705f97c",
+      "reviewHash": "2d8df14e3168881ab8ced25e7a85c8406705f14772cf2d55d495e141672e231e",
+      "dependencies": [
+        "public/acoustics/npu-asr-two-paths.svg"
+      ],
+      "bytes": 7030,
+      "lines": 83,
+      "proseChars": 2516,
+      "headings": 6,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 10,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/npu-asr/measurement.md",
+      "contentHash": "ae8a6f625b3aa4a36ef82a9349aa5874ae86486fec2a56720d4ab5d5a4da5e03",
+      "reviewHash": "22662c8d3ed147faad5758e0d5a95cbd03dd36b3e40c6eab167563353c5b96e1",
+      "dependencies": [
+        "public/acoustics/npu-asr-measure-protocol.svg"
+      ],
+      "bytes": 10217,
+      "lines": 128,
+      "proseChars": 3660,
+      "headings": 9,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/npu-asr/operators.md",
+      "contentHash": "6be5b602e342283ca887f036997e2f5fef40e829b1440aa25ddd18763d4d0716",
+      "reviewHash": "0751a4c745b8950fc401306c738fd1a05a5ac17b2f374496970d8a7b5e39700d",
+      "dependencies": [
+        "public/acoustics/npu-asr-convert-pipeline.svg"
+      ],
+      "bytes": 8547,
+      "lines": 96,
+      "proseChars": 2905,
+      "headings": 11,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 5,
+      "findings": []
+    },
+    {
+      "file": "docs/basic/acoustics/npu-asr/verdict.md",
+      "contentHash": "3b45dc50a9e2fde53a50b9747ddd5e4fb179a1d151d6c6729eaa32f32872f80d",
+      "reviewHash": "a283dfe8d747e982bfed1c71c7913103dd82dd405f0d67e382358efd0a4fe775",
+      "dependencies": [
+        "public/acoustics/npu-asr-why-slower.svg"
+      ],
+      "bytes": 12623,
+      "lines": 137,
+      "proseChars": 4636,
+      "headings": 9,
+      "codeLines": 0,
+      "visualCount": 1,
+      "htmlComponents": false,
+      "localReferences": 4,
+      "findings": []
+    },
+    {
       "file": "docs/basic/acoustics/quality-evaluation.md",
-      "contentHash": "91583f579a8eb29b8e5151a75d80e0f31452df935020f06d9e4d87fcd8068c90",
-      "reviewHash": "8bac091108e6d85833726a37c0327c22d4d395713edecf140262c79ee0c3fefa",
+      "contentHash": "3b358fadbbb098b5c7d49b5ff31d3527b1c8a0da1a5892487099859644c63a53",
+      "reviewHash": "3b9e9e7d13078e1b76c872bb8e1eea1f17c7330e047d489d5d573cd32de7c041",
       "dependencies": [
         "public/acoustics/troubleshooting-flow.svg"
       ],
@@ -6590,14 +6687,14 @@
     },
     {
       "file": "docs/basic/acoustics/sherpa-onnx/model-selection-deployment.md",
-      "contentHash": "445435cd715687a6444999cec35aefcd3459bbbaa4b6101be7fc0368a8a60169",
-      "reviewHash": "f3d17813007417ea926eedb9d852536b83a5d951f55ecdb1c9811fe242b4db6c",
+      "contentHash": "d291ac88ec1e33a9acc5d2329724b79d7a8aa652263a055418800d210c531597",
+      "reviewHash": "5260458290c348d36dd250ee2f91a31d1b6ccf77d8ad0e5e2e104756f74b0ded",
       "dependencies": [
         "public/acoustics/sherpa-onnx-selection-flow.svg"
       ],
-      "bytes": 10003,
+      "bytes": 10085,
       "lines": 211,
-      "proseChars": 3447,
+      "proseChars": 3485,
       "headings": 16,
       "codeLines": 20,
       "visualCount": 1,
@@ -6658,8 +6755,8 @@
     },
     {
       "file": "docs/basic/acoustics/speech-recognition.md",
-      "contentHash": "7401963b9b66827a027749f150214fe4badf1fa5e5d7e72d6d5dbe3d317a72bd",
-      "reviewHash": "dd61bc853f6b745698ae1bd9482a2a1f2b822e222a5169cbbaecb378c1e91918",
+      "contentHash": "de8a9366f717ae34cd9220c4280f4b980e7ab7b6fc3d34c4be8f7f2da9c0b8c1",
+      "reviewHash": "a212b28e805c96f8d72f6074dca42aa3f45d1123a04e8794276435673906c705",
       "dependencies": [
         "public/acoustics/asr-decoding.svg"
       ],
@@ -6743,8 +6840,8 @@
     },
     {
       "file": "docs/basic/acoustics/voice-interaction.md",
-      "contentHash": "55d76d110982b37e4f15152966f3a3f1bd6362e7b6e2e4ea125170bf97a65c26",
-      "reviewHash": "9c2086247a304a677169fe405706337d4614c3e93e5f572543d0e3bfc95b1f1f",
+      "contentHash": "b9a98a1e5fae5f962c8fc69c9898b7666794f19a33391e7b5f57665c102edc41",
+      "reviewHash": "19e8d08b5c646581473fdd276481f1e5633a358e4727e50443e951f71ec840e5",
       "dependencies": [
         "public/acoustics/speech-pipeline.svg"
       ],

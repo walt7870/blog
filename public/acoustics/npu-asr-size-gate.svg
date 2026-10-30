@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="770" viewBox="0 0 1400 770" role="img" aria-labelledby="npu-asr-size-gate-title npu-asr-size-gate-desc" id="npu-asr-size-gate-root">
+<title id="npu-asr-size-gate-title">压缩手段与体量门槛</title>
+<desc id="npu-asr-size-gate-desc">五种压缩结果与设备侧体量上限的关系：FP32 秒拒，转换器 FP16 通过，权重量化被运行时反量化后慢拒，全量量化的转换节点不被识别，离线后量化 INT8 通过。</desc>
+<defs><style>
+#npu-asr-size-gate-root text { font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #172b3a; }
+#npu-asr-size-gate-root .h { font-size: 26px; font-weight: 700; }
+#npu-asr-size-gate-root .t { font-size: 19px; font-weight: 600; }
+#npu-asr-size-gate-root .s { font-size: 15px; fill: #475569; }
+#npu-asr-size-gate-root .xs { font-size: 13px; fill: #64748b; }
+#npu-asr-size-gate-root .k { font-size: 13px; font-weight: 700; letter-spacing: .04em; fill: #64748b; }
+#npu-asr-size-gate-root .m { font-family: 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 14px; fill: #172b3a; }
+#npu-asr-size-gate-root .node { fill: #fff; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-size-gate-root .blue { fill: #eff6ff; stroke: #60a5fa; stroke-width: 2; }
+#npu-asr-size-gate-root .green { fill: #ecfdf5; stroke: #20a28c; stroke-width: 2; }
+#npu-asr-size-gate-root .red { fill: #fff1f2; stroke: #e88191; stroke-width: 2; }
+#npu-asr-size-gate-root .amber { fill: #fffbeb; stroke: #e0a63a; stroke-width: 2; }
+#npu-asr-size-gate-root .violet { fill: #f5f3ff; stroke: #9b87f5; stroke-width: 2; }
+#npu-asr-size-gate-root .gray { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 2; }
+#npu-asr-size-gate-root .fblue { fill: #93c5fd; } #npu-asr-size-gate-root .fgreen { fill: #6ee7b7; } #npu-asr-size-gate-root .fred { fill: #fda4af; }
+#npu-asr-size-gate-root .famber { fill: #fcd34d; } #npu-asr-size-gate-root .fviolet { fill: #c4b5fd; } #npu-asr-size-gate-root .fgray { fill: #e2e8f0; }
+#npu-asr-size-gate-root .edge { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#npu-asr-size-gate-arrow); }
+#npu-asr-size-gate-root .dash { fill: none; stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#npu-asr-size-gate-arrow); }
+#npu-asr-size-gate-root .line { stroke: #cbd5e1; stroke-width: 1.5; fill: none; }
+#npu-asr-size-gate-root .axis { stroke: #64748b; stroke-width: 2; fill: none; }
+</style><marker id="npu-asr-size-gate-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs>
+<rect width="1400" height="770" fill="#f8fafc"/>
+<text x="32" y="46" class="h">哪一级压缩真的过了门槛</text>
+<text x="32" y="78" class="s">横轴是体量，琥珀色带子是实测出的上限区间；注意同为 169 MB 和 168 MB，一个被拒一个通过。</text>
+<path d="M318 556H1150" class="axis"/><path d="M318 550V562" class="axis"/><text x="318" y="582" class="xs" text-anchor="middle">0 MB</text><path d="M510 550V562" class="axis"/><text x="510" y="582" class="xs" text-anchor="middle">150 MB</text><path d="M702 550V562" class="axis"/><text x="702" y="582" class="xs" text-anchor="middle">300 MB</text><path d="M894 550V562" class="axis"/><text x="894" y="582" class="xs" text-anchor="middle">450 MB</text><path d="M1086 550V562" class="axis"/><text x="1086" y="582" class="xs" text-anchor="middle">600 MB</text><text x="32" y="162" class="t">FP32 原始权重</text><rect x="318" y="134" width="789.76" height="40" rx="4" class="fred"/><text x="712.88" y="159" text-anchor="middle" class="xs">617 MB</text><text x="1121.76" y="160" class="s">秒拒 185 ms</text><text x="32" y="242" class="t">转换器 FP16</text><rect x="318" y="214" width="215.03999999999996" height="40" rx="4" class="fgreen"/><text x="425.52" y="239" text-anchor="middle" class="xs">168 MB</text><text x="671.28" y="240" class="s">通过</text><text x="32" y="322" class="t">权重量化</text><rect x="318" y="294" width="216.31999999999994" height="40" rx="4" class="fred"/><text x="426.15999999999997" y="319" text-anchor="middle" class="xs">169 MB</text><text x="671.28" y="320" class="s">慢拒 4272 ms</text><text x="32" y="402" class="t">全量量化</text><rect x="318" y="374" width="204.79999999999995" height="40" rx="4" class="fred"/><text x="420.4" y="399" text-anchor="middle" class="xs">160 MB</text><text x="671.28" y="400" class="s">图不被识别</text><text x="32" y="482" class="t">离线后量化 INT8</text><rect x="318" y="454" width="192" height="40" rx="4" class="fgreen"/><text x="414" y="479" text-anchor="middle" class="xs">150 MB</text><text x="671.28" y="480" class="s">通过（离线通路）</text><rect x="575.28" y="118" width="85.75999999999999" height="420" rx="4" class="famber" opacity="0.45"/><path d="M575.28 118V538M661.04 118V538" class="line"/><text x="583.28" y="112" class="xs">实测上限落在这条带子里：201—268 MB</text><g data-node="why"><rect x="32" y="612" width="1336" height="126" rx="8" class="gray"/><text x="50" y="648" class="t">为什么「文件变小了」不等于「能放进去」</text><text x="50" y="676" class="s">体量门槛作用在运行时真正要摆开的字节数，不是磁盘上的文件大小。权重量化只改变文件里的存法，加载后仍要还原成原精度参与计算，所以它在门槛面前等于没做。只有把计算精度本身降下来，</text><text x="50" y="699" class="s">或者由离线编译器把量化后的指令和权重一起固化，门槛才会让路。</text><text x="50" y="722" class="s">判断方法也由此确定：不要只记录文件大小，还要记录被拒绝的耗时量级——秒拒是体量，慢拒是先摆开再算、算完才发现超限。</text></g>
+</svg>
